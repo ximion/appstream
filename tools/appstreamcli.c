@@ -140,8 +140,8 @@ const GOptionEntry reviews_options[] = {
 	{ "locale",
 	  0, 0,
 	  G_OPTION_ARG_STRING, &optn_reviews_locale,
-	  /* TRANSLATORS: ascli flag description for: --locale (used by the "list-reviews" command) */
-	  N_ ("Locale to prefer when fetching reviews, instead of the current system locale."),
+	  /* TRANSLATORS: ascli flag description for: --locale (used by the "list-reviews" and "submit-review" commands) */
+	  N_ ("Locale to prefer for reviews, instead of the current system locale."),
 	  NULL },
 	{ NULL }
 };
@@ -880,7 +880,7 @@ as_client_run_submit_review (const gchar *command, char **argv, int argc)
 		return 1;
 	}
 
-	return ascli_submit_review (cpt_id, optn_reviews_server);
+	return ascli_submit_review (cpt_id, optn_reviews_server, optn_reviews_locale);
 }
 
 /**

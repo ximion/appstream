@@ -767,11 +767,13 @@ ascli_list_reviews (const gchar *cpt_id,
  * submit it to a reviews server.
  */
 gint
-ascli_submit_review (const gchar *cpt_id, const gchar *server_url)
+ascli_submit_review (const gchar *cpt_id, const gchar *server_url, const gchar *locale)
 {
 	g_autoptr(AsReviewsClient) rrc = NULL;
 	g_autoptr(AsReview) review = NULL;
 	g_autoptr(GError) error = NULL;
+	g_autofree gchar *name_question = NULL;
+	g_autofree gchar *confirm_question = NULL;
 	g_autofree gchar *user_display = NULL;
 	g_autofree gchar *summary = NULL;
 	g_autofree gchar *description = NULL;
@@ -788,6 +790,8 @@ ascli_submit_review (const gchar *cpt_id, const gchar *server_url)
 	as_reviews_client_set_user_agent (rrc, "appstreamcli/" PACKAGE_VERSION);
 	if (server_url != NULL)
 		as_reviews_client_set_server_url (rrc, server_url);
+	if (locale != NULL)
+		as_reviews_client_set_locale (rrc, locale);
 
 	ascli_print_stdout (_("Composing a review for '%s' to be submitted to %s."),
 			      cpt_id,
@@ -797,8 +801,9 @@ ascli_submit_review (const gchar *cpt_id, const gchar *server_url)
 	ascli_print_separator ();
 
 	/* TRANSLATORS: Prompt when composing a review, %s is a user name */
-	user_display = ascli_prompt_line (g_strdup_printf (
-	    _("Your display name (leave empty to use '%s'):"), g_get_real_name ()));
+	name_question = g_strdup_printf (_("Your display name (leave empty to use '%s'):"),
+					   g_get_real_name ());
+	user_display = ascli_prompt_line (name_question);
 	if (user_display == NULL)
 		return 1;
 
@@ -813,7 +818,7 @@ ascli_submit_review (const gchar *cpt_id, const gchar *server_url)
 		summary = ascli_prompt_line (_("Short summary of your review:"));
 		if (summary == NULL)
 			return 1;
-		if (summary[0] != '\0' && strlen (summary) <= 70)
+		if (summary[0] != '\0' && g_utf8_strlen (summary, -1) <= 70)
 			break;
 		ascli_print_stdout (
 		    _("The summary must not be empty and be no longer than 70 characters."));
@@ -849,8 +854,12 @@ ascli_submit_review (const gchar *cpt_id, const gchar *server_url)
 	ascli_print_key_value (_("Review"), description, TRUE);
 	ascli_print_separator ();
 
-	/* TRANSLATORS: Prompt before publishing a composed review, y/n must match the check below */
-	confirm = ascli_prompt_line (_("Publish this review? [y/n]"));
+	/* the "[y/n]" is intentionally untranslated, since only the
+	 * literal answers "y" / "yes" are accepted below */
+	confirm_question = g_strconcat (
+	    /* TRANSLATORS: Prompt before publishing a composed review */
+	    _("Publish this review?"), " [y/n]", NULL);
+	confirm = ascli_prompt_line (confirm_question);
 	if (confirm == NULL ||
 	    (g_ascii_strcasecmp (confirm, "y") != 0 && g_ascii_strcasecmp (confirm, "yes") != 0)) {
 		ascli_print_stdout (_("Review submission cancelled."));

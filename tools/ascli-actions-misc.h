@@ -49,7 +49,7 @@ gint ascli_list_reviews (const gchar *cpt_id,
 			 const gchar *locale,
 			 guint	      start,
 			 guint	      limit);
-gint ascli_submit_review (const gchar *cpt_id, const gchar *server_url);
+gint ascli_submit_review (const gchar *cpt_id, const gchar *server_url, const gchar *locale);
 
 G_END_DECLS
 
