@@ -488,7 +488,7 @@ ascli_data_pool_new_and_open (const gchar *cachepath, gboolean no_cache, GError 
 }
 
 /**
- * ascli_query_numer:
+ * ascli_prompt_number:
  * @question: question to ask user
  * @maxnum: maximum number allowed
  *
@@ -497,7 +497,7 @@ ascli_data_pool_new_and_open (const gchar *cachepath, gboolean no_cache, GError 
  * Return value: a number entered by the user.
  **/
 guint
-ascli_prompt_numer (const gchar *question, guint maxnum)
+ascli_prompt_number (const gchar *question, guint maxnum)
 {
 	gint answer = 0;
 	gint retval;

@@ -56,7 +56,7 @@ AsPool	*ascli_data_pool_new_and_open (const gchar *cachepath, gboolean no_cache,
 void	 ascli_set_output_colored (gboolean colored);
 gboolean ascli_get_output_colored (void);
 
-guint	 ascli_prompt_numer (const gchar *question, guint maxnum);
+guint	 ascli_prompt_number (const gchar *question, guint maxnum);
 
 G_END_DECLS
 

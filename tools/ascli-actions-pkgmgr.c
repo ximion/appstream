@@ -185,12 +185,12 @@ ascli_get_component_instrm_candidate (const gchar *identifier,
 
 		if (is_removal)
 			/* TRANSLATORS: A list of components is displayed with number prefixes. This is a prompt for the user to select one. */
-			selection = ascli_prompt_numer (
+			selection = ascli_prompt_number (
 			    _("Please enter the number of the component to remove:"),
 			      as_component_box_len (result_filtered));
 		else
 			/* TRANSLATORS: A list of components is displayed with number prefixes. This is a prompt for the user to select one. */
-			selection = ascli_prompt_numer (
+			selection = ascli_prompt_number (
 			    _("Please enter the number of the component to install:"),
 			      as_component_box_len (result_filtered));
 		r_cpt = as_component_box_index (result_filtered, selection - 1);
