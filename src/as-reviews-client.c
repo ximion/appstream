@@ -972,7 +972,7 @@ as_reviews_client_post_json (AsReviewsClient *rrc,
 			    error,
 			    AS_REVIEWS_CLIENT_ERROR,
 			    AS_REVIEWS_CLIENT_ERROR_FAILED,
-			    /* TRANSLATORS: The ODRS review server rejected our request, %s is the error message it sent */
+			    /* TRANSLATORS: The ODRS review server rejected our request, %s is the error message */
 			    _("The reviews server rejected the request: %s"), server_msg);
 		} else {
 			g_set_error (
@@ -1065,7 +1065,7 @@ as_reviews_client_check_success_reply (GBytes *reply, gchar **review_id, GError 
 		    error,
 		    AS_REVIEWS_CLIENT_ERROR,
 		    AS_REVIEWS_CLIENT_ERROR_FAILED,
-		    /* TRANSLATORS: The ODRS review server did not accept our request, %s is a (possibly server-provided) reason */
+		    /* TRANSLATORS: The ODRS review server rejected our request, %s is the error message */
 		    _("The reviews server rejected the request: %s"),
 		      msg != NULL ? msg : _("Unknown reason"));
 		return FALSE;
