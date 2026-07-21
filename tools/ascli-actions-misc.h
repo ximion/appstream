@@ -44,6 +44,11 @@ gint ascli_metainfo_to_news (const gchar *mi_fname,
 
 int  ascli_show_sysinfo (const gchar *cachepath, gboolean no_cache, gboolean detailed);
 
+gint ascli_list_reviews (const gchar *cpt_id,
+			 const gchar *server_url,
+			 const gchar *locale,
+			 guint	      limit);
+
 G_END_DECLS
 
 #endif /* __ASCLI_ACTIONS_MISC_H */

@@ -25,6 +25,7 @@
 #include "as-news-convert.h"
 #include "as-utils-private.h"
 #include "as-system-info-private.h"
+#include "as-reviews-client-private.h"
 
 #include "as-test-utils.h"
 
@@ -631,6 +632,110 @@ test_syscompat_score_error_status (void)
 	g_assert_cmpint (as_relation_check_results_get_compatibility_score (rc_results), ==, 70);
 }
 
+/**
+ * test_reviews_client_parse_review:
+ *
+ * Test parsing of an ODRS-style reviews JSON document.
+ */
+static void
+test_reviews_client_parse_review (void)
+{
+	g_autoptr(AsReviewsClient) rrc = as_reviews_client_new ();
+	g_autoptr(GPtrArray) reviews = NULL;
+	g_autoptr(GError) error = NULL;
+	AsReview *review;
+	GDateTime *date;
+
+	const gchar *json_data =
+	    "[{\"score\": 0, \"app_id\": \"org.example.App\","
+	    "  \"user_hash\": \"0123456789abcdef\", \"user_skey\": \"secret-key\"},"
+	    " {\"review_id\": 100, \"date_created\": 1622130000.0, \"app_id\": \"org.example.App\","
+	    "  \"user_hash\": \"0123456789abcdef\", \"user_display\": \" Jane Example \","
+	    "  \"user_skey\": \"secret-key\", \"summary\": \"Amazing!\","
+	    "  \"description\": \"Would use again.\", \"version\": \"1.2.0\", \"locale\": "
+	    "\"en_US.UTF-8\","
+	    "  \"distro\": \"Fedora Linux\", \"reported\": 0,"
+	    "  \"rating\": 80, \"score\": 12, \"karma_up\": 1, \"karma_down\": 0, \"vote_id\": 1},"
+	    " {\"review_id\": 101, \"date_created\": 1622130001.0, \"app_id\": \"org.example.App\","
+	    "  \"user_hash\": \"fedcba9876543210\", \"user_display\": \"John Doe\","
+	    "  \"summary\": \"Not so great\", \"description\": \"Could be better.\","
+	    "  \"rating\": 40, \"karma_up\": 10, \"karma_down\": 2},"
+	    " {\"review_id\": 102, \"app_id\": \"org.example.App\","
+	    "  \"user_hash\": \"fedcba9876543210\", \"summary\": \"Duplicate user\", \"rating\": "
+	    "20}]";
+
+	as_reviews_client_set_user_hash (rrc, "0123456789abcdef");
+
+	reviews = as_reviews_client_parse_reviews (rrc, json_data, -1, &error);
+	g_assert_no_error (error);
+	g_assert_nonnull (reviews);
+
+	/* the fake skey-item was skipped, the duplicate user review was ignored */
+	g_assert_cmpint (reviews->len, ==, 2);
+
+	review = AS_REVIEW (g_ptr_array_index (reviews, 0));
+	g_assert_cmpstr (as_review_get_id (review), ==, "100");
+	g_assert_cmpstr (as_review_get_reviewer_id (review), ==, "0123456789abcdef");
+	g_assert_cmpstr (as_review_get_reviewer_name (review), ==, "Jane Example");
+	g_assert_cmpstr (as_review_get_summary (review), ==, "Amazing!");
+	g_assert_cmpstr (as_review_get_description (review), ==, "Would use again.");
+	g_assert_cmpstr (as_review_get_version (review), ==, "1.2.0");
+	g_assert_cmpstr (as_review_get_locale (review), ==, "en_US");
+	g_assert_cmpint (as_review_get_rating (review), ==, 80);
+	/* the server-provided score must win over the karma-derived value */
+	g_assert_cmpint (as_review_get_priority (review), ==, 12);
+	g_assert_cmpstr (as_review_get_metadata_item (review, "ODRS::user_skey"), ==, "secret-key");
+	g_assert_cmpstr (as_review_get_metadata_item (review, "ODRS::app_id"),
+			 ==,
+			 "org.example.App");
+	date = as_review_get_date (review);
+	g_assert_nonnull (date);
+	g_assert_cmpint (g_date_time_to_unix (date), ==, 1622130000);
+	/* this review was written by us and voted on */
+	g_assert_cmpint (as_review_get_flags (review),
+			 ==,
+			 AS_REVIEW_FLAG_SELF | AS_REVIEW_FLAG_VOTED);
+
+	review = AS_REVIEW (g_ptr_array_index (reviews, 1));
+	g_assert_cmpstr (as_review_get_id (review), ==, "101");
+	g_assert_cmpstr (as_review_get_reviewer_name (review), ==, "John Doe");
+	g_assert_cmpint (as_review_get_rating (review), ==, 40);
+	g_assert_cmpint (as_review_get_flags (review), ==, AS_REVIEW_FLAG_NONE);
+	/* priority is the Wilson score computed from the karma up/down votes */
+	g_assert_cmpint (as_review_get_priority (review), ==, 55);
+}
+
+/**
+ * test_reviews_client_parse_rating:
+ *
+ * Test parsing of an ODRS-style star-rating summary JSON document.
+ */
+static void
+test_reviews_client_parse_rating (void)
+{
+	g_autoptr(AsReviewsClient) rrc = as_reviews_client_new ();
+	g_autoptr(GError) error = NULL;
+	gint rating;
+	const gchar *json_data = "{\"star0\": 3, \"star1\": 1, \"star2\": 2, \"star3\": 5,"
+				 " \"star4\": 10, \"star5\": 20, \"total\": 41}";
+	const gchar *json_data_empty = "{\"star0\": 0, \"star1\": 0, \"star2\": 0, \"star3\": 0,"
+				       " \"star4\": 0, \"star5\": 0, \"total\": 0}";
+
+	rating = as_reviews_client_parse_rating (rrc, json_data, -1, &error);
+	g_assert_no_error (error);
+	g_assert_cmpint (rating, ==, 80);
+
+	/* no rating can be determined if nobody voted */
+	rating = as_reviews_client_parse_rating (rrc, json_data_empty, -1, &error);
+	g_assert_no_error (error);
+	g_assert_cmpint (rating, ==, -1);
+
+	/* the ODRS sends an empty array for components it knows nothing about */
+	rating = as_reviews_client_parse_rating (rrc, "[]", -1, &error);
+	g_assert_no_error (error);
+	g_assert_cmpint (rating, ==, -1);
+}
+
 int
 main (int argc, char **argv)
 {
@@ -660,6 +765,10 @@ main (int argc, char **argv)
 	g_test_add_func ("/AppStream/Misc/SysCompatScores", test_syscompat_scores);
 	g_test_add_func ("/AppStream/Misc/SysCompatScoreErrorStatus",
 			 test_syscompat_score_error_status);
+	g_test_add_func ("/AppStream/Misc/ReviewsClientParseReview",
+			 test_reviews_client_parse_review);
+	g_test_add_func ("/AppStream/Misc/ReviewsClientParseRating",
+			 test_reviews_client_parse_rating);
 
 	ret = g_test_run ();
 	g_free (datadir);

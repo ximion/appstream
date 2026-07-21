@@ -72,6 +72,7 @@ GBytes	    *as_curl_post_bytes (AsCurl	     *acurl,
 				 const gchar *url,
 				 const gchar *content_type,
 				 GBytes	     *payload,
+				 GBytes	    **error_reply,
 				 GError	    **error);
 
 gboolean     as_curl_check_url_exists (AsCurl *acurl, const gchar *url, GError **error);

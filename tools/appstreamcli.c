@@ -109,6 +109,36 @@ const GOptionEntry find_options[] = {
 	{ NULL }
 };
 
+/* used by reviews_options */
+static gchar *optn_reviews_server = NULL;
+static gchar *optn_reviews_locale = NULL;
+static gint optn_reviews_limit = 15;
+
+/**
+ * Options used when fetching user reviews.
+ */
+const GOptionEntry reviews_options[] = {
+	{ "server",
+	  0, 0,
+	  G_OPTION_ARG_STRING, &optn_reviews_server,
+	  /* TRANSLATORS: ascli flag description for: --server (used by the "list-reviews" command) */
+	  N_ ("URL of the ODRS-compatible reviews server to use."),
+	  NULL },
+	{ "limit",
+	  0, 0,
+	  G_OPTION_ARG_INT, &optn_reviews_limit,
+	  /* TRANSLATORS: ascli flag description for: --limit (used by the "list-reviews" command) */
+	  N_ ("Maximum number of reviews to fetch."),
+	  NULL },
+	{ "locale",
+	  0, 0,
+	  G_OPTION_ARG_STRING, &optn_reviews_locale,
+	  /* TRANSLATORS: ascli flag description for: --locale (used by the "list-reviews" command) */
+	  N_ ("Locale to prefer when fetching reviews, instead of the current system locale."),
+	  NULL },
+	{ NULL }
+};
+
 /* used by validate_options */
 static gboolean optn_pedantic = FALSE;
 static gboolean optn_explain = FALSE;
@@ -789,6 +819,36 @@ as_client_run_sysinfo (const gchar *command, char **argv, int argc)
 }
 
 /**
+ * as_client_run_list_reviews:
+ *
+ * Fetch and display user reviews for a software component.
+ */
+static int
+as_client_run_list_reviews (const gchar *command, char **argv, int argc)
+{
+	g_autoptr(GOptionContext) opt_context = NULL;
+	const gchar *cpt_id = NULL;
+	gint ret;
+
+	opt_context = as_client_new_subcommand_option_context (command, reviews_options);
+	ret = as_client_option_context_parse (opt_context, command, &argc, &argv);
+	if (ret != 0)
+		return ret;
+
+	if (argc > 2)
+		cpt_id = argv[2];
+	if (argc > 3) {
+		as_client_print_help_hint (command, argv[3]);
+		return 1;
+	}
+
+	return ascli_list_reviews (cpt_id,
+				   optn_reviews_server,
+				   optn_reviews_locale,
+				   optn_reviews_limit > 0 ? (guint) optn_reviews_limit : 0);
+}
+
+/**
  * as_client_run_convert:
  *
  * Convert metadata.
@@ -1410,6 +1470,14 @@ as_client_run (char **argv, int argc)
 		       /* TRANSLATORS: `appstreamcli list-categories` command description. */
 		       _("List components that are part of the specified categories."),
 			 as_client_run_list_categories);
+	ascli_add_cmd (commands,
+		       0,
+		       "list-reviews",
+		       NULL,
+		       "COMPONENT-ID",
+		       /* TRANSLATORS: `appstreamcli list-reviews` command description. */
+		       _("List online user reviews for a software component."),
+			 as_client_run_list_reviews);
 
 	ascli_add_cmd (commands,
 		       1,

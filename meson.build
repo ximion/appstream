@@ -176,6 +176,8 @@ fyaml_dep = dependency('libfyaml', version: '>= 0.8')
 xmlb_dep = dependency('xmlb', version: '>= 0.3.14',
                       fallback: ['libxmlb', 'libxmlb_dep'],
                       default_options: ['gtkdoc=false', 'introspection=false'])
+m_dep = cc.find_library('m', required: false)
+
 if get_option('zstd-support')
     zstd_dep = dependency('libzstd', required: get_option('zstd-support'))
 else

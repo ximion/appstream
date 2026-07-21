@@ -662,3 +662,96 @@ ascli_show_sysinfo (const gchar *cachepath, gboolean no_cache, gboolean detailed
 
 	return 0;
 }
+
+/**
+ * ascli_print_rating_stars:
+ *
+ * Draw a rating percentage (0-100) as star ratings.
+ */
+static void
+ascli_print_rating_stars (gint rating_pct)
+{
+	gint stars = (rating_pct + 10) / 20;
+	for (gint j = 0; j < 5; j++)
+		g_print ("%s", j < stars ? "★" : "☆");
+}
+
+/**
+ * ascli_list_reviews:
+ *
+ * Fetch and display user reviews for the given component-ID.
+ */
+gint
+ascli_list_reviews (const gchar *cpt_id, const gchar *server_url, const gchar *locale, guint limit)
+{
+	g_autoptr(AsReviewsClient) rrc = NULL;
+	g_autoptr(GPtrArray) reviews = NULL;
+	g_autoptr(GError) error = NULL;
+	gint rating_pct;
+
+	if (cpt_id == NULL) {
+		ascli_print_stderr (_("You need to specify a component-ID."));
+		return 2;
+	}
+
+	rrc = as_reviews_client_new ();
+	as_reviews_client_set_client_id (rrc, "appstreamcli");
+	as_reviews_client_set_user_agent (rrc, "appstreamcli/" PACKAGE_VERSION);
+	if (server_url != NULL)
+		as_reviews_client_set_server_url (rrc, server_url);
+	if (locale != NULL)
+		as_reviews_client_set_locale (rrc, locale);
+
+	/* show the overall rating of the component, if we can determine one */
+	rating_pct = as_reviews_client_fetch_rating_for_id (rrc, cpt_id, &error);
+	if (error != NULL) {
+		ascli_print_stderr ("%s", error->message);
+		g_clear_error (&error);
+	} else if (rating_pct >= 0) {
+		g_print ("%s: ", _("Overall rating"));
+		ascli_print_rating_stars (rating_pct);
+		g_print (" (%d%%)\n", rating_pct);
+		ascli_print_separator ();
+	}
+
+	reviews = as_reviews_client_fetch_reviews_for_id (rrc, cpt_id, NULL, limit, &error);
+	if (reviews == NULL) {
+		ascli_print_stderr ("%s", error->message);
+		return 1;
+	}
+
+	if (reviews->len == 0) {
+		ascli_print_stdout (_("No reviews found for component '%s'."), cpt_id);
+		return 0;
+	}
+
+	for (guint i = 0; i < reviews->len; i++) {
+		AsReview *review = AS_REVIEW (g_ptr_array_index (reviews, i));
+		GDateTime *date = as_review_get_date (review);
+
+		if (i > 0)
+			ascli_print_separator ();
+
+		ascli_print_rating_stars (as_review_get_rating (review));
+		g_print ("  ");
+		ascli_print_highlight ("%s", as_review_get_summary (review));
+
+		ascli_print_key_value (_("Author"), as_review_get_reviewer_name (review), FALSE);
+		if (date != NULL) {
+			g_autofree gchar *date_str = g_date_time_format (date, "%Y-%m-%d");
+			ascli_print_key_value (_("Date"), date_str, FALSE);
+		}
+		if (as_review_get_version (review) != NULL)
+			ascli_print_key_value (_("Version"), as_review_get_version (review), FALSE);
+
+		if (as_review_get_description (review) != NULL) {
+			g_autofree gchar *description = NULL;
+			description = ascli_format_long_output (as_review_get_description (review),
+								100,
+								2);
+			ascli_print_stdout ("%s", description);
+		}
+	}
+
+	return 0;
+}

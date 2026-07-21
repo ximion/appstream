@@ -53,6 +53,7 @@
 #include <as-relation-check-result.h>
 #include <as-issue.h>
 #include <as-review.h>
+#include <as-reviews-client.h>
 #include <as-component-box.h>
 
 #include <as-validator.h>

@@ -398,19 +398,25 @@ as_curl_download_to_filename (AsCurl *acurl, const gchar *url, const gchar *fnam
  * @url: URL to send the request to
  * @content_type: media type of @payload, e.g. `application/json`
  * @payload: the data to send
+ * @error_reply: (out) (optional) (nullable): return location for any reply
+ *   body received alongside an HTTP error status, or %NULL.
  * @error: a #GError.
  *
  * Send data via an HTTP POST request and return the server reply
  * as #GBytes, or %NULL on error.
  *
- * On HTTP error statuses the reply body is discarded and only the
- * status code is reported via @error.
+ * If the server replied with an HTTP error status, @error is set, but any
+ * data the server may have sent along (e.g. a JSON error description) is
+ * made available via @error_reply.
+ * If the request was retried, @error_reply may contain the concatenated
+ * bodies of multiple replies, so callers must parse it defensively.
  **/
 GBytes *
 as_curl_post_bytes (AsCurl *acurl,
 		    const gchar *url,
 		    const gchar *content_type,
 		    GBytes *payload,
+		    GBytes **error_reply,
 		    GError **error)
 {
 	AsCurlPrivate *priv = GET_PRIVATE (acurl);
@@ -420,6 +426,9 @@ as_curl_post_bytes (AsCurl *acurl,
 	gconstpointer payload_data;
 	gsize payload_len;
 	gboolean success;
+
+	if (error_reply != NULL)
+		*error_reply = NULL;
 
 	ct_header = g_strconcat ("Content-Type: ", content_type, NULL);
 	headers = curl_slist_append (NULL, ct_header);
@@ -443,8 +452,11 @@ as_curl_post_bytes (AsCurl *acurl,
 	curl_easy_setopt (priv->curl, CURLOPT_HTTPGET, 1L);
 	curl_slist_free_all (headers);
 
-	if (!success)
+	if (!success) {
+		if (error_reply != NULL && buf->len > 0)
+			*error_reply = g_byte_array_free_to_bytes (g_steal_pointer (&buf));
 		return NULL;
+	}
 
 	return g_byte_array_free_to_bytes (g_steal_pointer (&buf));
 }
