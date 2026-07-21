@@ -966,13 +966,23 @@ as_reviews_client_post_json (AsReviewsClient *rrc,
 		if (error_reply != NULL)
 			server_msg = as_reviews_client_get_server_error_msg (error_reply);
 
-		g_set_error (
-		    error,
-		    AS_REVIEWS_CLIENT_ERROR,
-		    AS_REVIEWS_CLIENT_ERROR_NETWORK,
-		    /* TRANSLATORS: We failed to communicate with the ODRS review server, %s is an error message from the server */
-		    _("Unable to communicate with the reviews server: %s"),
-		      server_msg != NULL ? server_msg : tmp_error->message);
+		if (server_msg != NULL) {
+			/* the server received & rejected our request, this is not a network issue */
+			g_set_error (
+			    error,
+			    AS_REVIEWS_CLIENT_ERROR,
+			    AS_REVIEWS_CLIENT_ERROR_FAILED,
+			    /* TRANSLATORS: The ODRS review server rejected our request, %s is the error message it sent */
+			    _("The reviews server rejected the request: %s"), server_msg);
+		} else {
+			g_set_error (
+			    error,
+			    AS_REVIEWS_CLIENT_ERROR,
+			    AS_REVIEWS_CLIENT_ERROR_NETWORK,
+			    /* TRANSLATORS: We failed to communicate with the ODRS review server, %s is an error message */
+			    _("Unable to communicate with the reviews server: %s"),
+			      tmp_error->message);
+		}
 		return NULL;
 	}
 
@@ -1336,8 +1346,10 @@ as_reviews_client_submit_review (AsReviewsClient *rrc,
 	if (!as_reviews_client_check_success_reply (reply, &review_id, error))
 		return FALSE;
 
-	/* update the local review with data we submitted, so it can be
-	 * displayed (and voted on / removed) right away */
+	/* update the local review with data we submitted, so it can be displayed
+	 * right away. Note that voting on or removing the review is only possible
+	 * after fetching it back from the server, as that provides the required
+	 * user session key. */
 	if (review_id != NULL)
 		as_review_set_id (review, review_id);
 	as_review_add_metadata (review, "ODRS::app_id", component_id);
