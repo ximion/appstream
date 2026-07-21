@@ -85,11 +85,13 @@ void		 as_reviews_client_set_locale (AsReviewsClient *rrc, const gchar *locale);
 
 GPtrArray	*as_reviews_client_fetch_reviews (AsReviewsClient *rrc,
 						  AsComponent	  *cpt,
+						  guint		   start,
 						  guint		   limit,
 						  GError	 **error);
 GPtrArray	*as_reviews_client_fetch_reviews_for_id (AsReviewsClient *rrc,
 							 const gchar	 *component_id,
 							 const gchar	 *version,
+							 guint		  start,
 							 guint		  limit,
 							 GError		**error);
 

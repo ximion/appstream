@@ -731,6 +731,7 @@ as_reviews_client_build_fetch_request (AsReviewsClient *rrc,
 				       const gchar *cpt_id,
 				       GPtrArray *compat_ids,
 				       const gchar *version,
+				       guint start,
 				       guint limit)
 {
 	AsReviewsClientPrivate *priv = GET_PRIVATE (rrc);
@@ -771,6 +772,14 @@ as_reviews_client_build_fetch_request (AsReviewsClient *rrc,
 	fy_node_mapping_append (root,
 				fy_node_create_scalar_copy (fyd, "limit", FY_NT),
 				fy_node_create_scalar_copy (fyd, limit_str, FY_NT));
+
+	/* index of the first result to return, for pagination (also a number) */
+	if (start > 0) {
+		g_autofree gchar *start_str = g_strdup_printf ("%u", start);
+		fy_node_mapping_append (root,
+					fy_node_create_scalar_copy (fyd, "start", FY_NT),
+					fy_node_create_scalar_copy (fyd, start_str, FY_NT));
+	}
 
 	if (compat_ids != NULL && compat_ids->len > 0) {
 		struct fy_node *seq = fy_node_create_sequence (fyd);
@@ -861,6 +870,7 @@ as_reviews_client_fetch_reviews_internal (AsReviewsClient *rrc,
 					  const gchar *cpt_id,
 					  GPtrArray *compat_ids,
 					  const gchar *version,
+					  guint start,
 					  guint limit,
 					  GError **error)
 {
@@ -882,7 +892,12 @@ as_reviews_client_fetch_reviews_internal (AsReviewsClient *rrc,
 
 	if (limit == 0)
 		limit = AS_REVIEWS_FETCH_LIMIT_DEFAULT;
-	request = as_reviews_client_build_fetch_request (rrc, cpt_id, compat_ids, version, limit);
+	request = as_reviews_client_build_fetch_request (rrc,
+							 cpt_id,
+							 compat_ids,
+							 version,
+							 start,
+							 limit);
 
 	url = g_strconcat (priv->server_url, "/fetch", NULL);
 	reply = as_curl_post_bytes (acurl,
@@ -918,10 +933,13 @@ as_reviews_client_fetch_reviews_internal (AsReviewsClient *rrc,
  * as_reviews_client_fetch_reviews:
  * @rrc: an #AsReviewsClient instance.
  * @cpt: the component to fetch reviews for.
+ * @start: index of the first review to fetch, for pagination.
  * @limit: maximum amount of reviews to fetch, or 0 for the default limit.
  * @error: a #GError.
  *
  * Fetch user reviews for the given software component from the reviews server.
+ * The reviews are sorted by their score (most helpful first), so subsequent
+ * pages can be requested by increasing @start in steps of @limit.
  * This call does blocking network I/O.
  *
  * Returns: (transfer container) (element-type AsReview): the fetched reviews, or %NULL on error.
@@ -929,6 +947,7 @@ as_reviews_client_fetch_reviews_internal (AsReviewsClient *rrc,
 GPtrArray *
 as_reviews_client_fetch_reviews (AsReviewsClient *rrc,
 				 AsComponent *cpt,
+				 guint start,
 				 guint limit,
 				 GError **error)
 {
@@ -957,6 +976,7 @@ as_reviews_client_fetch_reviews (AsReviewsClient *rrc,
 							 cpt_id,
 							 as_component_get_replaces (cpt),
 							 version,
+							 start,
 							 limit,
 							 error);
 }
@@ -966,10 +986,13 @@ as_reviews_client_fetch_reviews (AsReviewsClient *rrc,
  * @rrc: an #AsReviewsClient instance.
  * @component_id: the ID of the software component to fetch reviews for.
  * @version: (nullable): the version of the component, or %NULL if unknown.
+ * @start: index of the first review to fetch, for pagination.
  * @limit: maximum amount of reviews to fetch, or 0 for the default limit.
  * @error: a #GError.
  *
  * Fetch user reviews for the given software component ID from the reviews server.
+ * The reviews are sorted by their score (most helpful first), so subsequent
+ * pages can be requested by increasing @start in steps of @limit.
  * This call does blocking network I/O.
  *
  * Returns: (transfer container) (element-type AsReview): the fetched reviews, or %NULL on error.
@@ -978,6 +1001,7 @@ GPtrArray *
 as_reviews_client_fetch_reviews_for_id (AsReviewsClient *rrc,
 					const gchar *component_id,
 					const gchar *version,
+					guint start,
 					guint limit,
 					GError **error)
 {
@@ -988,6 +1012,7 @@ as_reviews_client_fetch_reviews_for_id (AsReviewsClient *rrc,
 							 component_id,
 							 NULL,
 							 version,
+							 start,
 							 limit,
 							 error);
 }

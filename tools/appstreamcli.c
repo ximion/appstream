@@ -112,6 +112,7 @@ const GOptionEntry find_options[] = {
 /* used by reviews_options */
 static gchar *optn_reviews_server = NULL;
 static gchar *optn_reviews_locale = NULL;
+static gint optn_reviews_start = 0;
 static gint optn_reviews_limit = 15;
 
 /**
@@ -123,6 +124,12 @@ const GOptionEntry reviews_options[] = {
 	  G_OPTION_ARG_STRING, &optn_reviews_server,
 	  /* TRANSLATORS: ascli flag description for: --server (used by the "list-reviews" command) */
 	  N_ ("URL of the ODRS-compatible reviews server to use."),
+	  NULL },
+	{ "start",
+	  0, 0,
+	  G_OPTION_ARG_INT, &optn_reviews_start,
+	  /* TRANSLATORS: ascli flag description for: --start (used by the "list-reviews" command) */
+	  N_ ("Index of the first review to fetch, to page through all reviews."),
 	  NULL },
 	{ "limit",
 	  0, 0,
@@ -845,6 +852,7 @@ as_client_run_list_reviews (const gchar *command, char **argv, int argc)
 	return ascli_list_reviews (cpt_id,
 				   optn_reviews_server,
 				   optn_reviews_locale,
+				   optn_reviews_start > 0 ? (guint) optn_reviews_start : 0,
 				   optn_reviews_limit > 0 ? (guint) optn_reviews_limit : 0);
 }
 

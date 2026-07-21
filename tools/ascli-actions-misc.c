@@ -682,7 +682,11 @@ ascli_print_rating_stars (gint rating_pct)
  * Fetch and display user reviews for the given component-ID.
  */
 gint
-ascli_list_reviews (const gchar *cpt_id, const gchar *server_url, const gchar *locale, guint limit)
+ascli_list_reviews (const gchar *cpt_id,
+		    const gchar *server_url,
+		    const gchar *locale,
+		    guint start,
+		    guint limit)
 {
 	g_autoptr(AsReviewsClient) rrc = NULL;
 	g_autoptr(GPtrArray) reviews = NULL;
@@ -714,7 +718,7 @@ ascli_list_reviews (const gchar *cpt_id, const gchar *server_url, const gchar *l
 		ascli_print_separator ();
 	}
 
-	reviews = as_reviews_client_fetch_reviews_for_id (rrc, cpt_id, NULL, limit, &error);
+	reviews = as_reviews_client_fetch_reviews_for_id (rrc, cpt_id, NULL, start, limit, &error);
 	if (reviews == NULL) {
 		ascli_print_stderr ("%s", error->message);
 		return 1;

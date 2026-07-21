@@ -47,6 +47,7 @@ int  ascli_show_sysinfo (const gchar *cachepath, gboolean no_cache, gboolean det
 gint ascli_list_reviews (const gchar *cpt_id,
 			 const gchar *server_url,
 			 const gchar *locale,
+			 guint	      start,
 			 guint	      limit);
 
 G_END_DECLS
