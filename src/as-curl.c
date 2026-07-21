@@ -252,9 +252,8 @@ as_curl_perform_download (AsCurl *acurl,
 				    curl_status == CURLE_COULDNT_CONNECT;
 
 		/* if any of these matched, we attempt a retry */
-		if (connection_failed ||
-		    (idempotent &&
-		     (curl_status == CURLE_OPERATION_TIMEDOUT || response_code >= 405))) {
+		if (connection_failed || (idempotent && (curl_status == CURLE_OPERATION_TIMEDOUT ||
+							 response_code >= 405))) {
 			g_debug ("Retrying failed download of %s (attempt: %d/%d)",
 				 url,
 				 priv->n_retries - n_retries_remaining,
