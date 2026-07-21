@@ -22,7 +22,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-07-21 21:21+0200\n"
-"PO-Revision-Date: 2026-07-21 10:01+0000\n"
+"PO-Revision-Date: 2026-07-21 23:02+0000\n"
 "Last-Translator: Matthaiks <kitynska@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/appstream/translations/pl/>\n"
 "Language: pl\n"
@@ -1461,26 +1461,23 @@ msgstr "Sprawdzanie spełniania zależności dla elementów typu „%s” nie je
 #: src/as-reviews-client.c:976 src/as-reviews-client.c:1069
 #, c-format
 msgid "The reviews server rejected the request: %s"
-msgstr ""
+msgstr "Serwer recenzji odrzucił żądanie: %s"
 
 #. TRANSLATORS: We failed to communicate with the ODRS review server, %s is an error message
 #: src/as-reviews-client.c:983
 #, c-format
 msgid "Unable to communicate with the reviews server: %s"
-msgstr ""
+msgstr "Nie można nawiązać komunikacji z serwerem recenzji: %s"
 
 #: src/as-reviews-client.c:1070
-#, fuzzy
-#| msgid "Unknown"
 msgid "Unknown reason"
-msgstr "Nieznany"
+msgstr "Nieznany powód"
 
 #. TRANSLATORS: We failed to fetch a software rating from the ODRS review server
 #: src/as-reviews-client.c:1247
-#, fuzzy, c-format
-#| msgid "Unable to find component matching %s!"
+#, c-format
 msgid "Unable to fetch software rating: %s"
-msgstr "Nie można odnaleźć składnika pasującego do %s."
+msgstr "Nie można pobrać oceny oprogramowania: %s"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:39
@@ -2859,22 +2856,22 @@ msgstr "Wyświetla szczegółowe informacje o odnalezionych składnikach."
 #. TRANSLATORS: ascli flag description for: --server (used by the "list-reviews" command)
 #: tools/appstreamcli.c:126
 msgid "URL of the ODRS-compatible reviews server to use."
-msgstr ""
+msgstr "Adres URL serwera recenzji zgodnego z ODRS do użycia."
 
 #. TRANSLATORS: ascli flag description for: --start (used by the "list-reviews" command)
 #: tools/appstreamcli.c:132
 msgid "Index of the first review to fetch, to page through all reviews."
-msgstr ""
+msgstr "Indeks pierwszej recenzji do pobrania, umożliwiający przeglądanie wszystkich recenzji."
 
 #. TRANSLATORS: ascli flag description for: --limit (used by the "list-reviews" command)
 #: tools/appstreamcli.c:138
 msgid "Maximum number of reviews to fetch."
-msgstr ""
+msgstr "Maksymalna liczba recenzji do pobrania."
 
 #. TRANSLATORS: ascli flag description for: --locale (used by the "list-reviews" and "submit-review" commands)
 #: tools/appstreamcli.c:144
 msgid "Locale to prefer for reviews, instead of the current system locale."
-msgstr ""
+msgstr "Ustawienia regionalne, które mają być preferowane w recenzjach, zamiast bieżących ustawień regionalnych systemu."
 
 #. TRANSLATORS: ascli flag description for: --pedantic (used by the "validate" command)
 #: tools/appstreamcli.c:165
@@ -3197,15 +3194,13 @@ msgstr "Składa katalog metadanych AppStream z drzew katalogów."
 
 #. TRANSLATORS: `appstreamcli list-reviews` command description.
 #: tools/appstreamcli.c:1667
-#, fuzzy
-#| msgid "We have information on %i software components."
 msgid "List online user reviews for a software component."
-msgstr "Składniki oprogramowania, o których są informacje: %i."
+msgstr "Wyświetl recenzje użytkowników dotyczące danego składnika oprogramowania."
 
 #. TRANSLATORS: `appstreamcli submit-review` command description.
 #: tools/appstreamcli.c:1680
 msgid "Compose and submit an online review for a software component."
-msgstr ""
+msgstr "Napisz i prześlij recenzję online dotyczącą składnika oprogramowania."
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstreamcli.c:1689
@@ -3624,85 +3619,84 @@ msgstr "nie"
 
 #: tools/ascli-actions-misc.c:715
 msgid "Overall rating"
-msgstr ""
+msgstr "Ocena ogólna"
 
 #: tools/ascli-actions-misc.c:728
-#, fuzzy, c-format
-#| msgid "Found supported software component '%s'."
+#, c-format
 msgid "No reviews found for component '%s'."
-msgstr "Odnaleziono obsługiwany składnik oprogramowania „%s”."
+msgstr "Brak recenzji składnika „%s”."
 
 #: tools/ascli-actions-misc.c:743 tools/ascli-actions-misc.c:844
 msgid "Author"
-msgstr ""
+msgstr "Autor"
 
 #: tools/ascli-actions-misc.c:746
 msgid "Date"
-msgstr ""
+msgstr "Data"
 
 #: tools/ascli-actions-misc.c:796
 #, c-format
 msgid "Composing a review for '%s' to be submitted to %s."
-msgstr ""
+msgstr "Pisanie recenzji „%s”, która zostanie przesłana do %s."
 
 #: tools/ascli-actions-misc.c:799
 msgid "Please only review the software itself, and mind that your review will be publicly visible."
-msgstr ""
+msgstr "Zrecenzuj wyłącznie samo oprogramowanie i pamiętaj, że ta opinia będzie publicznie widoczna."
 
 #. TRANSLATORS: Prompt when composing a review, %s is a user name
 #: tools/ascli-actions-misc.c:804
 #, c-format
 msgid "Your display name (leave empty to use '%s'):"
-msgstr ""
+msgstr "Twoja nazwa wyświetlana (pozostaw puste, aby użyć „%s”):"
 
 #. TRANSLATORS: Prompt for a star rating when composing a review
 #: tools/ascli-actions-misc.c:811
 msgid "Star rating, from 1 (worst) to 5 (best):"
-msgstr ""
+msgstr "Ocena gwiazdkowa, od 1 (najgorsza) do 5 (najlepsza):"
 
 #. TRANSLATORS: Prompt when composing a review
 #: tools/ascli-actions-misc.c:818
 msgid "Short summary of your review:"
-msgstr ""
+msgstr "Krótkie podsumowanie recenzji:"
 
 #: tools/ascli-actions-misc.c:824
 msgid "The summary must not be empty and be no longer than 70 characters."
-msgstr ""
+msgstr "Podsumowanie nie może być puste i nie może być dłuższe niż 70 znaków."
 
 #. TRANSLATORS: Prompt when composing a review
 #: tools/ascli-actions-misc.c:828
 msgid "Detailed review text (end with an empty line):"
-msgstr ""
+msgstr "Szczegółowy tekst recenzji (zakończony pustym wierszem):"
 
 #: tools/ascli-actions-misc.c:830
 msgid "The review text must not be empty."
-msgstr ""
+msgstr "Tekst recenzji nie może być pusty."
 
 #: tools/ascli-actions-misc.c:851
 msgid "Rating"
-msgstr ""
+msgstr "Ocena"
 
 #: tools/ascli-actions-misc.c:854
 msgid "Review"
-msgstr ""
+msgstr "Recenzja"
 
 #. TRANSLATORS: Prompt before publishing a composed review
 #: tools/ascli-actions-misc.c:861
 msgid "Publish this review?"
-msgstr ""
+msgstr "Opublikować tę recenzję?"
 
 #: tools/ascli-actions-misc.c:865
 msgid "Review submission cancelled."
-msgstr ""
+msgstr "Anulowano przesłanie recenzji."
 
 #: tools/ascli-actions-misc.c:875
 #, c-format
 msgid "Review submitted successfully (ID: %s). Thank you!"
-msgstr ""
+msgstr "Recenzja została pomyślnie przesłana (ID: %s). Dziękujemy!"
 
 #: tools/ascli-actions-misc.c:878
 msgid "Review submitted successfully. Thank you!"
-msgstr ""
+msgstr "Recenzja została pomyślnie przesłana. Dziękujemy!"
 
 #: tools/ascli-actions-pkgmgr.c:53
 msgid "No suitable package manager tool found. Please make sure that e.g. \"pkgcli\" (part of PackageKit) is available."
