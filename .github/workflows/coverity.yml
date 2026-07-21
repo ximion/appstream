@@ -11,7 +11,7 @@ on:
 jobs:
   coverity:
     if: github.repository == 'ximion/appstream'
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     env:
       CC: gcc
       CXX: g++
