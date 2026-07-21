@@ -29,7 +29,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-07-21 21:21+0200\n"
-"PO-Revision-Date: 2026-07-21 19:33+0000\n"
+"PO-Revision-Date: 2026-07-21 23:02+0000\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/appstream/translations/sv/>\n"
 "Language: sv\n"
@@ -1468,13 +1468,13 @@ msgstr "Tillfredsställelsekontroll för relationsobjekt av typen '%s' är inte 
 #: src/as-reviews-client.c:976 src/as-reviews-client.c:1069
 #, c-format
 msgid "The reviews server rejected the request: %s"
-msgstr ""
+msgstr "Recensionsservern nekade förfrågan: %s"
 
 #. TRANSLATORS: We failed to communicate with the ODRS review server, %s is an error message
 #: src/as-reviews-client.c:983
 #, c-format
 msgid "Unable to communicate with the reviews server: %s"
-msgstr ""
+msgstr "Kunde inte kommunicera med recensionsservern: %s"
 
 #: src/as-reviews-client.c:1070
 msgid "Unknown reason"
@@ -2863,22 +2863,22 @@ msgstr "Skriv ut detaljerad utdata om identifierade komponenter."
 #. TRANSLATORS: ascli flag description for: --server (used by the "list-reviews" command)
 #: tools/appstreamcli.c:126
 msgid "URL of the ODRS-compatible reviews server to use."
-msgstr ""
+msgstr "URL för den ODRS-kompatibla recensionsservern att använda."
 
 #. TRANSLATORS: ascli flag description for: --start (used by the "list-reviews" command)
 #: tools/appstreamcli.c:132
 msgid "Index of the first review to fetch, to page through all reviews."
-msgstr ""
+msgstr "Index för den första recensionen att hämta då du går genom recensionssidor."
 
 #. TRANSLATORS: ascli flag description for: --limit (used by the "list-reviews" command)
 #: tools/appstreamcli.c:138
 msgid "Maximum number of reviews to fetch."
-msgstr ""
+msgstr "Maximalt antal recensioner att hämta."
 
 #. TRANSLATORS: ascli flag description for: --locale (used by the "list-reviews" and "submit-review" commands)
 #: tools/appstreamcli.c:144
 msgid "Locale to prefer for reviews, instead of the current system locale."
-msgstr ""
+msgstr "Lokal att föredra för recensioner, i stället för aktuell systemlokal."
 
 #. TRANSLATORS: ascli flag description for: --pedantic (used by the "validate" command)
 #: tools/appstreamcli.c:165
@@ -3201,15 +3201,13 @@ msgstr "Sätt samman AppStream-metadatakatalog från katalogträd."
 
 #. TRANSLATORS: `appstreamcli list-reviews` command description.
 #: tools/appstreamcli.c:1667
-#, fuzzy
-#| msgid "We have information on %i software components."
 msgid "List online user reviews for a software component."
-msgstr "Vi har inte information om %i programvarukomponenter."
+msgstr "Lista användarrecensioner på nätet för en programvarukomponent."
 
 #. TRANSLATORS: `appstreamcli submit-review` command description.
 #: tools/appstreamcli.c:1680
 msgid "Compose and submit an online review for a software component."
-msgstr ""
+msgstr "Komponera och sänd in en recension på nätet för en programvarukomponent."
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstreamcli.c:1689
@@ -3628,85 +3626,84 @@ msgstr "nej"
 
 #: tools/ascli-actions-misc.c:715
 msgid "Overall rating"
-msgstr ""
+msgstr "Totalbetyg"
 
 #: tools/ascli-actions-misc.c:728
-#, fuzzy, c-format
-#| msgid "Found supported software component '%s'."
+#, c-format
 msgid "No reviews found for component '%s'."
-msgstr "Hittade programvarukomponenten ”%s” som stöds."
+msgstr "Inga omdömen hittades för komponenten ”%s”."
 
 #: tools/ascli-actions-misc.c:743 tools/ascli-actions-misc.c:844
 msgid "Author"
-msgstr ""
+msgstr "Författare"
 
 #: tools/ascli-actions-misc.c:746
 msgid "Date"
-msgstr ""
+msgstr "Datum"
 
 #: tools/ascli-actions-misc.c:796
 #, c-format
 msgid "Composing a review for '%s' to be submitted to %s."
-msgstr ""
+msgstr "Redigerar en recension för ”%s” att skickas in till %s."
 
 #: tools/ascli-actions-misc.c:799
 msgid "Please only review the software itself, and mind that your review will be publicly visible."
-msgstr ""
+msgstr "Recensera bara själva programvaran, och tänk på att din recension kommer vara offentlig."
 
 #. TRANSLATORS: Prompt when composing a review, %s is a user name
 #: tools/ascli-actions-misc.c:804
 #, c-format
 msgid "Your display name (leave empty to use '%s'):"
-msgstr ""
+msgstr "Ditt visningsnamn (lämna tomt för att använda ”%s”):"
 
 #. TRANSLATORS: Prompt for a star rating when composing a review
 #: tools/ascli-actions-misc.c:811
 msgid "Star rating, from 1 (worst) to 5 (best):"
-msgstr ""
+msgstr "Stjärnbetyg, från 1 (sämst) till 5 (bäst):"
 
 #. TRANSLATORS: Prompt when composing a review
 #: tools/ascli-actions-misc.c:818
 msgid "Short summary of your review:"
-msgstr ""
+msgstr "Kort sammanfattning av din recension:"
 
 #: tools/ascli-actions-misc.c:824
 msgid "The summary must not be empty and be no longer than 70 characters."
-msgstr ""
+msgstr "Sammanfattningen får inte vara tom och inte över 70 tecken."
 
 #. TRANSLATORS: Prompt when composing a review
 #: tools/ascli-actions-misc.c:828
 msgid "Detailed review text (end with an empty line):"
-msgstr ""
+msgstr "Detaljerad recensionstext (avsluta med en tom rad):"
 
 #: tools/ascli-actions-misc.c:830
 msgid "The review text must not be empty."
-msgstr ""
+msgstr "Recensionstexten får inte vara tom."
 
 #: tools/ascli-actions-misc.c:851
 msgid "Rating"
-msgstr ""
+msgstr "Betyg"
 
 #: tools/ascli-actions-misc.c:854
 msgid "Review"
-msgstr ""
+msgstr "Recension"
 
 #. TRANSLATORS: Prompt before publishing a composed review
 #: tools/ascli-actions-misc.c:861
 msgid "Publish this review?"
-msgstr ""
+msgstr "Publicera denna recension?"
 
 #: tools/ascli-actions-misc.c:865
 msgid "Review submission cancelled."
-msgstr ""
+msgstr "Insändning av recension avbröts."
 
 #: tools/ascli-actions-misc.c:875
 #, c-format
 msgid "Review submitted successfully (ID: %s). Thank you!"
-msgstr ""
+msgstr "Recensionen skickades in (ID: %s). Tack!"
 
 #: tools/ascli-actions-misc.c:878
 msgid "Review submitted successfully. Thank you!"
-msgstr ""
+msgstr "Recensionen skickades in. Tack!"
 
 #: tools/ascli-actions-pkgmgr.c:53
 msgid "No suitable package manager tool found. Please make sure that e.g. \"pkgcli\" (part of PackageKit) is available."
