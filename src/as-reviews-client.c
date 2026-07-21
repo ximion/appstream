@@ -761,7 +761,9 @@ as_reviews_client_build_fetch_request (AsReviewsClient *rrc,
 		if (str_entries[i].value == NULL)
 			continue;
 		value_node = fy_node_create_scalar_copy (fyd, str_entries[i].value, FY_NT);
+#if AS_FYAML_CHECK_VERSION(0, 9, 0)
 		fy_node_set_style (value_node, FYNS_DOUBLE_QUOTED);
+#endif
 		fy_node_mapping_append (root,
 					fy_node_create_scalar_copy (fyd, str_entries[i].key, FY_NT),
 					value_node);
@@ -790,7 +792,9 @@ as_reviews_client_build_fetch_request (AsReviewsClient *rrc,
 			if (g_strcmp0 (compat_id, cpt_id) == 0)
 				continue;
 			id_node = fy_node_create_scalar_copy (fyd, compat_id, FY_NT);
+#if AS_FYAML_CHECK_VERSION(0, 9, 0)
 			fy_node_set_style (id_node, FYNS_DOUBLE_QUOTED);
+#endif
 			fy_node_sequence_append (seq, id_node);
 		}
 		fy_node_mapping_append (root,
