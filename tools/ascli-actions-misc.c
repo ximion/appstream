@@ -759,3 +759,114 @@ ascli_list_reviews (const gchar *cpt_id,
 
 	return 0;
 }
+
+/**
+ * ascli_submit_review:
+ *
+ * Interactively compose a review for the given component-ID and
+ * submit it to a reviews server.
+ */
+gint
+ascli_submit_review (const gchar *cpt_id, const gchar *server_url)
+{
+	g_autoptr(AsReviewsClient) rrc = NULL;
+	g_autoptr(AsReview) review = NULL;
+	g_autoptr(GError) error = NULL;
+	g_autofree gchar *user_display = NULL;
+	g_autofree gchar *summary = NULL;
+	g_autofree gchar *description = NULL;
+	g_autofree gchar *confirm = NULL;
+	guint stars;
+
+	if (cpt_id == NULL) {
+		ascli_print_stderr (_("You need to specify a component-ID."));
+		return 2;
+	}
+
+	rrc = as_reviews_client_new ();
+	as_reviews_client_set_client_id (rrc, "appstreamcli");
+	as_reviews_client_set_user_agent (rrc, "appstreamcli/" PACKAGE_VERSION);
+	if (server_url != NULL)
+		as_reviews_client_set_server_url (rrc, server_url);
+
+	ascli_print_stdout (_("Composing a review for '%s' to be submitted to %s."),
+			      cpt_id,
+			      as_reviews_client_get_server_url (rrc));
+	ascli_print_stdout (_("Please only review the software itself, and mind that your review "
+	      "will be publicly visible."));
+	ascli_print_separator ();
+
+	/* TRANSLATORS: Prompt when composing a review, %s is a user name */
+	user_display = ascli_prompt_line (g_strdup_printf (
+	    _("Your display name (leave empty to use '%s'):"), g_get_real_name ()));
+	if (user_display == NULL)
+		return 1;
+
+	/* TRANSLATORS: Prompt for a star rating when composing a review */
+	stars = ascli_prompt_number (_("Star rating, from 1 (worst) to 5 (best):"), 5);
+	if (stars == 0)
+		return 1;
+
+	while (TRUE) {
+		g_free (g_steal_pointer (&summary));
+		/* TRANSLATORS: Prompt when composing a review */
+		summary = ascli_prompt_line (_("Short summary of your review:"));
+		if (summary == NULL)
+			return 1;
+		if (summary[0] != '\0' && strlen (summary) <= 70)
+			break;
+		ascli_print_stdout (
+		    _("The summary must not be empty and be no longer than 70 characters."));
+	}
+
+	/* TRANSLATORS: Prompt when composing a review */
+	description = ascli_prompt_multiline (_("Detailed review text (end with an empty line):"));
+	if (description == NULL || description[0] == '\0') {
+		ascli_print_stderr (_("The review text must not be empty."));
+		return 1;
+	}
+
+	review = as_review_new ();
+	if (user_display[0] != '\0')
+		as_review_set_reviewer_name (review, user_display);
+	as_review_set_rating (review, (gint) stars * 20);
+	as_review_set_summary (review, summary);
+	as_review_set_description (review, description);
+
+	/* show what we are about to publish and ask for confirmation */
+	ascli_print_separator ();
+	ascli_print_key_value (_("Component"), cpt_id, FALSE);
+	ascli_print_key_value (_("Author"),
+				 as_review_get_reviewer_name (review) == NULL
+				     ? g_get_real_name ()
+				     : as_review_get_reviewer_name (review),
+				 FALSE);
+	{
+		g_autofree gchar *stars_str = g_strdup_printf ("%u/5", stars);
+		ascli_print_key_value (_("Rating"), stars_str, FALSE);
+	}
+	ascli_print_key_value (_("Summary"), summary, FALSE);
+	ascli_print_key_value (_("Review"), description, TRUE);
+	ascli_print_separator ();
+
+	/* TRANSLATORS: Prompt before publishing a composed review, y/n must match the check below */
+	confirm = ascli_prompt_line (_("Publish this review? [y/n]"));
+	if (confirm == NULL ||
+	    (g_ascii_strcasecmp (confirm, "y") != 0 && g_ascii_strcasecmp (confirm, "yes") != 0)) {
+		ascli_print_stdout (_("Review submission cancelled."));
+		return 1;
+	}
+
+	if (!as_reviews_client_submit_review (rrc, cpt_id, review, &error)) {
+		ascli_print_stderr ("%s", error->message);
+		return 1;
+	}
+
+	if (as_review_get_id (review) != NULL)
+		ascli_print_stdout (_("Review submitted successfully (ID: %s). Thank you!"),
+				      as_review_get_id (review));
+	else
+		ascli_print_stdout (_("Review submitted successfully. Thank you!"));
+
+	return 0;
+}

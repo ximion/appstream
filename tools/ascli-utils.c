@@ -525,3 +525,70 @@ ascli_prompt_number (const gchar *question, guint maxnum)
 
 	return answer;
 }
+
+/**
+ * ascli_prompt_line:
+ * @question: question to ask the user
+ *
+ * Prompt the user to enter a single line of text.
+ *
+ * Return value: (nullable): the (whitespace-stripped) text entered by
+ * the user, which may be an empty string, or %NULL if input has ended.
+ **/
+gchar *
+ascli_prompt_line (const gchar *question)
+{
+	g_autoptr(GString) input = g_string_new (NULL);
+
+	if (question != NULL && question[0] != '\0')
+		g_print ("%s ", question);
+
+	do {
+		char buffer[1024];
+
+		if (!fgets (buffer, sizeof (buffer), stdin)) {
+			if (input->len == 0)
+				return NULL;
+			break;
+		}
+		g_string_append (input, buffer);
+	} while (input->len > 0 && input->str[input->len - 1] != '\n');
+
+	g_strstrip (input->str);
+	return g_strdup (input->str);
+}
+
+/**
+ * ascli_prompt_multiline:
+ * @question: question to ask the user
+ *
+ * Prompt the user to enter multiple lines of text,
+ * terminated by an empty line.
+ *
+ * Return value: (nullable): the text entered by the user, which may be
+ * an empty string, or %NULL if input has ended.
+ **/
+gchar *
+ascli_prompt_multiline (const gchar *question)
+{
+	g_autoptr(GString) text = g_string_new (NULL);
+
+	g_print ("%s\n", question);
+
+	while (TRUE) {
+		g_autofree gchar *line = ascli_prompt_line ("");
+		if (line == NULL) {
+			if (text->len == 0)
+				return NULL;
+			break;
+		}
+		if (line[0] == '\0')
+			break;
+		if (text->len > 0)
+			g_string_append_c (text, '\n');
+		g_string_append (text, line);
+	}
+
+	g_strstrip (text->str);
+	return g_strdup (text->str);
+}

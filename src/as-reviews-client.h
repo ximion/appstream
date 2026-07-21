@@ -64,7 +64,27 @@ typedef enum {
 } AsReviewsClientError;
 
 #define AS_REVIEWS_CLIENT_ERROR as_reviews_client_error_quark ()
-GQuark		 as_reviews_client_error_quark (void);
+GQuark as_reviews_client_error_quark (void);
+
+/**
+ * AsReviewVoteKind:
+ * @AS_REVIEW_VOTE_KIND_UNKNOWN:	Unknown vote action.
+ * @AS_REVIEW_VOTE_KIND_UP:		Vote the review up, it was helpful.
+ * @AS_REVIEW_VOTE_KIND_DOWN:		Vote the review down, it was unhelpful.
+ * @AS_REVIEW_VOTE_KIND_REPORT:		Report the review as abusive.
+ *
+ * A vote cast on a user review.
+ *
+ * Since: 1.1.4
+ **/
+typedef enum {
+	AS_REVIEW_VOTE_KIND_UNKNOWN,
+	AS_REVIEW_VOTE_KIND_UP,
+	AS_REVIEW_VOTE_KIND_DOWN,
+	AS_REVIEW_VOTE_KIND_REPORT,
+	/*< private >*/
+	AS_REVIEW_VOTE_KIND_LAST
+} AsReviewVoteKind;
 
 AsReviewsClient *as_reviews_client_new (void);
 
@@ -98,5 +118,15 @@ GPtrArray	*as_reviews_client_fetch_reviews_for_id (AsReviewsClient *rrc,
 gint		 as_reviews_client_fetch_rating_for_id (AsReviewsClient *rrc,
 							const gchar	*component_id,
 							GError	       **error);
+
+gboolean	 as_reviews_client_submit_review (AsReviewsClient *rrc,
+						  const gchar	  *component_id,
+						  AsReview	  *review,
+						  GError	 **error);
+gboolean	 as_reviews_client_vote_review (AsReviewsClient *rrc,
+						AsReview	*review,
+						AsReviewVoteKind vote,
+						GError	       **error);
+gboolean as_reviews_client_remove_review (AsReviewsClient *rrc, AsReview *review, GError **error);
 
 G_END_DECLS

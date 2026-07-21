@@ -57,6 +57,8 @@ void	 ascli_set_output_colored (gboolean colored);
 gboolean ascli_get_output_colored (void);
 
 guint	 ascli_prompt_number (const gchar *question, guint maxnum);
+gchar	*ascli_prompt_line (const gchar *question);
+gchar	*ascli_prompt_multiline (const gchar *question);
 
 G_END_DECLS
 

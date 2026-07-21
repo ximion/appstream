@@ -59,7 +59,10 @@ typedef struct {
 
 	AsCurl *acurl;
 
+	gchar *distro_id;
+	gchar *distro_version;
 	gchar *distro_name;
+
 	gchar *client_id;
 	gchar *user_agent;
 	gchar *user_hash;
@@ -95,7 +98,10 @@ as_reviews_client_finalize (GObject *object)
 	g_free (priv->user_agent);
 	g_free (priv->user_hash);
 
+	g_free (priv->distro_id);
+	g_free (priv->distro_version);
 	g_free (priv->distro_name);
+
 	g_clear_object (&priv->acurl);
 
 	G_OBJECT_CLASS (as_reviews_client_parent_class)->finalize (object);
@@ -330,24 +336,27 @@ as_reviews_client_set_locale (AsReviewsClient *rrc, const gchar *locale)
 }
 
 /**
- * as_reviews_client_get_distro_name:
+ * as_reviews_client_ensure_distro_info:
  *
- * Get the name of the current operating system, used to tell the
- * reviews server about the platform the reviews are fetched for.
+ * Read the name, ID and version of the current operating system,
+ * used to tell the reviews server about the platform the reviews
+ * are fetched from and submitted for.
  */
-static const gchar *
-as_reviews_client_get_distro_name (AsReviewsClient *rrc)
+static void
+as_reviews_client_ensure_distro_info (AsReviewsClient *rrc)
 {
 	AsReviewsClientPrivate *priv = GET_PRIVATE (rrc);
+	g_autoptr(AsSystemInfo) sysinfo = NULL;
 
-	if (priv->distro_name == NULL) {
-		g_autoptr(AsSystemInfo) sysinfo = as_system_info_new ();
-		priv->distro_name = g_strdup (as_system_info_get_os_name (sysinfo));
-		if (priv->distro_name == NULL)
-			priv->distro_name = g_strdup ("unknown");
-	}
+	if (priv->distro_name != NULL)
+		return;
 
-	return priv->distro_name;
+	sysinfo = as_system_info_new ();
+	priv->distro_name = g_strdup (as_system_info_get_os_name (sysinfo));
+	if (priv->distro_name == NULL)
+		priv->distro_name = g_strdup ("unknown");
+	priv->distro_id = g_strdup (as_system_info_get_os_id (sysinfo));
+	priv->distro_version = g_strdup (as_system_info_get_os_version (sysinfo));
 }
 
 /**
@@ -722,6 +731,94 @@ as_reviews_client_parse_rating (AsReviewsClient *rrc,
 }
 
 /**
+ * as_json_document_new:
+ *
+ * Create a new document with a mapping as root, for building
+ * a JSON request payload.
+ */
+static struct fy_document *
+as_json_document_new (struct fy_node **root)
+{
+	struct fy_document *fyd = fy_document_create (NULL);
+	*root = fy_node_create_mapping (fyd);
+	fy_document_set_root (fyd, *root);
+	return fyd;
+}
+
+/**
+ * as_json_document_to_bytes:
+ *
+ * Emit the given document as JSON data and destroy it.
+ */
+static GBytes *
+as_json_document_to_bytes (struct fy_document *fyd)
+{
+	gchar *json_data;
+
+	json_data = fy_emit_document_to_string (fyd,
+						FYECF_MODE_JSON_ONELINE | FYECF_WIDTH_INF |
+						    FYECF_NO_ENDING_NEWLINE);
+	fy_document_destroy (fyd);
+
+	return g_bytes_new_take (json_data, strlen (json_data));
+}
+
+/**
+ * as_json_new_str_node:
+ *
+ * Create a scalar node for a string value, ensuring it is never
+ * emitted as a JSON number or boolean.
+ */
+static struct fy_node *
+as_json_new_str_node (struct fy_document *fyd, const gchar *value)
+{
+	struct fy_node *value_node = fy_node_create_scalar_copy (fyd, value, FY_NT);
+#if AS_FYAML_CHECK_VERSION(0, 9, 0)
+	fy_node_set_style (value_node, FYNS_DOUBLE_QUOTED);
+#endif
+	return value_node;
+}
+
+/**
+ * as_json_mapping_add_str:
+ *
+ * Add a string entry to a JSON mapping node.
+ * Does nothing if @value is %NULL.
+ */
+static void
+as_json_mapping_add_str (struct fy_document *fyd,
+			 struct fy_node *map,
+			 const gchar *key,
+			 const gchar *value)
+{
+	if (value == NULL)
+		return;
+	fy_node_mapping_append (map,
+				fy_node_create_scalar_copy (fyd, key, FY_NT),
+				as_json_new_str_node (fyd, value));
+}
+
+/**
+ * as_json_mapping_add_int:
+ *
+ * Add an integer entry to a JSON mapping node,
+ * emitted as an unquoted number.
+ */
+static void
+as_json_mapping_add_int (struct fy_document *fyd,
+			 struct fy_node *map,
+			 const gchar *key,
+			 gint64 value)
+{
+	gchar buf[32];
+
+	g_snprintf (buf, sizeof (buf), "%" G_GINT64_FORMAT, value);
+	fy_node_mapping_append (map,
+				fy_node_create_scalar_copy (fyd, key, FY_NT),
+				fy_node_create_scalar_copy (fyd, buf, FY_NT));
+}
+
+/**
  * as_reviews_client_build_fetch_request:
  *
  * Create the JSON payload for a reviews fetch request.
@@ -737,77 +834,37 @@ as_reviews_client_build_fetch_request (AsReviewsClient *rrc,
 	AsReviewsClientPrivate *priv = GET_PRIVATE (rrc);
 	struct fy_document *fyd = NULL;
 	struct fy_node *root = NULL;
-	g_autofree gchar *limit_str = NULL;
-	gchar *json_data;
 
-	struct {
-		const gchar *key;
-		const gchar *value;
-	} str_entries[] = {
-		{ "user_hash", as_reviews_client_get_user_hash (rrc)   },
-		{ "app_id",    cpt_id				   },
-		{ "locale",    priv->locale				 },
-		{ "distro",    as_reviews_client_get_distro_name (rrc) },
-		{ "version",   version == NULL ? "unknown" : version   },
-		{ NULL,	NULL				    },
-	};
+	as_reviews_client_ensure_distro_info (rrc);
 
-	fyd = fy_document_create (NULL);
-	root = fy_node_create_mapping (fyd);
-	fy_document_set_root (fyd, root);
+	fyd = as_json_document_new (&root);
+	as_json_mapping_add_str (fyd, root, "user_hash", as_reviews_client_get_user_hash (rrc));
+	as_json_mapping_add_str (fyd, root, "app_id", cpt_id);
+	as_json_mapping_add_str (fyd, root, "locale", priv->locale);
+	as_json_mapping_add_str (fyd, root, "distro", priv->distro_name);
+	as_json_mapping_add_str (fyd, root, "version", version == NULL ? "unknown" : version);
 
-	for (guint i = 0; str_entries[i].key != NULL; i++) {
-		struct fy_node *value_node;
-		if (str_entries[i].value == NULL)
-			continue;
-		value_node = fy_node_create_scalar_copy (fyd, str_entries[i].value, FY_NT);
-#if AS_FYAML_CHECK_VERSION(0, 9, 0)
-		fy_node_set_style (value_node, FYNS_DOUBLE_QUOTED);
-#endif
-		fy_node_mapping_append (root,
-					fy_node_create_scalar_copy (fyd, str_entries[i].key, FY_NT),
-					value_node);
-	}
+	/* limit of reviews to fetch */
+	as_json_mapping_add_int (fyd, root, "limit", limit);
 
-	/* limit of reviews to fetch, this one is a number and must not be quoted */
-	limit_str = g_strdup_printf ("%u", limit);
-	fy_node_mapping_append (root,
-				fy_node_create_scalar_copy (fyd, "limit", FY_NT),
-				fy_node_create_scalar_copy (fyd, limit_str, FY_NT));
-
-	/* index of the first result to return, for pagination (also a number) */
-	if (start > 0) {
-		g_autofree gchar *start_str = g_strdup_printf ("%u", start);
-		fy_node_mapping_append (root,
-					fy_node_create_scalar_copy (fyd, "start", FY_NT),
-					fy_node_create_scalar_copy (fyd, start_str, FY_NT));
-	}
+	/* index of the first result to return, for pagination */
+	if (start > 0)
+		as_json_mapping_add_int (fyd, root, "start", start);
 
 	if (compat_ids != NULL && compat_ids->len > 0) {
 		struct fy_node *seq = fy_node_create_sequence (fyd);
 		for (guint i = 0; i < compat_ids->len; i++) {
 			const gchar *compat_id = g_ptr_array_index (compat_ids, i);
-			struct fy_node *id_node;
-
 			if (g_strcmp0 (compat_id, cpt_id) == 0)
 				continue;
-			id_node = fy_node_create_scalar_copy (fyd, compat_id, FY_NT);
-#if AS_FYAML_CHECK_VERSION(0, 9, 0)
-			fy_node_set_style (id_node, FYNS_DOUBLE_QUOTED);
-#endif
-			fy_node_sequence_append (seq, id_node);
+			fy_node_sequence_append (seq, as_json_new_str_node (fyd, compat_id));
 		}
 		fy_node_mapping_append (root,
 					fy_node_create_scalar_copy (fyd, "compat_ids", FY_NT),
 					seq);
 	}
 
-	json_data = fy_emit_document_to_string (fyd,
-						FYECF_MODE_JSON_ONELINE | FYECF_WIDTH_INF |
-						    FYECF_NO_ENDING_NEWLINE);
-	fy_document_destroy (fyd);
-
-	return g_bytes_new_take (json_data, strlen (json_data));
+	return as_json_document_to_bytes (fyd);
 }
 
 /**
@@ -864,24 +921,21 @@ as_reviews_client_get_server_error_msg (GBytes *error_reply)
 }
 
 /**
- * as_reviews_client_fetch_reviews_internal:
+ * as_reviews_client_post_json:
  *
- * Fetch reviews from the reviews server, given a component-ID and
- * optionally a list of compatible alternative IDs and a version number.
+ * Send a JSON request to the given endpoint of the reviews server and
+ * return the reply data, translating any transport failure or JSON error
+ * description sent by the server into a useful #GError.
  */
-static GPtrArray *
-as_reviews_client_fetch_reviews_internal (AsReviewsClient *rrc,
-					  const gchar *cpt_id,
-					  GPtrArray *compat_ids,
-					  const gchar *version,
-					  guint start,
-					  guint limit,
-					  GError **error)
+static GBytes *
+as_reviews_client_post_json (AsReviewsClient *rrc,
+			     const gchar *endpoint,
+			     GBytes *request,
+			     GError **error)
 {
 	AsReviewsClientPrivate *priv = GET_PRIVATE (rrc);
 	AsCurl *acurl;
 	g_autofree gchar *url = NULL;
-	g_autoptr(GBytes) request = NULL;
 	g_autoptr(GBytes) reply = NULL;
 	g_autoptr(GBytes) error_reply = NULL;
 	g_autoptr(GError) tmp_error = NULL;
@@ -890,20 +944,11 @@ as_reviews_client_fetch_reviews_internal (AsReviewsClient *rrc,
 	if (acurl == NULL) {
 		g_propagate_prefixed_error (error,
 					    g_steal_pointer (&tmp_error),
-					    "Unable to fetch reviews: ");
+					    "Unable to contact reviews server: ");
 		return NULL;
 	}
 
-	if (limit == 0)
-		limit = AS_REVIEWS_FETCH_LIMIT_DEFAULT;
-	request = as_reviews_client_build_fetch_request (rrc,
-							 cpt_id,
-							 compat_ids,
-							 version,
-							 start,
-							 limit);
-
-	url = g_strconcat (priv->server_url, "/fetch", NULL);
+	url = g_strconcat (priv->server_url, endpoint, NULL);
 	reply = as_curl_post_bytes (acurl,
 				    url,
 				    "application/json; charset=utf-8",
@@ -921,9 +966,130 @@ as_reviews_client_fetch_reviews_internal (AsReviewsClient *rrc,
 		    error,
 		    AS_REVIEWS_CLIENT_ERROR,
 		    AS_REVIEWS_CLIENT_ERROR_NETWORK,
-		    /* TRANSLATORS: We failed to fetch user reviews from the ODRS review server */
-		    _("Unable to fetch software reviews: %s"),
+		    /* TRANSLATORS: We failed to communicate with the ODRS review server, %s is an error message from the server */
+		    _("Unable to communicate with the reviews server: %s"),
 		      server_msg != NULL ? server_msg : tmp_error->message);
+		return NULL;
+	}
+
+	return g_steal_pointer (&reply);
+}
+
+/**
+ * as_reviews_client_check_success_reply:
+ * @reply: reply data received from an ODRS-compatible server.
+ * @review_id: (out) (optional) (nullable): return location for a
+ *   server-assigned review-ID, if one was sent.
+ * @error: a #GError.
+ *
+ * Parse a status reply from an ODRS-compatible server, e.g.
+ * `{"success": true, "review_id": 42}`, and set an error with the
+ * server-provided message if the request was not successful.
+ *
+ * Returns: %TRUE if the server reported success.
+ */
+gboolean
+as_reviews_client_check_success_reply (GBytes *reply, gchar **review_id, GError **error)
+{
+	struct fy_document *ydoc = NULL;
+	struct fy_node *root = NULL;
+	g_autofree gchar *success_str = NULL;
+	g_autofree gchar *msg = NULL;
+	gconstpointer data;
+	gsize data_len;
+	struct fy_parse_cfg ycfg = { .search_path = "", .flags = FYPCF_JSON_FORCE };
+
+	if (review_id != NULL)
+		*review_id = NULL;
+
+	data = g_bytes_get_data (reply, &data_len);
+	if (data == NULL || data_len == 0) {
+		g_set_error_literal (error,
+				     AS_REVIEWS_CLIENT_ERROR,
+				     AS_REVIEWS_CLIENT_ERROR_PARSE,
+				     "The reviews server sent an empty status reply.");
+		return FALSE;
+	}
+
+	ycfg.diag = as_yaml_error_diag_create ();
+	ydoc = fy_document_build_from_string (&ycfg, data, data_len);
+	if (ydoc == NULL) {
+		g_autofree gchar *issue_msg = as_yaml_make_error_message (ycfg.diag);
+		g_set_error (error,
+			     AS_REVIEWS_CLIENT_ERROR,
+			     AS_REVIEWS_CLIENT_ERROR_PARSE,
+			     "Failed to parse status reply: %s",
+			     issue_msg);
+		fy_diag_destroy (ycfg.diag);
+		return FALSE;
+	}
+
+	root = fy_document_root (ydoc);
+	if (root != NULL && fy_node_is_mapping (root)) {
+		AS_YAML_MAPPING_FOREACH (pair, root) {
+			const gchar *key = as_yaml_node_get_key0 (pair);
+			const gchar *value = as_yaml_node_get_value0 (pair);
+
+			if (key == NULL || value == NULL)
+				continue;
+			if (g_str_equal (key, "success"))
+				success_str = g_strdup (value);
+			else if (g_str_equal (key, "msg"))
+				msg = g_strdup (value);
+			else if (review_id != NULL && g_str_equal (key, "review_id"))
+				*review_id = g_strdup (value);
+		}
+	}
+
+	fy_document_destroy (ydoc);
+	fy_diag_destroy (ycfg.diag);
+
+	if (g_strcmp0 (success_str, "true") != 0) {
+		if (review_id != NULL)
+			g_clear_pointer (review_id, g_free);
+		g_set_error (
+		    error,
+		    AS_REVIEWS_CLIENT_ERROR,
+		    AS_REVIEWS_CLIENT_ERROR_FAILED,
+		    /* TRANSLATORS: The ODRS review server did not accept our request, %s is a (possibly server-provided) reason */
+		    _("The reviews server rejected the request: %s"),
+		      msg != NULL ? msg : _("Unknown reason"));
+		return FALSE;
+	}
+
+	return TRUE;
+}
+
+/**
+ * as_reviews_client_fetch_reviews_internal:
+ *
+ * Fetch reviews from the reviews server, given a component-ID and
+ * optionally a list of compatible alternative IDs and a version number.
+ */
+static GPtrArray *
+as_reviews_client_fetch_reviews_internal (AsReviewsClient *rrc,
+					  const gchar *cpt_id,
+					  GPtrArray *compat_ids,
+					  const gchar *version,
+					  guint start,
+					  guint limit,
+					  GError **error)
+{
+	g_autoptr(GBytes) request = NULL;
+	g_autoptr(GBytes) reply = NULL;
+
+	if (limit == 0)
+		limit = AS_REVIEWS_FETCH_LIMIT_DEFAULT;
+	request = as_reviews_client_build_fetch_request (rrc,
+							 cpt_id,
+							 compat_ids,
+							 version,
+							 start,
+							 limit);
+
+	reply = as_reviews_client_post_json (rrc, "/fetch", request, error);
+	if (reply == NULL) {
+		g_prefix_error_literal (error, "Unable to fetch software reviews: ");
 		return NULL;
 	}
 
@@ -1072,6 +1238,244 @@ as_reviews_client_fetch_rating_for_id (AsReviewsClient *rrc,
 					       g_bytes_get_data (reply, NULL),
 					       (gssize) g_bytes_get_size (reply),
 					       error);
+}
+
+/**
+ * as_reviews_client_build_submit_request:
+ *
+ * Create the JSON payload for submitting a new review.
+ */
+static GBytes *
+as_reviews_client_build_submit_request (AsReviewsClient *rrc, const gchar *cpt_id, AsReview *review)
+{
+	AsReviewsClientPrivate *priv = GET_PRIVATE (rrc);
+	struct fy_document *fyd = NULL;
+	struct fy_node *root = NULL;
+	const gchar *locale;
+	const gchar *version;
+
+	as_reviews_client_ensure_distro_info (rrc);
+	locale = as_review_get_locale (review);
+	version = as_review_get_version (review);
+
+	fyd = as_json_document_new (&root);
+	as_json_mapping_add_str (fyd, root, "user_hash", as_reviews_client_get_user_hash (rrc));
+	as_json_mapping_add_str (fyd, root, "app_id", cpt_id);
+	as_json_mapping_add_str (fyd, root, "locale", locale == NULL ? priv->locale : locale);
+	as_json_mapping_add_str (fyd, root, "distro", priv->distro_name);
+	as_json_mapping_add_str (fyd, root, "distro_id", priv->distro_id);
+	as_json_mapping_add_str (fyd, root, "distro_version", priv->distro_version);
+	as_json_mapping_add_str (fyd, root, "version", version == NULL ? "unknown" : version);
+	as_json_mapping_add_str (fyd, root, "user_display", as_review_get_reviewer_name (review));
+	as_json_mapping_add_str (fyd, root, "summary", as_review_get_summary (review));
+	as_json_mapping_add_str (fyd, root, "description", as_review_get_description (review));
+
+	/* the star rating percentage */
+	as_json_mapping_add_int (fyd, root, "rating", as_review_get_rating (review));
+
+	return as_json_document_to_bytes (fyd);
+}
+
+/**
+ * as_reviews_client_submit_review:
+ * @rrc: an #AsReviewsClient instance.
+ * @component_id: the ID of the software component the review is for.
+ * @review: the review to submit.
+ *
+ * Submit a new user review for a software component to the reviews server.
+ * The @review must have a rating, summary and description set. If it has no
+ * reviewer name set, a suitable one is chosen automatically based on the
+ * name of the current user.
+ *
+ * On success, the review is updated with its server-assigned ID and is
+ * marked as written by the current user.
+ * This call does blocking network I/O.
+ *
+ * Returns: %TRUE on success.
+ *
+ * Since: 1.1.4
+ **/
+gboolean
+as_reviews_client_submit_review (AsReviewsClient *rrc,
+				 const gchar *component_id,
+				 AsReview *review,
+				 GError **error)
+{
+	g_autoptr(GBytes) request = NULL;
+	g_autoptr(GBytes) reply = NULL;
+	g_autofree gchar *review_id = NULL;
+	gint rating;
+
+	g_return_val_if_fail (AS_IS_REVIEWS_CLIENT (rrc), FALSE);
+	g_return_val_if_fail (AS_IS_REVIEW (review), FALSE);
+	g_return_val_if_fail (component_id != NULL, FALSE);
+
+	rating = as_review_get_rating (review);
+	if (rating < 1 || rating > 100) {
+		g_set_error (error,
+			     AS_REVIEWS_CLIENT_ERROR,
+			     AS_REVIEWS_CLIENT_ERROR_FAILED,
+			     "Unable to submit review: The review rating of %i is invalid "
+			     "(expected a percentage between 1 and 100).",
+			     rating);
+		return FALSE;
+	}
+
+	/* pick a suitable display name of the review author, if none was set */
+	if (as_review_get_reviewer_name (review) == NULL)
+		as_review_set_reviewer_name (review, g_get_real_name ());
+
+	request = as_reviews_client_build_submit_request (rrc, component_id, review);
+	reply = as_reviews_client_post_json (rrc, "/submit", request, error);
+	if (reply == NULL)
+		return FALSE;
+	if (!as_reviews_client_check_success_reply (reply, &review_id, error))
+		return FALSE;
+
+	/* update the local review with data we submitted, so it can be
+	 * displayed (and voted on / removed) right away */
+	if (review_id != NULL)
+		as_review_set_id (review, review_id);
+	as_review_add_metadata (review, "ODRS::app_id", component_id);
+	as_review_add_flags (review, AS_REVIEW_FLAG_SELF);
+
+	return TRUE;
+}
+
+/**
+ * as_reviews_client_review_action:
+ *
+ * Perform an action on an existing review, e.g. voting on it or removing it.
+ * The @review must have been received via a previous fetch operation, so it
+ * has the required server-provided metadata attached.
+ */
+static gboolean
+as_reviews_client_review_action (AsReviewsClient *rrc,
+				 AsReview *review,
+				 const gchar *endpoint,
+				 GError **error)
+{
+	struct fy_document *fyd = NULL;
+	struct fy_node *root = NULL;
+	g_autoptr(GBytes) request = NULL;
+	g_autoptr(GBytes) reply = NULL;
+	g_autoptr(GError) tmp_error = NULL;
+	const gchar *review_id;
+	const gchar *app_id;
+	const gchar *user_skey;
+	gint64 review_id_num;
+
+	review_id = as_review_get_id (review);
+	app_id = as_review_get_metadata_item (review, "ODRS::app_id");
+	user_skey = as_review_get_metadata_item (review, "ODRS::user_skey");
+
+	if (review_id == NULL || app_id == NULL || user_skey == NULL) {
+		g_set_error_literal (
+		    error,
+		    AS_REVIEWS_CLIENT_ERROR,
+		    AS_REVIEWS_CLIENT_ERROR_FAILED,
+		    "Unable to perform review action: The review is missing its ID or server "
+		    "metadata. Only reviews received from the server can be acted on.");
+		return FALSE;
+	}
+
+	/* the server expects the review-ID as a number */
+	if (!g_ascii_string_to_signed (review_id, 10, 1, G_MAXINT64, &review_id_num, &tmp_error)) {
+		g_propagate_prefixed_error (error,
+					    g_steal_pointer (&tmp_error),
+					    "Unable to perform review action: ");
+		return FALSE;
+	}
+
+	fyd = as_json_document_new (&root);
+	as_json_mapping_add_str (fyd, root, "app_id", app_id);
+	as_json_mapping_add_str (fyd, root, "user_hash", as_reviews_client_get_user_hash (rrc));
+	as_json_mapping_add_str (fyd, root, "user_skey", user_skey);
+	as_json_mapping_add_int (fyd, root, "review_id", review_id_num);
+	request = as_json_document_to_bytes (fyd);
+
+	reply = as_reviews_client_post_json (rrc, endpoint, request, error);
+	if (reply == NULL)
+		return FALSE;
+
+	return as_reviews_client_check_success_reply (reply, NULL, error);
+}
+
+/**
+ * as_reviews_client_vote_review:
+ * @rrc: an #AsReviewsClient instance.
+ * @review: the review to vote on.
+ * @vote: the kind of vote to cast, e.g. %AS_REVIEW_VOTE_KIND_UP.
+ *
+ * Cast a vote on a review that was previously received from the reviews
+ * server, to mark it as helpful or unhelpful, or to report it as abusive.
+ * On success, the review is marked as voted on by the current user.
+ * This call does blocking network I/O.
+ *
+ * Returns: %TRUE on success.
+ *
+ * Since: 1.1.4
+ **/
+gboolean
+as_reviews_client_vote_review (AsReviewsClient *rrc,
+			       AsReview *review,
+			       AsReviewVoteKind vote,
+			       GError **error)
+{
+	const gchar *endpoint = NULL;
+
+	g_return_val_if_fail (AS_IS_REVIEWS_CLIENT (rrc), FALSE);
+	g_return_val_if_fail (AS_IS_REVIEW (review), FALSE);
+
+	switch (vote) {
+	case AS_REVIEW_VOTE_KIND_UP:
+		endpoint = "/upvote";
+		break;
+	case AS_REVIEW_VOTE_KIND_DOWN:
+		endpoint = "/downvote";
+		break;
+	case AS_REVIEW_VOTE_KIND_REPORT:
+		endpoint = "/report";
+		break;
+	default:
+		g_set_error_literal (error,
+				     AS_REVIEWS_CLIENT_ERROR,
+				     AS_REVIEWS_CLIENT_ERROR_FAILED,
+				     "Unable to vote on review: An invalid vote kind was given.");
+		return FALSE;
+	}
+
+	if (!as_reviews_client_review_action (rrc, review, endpoint, error))
+		return FALSE;
+
+	/* don't allow the user to vote twice */
+	as_review_add_flags (review, AS_REVIEW_FLAG_VOTED);
+
+	return TRUE;
+}
+
+/**
+ * as_reviews_client_remove_review:
+ * @rrc: an #AsReviewsClient instance.
+ * @review: the review to remove.
+ *
+ * Remove a review that the current user has written from the reviews server.
+ * The review must have been received from the server via a previous fetch
+ * operation, and the server will refuse to remove reviews that were not
+ * written by the current user.
+ * This call does blocking network I/O.
+ *
+ * Returns: %TRUE on success.
+ *
+ * Since: 1.1.4
+ **/
+gboolean
+as_reviews_client_remove_review (AsReviewsClient *rrc, AsReview *review, GError **error)
+{
+	g_return_val_if_fail (AS_IS_REVIEWS_CLIENT (rrc), FALSE);
+	g_return_val_if_fail (AS_IS_REVIEW (review), FALSE);
+
+	return as_reviews_client_review_action (rrc, review, "/remove", error);
 }
 
 /**

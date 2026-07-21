@@ -736,6 +736,44 @@ test_reviews_client_parse_rating (void)
 	g_assert_cmpint (rating, ==, -1);
 }
 
+/**
+ * test_reviews_client_success_reply:
+ *
+ * Test parsing of ODRS-style status replies.
+ */
+static void
+test_reviews_client_success_reply (void)
+{
+	g_autoptr(GError) error = NULL;
+	g_autofree gchar *review_id = NULL;
+	g_autoptr(GBytes) reply_good = NULL;
+	g_autoptr(GBytes) reply_bad = NULL;
+	g_autoptr(GBytes) reply_garbage = NULL;
+	const gchar *reply_good_str = "{\"success\": true, \"review_id\": 42}";
+	const gchar *reply_bad_str = "{\"success\": false, \"msg\": \"summary is too short\"}";
+	const gchar *reply_garbage_str = "<html>no</html>";
+
+	reply_good = g_bytes_new_static (reply_good_str, strlen (reply_good_str));
+	reply_bad = g_bytes_new_static (reply_bad_str, strlen (reply_bad_str));
+	reply_garbage = g_bytes_new_static (reply_garbage_str, strlen (reply_garbage_str));
+
+	/* success reply with a new review-ID */
+	g_assert_true (as_reviews_client_check_success_reply (reply_good, &review_id, &error));
+	g_assert_no_error (error);
+	g_assert_cmpstr (review_id, ==, "42");
+
+	/* failure reply must propagate the server message */
+	g_assert_false (as_reviews_client_check_success_reply (reply_bad, NULL, &error));
+	g_assert_error (error, AS_REVIEWS_CLIENT_ERROR, AS_REVIEWS_CLIENT_ERROR_FAILED);
+	g_assert_nonnull (strstr (error->message, "summary is too short"));
+	g_clear_error (&error);
+
+	/* garbage must yield a parse error */
+	g_assert_false (as_reviews_client_check_success_reply (reply_garbage, NULL, &error));
+	g_assert_error (error, AS_REVIEWS_CLIENT_ERROR, AS_REVIEWS_CLIENT_ERROR_PARSE);
+	g_clear_error (&error);
+}
+
 int
 main (int argc, char **argv)
 {
@@ -769,6 +807,8 @@ main (int argc, char **argv)
 			 test_reviews_client_parse_review);
 	g_test_add_func ("/AppStream/Misc/ReviewsClientParseRating",
 			 test_reviews_client_parse_rating);
+	g_test_add_func ("/AppStream/Misc/ReviewsClientSuccessReply",
+			 test_reviews_client_success_reply);
 
 	ret = g_test_run ();
 	g_free (datadir);

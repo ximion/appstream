@@ -857,6 +857,33 @@ as_client_run_list_reviews (const gchar *command, char **argv, int argc)
 }
 
 /**
+ * as_client_run_submit_review:
+ *
+ * Interactively compose and submit a review for a software component.
+ */
+static int
+as_client_run_submit_review (const gchar *command, char **argv, int argc)
+{
+	g_autoptr(GOptionContext) opt_context = NULL;
+	const gchar *cpt_id = NULL;
+	gint ret;
+
+	opt_context = as_client_new_subcommand_option_context (command, reviews_options);
+	ret = as_client_option_context_parse (opt_context, command, &argc, &argv);
+	if (ret != 0)
+		return ret;
+
+	if (argc > 2)
+		cpt_id = argv[2];
+	if (argc > 3) {
+		as_client_print_help_hint (command, argv[3]);
+		return 1;
+	}
+
+	return ascli_submit_review (cpt_id, optn_reviews_server);
+}
+
+/**
  * as_client_run_convert:
  *
  * Convert metadata.
@@ -1478,14 +1505,6 @@ as_client_run (char **argv, int argc)
 		       /* TRANSLATORS: `appstreamcli list-categories` command description. */
 		       _("List components that are part of the specified categories."),
 			 as_client_run_list_categories);
-	ascli_add_cmd (commands,
-		       0,
-		       "list-reviews",
-		       NULL,
-		       "COMPONENT-ID",
-		       /* TRANSLATORS: `appstreamcli list-reviews` command description. */
-		       _("List online user reviews for a software component."),
-			 as_client_run_list_reviews);
 
 	ascli_add_cmd (commands,
 		       1,
@@ -1638,6 +1657,29 @@ as_client_run (char **argv, int argc)
 		       /* TRANSLATORS: `appstreamcli compose` command description. */
 		       _("Compose AppStream metadata catalog from directory trees."),
 			 as_client_run_compose);
+
+	ascli_add_cmd (commands,
+		       6,
+		       "list-reviews",
+		       NULL,
+		       "COMPONENT-ID",
+		       /* TRANSLATORS: `appstreamcli list-reviews` command description. */
+		       _("List online user reviews for a software component."),
+			 as_client_run_list_reviews);
+	if (g_strcmp0 (g_getenv ("AS_SELF_TEST"), "1") == 0) {
+		/* NOTE: We do not expose this functionality to end-users, because it creates less-useful
+		 * reports, for example, we may not know the exact installed software version.
+		 * This feature is however kinda nice to use for testing ODRS implementations and to
+		 * debug AppStream itself, which is why it is left in, for now. */
+		ascli_add_cmd (commands,
+			       6,
+			       "submit-review",
+			       NULL,
+			       "COMPONENT-ID",
+			       /* TRANSLATORS: `appstreamcli submit-review` command description. */
+			       _("Compose and submit an online review for a software component."),
+				 as_client_run_submit_review);
+	}
 
 	/* we handle the unknown options later in the individual subcommands */
 	g_option_context_set_ignore_unknown_options (opt_context, TRUE);
