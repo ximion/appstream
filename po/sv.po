@@ -29,7 +29,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-07-21 21:21+0200\n"
-"PO-Revision-Date: 2026-07-21 10:01+0000\n"
+"PO-Revision-Date: 2026-07-21 19:33+0000\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/appstream/translations/sv/>\n"
 "Language: sv\n"
@@ -1477,17 +1477,14 @@ msgid "Unable to communicate with the reviews server: %s"
 msgstr ""
 
 #: src/as-reviews-client.c:1070
-#, fuzzy
-#| msgid "Unknown"
 msgid "Unknown reason"
-msgstr "Okänt"
+msgstr "Okänd orsak"
 
 #. TRANSLATORS: We failed to fetch a software rating from the ODRS review server
 #: src/as-reviews-client.c:1247
-#, fuzzy, c-format
-#| msgid "Unable to find component matching %s!"
+#, c-format
 msgid "Unable to fetch software rating: %s"
-msgstr "Kunde inte hitta komponenten matchandes %s!"
+msgstr "Kunde inte hämta programbetyg: %s"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:39
