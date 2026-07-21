@@ -1034,6 +1034,7 @@ static gboolean
 as_pool_load_catalog_data (AsPool *pool,
 			   AsComponentRegistry *registry,
 			   AsLocationGroup *lgroup,
+			   GCancellable *cancellable,
 			   GError **error)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
@@ -1121,6 +1122,9 @@ as_pool_load_catalog_data (AsPool *pool,
 	for (guint i = 0; i < mdata_files->len; i++) {
 		g_autoptr(GFile) infile = NULL;
 		const gchar *fname;
+
+		if (g_cancellable_set_error_if_cancelled (cancellable, error))
+			return FALSE;
 
 		fname = (const gchar *) g_ptr_array_index (mdata_files, i);
 		g_debug ("Reading: %s", fname);
@@ -1222,7 +1226,10 @@ as_pool_cache_refine_component_cb (AsComponent *cpt, gboolean is_serialization, 
  * Load metadata from desktop-entry files.
  */
 static void
-as_pool_update_desktop_entries_table (AsPool *pool, GHashTable *de_cpt_table, const gchar *apps_dir)
+as_pool_update_desktop_entries_table (AsPool *pool,
+				      GHashTable *de_cpt_table,
+				      const gchar *apps_dir,
+				      GCancellable *cancellable)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	g_autoptr(AsMetadata) metad = NULL;
@@ -1249,6 +1256,9 @@ as_pool_update_desktop_entries_table (AsPool *pool, GHashTable *de_cpt_table, co
 		g_autoptr(GFile) infile = NULL;
 		AsComponent *cpt;
 		const gchar *fname = (const gchar *) g_ptr_array_index (de_files, i);
+
+		if (g_cancellable_is_cancelled (cancellable))
+			return;
 
 		g_debug ("Reading: %s", fname);
 		infile = g_file_new_for_path (fname);
@@ -1289,7 +1299,8 @@ as_pool_load_metainfo_data (AsPool *pool,
 			    GHashTable *desktop_entry_cpts,
 			    AsComponentScope scope,
 			    const gchar *metainfo_dir,
-			    const gchar *cache_key)
+			    const gchar *cache_key,
+			    GCancellable *cancellable)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	g_autoptr(AsMetadata) metad = NULL;
@@ -1320,6 +1331,9 @@ as_pool_load_metainfo_data (AsPool *pool,
 		g_autoptr(GFile) infile = NULL;
 		g_autofree gchar *desktop_id = NULL;
 		const gchar *fname = (const gchar *) g_ptr_array_index (mi_files, i);
+
+		if (g_cancellable_is_cancelled (cancellable))
+			return;
 
 		if (!as_flags_contains (priv->flags, AS_POOL_FLAG_PREFER_OS_METAINFO)) {
 			g_autofree gchar *mi_cid = NULL;
@@ -1417,7 +1431,8 @@ static void
 as_pool_process_metainfo_desktop_data (AsPool *pool,
 				       AsComponentRegistry *registry,
 				       AsLocationGroup *lgroup,
-				       const gchar *cache_key)
+				       const gchar *cache_key,
+				       GCancellable *cancellable)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	g_autoptr(GHashTable) de_cpts = NULL;
@@ -1446,7 +1461,7 @@ as_pool_process_metainfo_desktop_data (AsPool *pool,
 										 i);
 		if (lentry->format_kind != AS_FORMAT_KIND_DESKTOP_ENTRY)
 			continue;
-		as_pool_update_desktop_entries_table (pool, de_cpts, lentry->location);
+		as_pool_update_desktop_entries_table (pool, de_cpts, lentry->location, cancellable);
 	}
 
 	if (as_flags_contains (priv->flags, AS_POOL_FLAG_LOAD_OS_METAINFO)) {
@@ -1463,7 +1478,8 @@ as_pool_process_metainfo_desktop_data (AsPool *pool,
 						    de_cpts,
 						    lgroup->scope,
 						    lentry->location,
-						    cache_key);
+						    cache_key,
+						    cancellable);
 		}
 	}
 
@@ -1515,6 +1531,7 @@ as_pool_loader_process_group (AsPool *pool,
 			      AsLocationGroup *lgroup,
 			      gboolean force_cache_refresh,
 			      gboolean *caches_updated,
+			      GCancellable *cancellable,
 			      GError **error)
 {
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
@@ -1572,10 +1589,14 @@ as_pool_loader_process_group (AsPool *pool,
 	registry = as_component_registry_new ();
 
 	/* process any MetaInfo and desktop-entry files */
-	as_pool_process_metainfo_desktop_data (pool, registry, lgroup, lgroup->cache_key);
+	as_pool_process_metainfo_desktop_data (pool, registry, lgroup, lgroup->cache_key, cancellable);
 
 	/* process catalog data - we intentionally ignore errors here, and just skip any broken metadata*/
-	as_pool_load_catalog_data (pool, registry, lgroup, NULL);
+	as_pool_load_catalog_data (pool, registry, lgroup, cancellable, NULL);
+
+	/* never write incomplete data to the cache if we were cancelled mid-load */
+	if (g_cancellable_set_error_if_cancelled (cancellable, error))
+		return FALSE;
 
 	/* save cache section */
 	final_results = as_component_registry_get_contents (registry);
@@ -1643,10 +1664,13 @@ as_pool_load_internal (AsPool *pool,
 	g_hash_table_iter_init (&loc_iter, priv->std_data_locations);
 	while (g_hash_table_iter_next (&loc_iter, NULL, &loc_value)) {
 		gboolean ret;
+		if (g_cancellable_set_error_if_cancelled (cancellable, error))
+			return FALSE;
 		ret = as_pool_loader_process_group (pool,
 						    loc_value,
 						    force_cache_refresh,
 						    caches_updated,
+						    cancellable,
 						    error);
 		/* cache writing errors or other fatal stuff will cause us to stop loading anything */
 		if (!ret)
@@ -1657,10 +1681,13 @@ as_pool_load_internal (AsPool *pool,
 	g_hash_table_iter_init (&loc_iter, priv->extra_data_locations);
 	while (g_hash_table_iter_next (&loc_iter, NULL, &loc_value)) {
 		gboolean ret;
+		if (g_cancellable_set_error_if_cancelled (cancellable, error))
+			return FALSE;
 		ret = as_pool_loader_process_group (pool,
 						    loc_value,
 						    force_cache_refresh,
 						    caches_updated,
+						    cancellable,
 						    error);
 		if (!ret)
 			return FALSE;
@@ -1780,8 +1807,9 @@ as_pool_section_reload_thread (GTask *task,
 	    lgroup,
 	    TRUE, /* always refresh cache, don't bother verifying timestamps */
 	    NULL,
+	    cancellable,
 	    &error);
-	if (!ret)
+	if (!ret && !g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED))
 		g_warning ("Failed to auto-reload cache section %s: %s",
 			   lgroup->cache_key,
 			   error->message);
