@@ -78,7 +78,9 @@ as_get_resource_safe (void)
 	static GResource *resource = NULL;
 
 	if (g_once_init_enter (&resource)) {
-		GResource *res = as_get_resource ();
+		/* hold an extra reference for the lifetime of the process, so worker threads
+		 * that outlive main() don't race with the resource's ELF destructor */
+		GResource *res = g_resource_ref (as_get_resource ());
 		g_once_init_leave (&resource, res);
 	}
 
