@@ -41,7 +41,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-07-20 22:54+0200\n"
-"PO-Revision-Date: 2026-05-22 08:11+0000\n"
+"PO-Revision-Date: 2026-07-21 10:01+0000\n"
 "Last-Translator: Libre <6n0n1m0s@proton.me>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/appstream/translations/es/>\n"
 "Language: es\n"
@@ -49,7 +49,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.6.dev0\n"
+"X-Generator: Weblate 2026.8.dev0\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -2064,7 +2064,7 @@ msgstr "Los archivos de meta-información pueden contener solo iconos de tipo `s
 #. TRANSLATORS: Please do not translate names in backticks.
 #: src/as-validator-issue-tag.h:575
 msgid "This icon uses an unsupported file format. Icons should be PNG, JPEG-XL (`.jxl`) or vector graphics (`.svg`/`.svgz`) images."
-msgstr ""
+msgstr "Este icono utiliza un formato de archivo no compatible. Los iconos deben ser imágenes PNG, JPEG-XL (`.jxl`) o gráficos vectoriales (`.svg`/`.svgz`)."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:582
@@ -2426,10 +2426,8 @@ msgid "The issue is tagged at security vulnerability with a CVE number, but its 
 msgstr "El problema está etiquetado en la vulnerabilidad de seguridad con un número CVE, pero su valor no parece un identificador CVE válido."
 
 #: src/as-validator-issue-tag.h:1043
-#, fuzzy
-#| msgid "The issue is tagged at security vulnerability with a CVE number, but its value does not look like a valid CVE identifier."
 msgid "The issue is tagged as security vulnerability with a GCVE identifier, but its value does not follow the `GCVE-<GNA-ID>-<YEAR>-<UNIQUE-ID>` scheme of the Global CVE Allocation System."
-msgstr "El problema está etiquetado en la vulnerabilidad de seguridad con un número CVE, pero su valor no parece un identificador CVE válido."
+msgstr "La incidencia está etiquetada en la vulnerabilidad de seguridad con un identificador GCVE, pero su valor no sigue el esquema `GCVE-<GNA-ID>-<YEAR>-<UNIQUE-ID>` del Sistema de Asignación CVE Global."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1050
@@ -3552,17 +3550,15 @@ msgstr "Memoria física"
 
 #: tools/ascli-actions-misc.c:607 tools/ascli-actions-misc.c:612
 msgid "Largest Display"
-msgstr ""
+msgstr "Pantalla más grande"
 
 #: tools/ascli-actions-misc.c:610
 msgid "logical px"
-msgstr ""
+msgstr "lógica px"
 
 #: tools/ascli-actions-misc.c:612
-#, fuzzy
-#| msgid "Unable to read file."
 msgid "unable to determine"
-msgstr "No se puede leer el archivo."
+msgstr "no es capaz de determinar"
 
 #: tools/ascli-actions-misc.c:616
 msgid "Devices with Modaliases"
