@@ -2,18 +2,18 @@
 # Copyright (C) YEAR Matthias Klumpp
 # This file is distributed under the same license as the appstream package.
 # Translators:
-# Yuri Chornoivan <yurchor@ukr.net>, 2014-2016, 2019, 2020, 2021, 2022, 2023, 2024, 2025.
+# Yuri Chornoivan <yurchor@ukr.net>, 2014-2016, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026.
 # kyanukovich <ianu0001@algonquinlive.com>, 2020, 2021.
 # #-#-#-#-#  uk.po (appstream)  #-#-#-#-#
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Yuri Chornoivan <yurchor@ukr.net>, 2014-2016, 2021, 2022, 2023, 2024, 2025.
+# Yuri Chornoivan <yurchor@ukr.net>, 2014-2016, 2021, 2022, 2023, 2024, 2025, 2026.
 # Richard Hughes <richard@hughsie.com>, 2016. #zanata
-# Yuri Chornoivan <yurchor@ukr.net>, 2016. #zanata, 2021, 2022, 2023, 2024, 2025.
-# Yuri Chornoivan <yurchor@ukr.net>, 2017. #zanata, 2021, 2022, 2023, 2024, 2025.
-# Yuri Chornoivan <yurchor@ukr.net>, 2018. #zanata, 2021, 2022, 2023, 2024, 2025.
-# Yuri Chornoivan <yurchor@ukr.net>, 2019. #zanata, 2021, 2022, 2023, 2024, 2025.
+# Yuri Chornoivan <yurchor@ukr.net>, 2016. #zanata, 2021, 2022, 2023, 2024, 2025, 2026.
+# Yuri Chornoivan <yurchor@ukr.net>, 2017. #zanata, 2021, 2022, 2023, 2024, 2025, 2026.
+# Yuri Chornoivan <yurchor@ukr.net>, 2018. #zanata, 2021, 2022, 2023, 2024, 2025, 2026.
+# Yuri Chornoivan <yurchor@ukr.net>, 2019. #zanata, 2021, 2022, 2023, 2024, 2025, 2026.
 # Artem <artem@molotov.work>, 2022.
 # Сергій <sergiy.goncharuk.1@gmail.com>, 2024.
 # Максим Горпиніч <mgorpinic2005@gmail.com>, 2024.
@@ -27,15 +27,15 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-07-20 22:54+0200\n"
-"PO-Revision-Date: 2025-09-17 08:02+0000\n"
-"Last-Translator: Максим Горпиніч <gorpinicmaksim0@gmail.com>\n"
+"PO-Revision-Date: 2026-07-21 10:01+0000\n"
+"Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/appstream/translations/uk/>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.14-dev\n"
+"X-Generator: Weblate 2026.8.dev0\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -2050,7 +2050,7 @@ msgstr "У файлах metainfo можуть міститися лише пік
 #. TRANSLATORS: Please do not translate names in backticks.
 #: src/as-validator-issue-tag.h:575
 msgid "This icon uses an unsupported file format. Icons should be PNG, JPEG-XL (`.jxl`) or vector graphics (`.svg`/`.svgz`) images."
-msgstr ""
+msgstr "Для цієї піктограми використано непідтримуваний формат файлів. Для піктограм слід використовувати PNG, JPEG-XL (`.jxl`) або зображення векторної графіки (`.svg`/`.svgz`)."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:582
@@ -2412,10 +2412,8 @@ msgid "The issue is tagged at security vulnerability with a CVE number, but its 
 msgstr "Ваду позначено як вразливість захисту із номером CVE, але його значення, здається, є некоректним ідентифікатором CVE."
 
 #: src/as-validator-issue-tag.h:1043
-#, fuzzy
-#| msgid "The issue is tagged at security vulnerability with a CVE number, but its value does not look like a valid CVE identifier."
 msgid "The issue is tagged as security vulnerability with a GCVE identifier, but its value does not follow the `GCVE-<GNA-ID>-<YEAR>-<UNIQUE-ID>` scheme of the Global CVE Allocation System."
-msgstr "Ваду позначено як вразливість захисту із номером CVE, але його значення, здається, є некоректним ідентифікатором CVE."
+msgstr "Ваду позначено як вразливість захисту із номером CVE, але його значення не записано за схемою `GCVE-<Ідентифікатор-GNA>-<Рік>-<Унікальний-ідентифікатор>`, яку використовує Global CVE Allocation System."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1050
@@ -3538,17 +3536,15 @@ msgstr "Фізична пам'ять"
 
 #: tools/ascli-actions-misc.c:607 tools/ascli-actions-misc.c:612
 msgid "Largest Display"
-msgstr ""
+msgstr "Найбільший дисплей"
 
 #: tools/ascli-actions-misc.c:610
 msgid "logical px"
-msgstr ""
+msgstr "логічних пікселів"
 
 #: tools/ascli-actions-misc.c:612
-#, fuzzy
-#| msgid "Unable to read file."
 msgid "unable to determine"
-msgstr "Не вдалося прочитати файл."
+msgstr "не вдалося визначити"
 
 #: tools/ascli-actions-misc.c:616
 msgid "Devices with Modaliases"
@@ -3573,9 +3569,8 @@ msgid "no"
 msgstr "ні"
 
 #: tools/ascli-actions-pkgmgr.c:53
-#, fuzzy
 msgid "No suitable package manager tool found. Please make sure that e.g. \"pkgcli\" (part of PackageKit) is available."
-msgstr "Не знайдено відповідного засобу керування пакунками з командного рядка. Будь ласка, встановіть, наприклад, «pkcon» (частину PackageKit)."
+msgstr "Не знайдено придатного засобу для керування пакунками. Будь ласка, переконайтеся, що доступним є, наприклад, «pkgcli» (частина PackageKit)."
 
 #: tools/ascli-actions-pkgmgr.c:67
 #, c-format
