@@ -23,20 +23,20 @@ This project it part of freedesktop.org.
 - **Tools**: Includes `appstreamcli` for metadata queries, data verification and diagnostics.
   The `appstreamcli compose` tool can be used for simple catalog metadata composition.
 
-You can [download signed release tarballs of AppStream on freedesktop.org](https://www.freedesktop.org/software/appstream/releases/).
+You can [download signed release tarballs of AppStream on freedesktop.org](http://web.archive.org/web/20251012212741/https://freedesktop.org/software/appstream/releases/).
 
 #### Other links:
-- [AppStream Documentation](https://www.freedesktop.org/software/appstream/docs/)
-- [AppStream on Freedesktop](https://www.freedesktop.org/wiki/Distributions/AppStream/)
+- [AppStream Documentation](http://web.archive.org/web/20260703123055/https://www.freedesktop.org/software/appstream/docs/)
+- [AppStream on Freedesktop](http://web.archive.org/web/20260616232432/https://www.freedesktop.org/wiki/Distributions/AppStream/)
 - [AppStream Mailinglist](https://lists.freedesktop.org/mailman/listinfo/appstream)
 
 
 ## Information For Users
 
 ### For Upstream Application Authors
-- **[Quickstart Guides](https://www.freedesktop.org/software/appstream/docs/chap-Quickstart.html)**:
+- **[Quickstart Guides](http://web.archive.org/web/20260604115045/https://www.freedesktop.org/software/appstream/docs/chap-Quickstart.html)**:
   Simple tutorials on how to write MetaInfo files for your application.
-- **[MetaInfo Creator](https://www.freedesktop.org/software/appstream/metainfocreator/)**:
+- **[MetaInfo Creator](http://web.archive.org/web/20260418093823/https://www.freedesktop.org/software/appstream/metainfocreator/)**:
   An easy-to-use web application for generating metadata.
 
 
