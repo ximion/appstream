@@ -1,3 +1,42 @@
+Version 1.1.4
+~~~~~~~~~~~~~
+Released: 2026-07-22
+
+Features:
+ * sysinfo: Assume a more modern display for the handset chassis template
+ * sysinfo: Assume a more modern display for the tablet chassis template
+ * sysinfo: Initial code to autodetect the display size on Wayland
+ * sysinfo: Handle fractional display scaling via xdg-output
+ * Implement support for GCVE as vulnerability database provider
+ * qt: Sync enum mirrors with the C library
+ * qt: Add Artifact, Checksum, Reference, Review and Agreement wrappers
+ * qt: Wrap missing C API on existing classes
+ * reviews: Add simple interface to fetch ODRS reviews for a component
+ * reviews: Implement support for submitting reviews
+
+Specification:
+ * docs: Suggest using the longest display side for maximum size constraints
+
+Bugfixes:
+ * Make GResources we need outlive main thread destruction
+ * pool: Properly implement cancellation of load operations
+ * sysinfo: Fix display-length setter overriding the shortest edge
+ * relation-check: Don't zero the score if a required check errored
+ * curl: Harden downloader by restricting protocols to only HTTP(S)
+ * curl: Allow making POST requests and changing the user agent
+ * curl: Fix retry-loop data corruption and don't blindly retry POST requests
+ * yaml: Fix potential crashes when encountering missing relation entry values
+ * yaml: Adjust tests and emitter to work around libfyaml string-quoting change
+ * yaml: Ensure version relations are consistently quoted
+ * qt: Fix buffer overrun in stringListToCharArray
+
+Miscellaneous:
+ * ci: freebsd: Switch from Cirrus to GitHub Actions
+ * ci: Update Ubuntu LTS to 26.04
+
+Contributors:
+ Gleb Popov, Matthias Klumpp
+
 Version 1.1.3
 ~~~~~~~~~~~~~
 Released: 2026-06-18
