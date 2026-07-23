@@ -31,7 +31,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-07-21 21:21+0200\n"
-"PO-Revision-Date: 2026-02-08 18:09+0000\n"
+"PO-Revision-Date: 2026-07-23 20:01+0000\n"
 "Last-Translator: Oğuz Ersen <oguz@ersen.moe>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/translations/tr/>\n"
 "Language: tr\n"
@@ -39,7 +39,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.16-dev\n"
+"X-Generator: Weblate 2026.8.dev0\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1470,26 +1470,23 @@ msgstr "'%s' türündeki ögeler için ilişki karşılama denetimi henüz uygul
 #: src/as-reviews-client.c:976 src/as-reviews-client.c:1069
 #, c-format
 msgid "The reviews server rejected the request: %s"
-msgstr ""
+msgstr "İnceleme sunucusu isteği reddetti: %s"
 
 #. TRANSLATORS: We failed to communicate with the ODRS review server, %s is an error message
 #: src/as-reviews-client.c:983
 #, c-format
 msgid "Unable to communicate with the reviews server: %s"
-msgstr ""
+msgstr "İnceleme sunucusuyla iletişim kurulamıyor: %s"
 
 #: src/as-reviews-client.c:1070
-#, fuzzy
-#| msgid "Unknown"
 msgid "Unknown reason"
-msgstr "Bilinmiyor"
+msgstr "Bilinmeyen neden"
 
 #. TRANSLATORS: We failed to fetch a software rating from the ODRS review server
 #: src/as-reviews-client.c:1247
-#, fuzzy, c-format
-#| msgid "Unable to find component matching %s!"
+#, c-format
 msgid "Unable to fetch software rating: %s"
-msgstr "%s ile eşleşen bileşen bulunamadı!"
+msgstr "Yazılım değerlendirmesi alınamıyor: %s"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:39
@@ -2079,7 +2076,7 @@ msgstr "Metainfo dosyaları yalnızca `stock` veya `remote` türünde simgeler i
 #. TRANSLATORS: Please do not translate names in backticks.
 #: src/as-validator-issue-tag.h:575
 msgid "This icon uses an unsupported file format. Icons should be PNG, JPEG-XL (`.jxl`) or vector graphics (`.svg`/`.svgz`) images."
-msgstr ""
+msgstr "Bu simge, desteklenmeyen bir dosya biçimi kullanıyor. Simgeler PNG, JPEG-XL (`.jxl`) veya vektör grafikleri (`.svg`/`.svgz`) biçiminde olmalıdır."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:582
@@ -2441,10 +2438,8 @@ msgid "The issue is tagged at security vulnerability with a CVE number, but its 
 msgstr "Sorun bir CVE numarasıyla güvenlik açığı olarak etiketlendi, ancak değeri geçerli bir CVE tanımlayıcısı gibi görünmüyor."
 
 #: src/as-validator-issue-tag.h:1043
-#, fuzzy
-#| msgid "The issue is tagged at security vulnerability with a CVE number, but its value does not look like a valid CVE identifier."
 msgid "The issue is tagged as security vulnerability with a GCVE identifier, but its value does not follow the `GCVE-<GNA-ID>-<YEAR>-<UNIQUE-ID>` scheme of the Global CVE Allocation System."
-msgstr "Sorun bir CVE numarasıyla güvenlik açığı olarak etiketlendi, ancak değeri geçerli bir CVE tanımlayıcısı gibi görünmüyor."
+msgstr "Sorun bir GCVE numarasıyla güvenlik açığı olarak etiketlendi; ancak değeri Küresel CVE Tahsis Sisteminin `GCVE-<GNA-ID>-<YEAR>-<UNIQUE-ID>` şemasına uymuyor."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1050
@@ -2870,22 +2865,22 @@ msgstr "Bulunan bileşenler hakkında ayrıntılı çıktı yazdır."
 #. TRANSLATORS: ascli flag description for: --server (used by the "list-reviews" command)
 #: tools/appstreamcli.c:126
 msgid "URL of the ODRS-compatible reviews server to use."
-msgstr ""
+msgstr "Kullanılacak ODRS uyumlu inceleme sunucusunun URL'si."
 
 #. TRANSLATORS: ascli flag description for: --start (used by the "list-reviews" command)
 #: tools/appstreamcli.c:132
 msgid "Index of the first review to fetch, to page through all reviews."
-msgstr ""
+msgstr "Tüm incelemeleri sayfa sayfa görüntülemek için alınacak ilk incelemenin sırası."
 
 #. TRANSLATORS: ascli flag description for: --limit (used by the "list-reviews" command)
 #: tools/appstreamcli.c:138
 msgid "Maximum number of reviews to fetch."
-msgstr ""
+msgstr "Alınacak en fazla inceleme sayısı."
 
 #. TRANSLATORS: ascli flag description for: --locale (used by the "list-reviews" and "submit-review" commands)
 #: tools/appstreamcli.c:144
 msgid "Locale to prefer for reviews, instead of the current system locale."
-msgstr ""
+msgstr "Geçerli sistem yerel ayarları yerine, incelemeler için tercih edilecek yerel ayar."
 
 #. TRANSLATORS: ascli flag description for: --pedantic (used by the "validate" command)
 #: tools/appstreamcli.c:165
@@ -3208,15 +3203,13 @@ msgstr "Dizin ağaçlarından AppStream koleksiyonu üst verileri oluştur."
 
 #. TRANSLATORS: `appstreamcli list-reviews` command description.
 #: tools/appstreamcli.c:1667
-#, fuzzy
-#| msgid "We have information on %i software components."
 msgid "List online user reviews for a software component."
-msgstr "%i yazılım bileşeni hakkındaki bilgilere sahibiz."
+msgstr "Bir yazılım bileşenine ait çevrim içi kullanıcı incelemelerini listele."
 
 #. TRANSLATORS: `appstreamcli submit-review` command description.
 #: tools/appstreamcli.c:1680
 msgid "Compose and submit an online review for a software component."
-msgstr ""
+msgstr "Bir yazılım bileşeni için çevrim içi bir inceleme yaz ve gönder."
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstreamcli.c:1689
@@ -3601,17 +3594,15 @@ msgstr "Fiziksel Bellek"
 
 #: tools/ascli-actions-misc.c:607 tools/ascli-actions-misc.c:612
 msgid "Largest Display"
-msgstr ""
+msgstr "En Büyük Ekran"
 
 #: tools/ascli-actions-misc.c:610
 msgid "logical px"
-msgstr ""
+msgstr "mantıksal piksel"
 
 #: tools/ascli-actions-misc.c:612
-#, fuzzy
-#| msgid "Unable to read file."
 msgid "unable to determine"
-msgstr "Dosya okunamıyor."
+msgstr "belirlenemiyor"
 
 #: tools/ascli-actions-misc.c:616
 msgid "Devices with Modaliases"
@@ -3637,85 +3628,84 @@ msgstr "hayır"
 
 #: tools/ascli-actions-misc.c:715
 msgid "Overall rating"
-msgstr ""
+msgstr "Genel değerlendirme"
 
 #: tools/ascli-actions-misc.c:728
-#, fuzzy, c-format
-#| msgid "Found supported software component '%s'."
+#, c-format
 msgid "No reviews found for component '%s'."
-msgstr "Desteklenen yazılım bileşeni '%s' bulundu."
+msgstr "'%s' bileşeni için inceleme bulunamadı."
 
 #: tools/ascli-actions-misc.c:743 tools/ascli-actions-misc.c:844
 msgid "Author"
-msgstr ""
+msgstr "Yazar"
 
 #: tools/ascli-actions-misc.c:746
 msgid "Date"
-msgstr ""
+msgstr "Tarih"
 
 #: tools/ascli-actions-misc.c:796
 #, c-format
 msgid "Composing a review for '%s' to be submitted to %s."
-msgstr ""
+msgstr "'%s' için %s'ye gönderilecek bir inceleme yazılıyor."
 
 #: tools/ascli-actions-misc.c:799
 msgid "Please only review the software itself, and mind that your review will be publicly visible."
-msgstr ""
+msgstr "Lütfen yalnızca yazılımın kendisini değerlendirin ve değerlendirmenizin herkese açık olarak görüntüleneceğini unutmayın."
 
 #. TRANSLATORS: Prompt when composing a review, %s is a user name
 #: tools/ascli-actions-misc.c:804
 #, c-format
 msgid "Your display name (leave empty to use '%s'):"
-msgstr ""
+msgstr "Görünen adınız ('%s' kullanılması için boş bırakın):"
 
 #. TRANSLATORS: Prompt for a star rating when composing a review
 #: tools/ascli-actions-misc.c:811
 msgid "Star rating, from 1 (worst) to 5 (best):"
-msgstr ""
+msgstr "Yıldız değerlendirmesi, 1 (en kötü) ile 5 (en iyi) arasında:"
 
 #. TRANSLATORS: Prompt when composing a review
 #: tools/ascli-actions-misc.c:818
 msgid "Short summary of your review:"
-msgstr ""
+msgstr "İncelemenizin kısa özeti:"
 
 #: tools/ascli-actions-misc.c:824
 msgid "The summary must not be empty and be no longer than 70 characters."
-msgstr ""
+msgstr "Özet alanı boş bırakılmamalı ve 70 karakterden uzun olmamalıdır."
 
 #. TRANSLATORS: Prompt when composing a review
 #: tools/ascli-actions-misc.c:828
 msgid "Detailed review text (end with an empty line):"
-msgstr ""
+msgstr "Ayrıntılı inceleme metni (sonunda bir boş satır bırakın):"
 
 #: tools/ascli-actions-misc.c:830
 msgid "The review text must not be empty."
-msgstr ""
+msgstr "İnceleme metni boş olmamalıdır."
 
 #: tools/ascli-actions-misc.c:851
 msgid "Rating"
-msgstr ""
+msgstr "Değerlendirme"
 
 #: tools/ascli-actions-misc.c:854
 msgid "Review"
-msgstr ""
+msgstr "İnceleme"
 
 #. TRANSLATORS: Prompt before publishing a composed review
 #: tools/ascli-actions-misc.c:861
 msgid "Publish this review?"
-msgstr ""
+msgstr "Bu inceleme yayınlansın mı?"
 
 #: tools/ascli-actions-misc.c:865
 msgid "Review submission cancelled."
-msgstr ""
+msgstr "İnceleme gönderimi iptal edildi."
 
 #: tools/ascli-actions-misc.c:875
 #, c-format
 msgid "Review submitted successfully (ID: %s). Thank you!"
-msgstr ""
+msgstr "İnceleme başarıyla gönderildi (Numarası: %s). Teşekkür ederiz!"
 
 #: tools/ascli-actions-misc.c:878
 msgid "Review submitted successfully. Thank you!"
-msgstr ""
+msgstr "İnceleme başarıyla gönderildi. Teşekkürler!"
 
 #: tools/ascli-actions-pkgmgr.c:53
 msgid "No suitable package manager tool found. Please make sure that e.g. \"pkgcli\" (part of PackageKit) is available."
