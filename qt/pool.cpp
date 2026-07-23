@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016-2024 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2016-2026 Matthias Klumpp <matthias@tenstral.net>
  * Copyright (C) 2023 Kai Uwe Broulik <kde@broulik.de>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
@@ -217,29 +217,17 @@ Pool::Flags Pool::flags() const
 
 void Pool::setFlags(Pool::Flags flags)
 {
-#if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
     as_pool_set_flags(d->pool, (AsPoolFlags) flags.toInt());
-#else
-    as_pool_set_flags(d->pool, (AsPoolFlags) int(flags));
-#endif
 }
 
 void Pool::addFlags(Pool::Flags flags)
 {
-#if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
     as_pool_add_flags(d->pool, (AsPoolFlags) flags.toInt());
-#else
-    as_pool_add_flags(d->pool, (AsPoolFlags) int(flags));
-#endif
 }
 
 void Pool::removeFlags(Pool::Flags flags)
 {
-#if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
     as_pool_remove_flags(d->pool, (AsPoolFlags) flags.toInt());
-#else
-    as_pool_remove_flags(d->pool, (AsPoolFlags) int(flags));
-#endif
 }
 
 void Pool::resetExtraDataLocations()

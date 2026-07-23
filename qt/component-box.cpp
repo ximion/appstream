@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2024 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2019-2026 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -30,11 +30,7 @@ class AppStream::ComponentBoxData : public QSharedData
 public:
     ComponentBoxData(ComponentBox::Flags flags)
     {
-#if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
         m_cbox = as_component_box_new(static_cast<AsComponentBoxFlags>(flags.toInt()));
-#else
-        m_cbox = as_component_box_new((AsComponentBoxFlags) int(flags));
-#endif
     }
 
     ComponentBoxData(AsComponentBox *cbox)
