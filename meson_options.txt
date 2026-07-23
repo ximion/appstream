@@ -8,11 +8,6 @@ option('systemd',
        value : true,
        description : 'Build with systemd support'
 )
-option('wayland',
-       type : 'boolean',
-       value : true,
-       description : 'Autodetect display size on Wayland (build-time dependency on wayland-client headers only)'
-)
 option('vapi',
        type : 'boolean',
        value : false,
@@ -62,6 +57,12 @@ option('blake3-support',
        type : 'boolean',
        value : true,
        description : 'Use Blake3 for hashing in appstream-compose'
+)
+option('display-detection',
+       type : 'combo',
+       choices : ['auto', 'none', 'wayland'],
+       value : 'auto',
+       description : 'Display size backend (auto selects one per platform, none disables it)'
 )
 
 #

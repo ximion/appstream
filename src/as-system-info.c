@@ -1084,6 +1084,45 @@ as_system_info_set_gui_available (AsSystemInfo *sysinfo, gboolean available)
 }
 
 /**
+ * as_get_largest_display_size:
+ * @logical_width: (out): the width of the largest display in logical pixels.
+ * @logical_height: (out): the height of the largest display in logical pixels.
+ * @error: a #GError
+ *
+ * Platform dispatch for display-size autodetection. On platforms without a
+ * usable backend a specific error is returned, otherwise the request is
+ * delegated to the appropriate backend.
+ *
+ * Returns: the #AsCheckResult of the selected backend.
+ */
+static AsCheckResult
+as_get_largest_display_size (gulong *logical_width, gulong *logical_height, GError **error)
+{
+#ifndef HAVE_DISPLAY_DETECTION
+	g_set_error_literal (error,
+			     AS_SYSTEM_INFO_ERROR,
+			     AS_SYSTEM_INFO_ERROR_FAILED,
+			     "AppStream was built without support for display size detection.");
+	return AS_CHECK_RESULT_ERROR;
+#elif defined(__APPLE__)
+	g_set_error_literal (error,
+			     AS_SYSTEM_INFO_ERROR,
+			     AS_SYSTEM_INFO_ERROR_FAILED,
+			     "Automatic display size detection is not yet implemented on macOS.");
+	return AS_CHECK_RESULT_ERROR;
+#elif defined(G_OS_WIN32)
+	g_set_error_literal (error,
+			     AS_SYSTEM_INFO_ERROR,
+			     AS_SYSTEM_INFO_ERROR_FAILED,
+			     "Automatic display size detection is not yet implemented on Windows.");
+	return AS_CHECK_RESULT_ERROR;
+#else
+	/* Linux, the BSDs, etc.: use the Wayland backend. */
+	return as_wayland_display_get_largest_output_size (logical_width, logical_height, error);
+#endif
+}
+
+/**
  * as_system_info_try_autodetect_display_length:
  * @sysinfo: a #AsSystemInfo instance.
  *
@@ -1105,8 +1144,7 @@ as_system_info_try_autodetect_display_length (AsSystemInfo *sysinfo)
 	if (priv->display_length_shortest != 0 || priv->display_length_longest != 0)
 		return;
 
-	if (as_wayland_display_get_largest_output_size (&logical_w, &logical_h, &error) !=
-	    AS_CHECK_RESULT_TRUE) {
+	if (as_get_largest_display_size (&logical_w, &logical_h, &error) != AS_CHECK_RESULT_TRUE) {
 		g_debug ("Unable to autodetect the display size: %s",
 			 error != NULL ? error->message : "No display found.");
 		return;
