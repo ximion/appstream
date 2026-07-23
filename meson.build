@@ -47,17 +47,21 @@ conf.set('HAVE_STEMMING', get_option('stemming'))
 conf.set('HAVE_SYSTEMD', get_option('systemd'))
 display_detection = get_option('display-detection')
 wayland_enabled = false
+macos_display_enabled = false
 if display_detection == 'wayland'
     # explicitly requested, so build the Wayland backend on any platform
     wayland_enabled = true
 elif display_detection == 'auto'
-    # auto-select a backend per platform; Wayland exists everywhere except Windows/macOS
-    if host_machine.system() not in ['windows', 'darwin']
+    # auto-select a backend per platform
+    if host_machine.system() == 'darwin'
+        macos_display_enabled = true
+    elif host_machine.system() != 'windows'
         wayland_enabled = true
     endif
 endif
 conf.set('HAVE_DISPLAY_DETECTION', display_detection != 'none')
 conf.set('HAVE_WAYLAND', wayland_enabled)
+conf.set('HAVE_MACOS_DISPLAY', macos_display_enabled)
 conf.set('HAVE_SVG_SUPPORT', get_option('svg-support'))
 conf.set('HAVE_ZSTD', get_option('zstd-support'))
 conf.set('HAVE_BLAKE3', get_option('blake3-support'))
@@ -207,6 +211,11 @@ if wayland_enabled
     wayland_client_dep = wayland_client_dep.partial_dependency(compile_args: true, includes: true)
 else
     wayland_client_dep = dependency('', required: false)
+endif
+if macos_display_enabled
+    coregraphics_dep = dependency('appleframeworks', modules: ['CoreGraphics'])
+else
+    coregraphics_dep = dependency('', required: false)
 endif
 
 if get_option ('gir')

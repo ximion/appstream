@@ -201,8 +201,10 @@ aslib_deps = [
     xml2_dep,
     fyaml_dep,
     libsystemd_dep,
-    wayland_client_dep,
     zstd_dep,
+    # platform integration
+    wayland_client_dep,
+    coregraphics_dep,
 ]
 if get_option ('stemming')
     aslib_deps += [stemmer_lib]

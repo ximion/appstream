@@ -63,6 +63,9 @@
 #include <systemd/sd-hwdb.h>
 #include <systemd/sd-device.h>
 #endif
+#ifdef HAVE_MACOS_DISPLAY
+#include <CoreGraphics/CoreGraphics.h>
+#endif
 
 #include "as-utils-private.h"
 #include "as-wayland-private.h"
@@ -1083,6 +1086,63 @@ as_system_info_set_gui_available (AsSystemInfo *sysinfo, gboolean available)
 	priv->has_gui = available;
 }
 
+#ifdef HAVE_MACOS_DISPLAY
+/**
+ * as_macos_display_get_largest_output_size:
+ * @logical_width: (out): the width of the largest display in logical pixels.
+ * @logical_height: (out): the height of the largest display in logical pixels.
+ * @error: a #GError
+ *
+ * Find the largest active display via CoreGraphics and return its size in
+ * logical pixels. CoreGraphics reports display bounds in points, which already
+ * account for any HiDPI ("Retina") scaling.
+ *
+ * Having no active display, e.g. in a headless session, is not considered
+ * an error, %AS_CHECK_RESULT_FALSE is returned in that case.
+ */
+static AsCheckResult
+as_macos_display_get_largest_output_size (gulong *logical_width,
+					  gulong *logical_height,
+					  GError **error)
+{
+	CGDirectDisplayID displays[32];
+	uint32_t display_count = 0;
+	CGError cg_error;
+	guint64 best_area = 0;
+	AsCheckResult ret = AS_CHECK_RESULT_FALSE;
+
+	cg_error = CGGetActiveDisplayList (G_N_ELEMENTS (displays), displays, &display_count);
+	if (cg_error != kCGErrorSuccess) {
+		g_set_error (error,
+			     AS_SYSTEM_INFO_ERROR,
+			     AS_SYSTEM_INFO_ERROR_FAILED,
+			     "Unable to list the active displays: CoreGraphics error %d",
+			     (int) cg_error);
+		return AS_CHECK_RESULT_ERROR;
+	}
+
+	for (uint32_t i = 0; i < display_count; i++) {
+		/* display bounds are in points, which are the logical pixels we want */
+		CGRect bounds = CGDisplayBounds (displays[i]);
+		gulong width = (gulong) CGRectGetWidth (bounds);
+		gulong height = (gulong) CGRectGetHeight (bounds);
+		guint64 area = (guint64) width * height;
+
+		if (area > best_area) {
+			best_area = area;
+			*logical_width = width;
+			*logical_height = height;
+			ret = AS_CHECK_RESULT_TRUE;
+		}
+	}
+
+	if (ret != AS_CHECK_RESULT_TRUE)
+		g_debug ("No active display was found to determine the display size.");
+
+	return ret;
+}
+#endif
+
 /**
  * as_get_largest_display_size:
  * @logical_width: (out): the width of the largest display in logical pixels.
@@ -1104,12 +1164,10 @@ as_get_largest_display_size (gulong *logical_width, gulong *logical_height, GErr
 			     AS_SYSTEM_INFO_ERROR_FAILED,
 			     "AppStream was built without support for display size detection.");
 	return AS_CHECK_RESULT_ERROR;
-#elif defined(__APPLE__)
-	g_set_error_literal (error,
-			     AS_SYSTEM_INFO_ERROR,
-			     AS_SYSTEM_INFO_ERROR_FAILED,
-			     "Automatic display size detection is not yet implemented on macOS.");
-	return AS_CHECK_RESULT_ERROR;
+#elif defined(HAVE_WAYLAND)
+	return as_wayland_display_get_largest_output_size (logical_width, logical_height, error);
+#elif defined(HAVE_MACOS_DISPLAY)
+	return as_macos_display_get_largest_output_size (logical_width, logical_height, error);
 #elif defined(G_OS_WIN32)
 	g_set_error_literal (error,
 			     AS_SYSTEM_INFO_ERROR,
@@ -1117,8 +1175,12 @@ as_get_largest_display_size (gulong *logical_width, gulong *logical_height, GErr
 			     "Automatic display size detection is not yet implemented on Windows.");
 	return AS_CHECK_RESULT_ERROR;
 #else
-	/* Linux, the BSDs, etc.: use the Wayland backend. */
-	return as_wayland_display_get_largest_output_size (logical_width, logical_height, error);
+	g_set_error_literal (
+	    error,
+	    AS_SYSTEM_INFO_ERROR,
+	    AS_SYSTEM_INFO_ERROR_FAILED,
+	    "No display size detection backend has been implemented for this platform.");
+	return AS_CHECK_RESULT_ERROR;
 #endif
 }
 
