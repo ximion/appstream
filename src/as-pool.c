@@ -1589,7 +1589,11 @@ as_pool_loader_process_group (AsPool *pool,
 	registry = as_component_registry_new ();
 
 	/* process any MetaInfo and desktop-entry files */
-	as_pool_process_metainfo_desktop_data (pool, registry, lgroup, lgroup->cache_key, cancellable);
+	as_pool_process_metainfo_desktop_data (pool,
+					       registry,
+					       lgroup,
+					       lgroup->cache_key,
+					       cancellable);
 
 	/* process catalog data - we intentionally ignore errors here, and just skip any broken metadata*/
 	as_pool_load_catalog_data (pool, registry, lgroup, cancellable, NULL);
