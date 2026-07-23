@@ -710,7 +710,12 @@ Bundle Component::bundle(Bundle::Kind kind) const
     return Bundle(bundle);
 }
 
-void AppStream::Component::addBundle(const AppStream::Bundle &bundle)
+void AppStream::Component::addBundle(const Bundle &bundle)
+{
+    as_component_add_bundle(d->cpt, bundle.cPtr());
+}
+
+void Component::addBundle(const Bundle &bundle) const
 {
     as_component_add_bundle(d->cpt, bundle.cPtr());
 }
