@@ -258,7 +258,7 @@ public:
     void addBundle(const AppStream::Bundle &bundle);
 
     [[deprecated("addBundle() mutates the component; use a non-const Component")]]
-    void addBundle(const Bundle& bundle) const;
+    void addBundle(const Bundle &bundle) const;
 
     QList<AppStream::Suggested> suggested() const;
     void addSuggested(const AppStream::Suggested &suggested);
