@@ -84,7 +84,7 @@ inline char **stringListToCharArray(const QStringList &list)
     for (int i = 0; i < list.size(); ++i) {
         const QByteArray string = list[i].toUtf8();
         array[i] = (char *) g_malloc(sizeof(char) * (string.size() + 1));
-        strcpy(array[i], string.constData());
+        g_strlcpy(array[i], string.constData(), string.size() + 1);
     }
     array[list.size()] = nullptr;
     return array;
