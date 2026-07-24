@@ -1,3 +1,18 @@
+Version 1.1.5
+~~~~~~~~~~~~~
+Released: 2026-07-24
+
+Features:
+ * sysinfo: Implement display size detection on macOS
+
+Bugfixes:
+ * qt: Add back wrong const Component::addBundle for ABI compatibility
+ * qt: Use strndup for C string-list conversion
+ * pool: Fix bidirectional wildcard search for modalias provides
+
+Contributors:
+ Matthias Klumpp
+
 Version 1.1.4
 ~~~~~~~~~~~~~
 Released: 2026-07-22
