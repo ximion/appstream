@@ -398,6 +398,30 @@ test_pool_read (void)
 
 	g_clear_pointer (&result, g_object_unref);
 
+	/* modalias provided items support wildcard matching */
+	result = as_pool_get_components_by_provided_item (dpool,
+							  AS_PROVIDED_KIND_MODALIAS,
+							  "usb:v1130p0202d0001");
+	print_cptbox (result);
+	g_assert_cmpint (as_component_box_len (result), ==, 1);
+	cpt_s = as_component_box_index (result, 0);
+	g_assert_cmpstr (as_component_get_id (cpt_s), ==, "org.example.TestApp");
+	g_clear_pointer (&result, g_object_unref);
+
+	/* an exact match on the stored pattern itself must work as well */
+	result = as_pool_get_components_by_provided_item (dpool,
+							  AS_PROVIDED_KIND_MODALIAS,
+							  "usb:v1130p0202d*");
+	g_assert_cmpint (as_component_box_len (result), ==, 1);
+	g_clear_pointer (&result, g_object_unref);
+
+	/* an unrelated modalias must not match */
+	result = as_pool_get_components_by_provided_item (dpool,
+							  AS_PROVIDED_KIND_MODALIAS,
+							  "usb:v9999p0000d0");
+	g_assert_cmpint (as_component_box_len (result), ==, 0);
+	g_clear_pointer (&result, g_object_unref);
+
 	/* by bundle ID */
 	result = as_pool_get_components_by_bundle_id (dpool,
 						      AS_BUNDLE_KIND_LIMBA,

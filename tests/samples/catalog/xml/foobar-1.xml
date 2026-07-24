@@ -384,6 +384,9 @@
     <recommends>
       <kernel version="4.15" compare="ge">Linux</kernel>
     </recommends>
+    <provides>
+        <modalias>usb:v1130p0202d*</modalias>
+    </provides>
   </component>
   <component type="desktop-application">
     <id>literki.desktop</id>

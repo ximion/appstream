@@ -1715,6 +1715,76 @@ as_cache_get_components_by_kind (AsCache *cache, AsComponentKind kind, GError **
 }
 
 /**
+ * as_cache_get_components_by_modalias:
+ *
+ * Provided modaliases may contain wildcard patterns, so we test the requested
+ * modalias against every stored value and only deserialize the components
+ * which actually match.
+ */
+static AsComponentBox *
+as_cache_get_components_by_modalias (AsCache *cache, const gchar *modalias, GError **error)
+{
+	AsCachePrivate *priv = GET_PRIVATE (cache);
+	g_autoptr(AsQueryContext) qctx = NULL;
+	g_autoptr(GRWLockReaderLocker) locker = g_rw_lock_reader_locker_new (&priv->rw_lock);
+
+	qctx = as_query_context_new ();
+	for (guint i = 0; i < priv->sections->len; i++) {
+		g_autoptr(GPtrArray) array = NULL;
+		g_autoptr(GError) tmp_error = NULL;
+		g_autoptr(XbQuery) query = NULL;
+		AsCacheSection *csec = (AsCacheSection *) g_ptr_array_index (priv->sections, i);
+
+		query = xb_query_new (csec->silo,
+				      "components/component/provides/modalias",
+				      &tmp_error);
+		if (query == NULL) {
+			g_propagate_prefixed_error (error,
+						    g_steal_pointer (&tmp_error),
+						    "Unable to construct query: ");
+			return NULL;
+		}
+
+		array = xb_silo_query_with_context (csec->silo, query, NULL, &tmp_error);
+		if (array == NULL) {
+			if (g_error_matches (tmp_error, G_IO_ERROR, G_IO_ERROR_NOT_FOUND))
+				continue;
+			if (g_error_matches (tmp_error, G_IO_ERROR, G_IO_ERROR_INVALID_ARGUMENT))
+				continue;
+			g_propagate_prefixed_error (error,
+						    g_steal_pointer (&tmp_error),
+						    "Unable to run query: ");
+			return NULL;
+		}
+
+		for (guint j = 0; j < array->len; j++) {
+			XbNode *ma_node = XB_NODE (g_ptr_array_index (array, j));
+			const gchar *pattern = xb_node_get_text (ma_node);
+			g_autoptr(XbNode) provides_node = NULL;
+			g_autoptr(XbNode) cpt_node = NULL;
+
+			if (pattern == NULL)
+				continue;
+			if (g_strcmp0 (pattern, modalias) != 0 &&
+			    !g_pattern_match_simple (pattern, modalias))
+				continue;
+
+			provides_node = xb_node_get_parent (ma_node);
+			cpt_node = xb_node_get_parent (provides_node);
+			if (!as_query_context_add_component_from_node (qctx,
+								       cache,
+								       csec,
+								       cpt_node,
+								       0,
+								       error))
+				return NULL;
+		}
+	}
+
+	return as_query_context_retrieve_components (qctx);
+}
+
+/**
  * as_cache_get_components_by_provided_item:
  * @cache: An instance of #AsCache.
  * @kind: Kind of the provided item.
@@ -1737,6 +1807,11 @@ as_cache_get_components_by_provided_item (AsCache *cache,
 	g_autofree gchar *xpath_query = NULL;
 	g_auto(XbQueryContext) context = XB_QUERY_CONTEXT_INIT ();
 	XbValueBindings *vbindings = xb_query_context_get_bindings (&context);
+
+	/* modalias entries may contain wildcard patterns, which we can not match via
+	 * an XPath query - they need special treatment */
+	if (kind == AS_PROVIDED_KIND_MODALIAS)
+		return as_cache_get_components_by_modalias (cache, item, error);
 
 	xpath_query_tmpl = "components/component/provides/%s[text()=?]/../..";
 	xpath_query_type_tmpl = "components/component/provides/%s[@type='%s'][text()=?]/../..";

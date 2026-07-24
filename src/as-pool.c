@@ -1941,6 +1941,8 @@ as_pool_get_components_by_id (AsPool *pool, const gchar *cid)
  * @item: The value of the provided item.
  *
  * Find components in the AppStream data pool which provide a certain item.
+ * Provided items of type %AS_PROVIDED_KIND_MODALIAS may contain wildcards,
+ * which are matched against the searched item as well.
  *
  * Returns: (transfer full): an #AsComponentBox of found components.
  */
