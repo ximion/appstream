@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-07-21 21:21+0200\n"
-"PO-Revision-Date: 2026-03-06 03:10+0000\n"
+"PO-Revision-Date: 2026-07-29 22:01+0000\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
 "Language-Team: Kazakh <https://hosted.weblate.org/projects/appstream/translations/kk/>\n"
 "Language: kk\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.17-dev\n"
+"X-Generator: Weblate 2026.8.dev0\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1381,21 +1381,21 @@ msgstr "%s %s ядросына қолдау көрсетіледі."
 #: src/as-relation.c:1738
 #, c-format
 msgid "This software requires %s %.2f GiB of memory, but this system has %.2f GiB."
-msgstr "Бұл бағдарламалық қамтамаға %s %.2f ГБ жад қажет, бірақ бұл жүйеде %.2f ГБ бар."
+msgstr "Бұл бағдарламалық қамтамаға %s %.2f ГиБ жады қажет, бірақ бұл жүйеде %.2f ГиБ бар."
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory and fourth is the amount of memory we have.
 #: src/as-relation.c:1747
 #, c-format
 msgid "This software recommends %s %.2f GiB of memory, but this system has %.2f GiB."
-msgstr "Бұл бағдарламалық қамтама %s %.2f ГБ жадты ұсынады, бірақ бұл жүйеде %.2f ГБ бар."
+msgstr "Бұл бағдарламалық қамтама %s %.2f ГиБ жадты ұсынады, бірақ бұл жүйеде %.2f ГиБ бар."
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory.
 #: src/as-relation.c:1756
 #, c-format
 msgid "This software supports %s %.2f GiB of memory."
-msgstr "Бұл бағдарламалық қамтама %s %.2f ГБ жадты қолдайды."
+msgstr "Бұл бағдарламалық қамтама %s %.2f ГиБ жадты қолдайды."
 
 #: src/as-relation.c:1772
 msgid "This system has sufficient memory for this software."
@@ -1446,26 +1446,23 @@ msgstr "'%s' типті қатынас элементтерінің қанаға
 #: src/as-reviews-client.c:976 src/as-reviews-client.c:1069
 #, c-format
 msgid "The reviews server rejected the request: %s"
-msgstr ""
+msgstr "Пікірлер сервері сұрауды қабылдамады: %s"
 
 #. TRANSLATORS: We failed to communicate with the ODRS review server, %s is an error message
 #: src/as-reviews-client.c:983
 #, c-format
 msgid "Unable to communicate with the reviews server: %s"
-msgstr ""
+msgstr "Пікірлер серверімен байланысу мүмкін емес: %s"
 
 #: src/as-reviews-client.c:1070
-#, fuzzy
-#| msgid "Unknown"
 msgid "Unknown reason"
-msgstr "Белгісіз"
+msgstr "Белгісіз себеп"
 
 #. TRANSLATORS: We failed to fetch a software rating from the ODRS review server
 #: src/as-reviews-client.c:1247
-#, fuzzy, c-format
-#| msgid "Unable to spawn package manager: %s"
+#, c-format
 msgid "Unable to fetch software rating: %s"
-msgstr "Десте менеджерін іске қосу мүмкін емес: %s"
+msgstr "Бағдарламалық қамтама рейтингін жүктеп алу мүмкін емес: %s"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:39
@@ -1713,7 +1710,9 @@ msgstr "Компонент ID-і атауы үшін кері домендік �
 msgid ""
 "The component ID is not a reverse domain-name. Please update the ID to avoid future issues and be compatible with all AppStream implementations.\n"
 "You may also consider to update the name of the accompanying .desktop file to follow the latest version of the Desktop-Entry specification and use a rDNS name for it as well. In any case, do not forget to mention the new desktop-entry in a <launchable/> tag for this component to keep the application launchable from software centers and the .desktop file data associated with the metainfo data."
-msgstr "Компонент ID-і кері домендік атау емес. Болашақтағы мәселелерді болдырмау және барлық AppStream іске асыруларымен үйлесімді болу үшін ID-ді жаңартыңыз. Сондай-ақ, ілеспе .desktop файлының атауын Desktop-Entry спецификациясының соңғы нұсқасына сәйкес келетіндей етіп жаңартып, ол үшін де rDNS атауын пайдалануды қарастыруыңызға болады. Кез келген жағдайда, қолданбаны бағдарламалық орталықтардан іске қосу мүмкіндігін сақтау және .desktop файлының деректерін metainfo деректерімен байланыстыру үшін осы компонентке арналған <launchable/> тегінде жаңа desktop-entry-ді атап өтуді ұмытпаңыз."
+msgstr ""
+"Компонент ID-і кері домендік атау емес. Болашақтағы мәселелерді болдырмау және барлық AppStream іске асыруларымен үйлесімді болу үшін ID-ді жаңартыңыз.\n"
+"Сондай-ақ, ілеспе .desktop файлының атауын Desktop-Entry спецификациясының соңғы нұсқасына сәйкес келетіндей етіп жаңартып, ол үшін де rDNS атауын пайдалануды қарастыруыңызға болады. Кез келген жағдайда, қолданбаны бағдарламалық орталықтардан іске қосу мүмкіндігін сақтау және .desktop файлының деректерін metainfo деректерімен байланыстыру үшін осы компонентке арналған <launchable/> тегінде жаңа desktop-entry-ді атап өтуді ұмытпаңыз."
 
 #: src/as-validator-issue-tag.h:147
 msgid "The component ID might not follow the reverse domain-name schema (the TLD used by it is not known to the validator)."
@@ -2053,7 +2052,7 @@ msgstr "Metainfo файлдарында тек `stock` немесе `remote` т�
 #. TRANSLATORS: Please do not translate names in backticks.
 #: src/as-validator-issue-tag.h:575
 msgid "This icon uses an unsupported file format. Icons should be PNG, JPEG-XL (`.jxl`) or vector graphics (`.svg`/`.svgz`) images."
-msgstr ""
+msgstr "Бұл таңбаша қолдау көрсетілмейтін файл пішімін пайдаланады. Таңбашалар PNG, JPEG-XL (`.jxl`) немесе векторлық графика (`.svg`/`.svgz`) суреттері болуы керек."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:582
@@ -2415,10 +2414,8 @@ msgid "The issue is tagged at security vulnerability with a CVE number, but its 
 msgstr "Мәселе CVE нөмірі бар қауіпсіздік осалдығы ретінде белгіленген, бірақ оның мәні жарамды CVE идентификаторына ұқсамайды."
 
 #: src/as-validator-issue-tag.h:1043
-#, fuzzy
-#| msgid "The issue is tagged at security vulnerability with a CVE number, but its value does not look like a valid CVE identifier."
 msgid "The issue is tagged as security vulnerability with a GCVE identifier, but its value does not follow the `GCVE-<GNA-ID>-<YEAR>-<UNIQUE-ID>` scheme of the Global CVE Allocation System."
-msgstr "Мәселе CVE нөмірі бар қауіпсіздік осалдығы ретінде белгіленген, бірақ оның мәні жарамды CVE идентификаторына ұқсамайды."
+msgstr "Мәселе GCVE идентификаторы бар қауіпсіздік осалдығы ретінде белгіленген, бірақ оның мәні Global CVE Allocation System жүйесінің `GCVE-<GNA-ID>-<YEAR>-<UNIQUE-ID>` сұлбасына сәйкес келмейді."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1050
@@ -2494,7 +2491,7 @@ msgstr "`content_attribute` тегінің мәні белгісіз."
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1141
 msgid "The `content_attribute` tag value is invalid for the given id."
-msgstr "`content_attribute` тегінің мәні берілген ID үшін жарамсыз."
+msgstr "`content_attribute` тегінің мәні берілген идентификатор үшін жарамсыз."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1147
@@ -2844,22 +2841,22 @@ msgstr "Табылған компоненттер туралы толық ақп
 #. TRANSLATORS: ascli flag description for: --server (used by the "list-reviews" command)
 #: tools/appstreamcli.c:126
 msgid "URL of the ODRS-compatible reviews server to use."
-msgstr ""
+msgstr "Пайдалану үшін ODRS-үйлесімді тексерулер серверінің URL мекенжайы."
 
 #. TRANSLATORS: ascli flag description for: --start (used by the "list-reviews" command)
 #: tools/appstreamcli.c:132
 msgid "Index of the first review to fetch, to page through all reviews."
-msgstr ""
+msgstr "Барлық тексерулерді парақтау үшін жүктелетін алғашқы тексерудің индексі."
 
 #. TRANSLATORS: ascli flag description for: --limit (used by the "list-reviews" command)
 #: tools/appstreamcli.c:138
 msgid "Maximum number of reviews to fetch."
-msgstr ""
+msgstr "Жүктелетін пікірлердің максималды саны."
 
 #. TRANSLATORS: ascli flag description for: --locale (used by the "list-reviews" and "submit-review" commands)
 #: tools/appstreamcli.c:144
 msgid "Locale to prefer for reviews, instead of the current system locale."
-msgstr ""
+msgstr "Ағымдағы жүйелік локальдың орнына пікірлер үшін таңдалатын локаль."
 
 #. TRANSLATORS: ascli flag description for: --pedantic (used by the "validate" command)
 #: tools/appstreamcli.c:165
@@ -3182,15 +3179,13 @@ msgstr "Бума ағаштарынан AppStream метадеректер ка�
 
 #. TRANSLATORS: `appstreamcli list-reviews` command description.
 #: tools/appstreamcli.c:1667
-#, fuzzy
-#| msgid "We have information on %i software components."
 msgid "List online user reviews for a software component."
-msgstr "Бізде %i бағдарламалық қамтама компоненті туралы ақпарат бар."
+msgstr "Бағдарламалық қамтама компонентіне арналған онлайн пайдаланушы пікірлерін тізімдеу."
 
 #. TRANSLATORS: `appstreamcli submit-review` command description.
 #: tools/appstreamcli.c:1680
 msgid "Compose and submit an online review for a software component."
-msgstr ""
+msgstr "Бағдарламалық қамтама компонентіне арналған онлайн пікірді жазу және жіберу."
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstreamcli.c:1689
@@ -3575,17 +3570,15 @@ msgstr "Физикалық жады"
 
 #: tools/ascli-actions-misc.c:607 tools/ascli-actions-misc.c:612
 msgid "Largest Display"
-msgstr ""
+msgstr "Ең үлкен дисплей"
 
 #: tools/ascli-actions-misc.c:610
 msgid "logical px"
-msgstr ""
+msgstr "логикалық пиксель"
 
 #: tools/ascli-actions-misc.c:612
-#, fuzzy
-#| msgid "Unable to read file."
 msgid "unable to determine"
-msgstr "Файлды оқу мүмкін емес."
+msgstr "анықтау мүмкін емес"
 
 #: tools/ascli-actions-misc.c:616
 msgid "Devices with Modaliases"
@@ -3611,85 +3604,84 @@ msgstr "жоқ"
 
 #: tools/ascli-actions-misc.c:715
 msgid "Overall rating"
-msgstr ""
+msgstr "Жалпы рейтинг"
 
 #: tools/ascli-actions-misc.c:728
-#, fuzzy, c-format
-#| msgid "Found supported software component '%s'."
+#, c-format
 msgid "No reviews found for component '%s'."
-msgstr "Қолдау көрсетілетін '%s' бағдарламалық қамтама компоненті табылды."
+msgstr "'%s' компоненті үшін пікірлер табылмады."
 
 #: tools/ascli-actions-misc.c:743 tools/ascli-actions-misc.c:844
 msgid "Author"
-msgstr ""
+msgstr "Автор"
 
 #: tools/ascli-actions-misc.c:746
 msgid "Date"
-msgstr ""
+msgstr "Күні"
 
 #: tools/ascli-actions-misc.c:796
 #, c-format
 msgid "Composing a review for '%s' to be submitted to %s."
-msgstr ""
+msgstr "'%s' үшін %s серверіне жіберілетін пікірді жазу."
 
 #: tools/ascli-actions-misc.c:799
 msgid "Please only review the software itself, and mind that your review will be publicly visible."
-msgstr ""
+msgstr "Тек бағдарламалық қамтаманың өзін тексеріңіз және тексеруіңіз көпшілікке көрінетінін ескеріңіз."
 
 #. TRANSLATORS: Prompt when composing a review, %s is a user name
 #: tools/ascli-actions-misc.c:804
 #, c-format
 msgid "Your display name (leave empty to use '%s'):"
-msgstr ""
+msgstr "Көрсетілетін атыңыз ('%s' пайдалану үшін бос қалдырыңыз):"
 
 #. TRANSLATORS: Prompt for a star rating when composing a review
 #: tools/ascli-actions-misc.c:811
 msgid "Star rating, from 1 (worst) to 5 (best):"
-msgstr ""
+msgstr "Жұлдызшалы рейтинг, 1-ден (ең нашар) 5-ке (ең жақсы) дейін:"
 
 #. TRANSLATORS: Prompt when composing a review
 #: tools/ascli-actions-misc.c:818
 msgid "Short summary of your review:"
-msgstr ""
+msgstr "Пікіріңіздің қысқаша қорытындысы:"
 
 #: tools/ascli-actions-misc.c:824
 msgid "The summary must not be empty and be no longer than 70 characters."
-msgstr ""
+msgstr "Қорытынды бос болмауы керек және 70 таңбадан ұзақ болмауы керек."
 
 #. TRANSLATORS: Prompt when composing a review
 #: tools/ascli-actions-misc.c:828
 msgid "Detailed review text (end with an empty line):"
-msgstr ""
+msgstr "Пікірдің толық мәтіні (соңында бос жол қалдырыңыз):"
 
 #: tools/ascli-actions-misc.c:830
 msgid "The review text must not be empty."
-msgstr ""
+msgstr "Пікір мәтіні бос болмауы керек."
 
 #: tools/ascli-actions-misc.c:851
 msgid "Rating"
-msgstr ""
+msgstr "Рейтинг"
 
 #: tools/ascli-actions-misc.c:854
 msgid "Review"
-msgstr ""
+msgstr "Пікір"
 
 #. TRANSLATORS: Prompt before publishing a composed review
 #: tools/ascli-actions-misc.c:861
 msgid "Publish this review?"
-msgstr ""
+msgstr "Бұл пікірді жариялау керек пе?"
 
 #: tools/ascli-actions-misc.c:865
 msgid "Review submission cancelled."
-msgstr ""
+msgstr "Пікірді жіберуден бас тартылды."
 
 #: tools/ascli-actions-misc.c:875
 #, c-format
 msgid "Review submitted successfully (ID: %s). Thank you!"
-msgstr ""
+msgstr "Пікір сәтті жіберілді (идентификатор: %s). Рақмет!"
 
 #: tools/ascli-actions-misc.c:878
 msgid "Review submitted successfully. Thank you!"
-msgstr ""
+msgstr "Пікір сәтті жіберілді. Рақмет!"
 
 #: tools/ascli-actions-pkgmgr.c:53
 msgid "No suitable package manager tool found. Please make sure that e.g. \"pkgcli\" (part of PackageKit) is available."
