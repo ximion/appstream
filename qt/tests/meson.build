@@ -18,7 +18,7 @@ asqt_test_pool_src += qt.preprocess (moc_sources: asqt_test_pool_src)
 
 as_test_qt_pool_exe = executable('as-test_qt-pool',
     [asqt_test_pool_src],
-    dependencies: [qt_test_dep],
+    dependencies: [qt_test_dep, appstream_dep],
     include_directories: [include_directories('..')],
     link_with: [appstreamqt_lib],
     cpp_args: asqt_cpp_args,
@@ -36,7 +36,7 @@ asqt_test_misc_src += qt.preprocess (moc_sources: asqt_test_misc_src)
 
 as_test_qt_misc_exe = executable('as-test_qt-misc',
     [asqt_test_misc_src],
-    dependencies: [qt_test_dep],
+    dependencies: [qt_test_dep, appstream_dep],
     include_directories: [include_directories('..')],
     link_with: [appstreamqt_lib],
     cpp_args: asqt_cpp_args,
