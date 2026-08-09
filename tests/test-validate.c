@@ -233,44 +233,52 @@ test_validator_manyerrors_desktopapp (void)
 		    16, AS_ISSUE_SEVERITY_ERROR,
 		 },
 		{
+		    "description-markup-attribute-invalid", "em/@id",
+		    18, AS_ISSUE_SEVERITY_WARNING,
+		 },
+		{
+		    "description-markup-nesting-too-deep", "em",
+		    18, AS_ISSUE_SEVERITY_ERROR,
+		 },
+		{
 		    "web-url-expected", "not a link",
-		    20, AS_ISSUE_SEVERITY_ERROR,
+		    21, AS_ISSUE_SEVERITY_ERROR,
 		 },
 		{
 		    "url-not-secure", "http://www.example.org/insecure-url",
-		    21, AS_ISSUE_SEVERITY_INFO,
+		    22, AS_ISSUE_SEVERITY_INFO,
 		 },
 		{
 		    "url-redefined", "homepage",
-		    22, AS_ISSUE_SEVERITY_WARNING,
+		    23, AS_ISSUE_SEVERITY_WARNING,
 		 },
 		{
 		    "release-urgency-invalid", "superduperhigh",
-		    27, AS_ISSUE_SEVERITY_WARNING,
+		    28, AS_ISSUE_SEVERITY_WARNING,
 		 },
 		{
 		    "web-url-expected", "not an URL",
-		    32, AS_ISSUE_SEVERITY_ERROR,
+		    33, AS_ISSUE_SEVERITY_ERROR,
 		 },
 		{
 		    "release-issue-is-cve-but-no-cve-id", "hmm...",
-		    34, AS_ISSUE_SEVERITY_WARNING,
-		 },
-		{
-		    "release-issue-is-gcve-but-no-gcve-id", "nope",
 		    35, AS_ISSUE_SEVERITY_WARNING,
 		 },
 		{
+		    "release-issue-is-gcve-but-no-gcve-id", "nope",
+		    36, AS_ISSUE_SEVERITY_WARNING,
+		 },
+		{
 		    "artifact-invalid-platform-triplet", "OS/Kernel invalid: lunix",
-		    40, AS_ISSUE_SEVERITY_WARNING,
+		    41, AS_ISSUE_SEVERITY_WARNING,
 		 },
 		{
 		    "artifact-filename-not-basename", "/root/file.dat",
-		    46, AS_ISSUE_SEVERITY_ERROR,
+		    47, AS_ISSUE_SEVERITY_ERROR,
 		 },
 		{
 		    "release-type-invalid", "unstable",
-		    50, AS_ISSUE_SEVERITY_WARNING,
+		    51, AS_ISSUE_SEVERITY_WARNING,
 		 },
 
 		{ NULL, NULL, 0, AS_ISSUE_SEVERITY_UNKNOWN }

@@ -15,6 +15,7 @@ to contain a lot of issues for the validator to catch -->
     <p>
       Have some <b>invalid</b> markup as well as some <code>valid</code> one.
     </p>
+    <p>Attributes like <em id="x">this</em> as well as <em><em><em><em>deep nesting</em></em></em></em> are invalid too.</p>
   </description>
 
   <url type="homepage">not a link</url>

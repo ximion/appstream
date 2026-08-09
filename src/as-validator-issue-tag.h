@@ -70,6 +70,18 @@ static AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	  N_("This description paragraph contains invalid markup. Currently, only <em/> and <code/> are permitted.")
 	},
 
+	{ "description-markup-attribute-invalid",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  N_("Elements of description markup must not have any attributes set, with the exception of a language property on paragraphs and list items in MetaInfo files. "
+	     "Any other attribute is not permitted and will be removed when the metadata is read.")
+	},
+
+	{ "description-markup-nesting-too-deep",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  N_("The markup in this description is nested too deeply. "
+	     "Excessively nested markup will be flattened to plain text when the metadata is read.")
+	},
+
 	{ "description-enum-item-invalid",
 	  AS_ISSUE_SEVERITY_ERROR,
 	  N_("Enumerations must only have list items (<li/>) as children.")

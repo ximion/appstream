@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2014-2025 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2014-2026 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -947,11 +947,45 @@ as_validator_first_word_capitalized (AsValidator *validator,
 }
 
 /**
- * as_validator_check_description_paragraph:
+ * as_validator_check_description_markup_props:
+ *
+ * Check that no unexpected attributes are set on a description markup element.
+ * Only paragraphs and list items may carry a language property (in MetaInfo files),
+ * any other attribute is never permitted.
  **/
 static void
-as_validator_check_description_paragraph (AsValidator *validator, xmlNode *node)
+as_validator_check_description_markup_props (AsValidator *validator,
+					     xmlNode *node,
+					     gboolean allow_lang)
 {
+	for (xmlAttr *attr = node->properties; attr != NULL; attr = attr->next) {
+		const gchar *attr_name = (const gchar *) attr->name;
+
+		if (allow_lang && as_str_equal0 (attr_name, "lang"))
+			continue;
+
+		as_validator_add_issue (validator,
+					node,
+					"description-markup-attribute-invalid",
+					"%s/@%s",
+					(const gchar *) node->name,
+					attr_name);
+	}
+}
+
+/**
+ * as_validator_check_description_paragraph:
+ *
+ * Check the contents of a description paragraph or list item for markup
+ * that is not permitted there.
+ **/
+static void
+as_validator_check_description_paragraph (AsValidator *validator, xmlNode *node, guint depth)
+{
+	/* the paragraph or list item itself may only be localized */
+	if (depth == 0)
+		as_validator_check_description_markup_props (validator, node, TRUE);
+
 	for (xmlNode *iter = node->children; iter != NULL; iter = iter->next) {
 		const gchar *node_name;
 		/* discard spaces */
@@ -959,8 +993,23 @@ as_validator_check_description_paragraph (AsValidator *validator, xmlNode *node)
 			continue;
 		node_name = (const gchar *) iter->name;
 
-		if ((g_strcmp0 (node_name, "em") == 0) || (g_strcmp0 (node_name, "code") == 0))
+		if (as_str_equal0 (node_name, "em") || as_str_equal0 (node_name, "code")) {
+			as_validator_check_description_markup_props (validator, iter, FALSE);
+
+			/* excessive nesting is not processed by the XML parser either */
+			if (depth + 1 >= AS_DESCRIPTION_MARKUP_MAX_DEPTH) {
+				as_validator_add_issue (validator,
+							iter,
+							"description-markup-nesting-too-deep",
+							"%s",
+							node_name);
+				continue;
+			}
+
+			/* the markup may not contain anything invalid either */
+			as_validator_check_description_paragraph (validator, iter, depth + 1);
 			continue;
+		}
 
 		as_validator_add_issue (validator,
 					iter,
@@ -983,6 +1032,9 @@ as_validator_check_description_enumeration (AsValidator *validator,
 					"description-enum-group-translated",
 					"description/%s",
 					(const gchar *) node->name);
+	as_validator_check_description_markup_props (validator,
+						     node,
+						     mode == AS_FORMAT_STYLE_METAINFO);
 
 	for (xmlNode *iter = node->children; iter != NULL; iter = iter->next) {
 		const gchar *node_name;
@@ -996,7 +1048,7 @@ as_validator_check_description_enumeration (AsValidator *validator,
 
 			tag_path = g_strdup_printf ("%s/%s", (const gchar *) node->name, node_name);
 			as_validator_check_content_empty (validator, iter, tag_path);
-			as_validator_check_description_paragraph (validator, iter);
+			as_validator_check_description_paragraph (validator, iter, 0);
 
 			if (mode == AS_FORMAT_STYLE_CATALOG) {
 				as_validator_check_nolocalized (
@@ -1098,7 +1150,7 @@ as_validator_check_description_tag (AsValidator *validator,
 							NULL);
 
 			/* validate common stuff */
-			as_validator_check_description_paragraph (validator, iter);
+			as_validator_check_description_paragraph (validator, iter, 0);
 		} else if (g_strcmp0 (node_name, "ul") == 0) {
 			as_validator_check_description_enumeration (validator, mode, iter);
 
