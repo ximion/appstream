@@ -574,6 +574,131 @@ test_appstream_description_l10n_cleanup (void)
 }
 
 /**
+ * test_appstream_read_description_sanitize:
+ *
+ * Test that invalid and malicious markup is removed from descriptions
+ * when they are read.
+ */
+static void
+test_appstream_read_description_sanitize (void)
+{
+	g_autoptr(AsComponent) cpt = NULL;
+	g_autofree gchar *res_mi = NULL;
+	g_autofree gchar *res_catalog = NULL;
+	/* MetaInfo data with all kinds of markup that must not be preserved */
+	const gchar *xmldata_desc_mi =
+	    "<component>\n"
+	    "  <id>org.example.DescSanitizeMI</id>\n"
+	    "  <description>\n"
+	    /* an element hidden behind permitted inline markup */
+	    "    <p><em><script>alert(1)</script></em></p>\n"
+	    /* attributes are never permitted */
+	    "    <p>Hello <em onclick=\"evil()\">World</em> and <code lang=\"c\">code</code>!</p>\n"
+	    /* comments, CDATA sections and processing instructions */
+	    "    <p>A<!-- comment -->B<![CDATA[<script>x</script>]]>C<?php evil(); ?>D</p>\n"
+	    /* text that needs to be escaped again on output */
+	    "    <p>Fish &amp; chips &lt;3 for 5 &gt; 2</p>\n"
+	    /* excessively nested markup */
+	    "    <p><em><em><em><em><em><em>deep</em></em></em></em></em></em></p>\n"
+	    /* the same again for list items, including a non-item in a list */
+	    "    <ul>\n"
+	    "      <li><em><script>alert(2)</script></em></li>\n"
+	    "      <li><a href=\"http://example.org\">link</a> text</li>\n"
+	    "      <script>alert(3)</script>\n"
+	    "    </ul>\n"
+	    /* an invalid block-level element */
+	    "    <script>alert(4)</script>\n"
+	    "  </description>\n"
+	    "</component>\n";
+	/* the same in catalog XML, where the description is dumped verbatim */
+	const gchar *xmldata_desc_catalog =
+	    "<components version=\"1.0\">\n"
+	    "  <component>\n"
+	    "    <id>org.example.DescSanitizeCatalog</id>\n"
+	    "    <description>\n"
+	    "      <p><em><script>alert(1)</script></em></p>\n"
+	    "      <p>Hello <em onclick=\"evil()\">World</em>!</p>\n"
+	    "      <ul><li>Item <b>bold</b></li><script>alert(2)</script></ul>\n"
+	    "      <script>alert(3)</script>\n"
+	    "    </description>\n"
+	    "  </component>\n"
+	    "</components>\n";
+
+	cpt = as_xml_test_read_data (xmldata_desc_mi, AS_FORMAT_STYLE_METAINFO);
+	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.DescSanitizeMI");
+
+	g_assert_true (as_test_compare_lines (as_component_get_description (cpt),
+					      "<p><em>alert(1)</em></p>\n"
+					      "<p>Hello <em>World</em> and <code>code</code>!</p>\n"
+					      "<p>AB&lt;script&gt;x&lt;/script&gt;CD</p>\n"
+					      "<p>Fish &amp; chips &lt;3 for 5 &gt; 2</p>\n"
+					      "<p><em><em><em>deep</em></em></em></p>\n"
+					      "<ul>\n"
+					      "  <li><em>alert(2)</em></li>\n"
+					      "  <li>link text</li>\n"
+					      "</ul>\n"));
+
+	/* the sanitized markup must survive a write/read cycle unmodified */
+	res_mi = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_METAINFO);
+	g_assert_null (g_strstr_len (res_mi, -1, "<script>"));
+	g_assert_null (g_strstr_len (res_mi, -1, "onclick"));
+	res_catalog = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_CATALOG);
+	g_assert_null (g_strstr_len (res_catalog, -1, "<script>"));
+	g_assert_null (g_strstr_len (res_catalog, -1, "onclick"));
+
+	/* markup that was set via the API bypasses all readers, so the writer needs
+	 * to reject it as well */
+	{
+		g_autoptr(AsComponent) cpt_api = as_component_new ();
+		g_autofree gchar *res_mi_api = NULL;
+		g_autofree gchar *res_cat_api = NULL;
+
+		as_component_set_id (cpt_api, "org.example.DescSanitizeAPI");
+		as_component_set_description (
+		    cpt_api,
+		    "<p>Hello <em onclick=\"evil()\">World</em><script>alert(1)</script></p>\n"
+		    "<ul><li>Item <b>bold</b></li><script>alert(2)</script></ul>\n"
+		    "<script>alert(3)</script>\n",
+		    "C");
+
+		res_mi_api = as_xml_test_serialize (cpt_api, AS_FORMAT_STYLE_METAINFO);
+		g_assert_null (g_strstr_len (res_mi_api, -1, "<script"));
+		g_assert_null (g_strstr_len (res_mi_api, -1, "onclick"));
+		g_assert_nonnull (g_strstr_len (res_mi_api, -1, "<em>World</em>"));
+
+		res_cat_api = as_xml_test_serialize (cpt_api, AS_FORMAT_STYLE_CATALOG);
+		g_assert_null (g_strstr_len (res_cat_api, -1, "<script"));
+		g_assert_null (g_strstr_len (res_cat_api, -1, "onclick"));
+		g_assert_nonnull (g_strstr_len (res_cat_api, -1, "<em>World</em>"));
+	}
+
+	/* the catalog XML path dumps the description contents directly */
+	{
+		g_autoptr(AsMetadata) metad = as_metadata_new ();
+		g_autoptr(GError) error = NULL;
+		AsComponent *cpt_c;
+
+		as_metadata_set_locale (metad, "ALL");
+		as_metadata_set_format_style (metad, AS_FORMAT_STYLE_CATALOG);
+		as_metadata_parse_data (metad,
+					xmldata_desc_catalog,
+					-1,
+					AS_FORMAT_KIND_XML,
+					&error);
+		g_assert_no_error (error);
+
+		cpt_c = as_component_box_index (as_metadata_get_components (metad), 0);
+		g_assert_cmpstr (as_component_get_id (cpt_c),
+				 ==,
+				 "org.example.DescSanitizeCatalog");
+		g_assert_true (as_test_compare_lines (as_component_get_description (cpt_c),
+						      "<p><em>alert(1)</em></p>\n"
+						      "<p>Hello <em>World</em>!</p>\n"
+						      "<ul><li>Item bold</li></ul>"));
+	}
+}
+
+/**
  * test_appstream_read_description:
  *
  * Test reading the description tag.
@@ -2492,6 +2617,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/XML/Write/WriterLocale", test_appstream_write_locale);
 
 	g_test_add_func ("/XML/Read/Description", test_appstream_read_description);
+	g_test_add_func ("/XML/Read/DescriptionSanitize", test_appstream_read_description_sanitize);
 	g_test_add_func ("/XML/Write/Description", test_appstream_write_description);
 	g_test_add_func ("/XML/DescriptionL10NCleanup", test_appstream_description_l10n_cleanup);
 

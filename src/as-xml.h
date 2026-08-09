@@ -36,6 +36,9 @@
 
 AS_BEGIN_PRIVATE_DECLS
 
+/* maximum nesting depth of description markup elements that we will process */
+#define AS_DESCRIPTION_MARKUP_MAX_DEPTH 4
+
 gchar	   *as_xml_get_node_value (const xmlNode *node);
 GRefString *as_xml_get_node_value_refstr (const xmlNode *node);
 #define as_xml_get_node_value_raw(node) (gchar *) (xmlNodeGetContent (node))
@@ -56,8 +59,8 @@ gchar	  **as_xml_get_children_as_strv (xmlNode *node, const gchar *element_name)
 
 void as_xml_parse_metainfo_description_node (AsContext *ctx, xmlNode *node, GHashTable *l10n_desc);
 
-gchar	*as_xml_dump_node_content_raw (xmlNode *node);
-gchar	*as_xml_dump_node_children (xmlNode *node);
+gchar	*as_xml_dump_description_para_content (xmlNode *node);
+gchar	*as_xml_dump_description_children (xmlNode *node);
 
 void	 as_xml_add_description_node (AsContext	 *ctx,
 				      xmlNode	 *root,

@@ -280,7 +280,7 @@ as_agreement_section_load_from_xml (AsAgreementSection *agreement_section,
 		if (g_strcmp0 ((gchar *) iter->name, "description") == 0) {
 			g_autofree gchar *content = NULL;
 
-			content = as_xml_dump_node_children (iter);
+			content = as_xml_dump_description_children (iter);
 			if (lang != NULL)
 				as_agreement_section_set_description (agreement_section,
 								      content,

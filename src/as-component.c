@@ -4565,7 +4565,7 @@ as_component_load_from_xml (AsComponent *cpt, AsContext *ctx, xmlNode *node, GEr
 				/* for catalog XML, the "description" tag has a language property, so parsing it is simple */
 				if (lang != NULL) {
 					gchar *desc;
-					desc = as_xml_dump_node_children (iter);
+					desc = as_xml_dump_description_children (iter);
 					as_component_set_description (cpt, desc, lang);
 					g_free (desc);
 				}

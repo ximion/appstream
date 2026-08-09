@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2012-2024 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2026 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -162,130 +162,287 @@ out:
 }
 
 /**
- * as_xml_dump_node:
+ * as_xml_append_escaped:
+ *
+ * Append text to a string, escaping all characters that must not appear
+ * verbatim in XML character data.
+ */
+static void
+as_xml_append_escaped (GString *str, const gchar *text)
+{
+	const gchar *p;
+	const gchar *chunk_start;
+
+	if (text == NULL)
+		return;
+
+	chunk_start = text;
+	for (p = text; *p != '\0'; p++) {
+		const gchar *rep;
+
+		switch (*p) {
+		case '&':
+			rep = "&amp;";
+			break;
+		case '<':
+			rep = "&lt;";
+			break;
+		case '>':
+			rep = "&gt;";
+			break;
+		case '\r':
+			rep = "&#13;";
+			break;
+		default:
+			continue;
+		}
+
+		if (p > chunk_start)
+			g_string_append_len (str, chunk_start, p - chunk_start);
+		g_string_append (str, rep);
+		chunk_start = p + 1;
+	}
+
+	if (p > chunk_start)
+		g_string_append_len (str, chunk_start, p - chunk_start);
+}
+
+/**
+ * as_xml_desc_is_inline_tag:
+ * @name: The element name.
+ * @len: Length of @name.
+ *
+ * Check whether the given element name is permitted as inline markup
+ * inside of a description paragraph or list item.
  */
 static gboolean
-as_xml_dump_node (xmlNode *node, gchar **content, gssize *len)
+as_xml_desc_is_inline_tag (const gchar *name, gssize len)
 {
-	xmlOutputBufferPtr obuf;
+	if (len < 0)
+		len = (gssize) strlen (name);
 
-	obuf = xmlAllocOutputBuffer (NULL);
-	g_assert (obuf != NULL);
+	if (len == 2)
+		return memcmp (name, "em", 2) == 0;
+	if (len == 4)
+		return memcmp (name, "code", 4) == 0;
+	return FALSE;
+}
 
-	xmlNodeDumpOutput (obuf, node->doc, node, 0, 0, "utf-8");
-	xmlOutputBufferFlush (obuf);
+/**
+ * as_xml_desc_append_inline_content:
+ *
+ * Serialize the content of a description paragraph or list item, permitting
+ * only markup that is valid in AppStream descriptions. Any other element is
+ * replaced by its (escaped) text content.
+ */
+static void
+as_xml_desc_append_inline_content (GString *str, xmlNode *node, guint depth)
+{
+	for (xmlNode *iter = node->children; iter != NULL; iter = iter->next) {
+		if (iter->type == XML_TEXT_NODE || iter->type == XML_CDATA_SECTION_NODE) {
+			as_xml_append_escaped (str, (const gchar *) iter->content);
+			continue;
+		}
 
-	if (xmlOutputBufferGetSize (obuf) > 0) {
-		gssize l = xmlOutputBufferGetSize (obuf);
-		if (len)
-			*len = l;
+		if (iter->type != XML_ELEMENT_NODE && iter->type != XML_ENTITY_REF_NODE)
+			continue;
 
-		*content = g_strndup ((const gchar *) xmlOutputBufferGetContent (obuf), l);
+		if (G_UNLIKELY (iter->type == XML_ENTITY_REF_NODE ||
+				depth >= AS_DESCRIPTION_MARKUP_MAX_DEPTH)) {
+			/* resolve entity references, and refuse to descend any deeper into
+			 * excessively nested markup - in both cases we just take the text */
+			g_autofree gchar *content = as_xml_get_node_value_raw (iter);
+			as_xml_append_escaped (str, content);
+			continue;
+		}
 
-		xmlOutputBufferClose (obuf);
-		return TRUE;
-	} else {
-		xmlOutputBufferClose (obuf);
-		return FALSE;
+		if (as_xml_desc_is_inline_tag ((const gchar *) iter->name, -1)) {
+			/* the element is permitted, but none of its attributes ever are */
+			g_string_append_printf (str, "<%s>", (const gchar *) iter->name);
+			as_xml_desc_append_inline_content (str, iter, depth + 1);
+			g_string_append_printf (str, "</%s>", (const gchar *) iter->name);
+		} else {
+			/* flatten invalid markup to its text content */
+			as_xml_desc_append_inline_content (str, iter, depth + 1);
+		}
 	}
 }
 
 /**
- * as_xml_dump_node_content_raw:
+ * as_xml_desc_append_block_node:
+ *
+ * Serialize a description block element (paragraph or enumeration) and its
+ * contents. Invalid block elements are dropped.
  */
-gchar *
-as_xml_dump_node_content_raw (xmlNode *node)
+static void
+as_xml_desc_append_block_node (GString *str, xmlNode *node)
 {
-	g_autofree gchar *content = NULL;
-	gchar *tmp;
-	gssize len;
+	const gchar *node_name = (const gchar *) node->name;
 
-	/* discard spaces */
-	if (G_UNLIKELY (node->type != XML_ELEMENT_NODE))
-		return NULL;
-
-	if (!as_xml_dump_node (node, &content, &len))
-		return NULL;
-
-	/* remove the enclosing root node from the string */
-	tmp = g_strrstr_len (content, len, "<");
-	if (tmp != NULL)
-		tmp[0] = '\0';
-
-	tmp = g_strstr_len (content, -1, ">");
-	if (tmp == NULL)
-		return NULL;
-
-	return g_strdup (tmp + 1);
-}
-
-/**
- * as_xml_dump_node_children:
- */
-gchar *
-as_xml_dump_node_children (xmlNode *node)
-{
-	GString *str = NULL;
-	xmlNode *iter;
-
-	str = g_string_new ("");
-	for (iter = node->children; iter != NULL; iter = iter->next) {
-		g_autofree gchar *content = NULL;
-		gssize len;
-
-		/* discard spaces */
-		if (iter->type != XML_ELEMENT_NODE)
-			continue;
-
-		if (!as_xml_dump_node (iter, &content, &len))
-			continue;
-
-		if (str->len > 0)
-			g_string_append (str, "\n");
-		g_string_append_len (str, content, len);
+	if (as_str_equal0 (node_name, "p")) {
+		g_string_append (str, "<p>");
+		as_xml_desc_append_inline_content (str, node, 1);
+		g_string_append (str, "</p>");
+		return;
 	}
 
-	return g_string_free (str, FALSE);
+	if (as_str_equal0 (node_name, "ul") || as_str_equal0 (node_name, "ol")) {
+		g_string_append_printf (str, "<%s>", node_name);
+		for (xmlNode *iter = node->children; iter != NULL; iter = iter->next) {
+			if (iter->type != XML_ELEMENT_NODE)
+				continue;
+			/* only list items are permitted in enumerations */
+			if (!as_str_equal0 ((const gchar *) iter->name, "li"))
+				continue;
+
+			g_string_append (str, "<li>");
+			as_xml_desc_append_inline_content (str, iter, 1);
+			g_string_append (str, "</li>");
+		}
+		g_string_append_printf (str, "</%s>", node_name);
+	}
+
+	/* any other element is not valid description markup and dropped entirely */
 }
 
 /**
- * as_xml_dump_desc_para_node_content_raw:
+ * as_xml_dump_description_para_content:
+ *
+ * Dump the sanitized content of a description paragraph or list item,
+ * without its enclosing tag.
+ *
+ * Returns: The markup, or %NULL if the node had no usable content.
  */
-static gchar *
-as_xml_dump_desc_para_node_content_raw (xmlNode *node)
+gchar *
+as_xml_dump_description_para_content (xmlNode *node)
 {
-	gboolean is_valid_markup = TRUE;
+	g_autoptr(GString) str = NULL;
 
 	/* ignore node if it is a space */
 	if (G_UNLIKELY (node->type != XML_ELEMENT_NODE))
 		return NULL;
 
-	/* perform a sanity check before dumping the node contents */
+	str = g_string_new ("");
+	as_xml_desc_append_inline_content (str, node, 1);
+	if (str->len == 0)
+		return NULL;
+
+	return g_string_free (g_steal_pointer (&str), FALSE);
+}
+
+/**
+ * as_xml_desc_inline_content_is_valid:
+ *
+ * Check whether the content of a description paragraph or list item is already
+ * exactly what %as_xml_desc_append_inline_content would emit for it.
+ */
+static gboolean
+as_xml_desc_inline_content_is_valid (xmlNode *node, guint depth)
+{
 	for (xmlNode *iter = node->children; iter != NULL; iter = iter->next) {
-		const gchar *node_name = (const gchar *) iter->name;
+		if (iter->type == XML_TEXT_NODE)
+			continue;
+
+		/* CDATA sections, entity references, comments and processing instructions
+		 * are all rewritten or dropped when the markup is serialized */
+		if (iter->type != XML_ELEMENT_NODE)
+			return FALSE;
+
+		if (!as_xml_desc_is_inline_tag ((const gchar *) iter->name, -1))
+			return FALSE;
+		/* no attributes are permitted in description markup */
+		if (iter->properties != NULL)
+			return FALSE;
+		/* deeper markup would have been flattened */
+		if (depth >= AS_DESCRIPTION_MARKUP_MAX_DEPTH)
+			return FALSE;
+
+		if (!as_xml_desc_inline_content_is_valid (iter, depth + 1))
+			return FALSE;
+	}
+
+	return TRUE;
+}
+
+/**
+ * as_xml_desc_tree_is_valid:
+ * @root: The node holding the description markup.
+ *
+ * Check whether the given description markup tree contains only valid markup.
+ * Node types other than elements are ignored here, as those are never written
+ * out anyway.
+ *
+ * Returns: %TRUE if the tree can be used as-is.
+ */
+static gboolean
+as_xml_desc_tree_is_valid (xmlNode *root)
+{
+	for (xmlNode *iter = root->children; iter != NULL; iter = iter->next) {
+		const gchar *node_name;
+
+		if (iter->type != XML_ELEMENT_NODE)
+			continue;
+		if (iter->properties != NULL)
+			return FALSE;
+
+		node_name = (const gchar *) iter->name;
+		if (as_str_equal0 (node_name, "p")) {
+			if (!as_xml_desc_inline_content_is_valid (iter, 1))
+				return FALSE;
+			continue;
+		}
+
+		if (as_str_equal0 (node_name, "ul") || as_str_equal0 (node_name, "ol")) {
+			for (xmlNode *iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
+				if (iter2->type != XML_ELEMENT_NODE)
+					continue;
+				/* only list items are permitted in enumerations */
+				if (!as_str_equal0 ((const gchar *) iter2->name, "li"))
+					return FALSE;
+				if (iter2->properties != NULL)
+					return FALSE;
+				if (!as_xml_desc_inline_content_is_valid (iter2, 1))
+					return FALSE;
+			}
+			continue;
+		}
+
+		/* not a valid description block element */
+		return FALSE;
+	}
+
+	return TRUE;
+}
+
+/**
+ * as_xml_dump_description_children:
+ *
+ * Dump the sanitized children of a `description` node, dropping any markup
+ * that is not permitted in AppStream descriptions.
+ */
+gchar *
+as_xml_dump_description_children (xmlNode *node)
+{
+	GString *str = g_string_new ("");
+
+	for (xmlNode *iter = node->children; iter != NULL; iter = iter->next) {
+		gsize prev_len;
+
+		/* discard spaces */
 		if (iter->type != XML_ELEMENT_NODE)
 			continue;
 
-		/* only permit valid markup */
-		if ((g_strcmp0 (node_name, "em") != 0) && (g_strcmp0 (node_name, "code") != 0)) {
-			is_valid_markup = FALSE;
-			break;
-		}
+		prev_len = str->len;
+		if (str->len > 0)
+			g_string_append_c (str, '\n');
+		as_xml_desc_append_block_node (str, iter);
+
+		/* drop the separator again in case the node was not valid markup */
+		if (str->len <= prev_len + 1)
+			g_string_truncate (str, prev_len);
 	}
 
-	/* We dump the whole content, including subnodes/markup if the markup content
-	 * was deemed valid. Otherwise we will just try to dump any string content, and hope
-	 * people call the validator on their files to see that their metadata is broken.
-	 * TODO: Parse the data properly, and remove only the bad nodes on error, if libxml permits
-	 * that in an efficient way? */
-	if (G_LIKELY (is_valid_markup)) {
-		return as_xml_dump_node_content_raw (node);
-	} else {
-		g_autofree gchar *tmp = as_xml_get_node_value (node);
-		if (G_UNLIKELY (tmp == NULL))
-			return NULL;
-		return g_markup_escape_text (tmp, -1);
-	}
+	return g_string_free (str, FALSE);
 }
 
 /**
@@ -354,8 +511,10 @@ as_xml_markup_parse_helper_new (const gchar *markup, const gchar *locale)
 {
 	g_autofree gchar *xmldata = NULL;
 	AsXMLMarkupParseHelper *helper = g_slice_new0 (AsXMLMarkupParseHelper);
+	xmlNode *root;
 
 	helper->locale = g_strdup (locale);
+
 	xmldata = g_strconcat ("<root>", markup, "</root>", NULL);
 	helper->doc = xmlReadMemory (xmldata,
 				     strlen (xmldata),
@@ -363,10 +522,33 @@ as_xml_markup_parse_helper_new (const gchar *markup, const gchar *locale)
 				     "utf-8",
 				     XML_PARSE_NOBLANKS | XML_PARSE_NONET);
 	if (helper->doc == NULL)
-		return NULL;
+		goto fail;
+
+	/* The markup may have been set via the API, or read from a format where we can not
+	 * validate it while reading (like DEP-11 YAML), so we ensure that we never write
+	 * anything that isn't valid description markup. We check if the tree is valid,
+	 * and use it verbatim (valid data is the overwhelmingly common case). */
+	root = xmlDocGetRootElement (helper->doc);
+	if (G_UNLIKELY (root != NULL && !as_xml_desc_tree_is_valid (root))) {
+		g_autofree gchar *safe_markup = as_xml_dump_description_children (root);
+		g_autofree gchar *safe_xmldata = g_strconcat ("<root>",
+							      safe_markup,
+							      "</root>",
+							      NULL);
+
+		xmlFreeDoc (helper->doc);
+		helper->doc = xmlReadMemory (safe_xmldata,
+					     strlen (safe_xmldata),
+					     NULL,
+					     "utf-8",
+					     XML_PARSE_NOBLANKS | XML_PARSE_NONET);
+		if (helper->doc == NULL)
+			goto fail;
+		root = xmlDocGetRootElement (helper->doc);
+	}
 
 	helper->d_node = NULL;
-	helper->node = xmlDocGetRootElement (helper->doc);
+	helper->node = root;
 	if (helper->node != NULL)
 		helper->node = helper->node->children;
 	if (helper->node != NULL)
@@ -375,6 +557,13 @@ as_xml_markup_parse_helper_new (const gchar *markup, const gchar *locale)
 	helper->localized = (locale != NULL) && (g_strcmp0 (locale, "C") != 0);
 
 	return helper;
+
+fail:
+	if (helper->doc != NULL)
+		xmlFreeDoc (helper->doc);
+	g_free (helper->locale);
+	g_slice_free (AsXMLMarkupParseHelper, helper);
+	return NULL;
 }
 
 /**
@@ -524,7 +713,7 @@ as_xml_parse_metainfo_description_node (AsContext *ctx, xmlNode *node, GHashTabl
 						     phelper);
 			}
 
-			content = as_xml_dump_desc_para_node_content_raw (iter);
+			content = as_xml_dump_description_para_content (iter);
 			if (content != NULL) {
 				g_string_append_printf (phelper->data, "<p>%s</p>\n", content);
 				phelper->elem_count += 1;
@@ -567,7 +756,7 @@ as_xml_parse_metainfo_description_node (AsContext *ctx, xmlNode *node, GHashTabl
 							     phelper);
 				}
 
-				content = as_xml_dump_desc_para_node_content_raw (iter2);
+				content = as_xml_dump_description_para_content (iter2);
 				if (content != NULL) {
 					g_string_append_printf (phelper->data,
 								"  <%s>%s</%s>\n",

@@ -956,7 +956,7 @@ as_release_load_from_xml (AsRelease *release, AsContext *ctx, xmlNode *node, GEr
 				g_autofree gchar *lang = NULL;
 
 				/* for catalog XML, the "description" tag has a language property, so parsing it is simple */
-				content = as_xml_dump_node_children (iter);
+				content = as_xml_dump_description_children (iter);
 				lang = as_xml_get_node_locale_match (ctx, iter);
 				if (lang != NULL)
 					as_release_set_description (release, content, lang);

@@ -929,7 +929,7 @@ as_review_load_from_xml (AsReview *review, AsContext *ctx, xmlNode *node, GError
 			g_object_notify_by_pspec (G_OBJECT (review), pspecs[PROP_SUMMARY]);
 
 		} else if (g_strcmp0 ((gchar *) iter->name, "description") == 0) {
-			g_autofree gchar *desc = as_xml_dump_node_children (iter);
+			g_autofree gchar *desc = as_xml_dump_description_children (iter);
 			as_ref_string_assign_transfer (&priv->description,
 						       g_ref_string_new_intern (desc));
 			g_object_notify_by_pspec (G_OBJECT (review), pspecs[PROP_DESCRIPTION]);

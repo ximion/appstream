@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2012-2024 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2026 Matthias Klumpp <matthias@tenstral.net>
  * Copyright (C) 2014-2016 Richard Hughes <richard@hughsie.com>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
@@ -43,6 +43,7 @@
 
 #include "as-version.h"
 #include "as-resources.h"
+#include "as-xml.h"
 #include "as-category.h"
 #include "as-metadata.h"
 #include "as-component-private.h"
@@ -241,7 +242,7 @@ as_markup_convert (const gchar *markup, AsMarkupKind to_kind, GError **error)
 	/* make XML parser happy by providing a root element */
 	xmldata = g_strdup_printf ("<root>%s</root>", markup);
 
-	doc = xmlParseDoc ((xmlChar *) xmldata);
+	doc = as_xml_parse_document (xmldata, -1, FALSE, NULL);
 	if (doc == NULL) {
 		ret = FALSE;
 		goto out;
