@@ -576,6 +576,68 @@ test_yaml_read_url (void)
 }
 
 /**
+ * test_yaml_read_description_sanitize:
+ *
+ * Test that invalid markup is removed from descriptions read from DEP-11 data.
+ */
+static void
+test_yaml_read_description_sanitize (void)
+{
+	g_autoptr(AsComponent) cpt = NULL;
+	g_autoptr(AsRelease) release = NULL;
+	AsReleaseList *releases;
+	g_autofree gchar *res = NULL;
+
+	const gchar *yamldata_desc =
+	    "ID: org.example.Test\n"
+	    "Description:\n"
+	    "  C: |-\n"
+	    /* attributes are never permitted, on any element */
+	    "    <p id=\"x\">Hello <em onclick=\"evil()\">World</em><script>alert(1)</script></p>\n"
+	    /* comments, CDATA sections and processing instructions */
+	    "    <p>A<!-- comment -->B<![CDATA[<script>x</script>]]>C<?php evil(); ?>D</p>\n"
+	    /* text that has to be escaped again on output */
+	    "    <p>Tom &amp; Jerry &lt;3</p>\n"
+	    /* excessively nested markup is flattened */
+	    "    <p><em><em><em><em><em>deep</em></em></em></em></em></p>\n"
+	    /* enumerations only hold list items */
+	    "    <ul class=\"x\"><li id=\"y\">Item <b>bold</b></li><script>alert(2)</script></ul>\n"
+	    /* nested lists are not supported */
+	    "    <ul><ul><li>nested</li></ul></ul>\n"
+	    /* elements that are valid, but not at block level */
+	    "    <li>orphaned item</li>\n"
+	    "    <em>inline at block level</em>\n"
+	    /* unknown block-level elements are dropped with their content */
+	    "    <table><tr>X</tr></table>\n"
+	    "Releases:\n"
+	    "- version: \"1.0\"\n"
+	    "  description:\n"
+	    "    C: <p><em><script>alert(3)</script></em></p>\n";
+
+	cpt = as_yaml_test_read_data (yamldata_desc, NULL);
+	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.Test");
+
+	g_assert_true (as_test_compare_lines (as_component_get_description (cpt),
+					      "<p>Hello <em>World</em>alert(1)</p>\n"
+					      "<p>AB&lt;script&gt;x&lt;/script&gt;CD</p>\n"
+					      "<p>Tom &amp; Jerry &lt;3</p>\n"
+					      "<p><em><em><em>deep</em></em></em></p>\n"
+					      "<ul><li>Item bold</li></ul>\n"
+					      "<ul></ul>"));
+
+	releases = as_component_get_releases_plain (cpt);
+	g_assert_cmpint (as_release_list_len (releases), ==, 1);
+	g_assert_cmpstr (as_release_get_description (as_release_list_index (releases, 0)),
+			 ==,
+			 "<p><em>alert(3)</em></p>");
+
+	/* the data must be safe when written out again as well */
+	res = as_yaml_test_serialize (cpt);
+	g_assert_null (g_strstr_len (res, -1, "<script>"));
+	g_assert_null (g_strstr_len (res, -1, "onclick"));
+}
+
+/**
  * test_yaml_corrupt_data:
  *
  * Test reading of a broken YAML document.
@@ -2186,6 +2248,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/YAML/Read/CorruptData", test_yaml_corrupt_data);
 	g_test_add_func ("/YAML/Read/Icons", test_yaml_read_icons);
 	g_test_add_func ("/YAML/Read/Url", test_yaml_read_url);
+	g_test_add_func ("/YAML/Read/DescriptionSanitize", test_yaml_read_description_sanitize);
 	g_test_add_func ("/YAML/Read/Languages", test_yaml_read_languages);
 
 	g_test_add_func ("/YAML/Read/Simple", test_yaml_read_simple);

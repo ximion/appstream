@@ -90,6 +90,9 @@ struct fy_node *as_yaml_get_localized_node (AsContext	   *ctx,
 					    const gchar	   *locale_override);
 const gchar    *as_yaml_get_node_locale (AsContext *ctx, struct fy_node_pair *node_pair);
 void as_yaml_set_localized_table (AsContext *ctx, struct fy_node *node, GHashTable *l10n_table);
+void as_yaml_set_localized_desc_table (AsContext      *ctx,
+				       struct fy_node *node,
+				       GHashTable     *l10n_table);
 void as_yaml_list_to_str_array (struct fy_node *node, GPtrArray *array);
 
 void as_yaml_print_unknown (const gchar *root, const gchar *key, ssize_t key_len);

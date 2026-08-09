@@ -1131,7 +1131,7 @@ as_release_load_from_yaml (AsRelease *release, AsContext *ctx, struct fy_node *n
 		} else if (as_str_equal0 (key, "urgency")) {
 			priv->urgency = as_urgency_kind_from_string (value);
 		} else if (as_str_equal0 (key, "description")) {
-			as_yaml_set_localized_table (ctx, value_n, priv->description);
+			as_yaml_set_localized_desc_table (ctx, value_n, priv->description);
 		} else if (as_str_equal0 (key, "url")) {
 			AsReleaseUrlKind url_kind;
 			AS_YAML_MAPPING_FOREACH (urls_p, value_n) {

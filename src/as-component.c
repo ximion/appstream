@@ -5650,7 +5650,7 @@ as_component_load_from_yaml (AsComponent *cpt, AsContext *ctx, struct fy_node *r
 			as_yaml_set_localized_table (ctx, value_n, priv->summary);
 			g_object_notify ((GObject *) cpt, "summary");
 		} else if (field_id == AS_TAG_DESCRIPTION) {
-			as_yaml_set_localized_table (ctx, value_n, priv->description);
+			as_yaml_set_localized_desc_table (ctx, value_n, priv->description);
 			g_object_notify ((GObject *) cpt, "description");
 		} else if (field_id == AS_TAG_DEVELOPER) {
 			g_autoptr(AsDeveloper) developer = as_developer_new ();

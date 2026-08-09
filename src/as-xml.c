@@ -229,6 +229,26 @@ as_xml_desc_is_inline_tag (const gchar *name, gssize len)
 }
 
 /**
+ * as_xml_desc_is_block_tag:
+ */
+static gboolean
+as_xml_desc_is_block_tag (const gchar *name, gssize len)
+{
+	if (len < 0)
+		len = (gssize) strlen (name);
+
+	switch (len) {
+	case 1:
+		return name[0] == 'p';
+	case 2:
+		return (memcmp (name, "ul", 2) == 0) || (memcmp (name, "ol", 2) == 0) ||
+		       (memcmp (name, "li", 2) == 0);
+	default:
+		return FALSE;
+	}
+}
+
+/**
  * as_xml_desc_append_inline_content:
  *
  * Serialize the content of a description paragraph or list item, permitting
@@ -418,7 +438,7 @@ as_xml_desc_tree_is_valid (xmlNode *root)
  * as_xml_dump_description_children:
  *
  * Dump the sanitized children of a `description` node, dropping any markup
- * that is not permitted in AppStream descriptions.
+ * that is not permitted in component descriptions.
  */
 gchar *
 as_xml_dump_description_children (xmlNode *node)
@@ -443,6 +463,171 @@ as_xml_dump_description_children (xmlNode *node)
 	}
 
 	return g_string_free (str, FALSE);
+}
+
+/**
+ * as_xml_desc_is_predefined_entity:
+ *
+ * Check whether @name (of length @len) is one of the five entities that XML
+ * predefines, and which therefore need no entity declaration.
+ */
+static gboolean
+as_xml_desc_is_predefined_entity (const gchar *name, gsize len)
+{
+	switch (len) {
+	case 2:
+		return (memcmp (name, "lt", 2) == 0) || (memcmp (name, "gt", 2) == 0);
+	case 3:
+		return memcmp (name, "amp", 3) == 0;
+	case 4:
+		return (memcmp (name, "quot", 4) == 0) || (memcmp (name, "apos", 4) == 0);
+	default:
+		return FALSE;
+	}
+}
+
+/**
+ * as_xml_desc_markup_is_valid:
+ * @markup: The description markup to check.
+ * @len: Length of @markup, or -1 if it is %NULL-terminated.
+ *
+ * Quickly check whether a string only consists of markup that is permitted
+ * in component descriptions. This check deliberately cheap and does a string-scan
+ * only, so anything unusual is rejected and has to be dealt with by actually parsing
+ * the data (which is roughly 25 times as expensive).
+ *
+ * Returns: %TRUE if the markup can be used verbatim.
+ */
+static gboolean
+as_xml_desc_markup_is_valid (const gchar *markup, gssize len)
+{
+	const gchar *end;
+	guint inline_depth = 0;
+
+	if (len < 0)
+		len = (gssize) strlen (markup);
+	end = markup + len;
+
+	for (const gchar *p = markup; p < end; p++) {
+		const gchar *name_start;
+		gsize name_len;
+		gboolean is_end_tag = FALSE;
+
+		if (*p == '&') {
+			/* only the predefined entities and character references are permitted */
+			const gchar *ref = p + 1;
+			if (ref < end && *ref == '#') {
+				ref++;
+				if (ref < end && (*ref == 'x' || *ref == 'X'))
+					ref++;
+				while (ref < end && g_ascii_isalnum (*ref))
+					ref++;
+			} else {
+				while (ref < end && g_ascii_isalpha (*ref))
+					ref++;
+				if (!as_xml_desc_is_predefined_entity (p + 1, ref - p - 1))
+					return FALSE;
+			}
+			if (ref >= end || *ref != ';' || ref == p + 1)
+				return FALSE;
+			p = ref;
+			continue;
+		}
+
+		if (*p != '<')
+			continue;
+
+		p++;
+		if (p < end && *p == '/') {
+			is_end_tag = TRUE;
+			p++;
+		}
+		name_start = p;
+		while (p < end && g_ascii_islower (*p))
+			p++;
+
+		/* anything that isn't a plain start/end tag - an attribute, a comment,
+		 * a processing instruction, a CDATA section - is rejected here */
+		if (p >= end || *p != '>')
+			return FALSE;
+		name_len = p - name_start;
+		if (!as_xml_desc_is_block_tag (name_start, name_len) &&
+		    !as_xml_desc_is_inline_tag (name_start, name_len))
+			return FALSE;
+
+		/* keep track of how deeply the inline markup is nested, so we never
+		 * pass through markup that the parser would have flattened */
+		if (as_xml_desc_is_inline_tag (name_start, name_len)) {
+			if (is_end_tag) {
+				if (inline_depth > 0)
+					inline_depth--;
+			} else {
+				if (++inline_depth >= AS_DESCRIPTION_MARKUP_MAX_DEPTH)
+					return FALSE;
+			}
+		} else {
+			/* a block-level element starts a new inline markup context */
+			inline_depth = 0;
+		}
+	}
+
+	return TRUE;
+}
+
+/**
+ * as_xml_sanitize_description:
+ * @markup: the XML description markup to sanitize.
+ * @len: Length of @markup, or -1 if length is unknown and @markup is NULL-terminated.
+ *
+ * Remove any markup that is not permitted in AppStream description tags from
+ * the given string. Invalid elements are replaced by their text content, all
+ * attributes as well as any comments, processing instructions and CDATA
+ * sections are dropped.
+ *
+ * This is used for markup that we can not validate while reading it, because we
+ * only ever see the finished string (DEP-11 YAML data, or values set via the API).
+ *
+ * Returns: a newly allocated string, or %NULL if @markup was %NULL.
+ */
+gchar *
+as_xml_sanitize_description (const gchar *markup, gssize len)
+{
+	g_autoptr(GString) xmldata = NULL;
+	xmlDoc *doc;
+	xmlNode *root;
+	gchar *res;
+
+	if (markup == NULL)
+		return NULL;
+	if (len < 0)
+		len = (gssize) strlen (markup);
+
+	/* fast path: the markup is already valid, so we can use it as-is */
+	if (G_LIKELY (as_xml_desc_markup_is_valid (markup, len)))
+		return g_strndup (markup, len);
+
+	/* make XML parser happy by providing a root element */
+	xmldata = g_string_sized_new (len + 14);
+	g_string_append (xmldata, "<root>");
+	g_string_append_len (xmldata, markup, len);
+	g_string_append (xmldata, "</root>");
+
+	doc = as_xml_parse_document (xmldata->str, xmldata->len, FALSE, NULL);
+	if (doc == NULL) {
+		/* the data was not well-formed XML at all, so we can only escape it */
+		return g_markup_escape_text (markup, len);
+	}
+
+	root = xmlDocGetRootElement (doc);
+	if (root == NULL) {
+		xmlFreeDoc (doc);
+		return g_strdup ("");
+	}
+
+	res = as_xml_dump_description_children (root);
+	xmlFreeDoc (doc);
+
+	return res;
 }
 
 /**

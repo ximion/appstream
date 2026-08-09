@@ -345,9 +345,9 @@ as_agreement_section_load_from_yaml (AsAgreementSection *agreement_section,
 		} else if (g_strcmp0 (key, "name") == 0) {
 			as_yaml_set_localized_table (ctx, fy_node_pair_value (pair), priv->name);
 		} else if (g_strcmp0 (key, "description") == 0) {
-			as_yaml_set_localized_table (ctx,
-						     fy_node_pair_value (pair),
-						     priv->description);
+			as_yaml_set_localized_desc_table (ctx,
+							  fy_node_pair_value (pair),
+							  priv->description);
 		} else {
 			as_yaml_print_unknown ("agreement_section", key, -1);
 		}

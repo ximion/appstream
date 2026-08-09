@@ -235,9 +235,11 @@ as_markup_convert (const gchar *markup, AsMarkupKind to_kind, GError **error)
 		goto out;
 	}
 
-	/* if we already have XML, do nothing */
-	if (to_kind == AS_MARKUP_KIND_XML)
+	/* if we already have XML, we only need to ensure the markup is safe */
+	if (to_kind == AS_MARKUP_KIND_XML) {
+		formatted = as_xml_sanitize_description (markup, -1);
 		goto out;
+	}
 
 	/* make XML parser happy by providing a root element */
 	xmldata = g_strdup_printf ("<root>%s</root>", markup);
@@ -352,8 +354,11 @@ as_markup_convert (const gchar *markup, AsMarkupKind to_kind, GError **error)
 out:
 	if (doc != NULL)
 		xmlFreeDoc (doc);
-	if (!ret)
-		formatted = g_strdup (markup);
+	if (!ret) {
+		/* we could not convert the markup, so we return it as-is - but we still
+		 * ensure that it does not contain anything unexpected */
+		formatted = as_xml_sanitize_description (markup, -1);
+	}
 	if (str != NULL) {
 		if (!ret)
 			g_string_free (str, TRUE);

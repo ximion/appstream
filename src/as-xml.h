@@ -62,6 +62,8 @@ void as_xml_parse_metainfo_description_node (AsContext *ctx, xmlNode *node, GHas
 gchar	*as_xml_dump_description_para_content (xmlNode *node);
 gchar	*as_xml_dump_description_children (xmlNode *node);
 
+gchar	*as_xml_sanitize_description (const gchar *markup, gssize len);
+
 void	 as_xml_add_description_node (AsContext	 *ctx,
 				      xmlNode	 *root,
 				      GHashTable *desc_table,
