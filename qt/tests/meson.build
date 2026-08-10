@@ -11,6 +11,13 @@ testpaths_h = configuration_data()
 testpaths_h.set_quoted('AS_SAMPLE_DATA_PATH', join_paths(source_root, 'tests', 'samples', 'catalog'))
 configure_file (output: 'testpaths.h', configuration: testpaths_h)
 
+# Workaround for https://github.com/mesonbuild/meson/issues/16087 that was introduced
+# with Meson >= 1.8.2
+cxx = meson.get_compiler('cpp')
+asqt_test_link_args = cxx.get_supported_link_arguments([
+    '-Wl,-rpath-link,' + meson.project_build_root() / 'src'
+])
+
 asqt_test_pool_src = [
     'asqt-pool-test.cpp'
 ]
@@ -22,6 +29,7 @@ as_test_qt_pool_exe = executable('as-test_qt-pool',
     include_directories: [include_directories('..')],
     link_with: [appstreamqt_lib],
     cpp_args: asqt_cpp_args,
+    link_args: asqt_test_link_args,
 )
 test('as-test_qt-pool',
     as_test_qt_pool_exe,
@@ -40,6 +48,7 @@ as_test_qt_misc_exe = executable('as-test_qt-misc',
     include_directories: [include_directories('..')],
     link_with: [appstreamqt_lib],
     cpp_args: asqt_cpp_args,
+    link_args: asqt_test_link_args,
 )
 test('as-test_qt-misc',
     as_test_qt_misc_exe,
