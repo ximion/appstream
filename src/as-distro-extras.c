@@ -94,6 +94,7 @@ static gchar *
 as_get_yml_data_origin (const gchar *fname)
 {
 	const gchar *data;
+	gsize data_len;
 	GZlibDecompressor *zdecomp;
 	g_autoptr(GFileInputStream) fistream = NULL;
 	g_autoptr(GMemoryOutputStream) mem_os = NULL;
@@ -103,7 +104,7 @@ as_get_yml_data_origin (const gchar *fname)
 	g_auto(GStrv) strv = NULL;
 	GError *err;
 	guint i;
-	gchar *start, *end;
+	const gchar *start, *end;
 	gchar *origin = NULL;
 
 	file = g_file_new_for_path (fname);
@@ -125,20 +126,24 @@ as_get_yml_data_origin (const gchar *fname)
 
 	g_output_stream_splice (G_OUTPUT_STREAM (mem_os), conv_stream, 0, NULL, NULL);
 	data = (const gchar *) g_memory_output_stream_get_data (mem_os);
+	data_len = g_memory_output_stream_get_data_size (mem_os);
 
 	/* faster than a regular expression?
 	 * Get the first YAML document, then extract the origin string.
 	 */
-	if (data == NULL)
+	if (data == NULL || data_len == 0)
 		return NULL;
 	/* start points to the start of the document, i.e. "File:" normally */
-	start = g_strstr_len (data, 400, YAML_SEPARATOR) + YAML_SEPARATOR_LEN;
-	if (start == NULL || start[0] == '\0')
+	start = g_strstr_len (data, MIN (data_len, 500), YAML_SEPARATOR);
+	if (start == NULL)
+		return NULL;
+	start += YAML_SEPARATOR_LEN;
+	if (start >= data + data_len)
 		return NULL;
 	/* Find the end of the first document - can be NULL if there is only one,
 	 * for example if we're given YAML for an empty archive */
-	end = g_strstr_len (start, -1, YAML_SEPARATOR);
-	str = g_strndup (start, strlen (start) - (end ? strlen (end) : 0));
+	end = g_strstr_len (start, data + data_len - start, YAML_SEPARATOR);
+	str = g_strndup (start, (end != NULL ? end : data + data_len) - start);
 
 	strv = g_strsplit (str, "\n", -1);
 	for (i = 0; strv[i] != NULL; i++) {
