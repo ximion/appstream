@@ -226,9 +226,21 @@ as_news_yaml_to_releases (const gchar *yaml_data, gint limit, GError **error)
 
 						lines = g_strsplit (escaped, "\n", -1);
 						for (guint j = 0; lines[j] != NULL; j++) {
-							if (g_str_has_prefix (lines[j], " -") ||
-							    g_str_has_prefix (lines[j], " *")) {
+							const gchar *line = lines[j];
+
+							/* empty lines carry no markup of their own */
+							if (line[0] == '\0')
+								continue;
+
+							if (line[0] == ' ' &&
+							    (line[1] == '-' || line[1] == '*')) {
 								/* we have a list */
+								const gchar *item = line + 2;
+
+								/* skip any space between bullet symbol and its text */
+								while (item[0] == ' ')
+									item++;
+
 								if (in_paragraph) {
 									g_string_truncate (
 									    dsc,
@@ -246,16 +258,16 @@ as_news_yaml_to_releases (const gchar *yaml_data, gint limit, GError **error)
 									    dsc,
 									    "<ul>\n<li>");
 								}
-								g_string_append (dsc, lines[j] + 3);
+								g_string_append (dsc, item);
 								in_listing = TRUE;
 								continue;
 							} else if (in_listing) {
-								if (g_str_has_prefix (lines[j],
+								if (g_str_has_prefix (line,
 										      "   ")) {
 									g_string_append_printf (
 									    dsc,
 									    " %s",
-									    lines[j] + 3);
+									    line + 3);
 								} else {
 									g_string_append (dsc,
 											 "</li>\n</"
@@ -264,13 +276,13 @@ as_news_yaml_to_releases (const gchar *yaml_data, gint limit, GError **error)
 									g_string_append_printf (
 									    dsc,
 									    "<p>%s\n",
-									    lines[j]);
+									    line);
 									in_paragraph = TRUE;
 								}
 							} else {
 								g_string_append_printf (dsc,
 											"<p>%s\n",
-											lines[j]);
+											line);
 								in_paragraph = TRUE;
 							}
 						}

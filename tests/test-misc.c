@@ -218,6 +218,56 @@ test_readwrite_yaml_news (void)
 }
 
 /**
+ * test_yaml_news_freeform_lists:
+ *
+ * Test malformed list markers in freeform YAML NEWS descriptions.
+ */
+static void
+test_yaml_news_freeform_lists (void)
+{
+	static const gchar *yaml_news_data = "---\n"
+					     "Version: \"1.0\"\n"
+					     "Date: 2026-01-01\n"
+					     "Description: |\n"
+					     "  Fixed things\n"
+					     "\n"
+					     "   -\n"
+					     "   *\n"
+					     "   -    Extra spacing\n";
+
+	static const gchar *expected_xml_releases_data =
+	    "  <releases>\n"
+	    "    <release type=\"stable\" version=\"1.0\" date=\"2026-01-01T00:00:00Z\">\n"
+	    "      <description>\n"
+	    "        <p>Fixed things</p>\n"
+	    "        <ul>\n"
+	    "          <li/>\n"
+	    "          <li/>\n"
+	    "          <li>Extra spacing</li>\n"
+	    "        </ul>\n"
+	    "      </description>\n"
+	    "    </release>\n"
+	    "  </releases>";
+
+	g_autoptr(GPtrArray) releases = NULL;
+	g_autoptr(GError) error = NULL;
+	g_autofree gchar *tmp = NULL;
+
+	releases = as_news_to_releases_from_data (yaml_news_data,
+						  AS_NEWS_FORMAT_KIND_YAML,
+						  -1,
+						  -1,
+						  &error);
+	g_assert_no_error (error);
+	g_assert_nonnull (releases);
+
+	tmp = as_releases_to_metainfo_xml_chunk (releases, &error);
+	g_assert_no_error (error);
+	g_assert_nonnull (tmp);
+	g_assert_true (as_test_compare_lines (tmp, expected_xml_releases_data));
+}
+
+/**
  * test_readwrite_text_news:
  *
  * Read & write text NEWS file.
@@ -797,6 +847,7 @@ main (int argc, char **argv)
 	g_log_set_fatal_mask (NULL, G_LOG_LEVEL_ERROR | G_LOG_LEVEL_CRITICAL);
 
 	g_test_add_func ("/AppStream/Misc/YAMLNews", test_readwrite_yaml_news);
+	g_test_add_func ("/AppStream/Misc/YAMLNewsFreeformLists", test_yaml_news_freeform_lists);
 	g_test_add_func ("/AppStream/Misc/TextNews", test_readwrite_text_news);
 	g_test_add_func ("/AppStream/Misc/StripLocaleEncoding", test_locale_strip_encoding);
 	g_test_add_func ("/AppStream/Misc/RelationSatisfyCheck", test_relation_satisfy_check);
