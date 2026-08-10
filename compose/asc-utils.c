@@ -151,7 +151,14 @@ asc_filename_from_url (const gchar *url)
 
 	if (url == NULL)
 		return NULL;
+
+	/* URLs come straight from (untrusted) metainfo data, so they may well contain
+	 * invalid escape sequences and fail to unescape - in that case we just use the
+	 * raw string to derive a name from */
 	unescaped = g_uri_unescape_string (url, NULL);
+	if (unescaped == NULL)
+		unescaped = g_strdup (url);
+
 	tmp = g_strstr_len (unescaped, -1, "?");
 	if (tmp != NULL)
 		tmp[0] = '\0';

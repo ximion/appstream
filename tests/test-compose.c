@@ -110,6 +110,34 @@ test_utils (void)
 	tmp = asc_filename_from_url ("https://example.com/?/");
 	g_assert_cmpstr (tmp, ==, "example.com");
 	g_free (tmp);
+
+	tmp = asc_filename_from_url ("https://example.com/sc%72eenshot.png");
+	g_assert_cmpstr (tmp, ==, "screenshot.png");
+	g_free (tmp);
+
+	/* invalid escape sequences must not make us fail */
+	tmp = asc_filename_from_url ("https://example.com/sc%zzeenshot.png");
+	g_assert_cmpstr (tmp, ==, "sc%zzeenshot.png");
+	g_free (tmp);
+
+	tmp = asc_filename_from_url ("https://example.com/screenshot.png%");
+	g_assert_cmpstr (tmp, ==, "screenshot.png%");
+	g_free (tmp);
+
+	tmp = asc_filename_from_url ("https://example.com/screen%00shot.png");
+	g_assert_cmpstr (tmp, ==, "screen%00shot.png");
+	g_free (tmp);
+
+	tmp = asc_filename_from_url ("%zz");
+	g_assert_cmpstr (tmp, ==, "%zz");
+	g_free (tmp);
+
+	tmp = asc_filename_from_url ("");
+	g_assert_nonnull (tmp);
+	g_assert_cmpint (strlen (tmp), ==, 4);
+	g_free (tmp);
+
+	g_assert_null (asc_filename_from_url (NULL));
 }
 
 /**
