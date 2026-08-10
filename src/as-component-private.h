@@ -98,6 +98,9 @@ void	     as_component_set_ignored (AsComponent *cpt, gboolean ignore);
 AsOriginKind as_component_get_origin_kind (AsComponent *cpt);
 void	     as_component_set_origin_kind (AsComponent *cpt, AsOriginKind okind);
 
+void	     as_component_seal (AsComponent *cpt);
+void	     as_component_unseal (AsComponent *cpt);
+
 gboolean     as_component_merge (AsComponent *cpt, AsComponent *source);
 void as_component_merge_with_mode (AsComponent *cpt, AsComponent *source, AsMergeKind merge_kind);
 

@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2012-2024 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2026 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -74,6 +74,9 @@ typedef struct {
 
 	gchar *id;
 	gchar *data_id;
+	guint16 seal_count;	/* > 0 while our identifiers are sealed */
+	gboolean data_id_dirty; /* set if data-ID needs regeneration (on unseal) */
+
 	gchar **pkgnames;
 	gchar *source_pkgname;
 	GRefString *origin;
@@ -542,7 +545,59 @@ as_component_invalidate_data_id (AsComponent *cpt)
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	if (priv->data_id == NULL)
 		return;
+	if (priv->seal_count > 0) {
+		/* our data-ID is currently in use as a key elsewhere (e.g. in the component
+		 * registry of a metadata pool), so we may not free it yet - just remember
+		 * that it has to be regenerated as soon as we are unsealed again */
+		priv->data_id_dirty = TRUE;
+		return;
+	}
 	g_free (g_steal_pointer (&priv->data_id));
+}
+
+/**
+ * as_component_seal:
+ * @cpt: a #AsComponent instance.
+ *
+ * Freeze the identifiers of this component, so they can safely be used as keys
+ * by whoever is indexing it: While a component is sealed, its ID can not be
+ * changed anymore, and its data-ID is neither changed nor freed - any
+ * invalidation of the data-ID is deferred until the component is unsealed again.
+ *
+ * Seals are counted, so every call to this function has to be paired with
+ * exactly one call to %as_component_unseal.
+ */
+void
+as_component_seal (AsComponent *cpt)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+
+	/* ensure the data-ID exists before we freeze it */
+	as_component_get_data_id (cpt);
+	priv->seal_count++;
+}
+
+/**
+ * as_component_unseal:
+ * @cpt: a #AsComponent instance.
+ *
+ * Drop one seal from this component, added via %as_component_seal.
+ * Once the last seal is gone, a data-ID invalidation that happened in the
+ * meantime is applied, so the data-ID is regenerated on the next access.
+ */
+void
+as_component_unseal (AsComponent *cpt)
+{
+	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+
+	g_return_if_fail (priv->seal_count > 0);
+	if (--priv->seal_count > 0)
+		return;
+
+	if (priv->data_id_dirty) {
+		priv->data_id_dirty = FALSE;
+		g_free (g_steal_pointer (&priv->data_id));
+	}
 }
 
 /**
@@ -1177,6 +1232,14 @@ as_component_set_id (AsComponent *cpt, const gchar *value)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
+	if (priv->seal_count > 0) {
+		/* changing the ID would free a string that is still in use as a key */
+		g_critical ("Refusing to change the ID of component '%s': The component is "
+			    "sealed (and probably registered in an index).",
+			    priv->id);
+		return;
+	}
+
 	as_assign_string_safe (priv->id, value);
 	g_object_notify ((GObject *) cpt, "id");
 	as_component_invalidate_data_id (cpt);
@@ -1223,6 +1286,15 @@ void
 as_component_set_data_id (AsComponent *cpt, const gchar *value)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+
+	if (priv->seal_count > 0) {
+		/* changing the data-ID would free a string that is still in use elsewhere */
+		g_critical ("Refusing to change the data-ID of component '%s': The component is "
+			    "sealed (and probably registered in an index).",
+			    priv->data_id);
+		return;
+	}
+
 	as_assign_string_safe (priv->data_id, value);
 }
 

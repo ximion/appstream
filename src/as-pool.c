@@ -250,16 +250,47 @@ typedef struct {
 	GHashTable *id_map;
 } AsComponentRegistry;
 
+/**
+ * as_component_registry_ref_sealed:
+ *
+ * Take a reference on @cpt for storage in the registry, and seal it, so the
+ * identifiers we use as keys can not change or vanish while it is registered.
+ */
+static gpointer
+as_component_registry_ref_sealed (AsComponent *cpt)
+{
+	as_component_seal (cpt);
+	return g_object_ref (cpt);
+}
+
+/**
+ * as_component_registry_release_cpt:
+ *
+ * Counterpart to %as_component_registry_ref_sealed, used as destroy function
+ * for all component references the registry holds.
+ */
+static void
+as_component_registry_release_cpt (gpointer data)
+{
+	AsComponent *cpt = AS_COMPONENT (data);
+	as_component_unseal (cpt);
+	g_object_unref (cpt);
+}
+
 static AsComponentRegistry *
 as_component_registry_new (void)
 {
 	AsComponentRegistry *registry;
 	registry = g_new0 (AsComponentRegistry, 1);
 
+	/* NOTE: Both tables use string keys that are owned by the components they refer
+	 * to, so we deliberately have no key destroy function here. This is safe because
+	 * every component reference the registry holds is sealed, which keeps its ID and
+	 * data-ID alive and unchanged for as long as it is registered. */
 	registry->data_id_map = g_hash_table_new_full ((GHashFunc) as_utils_data_id_hash,
 						       (GEqualFunc) as_utils_data_id_equal,
 						       NULL,
-						       g_object_unref);
+						       as_component_registry_release_cpt);
 	registry->id_map = g_hash_table_new_full (g_str_hash,
 						  g_str_equal,
 						  NULL,
@@ -281,17 +312,21 @@ static void
 as_component_registry_add (AsComponentRegistry *registry, AsComponent *cpt)
 {
 	GPtrArray *list;
+	const gchar *data_id = as_component_get_data_id (cpt);
 
-	g_hash_table_insert (registry->data_id_map,
-			     (gchar *) as_component_get_data_id (cpt),
-			     g_object_ref (cpt));
+	/* NOTE: We must replace here instead of just inserting: A plain insert would keep
+	 * the key of a component that we are about to drop, and that key is freed as soon
+	 * as the old component is unsealed. */
+	g_hash_table_replace (registry->data_id_map,
+			      (gchar *) data_id,
+			      as_component_registry_ref_sealed (cpt));
 
 	list = g_hash_table_lookup (registry->id_map, as_component_get_id (cpt));
 	if (list == NULL) {
-		list = g_ptr_array_new_with_free_func (g_object_unref);
+		list = g_ptr_array_new_with_free_func (as_component_registry_release_cpt);
 		g_hash_table_insert (registry->id_map, (gchar *) as_component_get_id (cpt), list);
 	}
-	g_ptr_array_add (list, g_object_ref (cpt));
+	g_ptr_array_add (list, as_component_registry_ref_sealed (cpt));
 }
 
 static AsComponent *
@@ -833,8 +868,8 @@ as_pool_add_component_internal (AsPool *pool,
 				if (as_component_get_priority (match) <
 				    as_component_get_priority (cpt)) {
 					const gchar *match_cdid = as_component_get_data_id (match);
-					as_component_registry_remove (registry, match_cdid);
 					g_debug ("Removed via merge component: %s", match_cdid);
+					as_component_registry_remove (registry, match_cdid);
 				}
 			} else {
 				as_component_merge (match, cpt);
