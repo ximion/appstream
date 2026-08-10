@@ -263,7 +263,18 @@ asc_compose_set_origin (AscCompose *compose, const gchar *origin)
 	AscComposePrivate *priv = GET_PRIVATE (compose);
 	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
 	g_autofree gchar *tmp = NULL;
-	tmp = g_markup_escape_text (origin, -1);
+
+	tmp = as_path_segment_sanitize (origin);
+	if (tmp == NULL) {
+		g_critical ("Refusing to set an empty metadata origin name.");
+		return;
+	}
+	if (g_strcmp0 (tmp, origin) != 0)
+		g_warning ("Metadata origin name '%s' contained invalid characters, using '%s' "
+			   "instead.",
+			   origin,
+			   tmp);
+
 	as_ref_string_assign_safe (&priv->origin, tmp);
 }
 

@@ -162,6 +162,15 @@ as_get_yml_data_origin (const gchar *fname)
 		break;
 	}
 
+	/* the origin name is used to construct filesystem paths (and this code may run as root),
+	 * so we only accept values which are safe to use as a single path segment */
+	if (origin != NULL && !as_path_segment_verify (origin)) {
+		g_warning ("Ignoring DEP-11 data from '%s': Origin name '%s' is invalid.",
+			   fname,
+			   origin);
+		g_free (g_steal_pointer (&origin));
+	}
+
 	return origin;
 }
 
@@ -219,6 +228,12 @@ as_extract_icon_cache_tarball (const gchar *asicons_target,
 	g_autofree gchar *icons_tarball = NULL;
 	g_autofree gchar *target_dir = NULL;
 	g_autoptr(GError) tmp_error = NULL;
+
+	/* make sure the origin string is safe to use in paths */
+	if (!as_path_segment_verify (origin)) {
+		g_warning ("Refusing to extract icon cache: Invalid origin name '%s'.", origin);
+		return;
+	}
 
 	icons_tarball = as_apt_list_get_icon_tarball_path (apt_lists_dir, apt_basename, icons_size);
 	if (icons_tarball == NULL) {

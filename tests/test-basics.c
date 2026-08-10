@@ -140,6 +140,46 @@ test_verify_int_str (void)
 }
 
 /**
+ * test_path_segments:
+ */
+static void
+test_path_segments (void)
+{
+	g_autofree gchar *tmp = NULL;
+
+	g_assert_true (as_path_segment_verify ("debian-bookworm-main"));
+	g_assert_true (as_path_segment_verify ("flathub"));
+	g_assert_true (as_path_segment_verify ("ubuntu_noble+extra.1"));
+
+	g_assert_false (as_path_segment_verify (NULL));
+	g_assert_false (as_path_segment_verify (""));
+	g_assert_false (as_path_segment_verify ("."));
+	g_assert_false (as_path_segment_verify (".."));
+	g_assert_false (as_path_segment_verify (".hidden"));
+	g_assert_false (as_path_segment_verify ("../../etc/cron.d"));
+	g_assert_false (as_path_segment_verify ("/etc/cron.d"));
+	g_assert_false (as_path_segment_verify ("debian/../../etc"));
+	g_assert_false (as_path_segment_verify ("debian main"));
+
+	g_assert_null (as_path_segment_sanitize (NULL));
+	g_assert_null (as_path_segment_sanitize (""));
+
+	tmp = as_path_segment_sanitize ("debian-bookworm-main");
+	g_assert_cmpstr (tmp, ==, "debian-bookworm-main");
+	g_free (g_steal_pointer (&tmp));
+
+	tmp = as_path_segment_sanitize ("../../etc/cron.d");
+	g_assert_cmpstr (tmp, ==, "_._.._etc_cron.d");
+	g_assert_true (as_path_segment_verify (tmp));
+	g_free (g_steal_pointer (&tmp));
+
+	tmp = as_path_segment_sanitize ("my <origin>");
+	g_assert_cmpstr (tmp, ==, "my__origin_");
+	g_assert_true (as_path_segment_verify (tmp));
+	g_free (g_steal_pointer (&tmp));
+}
+
+/**
  * test_locale_conversion:
  */
 static void
@@ -1387,6 +1427,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/AppStream/Random", test_random);
 	g_test_add_func ("/AppStream/SafeAssign", test_safe_assign);
 	g_test_add_func ("/AppStream/VerifyIntStr", test_verify_int_str);
+	g_test_add_func ("/AppStream/PathSegments", test_path_segments);
 	g_test_add_func ("/AppStream/LocaleConvert", test_locale_conversion);
 	g_test_add_func ("/AppStream/Categories", test_categories);
 	g_test_add_func ("/AppStream/SimpleMarkupConvert", test_simplemarkup);

@@ -449,6 +449,83 @@ as_str_verify_integer (const gchar *str, gint64 min_value, gint64 max_value)
 }
 
 /**
+ * as_path_segment_char_valid:
+ *
+ * Check if a character may appear in a filesystem path segment.
+ */
+static inline gboolean
+as_path_segment_char_valid (gchar c)
+{
+	if (g_ascii_isalnum (c))
+		return TRUE;
+	return c == '-' || c == '_' || c == '.' || c == '+';
+}
+
+/**
+ * as_path_segment_verify:
+ * @str: The string to test.
+ *
+ * Verify that a string can safely be used as a single segment of a filesystem
+ * path, that is, that it can not escape the directory it is used in and does
+ * not contain any character that may confuse other tools operating on the
+ * resulting path.
+ *
+ * We deliberately use a strict allowlist here (ASCII alphanumerics as well as
+ * `-`, `_`, `.` and `+`), as this function is used to validate names which we
+ * read from untrusted, remotely obtained metadata.
+ *
+ * Returns: %TRUE if the string is safe to use as a path segment.
+ */
+gboolean
+as_path_segment_verify (const gchar *str)
+{
+	if (as_is_empty (str))
+		return FALSE;
+
+	/* never permit relative path components or hidden entries */
+	if (str[0] == '.')
+		return FALSE;
+
+	for (guint i = 0; str[i] != '\0'; i++) {
+		if (!as_path_segment_char_valid (str[i]))
+			return FALSE;
+	}
+
+	return TRUE;
+}
+
+/**
+ * as_path_segment_sanitize:
+ * @str: The string to sanitize.
+ *
+ * Replace all characters which #as_path_segment_verify would reject with
+ * an underscore, so the resulting string is safe to use as a single segment
+ * of a filesystem path.
+ *
+ * Returns: (transfer full): A sanitized copy of @str, or %NULL if @str was empty.
+ */
+gchar *
+as_path_segment_sanitize (const gchar *str)
+{
+	g_autofree gchar *res = NULL;
+
+	if (as_is_empty (str))
+		return NULL;
+
+	res = g_strdup (str);
+	for (guint i = 0; res[i] != '\0'; i++) {
+		if (!as_path_segment_char_valid (res[i]))
+			res[i] = '_';
+	}
+
+	/* never create relative path components or hidden entries */
+	if (res[0] == '.')
+		res[0] = '_';
+
+	return g_steal_pointer (&res);
+}
+
+/**
  * as_utils_delete_dir_recursive:
  * @dirname: Directory to remove
  *

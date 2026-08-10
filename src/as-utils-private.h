@@ -47,6 +47,11 @@ AS_INTERNAL_VISIBLE
 gboolean as_str_verify_integer (const gchar *str, gint64 min_value, gint64 max_value);
 
 AS_INTERNAL_VISIBLE
+gboolean as_path_segment_verify (const gchar *str);
+AS_INTERNAL_VISIBLE
+gchar *as_path_segment_sanitize (const gchar *str);
+
+AS_INTERNAL_VISIBLE
 gboolean as_utils_delete_dir_recursive (const gchar *dirname);
 
 AS_INTERNAL_VISIBLE
