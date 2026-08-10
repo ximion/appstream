@@ -1112,7 +1112,8 @@ as_release_load_from_yaml (AsRelease *release, AsContext *ctx, struct fy_node *n
 		struct fy_node *value_n = fy_node_pair_value (pair);
 
 		if (as_str_equal0 (key, "unix-timestamp")) {
-			priv->timestamp = atol (value);
+			if (value != NULL)
+				priv->timestamp = atol (value);
 		} else if (as_str_equal0 (key, "date")) {
 			g_autoptr(GDateTime) time = as_iso8601_to_datetime (value);
 			if (time != NULL) {
