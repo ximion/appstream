@@ -1317,7 +1317,7 @@ as_content_rating_attribute_to_csm_age (const gchar *id, AsContentRatingValue va
 AsContentRatingValue
 as_content_rating_attribute_from_csm_age (const gchar *id, guint age)
 {
-	for (gsize i = 0; G_N_ELEMENTS (oars_to_csm_mappings); i++) {
+	for (gsize i = 0; i < G_N_ELEMENTS (oars_to_csm_mappings); i++) {
 		if (g_strcmp0 (id, oars_to_csm_mappings[i].id) == 0) {
 			if (age >= oars_to_csm_mappings[i].csm_age_intense)
 				return AS_CONTENT_RATING_VALUE_INTENSE;
