@@ -49,11 +49,17 @@ static void
 as_version_parse (AsVersion *version, const gchar *v)
 {
 	const gchar *epoch_end = strchr (v, ':');
-	const gchar *version_end = strrchr (v, '-');
 	const gchar *complete_end = v + strlen (v);
+	const gchar *version_end;
 
 	version->epoch = (epoch_end == NULL) ? "" : v;
 	version->version = (epoch_end == NULL) ? v : epoch_end + 1;
+
+	/* the revision separator has to be searched for *after* the epoch, otherwise a
+	 * malformed version such as "1-a:x" (where the last '-' precedes the ':') would
+	 * yield a version_end that lies before version, making the range invalid */
+	version_end = strrchr (version->version, '-');
+
 	version->version_end = (version_end == NULL) ? complete_end : version_end;
 	version->revision = (version_end == NULL) ? "0" : version_end + 1;
 	version->revision_end = ((version_end == NULL) ? version->revision + 1 : complete_end);
@@ -101,26 +107,32 @@ cmp_number (const gchar *a, const gchar *b, const gchar **pa, const gchar **pb)
 
 /**
  * cmp_part:
+ *
+ * Compare the ranges [@a, @a_end) and [@b, @b_end).
+ *
+ * The end pointers are compared with `>=` rather than `==` on purpose: should a caller
+ * ever hand us a range whose end lies before its start, we still terminate at the first
+ * check instead of walking off the end of the buffer.
  */
 static gint
 cmp_part (const gchar *a, const gchar *a_end, const gchar *b, const gchar *b_end)
 {
-	while (a != a_end || b != b_end) {
+	while (a < a_end || b < b_end) {
 		int cmpres;
 		for (; !g_ascii_isdigit (*a) || !g_ascii_isdigit (*b); a++, b++) {
-			if (a == a_end && b == b_end)
+			if (a >= a_end && b >= b_end)
 				return 0;
-			else if (*a == *b && a != a_end && b != b_end)
+			else if (*a == *b && a < a_end && b < b_end)
 				continue;
 			/* Tilde always sorts first; i.e., the string with tilde loses */
 			else if (*a == '~' || *b == '~')
 				return (*a == '~') ? -1 : 1;
 			/* One string is empty, other is a number -> go into number mode */
-			else if ((a == a_end && *b == '0') || (b == b_end && *a == '0'))
+			else if ((a >= a_end && *b == '0') || (b >= b_end && *a == '0'))
 				return cmp_number (a, b, NULL, NULL);
 			/* One string is empty, other is not a number -> other wins */
-			else if (a == a_end || b == b_end)
-				return (a == a_end) ? -1 : 1;
+			else if (a >= a_end || b >= b_end)
+				return (a >= a_end) ? -1 : 1;
 			/* One non-digit part is shorter than the other one */
 			else if (g_ascii_isdigit (*a) != g_ascii_isdigit (*b))
 				return g_ascii_isdigit (*a) ? -1 : 1;
@@ -134,7 +146,7 @@ cmp_part (const gchar *a, const gchar *a_end, const gchar *b, const gchar *b_end
 
 		/* Now compare numbers */
 		cmpres = cmp_number (a, b, &a, &b);
-		if (cmpres != 0 || (a == a_end && b == b_end))
+		if (cmpres != 0 || (a >= a_end && b >= b_end))
 			return cmpres;
 	}
 

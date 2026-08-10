@@ -1011,6 +1011,23 @@ test_version_compare (void)
 	g_assert_cmpint (as_vercmp_simple ("9half", "10"), <, 0);
 	g_assert_cmpint (as_vercmp_simple ("9.5", "10"), <, 0);
 
+	/* malformed versions, e.g. ones where the revision separator precedes the epoch
+	 * separator - these must be parsed into valid ranges and compare consistently,
+	 * instead of making the comparison run off the end of the string */
+	{
+		const gchar *malformed[] = { "1-a:x", "1-b:x", "-:",	  ":-",	   "a-b:c-d",
+					     "1-0:0", "0:0-1", "~-:~",	  "-",	   ":",
+					     "",      "0-:1",  "1:2-3-4", "1.0:-", NULL };
+		for (guint i = 0; malformed[i] != NULL; i++) {
+			for (guint j = 0; malformed[j] != NULL; j++) {
+				/* the result is arbitrary, but it must be antisymmetric */
+				g_assert_cmpint (as_vercmp_simple (malformed[i], malformed[j]),
+						 ==,
+						 -as_vercmp_simple (malformed[j], malformed[i]));
+			}
+		}
+	}
+
 	/* test match */
 	g_assert_true (
 	    as_vercmp_test_match ("1", AS_RELATION_COMPARE_LT, "2", AS_VERCMP_FLAG_NONE));
