@@ -35,6 +35,7 @@
 #include <as-developer.h>
 #include <as-icon.h>
 #include <as-screenshot.h>
+#include <as-promotional.h>
 #include <as-image.h>
 #include <as-video.h>
 #include <as-branding.h>
