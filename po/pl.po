@@ -22,7 +22,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-08-10 23:32+0200\n"
-"PO-Revision-Date: 2026-07-21 23:02+0000\n"
+"PO-Revision-Date: 2026-08-11 13:51+0000\n"
 "Last-Translator: Matthaiks <kitynska@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/appstream/translations/pl/>\n"
 "Language: pl\n"
@@ -30,7 +30,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 2026.8.dev0\n"
+"X-Generator: Weblate 2026.9.dev0\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1675,11 +1675,11 @@ msgstr "Ten akapit opisu zawiera nieprawidłowe znaczniki. Obecnie dozwolone są
 
 #: src/as-validator-issue-tag.h:75
 msgid "Elements of description markup must not have any attributes set, with the exception of a language property on paragraphs and list items in MetaInfo files. Any other attribute is not permitted and will be removed when the metadata is read."
-msgstr ""
+msgstr "Elementy znaczników opisu nie mogą mieć ustawionych żadnych atrybutów z wyjątkiem właściwości języka w akapitach i elementach listy w plikach MetaInfo. Wszelkie inne atrybuty są niedozwolone i zostaną usunięte podczas odczytu metadanych."
 
 #: src/as-validator-issue-tag.h:81
 msgid "The markup in this description is nested too deeply. Excessively nested markup will be flattened to plain text when the metadata is read."
-msgstr ""
+msgstr "Znaczniki w tym opisie są zagnieżdżone zbyt głęboko. Nadmiernie zagnieżdżone znaczniki zostaną spłaszczone do zwykłego tekstu podczas odczytu metadanych."
 
 #: src/as-validator-issue-tag.h:87
 msgid "Enumerations must only have list items (<li/>) as children."
@@ -2027,11 +2027,11 @@ msgstr "Znacznik „pkgname” pojawia się wiele razy. Należy rozważyć utwor
 
 #: src/as-validator-issue-tag.h:527
 msgid "The package name contains characters that are not permitted here. A package name must start with an alphanumeric character and may only contain alphanumeric characters as well as `+`, `-`, `.`, `_` and `:`."
-msgstr ""
+msgstr "Nazwa pakietu zawiera znaki, które nie są tutaj dozwolone. Nazwa pakietu musi zaczynać się od znaku alfanumerycznego i może zawierać wyłącznie znaki alfanumeryczne, a także „+”, „-”, „.”, „_” i „:”."
 
 #: src/as-validator-issue-tag.h:533
 msgid "The bundle ID contains characters that are not permitted here. It must start with an alphanumeric character and may only contain alphanumeric characters as well as `+`, `-`, `.`, `_`, `:` and `/`."
-msgstr ""
+msgstr "Identyfikator pakietu zawiera znaki, które nie są tutaj dozwolone. Musi zaczynać się od znaku alfanumerycznego i może zawierać wyłącznie znaki alfanumeryczne, a także „+”, „-”, „.”, „_”, „:” i „/”."
 
 #: src/as-validator-issue-tag.h:539
 msgid "The component name should (likely) not end with a dot (`.`)."
@@ -3718,7 +3718,7 @@ msgstr "Recenzja została pomyślnie przesłana. Dziękujemy!"
 #: tools/ascli-actions-pkgmgr.c:92
 #, c-format
 msgid "Refusing to run the package manager: The component metadata contains an invalid package name: %s"
-msgstr ""
+msgstr "Odmowa uruchomienia menedżera pakietów: metadane komponentu zawierają nieprawidłową nazwę pakietu: %s"
 
 #: tools/ascli-actions-pkgmgr.c:107
 msgid "No suitable package manager tool found. Please make sure that e.g. \"pkgcli\" (part of PackageKit) is available."
@@ -3733,7 +3733,7 @@ msgstr "Nie można wywołać menedżera pakietów: %s"
 #: tools/ascli-actions-pkgmgr.c:144
 #, c-format
 msgid "Refusing to run Flatpak: The component metadata contains an invalid bundle ID: %s"
-msgstr ""
+msgstr "Odmowa uruchomienia Flatpak: metadane komponentu zawierają nieprawidłowy identyfikator pakietu: %s"
 
 #: tools/ascli-actions-pkgmgr.c:151
 msgid "Flatpak was not found! Please install it to continue."
