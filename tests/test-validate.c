@@ -497,6 +497,68 @@ test_validator_icon_format (void)
 	}
 }
 
+/**
+ * test_validator_extern_ids:
+ *
+ * Test that package names and bundle IDs which could be misread by the tools
+ * that consume them are flagged.
+ */
+static void
+test_validator_extern_ids (void)
+{
+	const gchar *XML_TMPL = "<component>\n"
+				"  <id>org.example.Test</id>\n"
+				"  <name>Test</name>\n"
+				"  <summary>Just a unittest.</summary>\n"
+				"  <description>\n"
+				"    <p>First paragraph</p>\n"
+				"  </description>\n"
+				"  %s\n"
+				"</component>\n";
+
+	const struct {
+		const gchar *tag_xml;
+		const gchar *expected_tag;
+	} test_cases[] = {
+		/* valid values must not be flagged */
+		{ "<pkgname>hello</pkgname>",					      NULL			   },
+		{ "<pkgname>libstdc++6</pkgname>",					   NULL			},
+		{ "<pkgname>python3.11</pkgname>",					   NULL			},
+		{ "<pkgname>libfoo:i386</pkgname>",					    NULL			 },
+		{ "<bundle type=\"flatpak\">app/org.example.Test/x86_64/stable</bundle>", NULL		       },
+
+		/* a value that would be read as a switch by the package manager */
+		{ "<pkgname>-oDPkg::Pre-Invoke::=/bin/sh</pkgname>",			     "pkgname-invalid-chars"   },
+		/* a value that apt would install as a local .deb file */
+		{ "<pkgname>./evil.deb</pkgname>",					   "pkgname-invalid-chars"   },
+		/* version pinning is still honored after an end-of-options marker */
+		{ "<pkgname>hello=1.0</pkgname>",					  "pkgname-invalid-chars"	  },
+		/* a name that would be expanded as a regular expression */
+		{ "<pkgname>.*</pkgname>",						"pkgname-invalid-chars"   },
+		{ "<bundle type=\"flatpak\">--nonsense</bundle>",			  "bundle-id-invalid-chars" },
+	};
+
+	for (guint i = 0; i < G_N_ELEMENTS (test_cases); i++) {
+		g_autoptr(AsValidator) validator = as_validator_new ();
+		g_autoptr(GList) issues = NULL;
+		g_autofree gchar *sample_xml = NULL;
+
+		sample_xml = g_strdup_printf (XML_TMPL, test_cases[i].tag_xml);
+		as_validator_validate_data (validator, sample_xml);
+		issues = as_validator_get_issues (validator);
+
+		if (test_cases[i].expected_tag == NULL) {
+			g_assert_false (
+			    _astest_issues_contain_tag (issues, "pkgname-invalid-chars"));
+			g_assert_false (
+			    _astest_issues_contain_tag (issues, "bundle-id-invalid-chars"));
+		} else {
+			g_assert_true (
+			    _astest_issues_contain_tag (issues, test_cases[i].expected_tag));
+		}
+	}
+}
+
 int
 main (int argc, char **argv)
 {
@@ -525,6 +587,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/AppStream/Validate/RelationIssues", test_validator_relationissues);
 	g_test_add_func ("/AppStream/Validate/Overrides", test_validator_overrides);
 	g_test_add_func ("/AppStream/Validate/IconFormat", test_validator_icon_format);
+	g_test_add_func ("/AppStream/Validate/ExternIds", test_validator_extern_ids);
 
 	ret = g_test_run ();
 	g_free (datadir);

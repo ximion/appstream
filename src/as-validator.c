@@ -726,6 +726,32 @@ as_validator_add_override (AsValidator *validator,
 }
 
 /**
+ * as_validator_extern_id_chars_valid:
+ * @str: The tag content to check.
+ * @extra_chars: Characters permitted besides ASCII alphanumerics.
+ **/
+static gboolean
+as_validator_extern_id_chars_valid (const gchar *str, const gchar *extra_chars)
+{
+	if (as_is_empty (str))
+		return FALSE;
+
+	/* these identifiers always start with an alphanumeric character */
+	if (!g_ascii_isalnum (str[0]))
+		return FALSE;
+
+	for (guint i = 0; str[i] != '\0'; i++) {
+		if (g_ascii_isalnum (str[i]))
+			continue;
+		if (strchr (extra_chars, str[i]) != NULL)
+			continue;
+		return FALSE;
+	}
+
+	return TRUE;
+}
+
+/**
  * as_validator_check_type_property:
  **/
 static gchar *
@@ -3239,6 +3265,13 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 		} else if (g_strcmp0 (node_name, "pkgname") == 0) {
 			if (g_hash_table_contains (found_tags, node_name))
 				as_validator_add_issue (validator, iter, "multiple-pkgname", NULL);
+			if (!as_is_empty (node_content) &&
+			    !as_validator_extern_id_chars_valid (node_content, "+-._:"))
+				as_validator_add_issue (validator,
+							iter,
+							"pkgname-invalid-chars",
+							"%s",
+							node_content);
 		} else if (g_strcmp0 (node_name, "source_pkgname") == 0) {
 			as_validator_check_appear_once (validator, iter, found_tags, FALSE);
 		} else if (g_strcmp0 (node_name, "name") == 0) {
@@ -3521,6 +3554,14 @@ as_validator_validate_component_node (AsValidator *validator, AsContext *ctx, xm
 							"bundle-unknown-type",
 							"%s",
 							prop);
+
+			if (!as_is_empty (node_content) &&
+			    !as_validator_extern_id_chars_valid (node_content, "+-._:/"))
+				as_validator_add_issue (validator,
+							iter,
+							"bundle-id-invalid-chars",
+							"%s",
+							node_content);
 
 		} else if (g_strcmp0 (node_name, "update_contact") == 0) {
 			if (mode == AS_FORMAT_STYLE_CATALOG) {

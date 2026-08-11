@@ -522,6 +522,18 @@ static AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	  N_("The `pkgname` tag appears multiple times. You should evaluate creating a metapackage containing the metainfo and .desktop files in order to avoid defining multiple package names per component.")
 	},
 
+	{ "pkgname-invalid-chars",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  N_("The package name contains characters that are not permitted here. "
+	     "A package name must start with an alphanumeric character and may only contain alphanumeric characters as well as `+`, `-`, `.`, `_` and `:`.")
+	},
+
+	{ "bundle-id-invalid-chars",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  N_("The bundle ID contains characters that are not permitted here. "
+	     "It must start with an alphanumeric character and may only contain alphanumeric characters as well as `+`, `-`, `.`, `_`, `:` and `/`.")
+	},
+
 	{ "name-has-dot-suffix",
 	  AS_ISSUE_SEVERITY_PEDANTIC,
 	  N_("The component name should (likely) not end with a dot (`.`).")
