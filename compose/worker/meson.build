@@ -10,6 +10,7 @@ asw_src = [
     'asw-canvas.c',
     'asw-font.c',
     'asw-image.c',
+    'asw-ipc.c',
     'asw-video.c',
     'asw-worker.c',
 ]
@@ -20,6 +21,7 @@ asw_headers = [
     'asw-font-private.h',
     'asw-image.h',
     'asw-image-private.h',
+    'asw-ipc.h',
     'asw-video.h',
     'asw-worker.h',
 ]

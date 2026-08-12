@@ -35,10 +35,8 @@
 
 #include <errno.h>
 #include <fcntl.h>
-#include <string.h>
 #include <sys/mman.h>
 #include <sys/socket.h>
-#include <sys/stat.h>
 #include <unistd.h>
 #include <gio/gunixfdmessage.h>
 
@@ -103,128 +101,13 @@ asc_memfd_new_sealed (const gchar *name, gconstpointer data, gsize len, GError *
 }
 
 /**
- * asc_memfd_verify_sealed:
- * @fd: The file descriptor to verify.
- * @max_size: Maximum permitted size in bytes, or 0 for no limit.
- * @size_out: (out) (optional): Size of the data in bytes.
- * @error: A #GError or %NULL
- *
- * Verify that the given file descriptor is a fully sealed memfd
- * within the given size limit, so its contents can safely be mapped.
- *
- * Returns: %TRUE if the fd is safe to use.
- */
-gboolean
-asc_memfd_verify_sealed (gint fd, guint64 max_size, gsize *size_out, GError **error)
-{
-	struct stat st;
-	gint seals;
-
-	if (fstat (fd, &st) != 0) {
-		g_set_error (error,
-			     ASC_MEDIA_ERROR,
-			     ASC_MEDIA_ERROR_PROTOCOL,
-			     "Unable to stat received fd: %s",
-			     g_strerror (errno));
-		return FALSE;
-	}
-	if (!S_ISREG (st.st_mode)) {
-		g_set_error_literal (error,
-				     ASC_MEDIA_ERROR,
-				     ASC_MEDIA_ERROR_PROTOCOL,
-				     "Received data fd is not a regular file.");
-		return FALSE;
-	}
-
-	seals = fcntl (fd, F_GET_SEALS);
-	if (seals < 0) {
-		g_set_error (error,
-			     ASC_MEDIA_ERROR,
-			     ASC_MEDIA_ERROR_PROTOCOL,
-			     "Unable to read seals of received fd: %s",
-			     g_strerror (errno));
-		return FALSE;
-	}
-	if ((seals & (F_SEAL_SHRINK | F_SEAL_GROW | F_SEAL_WRITE)) !=
-	    (F_SEAL_SHRINK | F_SEAL_GROW | F_SEAL_WRITE)) {
-		g_set_error_literal (error,
-				     ASC_MEDIA_ERROR,
-				     ASC_MEDIA_ERROR_PROTOCOL,
-				     "Received data fd is not properly sealed.");
-		return FALSE;
-	}
-
-	if (max_size > 0 && (guint64) st.st_size > max_size) {
-		g_set_error (error,
-			     ASC_MEDIA_ERROR,
-			     ASC_MEDIA_ERROR_LIMIT_EXCEEDED,
-			     "Received data of %" G_GUINT64_FORMAT
-			     " bytes exceeds the limit of %" G_GUINT64_FORMAT " bytes.",
-			     (guint64) st.st_size,
-			     max_size);
-		return FALSE;
-	}
-
-	if (size_out != NULL)
-		*size_out = st.st_size;
-	return TRUE;
-}
-
-static void
-asc_memfd_unmap_cb (gpointer data)
-{
-	gpointer *closure = data;
-	munmap (closure[0], GPOINTER_TO_SIZE (closure[1]));
-	g_free (closure);
-}
-
-/**
- * asc_memfd_map_bytes:
- * @fd: A sealed memfd to map.
- * @max_size: Maximum permitted size in bytes, or 0 for no limit.
- * @error: A #GError or %NULL
- *
- * Verify the seals on the given memfd and map its contents read-only.
- * The mapping is safe from concurrent modification due to the seals.
- *
- * Returns: (transfer full): The mapped data, or %NULL on error.
- */
-GBytes *
-asc_memfd_map_bytes (gint fd, guint64 max_size, GError **error)
-{
-	gsize size = 0;
-	gpointer map;
-	gpointer *closure;
-
-	if (!asc_memfd_verify_sealed (fd, max_size, &size, error))
-		return NULL;
-	if (size == 0)
-		return g_bytes_new_static ("", 0);
-
-	map = mmap (NULL, size, PROT_READ, MAP_PRIVATE, fd, 0);
-	if (map == MAP_FAILED) {
-		g_set_error (error,
-			     ASC_MEDIA_ERROR,
-			     ASC_MEDIA_ERROR_FAILED,
-			     "Unable to map received data: %s",
-			     g_strerror (errno));
-		return NULL;
-	}
-
-	closure = g_new0 (gpointer, 2);
-	closure[0] = map;
-	closure[1] = GSIZE_TO_POINTER (size);
-	return g_bytes_new_with_free_func (map, size, asc_memfd_unmap_cb, closure);
-}
-
-/**
  * asc_media_wire_send_message:
  *
  * Send a single serialized GVariant envelope as one datagram,
  * with an optional list of file descriptors attached.
  */
-static gboolean
-asc_media_wire_send_message (GSocket *socket, GVariant *message, GUnixFDList *fds, GError **error)
+gboolean
+asc_media_ipc_send_message (GSocket *socket, GVariant *message, GUnixFDList *fds, GError **error)
 {
 	g_autoptr(GVariant) msg = g_variant_ref_sink (message);
 	gconstpointer data;
@@ -236,8 +119,6 @@ asc_media_wire_send_message (GSocket *socket, GVariant *message, GUnixFDList *fd
 	gssize ret;
 	gboolean result = FALSE;
 
-	/* GVariant serialization is in host byte order - that is fine here, since
-	 * the worker is always a local process built alongside this library */
 	data = g_variant_get_data (msg);
 	data_len = g_variant_get_size (msg);
 
@@ -245,8 +126,7 @@ asc_media_wire_send_message (GSocket *socket, GVariant *message, GUnixFDList *fd
 		g_set_error (error,
 			     ASC_MEDIA_ERROR,
 			     ASC_MEDIA_ERROR_PROTOCOL,
-			     "Refusing to send oversized protocol message (%" G_GSIZE_FORMAT
-			     " bytes).",
+			     "Cannot send oversized protocol message (%" G_GSIZE_FORMAT " bytes).",
 			     data_len);
 		return FALSE;
 	}
@@ -277,7 +157,7 @@ asc_media_wire_send_message (GSocket *socket, GVariant *message, GUnixFDList *fd
 		g_set_error_literal (error,
 				     ASC_MEDIA_ERROR,
 				     ASC_MEDIA_ERROR_PROTOCOL,
-				     "Protocol message was sent only partially.");
+				     "Only sent partial message.");
 		goto out;
 	}
 	result = TRUE;
@@ -295,12 +175,12 @@ out:
  * of the given type. Any attached file descriptors are returned as well.
  * Sets @eof to %TRUE (without error) if the connection was closed.
  */
-static GVariant *
-asc_media_wire_receive_message (GSocket *socket,
-				const GVariantType *message_type,
-				GUnixFDList **fds,
-				gboolean *eof,
-				GError **error)
+GVariant *
+asc_media_ipc_receive_message (GSocket *socket,
+			       const GVariantType *message_type,
+			       GUnixFDList **fds,
+			       gboolean *eof,
+			       GError **error)
 {
 	g_autofree guint8 *buffer = NULL;
 	g_autoptr(GVariant) message = NULL;
@@ -357,8 +237,8 @@ asc_media_wire_receive_message (GSocket *socket,
 	}
 
 	{
-		guint8 *msg_data = g_malloc (ret);
-		memcpy (msg_data, buffer, ret);
+		/* the variant takes ownership of the buffer */
+		guint8 *msg_data = g_steal_pointer (&buffer);
 		message = g_variant_new_from_data (message_type,
 						   msg_data,
 						   ret,
@@ -390,12 +270,12 @@ out:
  * Send a request message to the media worker.
  */
 gboolean
-asc_media_wire_send_request (GSocket *socket,
-			     guint32 request_id,
-			     AscMediaOp op,
-			     GVariant *params,
-			     GUnixFDList *fds,
-			     GError **error)
+asc_media_ipc_send_request (GSocket *socket,
+			    guint32 request_id,
+			    AscMediaOp op,
+			    GVariant *params,
+			    GUnixFDList *fds,
+			    GError **error)
 {
 	GVariant *message;
 	g_autoptr(GVariant) params_ref = NULL;
@@ -405,92 +285,7 @@ asc_media_wire_send_request (GSocket *socket,
 	params_ref = g_variant_ref_sink (params);
 
 	message = g_variant_new ("(uu@a{sv})", request_id, (guint32) op, params_ref);
-	return asc_media_wire_send_message (socket, message, fds, error);
-}
-
-/**
- * asc_media_wire_receive_request:
- *
- * Receive a request message in the media worker.
- */
-gboolean
-asc_media_wire_receive_request (GSocket *socket,
-				guint32 *request_id,
-				AscMediaOp *op,
-				GVariant **params,
-				GUnixFDList **fds,
-				gboolean *eof,
-				GError **error)
-{
-	g_autoptr(GVariant) message = NULL;
-	guint32 op_u;
-
-	message = asc_media_wire_receive_message (socket,
-						  G_VARIANT_TYPE (ASC_MEDIA_REQUEST_VTYPE),
-						  fds,
-						  eof,
-						  error);
-	if (message == NULL)
-		return FALSE;
-
-	g_variant_get (message, "(uu@a{sv})", request_id, &op_u, params);
-	*op = (op_u < ASC_MEDIA_OP_LAST) ? (AscMediaOp) op_u : ASC_MEDIA_OP_UNKNOWN;
-	return TRUE;
-}
-
-/**
- * asc_media_wire_send_response:
- *
- * Send a response message from the media worker.
- */
-gboolean
-asc_media_wire_send_response (GSocket *socket,
-			      guint32 request_id,
-			      guint32 status,
-			      GVariant *payload,
-			      GError **error)
-{
-	GVariant *message;
-	g_autoptr(GVariant) payload_ref = NULL;
-
-	if (payload == NULL)
-		payload = g_variant_new_array (G_VARIANT_TYPE ("{sv}"), NULL, 0);
-	payload_ref = g_variant_ref_sink (payload);
-
-	message = g_variant_new ("(uu@a{sv})", request_id, status, payload_ref);
-	return asc_media_wire_send_message (socket, message, NULL, error);
-}
-
-/**
- * asc_media_wire_send_error_response:
- *
- * Send an error response for a failed operation, transporting
- * the operation's #GError to the client.
- */
-gboolean
-asc_media_wire_send_error_response (GSocket *socket,
-				    guint32 request_id,
-				    const GError *op_error,
-				    GError **error)
-{
-	GVariantBuilder pb;
-
-	g_variant_builder_init (&pb, G_VARIANT_TYPE ("a{sv}"));
-	g_variant_builder_add (&pb,
-			       "{sv}",
-			       "error-domain",
-			       g_variant_new_string (g_quark_to_string (op_error->domain)));
-	g_variant_builder_add (&pb, "{sv}", "error-code", g_variant_new_int32 (op_error->code));
-	g_variant_builder_add (&pb,
-			       "{sv}",
-			       "error-message",
-			       g_variant_new_string (op_error->message));
-
-	return asc_media_wire_send_response (socket,
-					     request_id,
-					     ASC_MEDIA_STATUS_ERROR,
-					     g_variant_builder_end (&pb),
-					     error);
+	return asc_media_ipc_send_message (socket, message, fds, error);
 }
 
 /**
@@ -500,21 +295,21 @@ asc_media_wire_send_error_response (GSocket *socket,
  * Responses never carry file descriptors.
  */
 gboolean
-asc_media_wire_receive_response (GSocket *socket,
-				 guint32 *request_id,
-				 guint32 *status,
-				 GVariant **payload,
-				 gboolean *eof,
-				 GError **error)
+asc_media_ipc_receive_response (GSocket *socket,
+				guint32 *request_id,
+				guint32 *status,
+				GVariant **payload,
+				gboolean *eof,
+				GError **error)
 {
 	g_autoptr(GVariant) message = NULL;
 	g_autoptr(GUnixFDList) fds = NULL;
 
-	message = asc_media_wire_receive_message (socket,
-						  G_VARIANT_TYPE (ASC_MEDIA_RESPONSE_VTYPE),
-						  &fds,
-						  eof,
-						  error);
+	message = asc_media_ipc_receive_message (socket,
+						 G_VARIANT_TYPE (ASC_MEDIA_RESPONSE_VTYPE),
+						 &fds,
+						 eof,
+						 error);
 	if (message == NULL)
 		return FALSE;
 
@@ -539,15 +334,15 @@ asc_media_wire_receive_response (GSocket *socket,
  * Returns: (transfer full): A new #GError.
  */
 GError *
-asc_media_wire_error_from_payload (GVariant *payload)
+asc_media_ipc_error_from_payload (GVariant *payload)
 {
 	const gchar *domain_str = NULL;
 	const gchar *message = NULL;
 	gint32 code = 0;
 
-	g_variant_lookup (payload, "error-domain", "&s", &domain_str);
-	g_variant_lookup (payload, "error-code", "i", &code);
-	g_variant_lookup (payload, "error-message", "&s", &message);
+	g_variant_lookup (payload, ASC_MEDIA_IPC_KEY_ERROR_DOMAIN, "&s", &domain_str);
+	g_variant_lookup (payload, ASC_MEDIA_IPC_KEY_ERROR_CODE, "i", &code);
+	g_variant_lookup (payload, ASC_MEDIA_IPC_KEY_ERROR_MESSAGE, "&s", &message);
 
 	if (domain_str == NULL || message == NULL)
 		return g_error_new_literal (ASC_MEDIA_ERROR,

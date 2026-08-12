@@ -50,6 +50,7 @@
 #include "asw-font.h"
 #include "asw-image-private.h"
 #include "asw-video.h"
+#include "asw-ipc.h"
 
 struct _AswWorker {
 	GObject parent_instance;
@@ -148,11 +149,11 @@ asw_worker_send_hello (AswWorker *worker, GError **error)
 		g_variant_builder_add (&fmt_builder, "s", (const gchar *) ht_key);
 	g_variant_builder_add (&pb, "{sv}", "image-formats", g_variant_builder_end (&fmt_builder));
 
-	return asc_media_wire_send_response (priv->socket,
-					     0, /* hello pseudo request-id */
-					     ASC_MEDIA_STATUS_OK,
-					     g_variant_builder_end (&pb),
-					     error);
+	return asw_ipc_send_response (priv->socket,
+				      0, /* hello pseudo request-id */
+				      ASC_MEDIA_STATUS_OK,
+				      g_variant_builder_end (&pb),
+				      error);
 }
 
 /**
@@ -206,7 +207,7 @@ asw_worker_get_data_fd (AswWorker *worker,
 	if (fd < 0)
 		return -1;
 
-	if (!asc_memfd_verify_sealed (fd, priv->max_input_size, NULL, error)) {
+	if (!asw_memfd_verify_sealed (fd, priv->max_input_size, NULL, error)) {
 		close (fd);
 		return -1;
 	}
@@ -401,7 +402,7 @@ asw_worker_handle_process_image (AswWorker *worker,
 	image_fd = asw_worker_get_data_fd (worker, params, fds, "image-fd", error);
 	if (image_fd < 0)
 		return NULL;
-	img_bytes = asc_memfd_map_bytes (image_fd, priv->max_input_size, error);
+	img_bytes = asw_memfd_map_bytes (image_fd, priv->max_input_size, error);
 	close (image_fd);
 	if (img_bytes == NULL)
 		return NULL;
@@ -833,13 +834,13 @@ asw_worker_run (AswWorker *worker)
 		AscMediaOp op = ASC_MEDIA_OP_UNKNOWN;
 		gboolean eof = FALSE;
 
-		if (!asc_media_wire_receive_request (priv->socket,
-						     &request_id,
-						     &op,
-						     &params,
-						     &fds,
-						     &eof,
-						     &error)) {
+		if (!asw_ipc_receive_request (priv->socket,
+					      &request_id,
+					      &op,
+					      &params,
+					      &fds,
+					      &eof,
+					      &error)) {
 			if (eof) {
 				/* the client is gone, we are done */
 				return 0;
@@ -877,11 +878,11 @@ asw_worker_run (AswWorker *worker)
 			payload = asw_worker_handle_probe_video (worker, params, fds, &op_error);
 			break;
 		case ASC_MEDIA_OP_SHUTDOWN:
-			if (!asc_media_wire_send_response (priv->socket,
-							   request_id,
-							   ASC_MEDIA_STATUS_OK,
-							   NULL,
-							   &error)) {
+			if (!asw_ipc_send_response (priv->socket,
+						    request_id,
+						    ASC_MEDIA_STATUS_OK,
+						    NULL,
+						    &error)) {
 				g_printerr ("asc-mediaworker: Failed to acknowledge shutdown: %s\n",
 					    error->message);
 				return 2;
@@ -900,20 +901,20 @@ asw_worker_run (AswWorker *worker)
 			g_variant_ref_sink (payload);
 
 		if (op_error != NULL) {
-			if (!asc_media_wire_send_error_response (priv->socket,
-								 request_id,
-								 op_error,
-								 &error)) {
+			if (!asw_ipc_send_error_response (priv->socket,
+							  request_id,
+							  op_error,
+							  &error)) {
 				g_printerr ("asc-mediaworker: Failed to send error response: %s\n",
 					    error->message);
 				return 2;
 			}
 		} else {
-			if (!asc_media_wire_send_response (priv->socket,
-							   request_id,
-							   ASC_MEDIA_STATUS_OK,
-							   payload,
-							   &error)) {
+			if (!asw_ipc_send_response (priv->socket,
+						    request_id,
+						    ASC_MEDIA_STATUS_OK,
+						    payload,
+						    &error)) {
 				g_printerr ("asc-mediaworker: Failed to send response: %s\n",
 					    error->message);
 				return 2;

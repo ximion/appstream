@@ -48,7 +48,6 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <gio/gunixfdlist.h>
-#include <string.h>
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <unistd.h>
@@ -56,9 +55,6 @@
 #include "as-utils-private.h"
 #include "asc-globals-private.h"
 #include "asc-media-ipc.h"
-
-/* maximum amount of captured worker stderr output we keep for error reporting */
-#define ASC_MEDIA_STDERR_BUF_SIZE 16384
 
 /* how often we try to respawn a crashed worker before giving up */
 #define ASC_MEDIA_RESPAWN_LIMIT 3
@@ -75,8 +71,6 @@ typedef struct {
 
 	GSubprocess *worker_proc;
 	GSocket *socket;
-	GInputStream *stderr_stream;
-	GString *stderr_buf;
 
 	guint32 last_request_id;
 	guint failure_count;
@@ -312,8 +306,6 @@ asc_media_finalize (GObject *object)
 	asc_media_shutdown_worker (media, FALSE);
 
 	g_free (priv->worker_path);
-	if (priv->stderr_buf != NULL)
-		g_string_free (priv->stderr_buf, TRUE);
 
 	G_OBJECT_CLASS (asc_media_parent_class)->finalize (object);
 }
@@ -324,7 +316,6 @@ asc_media_init (AscMedia *media)
 	AscMediaPrivate *priv = GET_PRIVATE (media);
 
 	priv->timeout_secs = 120;
-	priv->stderr_buf = g_string_new (NULL);
 }
 
 static void
@@ -437,46 +428,10 @@ asc_media_set_memory_limit (AscMedia *media, guint32 limit_mib)
 }
 
 /**
- * asc_media_drain_worker_stderr:
- *
- * Read any pending stderr output from the worker process into
- * our (bounded) capture buffer.
- */
-static void
-asc_media_drain_worker_stderr (AscMedia *media)
-{
-	AscMediaPrivate *priv = GET_PRIVATE (media);
-
-	if (priv->stderr_stream == NULL)
-		return;
-
-	while (TRUE) {
-		gchar buf[4096];
-		gssize len;
-
-		len = g_pollable_input_stream_read_nonblocking (
-		    G_POLLABLE_INPUT_STREAM (priv->stderr_stream),
-		    buf,
-		    sizeof (buf),
-		    NULL,
-		    NULL);
-		if (len <= 0)
-			break;
-		g_string_append_len (priv->stderr_buf, buf, len);
-
-		/* only ever keep the tail of the output */
-		if (priv->stderr_buf->len > ASC_MEDIA_STDERR_BUF_SIZE)
-			g_string_erase (priv->stderr_buf,
-					0,
-					priv->stderr_buf->len - ASC_MEDIA_STDERR_BUF_SIZE);
-	}
-}
-
-/**
  * asc_media_describe_worker_death:
  *
  * Create a human-readable description of how and why the worker
- * process died, including its last standard error output.
+ * process died.
  */
 static gchar *
 asc_media_describe_worker_death (AscMedia *media)
@@ -497,12 +452,6 @@ asc_media_describe_worker_death (AscMedia *media)
 			g_string_append (desc, "Worker terminated unexpectedly.");
 	} else {
 		g_string_append (desc, "Worker terminated unexpectedly.");
-	}
-
-	if (priv->stderr_buf->len > 0) {
-		g_strchomp (priv->stderr_buf->str);
-		priv->stderr_buf->len = strlen (priv->stderr_buf->str);
-		g_string_append_printf (desc, " Last output: %s", priv->stderr_buf->str);
 	}
 
 	return g_string_free (g_steal_pointer (&desc), FALSE);
@@ -530,18 +479,18 @@ asc_media_shutdown_worker (AscMedia *media, gboolean force)
 			gboolean eof = FALSE;
 
 			/* ask the worker politely to quit */
-			if (asc_media_wire_send_request (priv->socket,
-							 ++priv->last_request_id,
-							 ASC_MEDIA_OP_SHUTDOWN,
-							 NULL,
-							 NULL,
-							 &tmp_error)) {
-				clean_quit = asc_media_wire_receive_response (priv->socket,
-									      &rid,
-									      &status,
-									      &payload,
-									      &eof,
-									      &tmp_error);
+			if (asc_media_ipc_send_request (priv->socket,
+							++priv->last_request_id,
+							ASC_MEDIA_OP_SHUTDOWN,
+							NULL,
+							NULL,
+							&tmp_error)) {
+				clean_quit = asc_media_ipc_receive_response (priv->socket,
+									     &rid,
+									     &status,
+									     &payload,
+									     &eof,
+									     &tmp_error);
 			}
 		}
 
@@ -555,10 +504,7 @@ asc_media_shutdown_worker (AscMedia *media, gboolean force)
 		g_subprocess_wait (priv->worker_proc, NULL, NULL);
 	}
 
-	asc_media_drain_worker_stderr (media);
-
 	g_clear_object (&priv->socket);
-	g_clear_object (&priv->stderr_stream);
 	g_clear_object (&priv->worker_proc);
 }
 
@@ -633,14 +579,14 @@ asc_media_worker_setup (AscMedia *media, GError **error)
 				       "memory-limit-mb",
 				       g_variant_new_uint32 (priv->memory_limit_mb));
 
-	if (!asc_media_wire_send_request (priv->socket,
-					  ++priv->last_request_id,
-					  ASC_MEDIA_OP_SETUP,
-					  g_variant_builder_end (&pb),
-					  NULL,
-					  error))
+	if (!asc_media_ipc_send_request (priv->socket,
+					 ++priv->last_request_id,
+					 ASC_MEDIA_OP_SETUP,
+					 g_variant_builder_end (&pb),
+					 NULL,
+					 error))
 		return FALSE;
-	if (!asc_media_wire_receive_response (priv->socket, &rid, &status, &payload, &eof, error))
+	if (!asc_media_ipc_receive_response (priv->socket, &rid, &status, &payload, &eof, error))
 		return FALSE;
 	if (rid != priv->last_request_id || status != ASC_MEDIA_STATUS_OK) {
 		g_set_error_literal (error,
@@ -692,7 +638,8 @@ asc_media_spawn_worker (AscMedia *media, GError **error)
 		return FALSE;
 	}
 
-	launcher = g_subprocess_launcher_new (G_SUBPROCESS_FLAGS_STDERR_PIPE);
+	/* anything the worker prints is for debugging, so we let it inherit stdout/stderr */
+	launcher = g_subprocess_launcher_new (G_SUBPROCESS_FLAGS_NONE);
 	g_subprocess_launcher_take_fd (launcher, sv[1], ASC_MEDIA_SOCKET_FD);
 
 	priv->worker_proc = g_subprocess_launcher_spawn (launcher, &tmp_error, worker_bin, NULL);
@@ -709,8 +656,6 @@ asc_media_spawn_worker (AscMedia *media, GError **error)
 			     tmp_error->message);
 		return FALSE;
 	}
-	priv->stderr_stream = g_object_ref (g_subprocess_get_stderr_pipe (priv->worker_proc));
-	g_string_truncate (priv->stderr_buf, 0);
 
 	priv->socket = g_socket_new_from_fd (sv[0], &tmp_error);
 	if (priv->socket == NULL) {
@@ -727,12 +672,12 @@ asc_media_spawn_worker (AscMedia *media, GError **error)
 	g_socket_set_timeout (priv->socket, priv->timeout_secs);
 
 	/* receive the hello message and validate that the worker matches us exactly */
-	if (!asc_media_wire_receive_response (priv->socket,
-					      &rid,
-					      &status,
-					      &hello,
-					      &eof,
-					      &tmp_error)) {
+	if (!asc_media_ipc_receive_response (priv->socket,
+					     &rid,
+					     &status,
+					     &hello,
+					     &eof,
+					     &tmp_error)) {
 		g_autofree gchar *death_desc = NULL;
 		asc_media_shutdown_worker (media, eof ? FALSE : TRUE);
 		death_desc = asc_media_describe_worker_death (media);
@@ -840,20 +785,15 @@ asc_media_call (AscMedia *media, AscMediaOp op, GVariant *params, GUnixFDList *f
 		return NULL;
 
 	request_id = ++priv->last_request_id;
-	if (!asc_media_wire_send_request (priv->socket,
-					  request_id,
-					  op,
-					  params_ref,
-					  fds,
-					  &tmp_error))
+	if (!asc_media_ipc_send_request (priv->socket, request_id, op, params_ref, fds, &tmp_error))
 		goto worker_failed;
 
-	if (!asc_media_wire_receive_response (priv->socket,
-					      &rid,
-					      &status,
-					      &payload,
-					      &eof,
-					      &tmp_error)) {
+	if (!asc_media_ipc_receive_response (priv->socket,
+					     &rid,
+					     &status,
+					     &payload,
+					     &eof,
+					     &tmp_error)) {
 		if (g_error_matches (tmp_error, G_IO_ERROR, G_IO_ERROR_TIMED_OUT)) {
 			priv->failure_count++;
 			asc_media_shutdown_worker (media, TRUE);
@@ -879,13 +819,10 @@ asc_media_call (AscMedia *media, AscMediaOp op, GVariant *params, GUnixFDList *f
 		return NULL;
 	}
 
-	/* collect possible debug output */
-	asc_media_drain_worker_stderr (media);
-
 	if (status != ASC_MEDIA_STATUS_OK) {
 		/* the operation failed, but the worker itself is healthy */
 		if (error != NULL)
-			*error = asc_media_wire_error_from_payload (payload);
+			*error = asc_media_ipc_error_from_payload (payload);
 		return NULL;
 	}
 

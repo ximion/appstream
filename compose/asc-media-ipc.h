@@ -45,6 +45,11 @@ AS_BEGIN_PRIVATE_DECLS
 #define ASC_MEDIA_STATUS_OK    0
 #define ASC_MEDIA_STATUS_ERROR 1
 
+/* payload keys for error responses */
+#define ASC_MEDIA_IPC_KEY_ERROR_DOMAIN	"error-domain"
+#define ASC_MEDIA_IPC_KEY_ERROR_CODE	"error-code"
+#define ASC_MEDIA_IPC_KEY_ERROR_MESSAGE "error-message"
+
 /**
  * AscMediaOp:
  *
@@ -63,46 +68,35 @@ typedef enum {
 	ASC_MEDIA_OP_LAST
 } AscMediaOp;
 
-gint asc_memfd_new_sealed (const gchar *name, gconstpointer data, gsize len, GError **error);
+/* low-level message framing, shared between client and worker */
 AS_INTERNAL_VISIBLE
-gboolean asc_memfd_verify_sealed (gint fd, guint64 max_size, gsize *size_out, GError **error);
+gboolean asc_media_ipc_send_message (GSocket	 *socket,
+				     GVariant	 *message,
+				     GUnixFDList *fds,
+				     GError	**error);
 AS_INTERNAL_VISIBLE
-GBytes	*asc_memfd_map_bytes (gint fd, guint64 max_size, GError **error);
+GVariant *asc_media_ipc_receive_message (GSocket	    *socket,
+					 const GVariantType *message_type,
+					 GUnixFDList	   **fds,
+					 gboolean	    *eof,
+					 GError		   **error);
 
-gboolean asc_media_wire_send_request (GSocket	  *socket,
+/* client-side API, used by AscMedia only */
+gint	  asc_memfd_new_sealed (const gchar *name, gconstpointer data, gsize len, GError **error);
+
+gboolean  asc_media_ipc_send_request (GSocket	  *socket,
 				      guint32	   request_id,
 				      AscMediaOp   op,
 				      GVariant	  *params,
 				      GUnixFDList *fds,
 				      GError	 **error);
-AS_INTERNAL_VISIBLE
-gboolean asc_media_wire_receive_request (GSocket      *socket,
-					 guint32      *request_id,
-					 AscMediaOp   *op,
-					 GVariant    **params,
-					 GUnixFDList **fds,
-					 gboolean     *eof,
-					 GError	     **error);
-
-AS_INTERNAL_VISIBLE
-gboolean asc_media_wire_send_response (GSocket	*socket,
-				       guint32	 request_id,
-				       guint32	 status,
-				       GVariant *payload,
-				       GError  **error);
-AS_INTERNAL_VISIBLE
-gboolean asc_media_wire_send_error_response (GSocket	  *socket,
-					     guint32	   request_id,
-					     const GError *op_error,
-					     GError	 **error);
-gboolean asc_media_wire_receive_response (GSocket   *socket,
+gboolean  asc_media_ipc_receive_response (GSocket   *socket,
 					  guint32   *request_id,
 					  guint32   *status,
 					  GVariant **payload,
 					  gboolean  *eof,
 					  GError   **error);
 
-AS_INTERNAL_VISIBLE
-GError *asc_media_wire_error_from_payload (GVariant *payload);
+GError	 *asc_media_ipc_error_from_payload (GVariant *payload);
 
 AS_END_PRIVATE_DECLS
