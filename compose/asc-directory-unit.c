@@ -24,19 +24,38 @@
  * @include: appstream-compose.h
  */
 
+#define _GNU_SOURCE
 #include "config.h"
 #include "asc-directory-unit.h"
 
 #include <errno.h>
+#include <fcntl.h>
 #include <stdlib.h>
 #include <sys/stat.h>
+#include <unistd.h>
 #include <glib/gstdio.h>
 
+#ifdef HAVE_LINUX_OPENAT2_H
+#include <linux/openat2.h>
+#include <sys/syscall.h>
+#endif
+
 #include "as-utils-private.h"
+
+/* flags to open a path with when all we want to know is whether it exists */
+#ifdef O_PATH
+#define ASC_O_LOOKUP (O_PATH | O_CLOEXEC)
+#else
+#define ASC_O_LOOKUP (O_RDONLY | O_CLOEXEC)
+#endif
+
+/* the amount of symbolic links we follow before giving up on a path */
+#define ASC_MAX_SYMLINK_DEPTH 40
 
 typedef struct {
 	gchar *root_dir;
 	gchar *root_dir_canonical;
+	gint root_fd;
 } AscDirectoryUnitPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AscDirectoryUnit, asc_directory_unit, ASC_TYPE_UNIT)
@@ -48,9 +67,259 @@ static void asc_directory_unit_close (AscUnit *unit);
 static gboolean asc_directory_unit_file_exists (AscUnit *unit, const gchar *filename);
 static GBytes *asc_directory_unit_read_data (AscUnit *unit, const gchar *filename, GError **error);
 
+/**
+ * asc_push_path_components:
+ *
+ * Split @path and push its components onto @stack, so that the leftmost
+ * component is popped first.
+ */
+static void
+asc_push_path_components (GPtrArray *stack, const gchar *path)
+{
+	gchar **parts = g_strsplit (path, G_DIR_SEPARATOR_S, -1);
+	for (guint i = g_strv_length (parts); i > 0; i--)
+		g_ptr_array_add (stack, parts[i - 1]);
+	g_free (parts);
+}
+
+/**
+ * asc_resolve_path_in_root:
+ * @root: canonical, absolute path to the root directory.
+ * @start_dir: (nullable): an already resolved directory within @root to interpret
+ *    @path relative to, or %NULL to start at @root itself.
+ * @path: the path to resolve.
+ * @report_path: (nullable): the location to name in error messages, or %NULL to
+ *    name the point below @root that resolution actually failed at.
+ *
+ * Resolve @path with @root taking the place of the filesystem root, so an
+ * absolute symlink target is looked up below @root, and no amount of ".."
+ * segments can climb out of it. Consequently, the result is always located
+ * within @root.
+ *
+ * Returns: the fully resolved absolute path, or %NULL if any component of it
+ * does not exist below @root or could not be resolved.
+ */
+static gchar *
+asc_resolve_path_in_root (const gchar *root,
+			  const gchar *start_dir,
+			  const gchar *path,
+			  const gchar *report_path,
+			  GError **error)
+{
+	g_autoptr(GString) resolved = g_string_new (start_dir == NULL ? root : start_dir);
+	g_autoptr(GPtrArray) pending = g_ptr_array_new_with_free_func (g_free);
+	gsize root_len = strlen (root);
+	guint n_links = 0;
+
+	/* the filesystem root is the only canonical path with a trailing separator,
+	 * and we add a separator of our own for every component */
+	if (root_len == 1 && root[0] == G_DIR_SEPARATOR)
+		root_len = 0;
+	if (resolved->len == 1 && resolved->str[0] == G_DIR_SEPARATOR)
+		g_string_truncate (resolved, 0);
+
+	asc_push_path_components (pending, path);
+
+	while (pending->len > 0) {
+		g_autofree gchar *comp = g_ptr_array_steal_index (pending, pending->len - 1);
+		g_autofree gchar *link_target = NULL;
+		gsize comp_offset;
+		GStatBuf lsb;
+
+		/* empty and "." components do not move us anywhere */
+		if (comp[0] == '\0' || g_str_equal (comp, "."))
+			continue;
+
+		if (g_str_equal (comp, "..")) {
+			/* drop the last component, the root being its own parent
+			 * just like the filesystem root is */
+			for (gsize i = resolved->len; i > root_len; i--) {
+				if (resolved->str[i - 1] == G_DIR_SEPARATOR) {
+					g_string_truncate (resolved, i - 1);
+					break;
+				}
+			}
+			continue;
+		}
+
+		comp_offset = resolved->len;
+		g_string_append_c (resolved, G_DIR_SEPARATOR);
+		g_string_append (resolved, comp);
+
+		if (g_lstat (resolved->str, &lsb) != 0) {
+			g_set_error (error,
+				     G_FILE_ERROR,
+				     g_file_error_from_errno (errno),
+				     "Unable to resolve '%s' within the root directory: %s",
+				     report_path != NULL ? report_path : resolved->str + root_len,
+				     g_strerror (errno));
+			return NULL;
+		}
+
+		if (!S_ISLNK (lsb.st_mode))
+			continue;
+
+		if (++n_links > ASC_MAX_SYMLINK_DEPTH) {
+			g_set_error (error,
+				     G_FILE_ERROR,
+				     G_FILE_ERROR_LOOP,
+				     "Unable to resolve '%s' within the root directory: %s",
+				     report_path != NULL ? report_path : resolved->str + root_len,
+				     g_strerror (ELOOP));
+			return NULL;
+		}
+
+		link_target = g_file_read_link (resolved->str, error);
+		if (link_target == NULL)
+			return NULL;
+
+		if (g_path_is_absolute (link_target)) {
+			/* an absolute link target is resolved from the root again */
+			g_string_truncate (resolved, root_len);
+		} else {
+			/* the link is replaced by whatever it points at */
+			g_string_truncate (resolved, comp_offset);
+		}
+		asc_push_path_components (pending, link_target);
+	}
+
+	/* if we are rooted at the filesystem root, a path that resolves to that
+	 * root has consumed all of its components */
+	if (resolved->len == 0)
+		g_string_append_c (resolved, G_DIR_SEPARATOR);
+
+	return g_string_free (g_steal_pointer (&resolved), FALSE);
+}
+
+/**
+ * asc_openat2:
+ *
+ * Open @path below @dir_fd, with @dir_fd taking the place of the filesystem root.
+ *
+ * Returns: a file descriptor, or -1 with errno set. %ENOSYS means that this
+ * system can not do the resolution for us at all.
+ */
+static gint
+asc_openat2 (gint dir_fd, const gchar *path, gint flags)
+{
+#if defined(HAVE_OPENAT2) || defined(HAVE_LINUX_OPENAT2_H)
+	struct open_how how = {
+		.flags = flags,
+		.resolve = RESOLVE_IN_ROOT,
+	};
+#ifdef HAVE_OPENAT2
+	return openat2 (dir_fd, path, &how, sizeof (how));
+#else
+	/* the glibc wrapper is very recent, so we may have to ask the kernel directly */
+	return (gint) syscall (SYS_openat2, dir_fd, path, &how, sizeof (how));
+#endif
+#else
+	errno = ENOSYS;
+	return -1;
+#endif
+}
+
+/**
+ * asc_openat2_usable:
+ *
+ * Check whether openat2() actually works here.
+ * Sandboxes may reject the call (grrr!!!), so we try it instead of guessing.
+ */
+static gboolean
+asc_openat2_usable (void)
+{
+	static gsize initialized = 0;
+	static gboolean usable = FALSE;
+
+	if (g_once_init_enter (&initialized)) {
+		gint fd = asc_openat2 (AT_FDCWD, ".", ASC_O_LOOKUP);
+		usable = fd >= 0;
+		if (fd >= 0)
+			g_close (fd, NULL);
+		else
+			g_debug ("Unable to use openat2() (%s), will resolve paths "
+				 "in userspace instead.",
+				 g_strerror (errno));
+		g_once_init_leave (&initialized, 1);
+	}
+
+	return usable;
+}
+
+/**
+ * asc_open_path_in_root:
+ * @root_fd: descriptor for @root, or -1 if none is available.
+ * @root: canonical, absolute path to the root directory.
+ * @path: the path to open.
+ * @flags: flags to open @path with.
+ *
+ * Open @path with @root taking the place of the filesystem root, which it can
+ * not escape, neither via ".." segments nor via symbolic links.
+ *
+ * Returns: a file descriptor, or -1 if @path does not exist below @root.
+ */
+static gint
+asc_open_path_in_root (gint root_fd,
+		       const gchar *root,
+		       const gchar *path,
+		       gint flags,
+		       GError **error)
+{
+	g_autofree gchar *fname_full = NULL;
+	gint fd;
+
+	/* openat2() gives an empty path no meaning, while we resolve it to the root */
+	if (path == NULL || path[0] == '\0')
+		path = ".";
+
+	if (root_fd >= 0 && asc_openat2_usable ()) {
+		/* the kernel confines the resolution for us, in a single call and without
+		 * leaving a window between resolving the path and opening it */
+		fd = asc_openat2 (root_fd, path, flags);
+		if (fd < 0)
+			g_set_error (error,
+				     G_FILE_ERROR,
+				     g_file_error_from_errno (errno),
+				     "Unable to resolve '%s' within the root directory: %s",
+				     path,
+				     g_strerror (errno));
+		return fd;
+	}
+
+	/* no kernel support, so we resolve the path ourselves. We name the location we
+	 * were asked for in any error, just like the kernel does on the fast path */
+	fname_full = asc_resolve_path_in_root (root, NULL, path, path, error);
+	if (fname_full == NULL)
+		return -1;
+
+	fd = g_open (fname_full, flags, 0);
+	if (fd < 0)
+		g_set_error (error,
+			     G_FILE_ERROR,
+			     g_file_error_from_errno (errno),
+			     "Unable to open '%s' within the root directory: %s",
+			     path,
+			     g_strerror (errno));
+	return fd;
+}
+
 static void
 asc_directory_unit_init (AscDirectoryUnit *dirunit)
 {
+	AscDirectoryUnitPrivate *priv = GET_PRIVATE (dirunit);
+
+	priv->root_fd = -1;
+}
+
+static void
+asc_directory_unit_clear_root_fd (AscDirectoryUnit *dirunit)
+{
+	AscDirectoryUnitPrivate *priv = GET_PRIVATE (dirunit);
+
+	if (priv->root_fd < 0)
+		return;
+	g_close (priv->root_fd, NULL);
+	priv->root_fd = -1;
 }
 
 static void
@@ -59,6 +328,7 @@ asc_directory_unit_finalize (GObject *object)
 	AscDirectoryUnit *dirunit = ASC_DIRECTORY_UNIT (object);
 	AscDirectoryUnitPrivate *priv = GET_PRIVATE (dirunit);
 
+	asc_directory_unit_clear_root_fd (dirunit);
 	g_free (priv->root_dir);
 	g_free (priv->root_dir_canonical);
 
@@ -82,148 +352,13 @@ asc_directory_unit_class_init (AscDirectoryUnitClass *klass)
 	unit_class->read_data = asc_directory_unit_read_data;
 }
 
-/* the amount of symbolic links we follow before giving up on a path */
-#define ASC_MAX_SYMLINK_DEPTH 40
-
 /**
- * asc_directory_unit_push_path_components:
- *
- * Split @path and push its components onto @stack, so that the leftmost
- * component is popped first. Ownership of the components is transferred
- * to @stack.
- */
-static void
-asc_directory_unit_push_path_components (GPtrArray *stack, const gchar *path)
-{
-	gchar **parts = g_strsplit (path, G_DIR_SEPARATOR_S, -1);
-	for (guint i = g_strv_length (parts); i > 0; i--)
-		g_ptr_array_add (stack, parts[i - 1]);
-	g_free (parts);
-}
-
-/**
- * asc_directory_unit_resolve_in_root:
- * @root: canonical, absolute path to the root directory.
- * @start_dir: (nullable): an already resolved directory within @root to interpret
- *    @path relative to, or %NULL to start at @root itself.
- * @path: the path to resolve.
- *
- * Resolve @path the way the system that the unit's data was built for would
- * resolve it: @root takes the place of the filesystem root, so an absolute
- * symlink target is looked up within the unit, and no amount of ".." segments
- * can climb out of it. Consequently, the result is always located within @root.
- *
- * Returns: the fully resolved absolute path, or %NULL if any component of it
- * does not exist within the unit or could not be resolved.
- */
-static gchar *
-asc_directory_unit_resolve_in_root (const gchar *root,
-				    const gchar *start_dir,
-				    const gchar *path,
-				    GError **error)
-{
-	g_autoptr(GString) resolved = g_string_new (start_dir == NULL ? root : start_dir);
-	g_autoptr(GArray) comp_offsets = g_array_new (FALSE, FALSE, sizeof (gsize));
-	g_autoptr(GPtrArray) pending = g_ptr_array_new_with_free_func (g_free);
-	gsize root_len = strlen (root);
-	guint n_links = 0;
-
-	/* the filesystem root is the only canonical path with a trailing separator,
-	 * and we add a separator of our own for every component */
-	if (root_len == 1 && root[0] == G_DIR_SEPARATOR)
-		root_len = 0;
-	if (resolved->len == 1 && resolved->str[0] == G_DIR_SEPARATOR)
-		g_string_truncate (resolved, 0);
-
-	/* register the components that @start_dir contributed, so we can walk out of
-	 * them again, but never past the root of the unit */
-	for (gsize i = root_len; i < resolved->len; i++) {
-		if (resolved->str[i] == G_DIR_SEPARATOR)
-			g_array_append_val (comp_offsets, i);
-	}
-
-	asc_directory_unit_push_path_components (pending, path);
-
-	while (pending->len > 0) {
-		g_autofree gchar *comp = g_ptr_array_steal_index (pending, pending->len - 1);
-		g_autofree gchar *link_target = NULL;
-		gsize comp_offset;
-		GStatBuf lsb;
-
-		/* empty and "." components do not move us anywhere */
-		if (comp[0] == '\0' || g_str_equal (comp, "."))
-			continue;
-
-		if (g_str_equal (comp, "..")) {
-			/* the unit's root is its own parent, just like the filesystem root is */
-			if (comp_offsets->len > 0) {
-				g_string_truncate (
-				    resolved,
-				    g_array_index (comp_offsets, gsize, comp_offsets->len - 1));
-				g_array_set_size (comp_offsets, comp_offsets->len - 1);
-			}
-			continue;
-		}
-
-		comp_offset = resolved->len;
-		g_string_append_c (resolved, G_DIR_SEPARATOR);
-		g_string_append (resolved, comp);
-
-		if (g_lstat (resolved->str, &lsb) != 0) {
-			g_set_error (error,
-				     G_FILE_ERROR,
-				     g_file_error_from_errno (errno),
-				     "Unable to resolve '%s' within the unit: %s",
-				     resolved->str + root_len,
-				     g_strerror (errno));
-			return NULL;
-		}
-
-		if (!S_ISLNK (lsb.st_mode)) {
-			g_array_append_val (comp_offsets, comp_offset);
-			continue;
-		}
-
-		if (++n_links > ASC_MAX_SYMLINK_DEPTH) {
-			g_set_error (error,
-				     G_FILE_ERROR,
-				     G_FILE_ERROR_LOOP,
-				     "Unable to resolve '%s' within the unit: Too many levels of "
-				     "symbolic links.",
-				     resolved->str + root_len);
-			return NULL;
-		}
-
-		link_target = g_file_read_link (resolved->str, error);
-		if (link_target == NULL)
-			return NULL;
-
-		if (g_path_is_absolute (link_target)) {
-			/* an absolute link target is resolved from the unit's root again */
-			g_string_truncate (resolved, root_len);
-			g_array_set_size (comp_offsets, 0);
-		} else {
-			/* the link is replaced by whatever it points at */
-			g_string_truncate (resolved, comp_offset);
-		}
-		asc_directory_unit_push_path_components (pending, link_target);
-	}
-
-	/* if the unit is rooted at the filesystem root, a path that resolves to that
-	 * root has consumed all of its components */
-	if (resolved->len == 0)
-		g_string_append_c (resolved, G_DIR_SEPARATOR);
-
-	return g_string_free (g_steal_pointer (&resolved), FALSE);
-}
-
-/**
- * asc_directory_unit_prefix_len:
+ * asc_path_string_len:
  *
  * Length of the part of @path that names we derive from it replace.
  */
 static gsize
-asc_directory_unit_prefix_len (const gchar *path)
+asc_path_string_len (const gchar *path)
 {
 	gsize len = strlen (path);
 
@@ -251,7 +386,7 @@ asc_directory_unit_find_files_recursive_internal (GPtrArray *files,
 						  GError **error)
 {
 	const gchar *tmp;
-	gsize path_prefix_len = asc_directory_unit_prefix_len (path);
+	gsize path_prefix_len = asc_path_string_len (path);
 	g_autoptr(GDir) dir = NULL;
 	g_autoptr(GError) tmp_error = NULL;
 
@@ -284,7 +419,7 @@ asc_directory_unit_find_files_recursive_internal (GPtrArray *files,
 		if (S_ISLNK (sb.st_mode)) {
 			/* resolve the link within the unit, so we never index or descend into
 			 * anything that is not part of it */
-			real_path = asc_directory_unit_resolve_in_root (root, path, tmp, NULL);
+			real_path = asc_resolve_path_in_root (root, path, tmp, NULL, NULL);
 			if (real_path == NULL) {
 				/* the link can not be resolved within this unit, because it is
 				 * dangling or points to a location that does not exist in the
@@ -354,6 +489,7 @@ asc_directory_unit_open (AscUnit *unit, GError **error)
 	/* resolve the root directory, so we can confine all data reads to it. We index
 	 * the resolved location as well, so the index and any later read agree on what
 	 * belongs to this unit */
+	asc_directory_unit_clear_root_fd (ASC_DIRECTORY_UNIT (unit));
 	g_clear_pointer (&priv->root_dir_canonical, g_free);
 	priv->root_dir_canonical = realpath (priv->root_dir, NULL);
 	if (priv->root_dir_canonical == NULL) {
@@ -365,7 +501,11 @@ asc_directory_unit_open (AscUnit *unit, GError **error)
 			     g_strerror (errno));
 		return FALSE;
 	}
-	root_dir_len = asc_directory_unit_prefix_len (priv->root_dir_canonical);
+	root_dir_len = asc_path_string_len (priv->root_dir_canonical);
+
+	/* anchor for openat2(); if we can not get a descriptor, we resolve
+	 * paths in userspace instead (so we ignore errors here) */
+	priv->root_fd = g_open (priv->root_dir_canonical, ASC_O_LOOKUP | O_DIRECTORY, 0);
 
 	contents = g_ptr_array_new_with_free_func (g_free);
 	relevant_paths = asc_unit_get_relevant_paths (unit);
@@ -391,10 +531,11 @@ asc_directory_unit_open (AscUnit *unit, GError **error)
 			/* the location we are asked to index may be a symbolic link itself, so
 			 * we resolve it within the unit before walking it, while still indexing
 			 * everything below it under the location it is expected at */
-			real_path = asc_directory_unit_resolve_in_root (priv->root_dir_canonical,
-									NULL,
-									check_path + root_dir_len,
-									error);
+			real_path = asc_resolve_path_in_root (priv->root_dir_canonical,
+							      NULL,
+							      check_path + root_dir_len,
+							      NULL,
+							      error);
 			if (real_path == NULL)
 				return FALSE;
 
@@ -415,21 +556,23 @@ asc_directory_unit_open (AscUnit *unit, GError **error)
 static void
 asc_directory_unit_close (AscUnit *unit)
 {
-	/* we don't actually need to do anything here */
-	return;
+	asc_directory_unit_clear_root_fd (ASC_DIRECTORY_UNIT (unit));
 }
 
 /**
- * asc_directory_unit_resolve_path:
+ * asc_directory_unit_open_file:
  *
- * Resolve @filename within the root directory of this unit, which it can not
- * escape, neither via ".." segments nor via symbolic links.
+ * Open @filename with the root directory of this unit taking the place of the
+ * filesystem root, which it can not escape, neither via ".." segments nor via
+ * symbolic links.
  *
- * Returns: the resolved absolute path, or %NULL if the file does not exist
- * within the unit.
+ * Returns: a file descriptor, or -1 if the file does not exist within the unit.
  */
-static gchar *
-asc_directory_unit_resolve_path (AscDirectoryUnit *dirunit, const gchar *filename, GError **error)
+static gint
+asc_directory_unit_open_file (AscDirectoryUnit *dirunit,
+			      const gchar *filename,
+			      gint flags,
+			      GError **error)
 {
 	AscDirectoryUnitPrivate *priv = GET_PRIVATE (dirunit);
 
@@ -438,33 +581,46 @@ asc_directory_unit_resolve_path (AscDirectoryUnit *dirunit, const gchar *filenam
 				     G_FILE_ERROR,
 				     G_FILE_ERROR_FAILED,
 				     "The unit was not opened, so no data can be read from it.");
-		return NULL;
+		return -1;
 	}
 
-	return asc_directory_unit_resolve_in_root (priv->root_dir_canonical, NULL, filename, error);
+	return asc_open_path_in_root (priv->root_fd,
+				      priv->root_dir_canonical,
+				      filename,
+				      flags,
+				      error);
 }
 
 static gboolean
 asc_directory_unit_file_exists (AscUnit *unit, const gchar *filename)
 {
-	g_autofree gchar *fname_full = NULL;
+	gint fd = asc_directory_unit_open_file (ASC_DIRECTORY_UNIT (unit),
+						filename,
+						ASC_O_LOOKUP,
+						NULL);
+	if (fd < 0)
+		return FALSE;
 
-	/* a path that resolves into this unit implies existence, as we fail otherwise */
-	fname_full = asc_directory_unit_resolve_path (ASC_DIRECTORY_UNIT (unit), filename, NULL);
-	return fname_full != NULL;
+	g_close (fd, NULL);
+	return TRUE;
 }
 
 static GBytes *
 asc_directory_unit_read_data (AscUnit *unit, const gchar *filename, GError **error)
 {
 	g_autoptr(GMappedFile) mfile = NULL;
-	g_autofree gchar *fname_full = NULL;
+	gint fd;
 
-	fname_full = asc_directory_unit_resolve_path (ASC_DIRECTORY_UNIT (unit), filename, error);
-	if (fname_full == NULL)
+	fd = asc_directory_unit_open_file (ASC_DIRECTORY_UNIT (unit),
+					   filename,
+					   O_RDONLY | O_CLOEXEC,
+					   error);
+	if (fd < 0)
 		return NULL;
 
-	mfile = g_mapped_file_new (fname_full, FALSE, error);
+	mfile = g_mapped_file_new_from_fd (fd, FALSE, error);
+	g_close (fd, NULL);
+
 	if (!mfile)
 		return NULL;
 	return g_mapped_file_get_bytes (mfile);
@@ -496,6 +652,7 @@ asc_directory_unit_set_root (AscDirectoryUnit *dirunit, const gchar *root_dir)
 	AscDirectoryUnitPrivate *priv = GET_PRIVATE (dirunit);
 	as_assign_string_safe (priv->root_dir, root_dir);
 	g_clear_pointer (&priv->root_dir_canonical, g_free);
+	asc_directory_unit_clear_root_fd (dirunit);
 	if (asc_unit_get_bundle_id (ASC_UNIT (dirunit)) == NULL)
 		asc_unit_set_bundle_id (ASC_UNIT (dirunit), priv->root_dir);
 }

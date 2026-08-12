@@ -132,11 +132,14 @@ if get_option('compose')
                        gdkpixbuf_dep],
         c_args: ['-DI_KNOW_THE_APPSTREAM_COMPOSE_API_IS_SUBJECT_TO_CHANGE'],
     )
+
+    as_test_compose_env = as_test_env + [
+        'LSAN_OPTIONS=suppressions=' +
+            join_paths(meson.current_source_dir(), 'lsan-suppr.txt'),
+    ]
     test ('as-test_compose',
         as_test_compose_exe,
         args: as_test_args,
-        env: as_test_env +
-            ['LSAN_OPTIONS=suppressions=' +
-                join_paths(meson.current_source_dir(), 'lsan-suppr.txt')]
+        env: as_test_compose_env
     )
 endif

@@ -35,6 +35,7 @@
 #include "as-test-utils.h"
 
 static gchar *datadir = NULL;
+static gchar *workdir = NULL;
 
 typedef struct {
 	gchar *path;
@@ -65,6 +66,18 @@ asc_assert_no_hints_in_result (AscResult *cres)
  *
  * Test global and utility functions.
  */
+/**
+ * test_workdir_path:
+ *
+ * Build a path for @name within this test run's private working directory, so
+ * concurrent runs never write to the same location.
+ */
+static gchar *
+test_workdir_path (const gchar *name)
+{
+	return g_build_filename (workdir, name, NULL);
+}
+
 static void
 test_utils (void)
 {
@@ -298,6 +311,7 @@ test_image_transform (void)
 	g_autoptr(GHashTable) supported_fmts = NULL;
 	g_autofree gchar *sample_img_fname = NULL;
 	g_autofree gchar *sample_jxl_img_fname = NULL;
+	g_autofree gchar *out_fname = NULL;
 	g_autoptr(AscImage) image = NULL;
 	g_autoptr(GError) error = NULL;
 	gboolean ret;
@@ -331,12 +345,8 @@ test_image_transform (void)
 	g_assert_cmpint (asc_image_get_width (image), ==, 64);
 	g_assert_cmpint (asc_image_get_height (image), ==, 64);
 
-	ret = asc_image_save_filename (image,
-				       "/tmp/asc-iscale_test.png",
-				       0,
-				       0,
-				       ASC_IMAGE_SAVE_FLAG_NONE,
-				       &error);
+	out_fname = test_workdir_path ("asc-iscale_test.png");
+	ret = asc_image_save_filename (image, out_fname, 0, 0, ASC_IMAGE_SAVE_FLAG_NONE, &error);
 	g_assert_no_error (error);
 	g_assert_true (ret);
 
@@ -357,12 +367,9 @@ test_image_transform (void)
 	g_assert_nonnull (image);
 
 	asc_image_scale (image, 124, 124);
-	ret = asc_image_save_filename (image,
-				       "/tmp/asc-iscale-d_test.png",
-				       0,
-				       0,
-				       ASC_IMAGE_SAVE_FLAG_NONE,
-				       &error);
+	g_clear_pointer (&out_fname, g_free);
+	out_fname = test_workdir_path ("asc-iscale-d_test.png");
+	ret = asc_image_save_filename (image, out_fname, 0, 0, ASC_IMAGE_SAVE_FLAG_NONE, &error);
 	g_assert_no_error (error);
 	g_assert_true (ret);
 	g_clear_object (&image);
@@ -402,6 +409,7 @@ test_canvas (void)
 	gint cv_size;
 	gint text_border_width, shape_border_width;
 	AscCanvasShape bg_shape;
+	g_autofree gchar *out_fname = NULL;
 	g_autoptr(AscCanvas) cv = NULL;
 	g_autoptr(AscFont) font = NULL;
 	g_autoptr(GInputStream) stream = NULL;
@@ -419,7 +427,8 @@ test_canvas (void)
 	asc_canvas_render_svg (cv, stream, &error);
 	g_assert_no_error (error);
 
-	asc_canvas_save_png (cv, "/tmp/asc-svgrender_test1.png", &error);
+	out_fname = test_workdir_path ("asc-svgrender_test1.png");
+	asc_canvas_save_png (cv, out_fname, &error);
 	g_assert_no_error (error);
 
 	g_object_unref (cv);
@@ -441,7 +450,9 @@ test_canvas (void)
 	    &error);
 	g_assert_no_error (error);
 
-	asc_canvas_save_png (cv, "/tmp/asc-fontrender_test1.png", &error);
+	g_clear_pointer (&out_fname, g_free);
+	out_fname = test_workdir_path ("asc-fontrender_test1.png");
+	asc_canvas_save_png (cv, out_fname, &error);
 	g_assert_no_error (error);
 	g_object_unref (cv);
 
@@ -471,7 +482,9 @@ test_canvas (void)
 				       : 0,
 				   &error);
 	g_assert_no_error (error);
-	asc_canvas_save_png (cv, "/tmp/asc-fontrender_test2.png", &error);
+	g_clear_pointer (&out_fname, g_free);
+	out_fname = test_workdir_path ("asc-fontrender_test2.png");
+	asc_canvas_save_png (cv, out_fname, &error);
 	g_assert_no_error (error);
 }
 
@@ -484,6 +497,7 @@ static void
 test_render_font_card (void)
 {
 	g_autofree gchar *font_fname = NULL;
+	g_autofree gchar *out_fname = NULL;
 	g_autoptr(AscFont) font = NULL;
 	g_autoptr(AscCanvas) canvas = NULL;
 	g_autoptr(GError) error = NULL;
@@ -502,7 +516,8 @@ test_render_font_card (void)
 				   &error);
 	g_assert_no_error (error);
 
-	asc_canvas_save_png (canvas, "/tmp/asc-font-card.png", &error);
+	out_fname = test_workdir_path ("asc-font-card.png");
+	asc_canvas_save_png (canvas, out_fname, &error);
 	g_assert_no_error (error);
 }
 
@@ -817,6 +832,77 @@ test_compose_optipng_not_found (Fixture *fixture, gconstpointer user_data)
 }
 
 /**
+ * asc_test_make_file:
+ *
+ * Create a file named @name with @contents in @dir.
+ */
+static void
+asc_test_make_file (const gchar *dir, const gchar *name, const gchar *contents)
+{
+	g_autoptr(GError) error = NULL;
+	g_autofree gchar *fname = g_build_filename (dir, name, NULL);
+	gboolean ret;
+
+	ret = g_file_set_contents (fname, contents, -1, &error);
+	g_assert_no_error (error);
+	g_assert_true (ret);
+}
+
+/**
+ * asc_test_make_link:
+ *
+ * Create a symlink named @name in @dir which points at @target.
+ */
+static void
+asc_test_make_link (const gchar *dir, const gchar *name, const gchar *target)
+{
+	g_autofree gchar *fname = g_build_filename (dir, name, NULL);
+	g_assert_cmpint (symlink (target, fname), ==, 0);
+}
+
+/**
+ * asc_assert_unit_reads:
+ *
+ * Assert that @path resolves within @unit and yields exactly @contents.
+ */
+static void
+asc_assert_unit_reads (AscUnit *unit, const gchar *path, const gchar *contents)
+{
+	g_autoptr(GError) error = NULL;
+	g_autoptr(GBytes) data = NULL;
+
+	g_assert_true (asc_unit_file_exists (unit, path));
+	data = asc_unit_read_data (unit, path, &error);
+	g_assert_no_error (error);
+	g_assert_nonnull (data);
+
+	g_assert_cmpint (g_bytes_get_size (data), ==, strlen (contents));
+	/* an empty file has nothing mapped, so there is no data to compare */
+	if (contents[0] != '\0')
+		g_assert_cmpmem (g_bytes_get_data (data, NULL),
+				 g_bytes_get_size (data),
+				 contents,
+				 strlen (contents));
+}
+
+/**
+ * asc_assert_unit_rejects:
+ *
+ * Assert that @path does not resolve within @unit, failing with @code.
+ */
+static void
+asc_assert_unit_rejects (AscUnit *unit, const gchar *path, gint code)
+{
+	g_autoptr(GError) error = NULL;
+	g_autoptr(GBytes) data = NULL;
+
+	g_assert_false (asc_unit_file_exists (unit, path));
+	data = asc_unit_read_data (unit, path, &error);
+	g_assert_error (error, G_FILE_ERROR, code);
+	g_assert_null (data);
+}
+
+/**
  * test_compose_directory_unit:
  */
 static void
@@ -825,14 +911,13 @@ test_compose_directory_unit (void)
 	g_autoptr(GError) error = NULL;
 	gboolean ret;
 	GPtrArray *contents;
-	g_autoptr(GBytes) data = NULL;
 	g_autoptr(AscDirectoryUnit) dirunit = asc_directory_unit_new (datadir);
 
 	ret = asc_unit_open (ASC_UNIT (dirunit), &error);
 	g_assert_no_error (error);
 	g_assert_true (ret);
 
-	/* NOTE: Links that we can not resolve within the unit are still listed, so the
+	/* NOTE: Links that we can not resolve within the unit are still listed, so an
 	 * error can be reported to the user instead of silently dropping the data. Both
 	 * "/appstream-logo.png" (which points out of the sample tree) and the dangling
 	 * "badlink" metainfo file are of that kind. */
@@ -852,27 +937,18 @@ test_compose_directory_unit (void)
 				  "/usr/share/fonts/truetype/raleway/Raleway-Regular.ttf"));
 
 	/* read existent data */
-	g_assert_true (asc_unit_file_exists (ASC_UNIT (dirunit), "/usr/dummy"));
-	data = asc_unit_read_data (ASC_UNIT (dirunit), "/usr/dummy", &error);
-	g_assert_no_error (error);
-	g_assert_nonnull (data);
-	g_assert_cmpstr ((const gchar *) g_bytes_get_data (data, NULL), ==, "Hello Universe!\n");
+	asc_assert_unit_reads (ASC_UNIT (dirunit), "/usr/dummy", "Hello Universe!\n");
 
 	/* read nonexistent data */
-	g_bytes_unref (data);
-	g_assert_false (asc_unit_file_exists (ASC_UNIT (dirunit), "/nonexistent"));
-	data = asc_unit_read_data (ASC_UNIT (dirunit), "/nonexistent", &error);
-	g_assert_error (error, G_FILE_ERROR, G_FILE_ERROR_NOENT);
-	g_assert_null (data);
+	asc_assert_unit_rejects (ASC_UNIT (dirunit), "/nonexistent", G_FILE_ERROR_NOENT);
 }
 
 /**
  * test_compose_directory_unit_escape:
  *
- * Data referenced from metainfo files is untrusted, so a unit must never hand
- * out files from outside of its root directory, neither via ".." segments nor
- * via symbolic links. Paths are resolved as if the unit's root was the root of
- * the filesystem, which is how the system the data was built for sees them.
+ * Data referenced from metainfo files is untrusted, so a directory unit must never
+ * hand out files from outside of its root directory.
+ * Paths are resolved as if the unit's root was the root of the filesystem.
  */
 static void
 test_compose_directory_unit_escape (void)
@@ -882,56 +958,46 @@ test_compose_directory_unit_escape (void)
 	g_autoptr(AscDirectoryUnit) linked_dirunit = NULL;
 	g_autoptr(AscDirectoryUnit) partial_dirunit = NULL;
 	g_autoptr(AscDirectoryUnit) escape_dirunit = NULL;
-	g_autoptr(GBytes) data = NULL;
 	GPtrArray *contents;
+	g_autofree gchar *contents_str = NULL;
 	g_autofree gchar *tmp_root = NULL;
 	g_autofree gchar *unit_root = NULL;
 	g_autofree gchar *unit_subdir = NULL;
-	g_autofree gchar *secret_fname = NULL;
-	g_autofree gchar *data_fname = NULL;
-	g_autofree gchar *link_fname = NULL;
-	g_autofree gchar *inner_link_fname = NULL;
-	g_autofree gchar *abs_link_fname = NULL;
-	g_autofree gchar *loop_link_fname = NULL;
-	g_autofree gchar *root_link = NULL;
-	g_autofree gchar *sibling_dir = NULL;
-	g_autofree gchar *sibling_fname = NULL;
 	g_autofree gchar *unit_datadir = NULL;
-	g_autofree gchar *unit_data_fname = NULL;
-	g_autofree gchar *share_link = NULL;
-	g_autofree gchar *escape_dir_link = NULL;
+	g_autofree gchar *secret_fname = NULL;
+	g_autofree gchar *sibling_dir = NULL;
+	g_autofree gchar *root_link = NULL;
 	gboolean ret;
 
-	/* create a "secret" file right next to, but outside of, the unit root */
+	/* create a "secret" file right next to, but outside of, the unit root, as well
+	 * as a sibling directory of the root whose name has the root's name as prefix */
 	tmp_root = g_dir_make_tmp ("as-compose-escape-XXXXXX", &error);
 	g_assert_no_error (error);
 	g_assert_nonnull (tmp_root);
+	asc_test_make_file (tmp_root, "secret.txt", "TOP SECRET");
+	secret_fname = g_build_filename (tmp_root, "secret.txt", NULL);
+
+	sibling_dir = g_build_filename (tmp_root, "rootfoo", NULL);
+	g_assert_cmpint (g_mkdir_with_parents (sibling_dir, 0755), ==, 0);
+	asc_test_make_file (sibling_dir, "secret.txt", "TOP SECRET");
 
 	unit_root = g_build_filename (tmp_root, "root", NULL);
 	unit_subdir = g_build_filename (unit_root, "usr", NULL);
 	g_assert_cmpint (g_mkdir_with_parents (unit_subdir, 0755), ==, 0);
+	asc_test_make_file (unit_subdir, "data.txt", "Hello!");
 
-	secret_fname = g_build_filename (tmp_root, "secret.txt", NULL);
-	ret = g_file_set_contents (secret_fname, "TOP SECRET", -1, &error);
-	g_assert_no_error (error);
-	g_assert_true (ret);
-
-	data_fname = g_build_filename (unit_subdir, "data.txt", NULL);
-	ret = g_file_set_contents (data_fname, "Hello!", -1, &error);
-	g_assert_no_error (error);
-	g_assert_true (ret);
+	/* an empty file still has to be readable, even though there is nothing to map */
+	asc_test_make_file (unit_subdir, "empty.txt", "");
 
 	/* place a symlink inside the unit that points at the file outside of it, one
 	 * that stays within the unit, one that is absolute and therefore only makes
-	 * sense when read as a path within the unit, and one that loops */
-	link_fname = g_build_filename (unit_subdir, "escape-link", NULL);
-	g_assert_cmpint (symlink (secret_fname, link_fname), ==, 0);
-	inner_link_fname = g_build_filename (unit_subdir, "inner-link", NULL);
-	g_assert_cmpint (symlink ("data.txt", inner_link_fname), ==, 0);
-	abs_link_fname = g_build_filename (unit_subdir, "abs-link", NULL);
-	g_assert_cmpint (symlink ("/usr/data.txt", abs_link_fname), ==, 0);
-	loop_link_fname = g_build_filename (unit_subdir, "loop-link", NULL);
-	g_assert_cmpint (symlink ("loop-link", loop_link_fname), ==, 0);
+	 * sense when read as a path within the unit, one that climbs out of the unit
+	 * using relative segments, and one that loops */
+	asc_test_make_link (unit_subdir, "escape-link", secret_fname);
+	asc_test_make_link (unit_subdir, "inner-link", "data.txt");
+	asc_test_make_link (unit_subdir, "abs-link", "/usr/data.txt");
+	asc_test_make_link (unit_subdir, "updown-link", "../../secret.txt");
+	asc_test_make_link (unit_subdir, "loop-link", "loop-link");
 
 	dirunit = asc_directory_unit_new (unit_root);
 	ret = asc_unit_open (ASC_UNIT (dirunit), &error);
@@ -942,69 +1008,30 @@ test_compose_directory_unit_escape (void)
 	 * failure to read them can be reported as an issue later on */
 	contents = asc_unit_get_contents (ASC_UNIT (dirunit));
 	as_sort_strings (contents);
-	g_assert_cmpint (contents->len, ==, 5);
-	g_assert_cmpstr (g_ptr_array_index (contents, 0), ==, "/usr/abs-link");
-	g_assert_cmpstr (g_ptr_array_index (contents, 1), ==, "/usr/data.txt");
-	g_assert_cmpstr (g_ptr_array_index (contents, 2), ==, "/usr/escape-link");
-	g_assert_cmpstr (g_ptr_array_index (contents, 3), ==, "/usr/inner-link");
-	g_assert_cmpstr (g_ptr_array_index (contents, 4), ==, "/usr/loop-link");
+	contents_str = as_ptr_array_strjoin (contents, " ");
+	g_assert_cmpstr (contents_str,
+			 ==,
+			 "/usr/abs-link /usr/data.txt /usr/empty.txt /usr/escape-link "
+			 "/usr/inner-link /usr/loop-link /usr/updown-link");
 
-	/* escaping via relative path segments must not be possible */
-	g_assert_false (asc_unit_file_exists (ASC_UNIT (dirunit), "/usr/../../secret.txt"));
+	/* a symlink that stays within the unit must still resolve, an absolute link
+	 * target is resolved from the unit's root rather than from the root of the
+	 * filesystem that we happen to run on, and an empty file is simply empty */
+	asc_assert_unit_reads (ASC_UNIT (dirunit), "/usr/inner-link", "Hello!");
+	asc_assert_unit_reads (ASC_UNIT (dirunit), "/usr/abs-link", "Hello!");
+	asc_assert_unit_reads (ASC_UNIT (dirunit), "/usr/empty.txt", "");
 
-	data = asc_unit_read_data (ASC_UNIT (dirunit), "/usr/../../secret.txt", &error);
-	g_assert_error (error, G_FILE_ERROR, G_FILE_ERROR_NOENT);
-	g_assert_null (data);
-	g_clear_error (&error);
-
-	/* the same must hold for a rooted path that climbs out of the unit again,
-	 * which is the shape a malicious stock icon name has after the icon prefix
-	 * has been prepended to it */
-	data = asc_unit_read_data (ASC_UNIT (dirunit), "/../secret.txt", &error);
-	g_assert_error (error, G_FILE_ERROR, G_FILE_ERROR_NOENT);
-	g_assert_null (data);
-	g_clear_error (&error);
-
-	/* a symlink that leaves the unit root must be rejected as well */
-	g_assert_false (asc_unit_file_exists (ASC_UNIT (dirunit), "/usr/escape-link"));
-	data = asc_unit_read_data (ASC_UNIT (dirunit), "/usr/escape-link", &error);
-	g_assert_error (error, G_FILE_ERROR, G_FILE_ERROR_NOENT);
-	g_assert_null (data);
-	g_clear_error (&error);
-
-	/* a link that never resolves must not send us in circles either */
-	g_assert_false (asc_unit_file_exists (ASC_UNIT (dirunit), "/usr/loop-link"));
-	data = asc_unit_read_data (ASC_UNIT (dirunit), "/usr/loop-link", &error);
-	g_assert_error (error, G_FILE_ERROR, G_FILE_ERROR_LOOP);
-	g_assert_null (data);
-	g_clear_error (&error);
-
-	/* an existing sibling directory of the root must not become reachable by
-	 * climbing out of it ("../rootfoo" vs. "../root") */
-	sibling_dir = g_build_filename (tmp_root, "rootfoo", NULL);
-	g_assert_cmpint (g_mkdir_with_parents (sibling_dir, 0755), ==, 0);
-	sibling_fname = g_build_filename (sibling_dir, "secret.txt", NULL);
-	ret = g_file_set_contents (sibling_fname, "TOP SECRET", -1, &error);
-	g_assert_no_error (error);
-	g_assert_true (ret);
-	g_assert_false (asc_unit_file_exists (ASC_UNIT (dirunit), "/../rootfoo"));
-
-	/* a symlink that stays within the unit must still resolve */
-	g_assert_true (asc_unit_file_exists (ASC_UNIT (dirunit), "/usr/inner-link"));
-	data = asc_unit_read_data (ASC_UNIT (dirunit), "/usr/inner-link", &error);
-	g_assert_no_error (error);
-	g_assert_nonnull (data);
-	g_assert_cmpstr ((const gchar *) g_bytes_get_data (data, NULL), ==, "Hello!");
-	g_clear_pointer (&data, g_bytes_unref);
-
-	/* an absolute link target is resolved from the unit's root, not from the root
-	 * of the filesystem that we happen to run on */
-	g_assert_true (asc_unit_file_exists (ASC_UNIT (dirunit), "/usr/abs-link"));
-	data = asc_unit_read_data (ASC_UNIT (dirunit), "/usr/abs-link", &error);
-	g_assert_no_error (error);
-	g_assert_nonnull (data);
-	g_assert_cmpstr ((const gchar *) g_bytes_get_data (data, NULL), ==, "Hello!");
-	g_clear_pointer (&data, g_bytes_unref);
+	/* escaping the unit must not be possible, neither via relative path segments nor
+	 * via a symlink. A relative link that climbs out of the unit is pinned at its
+	 * root, so it resolves to a location that does not exist rather than to the file
+	 * outside, and the sibling directory of the root can not be reached by climbing
+	 * out of it either ("../rootfoo" vs. "../root"). A link that never resolves must
+	 * not send us in circles. */
+	asc_assert_unit_rejects (ASC_UNIT (dirunit), "/usr/../../secret.txt", G_FILE_ERROR_NOENT);
+	asc_assert_unit_rejects (ASC_UNIT (dirunit), "/usr/escape-link", G_FILE_ERROR_NOENT);
+	asc_assert_unit_rejects (ASC_UNIT (dirunit), "/usr/updown-link", G_FILE_ERROR_NOENT);
+	asc_assert_unit_rejects (ASC_UNIT (dirunit), "/../rootfoo", G_FILE_ERROR_NOENT);
+	asc_assert_unit_rejects (ASC_UNIT (dirunit), "/usr/loop-link", G_FILE_ERROR_LOOP);
 
 	/* a root directory that is reached through a symlink itself must not make
 	 * everything below it appear to be outside of the unit */
@@ -1016,30 +1043,18 @@ test_compose_directory_unit_escape (void)
 	g_assert_no_error (error);
 	g_assert_true (ret);
 
-	g_assert_true (asc_unit_file_exists (ASC_UNIT (linked_dirunit), "/usr/data.txt"));
-	data = asc_unit_read_data (ASC_UNIT (linked_dirunit), "/usr/data.txt", &error);
-	g_assert_no_error (error);
-	g_assert_nonnull (data);
-	g_assert_cmpstr ((const gchar *) g_bytes_get_data (data, NULL), ==, "Hello!");
-
-	g_assert_true (asc_unit_file_exists (ASC_UNIT (linked_dirunit), "/usr/abs-link"));
-	g_assert_false (asc_unit_file_exists (ASC_UNIT (linked_dirunit), "/usr/escape-link"));
+	asc_assert_unit_reads (ASC_UNIT (linked_dirunit), "/usr/abs-link", "Hello!");
+	asc_assert_unit_rejects (ASC_UNIT (linked_dirunit), "/usr/escape-link", G_FILE_ERROR_NOENT);
 
 	/* a unit that indexes selected locations only has to resolve those within the
 	 * unit as well: one of them is a symlink to another location in the unit, the
-	 * other one leaves the unit entirely. The in-unit target must not exist on the
-	 * machine we run on, or cleaning up our test tree would follow the link */
+	 * other one leaves the unit entirely. */
 	unit_datadir = g_build_filename (unit_root, "as-compose-test-data", NULL);
 	g_assert_cmpint (g_mkdir_with_parents (unit_datadir, 0755), ==, 0);
-	unit_data_fname = g_build_filename (unit_datadir, "astest-thing.txt", NULL);
-	ret = g_file_set_contents (unit_data_fname, "Hi!", -1, &error);
-	g_assert_no_error (error);
-	g_assert_true (ret);
+	asc_test_make_file (unit_datadir, "astest-thing.txt", "Hi!");
 
-	share_link = g_build_filename (unit_root, "share", NULL);
-	g_assert_cmpint (symlink ("/as-compose-test-data", share_link), ==, 0);
-	escape_dir_link = g_build_filename (unit_root, "escape-dir", NULL);
-	g_assert_cmpint (symlink (sibling_dir, escape_dir_link), ==, 0);
+	asc_test_make_link (unit_root, "share", "/as-compose-test-data");
+	asc_test_make_link (unit_root, "escape-dir", sibling_dir);
 
 	partial_dirunit = asc_directory_unit_new (unit_root);
 	asc_unit_add_relevant_path (ASC_UNIT (partial_dirunit), "/share");
@@ -1053,11 +1068,12 @@ test_compose_directory_unit_escape (void)
 	g_assert_cmpint (contents->len, ==, 1);
 	g_assert_cmpstr (g_ptr_array_index (contents, 0), ==, "/share/astest-thing.txt");
 
-	g_clear_pointer (&data, g_bytes_unref);
-	data = asc_unit_read_data (ASC_UNIT (partial_dirunit), "/share/astest-thing.txt", &error);
-	g_assert_no_error (error);
-	g_assert_nonnull (data);
-	g_assert_cmpstr ((const gchar *) g_bytes_get_data (data, NULL), ==, "Hi!");
+	/* a directory reached through an absolute in-unit link is a directory, while one
+	 * that leaves the unit does not exist as far as the unit is concerned */
+	g_assert_true (asc_unit_dir_exists (ASC_UNIT (partial_dirunit), "/share"));
+	g_assert_false (asc_unit_dir_exists (ASC_UNIT (partial_dirunit), "/escape-dir"));
+
+	asc_assert_unit_reads (ASC_UNIT (partial_dirunit), "/share/astest-thing.txt", "Hi!");
 
 	/* a location that leaves the unit must not be walked at all */
 	escape_dirunit = asc_directory_unit_new (unit_root);
@@ -1245,7 +1261,7 @@ test_compose_font (void)
 	g_autoptr(AsMetadata) mdata = NULL;
 	g_autoptr(AscIconPolicy) icon_policy = NULL;
 	g_autoptr(AscDirectoryUnit) dirunit = asc_directory_unit_new (datadir);
-	const gchar *export_tmpdir = "/tmp/asc-font-export";
+	g_autofree gchar *export_tmpdir = test_workdir_path ("asc-font-export");
 
 	/* cleanup */
 	if (g_file_test (export_tmpdir, G_FILE_TEST_EXISTS)) {
@@ -1348,6 +1364,10 @@ main (int argc, char **argv)
 	datadir = g_build_filename (argv[1], "samples", "compose", NULL);
 	g_assert_true (g_file_test (datadir, G_FILE_TEST_EXISTS));
 
+	/* location for temporary test data */
+	workdir = g_dir_make_tmp ("as-compose-test_XXXXXX", NULL);
+	g_assert_nonnull (workdir);
+
 	g_setenv ("G_MESSAGES_DEBUG", "all", TRUE);
 	g_test_init (&argc, &argv, NULL);
 
@@ -1380,6 +1400,8 @@ main (int argc, char **argv)
 			 test_compose_icon_policy_serialize);
 
 	ret = g_test_run ();
+	as_utils_delete_dir_recursive (workdir);
+	g_free (workdir);
 	g_free (datadir);
 
 	/* make sanitizers happy */
