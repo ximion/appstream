@@ -454,11 +454,19 @@ as_str_verify_integer (const gchar *str, gint64 min_value, gint64 max_value)
  * Check if a character may appear in a filesystem path segment.
  */
 static inline gboolean
-as_path_segment_char_valid (gchar c)
+as_path_segment_char_valid (gunichar c)
 {
-	if (g_ascii_isalnum (c))
-		return TRUE;
-	return c == '-' || c == '_' || c == '.' || c == '+';
+	if (c < 0x80) {
+		/* we use a strict allowlist for ASCII characters */
+		if (g_ascii_isalnum ((gchar) c))
+			return TRUE;
+		return c == '-' || c == '_' || c == '.' || c == '+' || c == '@' || c == ' ';
+	}
+
+	/* for anything else, we only permit printable characters (which excludes
+	 * control, format, surrogate and unassigned ones) and never allow any
+	 * kind of whitespace besides the plain ASCII space */
+	return g_unichar_isprint (c) && !g_unichar_isspace (c);
 }
 
 /**
@@ -471,23 +479,32 @@ as_path_segment_char_valid (gchar c)
  * resulting path.
  *
  * We deliberately use a strict allowlist here (ASCII alphanumerics as well as
- * `-`, `_`, `.` and `+`), as this function is used to validate names which we
- * read from untrusted, remotely obtained metadata.
+ * `-`, `_`, `.`, `+`, `@` and the plain space, plus any printable non-ASCII
+ * UTF-8 character), as this function is used to validate names which we read
+ * from untrusted, remotely obtained metadata.
  *
  * Returns: %TRUE if the string is safe to use as a path segment.
  */
 gboolean
 as_path_segment_verify (const gchar *str)
 {
+	gsize len;
+
 	if (as_is_empty (str))
 		return FALSE;
 
-	/* never permit relative path components or hidden entries */
-	if (str[0] == '.')
+	/* never permit relative path components, hidden entries or names
+	 * with leading/trailing spaces */
+	len = strlen (str);
+	if (str[0] == '.' || str[0] == ' ' || str[len - 1] == ' ')
 		return FALSE;
 
-	for (guint i = 0; str[i] != '\0'; i++) {
-		if (!as_path_segment_char_valid (str[i]))
+	for (const gchar *p = str; *p != '\0'; p = g_utf8_next_char (p)) {
+		/* the string must be valid UTF-8 for us to accept it */
+		gunichar c = g_utf8_get_char_validated (p, -1);
+		if (c == (gunichar) -1 || c == (gunichar) -2)
+			return FALSE;
+		if (!as_path_segment_char_valid (c))
 			return FALSE;
 	}
 
@@ -507,22 +524,36 @@ as_path_segment_verify (const gchar *str)
 gchar *
 as_path_segment_sanitize (const gchar *str)
 {
-	g_autofree gchar *res = NULL;
+	g_autoptr(GString) res = NULL;
 
 	if (as_is_empty (str))
 		return NULL;
 
-	res = g_strdup (str);
-	for (guint i = 0; res[i] != '\0'; i++) {
-		if (!as_path_segment_char_valid (res[i]))
-			res[i] = '_';
+	res = g_string_sized_new (strlen (str));
+	for (const gchar *p = str; *p != '\0';) {
+		gunichar c = g_utf8_get_char_validated (p, -1);
+
+		/* replace invalid UTF-8 sequences byte by byte */
+		if (c == (gunichar) -1 || c == (gunichar) -2) {
+			g_string_append_c (res, '_');
+			p++;
+			continue;
+		}
+
+		/* we never want to create names containing spaces here */
+		if (as_path_segment_char_valid (c) && c != ' ')
+			g_string_append_unichar (res, c);
+		else
+			g_string_append_c (res, '_');
+
+		p = g_utf8_next_char (p);
 	}
 
 	/* never create relative path components or hidden entries */
-	if (res[0] == '.')
-		res[0] = '_';
+	if (res->str[0] == '.')
+		res->str[0] = '_';
 
-	return g_steal_pointer (&res);
+	return g_string_free (g_steal_pointer (&res), FALSE);
 }
 
 /**

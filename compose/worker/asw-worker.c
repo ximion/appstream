@@ -25,10 +25,6 @@
  * The worker receives high-level media operations from libappstream-compose
  * via a socket, with all input data passed as sealed memfds and all rendered
  * output written through a per-request directory file descriptor.
- * It performs all parsing of untrusted media data, so it can be sandboxed.
- *
- * A sandbox profile must keep /proc mounted: helper binaries (optipng,
- * ffprobe) access the passed file descriptors via /proc/self/fd paths.
  */
 
 #include "config.h"
@@ -36,7 +32,6 @@
 
 #include <errno.h>
 #include <fcntl.h>
-#include <string.h>
 #include <sys/resource.h>
 #include <sys/stat.h>
 #include <unistd.h>
@@ -165,8 +160,7 @@ asw_worker_send_hello (AswWorker *worker, GError **error)
 static gboolean
 asw_worker_validate_entry_name (const gchar *name, GError **error)
 {
-	if (name == NULL || name[0] == '\0' || strchr (name, '/') != NULL ||
-	    g_strcmp0 (name, ".") == 0 || g_strcmp0 (name, "..") == 0) {
+	if (!as_path_segment_verify (name)) {
 		g_set_error (error,
 			     ASC_MEDIA_ERROR,
 			     ASC_MEDIA_ERROR_PROTOCOL,

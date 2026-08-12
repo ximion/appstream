@@ -150,6 +150,10 @@ test_path_segments (void)
 	g_assert_true (as_path_segment_verify ("debian-bookworm-main"));
 	g_assert_true (as_path_segment_verify ("flathub"));
 	g_assert_true (as_path_segment_verify ("ubuntu_noble+extra.1"));
+	g_assert_true (as_path_segment_verify ("debian main"));
+	g_assert_true (as_path_segment_verify ("image-1_752x423@1.png"));
+	g_assert_true (as_path_segment_verify ("文泉驛正黑-regular.png"));
+	g_assert_true (as_path_segment_verify ("Grüße_Größe.ttf"));
 
 	g_assert_false (as_path_segment_verify (NULL));
 	g_assert_false (as_path_segment_verify (""));
@@ -159,7 +163,17 @@ test_path_segments (void)
 	g_assert_false (as_path_segment_verify ("../../etc/cron.d"));
 	g_assert_false (as_path_segment_verify ("/etc/cron.d"));
 	g_assert_false (as_path_segment_verify ("debian/../../etc"));
-	g_assert_false (as_path_segment_verify ("debian main"));
+	g_assert_false (as_path_segment_verify (" leading-space"));
+	g_assert_false (as_path_segment_verify ("trailing-space "));
+	g_assert_false (as_path_segment_verify ("tab\tseparated"));
+	g_assert_false (as_path_segment_verify ("new\nline"));
+	g_assert_false (as_path_segment_verify ("del\177char"));
+	/* no non-breaking space or other exotic whitespace */
+	g_assert_false (as_path_segment_verify ("non\302\240breaking"));
+	/* no bidirectional text override */
+	g_assert_false (as_path_segment_verify ("gnp.\342\200\256exe"));
+	/* no invalid UTF-8 */
+	g_assert_false (as_path_segment_verify ("inva\377lid"));
 
 	g_assert_null (as_path_segment_sanitize (NULL));
 	g_assert_null (as_path_segment_sanitize (""));
@@ -175,6 +189,12 @@ test_path_segments (void)
 
 	tmp = as_path_segment_sanitize ("my <origin>");
 	g_assert_cmpstr (tmp, ==, "my__origin_");
+	g_assert_true (as_path_segment_verify (tmp));
+	g_free (g_steal_pointer (&tmp));
+
+	/* printable Unicode is preserved, invalid UTF-8 is not */
+	tmp = as_path_segment_sanitize ("Grüße/文泉驛\377");
+	g_assert_cmpstr (tmp, ==, "Grüße_文泉驛_");
 	g_assert_true (as_path_segment_verify (tmp));
 	g_free (g_steal_pointer (&tmp));
 }
