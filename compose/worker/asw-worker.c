@@ -340,8 +340,15 @@ asw_worker_load_font (AswWorker *worker, GVariant *params, GUnixFDList *fds, GEr
 	if (font_fd < 0)
 		return NULL;
 
+	/* NOTE: The basename is only used as fallback identifier and for heuristics,
+	 * it never becomes a path here - so we do not validate it as one. Result
+	 * filenames derived from it are validated separately. */
 	g_variant_lookup (params, "basename", "&s", &basename);
-	if (!asw_worker_validate_entry_name (basename, error)) {
+	if (as_is_empty (basename)) {
+		g_set_error_literal (error,
+				     ASC_MEDIA_ERROR,
+				     ASC_MEDIA_ERROR_PROTOCOL,
+				     "Font request was missing the font file basename.");
 		close (font_fd);
 		return NULL;
 	}

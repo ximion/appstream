@@ -51,6 +51,8 @@ typedef struct {
 	AscFontInfo *info;
 	GBytes *data;
 	gchar *basename;
+	/* the font ID, made safe for use as a filename component */
+	gchar *safe_id;
 } AscFontEntry;
 
 static AscFontEntry *
@@ -63,6 +65,10 @@ asc_font_entry_new (AscFontInfo *info, GBytes *data, const gchar *basename)
 	entry->data = g_bytes_ref (data);
 	entry->basename = g_strdup (basename);
 
+	/* font IDs are derived from font metadata, so they may contain anything -
+	 * we have to sanitize them before using them to build filenames */
+	entry->safe_id = as_path_segment_sanitize (info->id);
+
 	return entry;
 }
 
@@ -74,6 +80,7 @@ asc_font_entry_free (AscFontEntry *entry)
 	asc_font_info_free (entry->info);
 	g_bytes_unref (entry->data);
 	g_free (entry->basename);
+	g_free (entry->safe_id);
 	g_free (entry);
 }
 
@@ -105,7 +112,7 @@ asc_render_font_screenshots (AscResult *cres,
 		g_autoptr(GError) tmp_error = NULL;
 		AscFontEntry *entry = g_ptr_array_index (fonts, i);
 
-		font_id = entry->info->id;
+		font_id = entry->safe_id;
 		if (as_is_empty (font_id)) {
 			g_warning ("%s: Ignored font for screenshot rendering due to missing ID.",
 				   as_component_get_id (cpt));
@@ -254,7 +261,7 @@ asc_render_font_icon (AscResult *cres,
 
 		icon_name = g_strdup_printf ("%s_%s.png",
 					     asc_unit_get_bundle_id_safe (unit),
-					     entry->info->id);
+					     entry->safe_id);
 		icon_full_path = g_build_filename (icon_dir, icon_name, NULL);
 
 		if (!g_file_test (icon_full_path, G_FILE_TEST_EXISTS)) {
