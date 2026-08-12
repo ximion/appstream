@@ -1,3 +1,29 @@
+Version 1.1.6
+~~~~~~~~~~~~~
+Released: 2026-08-12
+
+Features:
+ * validator: Ensure description markup has no invalid attributes set
+ * validator: Validate bundle/pkgname values for allowed characters
+
+Bugfixes:
+ * xml: Sanitize description markup when reading and writing it
+ * yaml/json: Ensure description markup is sanitized when loading/saving it
+ * meson: Work around wrong library linkage when linking Qt tests
+ * Allow sealing of component-IDs to safely use them in hash tables and indices
+ * Ensure we never emit or read an invalid data origin
+ * Prevent crash when comparing bad version strings that have an epoch after rev
+ * Fix potential out-of-bounds read in OARS mapping table
+ * apt: yaml: Harden against potential corrupted YAML / YAML-headers
+ * compose: Guess a filename even from invalid URLs instead of crashing
+ * compose: Confine directory unit data reads to the unit's root directory
+ * compose: Refactor directory unit to use openat2, if possible
+ * news-convert: Don't crash in case we receive bad freeform YAML news input
+ * ascli: Guard against bad bundle values when calling "install"
+
+Contributors:
+ Matthias Klumpp
+
 Version 1.1.5
 ~~~~~~~~~~~~~
 Released: 2026-07-24
