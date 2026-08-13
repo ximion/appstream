@@ -19,12 +19,12 @@
  */
 
 /**
- * asc-mediaworker:
+ * asw-main:
  *
- * Media processing worker for libappstream-compose.
- * This process performs all parsing and rendering of untrusted media data
- * (images, fonts, videos) on behalf of the AppStream compose library, so
- * that this work is isolated from the main process and can be sandboxed.
+ * This is the asc-mediaworker binary, a media processing worker for
+ * libappstream-compose. This process performs all parsing and rendering
+ * of untrusted media data (images, fonts, videos) on behalf of the
+ * AppStream compose library.
  *
  * The worker is spawned by libappstream-compose with its communication
  * socket on a well-known file descriptor - it is not useful to run manually.

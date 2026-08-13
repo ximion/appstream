@@ -982,7 +982,7 @@ asc_media_process_image (AscMedia *media,
 {
 	g_autoptr(GUnixFDList) fds = g_unix_fd_list_new ();
 	g_autoptr(GVariant) payload = NULL;
-	GVariantBuilder pb;
+	g_auto(GVariantBuilder) pb = G_VARIANT_BUILDER_INIT (G_VARIANT_TYPE ("a{sv}"));
 	const gchar *format_str;
 	gint fd, handle;
 	gboolean have_targets = targets != NULL && targets->len > 0;
@@ -990,8 +990,6 @@ asc_media_process_image (AscMedia *media,
 	g_return_val_if_fail (ASC_IS_MEDIA (media), FALSE);
 	g_return_val_if_fail (img_data != NULL, FALSE);
 	g_return_val_if_fail (!have_targets || out_dir != NULL, FALSE);
-
-	g_variant_builder_init (&pb, G_VARIANT_TYPE ("a{sv}"));
 
 	fd = asc_memfd_new_sealed ("asc-image-data",
 				   g_bytes_get_data (img_data, NULL),
@@ -1167,13 +1165,12 @@ asc_media_read_font_info (AscMedia *media,
 	g_autoptr(GUnixFDList) fds = g_unix_fd_list_new ();
 	g_autoptr(GVariant) payload = NULL;
 	g_autoptr(AscFontInfo) info = NULL;
-	GVariantBuilder pb;
+	g_auto(GVariantBuilder) pb = G_VARIANT_BUILDER_INIT (G_VARIANT_TYPE ("a{sv}"));
 
 	g_return_val_if_fail (ASC_IS_MEDIA (media), NULL);
 	g_return_val_if_fail (font_data != NULL, NULL);
 	g_return_val_if_fail (basename != NULL, NULL);
 
-	g_variant_builder_init (&pb, G_VARIANT_TYPE ("a{sv}"));
 	if (!asc_media_add_font_params (&pb,
 					fds,
 					font_data,
@@ -1182,10 +1179,8 @@ asc_media_read_font_info (AscMedia *media,
 					extra_languages,
 					custom_sample_text,
 					custom_icon_text,
-					error)) {
-		g_variant_builder_clear (&pb);
+					error))
 		return NULL;
-	}
 
 	payload = asc_media_call (media,
 				  ASC_MEDIA_OP_FONT_INFO,
@@ -1231,7 +1226,7 @@ asc_media_render_font (AscMedia *media,
 {
 	g_autoptr(GUnixFDList) fds = g_unix_fd_list_new ();
 	g_autoptr(GVariant) payload = NULL;
-	GVariantBuilder pb;
+	g_auto(GVariantBuilder) pb = G_VARIANT_BUILDER_INIT (G_VARIANT_TYPE ("a{sv}"));
 	GVariantBuilder entries_builder;
 	gint fd, handle;
 
@@ -1241,7 +1236,6 @@ asc_media_render_font (AscMedia *media,
 	g_return_val_if_fail (out_dir != NULL, FALSE);
 	g_return_val_if_fail (targets != NULL && targets->len > 0, FALSE);
 
-	g_variant_builder_init (&pb, G_VARIANT_TYPE ("a{sv}"));
 	if (!asc_media_add_font_params (&pb,
 					fds,
 					font_data,
@@ -1250,21 +1244,15 @@ asc_media_render_font (AscMedia *media,
 					extra_languages,
 					custom_sample_text,
 					custom_icon_text,
-					error)) {
-		g_variant_builder_clear (&pb);
+					error))
 		return FALSE;
-	}
 
 	fd = asc_media_open_out_dir (out_dir, error);
-	if (fd < 0) {
-		g_variant_builder_clear (&pb);
+	if (fd < 0)
 		return FALSE;
-	}
 	handle = asc_media_fdlist_append (fds, fd, error);
-	if (handle < 0) {
-		g_variant_builder_clear (&pb);
+	if (handle < 0)
 		return FALSE;
-	}
 	g_variant_builder_add (&pb, "{sv}", "dir-fd", g_variant_new_handle (handle));
 
 	if (!as_is_empty (info_label))
@@ -1434,13 +1422,11 @@ asc_media_probe_video (AscMedia *media,
 {
 	g_autoptr(GUnixFDList) fds = g_unix_fd_list_new ();
 	g_autoptr(GVariant) payload = NULL;
-	GVariantBuilder pb;
+	g_auto(GVariantBuilder) pb = G_VARIANT_BUILDER_INIT (G_VARIANT_TYPE ("a{sv}"));
 	gint fd, handle;
 
 	g_return_val_if_fail (ASC_IS_MEDIA (media), FALSE);
 	g_return_val_if_fail (video_data != NULL, FALSE);
-
-	g_variant_builder_init (&pb, G_VARIANT_TYPE ("a{sv}"));
 
 	fd = asc_memfd_new_sealed ("asc-video-data",
 				   g_bytes_get_data (video_data, NULL),

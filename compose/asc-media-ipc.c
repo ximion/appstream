@@ -20,7 +20,7 @@
 
 /**
  * SECTION:asc-media-ipc
- * @short_description: Wire protocol between libappstream-compose and the media worker.
+ * @short_description: Protocol between libappstream-compose and the media worker.
  *
  * Messages are GVariants sent as single datagrams over a SOCK_SEQPACKET Unix
  * socket pair. Bulk data (images, fonts, videos) is passed exclusively via
