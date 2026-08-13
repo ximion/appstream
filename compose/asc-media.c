@@ -59,6 +59,9 @@
 /* how often we try to respawn a crashed worker before giving up */
 #define ASC_MEDIA_RESPAWN_LIMIT 3
 
+/* how long we wait for the worker to quit on its own before we kill it */
+#define ASC_MEDIA_SHUTDOWN_TIMEOUT_SEC 30
+
 struct _AscMedia {
 	GObject parent_instance;
 };
@@ -457,6 +460,63 @@ asc_media_describe_worker_death (AscMedia *media)
 	return g_string_free (g_steal_pointer (&desc), FALSE);
 }
 
+typedef struct {
+	GSubprocess *proc;
+	GMainLoop *loop;
+} AscMediaWaitHelper;
+
+static void
+asc_media_worker_exited_cb (GObject *source, GAsyncResult *result, gpointer user_data)
+{
+	AscMediaWaitHelper *helper = user_data;
+	g_subprocess_wait_finish (G_SUBPROCESS (source), result, NULL);
+	g_main_loop_quit (helper->loop);
+}
+
+static gboolean
+asc_media_worker_exit_timeout_cb (gpointer user_data)
+{
+	AscMediaWaitHelper *helper = user_data;
+
+	/* the worker ignored our request to quit, so we have to be more insistent.
+	 * we keep the loop running, as the process will now terminate for sure */
+	g_warning ("Media worker did not terminate in time, killing it.");
+	g_subprocess_force_exit (helper->proc);
+
+	return G_SOURCE_REMOVE;
+}
+
+/**
+ * asc_media_wait_for_worker_exit:
+ *
+ * Wait for the worker process to terminate, killing it in case it
+ * does not react to our request to quit in time.
+ */
+static void
+asc_media_wait_for_worker_exit (GSubprocess *proc)
+{
+	g_autoptr(GMainContext) context = g_main_context_new ();
+	g_autoptr(GMainLoop) loop = NULL;
+	g_autoptr(GSource) timeout_source = NULL;
+	AscMediaWaitHelper helper;
+
+	g_main_context_push_thread_default (context);
+
+	loop = g_main_loop_new (context, FALSE);
+	helper.proc = proc;
+	helper.loop = loop;
+
+	timeout_source = g_timeout_source_new_seconds (ASC_MEDIA_SHUTDOWN_TIMEOUT_SEC);
+	g_source_set_callback (timeout_source, asc_media_worker_exit_timeout_cb, &helper, NULL);
+	g_source_attach (timeout_source, context);
+
+	g_subprocess_wait_async (proc, NULL, asc_media_worker_exited_cb, &helper);
+	g_main_loop_run (loop);
+
+	g_source_destroy (timeout_source);
+	g_main_context_pop_thread_default (context);
+}
+
 /**
  * asc_media_shutdown_worker:
  * @force: Whether to kill the worker immediately instead of asking it to quit.
@@ -494,14 +554,16 @@ asc_media_shutdown_worker (AscMedia *media, gboolean force)
 			}
 		}
 
-		if (!clean_quit && !force) {
-			/* closing our socket end makes the worker exit on EOF */
-			g_clear_object (&priv->socket);
-		}
-		if (force)
+		if (force) {
 			g_subprocess_force_exit (priv->worker_proc);
-
-		g_subprocess_wait (priv->worker_proc, NULL, NULL);
+			g_subprocess_wait (priv->worker_proc, NULL, NULL);
+		} else {
+			if (!clean_quit) {
+				/* closing our socket end makes the worker exit on EOF */
+				g_clear_object (&priv->socket);
+			}
+			asc_media_wait_for_worker_exit (priv->worker_proc);
+		}
 	}
 
 	g_clear_object (&priv->socket);
