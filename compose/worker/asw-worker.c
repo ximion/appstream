@@ -32,6 +32,7 @@
 
 #include <errno.h>
 #include <fcntl.h>
+#include <math.h>
 #include <sys/resource.h>
 #include <sys/stat.h>
 #include <unistd.h>
@@ -554,6 +555,37 @@ asw_worker_handle_process_image (AswWorker *worker,
 		case ASC_IMAGE_SCALE_MODE_FIT_HEIGHT: {
 			/* scale a temporary image proportionally, then store it in its new native size */
 			g_autoptr(AswImage) scaled_img = asw_image_new ();
+			gdouble scale;
+			gint fit_width;
+			gint fit_height;
+
+			/* determine the resulting size, using the exact same maths that the
+			 * scaling functions use, so we can reject degenerate results (the
+			 * client relies on being able to predict these dimensions) */
+			if (scale_mode == ASC_IMAGE_SCALE_MODE_FIT_WIDTH) {
+				scale = (gdouble) width / (gdouble) src_width;
+				fit_width = width;
+				fit_height = (gint) floor (src_height * scale);
+			} else {
+				scale = (gdouble) height / (gdouble) src_height;
+				fit_width = (gint) floor (src_width * scale);
+				fit_height = height;
+			}
+			if (fit_width < 1 || fit_height < 1) {
+				g_set_error (&tmp_error,
+					     ASC_MEDIA_ERROR,
+					     ASC_MEDIA_ERROR_FAILED,
+					     "Scaling the %ix%i image to fit %ix%i would result in "
+					     "an image of %ix%i pixels.",
+					     src_width,
+					     src_height,
+					     width,
+					     height,
+					     fit_width,
+					     fit_height);
+				break;
+			}
+
 			asw_image_set_pixbuf (scaled_img, asw_image_get_pixbuf (image));
 			if (scale_mode == ASC_IMAGE_SCALE_MODE_FIT_WIDTH)
 				asw_image_scale_to_width (scaled_img, width);
