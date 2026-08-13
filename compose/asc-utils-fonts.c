@@ -167,14 +167,24 @@ asc_render_font_screenshots (AscResult *cres,
 						 cpt_screenshots_path,
 						 targets,
 						 &tmp_error)) {
-			asc_result_add_hint (cres,
-					     cpt,
-					     "font-render-error",
-					     "name",
-					     entry->info->fullname,
-					     "error",
-					     tmp_error->message,
-					     NULL);
+			if (asc_media_error_is_worker_failure (tmp_error))
+				asc_result_add_hint (cres,
+						     cpt,
+						     "media-worker-error",
+						     "fname",
+						     entry->basename,
+						     "msg",
+						     tmp_error->message,
+						     NULL);
+			else
+				asc_result_add_hint (cres,
+						     cpt,
+						     "font-render-error",
+						     "name",
+						     entry->info->fullname,
+						     "error",
+						     tmp_error->message,
+						     NULL);
 			continue;
 		}
 
@@ -289,14 +299,24 @@ asc_render_font_icon (AscResult *cres,
 							 icon_dir,
 							 targets,
 							 &tmp_error)) {
-				asc_result_add_hint (cres,
-						     cpt,
-						     "font-render-error",
-						     "name",
-						     entry->info->fullname,
-						     "error",
-						     tmp_error->message,
-						     NULL);
+				if (asc_media_error_is_worker_failure (tmp_error))
+					asc_result_add_hint (cres,
+							     cpt,
+							     "media-worker-error",
+							     "fname",
+							     entry->basename,
+							     "msg",
+							     tmp_error->message,
+							     NULL);
+				else
+					asc_result_add_hint (cres,
+							     cpt,
+							     "font-render-error",
+							     "name",
+							     entry->info->fullname,
+							     "error",
+							     tmp_error->message,
+							     NULL);
 				continue;
 			}
 			if (target->error_msg != NULL) {
@@ -716,16 +736,26 @@ asc_process_fonts (AscResult *cres,
 						  NULL, /* custom icon text */
 						  &tmp_error);
 		if (finfo == NULL) {
-			asc_result_add_hint (cres,
-					     NULL,
-					     "font-load-error",
-					     "fname",
-					     fname,
-					     "unit_name",
-					     asc_unit_get_bundle_id (unit),
-					     "error",
-					     tmp_error->message,
-					     NULL);
+			if (asc_media_error_is_worker_failure (tmp_error))
+				asc_result_add_hint (cres,
+						     NULL,
+						     "media-worker-error",
+						     "fname",
+						     fname,
+						     "msg",
+						     tmp_error->message,
+						     NULL);
+			else
+				asc_result_add_hint (cres,
+						     NULL,
+						     "font-load-error",
+						     "fname",
+						     fname,
+						     "unit_name",
+						     asc_unit_get_bundle_id (unit),
+						     "error",
+						     tmp_error->message,
+						     NULL);
 			continue;
 		}
 

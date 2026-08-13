@@ -110,7 +110,9 @@ asc_extract_video_info (AscResult *cres, AsComponent *cpt, AscMedia *media, cons
 		g_warning ("Failed to probe video '%s': %s", vid_fname, error->message);
 		asc_result_add_hint (cres,
 				     cpt,
-				     "screenshot-video-check-failed",
+				     asc_media_error_is_worker_failure (error)
+					 ? "media-worker-error"
+					 : "screenshot-video-check-failed",
 				     "fname",
 				     vid_basename,
 				     "msg",
@@ -325,6 +327,44 @@ asc_process_screenshot_videos (AscResult *cres,
 }
 
 /**
+ * asc_add_screenshot_media_error_hint:
+ *
+ * Report a failed screenshot media operation. Genuine malfunctions of the media
+ * worker are reported as such, everything else gets the regular screenshot hint.
+ */
+static void
+asc_add_screenshot_media_error_hint (AscResult *cres,
+				     AsComponent *cpt,
+				     const gchar *img_url,
+				     const gchar *context_msg,
+				     const GError *error)
+{
+	if (asc_media_error_is_worker_failure (error)) {
+		asc_result_add_hint (cres,
+				     cpt,
+				     "media-worker-error",
+				     "fname",
+				     img_url,
+				     "msg",
+				     error->message,
+				     NULL);
+		return;
+	}
+
+	{
+		g_autofree gchar *msg = g_strdup_printf ("%s: %s", context_msg, error->message);
+		asc_result_add_hint (cres,
+				     cpt,
+				     "screenshot-save-error",
+				     "url",
+				     img_url,
+				     "error",
+				     msg,
+				     NULL);
+	}
+}
+
+/**
  * asc_process_screenshot_images_lang:
  *
  * Process image @orig_img for screenshot @scr and language @locale
@@ -444,17 +484,12 @@ asc_process_screenshot_images_lang (AscResult *cres,
 					      &src_width,
 					      &src_height,
 					      &error)) {
-			g_autofree gchar *msg = g_strdup_printf (
-			    "Could not load source screenshot for storing: %s",
-			    error->message);
-			asc_result_add_hint (cres,
-					     cpt,
-					     "screenshot-save-error",
-					     "url",
-					     orig_img_url,
-					     "error",
-					     msg,
-					     NULL);
+			asc_add_screenshot_media_error_hint (
+			    cres,
+			    cpt,
+			    orig_img_url,
+			    "Could not load source screenshot for storing",
+			    error);
 			return FALSE;
 		}
 
@@ -506,17 +541,12 @@ asc_process_screenshot_images_lang (AscResult *cres,
 					      &src_width,
 					      &src_height,
 					      &error)) {
-			g_autofree gchar *msg = g_strdup_printf (
-			    "Could not load source screenshot for storing: %s",
-			    error->message);
-			asc_result_add_hint (cres,
-					     cpt,
-					     "screenshot-save-error",
-					     "url",
-					     orig_img_url,
-					     "error",
-					     msg,
-					     NULL);
+			asc_add_screenshot_media_error_hint (
+			    cres,
+			    cpt,
+			    orig_img_url,
+			    "Could not load source screenshot for storing",
+			    error);
 			return FALSE;
 		}
 		if (src_target->error_msg != NULL) {
@@ -615,17 +645,12 @@ asc_process_screenshot_images_lang (AscResult *cres,
 					      NULL,
 					      NULL,
 					      &error)) {
-			g_autofree gchar *msg = g_strdup_printf (
-			    "Could not load source screenshot for thumbnailing: %s",
-			    error->message);
-			asc_result_add_hint (cres,
-					     cpt,
-					     "screenshot-save-error",
-					     "url",
-					     orig_img_url,
-					     "error",
-					     msg,
-					     NULL);
+			asc_add_screenshot_media_error_hint (
+			    cres,
+			    cpt,
+			    orig_img_url,
+			    "Could not load source screenshot for thumbnailing",
+			    error);
 			g_error_free (g_steal_pointer (&error));
 			g_ptr_array_set_size (thumb_targets, 0);
 		}

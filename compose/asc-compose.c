@@ -1092,11 +1092,9 @@ asc_compose_process_icons (AscCompose *compose,
 					      NULL, /* source width */
 					      NULL, /* source height */
 					      &error)) {
-			/* only genuine worker malfunctions get the worker-error hint */
-			if (error->domain == ASC_MEDIA_ERROR &&
-			    (error->code == ASC_MEDIA_ERROR_DEAD_WORKER ||
-			     error->code == ASC_MEDIA_ERROR_TIMEOUT ||
-			     error->code == ASC_MEDIA_ERROR_PROTOCOL))
+			/* only genuine worker malfunctions get the worker-error hint,
+			 * anything else is reported as a regular media issue */
+			if (asc_media_error_is_worker_failure (error))
 				asc_result_add_hint (cres,
 						     cpt,
 						     "media-worker-error",

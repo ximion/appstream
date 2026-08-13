@@ -96,6 +96,25 @@ asc_media_error_quark (void)
 }
 
 /**
+ * asc_media_error_is_worker_failure:
+ * @error: (nullable): A #GError returned by a media operation.
+ *
+ * Check whether the given error indicates that the media worker itself
+ * malfunctioned, as opposed to the processed media simply being broken.
+ * Only the former should be reported to users as a worker problem.
+ *
+ * Returns: %TRUE if the worker misbehaved.
+ */
+gboolean
+asc_media_error_is_worker_failure (const GError *error)
+{
+	if (error == NULL || error->domain != ASC_MEDIA_ERROR)
+		return FALSE;
+	return error->code == ASC_MEDIA_ERROR_DEAD_WORKER ||
+	       error->code == ASC_MEDIA_ERROR_TIMEOUT || error->code == ASC_MEDIA_ERROR_PROTOCOL;
+}
+
+/**
  * asc_image_format_to_string:
  * @format: the %AscImageFormat.
  *

@@ -97,7 +97,9 @@ void asc_font_info_free (AscFontInfo *info);
 G_DEFINE_AUTOPTR_CLEANUP_FUNC (AscFontInfo, asc_font_info_free)
 
 AS_INTERNAL_VISIBLE
-void asc_media_set_memory_limit (AscMedia *media, guint32 limit_mib);
+void	 asc_media_set_memory_limit (AscMedia *media, guint32 limit_mib);
+
+gboolean asc_media_error_is_worker_failure (const GError *error);
 
 AS_INTERNAL_VISIBLE
 gboolean asc_media_process_image (AscMedia	   *media,
