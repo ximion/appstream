@@ -980,7 +980,7 @@ asw_font_render_card_to_file (AswFont *font,
 gboolean
 asw_font_render_icon_to_file (AswFont *font,
 			      const gchar *png_fname,
-			      guint size,
+			      gint size,
 			      gint *actual_width,
 			      gint *actual_height,
 			      GError **error)
@@ -989,6 +989,15 @@ asw_font_render_icon_to_file (AswFont *font,
 	gint shape_border_width;
 	gint text_border_width;
 	g_autoptr(AswCanvas) cv = NULL;
+
+	if (size < 1) {
+		g_set_error (error,
+			     ASW_FONT_ERROR,
+			     ASW_FONT_ERROR_FAILED,
+			     "Can not render a font icon of %i pixels.",
+			     size);
+		return FALSE;
+	}
 
 	bg_shape = g_str_hash (asw_font_get_id (font)) % ASW_CANVAS_SHAPE_LAST;
 

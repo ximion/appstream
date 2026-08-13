@@ -768,7 +768,6 @@ asw_worker_handle_render_font (AswWorker *worker,
 		const gchar *name = NULL;
 		gint width = 0;
 		gint height = 0;
-		guint size = 0;
 		gint actual_width = 0;
 		gint actual_height = 0;
 		gboolean rendered = FALSE;
@@ -786,17 +785,18 @@ asw_worker_handle_render_font (AswWorker *worker,
 		}
 		target_path = asw_worker_build_target_path (dir_fd, name);
 
+		g_variant_lookup (entry, "width", "i", &width);
+		g_variant_lookup (entry, "height", "i", &height);
+
 		if (render_icon) {
-			g_variant_lookup (entry, "size", "u", &size);
+			/* font icons are always square, so the width is our canvas size */
 			rendered = asw_font_render_icon_to_file (font,
 								 target_path,
-								 size,
+								 width,
 								 &actual_width,
 								 &actual_height,
 								 &tmp_error);
 		} else {
-			g_variant_lookup (entry, "width", "i", &width);
-			g_variant_lookup (entry, "height", "i", &height);
 			rendered = asw_font_render_card_to_file (font,
 								 target_path,
 								 width,

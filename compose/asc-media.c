@@ -1308,21 +1308,8 @@ asc_media_render_font (AscMedia *media,
 
 		g_variant_builder_init (&eb, G_VARIANT_TYPE ("a{sv}"));
 		g_variant_builder_add (&eb, "{sv}", "name", g_variant_new_string (target->name));
-		if (op == ASC_MEDIA_OP_RENDER_FONT_ICON) {
-			g_variant_builder_add (&eb,
-					       "{sv}",
-					       "size",
-					       g_variant_new_uint32 ((guint32) target->width));
-		} else {
-			g_variant_builder_add (&eb,
-					       "{sv}",
-					       "width",
-					       g_variant_new_int32 (target->width));
-			g_variant_builder_add (&eb,
-					       "{sv}",
-					       "height",
-					       g_variant_new_int32 (target->height));
-		}
+		g_variant_builder_add (&eb, "{sv}", "width", g_variant_new_int32 (target->width));
+		g_variant_builder_add (&eb, "{sv}", "height", g_variant_new_int32 (target->height));
 		g_variant_builder_add_value (&entries_builder, g_variant_builder_end (&eb));
 	}
 	g_variant_builder_add (&pb, "{sv}", "entries", g_variant_builder_end (&entries_builder));

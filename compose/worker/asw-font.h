@@ -79,7 +79,7 @@ gboolean     asw_font_render_card_to_file (AswFont     *font,
 					   GError     **error);
 gboolean     asw_font_render_icon_to_file (AswFont     *font,
 					   const gchar *png_fname,
-					   guint	size,
+					   gint		size,
 					   gint	       *actual_width,
 					   gint	       *actual_height,
 					   GError     **error);
