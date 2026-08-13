@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-08-10 23:32+0200\n"
-"PO-Revision-Date: 2026-07-22 16:06+0000\n"
+"PO-Revision-Date: 2026-08-13 09:51+0000\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian <https://hosted.weblate.org/projects/appstream/translations/sl/>\n"
 "Language: sl\n"
@@ -27,7 +27,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3;\n"
-"X-Generator: Weblate 2026.8.dev0\n"
+"X-Generator: Weblate 2026.9.dev0\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1672,11 +1672,11 @@ msgstr "Ta opisni odstavek vsebuje neveljavne oznake. Trenutno sta dovoljeni sam
 
 #: src/as-validator-issue-tag.h:75
 msgid "Elements of description markup must not have any attributes set, with the exception of a language property on paragraphs and list items in MetaInfo files. Any other attribute is not permitted and will be removed when the metadata is read."
-msgstr ""
+msgstr "Elementi označevanja opisa ne smejo imeti nastavljenih nobenih atributov, razen lastnosti jezika pri odstavkih in elementih seznama v datotekah MetaInfo. Vsi preostali atributi niso dovoljeni in bodo odstranjeni ob branju metapodatkov."
 
 #: src/as-validator-issue-tag.h:81
 msgid "The markup in this description is nested too deeply. Excessively nested markup will be flattened to plain text when the metadata is read."
-msgstr ""
+msgstr "Značke v tem opisu so pregloboko gnezdene. Prekomerno gnezdene značke bodo ob branju metapodatkov poenostavljene v navadno besedilo."
 
 #: src/as-validator-issue-tag.h:87
 msgid "Enumerations must only have list items (<li/>) as children."
@@ -2024,11 +2024,11 @@ msgstr "Oznaka »pkgname« se prikaže večkrat. Ovrednotite ustvarjanje metapak
 
 #: src/as-validator-issue-tag.h:527
 msgid "The package name contains characters that are not permitted here. A package name must start with an alphanumeric character and may only contain alphanumeric characters as well as `+`, `-`, `.`, `_` and `:`."
-msgstr ""
+msgstr "Ime paketa vsebuje znake, ki tukaj niso dovoljeni. Ime paketa se mora začeti z alfanumeričnim znakom in sme vsebovati le alfanumerične znake ter znake `+`, `-`, `.`, `_` in `:`."
 
 #: src/as-validator-issue-tag.h:533
 msgid "The bundle ID contains characters that are not permitted here. It must start with an alphanumeric character and may only contain alphanumeric characters as well as `+`, `-`, `.`, `_`, `:` and `/`."
-msgstr ""
+msgstr "ID paketa vsebuje znake, ki tukaj niso dovoljeni. Začeti se mora z alfanumeričnim znakom in lahko vsebuje le alfanumerične znake ter znake `+`, `-`, `.`, `_`, `:` in `/`."
 
 #: src/as-validator-issue-tag.h:539
 msgid "The component name should (likely) not end with a dot (`.`)."
@@ -3715,7 +3715,7 @@ msgstr "Ocena uspešno poslana. Hvala!"
 #: tools/ascli-actions-pkgmgr.c:92
 #, c-format
 msgid "Refusing to run the package manager: The component metadata contains an invalid package name: %s"
-msgstr ""
+msgstr "Zavrnitev zagona upravitelja paketov: metapodatki komponente vsebujejo neveljavno ime paketa: %s"
 
 #: tools/ascli-actions-pkgmgr.c:107
 msgid "No suitable package manager tool found. Please make sure that e.g. \"pkgcli\" (part of PackageKit) is available."
@@ -3730,7 +3730,7 @@ msgstr "Upravitelja paketov ni mogoče sprožiti: %s"
 #: tools/ascli-actions-pkgmgr.c:144
 #, c-format
 msgid "Refusing to run Flatpak: The component metadata contains an invalid bundle ID: %s"
-msgstr ""
+msgstr "Zavrnitev zagona Flatpaka: metapodatki komponente vsebujejo neveljaven ID svežnja: %s"
 
 #: tools/ascli-actions-pkgmgr.c:151
 msgid "Flatpak was not found! Please install it to continue."
