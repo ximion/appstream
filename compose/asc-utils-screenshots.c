@@ -87,8 +87,6 @@ asc_extract_video_info (AscResult *cres, AsComponent *cpt, AscMedia *media, cons
 {
 	AscVideoInfo *vinfo = NULL;
 	g_autofree gchar *vid_basename = NULL;
-	g_autoptr(GMappedFile) mfile = NULL;
-	g_autoptr(GBytes) vid_bytes = NULL;
 	gboolean audio_okay = FALSE;
 	g_autoptr(GError) error = NULL;
 
@@ -100,25 +98,9 @@ asc_extract_video_info (AscResult *cres, AsComponent *cpt, AscMedia *media, cons
 	vinfo = asc_video_info_new ();
 	vid_basename = g_path_get_basename (vid_fname);
 
-	mfile = g_mapped_file_new (vid_fname, FALSE, &error);
-	if (mfile == NULL) {
-		g_warning ("Unable to read video file '%s': %s", vid_fname, error->message);
-		asc_result_add_hint (cres,
-				     cpt,
-				     "screenshot-video-check-failed",
-				     "fname",
-				     vid_basename,
-				     "msg",
-				     error->message,
-				     NULL);
-		return vinfo;
-	}
-	vid_bytes = g_mapped_file_get_bytes (mfile);
-
 	/* have the media worker run ffprobe on the video */
 	if (!asc_media_probe_video (media,
-				    vid_bytes,
-				    vid_basename,
+				    vid_fname,
 				    &vinfo->codec_name,
 				    &vinfo->audio_codec_name,
 				    &vinfo->format_name,

@@ -97,8 +97,6 @@ void asc_font_info_free (AscFontInfo *info);
 G_DEFINE_AUTOPTR_CLEANUP_FUNC (AscFontInfo, asc_font_info_free)
 
 AS_INTERNAL_VISIBLE
-void asc_media_set_max_input_size (AscMedia *media, guint64 max_size);
-AS_INTERNAL_VISIBLE
 void asc_media_set_memory_limit (AscMedia *media, guint32 limit_mib);
 
 AS_INTERNAL_VISIBLE
@@ -151,8 +149,7 @@ gboolean asc_media_render_font_icon (AscMedia		*media,
 
 AS_INTERNAL_VISIBLE
 gboolean asc_media_probe_video (AscMedia    *media,
-				GBytes	    *video_data,
-				const gchar *basename,
+				const gchar *video_fname,
 				gchar	   **codec_name,
 				gchar	   **audio_codec_name,
 				gchar	   **format_name,

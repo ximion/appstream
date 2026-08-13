@@ -40,17 +40,16 @@
 /**
  * asw_memfd_verify_sealed:
  * @fd: The file descriptor to verify.
- * @max_size: Maximum permitted size in bytes, or 0 for no limit.
  * @size_out: (out) (optional): Size of the data in bytes.
  * @error: A #GError or %NULL
  *
- * Verify that the given file descriptor is a fully sealed memfd
- * within the given size limit, so its contents can safely be mapped.
+ * Verify that the given file descriptor is a fully sealed memfd,
+ * so its contents can safely be mapped.
  *
  * Returns: %TRUE if the fd is safe to use.
  */
 gboolean
-asw_memfd_verify_sealed (gint fd, guint64 max_size, gsize *size_out, GError **error)
+asw_memfd_verify_sealed (gint fd, gsize *size_out, GError **error)
 {
 	struct stat st;
 	gint seals;
@@ -89,17 +88,6 @@ asw_memfd_verify_sealed (gint fd, guint64 max_size, gsize *size_out, GError **er
 		return FALSE;
 	}
 
-	if (max_size > 0 && (guint64) st.st_size > max_size) {
-		g_set_error (error,
-			     ASC_MEDIA_ERROR,
-			     ASC_MEDIA_ERROR_LIMIT_EXCEEDED,
-			     "Received data of %" G_GUINT64_FORMAT
-			     " bytes exceeds the limit of %" G_GUINT64_FORMAT " bytes.",
-			     (guint64) st.st_size,
-			     max_size);
-		return FALSE;
-	}
-
 	if (size_out != NULL)
 		*size_out = st.st_size;
 	return TRUE;
@@ -116,7 +104,6 @@ asw_memfd_unmap_cb (gpointer data)
 /**
  * asw_memfd_map_bytes:
  * @fd: A sealed memfd to map.
- * @max_size: Maximum permitted size in bytes, or 0 for no limit.
  * @error: A #GError or %NULL
  *
  * Verify the seals on the given memfd and map its contents read-only.
@@ -124,13 +111,13 @@ asw_memfd_unmap_cb (gpointer data)
  * Returns: (transfer full): The mapped data, or %NULL on error.
  */
 GBytes *
-asw_memfd_map_bytes (gint fd, guint64 max_size, GError **error)
+asw_memfd_map_bytes (gint fd, GError **error)
 {
 	gsize size = 0;
 	gpointer map;
 	gpointer *closure;
 
-	if (!asw_memfd_verify_sealed (fd, max_size, &size, error))
+	if (!asw_memfd_verify_sealed (fd, &size, error))
 		return NULL;
 	if (size == 0)
 		return g_bytes_new_static ("", 0);

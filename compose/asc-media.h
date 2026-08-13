@@ -36,7 +36,6 @@ G_BEGIN_DECLS
  * @ASC_MEDIA_ERROR_PROTOCOL:		Communication with the media worker was corrupted.
  * @ASC_MEDIA_ERROR_NOT_FOUND:		A required component or data was not found.
  * @ASC_MEDIA_ERROR_UNSUPPORTED:	The requested operation or image type was not supported.
- * @ASC_MEDIA_ERROR_LIMIT_EXCEEDED:	A data size limit was exceeded.
  *
  * A media processing error.
  **/
@@ -47,7 +46,6 @@ typedef enum {
 	ASC_MEDIA_ERROR_PROTOCOL,
 	ASC_MEDIA_ERROR_NOT_FOUND,
 	ASC_MEDIA_ERROR_UNSUPPORTED,
-	ASC_MEDIA_ERROR_LIMIT_EXCEEDED,
 	/*< private >*/
 	ASC_MEDIA_ERROR_LAST
 } AscMediaError;

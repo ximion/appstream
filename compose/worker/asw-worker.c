@@ -53,9 +53,6 @@ struct _AswWorker {
 
 typedef struct {
 	GSocket *socket;
-
-	/* maximum permitted size for input data, 0 for no limit */
-	guint64 max_input_size;
 } AswWorkerPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AswWorker, asw_worker, G_TYPE_OBJECT)
@@ -172,36 +169,83 @@ asw_worker_validate_entry_name (const gchar *name, GError **error)
 }
 
 /**
+ * asw_worker_lookup_fd:
+ *
+ * Resolve a file descriptor handle referenced in the request parameters.
+ * Returns a duplicated fd owned by the caller, or -1 on error.
+ */
+static gint
+asw_worker_lookup_fd (GVariant *params, GUnixFDList *fds, const gchar *key, GError **error)
+{
+	gint32 handle = -1;
+
+	if (!g_variant_lookup (params, key, "h", &handle) || fds == NULL) {
+		g_set_error (error,
+			     ASC_MEDIA_ERROR,
+			     ASC_MEDIA_ERROR_PROTOCOL,
+			     "Request was missing required fd '%s'.",
+			     key);
+		return -1;
+	}
+
+	return g_unix_fd_list_get (fds, handle, error);
+}
+
+/**
  * asw_worker_get_data_fd:
  *
  * Retrieve a sealed data memfd referenced in the request parameters.
  * Returns a duplicated fd owned by the caller, or -1 on error.
  */
 static gint
-asw_worker_get_data_fd (AswWorker *worker,
-			GVariant *params,
-			GUnixFDList *fds,
-			const gchar *key,
-			GError **error)
+asw_worker_get_data_fd (GVariant *params, GUnixFDList *fds, const gchar *key, GError **error)
 {
-	AswWorkerPrivate *priv = GET_PRIVATE (worker);
-	gint32 handle = -1;
-	gint fd;
-
-	if (!g_variant_lookup (params, key, "h", &handle) || fds == NULL) {
-		g_set_error (error,
-			     ASC_MEDIA_ERROR,
-			     ASC_MEDIA_ERROR_PROTOCOL,
-			     "Request was missing required data fd '%s'.",
-			     key);
-		return -1;
-	}
-
-	fd = g_unix_fd_list_get (fds, handle, error);
+	gint fd = asw_worker_lookup_fd (params, fds, key, error);
 	if (fd < 0)
 		return -1;
 
-	if (!asw_memfd_verify_sealed (fd, priv->max_input_size, NULL, error)) {
+	if (!asw_memfd_verify_sealed (fd, NULL, error)) {
+		close (fd);
+		return -1;
+	}
+
+	return fd;
+}
+
+/**
+ * asw_worker_get_readonly_file_fd:
+ *
+ * Retrieve a read-only file descriptor for a regular file that we are supposed
+ * to read directly.
+ * Returns a duplicated fd owned by the caller, or -1 on error.
+ */
+static gint
+asw_worker_get_readonly_file_fd (GVariant *params,
+				 GUnixFDList *fds,
+				 const gchar *key,
+				 GError **error)
+{
+	struct stat st;
+	gint flags;
+	gint fd = asw_worker_lookup_fd (params, fds, key, error);
+	if (fd < 0)
+		return -1;
+
+	if (fstat (fd, &st) != 0 || !S_ISREG (st.st_mode)) {
+		g_set_error_literal (error,
+				     ASC_MEDIA_ERROR,
+				     ASC_MEDIA_ERROR_PROTOCOL,
+				     "Received data fd is not a regular file.");
+		close (fd);
+		return -1;
+	}
+
+	flags = fcntl (fd, F_GETFL);
+	if (flags < 0 || (flags & O_ACCMODE) != O_RDONLY) {
+		g_set_error_literal (error,
+				     ASC_MEDIA_ERROR,
+				     ASC_MEDIA_ERROR_PROTOCOL,
+				     "Received data fd is not read-only.");
 		close (fd);
 		return -1;
 	}
@@ -261,25 +305,20 @@ asw_worker_get_dir_fd (GVariant *params, GUnixFDList *fds, const gchar *key, GEr
 static GVariant *
 asw_worker_handle_setup (AswWorker *worker, GVariant *params, GUnixFDList *fds, GError **error)
 {
-	AswWorkerPrivate *priv = GET_PRIVATE (worker);
 	gboolean use_optipng = FALSE;
 	const gchar *optipng_path = NULL;
 	const gchar *ffprobe_path = NULL;
-	guint64 max_input_size = 0;
 	guint32 memory_limit_mb = 0;
 
 	g_variant_lookup (params, "use-optipng", "b", &use_optipng);
 	g_variant_lookup (params, "optipng-path", "&s", &optipng_path);
 	g_variant_lookup (params, "ffprobe-path", "&s", &ffprobe_path);
-	g_variant_lookup (params, "max-input-size", "t", &max_input_size);
 	g_variant_lookup (params, "memory-limit-mb", "u", &memory_limit_mb);
 
 	asc_globals_set_optipng_binary (as_is_empty (optipng_path) ? NULL : optipng_path);
 	asc_globals_set_ffprobe_binary (as_is_empty (ffprobe_path) ? NULL : ffprobe_path);
 	if (!as_is_empty (optipng_path))
 		asc_globals_set_use_optipng (use_optipng);
-
-	priv->max_input_size = max_input_size;
 
 	if (memory_limit_mb > 0) {
 		struct rlimit limit;
@@ -336,7 +375,7 @@ asw_worker_load_font (AswWorker *worker, GVariant *params, GUnixFDList *fds, GEr
 	const gchar *basename = NULL;
 	gint font_fd;
 
-	font_fd = asw_worker_get_data_fd (worker, params, fds, "font-fd", error);
+	font_fd = asw_worker_get_data_fd (params, fds, "font-fd", error);
 	if (font_fd < 0)
 		return NULL;
 
@@ -384,7 +423,6 @@ asw_worker_handle_process_image (AswWorker *worker,
 				 GUnixFDList *fds,
 				 GError **error)
 {
-	AswWorkerPrivate *priv = GET_PRIVATE (worker);
 	g_autoptr(GBytes) img_bytes = NULL;
 	g_autoptr(GVariant) targets = NULL;
 	g_autoptr(AswImage) image = NULL;
@@ -400,10 +438,10 @@ asw_worker_handle_process_image (AswWorker *worker,
 	gint image_fd = -1;
 	gint dir_fd = -1;
 
-	image_fd = asw_worker_get_data_fd (worker, params, fds, "image-fd", error);
+	image_fd = asw_worker_get_data_fd (params, fds, "image-fd", error);
 	if (image_fd < 0)
 		return NULL;
-	img_bytes = asw_memfd_map_bytes (image_fd, priv->max_input_size, error);
+	img_bytes = asw_memfd_map_bytes (image_fd, error);
 	close (image_fd);
 	if (img_bytes == NULL)
 		return NULL;
@@ -764,7 +802,7 @@ asw_worker_handle_render_font (AswWorker *worker,
 /**
  * asw_worker_handle_probe_video:
  *
- * Run ffprobe on the transmitted video data and return the raw results.
+ * Run ffprobe on the transmitted video file and return the raw results.
  */
 static GVariant *
 asw_worker_handle_probe_video (AswWorker *worker,
@@ -777,7 +815,8 @@ asw_worker_handle_probe_video (AswWorker *worker,
 	GVariantBuilder pb;
 	gint video_fd;
 
-	video_fd = asw_worker_get_data_fd (worker, params, fds, "video-fd", error);
+	/* videos can be large, so the client passes the file to us directly */
+	video_fd = asw_worker_get_readonly_file_fd (params, fds, "video-fd", error);
 	if (video_fd < 0)
 		return NULL;
 

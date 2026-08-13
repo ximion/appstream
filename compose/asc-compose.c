@@ -1096,8 +1096,7 @@ asc_compose_process_icons (AscCompose *compose,
 			if (error->domain == ASC_MEDIA_ERROR &&
 			    (error->code == ASC_MEDIA_ERROR_DEAD_WORKER ||
 			     error->code == ASC_MEDIA_ERROR_TIMEOUT ||
-			     error->code == ASC_MEDIA_ERROR_PROTOCOL ||
-			     error->code == ASC_MEDIA_ERROR_LIMIT_EXCEEDED))
+			     error->code == ASC_MEDIA_ERROR_PROTOCOL))
 				asc_result_add_hint (cres,
 						     cpt,
 						     "media-worker-error",

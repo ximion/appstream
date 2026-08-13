@@ -69,7 +69,6 @@ struct _AscMedia {
 typedef struct {
 	gchar *worker_path;
 	guint timeout_secs;
-	guint64 max_input_size;
 	guint32 memory_limit_mb;
 
 	GSubprocess *worker_proc;
@@ -400,22 +399,6 @@ asc_media_set_worker_path (AscMedia *media, const gchar *path)
 }
 
 /**
- * asc_media_set_max_input_size:
- * @media: an #AscMedia instance.
- * @max_size: Maximum media input size in bytes, 0 for no limit.
- *
- * Set the maximum size of media data the worker will accept for
- * processing. The limit is applied when the next worker process
- * is spawned.
- */
-void
-asc_media_set_max_input_size (AscMedia *media, guint64 max_size)
-{
-	AscMediaPrivate *priv = GET_PRIVATE (media);
-	priv->max_input_size = max_size;
-}
-
-/**
  * asc_media_set_memory_limit:
  * @media: an #AscMedia instance.
  * @limit_mib: Address space limit for the worker process in MiB, 0 for no limit.
@@ -630,11 +613,6 @@ asc_media_worker_setup (AscMedia *media, GError **error)
 			       "{sv}",
 			       "ffprobe-path",
 			       g_variant_new_string (ffprobe_path ? ffprobe_path : ""));
-	if (priv->max_input_size > 0)
-		g_variant_builder_add (&pb,
-				       "{sv}",
-				       "max-input-size",
-				       g_variant_new_uint64 (priv->max_input_size));
 	if (priv->memory_limit_mb > 0)
 		g_variant_builder_add (&pb,
 				       "{sv}",
@@ -1457,8 +1435,7 @@ asc_media_render_font_icon (AscMedia *media,
 /**
  * asc_media_probe_video:
  * @media: an #AscMedia instance.
- * @video_data: The video file contents.
- * @basename: Basename of the video file.
+ * @video_fname: Path to the video file to probe.
  * @codec_name: (out) (optional): Name of the video codec.
  * @audio_codec_name: (out) (optional): Name of the audio codec, or %NULL if the video has no audio.
  * @format_name: (out) (optional): Name of the container format.
@@ -1469,12 +1446,14 @@ asc_media_render_font_icon (AscMedia *media,
  * Probe a video file for its container format, codecs and dimensions
  * (using ffprobe, run by the media worker process).
  *
+ * The video file is passed to the worker as a read-only file descriptor,
+ * so its contents never have to be held in memory.
+ *
  * Returns: %TRUE if the video was probed successfully.
  */
 gboolean
 asc_media_probe_video (AscMedia *media,
-		       GBytes *video_data,
-		       const gchar *basename,
+		       const gchar *video_fname,
 		       gchar **codec_name,
 		       gchar **audio_codec_name,
 		       gchar **format_name,
@@ -1488,22 +1467,22 @@ asc_media_probe_video (AscMedia *media,
 	gint fd, handle;
 
 	g_return_val_if_fail (ASC_IS_MEDIA (media), FALSE);
-	g_return_val_if_fail (video_data != NULL, FALSE);
+	g_return_val_if_fail (video_fname != NULL, FALSE);
 
-	fd = asc_memfd_new_sealed ("asc-video-data",
-				   g_bytes_get_data (video_data, NULL),
-				   g_bytes_get_size (video_data),
-				   error);
-	if (fd < 0)
+	fd = open (video_fname, O_RDONLY | O_CLOEXEC);
+	if (fd < 0) {
+		g_set_error (error,
+			     ASC_MEDIA_ERROR,
+			     ASC_MEDIA_ERROR_FAILED,
+			     "Unable to open video file '%s': %s",
+			     video_fname,
+			     g_strerror (errno));
 		return FALSE;
+	}
 	handle = asc_media_fdlist_append (fds, fd, error);
 	if (handle < 0)
 		return FALSE;
 	g_variant_builder_add (&pb, "{sv}", "video-fd", g_variant_new_handle (handle));
-	g_variant_builder_add (&pb,
-			       "{sv}",
-			       "basename",
-			       g_variant_new_string (basename ? basename : "video"));
 
 	payload = asc_media_call (media,
 				  ASC_MEDIA_OP_PROBE_VIDEO,
