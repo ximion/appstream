@@ -46,6 +46,7 @@
 # Red Star Over Earth <rs0vere@outlook.com>, 2023.
 # 复予 <clonewith@qq.com>, 2024.
 # LS-Shandong <LS-Shandong@users.noreply.hosted.weblate.org>, 2024.
+# xiezhihai <xiezhihai7321@outlook.com>, 2026.
 #
 # Translators:
 msgid ""
@@ -53,15 +54,15 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-08-10 23:32+0200\n"
-"PO-Revision-Date: 2026-03-18 21:09+0000\n"
-"Last-Translator: lumingzh <lumingzh@qq.com>\n"
+"PO-Revision-Date: 2026-08-17 00:51+0000\n"
+"Last-Translator: xiezhihai <xiezhihai7321@outlook.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/projects/appstream/translations/zh_Hans/>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.17-dev\n"
+"X-Generator: Weblate 2026.9.dev0\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1492,26 +1493,23 @@ msgstr "对类型“%s”相关项目的满足性检查还未实现。"
 #: src/as-reviews-client.c:976 src/as-reviews-client.c:1069
 #, c-format
 msgid "The reviews server rejected the request: %s"
-msgstr ""
+msgstr "审查服务器拒绝了请求：%s"
 
 #. TRANSLATORS: We failed to communicate with the ODRS review server, %s is an error message
 #: src/as-reviews-client.c:983
 #, c-format
 msgid "Unable to communicate with the reviews server: %s"
-msgstr ""
+msgstr "无法与评论服务器通信：%s"
 
 #: src/as-reviews-client.c:1070
-#, fuzzy
-#| msgid "Unknown"
 msgid "Unknown reason"
-msgstr "未知"
+msgstr "未知原因"
 
 #. TRANSLATORS: We failed to fetch a software rating from the ODRS review server
 #: src/as-reviews-client.c:1247
-#, fuzzy, c-format
-#| msgid "Unable to find component matching %s!"
+#, c-format
 msgid "Unable to fetch software rating: %s"
-msgstr "未找到符合 %s 的组件！"
+msgstr "无法获取软件评分：%s"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:39
@@ -1709,11 +1707,11 @@ msgstr "此描述段落中包含无效标记。目前只允许包含 <em/> and <
 
 #: src/as-validator-issue-tag.h:75
 msgid "Elements of description markup must not have any attributes set, with the exception of a language property on paragraphs and list items in MetaInfo files. Any other attribute is not permitted and will be removed when the metadata is read."
-msgstr ""
+msgstr "描述标记的元素不得设置任何属性，但在 MetaInfo 文件中的段落和列表项上可以设置语言属性。任何其他属性都是不允许的，并将在读取元数据时被移除。"
 
 #: src/as-validator-issue-tag.h:81
 msgid "The markup in this description is nested too deeply. Excessively nested markup will be flattened to plain text when the metadata is read."
-msgstr ""
+msgstr "此描述中的标记嵌套过深。当元数据被读取时，过度嵌套的标记将被展平成纯文本。"
 
 #: src/as-validator-issue-tag.h:87
 msgid "Enumerations must only have list items (<li/>) as children."
@@ -2061,11 +2059,11 @@ msgstr "该 `pkgname` 标签出现了多次。您应该考虑创建包含元信�
 
 #: src/as-validator-issue-tag.h:527
 msgid "The package name contains characters that are not permitted here. A package name must start with an alphanumeric character and may only contain alphanumeric characters as well as `+`, `-`, `.`, `_` and `:`."
-msgstr ""
+msgstr "包名称包含此处不允许的字符。包名称必须以字母或数字字符开头，并且只能包含字母或数字字符，以及 ` `、`-`、`.`、`_` 和 `:`。"
 
 #: src/as-validator-issue-tag.h:533
 msgid "The bundle ID contains characters that are not permitted here. It must start with an alphanumeric character and may only contain alphanumeric characters as well as `+`, `-`, `.`, `_`, `:` and `/`."
-msgstr ""
+msgstr "这个捆绑包 ID 包含了一些不允许的字符。它必须以字母或数字开头，并且只能包含字母、数字以及 ` `、`-`、`.`、`_`、`:` 和 `/`。"
 
 #: src/as-validator-issue-tag.h:539
 msgid "The component name should (likely) not end with a dot (`.`)."
@@ -2117,7 +2115,7 @@ msgstr "Metainfo 文件可能只包含类型 `stock` 或 `remote` 的图标，�
 #. TRANSLATORS: Please do not translate names in backticks.
 #: src/as-validator-issue-tag.h:599
 msgid "This icon uses an unsupported file format. Icons should be PNG, JPEG-XL (`.jxl`) or vector graphics (`.svg`/`.svgz`) images."
-msgstr ""
+msgstr "此图标使用了不受支持的文件格式。图标应为 PNG、JPEG-XL（`.jxl`）或矢量图形（`.svg`/`.svgz`）图像。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:606
@@ -2479,10 +2477,8 @@ msgid "The issue is tagged at security vulnerability with a CVE number, but its 
 msgstr "该问题打上了带 CVE 数字的安全漏洞标签，但它的设定值看起来不像有效的 CVE 标识。"
 
 #: src/as-validator-issue-tag.h:1067
-#, fuzzy
-#| msgid "The issue is tagged at security vulnerability with a CVE number, but its value does not look like a valid CVE identifier."
 msgid "The issue is tagged as security vulnerability with a GCVE identifier, but its value does not follow the `GCVE-<GNA-ID>-<YEAR>-<UNIQUE-ID>` scheme of the Global CVE Allocation System."
-msgstr "该问题打上了带 CVE 数字的安全漏洞标签，但它的设定值看起来不像有效的 CVE 标识。"
+msgstr "该问题已标记为安全漏洞，并附带 GCVE 标识符，但其值不符合全局 CVE 分配系统的 `GCVE-<GNA-ID>-<YEAR>-<UNIQUE-ID>`格式规范。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1074
@@ -2908,22 +2904,22 @@ msgstr "打印关于寻找到的组件的详细输出。"
 #. TRANSLATORS: ascli flag description for: --server (used by the "list-reviews" command)
 #: tools/appstreamcli.c:126
 msgid "URL of the ODRS-compatible reviews server to use."
-msgstr ""
+msgstr "要使用的兼容 ODRS 的评价服务器的 URL。"
 
 #. TRANSLATORS: ascli flag description for: --start (used by the "list-reviews" command)
 #: tools/appstreamcli.c:132
 msgid "Index of the first review to fetch, to page through all reviews."
-msgstr ""
+msgstr "要获取的第一个评论的索引，用于翻页查看所有评论。"
 
 #. TRANSLATORS: ascli flag description for: --limit (used by the "list-reviews" command)
 #: tools/appstreamcli.c:138
 msgid "Maximum number of reviews to fetch."
-msgstr ""
+msgstr "要获取的最大评论数。"
 
 #. TRANSLATORS: ascli flag description for: --locale (used by the "list-reviews" and "submit-review" commands)
 #: tools/appstreamcli.c:144
 msgid "Locale to prefer for reviews, instead of the current system locale."
-msgstr ""
+msgstr "用于评论的首选区域，而不是当前系统区域。"
 
 #. TRANSLATORS: ascli flag description for: --pedantic (used by the "validate" command)
 #: tools/appstreamcli.c:165
@@ -3246,15 +3242,13 @@ msgstr "从目录树整合 AppStream 元数据集。"
 
 #. TRANSLATORS: `appstreamcli list-reviews` command description.
 #: tools/appstreamcli.c:1667
-#, fuzzy
-#| msgid "We have information on %i software components."
 msgid "List online user reviews for a software component."
-msgstr "已获取到 %i 个软件组件的信息。"
+msgstr "列出软件组件的在线用户评论。"
 
 #. TRANSLATORS: `appstreamcli submit-review` command description.
 #: tools/appstreamcli.c:1680
 msgid "Compose and submit an online review for a software component."
-msgstr ""
+msgstr "撰写并提交软件组件的在线评论。"
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstreamcli.c:1689
@@ -3639,17 +3633,15 @@ msgstr "物理内存"
 
 #: tools/ascli-actions-misc.c:607 tools/ascli-actions-misc.c:612
 msgid "Largest Display"
-msgstr ""
+msgstr "最大显示屏"
 
 #: tools/ascli-actions-misc.c:610
 msgid "logical px"
-msgstr ""
+msgstr "逻辑像素"
 
 #: tools/ascli-actions-misc.c:612
-#, fuzzy
-#| msgid "Unable to read file."
 msgid "unable to determine"
-msgstr "无法读取文件。"
+msgstr "无法确定"
 
 #: tools/ascli-actions-misc.c:616
 msgid "Devices with Modaliases"
@@ -3675,91 +3667,90 @@ msgstr "否"
 
 #: tools/ascli-actions-misc.c:715
 msgid "Overall rating"
-msgstr ""
+msgstr "整体评分"
 
 #: tools/ascli-actions-misc.c:728
-#, fuzzy, c-format
-#| msgid "Found supported software component '%s'."
+#, c-format
 msgid "No reviews found for component '%s'."
-msgstr "找到 %s 个组件。"
+msgstr "未找到组件 '%s' 的评论。"
 
 #: tools/ascli-actions-misc.c:743 tools/ascli-actions-misc.c:844
 msgid "Author"
-msgstr ""
+msgstr "作者"
 
 #: tools/ascli-actions-misc.c:746
 msgid "Date"
-msgstr ""
+msgstr "日期"
 
 #: tools/ascli-actions-misc.c:796
 #, c-format
 msgid "Composing a review for '%s' to be submitted to %s."
-msgstr ""
+msgstr "正在为“%s”撰写评论，并将提交至 %s。"
 
 #: tools/ascli-actions-misc.c:799
 msgid "Please only review the software itself, and mind that your review will be publicly visible."
-msgstr ""
+msgstr "请仅针对软件本身进行评价，并注意您的评论将被公开可见。"
 
 #. TRANSLATORS: Prompt when composing a review, %s is a user name
 #: tools/ascli-actions-misc.c:804
 #, c-format
 msgid "Your display name (leave empty to use '%s'):"
-msgstr ""
+msgstr "您的显示名称（留空以使用“%s”）："
 
 #. TRANSLATORS: Prompt for a star rating when composing a review
 #: tools/ascli-actions-misc.c:811
 msgid "Star rating, from 1 (worst) to 5 (best):"
-msgstr ""
+msgstr "星级评分，从1（最差）到5（最好）："
 
 #. TRANSLATORS: Prompt when composing a review
 #: tools/ascli-actions-misc.c:818
 msgid "Short summary of your review:"
-msgstr ""
+msgstr "您评论的简短总结："
 
 #: tools/ascli-actions-misc.c:824
 msgid "The summary must not be empty and be no longer than 70 characters."
-msgstr ""
+msgstr "摘要不能为空，且长度不得超过70个字符。"
 
 #. TRANSLATORS: Prompt when composing a review
 #: tools/ascli-actions-misc.c:828
 msgid "Detailed review text (end with an empty line):"
-msgstr ""
+msgstr "详细的评论文本（以空行结束）："
 
 #: tools/ascli-actions-misc.c:830
 msgid "The review text must not be empty."
-msgstr ""
+msgstr "评论内容不能为空。"
 
 #: tools/ascli-actions-misc.c:851
 msgid "Rating"
-msgstr ""
+msgstr "评分"
 
 #: tools/ascli-actions-misc.c:854
 msgid "Review"
-msgstr ""
+msgstr "评论"
 
 #. TRANSLATORS: Prompt before publishing a composed review
 #: tools/ascli-actions-misc.c:861
 msgid "Publish this review?"
-msgstr ""
+msgstr "发布这条评论吗？"
 
 #: tools/ascli-actions-misc.c:865
 msgid "Review submission cancelled."
-msgstr ""
+msgstr "评论提交已取消。"
 
 #: tools/ascli-actions-misc.c:875
 #, c-format
 msgid "Review submitted successfully (ID: %s). Thank you!"
-msgstr ""
+msgstr "评论提交成功（ID：%s）。谢谢！"
 
 #: tools/ascli-actions-misc.c:878
 msgid "Review submitted successfully. Thank you!"
-msgstr ""
+msgstr "评论提交成功。谢谢！"
 
 #. TRANSLATORS: The placeholder is the invalid package name found in metadata.
 #: tools/ascli-actions-pkgmgr.c:92
 #, c-format
 msgid "Refusing to run the package manager: The component metadata contains an invalid package name: %s"
-msgstr ""
+msgstr "拒绝运行包管理器：组件元数据包含无效的包名：%s"
 
 #: tools/ascli-actions-pkgmgr.c:107
 msgid "No suitable package manager tool found. Please make sure that e.g. \"pkgcli\" (part of PackageKit) is available."
@@ -3774,7 +3765,7 @@ msgstr "无法启动软件包管理器：%s"
 #: tools/ascli-actions-pkgmgr.c:144
 #, c-format
 msgid "Refusing to run Flatpak: The component metadata contains an invalid bundle ID: %s"
-msgstr ""
+msgstr "拒绝运行 Flatpak：组件元数据包含无效的捆绑 ID：%s"
 
 #: tools/ascli-actions-pkgmgr.c:151
 msgid "Flatpak was not found! Please install it to continue."
