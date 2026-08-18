@@ -29,7 +29,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-08-10 23:32+0200\n"
-"PO-Revision-Date: 2026-08-17 00:51+0000\n"
+"PO-Revision-Date: 2026-08-18 07:52+0000\n"
 "Last-Translator: xiezhihai <xiezhihai7321@outlook.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://hosted.weblate.org/projects/appstream/translations/zh_Hant/>\n"
 "Language: zh_TW\n"
@@ -747,9 +747,8 @@ msgstr "無法和其他使用者對談"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1018
-#, fuzzy
 msgid "Moderated audio or video chat functionality between users"
-msgstr "未受管制的使用者間音訊或視訊聊天功能"
+msgstr "用戶之間經過審核的音頻或視頻聊天功能"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1020
@@ -1070,9 +1069,8 @@ msgstr "Mate"
 
 #. TRANSLATORS: Name of the "pantheon:dark" visual environment style.
 #: src/as-desktop-env-data.h:101
-#, fuzzy
 msgid "Pantheon (Dark)"
-msgstr "Pantheon"
+msgstr "潘提翁（暗色）"
 
 #. TRANSLATORS: Name of the "plasma-mobile" visual environment style.
 #: src/as-desktop-env-data.h:105
@@ -1086,9 +1084,8 @@ msgstr "Plasma Mobile (深色)"
 
 #. TRANSLATORS: Name of the "plasma:dark" visual environment style.
 #: src/as-desktop-env-data.h:109
-#, fuzzy
 msgid "KDE Plasma (Dark)"
-msgstr "KDE Plasma"
+msgstr "KDE Plasma（暗色）"
 
 #. TRANSLATORS: Name of the "rox" visual environment style.
 #: src/as-desktop-env-data.h:113
@@ -1279,58 +1276,58 @@ msgstr "這個軟體可以透過攝影機來控制。"
 
 #: src/as-relation.c:1422
 msgid "This software supports operation via console commands."
-msgstr ""
+msgstr "這款軟體支援透過控制台指令操作。"
 
 #: src/as-relation.c:1435
 msgid "Pointing device (e.g. a mouse or touchpad) found."
-msgstr ""
+msgstr "偵測到指向設備（例如滑鼠或觸控板）。"
 
 #: src/as-relation.c:1437
 msgid "Physical keyboard found."
-msgstr ""
+msgstr "已找到實體鍵盤。"
 
 #: src/as-relation.c:1439
 msgid "Gamepad found."
-msgstr ""
+msgstr "已找到遊戲手把。"
 
 #: src/as-relation.c:1441
 msgid "TV remote found."
-msgstr ""
+msgstr "找到電視遙控器。"
 
 #: src/as-relation.c:1443
 msgid "Graphics tablet found."
-msgstr ""
+msgstr "找到繪圖板。"
 
 #: src/as-relation.c:1446
 msgid "Touch input device found."
-msgstr ""
+msgstr "已找到觸控輸入設備。"
 
 #: src/as-relation.c:1448
 msgid "Microphone for voice input control found."
-msgstr ""
+msgstr "已找到用於語音輸入控制的麥克風。"
 
 #: src/as-relation.c:1450
 msgid "Camera for input control found."
-msgstr ""
+msgstr "已找到用於輸入控制的相機。"
 
 #: src/as-relation.c:1452
 msgid "Console interface available."
-msgstr ""
+msgstr "控制台介面可用。"
 
 #: src/as-relation.c:1513
 #, c-format
 msgid "Software '%s' was found"
-msgstr ""
+msgstr "已找到軟體 '%s'"
 
 #: src/as-relation.c:1522
 #, c-format
 msgid "Required software component '%s' is missing."
-msgstr ""
+msgstr "所需的軟體組件 '%s' 缺失。"
 
 #: src/as-relation.c:1526
 #, c-format
 msgid "Recommended software component '%s' is missing."
-msgstr ""
+msgstr "建議的軟體組件'%s' 缺失。"
 
 #: src/as-relation.c:1530
 #, c-format
@@ -1340,37 +1337,37 @@ msgstr "找到支援的軟體組件「%s」。"
 #: src/as-relation.c:1563
 #, c-format
 msgid "Found hardware that is supported by this software: '%s'"
-msgstr ""
+msgstr "找到此軟體支持的硬體：'%s'"
 
 #: src/as-relation.c:1572
 #, c-format
 msgid "Required hardware for this software was not found on this system: '%s'"
-msgstr ""
+msgstr "在此系統上未找到此軟體所需的硬體：'%s'"
 
 #: src/as-relation.c:1577
 #, c-format
 msgid "Recommended hardware for this software was not found on this system: '%s'"
-msgstr ""
+msgstr "在此系統上未找到此軟體建議的硬體：'%s'"
 
 #: src/as-relation.c:1582
 #, c-format
 msgid "This software supports hardware not present in this system: '%s'"
-msgstr ""
+msgstr "此軟體支援此系統中不存在的硬體：'%s'"
 
 #: src/as-relation.c:1621
 #, c-format
 msgid "This software requires a %s kernel, but this system is running %s."
-msgstr ""
+msgstr "此軟體需要 %s 核心，但此系統正在運行 %s。"
 
 #: src/as-relation.c:1627
 #, c-format
 msgid "This software recommends a %s kernel, but this system is running %s."
-msgstr ""
+msgstr "這個軟體建議使用 %s 核心，但這個系統正在運行 %s。"
 
 #: src/as-relation.c:1633
 #, c-format
 msgid "This software only supports a %s kernel, but may run on %s anyway."
-msgstr ""
+msgstr "此軟體僅支援 %s 核心，但可能仍可在 %s 上運行。"
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
@@ -1378,7 +1375,7 @@ msgstr ""
 #: src/as-relation.c:1663
 #, c-format
 msgid "This software requires %s %s %s, but this system is running %s %s."
-msgstr ""
+msgstr "此軟體需要 %s %s %s，但此系統正在運行 %s %s。"
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
@@ -1386,149 +1383,148 @@ msgstr ""
 #: src/as-relation.c:1675
 #, c-format
 msgid "The use of %s %s %s is recommended, but this system is running %s %s."
-msgstr ""
+msgstr "建議使用 %s %s %s，但此系統正在運行 %s %s。"
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number.
 #: src/as-relation.c:1686
 #, c-format
 msgid "This software supports %s %s %s."
-msgstr ""
+msgstr "這個軟體支援 %s %s %s。"
 
 #. TRANSLATORS: We checked a kernel dependency, with success, the first placeholder is the current kernel name, second is its version number.
 #: src/as-relation.c:1704
 #, c-format
 msgid "Kernel %s %s is supported."
-msgstr ""
+msgstr "內核 %s %s 受支持。"
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory and fourth is the amount of memory we have.
 #: src/as-relation.c:1738
 #, c-format
 msgid "This software requires %s %.2f GiB of memory, but this system has %.2f GiB."
-msgstr ""
+msgstr "這個軟體需要 %s %.2f GiB 的記憶體，但這個系統只有 %.2f GiB。"
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory and fourth is the amount of memory we have.
 #: src/as-relation.c:1747
 #, c-format
 msgid "This software recommends %s %.2f GiB of memory, but this system has %.2f GiB."
-msgstr ""
+msgstr "這個軟體建議使用 %s %.2f GiB 的記憶體，但這個系統只有 %.2f GiB。"
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory.
 #: src/as-relation.c:1756
 #, c-format
 msgid "This software supports %s %.2f GiB of memory."
-msgstr ""
+msgstr "此軟體支援 %s %.2f GiB 的記憶體。"
 
 #: src/as-relation.c:1772
 msgid "This system has sufficient memory for this software."
-msgstr ""
+msgstr "這個系統有足夠的記憶體來運行這個軟體。"
 
 #: src/as-relation.c:1836
 msgid "This software needs a display for graphical content."
-msgstr ""
+msgstr "這個軟體需要一個用於圖形內容的顯示器。"
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and third is the size the current device has.
 #: src/as-relation.c:1864
 #, c-format
 msgid "This software requires a display with its longest edge being %s %lu px in size, but the display of this device has %lu px."
-msgstr ""
+msgstr "此軟體需要一個最長邊為 %s %lu 像素的顯示器，但此裝置的顯示器為 %lu 像素。"
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and third is the size the current device has.
 #: src/as-relation.c:1873
 #, c-format
 msgid "This software requires a display with its shortest edge being %s %lu px in size, but the display of this device has %lu px."
-msgstr ""
+msgstr "此軟體需要顯示器最短邊長為 %s %lu 像素，但此裝置的顯示器只有 %lu 像素。"
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and third is the size the current device has.
 #: src/as-relation.c:1883
 #, c-format
 msgid "This software recommends a display with its longest edge being %s %lu px in size, but the display of this device has %lu px."
-msgstr ""
+msgstr "此軟體建議使用最長邊為 %s %lu 像素的顯示器，但此裝置的顯示器為 %lu 像素。"
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and third is the size the current device has.
 #: src/as-relation.c:1892
 #, c-format
 msgid "This software recommends a display with its shortest edge being %s %lu px in size, but the display of this device has %lu px."
-msgstr ""
+msgstr "此軟體建議顯示器的最短邊長為 %s %lu 像素，但此裝置的顯示器為 %lu 像素。"
 
 #: src/as-relation.c:1904
 msgid "Display size is sufficient for this software."
-msgstr ""
+msgstr "顯示尺寸對這個軟體來說足夠。"
 
 #: src/as-relation.c:1921
 #, c-format
 msgid "Satisfiability check for relation items of type '%s' is not implemented yet."
-msgstr ""
+msgstr "類型 '%s' 的關聯項目可滿足性檢查尚未實現。"
 
 #. TRANSLATORS: The ODRS review server rejected our request, %s is the error message
 #: src/as-reviews-client.c:976 src/as-reviews-client.c:1069
 #, c-format
 msgid "The reviews server rejected the request: %s"
-msgstr ""
+msgstr "審查伺服器拒絕了請求：%s"
 
 #. TRANSLATORS: We failed to communicate with the ODRS review server, %s is an error message
 #: src/as-reviews-client.c:983
 #, c-format
 msgid "Unable to communicate with the reviews server: %s"
-msgstr ""
+msgstr "無法與評論伺服器通訊：%s"
 
 #: src/as-reviews-client.c:1070
 msgid "Unknown reason"
-msgstr ""
+msgstr "原因不明"
 
 #. TRANSLATORS: We failed to fetch a software rating from the ODRS review server
 #: src/as-reviews-client.c:1247
-#, fuzzy, c-format
-#| msgid "Unable to find component matching %s!"
+#, c-format
 msgid "Unable to fetch software rating: %s"
-msgstr "找不到符合 %s 的組件！"
+msgstr "無法獲取軟體評分：%s"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:39
 msgid "Affero General Public License v1.0 only"
-msgstr ""
+msgstr "僅 Affero 通用公共授權條款 v1.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:41
 msgid "Affero General Public License v1.0 or later"
-msgstr ""
+msgstr "Affero 通用公共授權條款 v1.0 或更新版本"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:44
 msgid "GNU Affero General Public License v3.0 only"
-msgstr ""
+msgstr "僅 GNU Affero 通用公共授權第 3.0 版"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:46
 msgid "GNU Affero General Public License v3.0 or later"
-msgstr ""
+msgstr "GNU Affero 通用公共授權條款 第3.0版或更新版本"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:295
 msgid "GNU Free Documentation License v1.1 only - invariants"
-msgstr ""
+msgstr "僅 GNU 自由文件授權條款 v1.1 - 不變項"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:297
 msgid "GNU Free Documentation License v1.1 or later - invariants"
-msgstr ""
+msgstr "GNU 自由文檔授權條款 v1.1 或更新版本 - 不變條款"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:299
 msgid "GNU Free Documentation License v1.1 only - no invariants"
-msgstr ""
+msgstr "僅 GNU 自由文檔許可證 v1.1 - 無不變條款"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:301
 msgid "GNU Free Documentation License v1.1 or later - no invariants"
-msgstr ""
+msgstr "GNU 自由文件說明授權條款 v1.1 或更新版本 - 無不變條款"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:303
