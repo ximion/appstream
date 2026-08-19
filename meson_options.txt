@@ -23,6 +23,12 @@ option('compose',
        value : false,
        description : 'Build appstream-compose (library, tool if tools are enabled)'
 )
+option('mediaworker-dir',
+       type : 'combo',
+       choices : ['libdir', 'libexecdir'],
+       value : 'libdir',
+       description : 'Install location for the asc-mediaworker helper.'
+)
 option('bash-completion',
        type : 'boolean',
        value : true,

@@ -24,11 +24,25 @@
  * @include: appstream-compose.h
  */
 
+#define _GNU_SOURCE
+
 #include "config.h"
 #include "asc-globals-private.h"
 
+#ifdef HAVE_DLADDR
+#include <dlfcn.h>
+#include <limits.h>
+#include <stdlib.h>
+#endif
+
 #include "as-utils-private.h"
 #include "as-validator-issue-tag.h"
+
+#ifdef ASC_MEDIAWORKER_USE_LIBEXEC
+#define ASC_MEDIAWORKER_EXE LIBEXECDIR "/asc-mediaworker"
+#else
+#define ASC_MEDIAWORKER_EXE LIBDIR "/ascompose/asc-mediaworker"
+#endif
 
 #define ASC_TYPE_GLOBALS (asc_globals_get_type ())
 G_DECLARE_DERIVABLE_TYPE (AscGlobals, asc_globals, ASC, GLOBALS, GObject)
@@ -53,6 +67,11 @@ G_DEFINE_TYPE_WITH_PRIVATE (AscGlobals, asc_globals, G_TYPE_OBJECT)
 
 static AscGlobals *g_globals = NULL;
 static GMutex g_globals_mutex;
+
+#ifdef HAVE_DLADDR
+/* address anchor used to locate the DSO we are part of */
+__attribute__((used)) static gchar asc_globals_dso_anchor;
+#endif
 
 /**
  * asc_compose_error_quark:
@@ -99,6 +118,46 @@ asc_globals_finalize (GObject *object)
 	G_OBJECT_CLASS (asc_globals_parent_class)->finalize (object);
 }
 
+/**
+ * asc_globals_find_mediaworker_in_build_tree:
+ *
+ * Locate the media worker that was built together with this copy of
+ * libappstream-compose, in case we are running uninstalled from a build tree.
+ * That way an uninstalled library never spawns a system-wide worker binary
+ * of a possibly different version.
+ *
+ * Returns: (transfer full): The worker path, or %NULL if we are not in a build tree.
+ */
+static gchar *
+asc_globals_find_mediaworker_in_build_tree (void)
+{
+#ifdef HAVE_DLADDR
+	Dl_info dl_info;
+	gchar self_path[PATH_MAX];
+	g_autofree gchar *self_dir = NULL;
+	g_autofree gchar *worker_fname = NULL;
+
+	/* find the library (or executable) this code is a part of */
+	if (dladdr (&asc_globals_dso_anchor, &dl_info) == 0)
+		return NULL;
+
+	/* we never resolve anything relative to the current working directory,
+	 * as appstream-compose runs with its CWD in untrusted data */
+	if (dl_info.dli_fname == NULL || !g_path_is_absolute (dl_info.dli_fname))
+		return NULL;
+	if (realpath (dl_info.dli_fname, self_path) == NULL)
+		return NULL;
+
+	/* in a build tree, the worker sits in a "worker" directory right next to
+	 * the library - no installed layout ever looks like that */
+	self_dir = g_path_get_dirname (self_path);
+	worker_fname = g_build_filename (self_dir, "worker", "asc-mediaworker", NULL);
+	if (g_file_test (worker_fname, G_FILE_TEST_IS_EXECUTABLE))
+		return g_steal_pointer (&worker_fname);
+#endif
+	return NULL;
+}
+
 static void
 asc_globals_init (AscGlobals *globals)
 {
@@ -118,17 +177,21 @@ asc_globals_init (AscGlobals *globals)
 
 	priv->ffprobe_bin = g_find_program_in_path ("ffprobe");
 
-	/* find the media worker, preferring an explicit override for development
-	 * and test purposes over the installed binary */
+	/* find the media worker: an explicit override for development and test
+	 * purposes wins, then a worker built alongside us in a build tree,
+	 * then the installed helper, then whatever is in PATH */
 	priv->mediaworker_bin = g_strdup (g_getenv ("ASC_MEDIAWORKER"));
 	if (as_is_empty (priv->mediaworker_bin)) {
-		const gchar *mediaworker_libexec_exe = LIBEXECDIR "/asc-mediaworker";
 		g_free (priv->mediaworker_bin);
-		if (g_file_test (mediaworker_libexec_exe, G_FILE_TEST_IS_EXECUTABLE))
-			priv->mediaworker_bin = g_strdup (mediaworker_libexec_exe);
+		priv->mediaworker_bin = asc_globals_find_mediaworker_in_build_tree ();
+	}
+	if (priv->mediaworker_bin == NULL) {
+		if (g_file_test (ASC_MEDIAWORKER_EXE, G_FILE_TEST_IS_EXECUTABLE))
+			priv->mediaworker_bin = g_strdup (ASC_MEDIAWORKER_EXE);
 		else
 			priv->mediaworker_bin = g_find_program_in_path ("asc-mediaworker");
 	}
+	g_debug ("Using media worker: %s", priv->mediaworker_bin);
 
 	g_mutex_init (&priv->hint_tags_mutex);
 }

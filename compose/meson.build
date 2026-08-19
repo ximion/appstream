@@ -52,6 +52,7 @@ ascompose_priv_headers = [
 
 # extra dependencies we need just for AppStream Compose
 m_dep        = cc.find_library('m', required: false)
+dl_dep       = cc.find_library('dl', required: false)
 blake3_dep   = dependency('libblake3', required: get_option('blake3-support'))
 gio_unix_dep = dependency('gio-unix-2.0', version: '>= 2.62')
 
@@ -65,6 +66,7 @@ appstream_compose_lib = library ('appstream-compose',
     dependencies: [
         appstream_dep,
         m_dep,
+        dl_dep,
         blake3_dep,
         fyaml_dep,
         gio_dep,

@@ -138,8 +138,7 @@ if get_option('compose')
     test ('as-test_compose',
         as_test_compose_exe,
         args: as_test_args,
-        env: as_test_compose_env +
-            ['ASC_MEDIAWORKER=' + asc_mediaworker_exe.full_path()],
+        env: as_test_compose_env,
         depends: [asc_mediaworker_exe],
     )
 

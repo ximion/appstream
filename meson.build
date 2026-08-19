@@ -65,9 +65,11 @@ conf.set('HAVE_MACOS_DISPLAY', macos_display_enabled)
 conf.set('HAVE_SVG_SUPPORT', get_option('svg-support'))
 conf.set('HAVE_ZSTD', get_option('zstd-support'))
 conf.set('HAVE_BLAKE3', get_option('blake3-support'))
+conf.set('ASC_MEDIAWORKER_USE_LIBEXEC', get_option('mediaworker-dir') == 'libexecdir')
 
 conf.set('HAVE_LINUX_OPENAT2_H', cc.has_header('linux/openat2.h'))
 conf.set('HAVE_OPENAT2', cc.has_header_symbol('fcntl.h', 'openat2', args: '-D_GNU_SOURCE'))
+conf.set('HAVE_DLADDR', cc.has_header_symbol('dlfcn.h', 'dladdr', args: '-D_GNU_SOURCE'))
 
 root_inc_dir = include_directories ('.')
 

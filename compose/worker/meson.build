@@ -65,6 +65,13 @@ asw_core_lib = static_library('asw-core',
     ],
 )
 
+# where the arch-dependent media worker helper is installed to
+if get_option('mediaworker-dir') == 'libexecdir'
+    asc_mediaworker_installdir = get_option('libexecdir')
+else
+    asc_mediaworker_installdir = get_option('libdir') / 'ascompose'
+endif
+
 asc_mediaworker_exe = executable('asc-mediaworker',
     ['asw-main.c'],
     link_with: [asw_core_lib],
@@ -79,5 +86,5 @@ asc_mediaworker_exe = executable('asc-mediaworker',
         '-DI_KNOW_THE_APPSTREAM_COMPOSE_API_IS_SUBJECT_TO_CHANGE'
     ],
     install: true,
-    install_dir: get_option('libexecdir'),
+    install_dir: asc_mediaworker_installdir,
 )
