@@ -261,6 +261,14 @@ asw_image_backend_init (const gchar *argv0, GError **error)
 	 * operation cache would only retain memory without any reuse benefit. */
 	vips_cache_set_max (0);
 
+	/* Limit how many threads libvips uses: several worker processes may be
+	 * running in parallel, and image operations scale poorly past this point
+	 * anyway (PNG de-/encoding is single-threaded regardless, and even JPEG-XL
+	 * scales less steeply after). An explicit setting wins, but the caller
+	 * is still able to tweak this manually if needed. */
+	if (g_getenv ("VIPS_CONCURRENCY") == NULL)
+		vips_concurrency_set (MIN (vips_concurrency_get (), 8));
+
 	/* Harden against untrusted input: block all image loaders, then explicitly
 	 * permit only the formats that we want to support. */
 	vips_operation_block_set ("VipsForeignLoad", TRUE);
