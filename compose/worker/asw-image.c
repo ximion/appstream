@@ -86,136 +86,34 @@ G_DEFINE_TYPE_WITH_PRIVATE (AswImage, asw_image, G_TYPE_OBJECT)
 #define GET_PRIVATE(o) (asw_image_get_instance_private (o))
 
 /**
- * asw_image_format_to_string:
- * @format: the %AswImageFormat.
- *
- * Converts the enumerated value to an text representation.
- *
- * Returns: string version of @format
- **/
-const gchar *
-asw_image_format_to_string (AswImageFormat format)
-{
-	if (format == ASW_IMAGE_FORMAT_PNG)
-		return "png";
-	if (format == ASW_IMAGE_FORMAT_JXL)
-		return "jxl";
-	if (format == ASW_IMAGE_FORMAT_AVIF)
-		return "avif";
-	if (format == ASW_IMAGE_FORMAT_WEBP)
-		return "webp";
-	if (format == ASW_IMAGE_FORMAT_SVG)
-		return "svg";
-	if (format == ASW_IMAGE_FORMAT_SVGZ)
-		return "svgz";
-	if (format == ASW_IMAGE_FORMAT_JPEG)
-		return "jpeg";
-	if (format == ASW_IMAGE_FORMAT_GIF)
-		return "gif";
-
-	if (format == ASW_IMAGE_FORMAT_XPM)
-		return "xpm";
-
-	return NULL;
-}
-
-/**
- * asw_image_format_from_string:
- * @str: the string.
- *
- * Converts the text representation to an enumerated value.
- *
- * Returns: a #AswImageFormat or %ASW_IMAGE_FORMAT_UNKNOWN for unknown
- **/
-AswImageFormat
-asw_image_format_from_string (const gchar *str)
-{
-	if (g_strcmp0 (str, "png") == 0)
-		return ASW_IMAGE_FORMAT_PNG;
-	if (g_strcmp0 (str, "jxl") == 0)
-		return ASW_IMAGE_FORMAT_JXL;
-	if (g_strcmp0 (str, "avif") == 0)
-		return ASW_IMAGE_FORMAT_AVIF;
-	if (g_strcmp0 (str, "webp") == 0)
-		return ASW_IMAGE_FORMAT_WEBP;
-	if (g_strcmp0 (str, "svg") == 0)
-		return ASW_IMAGE_FORMAT_SVG;
-	if (g_strcmp0 (str, "svgz") == 0)
-		return ASW_IMAGE_FORMAT_SVGZ;
-	if (g_strcmp0 (str, "jpeg") == 0)
-		return ASW_IMAGE_FORMAT_JPEG;
-	if (g_strcmp0 (str, "gif") == 0)
-		return ASW_IMAGE_FORMAT_GIF;
-	if (g_strcmp0 (str, "xpm") == 0)
-		return ASW_IMAGE_FORMAT_XPM;
-
-	return ASW_IMAGE_FORMAT_UNKNOWN;
-}
-
-/**
- * asw_image_format_from_filename:
- * @fname: the filename.
- *
- * Returns the image format type based on the given file's filename.
- *
- * Returns: a #AswImageFormat or %ASW_IMAGE_FORMAT_UNKNOWN for unknown
- **/
-AswImageFormat
-asw_image_format_from_filename (const gchar *fname)
-{
-	g_autofree gchar *fname_low = g_ascii_strdown (fname, -1);
-
-	if (g_str_has_suffix (fname_low, ".png"))
-		return ASW_IMAGE_FORMAT_PNG;
-	if (g_str_has_suffix (fname_low, ".jxl"))
-		return ASW_IMAGE_FORMAT_JXL;
-	if (g_str_has_suffix (fname_low, ".avif"))
-		return ASW_IMAGE_FORMAT_AVIF;
-	if (g_str_has_suffix (fname_low, ".webp"))
-		return ASW_IMAGE_FORMAT_WEBP;
-	if (g_str_has_suffix (fname_low, ".svg"))
-		return ASW_IMAGE_FORMAT_SVG;
-	if (g_str_has_suffix (fname_low, ".svgz"))
-		return ASW_IMAGE_FORMAT_SVGZ;
-	if (g_str_has_suffix (fname_low, ".jpeg") || g_str_has_suffix (fname_low, ".jpg"))
-		return ASW_IMAGE_FORMAT_JPEG;
-	if (g_str_has_suffix (fname_low, ".gif"))
-		return ASW_IMAGE_FORMAT_GIF;
-	if (g_str_has_suffix (fname_low, ".xpm"))
-		return ASW_IMAGE_FORMAT_XPM;
-
-	return ASW_IMAGE_FORMAT_UNKNOWN;
-}
-
-/**
  * asw_image_format_from_vips_loader:
  *
  * Map a libvips foreign-load operation class name (as returned by
- * vips_foreign_find_load() and friends) to an #AswImageFormat.
+ * vips_foreign_find_load() and friends) to an #AscImageFormat.
  */
-static AswImageFormat
+static AscImageFormat
 asw_image_format_from_vips_loader (const gchar *loader_name)
 {
 	if (loader_name == NULL)
-		return ASW_IMAGE_FORMAT_UNKNOWN;
+		return ASC_IMAGE_FORMAT_UNKNOWN;
 
 	if (g_str_has_prefix (loader_name, "VipsForeignLoadPng"))
-		return ASW_IMAGE_FORMAT_PNG;
+		return ASC_IMAGE_FORMAT_PNG;
 	if (g_str_has_prefix (loader_name, "VipsForeignLoadJpeg"))
-		return ASW_IMAGE_FORMAT_JPEG;
+		return ASC_IMAGE_FORMAT_JPEG;
 	if (g_str_has_prefix (loader_name, "VipsForeignLoadJxl"))
-		return ASW_IMAGE_FORMAT_JXL;
+		return ASC_IMAGE_FORMAT_JXL;
 	if (g_str_has_prefix (loader_name, "VipsForeignLoadWebp"))
-		return ASW_IMAGE_FORMAT_WEBP;
+		return ASC_IMAGE_FORMAT_WEBP;
 	if (g_str_has_prefix (loader_name, "VipsForeignLoadHeif"))
-		return ASW_IMAGE_FORMAT_AVIF;
+		return ASC_IMAGE_FORMAT_AVIF;
 	if (g_str_has_prefix (loader_name, "VipsForeignLoadSvg"))
-		return ASW_IMAGE_FORMAT_SVG;
+		return ASC_IMAGE_FORMAT_SVG;
 	if (g_str_has_prefix (loader_name, "VipsForeignLoadNsgif") ||
 	    g_str_has_prefix (loader_name, "VipsForeignLoadGif"))
-		return ASW_IMAGE_FORMAT_GIF;
+		return ASC_IMAGE_FORMAT_GIF;
 
-	return ASW_IMAGE_FORMAT_UNKNOWN;
+	return ASC_IMAGE_FORMAT_UNKNOWN;
 }
 
 /**
@@ -646,7 +544,7 @@ asw_image_load_vips (AswImage *image,
 		     gint dest_width,
 		     gint dest_height,
 		     gint src_size_min,
-		     AswImageLoadFlags flags,
+		     AscImageLoadFlags flags,
 		     GError **error)
 {
 	g_autoptr(VipsImage) vimg = NULL;
@@ -679,7 +577,7 @@ asw_image_load_vips (AswImage *image,
 
 	/* this makes icons look blurry, but allows the software center to look
 	 * good as icons are properly aligned in the UI layout */
-	if (as_flags_contains (flags, ASW_IMAGE_LOAD_FLAG_ALWAYS_RESIZE)) {
+	if (as_flags_contains (flags, ASC_IMAGE_LOAD_FLAG_ALWAYS_RESIZE)) {
 		if (!asw_vips_resize_exact (vimg, &vimg_new, dest_width, dest_height, error))
 			return FALSE;
 		return asw_image_store_vips (image, vimg_new, error);
@@ -714,7 +612,7 @@ asw_image_load_vips (AswImage *image,
 	}
 	if (!asw_vips_resize_exact (vimg, &vimg_scaled, tmp_width, tmp_height, error))
 		return FALSE;
-	if (as_flags_contains (flags, ASW_IMAGE_LOAD_FLAG_SHARPEN)) {
+	if (as_flags_contains (flags, ASC_IMAGE_LOAD_FLAG_SHARPEN)) {
 		g_autoptr(VipsImage) sharpened = NULL;
 		if (!asw_vips_sharpen (vimg_scaled, &sharpened, 1.4, 0.5, error))
 			return FALSE;
@@ -730,7 +628,7 @@ asw_image_load_vips (AswImage *image,
  * @fname: Name of the file to load.
  * @dest_width: The suggested width of the constructed image, or 0 for the native size
  * @dest_height: The suggested height of the constructed image, or 0 for the native size
- * @flags: a #AswImageLoadFlags, e.g. %ASW_IMAGE_LOAD_FLAG_NONE
+ * @flags: a #AscImageLoadFlags, e.g. %ASC_IMAGE_LOAD_FLAG_NONE
  * @error: A #GError or %NULL
  *
  * Creates a new #AswImage from a file on the filesystem.
@@ -739,7 +637,7 @@ AswImage *
 asw_image_new_from_file (const gchar *fname,
 			 gint dest_width,
 			 gint dest_height,
-			 AswImageLoadFlags flags,
+			 AscImageLoadFlags flags,
 			 GError **error)
 {
 	gboolean ret;
@@ -757,8 +655,8 @@ asw_image_new_from_file (const gchar *fname,
  * @len: Length of the data to load.
  * @dest_width: The suggested width of the constructed image, or 0 for the native size
  * @dest_height: The suggested height of the constructed image, or 0 for the native size
- * @flags: a #AswImageLoadFlags, e.g. %ASW_IMAGE_LOAD_FLAG_NONE
- * @format_hint: Assume the specified image format for data, use %ASW_IMAGE_FORMAT_UNKNOWN to guess.
+ * @flags: a #AscImageLoadFlags, e.g. %ASC_IMAGE_LOAD_FLAG_NONE
+ * @format_hint: Assume the specified image format for data, use %ASC_IMAGE_FORMAT_UNKNOWN to guess.
  * @error: A #GError or %NULL
  *
  * Creates a new #AswImage from data in memory.
@@ -768,15 +666,15 @@ asw_image_new_from_data (const void *data,
 			 gssize len,
 			 gint dest_width,
 			 gint dest_height,
-			 AswImageLoadFlags flags,
-			 AswImageFormat format_hint,
+			 AscImageLoadFlags flags,
+			 AscImageFormat format_hint,
 			 GError **error)
 {
 	g_autoptr(GBytes) raw_bytes = NULL;
 	g_autoptr(VipsImage) vimg = NULL;
 	g_autoptr(AswImage) image = asw_image_new ();
 
-	if (format_hint == ASW_IMAGE_FORMAT_SVGZ) {
+	if (format_hint == ASC_IMAGE_FORMAT_SVGZ) {
 		/* decompress the GZip data first */
 		g_autoptr(GInputStream) istream = NULL;
 		g_autoptr(GInputStream) dstream = NULL;
@@ -822,7 +720,7 @@ asw_image_new_from_data (const void *data,
 	}
 
 	/* load & scale */
-	if (as_flags_contains (flags, ASW_IMAGE_LOAD_FLAG_ALWAYS_RESIZE)) {
+	if (as_flags_contains (flags, ASC_IMAGE_LOAD_FLAG_ALWAYS_RESIZE)) {
 		gint tmp_width = dest_width > 0 ? dest_width : dest_height;
 		gint tmp_height = dest_height > 0 ? dest_height : dest_width;
 
@@ -871,7 +769,7 @@ asw_image_new_from_data (const void *data,
  * @dest_width: The suggested width of the constructed image, or 0 for the native size
  * @dest_height: The suggested height of the constructed image, or 0 for the native size
  * @src_size_min: The smallest source size (width or height) allowed, or 0 for no limit
- * @flags: a #AswImageLoadFlags, e.g. %ASW_IMAGE_LOAD_FLAG_NONE
+ * @flags: a #AscImageLoadFlags, e.g. %ASC_IMAGE_LOAD_FLAG_NONE
  * @error: A #GError or %NULL.
  *
  * Reads an image from a file.
@@ -884,7 +782,7 @@ asw_image_load_filename (AswImage *image,
 			 gint dest_width,
 			 gint dest_height,
 			 gint src_size_min,
-			 AswImageLoadFlags flags,
+			 AscImageLoadFlags flags,
 			 GError **error)
 {
 	g_autoptr(VipsImage) vimg_src = NULL;
@@ -908,7 +806,7 @@ asw_image_load_filename (AswImage *image,
 #endif
 
 	/* only support allowed types, unless support for any image is explicitly requested */
-	if (!as_flags_contains (flags, ASW_IMAGE_LOAD_FLAG_ALLOW_UNSUPPORTED)) {
+	if (!as_flags_contains (flags, ASC_IMAGE_LOAD_FLAG_ALLOW_UNSUPPORTED)) {
 		const gchar *loader_name = vips_foreign_find_load (filename);
 		if (loader_name == NULL) {
 			vips_error_clear ();
@@ -918,7 +816,7 @@ asw_image_load_filename (AswImage *image,
 					     "Image format was not recognized");
 			return FALSE;
 		}
-		if (asw_image_format_from_vips_loader (loader_name) == ASW_IMAGE_FORMAT_UNKNOWN) {
+		if (asw_image_format_from_vips_loader (loader_name) == ASC_IMAGE_FORMAT_UNKNOWN) {
 			g_set_error (error,
 				     ASC_MEDIA_ERROR,
 				     ASC_MEDIA_ERROR_UNSUPPORTED,
@@ -1134,7 +1032,7 @@ asw_image_scale_to_fit (AswImage *image, gint size)
 static gboolean
 asw_image_save_vips_to_file (VipsImage *vimg,
 			     const gchar *fname,
-			     AswImageFormat format,
+			     AscImageFormat format,
 			     const AswImageSaverOptions *opts,
 			     GError **error)
 {
@@ -1142,7 +1040,7 @@ asw_image_save_vips_to_file (VipsImage *vimg,
 		opts = &asw_default_saver_options;
 
 	switch (format) {
-	case ASW_IMAGE_FORMAT_PNG:
+	case ASC_IMAGE_FORMAT_PNG:
 		if (opts->png_palette) {
 			if (vips_pngsave (vimg,
 					  fname,
@@ -1167,7 +1065,7 @@ asw_image_save_vips_to_file (VipsImage *vimg,
 				return asw_vips_error ("Unable to save PNG image", error);
 		}
 		return TRUE;
-	case ASW_IMAGE_FORMAT_JXL:
+	case ASC_IMAGE_FORMAT_JXL:
 		if (opts->jxl_lossless) {
 			if (vips_jxlsave (vimg,
 					  fname,
@@ -1198,7 +1096,7 @@ asw_image_save_vips_to_file (VipsImage *vimg,
 			     ASC_MEDIA_ERROR,
 			     ASC_MEDIA_ERROR_UNSUPPORTED,
 			     "Can not save image as %s",
-			     asw_image_format_to_string (format));
+			     asc_image_format_to_string (format));
 		return FALSE;
 	}
 }
@@ -1208,7 +1106,7 @@ asw_image_save_vips_to_file (VipsImage *vimg,
  * @stream: Input stream with SVG data.
  * @width: Target width.
  * @height: Target height.
- * @format: Target image format, e.g. %ASW_IMAGE_FORMAT_PNG
+ * @format: Target image format, e.g. %ASC_IMAGE_FORMAT_PNG
  * @filename: Filename to write to.
  * @error: A #GError or %NULL
  *
@@ -1220,7 +1118,7 @@ gboolean
 asw_render_svg_to_file (GInputStream *stream,
 			gint width,
 			gint height,
-			AswImageFormat format,
+			AscImageFormat format,
 			const gchar *filename,
 			GError **error)
 {
@@ -1229,14 +1127,14 @@ asw_render_svg_to_file (GInputStream *stream,
 
 	g_return_val_if_fail (width > 0 && height > 0, FALSE);
 
-	if (format == ASW_IMAGE_FORMAT_UNKNOWN) {
+	if (format == ASC_IMAGE_FORMAT_UNKNOWN) {
 		g_set_error (error,
 			     ASC_MEDIA_ERROR,
 			     ASC_MEDIA_ERROR_UNSUPPORTED,
 			     "Unknown image format specified");
 		return FALSE;
 	}
-	if (format == ASW_IMAGE_FORMAT_SVG || format == ASW_IMAGE_FORMAT_SVGZ) {
+	if (format == ASC_IMAGE_FORMAT_SVG || format == ASC_IMAGE_FORMAT_SVGZ) {
 		g_set_error (error,
 			     ASC_MEDIA_ERROR,
 			     ASC_MEDIA_ERROR_UNSUPPORTED,
@@ -1248,7 +1146,7 @@ asw_render_svg_to_file (GInputStream *stream,
 	if (!asw_canvas_render_svg (cv, stream, error))
 		return FALSE;
 
-	if (format == ASW_IMAGE_FORMAT_PNG) {
+	if (format == ASC_IMAGE_FORMAT_PNG) {
 		/* we can just save that PNG directly */
 		return asw_canvas_save_png (cv, filename, error);
 	}
@@ -1265,7 +1163,7 @@ asw_render_svg_to_file (GInputStream *stream,
  * @image: a #AswImage instance.
  * @width: target width, or 0 for default
  * @height: target height, or 0 for default
- * @flags: some #AswImageSaveFlags values, e.g. %ASW_IMAGE_SAVE_FLAG_PAD_16_9
+ * @flags: some #AscImageSaveFlags values, e.g. %ASC_IMAGE_SAVE_FLAG_PAD_16_9
  * @error: A #GError or %NULL
  *
  * Resamples the image to a specific size.
@@ -1276,7 +1174,7 @@ VipsImage *
 asw_image_save_vips (AswImage *image,
 		     gint width,
 		     gint height,
-		     AswImageSaveFlags flags,
+		     AscImageSaveFlags flags,
 		     GError **error)
 {
 	AswImagePrivate *priv = GET_PRIVATE (image);
@@ -1312,16 +1210,16 @@ asw_image_save_vips (AswImage *image,
 		return g_object_ref (priv->vimg);
 
 	/* is the aspect ratio of the source perfectly 16:9 */
-	if (flags == ASW_IMAGE_SAVE_FLAG_NONE || (src_width / 16) * 9 == src_height) {
+	if (flags == ASC_IMAGE_SAVE_FLAG_NONE || (src_width / 16) * 9 == src_height) {
 		if (!asw_vips_resize_exact (priv->vimg, &vimg_scaled, width, height, error))
 			return NULL;
-		if (as_flags_contains (flags, ASW_IMAGE_SAVE_FLAG_SHARPEN)) {
+		if (as_flags_contains (flags, ASC_IMAGE_SAVE_FLAG_SHARPEN)) {
 			g_autoptr(VipsImage) sharpened = NULL;
 			if (!asw_vips_sharpen (vimg_scaled, &sharpened, 1.4, 0.5, error))
 				return NULL;
 			g_set_object (&vimg_scaled, sharpened);
 		}
-		if (as_flags_contains (flags, ASW_IMAGE_SAVE_FLAG_BLUR)) {
+		if (as_flags_contains (flags, ASC_IMAGE_SAVE_FLAG_BLUR)) {
 			g_autoptr(VipsImage) blurred = NULL;
 			if (!asw_vips_blur (vimg_scaled, &blurred, 5.5, error))
 				return NULL;
@@ -1340,13 +1238,13 @@ asw_image_save_vips (AswImage *image,
 	}
 	if (!asw_vips_resize_exact (priv->vimg, &vimg_scaled, tmp_width, tmp_height, error))
 		return NULL;
-	if (as_flags_contains (flags, ASW_IMAGE_SAVE_FLAG_SHARPEN)) {
+	if (as_flags_contains (flags, ASC_IMAGE_SAVE_FLAG_SHARPEN)) {
 		g_autoptr(VipsImage) sharpened = NULL;
 		if (!asw_vips_sharpen (vimg_scaled, &sharpened, 1.4, 0.5, error))
 			return NULL;
 		g_set_object (&vimg_scaled, sharpened);
 	}
-	if (as_flags_contains (flags, ASW_IMAGE_SAVE_FLAG_BLUR)) {
+	if (as_flags_contains (flags, ASC_IMAGE_SAVE_FLAG_BLUR)) {
 		g_autoptr(VipsImage) blurred = NULL;
 		if (!asw_vips_blur (vimg_scaled, &blurred, 5.5, error))
 			return NULL;
@@ -1363,7 +1261,7 @@ asw_image_save_vips (AswImage *image,
  * @filename: filename to write to
  * @width: target width, or 0 for default
  * @height: target height, or 0 for default
- * @flags: some #AswImageSaveFlags values, e.g. %ASW_IMAGE_SAVE_FLAG_PAD_16_9
+ * @flags: some #AscImageSaveFlags values, e.g. %ASC_IMAGE_SAVE_FLAG_PAD_16_9
  * @error: A #GError or %NULL.
  *
  * Saves the image to a file.
@@ -1375,7 +1273,7 @@ asw_image_save_filename (AswImage *image,
 			 const gchar *filename,
 			 gint width,
 			 gint height,
-			 AswImageSaveFlags flags,
+			 AscImageSaveFlags flags,
 			 GError **error)
 {
 	g_autoptr(VipsImage) vimg = NULL;
@@ -1384,10 +1282,10 @@ asw_image_save_filename (AswImage *image,
 	vimg = asw_image_save_vips (image, width, height, flags, error);
 	if (vimg == NULL)
 		return FALSE;
-	if (!asw_image_save_vips_to_file (vimg, filename, ASW_IMAGE_FORMAT_PNG, NULL, error))
+	if (!asw_image_save_vips_to_file (vimg, filename, ASC_IMAGE_FORMAT_PNG, NULL, error))
 		return FALSE;
 
-	if (!as_flags_contains (flags, ASW_IMAGE_SAVE_FLAG_OPTIMIZE))
+	if (!as_flags_contains (flags, ASC_IMAGE_SAVE_FLAG_OPTIMIZE))
 		return TRUE;
 	return asw_optimize_png (filename, error);
 }

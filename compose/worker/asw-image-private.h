@@ -36,7 +36,7 @@ gboolean   asw_optimize_png (const gchar *fname, GError **error);
 VipsImage *asw_image_save_vips (AswImage	 *image,
 				gint		  width,
 				gint		  height,
-				AswImageSaveFlags flags,
+				AscImageSaveFlags flags,
 				GError		**error);
 
 VipsImage *asw_image_get_vips (AswImage *image);

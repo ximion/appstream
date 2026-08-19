@@ -142,9 +142,6 @@ asc_image_format_to_string (AscImageFormat format)
 	if (format == ASC_IMAGE_FORMAT_GIF)
 		return "gif";
 
-	if (format == ASC_IMAGE_FORMAT_XPM)
-		return "xpm";
-
 	return NULL;
 }
 
@@ -175,8 +172,6 @@ asc_image_format_from_string (const gchar *str)
 		return ASC_IMAGE_FORMAT_JPEG;
 	if (g_strcmp0 (str, "gif") == 0)
 		return ASC_IMAGE_FORMAT_GIF;
-	if (g_strcmp0 (str, "xpm") == 0)
-		return ASC_IMAGE_FORMAT_XPM;
 
 	return ASC_IMAGE_FORMAT_UNKNOWN;
 }
@@ -210,8 +205,6 @@ asc_image_format_from_filename (const gchar *fname)
 		return ASC_IMAGE_FORMAT_JPEG;
 	if (g_str_has_suffix (fname_low, ".gif"))
 		return ASC_IMAGE_FORMAT_GIF;
-	if (g_str_has_suffix (fname_low, ".xpm"))
-		return ASC_IMAGE_FORMAT_XPM;
 
 	return ASC_IMAGE_FORMAT_UNKNOWN;
 }

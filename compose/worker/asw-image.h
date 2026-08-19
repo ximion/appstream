@@ -23,128 +23,57 @@
 #include <glib-object.h>
 #include <appstream.h>
 
+#include "asc-media.h"
+
 G_BEGIN_DECLS
 
 #define ASW_TYPE_IMAGE (asw_image_get_type ())
 G_DECLARE_FINAL_TYPE (AswImage, asw_image, ASW, IMAGE, GObject)
 
-/**
- * AswImageSaveFlags:
- * @ASW_IMAGE_SAVE_FLAG_NONE:		No special flags set
- * @ASW_IMAGE_SAVE_FLAG_OPTIMIZE:	Optimize generated PNG for size
- * @ASW_IMAGE_SAVE_FLAG_PAD_16_9:	Pad with alpha to 16:9 aspect
- * @ASW_IMAGE_SAVE_FLAG_SHARPEN:	Sharpen the image to clarify detail
- * @ASW_IMAGE_SAVE_FLAG_BLUR:		Blur the image to clear detail
- *
- * The flags used for saving images.
- **/
-typedef enum {
-	ASW_IMAGE_SAVE_FLAG_NONE     = 0,
-	ASW_IMAGE_SAVE_FLAG_OPTIMIZE = 1 << 0,
-	ASW_IMAGE_SAVE_FLAG_PAD_16_9 = 1 << 1,
-	ASW_IMAGE_SAVE_FLAG_SHARPEN  = 1 << 2,
-	ASW_IMAGE_SAVE_FLAG_BLUR     = 1 << 3,
-	/*< private >*/
-	ASW_IMAGE_SAVE_FLAG_LAST
-} AswImageSaveFlags;
+GHashTable *asw_image_supported_format_names (void);
+AswImage   *asw_image_new (void);
+AswImage   *asw_image_new_from_file (const gchar      *fname,
+				     gint	       dest_width,
+				     gint	       dest_height,
+				     AscImageLoadFlags flags,
+				     GError	     **error);
+AswImage   *asw_image_new_from_data (const void	      *data,
+				     gssize	       len,
+				     gint	       dest_width,
+				     gint	       dest_height,
+				     AscImageLoadFlags flags,
+				     AscImageFormat    format_hint,
+				     GError	     **error);
 
-/**
- * AswImageLoadFlags:
- * @ASW_IMAGE_LOAD_FLAG_NONE:			No special flags set
- * @ASW_IMAGE_LOAD_FLAG_SHARPEN:		Sharpen the resulting image
- * @ASW_IMAGE_LOAD_FLAG_ALLOW_UNSUPPORTED:	Allow loading of unsupported image types.
- * @ASW_IMAGE_LOAD_FLAG_ALWAYS_RESIZE:		Always resize the source image to the perfect size
- *
- * The flags used for loading images.
- **/
-typedef enum {
-	ASW_IMAGE_LOAD_FLAG_NONE	      = 0,
-	ASW_IMAGE_LOAD_FLAG_SHARPEN	      = 1 << 0,
-	ASW_IMAGE_LOAD_FLAG_ALLOW_UNSUPPORTED = 1 << 1,
-	ASW_IMAGE_LOAD_FLAG_ALWAYS_RESIZE     = 1 << 2,
-	/*< private >*/
-	ASW_IMAGE_LOAD_FLAG_LAST
-} AswImageLoadFlags;
+gboolean    asw_image_load_filename (AswImage	      *image,
+				     const gchar      *filename,
+				     gint	       dest_width,
+				     gint	       dest_height,
+				     gint	       src_size_min,
+				     AscImageLoadFlags flags,
+				     GError	     **error);
 
-/**
- * AswImageFormat:
- * @ASW_IMAGE_FORMAT_UNKNOWN:	Unknown image format.
- * @ASW_IMAGE_FORMAT_PNG:	PNG format
- * @ASW_IMAGE_FORMAT_JXL:	JPEG-XL format
- * @ASW_IMAGE_FORMAT_AVIF:	AVIF format
- * @ASW_IMAGE_FORMAT_WEBP:	WebP format
- * @ASW_IMAGE_FORMAT_SVG:	SVG format
- * @ASW_IMAGE_FORMAT_SVGZ:	Compressed SVG format
- * @ASW_IMAGE_FORMAT_JPEG:	JPEG format
- * @ASW_IMAGE_FORMAT_GIF:	GIF format
- * @ASW_IMAGE_FORMAT_XPM:	XPM format
- *
- * File format of an image.
- **/
-typedef enum {
-	ASW_IMAGE_FORMAT_UNKNOWN,
-	ASW_IMAGE_FORMAT_PNG,
-	ASW_IMAGE_FORMAT_JXL,
-	ASW_IMAGE_FORMAT_AVIF,
-	ASW_IMAGE_FORMAT_WEBP,
-	ASW_IMAGE_FORMAT_SVG,
-	ASW_IMAGE_FORMAT_SVGZ,
-	ASW_IMAGE_FORMAT_JPEG,
-	ASW_IMAGE_FORMAT_GIF,
-	ASW_IMAGE_FORMAT_XPM,
-	/*< private >*/
-	ASW_IMAGE_FORMAT_LAST
-} AswImageFormat;
+gboolean    asw_image_save_filename (AswImage	      *image,
+				     const gchar      *filename,
+				     gint	       width,
+				     gint	       height,
+				     AscImageSaveFlags flags,
+				     GError	     **error);
 
-const gchar   *asw_image_format_to_string (AswImageFormat format);
-AswImageFormat asw_image_format_from_string (const gchar *str);
-AswImageFormat asw_image_format_from_filename (const gchar *fname);
+gint	    asw_image_get_width (AswImage *image);
+gint	    asw_image_get_height (AswImage *image);
 
-GHashTable    *asw_image_supported_format_names (void);
+void	    asw_image_scale (AswImage *image, gint new_width, gint new_height);
 
-AswImage      *asw_image_new (void);
-AswImage      *asw_image_new_from_file (const gchar	 *fname,
-					gint		  dest_width,
-					gint		  dest_height,
-					AswImageLoadFlags flags,
-					GError		**error);
-AswImage      *asw_image_new_from_data (const void	 *data,
-					gssize		  len,
-					gint		  dest_width,
-					gint		  dest_height,
-					AswImageLoadFlags flags,
-					AswImageFormat	  format_hint,
-					GError		**error);
+void	    asw_image_scale_to_width (AswImage *image, gint new_width);
+void	    asw_image_scale_to_height (AswImage *image, gint new_height);
+void	    asw_image_scale_to_fit (AswImage *image, gint size);
 
-gboolean       asw_image_load_filename (AswImage	 *image,
-					const gchar	 *filename,
-					gint		  dest_width,
-					gint		  dest_height,
-					gint		  src_size_min,
-					AswImageLoadFlags flags,
-					GError		**error);
-
-gboolean       asw_image_save_filename (AswImage	 *image,
-					const gchar	 *filename,
-					gint		  width,
-					gint		  height,
-					AswImageSaveFlags flags,
-					GError		**error);
-
-gint	       asw_image_get_width (AswImage *image);
-gint	       asw_image_get_height (AswImage *image);
-
-void	       asw_image_scale (AswImage *image, gint new_width, gint new_height);
-
-void	       asw_image_scale_to_width (AswImage *image, gint new_width);
-void	       asw_image_scale_to_height (AswImage *image, gint new_height);
-void	       asw_image_scale_to_fit (AswImage *image, gint size);
-
-gboolean       asw_render_svg_to_file (GInputStream  *stream,
-				       gint	      width,
-				       gint	      height,
-				       AswImageFormat format,
-				       const gchar   *filename,
-				       GError	    **error);
+gboolean    asw_render_svg_to_file (GInputStream  *stream,
+				    gint	   width,
+				    gint	   height,
+				    AscImageFormat format,
+				    const gchar	  *filename,
+				    GError	 **error);
 
 G_END_DECLS

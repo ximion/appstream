@@ -463,8 +463,8 @@ asw_worker_handle_process_image (AswWorker *worker,
 					 g_bytes_get_size (img_bytes),
 					 load_width,
 					 load_height,
-					 (AswImageLoadFlags) load_flags,
-					 asw_image_format_from_string (format_hint),
+					 (AscImageLoadFlags) load_flags,
+					 asc_image_format_from_string (format_hint),
 					 error);
 	if (image == NULL) {
 		if (dir_fd >= 0)
@@ -536,7 +536,7 @@ asw_worker_handle_process_image (AswWorker *worker,
 							 target_path,
 							 0,
 							 0,
-							 (AswImageSaveFlags) save_flags,
+							 (AscImageSaveFlags) save_flags,
 							 &tmp_error);
 			result_width = src_width;
 			result_height = src_height;
@@ -546,7 +546,7 @@ asw_worker_handle_process_image (AswWorker *worker,
 							 target_path,
 							 width,
 							 height,
-							 (AswImageSaveFlags) save_flags,
+							 (AscImageSaveFlags) save_flags,
 							 &tmp_error);
 			result_width = width;
 			result_height = height;
@@ -595,7 +595,7 @@ asw_worker_handle_process_image (AswWorker *worker,
 							 target_path,
 							 0,
 							 0,
-							 (AswImageSaveFlags) save_flags,
+							 (AscImageSaveFlags) save_flags,
 							 &tmp_error);
 			result_width = asw_image_get_width (scaled_img);
 			result_height = asw_image_get_height (scaled_img);

@@ -232,7 +232,7 @@ test_image_transform (void)
 	image = asw_image_new_from_file (sample_img_fname,
 					 -1,
 					 -1,
-					 ASW_IMAGE_LOAD_FLAG_NONE,
+					 ASC_IMAGE_LOAD_FLAG_NONE,
 					 &error);
 	g_assert_no_error (error);
 	g_assert_nonnull (image);
@@ -246,7 +246,7 @@ test_image_transform (void)
 	g_assert_cmpint (asw_image_get_height (image), ==, 64);
 
 	out_fname = asx_build_workdir_path ("asw-iscale_test.png");
-	ret = asw_image_save_filename (image, out_fname, 0, 0, ASW_IMAGE_SAVE_FLAG_NONE, &error);
+	ret = asw_image_save_filename (image, out_fname, 0, 0, ASC_IMAGE_SAVE_FLAG_NONE, &error);
 	g_assert_no_error (error);
 	g_assert_true (ret);
 
@@ -260,8 +260,8 @@ test_image_transform (void)
 					 data_len,
 					 -1,
 					 -1,
-					 ASW_IMAGE_LOAD_FLAG_NONE,
-					 ASW_IMAGE_FORMAT_UNKNOWN,
+					 ASC_IMAGE_LOAD_FLAG_NONE,
+					 ASC_IMAGE_FORMAT_UNKNOWN,
 					 &error);
 	g_assert_no_error (error);
 	g_assert_nonnull (image);
@@ -269,7 +269,7 @@ test_image_transform (void)
 	asw_image_scale (image, 124, 124);
 	g_clear_pointer (&out_fname, g_free);
 	out_fname = asx_build_workdir_path ("asw-iscale-d_test.png");
-	ret = asw_image_save_filename (image, out_fname, 0, 0, ASW_IMAGE_SAVE_FLAG_NONE, &error);
+	ret = asw_image_save_filename (image, out_fname, 0, 0, ASC_IMAGE_SAVE_FLAG_NONE, &error);
 	g_assert_no_error (error);
 	g_assert_true (ret);
 	g_clear_object (&image);
@@ -278,7 +278,7 @@ test_image_transform (void)
 	image = asw_image_new_from_file (sample_jxl_img_fname,
 					 -1,
 					 -1,
-					 ASW_IMAGE_LOAD_FLAG_NONE,
+					 ASC_IMAGE_LOAD_FLAG_NONE,
 					 &error);
 	g_assert_no_error (error);
 	g_assert_nonnull (image);
@@ -333,7 +333,7 @@ test_canvas (void)
 	stream = g_memory_input_stream_new_from_data (data, data_len, NULL);
 	g_clear_pointer (&out_fname, g_free);
 	out_fname = asx_build_workdir_path ("asw-svgrender_test2.jxl");
-	asw_render_svg_to_file (stream, 256, 256, ASW_IMAGE_FORMAT_JXL, out_fname, &error);
+	asw_render_svg_to_file (stream, 256, 256, ASC_IMAGE_FORMAT_JXL, out_fname, &error);
 	g_assert_no_error (error);
 	g_assert_true (g_file_test (out_fname, G_FILE_TEST_EXISTS));
 

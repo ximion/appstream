@@ -120,7 +120,6 @@ typedef enum {
  * @ASC_IMAGE_FORMAT_SVGZ:	Compressed SVG format
  * @ASC_IMAGE_FORMAT_JPEG:	JPEG format
  * @ASC_IMAGE_FORMAT_GIF:	GIF format
- * @ASC_IMAGE_FORMAT_XPM:	XPM format
  *
  * File format of an image.
  **/
@@ -134,7 +133,6 @@ typedef enum {
 	ASC_IMAGE_FORMAT_SVGZ,
 	ASC_IMAGE_FORMAT_JPEG,
 	ASC_IMAGE_FORMAT_GIF,
-	ASC_IMAGE_FORMAT_XPM,
 	/*< private >*/
 	ASC_IMAGE_FORMAT_LAST
 } AscImageFormat;
