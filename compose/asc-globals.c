@@ -119,7 +119,7 @@ asc_globals_finalize (GObject *object)
 }
 
 /**
- * asc_globals_find_mediaworker_in_build_tree:
+ * asc_globals_find_local_mediaworker:
  *
  * Locate the media worker that was built together with this copy of
  * libappstream-compose, in case we are running uninstalled from a build tree.
@@ -129,7 +129,7 @@ asc_globals_finalize (GObject *object)
  * Returns: (transfer full): The worker path, or %NULL if we are not in a build tree.
  */
 static gchar *
-asc_globals_find_mediaworker_in_build_tree (void)
+asc_globals_find_local_mediaworker (void)
 {
 #ifdef HAVE_DLADDR
 	Dl_info dl_info;
@@ -183,7 +183,9 @@ asc_globals_init (AscGlobals *globals)
 	priv->mediaworker_bin = g_strdup (g_getenv ("ASC_MEDIAWORKER"));
 	if (as_is_empty (priv->mediaworker_bin)) {
 		g_free (priv->mediaworker_bin);
-		priv->mediaworker_bin = asc_globals_find_mediaworker_in_build_tree ();
+		priv->mediaworker_bin = asc_globals_find_local_mediaworker ();
+		if (priv->mediaworker_bin != NULL)
+			g_debug ("Using local media worker: %s", priv->mediaworker_bin);
 	}
 	if (priv->mediaworker_bin == NULL) {
 		if (g_file_test (ASC_MEDIAWORKER_EXE, G_FILE_TEST_IS_EXECUTABLE))
@@ -191,7 +193,6 @@ asc_globals_init (AscGlobals *globals)
 		else
 			priv->mediaworker_bin = g_find_program_in_path ("asc-mediaworker");
 	}
-	g_debug ("Using media worker: %s", priv->mediaworker_bin);
 
 	g_mutex_init (&priv->hint_tags_mutex);
 }

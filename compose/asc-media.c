@@ -337,6 +337,7 @@ asc_media_init (AscMedia *media)
 	AscMediaPrivate *priv = GET_PRIVATE (media);
 
 	priv->timeout_secs = 120;
+	priv->worker_path = g_strdup (asc_globals_get_mediaworker_binary ());
 }
 
 static void
@@ -394,7 +395,7 @@ asc_media_set_request_timeout (AscMedia *media, guint seconds)
  * @media: an #AscMedia instance.
  *
  * Get the path to the worker binary this instance will use,
- * or %NULL if the global default is used.
+ * or %NULL if no worker binary was found at all.
  */
 const gchar *
 asc_media_get_worker_path (AscMedia *media)
@@ -414,6 +415,8 @@ void
 asc_media_set_worker_path (AscMedia *media, const gchar *path)
 {
 	AscMediaPrivate *priv = GET_PRIVATE (media);
+	if (path == NULL)
+		path = asc_globals_get_mediaworker_binary ();
 	as_assign_string_safe (priv->worker_path, path);
 }
 
@@ -587,21 +590,6 @@ asc_media_stop (AscMedia *media)
 }
 
 /**
- * asc_media_resolve_worker_binary:
- *
- * Get the worker binary path to use for spawning.
- */
-static const gchar *
-asc_media_resolve_worker_binary (AscMedia *media)
-{
-	AscMediaPrivate *priv = GET_PRIVATE (media);
-
-	if (priv->worker_path != NULL)
-		return priv->worker_path;
-	return asc_globals_get_mediaworker_binary ();
-}
-
-/**
  * asc_media_worker_setup:
  *
  * Send the setup request with our current global configuration
@@ -670,7 +658,6 @@ asc_media_spawn_worker (AscMedia *media, GError **error)
 	g_autoptr(GSubprocessLauncher) launcher = NULL;
 	g_autoptr(GVariant) hello = NULL;
 	g_autoptr(GError) tmp_error = NULL;
-	const gchar *worker_bin = NULL;
 	const gchar *program_version = NULL;
 	guint32 protocol_version = 0;
 	guint32 rid = 0;
@@ -678,12 +665,11 @@ asc_media_spawn_worker (AscMedia *media, GError **error)
 	gboolean eof = FALSE;
 	int sv[2];
 
-	worker_bin = asc_media_resolve_worker_binary (media);
-	if (worker_bin == NULL) {
+	if (priv->worker_path == NULL) {
 		g_set_error_literal (error,
 				     ASC_MEDIA_ERROR,
 				     ASC_MEDIA_ERROR_DEAD_WORKER,
-				     "Unable to find the asc-mediaworker binary. Check if the "
+				     "Unable to find the mediaworker binary. Check if the "
 				     "AppStream installation is complete.");
 		return FALSE;
 	}
@@ -701,7 +687,10 @@ asc_media_spawn_worker (AscMedia *media, GError **error)
 	launcher = g_subprocess_launcher_new (G_SUBPROCESS_FLAGS_NONE);
 	g_subprocess_launcher_take_fd (launcher, sv[1], ASC_MEDIA_SOCKET_FD);
 
-	priv->worker_proc = g_subprocess_launcher_spawn (launcher, &tmp_error, worker_bin, NULL);
+	priv->worker_proc = g_subprocess_launcher_spawn (launcher,
+							 &tmp_error,
+							 priv->worker_path,
+							 NULL);
 	/* drop the launcher immediately: it holds the worker-side socket fd open in our
 	 * process, which would prevent us from seeing an EOF if the worker dies */
 	g_clear_object (&launcher);
@@ -711,7 +700,7 @@ asc_media_spawn_worker (AscMedia *media, GError **error)
 			     ASC_MEDIA_ERROR,
 			     ASC_MEDIA_ERROR_DEAD_WORKER,
 			     "Unable to spawn media worker '%s': %s",
-			     worker_bin,
+			     priv->worker_path,
 			     tmp_error->message);
 		return FALSE;
 	}
@@ -759,7 +748,7 @@ asc_media_spawn_worker (AscMedia *media, GError **error)
 			     ASC_MEDIA_ERROR_PROTOCOL,
 			     "Media worker '%s' is incompatible with this version of "
 			     "libappstream-compose (worker version: %s, expected: %s).",
-			     worker_bin,
+			     priv->worker_path,
 			     program_version ? program_version : "unknown",
 			     PACKAGE_VERSION);
 		asc_media_shutdown_worker (media, TRUE);
@@ -777,7 +766,7 @@ asc_media_spawn_worker (AscMedia *media, GError **error)
 		return FALSE;
 	}
 
-	g_debug ("Media worker started: %s", worker_bin);
+	g_debug ("Media worker started: %s", priv->worker_path);
 	return TRUE;
 }
 

@@ -202,7 +202,7 @@ test_media_process_image (void)
 	g_assert_no_error (error);
 	img_bytes = g_bytes_new_take (g_steal_pointer (&data), data_len);
 
-	out_dir = asx_build_workdir_path ("asc-media-image-test");
+	out_dir = asx_build_workdir_path ("media-image-test");
 	g_assert_cmpint (g_mkdir_with_parents (out_dir, 0755), ==, 0);
 
 	/* read the image dimensions without storing any rendition */
@@ -277,8 +277,6 @@ test_media_process_image (void)
 		g_autofree gchar *check_fname = g_build_filename (out_dir, "too-big.png", NULL);
 		g_assert_false (g_file_test (check_fname, G_FILE_TEST_EXISTS));
 	}
-
-	as_utils_delete_dir_recursive (out_dir);
 }
 
 /**
@@ -326,7 +324,7 @@ test_media_font (void)
 	g_assert_nonnull (finfo->languages);
 	g_assert_true (g_strv_contains ((const gchar *const *) finfo->languages, "en"));
 
-	out_dir = asx_build_workdir_path ("asc-media-font-test");
+	out_dir = asx_build_workdir_path ("media-font-test");
 	g_assert_cmpint (g_mkdir_with_parents (out_dir, 0755), ==, 0);
 
 	/* render a font specimen card */
@@ -381,8 +379,6 @@ test_media_font (void)
 		g_autofree gchar *check_fname = g_build_filename (out_dir, "icon.png", NULL);
 		g_assert_true (g_file_test (check_fname, G_FILE_TEST_EXISTS));
 	}
-
-	as_utils_delete_dir_recursive (out_dir);
 }
 
 /**
@@ -885,9 +881,8 @@ test_compose_directory_unit_escape (void)
 
 	/* create a "secret" file right next to, but outside of, the unit root, as well
 	 * as a sibling directory of the root whose name has the root's name as prefix */
-	tmp_root = g_dir_make_tmp ("as-compose-escape-XXXXXX", &error);
-	g_assert_no_error (error);
-	g_assert_nonnull (tmp_root);
+	tmp_root = asx_build_workdir_path ("escape");
+	g_assert_cmpint (g_mkdir_with_parents (tmp_root, 0755), ==, 0);
 	asx_test_make_file (tmp_root, "secret.txt", "TOP SECRET");
 	secret_fname = g_build_filename (tmp_root, "secret.txt", NULL);
 
@@ -997,8 +992,6 @@ test_compose_directory_unit_escape (void)
 	g_assert_false (ret);
 	g_clear_error (&error);
 	g_assert_cmpint (asc_unit_get_contents (ASC_UNIT (escape_dirunit))->len, ==, 0);
-
-	g_assert_true (as_utils_delete_dir_recursive (tmp_root));
 }
 
 /**
@@ -1177,7 +1170,7 @@ test_compose_font (void)
 	g_autoptr(AscIconPolicy) icon_policy = NULL;
 	g_autoptr(AscMedia) media = asc_media_new ();
 	g_autoptr(AscDirectoryUnit) dirunit = asc_directory_unit_new (datadir);
-	g_autofree gchar *export_tmpdir = asx_build_workdir_path ("asc-font-export");
+	g_autofree gchar *export_tmpdir = asx_build_workdir_path ("font-export");
 
 	/* cleanup */
 	if (g_file_test (export_tmpdir, G_FILE_TEST_EXISTS)) {

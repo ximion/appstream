@@ -157,7 +157,6 @@ if get_option('compose')
         include_directories: [root_inc_dir,
                               include_directories('../compose/worker')],
         c_args: ['-DASC_COMPILATION',
-                 '-DASW_COMPILATION',
                  '-DI_KNOW_THE_APPSTREAM_COMPOSE_API_IS_SUBJECT_TO_CHANGE'],
     )
     test ('as-test_compose-worker',
