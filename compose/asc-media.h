@@ -96,20 +96,6 @@ typedef enum {
 } AscImageSaveFlags;
 
 /**
- * AscImageLoadFlags:
- * @ASC_IMAGE_LOAD_FLAG_NONE:			No special flags set
- * @ASC_IMAGE_LOAD_FLAG_ALLOW_UNSUPPORTED:	Allow loading of unsupported image types.
- *
- * The flags used for loading images.
- *
- * Since: 0.14.0
- **/
-typedef enum {
-	ASC_IMAGE_LOAD_FLAG_NONE	      = 0,
-	ASC_IMAGE_LOAD_FLAG_ALLOW_UNSUPPORTED = 1 << 0,
-} AscImageLoadFlags;
-
-/**
  * AscImageFormat:
  * @ASC_IMAGE_FORMAT_UNKNOWN:	Unknown image format.
  * @ASC_IMAGE_FORMAT_PNG:	PNG format
@@ -160,11 +146,8 @@ GBytes *asc_image_source_get_data (AscImageSource *source);
 void	asc_image_source_get_render_size (AscImageSource *source, gint *width, gint *height);
 void	asc_image_source_set_render_size (AscImageSource *source, gint width, gint height);
 
-AscImageLoadFlags asc_image_source_get_load_flags (AscImageSource *source);
-void		  asc_image_source_set_load_flags (AscImageSource *source, AscImageLoadFlags flags);
-
-gint		  asc_image_source_get_width (AscImageSource *source);
-gint		  asc_image_source_get_height (AscImageSource *source);
+gint	asc_image_source_get_width (AscImageSource *source);
+gint	asc_image_source_get_height (AscImageSource *source);
 
 typedef struct _AscImageTarget AscImageTarget;
 

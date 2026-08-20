@@ -582,22 +582,17 @@ asw_image_normalize_and_store (AswImage *image, VipsImage *vimg_raw, GError **er
  * @fname: Name of the file to load.
  * @render_width: The width to rasterize vector graphics at, or 0 for their native size
  * @render_height: The height to rasterize vector graphics at, or 0 for their native size
- * @flags: a #AscImageLoadFlags, e.g. %ASC_IMAGE_LOAD_FLAG_NONE
  * @error: A #GError or %NULL
  *
  * Creates a new #AswImage from a file on the filesystem.
  **/
 AswImage *
-asw_image_new_from_file (const gchar *fname,
-			 gint render_width,
-			 gint render_height,
-			 AscImageLoadFlags flags,
-			 GError **error)
+asw_image_new_from_file (const gchar *fname, gint render_width, gint render_height, GError **error)
 {
 	gboolean ret;
 	g_autoptr(AswImage) image = asw_image_new ();
 
-	ret = asw_image_load_filename (image, fname, render_width, render_height, flags, error);
+	ret = asw_image_load_filename (image, fname, render_width, render_height, error);
 	if (!ret)
 		return NULL;
 	return g_steal_pointer (&image);
@@ -661,20 +656,41 @@ asw_image_gunzip_bytes (const void *data, gssize len, GError **error)
 }
 
 /**
- * asw_image_data_is_vector:
+ * asw_image_check_data_format:
  *
- * Check whether the given (already decompressed) image data is a vector
- * graphic, and can therefore be rasterized at any resolution we like.
+ * Determine the format of the given (already decompressed) image data, and
+ * reject anything we do not want to read.
+ *
+ * The set of readable formats is enforced by the loader block list that
+ * asw_image_backend_init() installs, so this can not widen what libvips
+ * accepts - it only lets us name the format we are turning down, instead of
+ * leaving the caller with a generic "not in a known format".
+ *
+ * Returns: The detected format, or %ASC_IMAGE_FORMAT_UNKNOWN on error.
  */
-static gboolean
-asw_image_data_is_vector (const void *data, gssize len)
+static AscImageFormat
+asw_image_check_data_format (const void *data, gssize len, GError **error)
 {
 	const gchar *loader_name = vips_foreign_find_load_buffer (data, (size_t) len);
+	AscImageFormat format;
+
 	if (loader_name == NULL) {
 		vips_error_clear ();
-		return FALSE;
+		g_set_error_literal (error,
+				     ASC_MEDIA_ERROR,
+				     ASC_MEDIA_ERROR_UNSUPPORTED,
+				     "Image format was not recognized");
+		return ASC_IMAGE_FORMAT_UNKNOWN;
 	}
-	return asw_image_format_from_vips_loader (loader_name) == ASC_IMAGE_FORMAT_SVG;
+
+	format = asw_image_format_from_vips_loader (loader_name);
+	if (format == ASC_IMAGE_FORMAT_UNKNOWN)
+		g_set_error (error,
+			     ASC_MEDIA_ERROR,
+			     ASC_MEDIA_ERROR_UNSUPPORTED,
+			     "Image format %s is not supported",
+			     loader_name);
+	return format;
 }
 
 /**
@@ -683,7 +699,6 @@ asw_image_data_is_vector (const void *data, gssize len)
  * @len: Length of the data to load.
  * @render_width: The width to rasterize vector graphics at, or 0 for their native size
  * @render_height: The height to rasterize vector graphics at, or 0 for their native size
- * @flags: a #AscImageLoadFlags, e.g. %ASC_IMAGE_LOAD_FLAG_NONE
  * @error: A #GError or %NULL
  *
  * Creates a new #AswImage from data in memory.
@@ -698,12 +713,12 @@ asw_image_new_from_data (const void *data,
 			 gssize len,
 			 gint render_width,
 			 gint render_height,
-			 AscImageLoadFlags flags,
 			 GError **error)
 {
 	g_autoptr(VipsImage) vimg = NULL;
 	g_autoptr(AswImage) image = asw_image_new ();
 	g_autoptr(GBytes) gunzipped = NULL;
+	AscImageFormat format;
 
 	/* transparently handle gzip-compressed data (SVGZ) */
 	if (len > 2 && ((const guint8 *) data)[0] == 0x1f && ((const guint8 *) data)[1] == 0x8b) {
@@ -714,7 +729,12 @@ asw_image_new_from_data (const void *data,
 		len = (gssize) g_bytes_get_size (gunzipped);
 	}
 
-	if ((render_width > 0 || render_height > 0) && asw_image_data_is_vector (data, len)) {
+	format = asw_image_check_data_format (data, len, error);
+	if (format == ASC_IMAGE_FORMAT_UNKNOWN)
+		return NULL;
+
+	/* vector graphics can be rasterized at whatever resolution we ask for */
+	if (format == ASC_IMAGE_FORMAT_SVG && (render_width > 0 || render_height > 0)) {
 		gint tmp_width = render_width > 0 ? render_width : render_height;
 		gint tmp_height = render_height > 0 ? render_height : render_width;
 
@@ -761,7 +781,6 @@ asw_image_new_from_data (const void *data,
  * @filename: filename to read from
  * @render_width: The width to rasterize vector graphics at, or 0 for their native size
  * @render_height: The height to rasterize vector graphics at, or 0 for their native size
- * @flags: a #AscImageLoadFlags, e.g. %ASC_IMAGE_LOAD_FLAG_NONE
  * @error: A #GError or %NULL.
  *
  * Reads an image from a file.
@@ -776,35 +795,33 @@ asw_image_load_filename (AswImage *image,
 			 const gchar *filename,
 			 gint render_width,
 			 gint render_height,
-			 AscImageLoadFlags flags,
 			 GError **error)
 {
 	g_autoptr(VipsImage) vimg_src = NULL;
+	const gchar *loader_name = NULL;
 	gboolean is_svg = FALSE;
 
 	g_return_val_if_fail (ASW_IS_IMAGE (image), FALSE);
 
 	is_svg = g_str_has_suffix (filename, ".svg") || g_str_has_suffix (filename, ".svgz");
 
-	/* only support allowed types, unless support for any image is explicitly requested */
-	if (!as_flags_contains (flags, ASC_IMAGE_LOAD_FLAG_ALLOW_UNSUPPORTED)) {
-		const gchar *loader_name = vips_foreign_find_load (filename);
-		if (loader_name == NULL) {
-			vips_error_clear ();
-			g_set_error_literal (error,
-					     ASC_MEDIA_ERROR,
-					     ASC_MEDIA_ERROR_UNSUPPORTED,
-					     "Image format was not recognized");
-			return FALSE;
-		}
-		if (asw_image_format_from_vips_loader (loader_name) == ASC_IMAGE_FORMAT_UNKNOWN) {
-			g_set_error (error,
+	/* only read the formats we actually want to support */
+	loader_name = vips_foreign_find_load (filename);
+	if (loader_name == NULL) {
+		vips_error_clear ();
+		g_set_error_literal (error,
 				     ASC_MEDIA_ERROR,
 				     ASC_MEDIA_ERROR_UNSUPPORTED,
-				     "Image format %s is not supported",
-				     loader_name);
-			return FALSE;
-		}
+				     "Image format was not recognized");
+		return FALSE;
+	}
+	if (asw_image_format_from_vips_loader (loader_name) == ASC_IMAGE_FORMAT_UNKNOWN) {
+		g_set_error (error,
+			     ASC_MEDIA_ERROR,
+			     ASC_MEDIA_ERROR_UNSUPPORTED,
+			     "Image format %s is not supported",
+			     loader_name);
+		return FALSE;
 	}
 
 	/* open the file at its native size, but rasterize vector graphics at the

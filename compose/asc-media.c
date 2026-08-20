@@ -231,7 +231,6 @@ struct _AscImageSource {
 	GBytes *data;
 	gint render_width;
 	gint render_height;
-	AscImageLoadFlags load_flags;
 
 	/* result fields, set by the media operation */
 	gint width;
@@ -360,39 +359,6 @@ asc_image_source_set_render_size (AscImageSource *source, gint width, gint heigh
 	g_return_if_fail (source != NULL);
 	source->render_width = width;
 	source->render_height = height;
-}
-
-/**
- * asc_image_source_get_load_flags:
- * @source: an #AscImageSource
- *
- * Get the flags used when loading this image.
- *
- * Returns: the #AscImageLoadFlags in use.
- *
- * Since: 1.2.0
- */
-AscImageLoadFlags
-asc_image_source_get_load_flags (AscImageSource *source)
-{
-	g_return_val_if_fail (source != NULL, ASC_IMAGE_LOAD_FLAG_NONE);
-	return source->load_flags;
-}
-
-/**
- * asc_image_source_set_load_flags:
- * @source: an #AscImageSource
- * @flags: the #AscImageLoadFlags to use.
- *
- * Set the flags used when loading this image.
- *
- * Since: 1.2.0
- */
-void
-asc_image_source_set_load_flags (AscImageSource *source, AscImageLoadFlags flags)
-{
-	g_return_if_fail (source != NULL);
-	source->load_flags = flags;
 }
 
 /**
@@ -1664,10 +1630,6 @@ asc_media_process_image (AscMedia *media,
 			       "{sv}",
 			       "load-height",
 			       g_variant_new_int32 (source->render_height));
-	g_variant_builder_add (&pb,
-			       "{sv}",
-			       "load-flags",
-			       g_variant_new_uint32 (source->load_flags));
 
 	if (have_targets) {
 		GVariantBuilder targets_builder;

@@ -471,7 +471,6 @@ asw_worker_handle_process_image (AswWorker *worker,
 	GVariantBuilder results_builder;
 	gint load_width = 0;
 	gint load_height = 0;
-	guint32 load_flags = 0;
 	gint src_width, src_height;
 	gint image_fd = -1;
 	gint dir_fd = -1;
@@ -486,7 +485,6 @@ asw_worker_handle_process_image (AswWorker *worker,
 
 	g_variant_lookup (params, "load-width", "i", &load_width);
 	g_variant_lookup (params, "load-height", "i", &load_height);
-	g_variant_lookup (params, "load-flags", "u", &load_flags);
 
 	targets = g_variant_lookup_value (params, "targets", G_VARIANT_TYPE ("aa{sv}"));
 	if (targets != NULL && g_variant_n_children (targets) > 0) {
@@ -503,7 +501,6 @@ asw_worker_handle_process_image (AswWorker *worker,
 					 g_bytes_get_size (img_bytes),
 					 load_width,
 					 load_height,
-					 (AscImageLoadFlags) load_flags,
 					 error);
 	if (image == NULL) {
 		if (dir_fd >= 0) {
