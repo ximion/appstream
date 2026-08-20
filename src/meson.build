@@ -230,7 +230,7 @@ appstream_dep = declare_dependency(
     sources: [
         aslib_pub_headers,
         aslib_gir_headers,
-        aslib_pub_enums
+        aslib_pub_enums[1],  # enum headers only
     ],
     dependencies: [glib_dep,
                    gobject_dep],

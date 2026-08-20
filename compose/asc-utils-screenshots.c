@@ -38,7 +38,7 @@
 #include "asc-utils.h"
 #include "asc-media-private.h"
 
-struct {
+static const struct {
 	gint width;
 	gint height;
 } target_screenshot_sizes[] = {

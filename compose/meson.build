@@ -61,7 +61,7 @@ appstream_compose_lib = library ('appstream-compose',
      ascompose_pub_headers,
      ascompose_priv_headers,
      ascompose_pub_enums],
-    soversion: '0',
+    soversion: asc_api_level,
     version: as_version,
     dependencies: [
         appstream_dep,
@@ -97,7 +97,7 @@ appstream_compose_dep = declare_dependency(
     link_with: appstream_compose_lib,
     sources: [
         ascompose_pub_headers,
-        ascompose_pub_enums
+        ascompose_pub_enums[1],  # enum headers only
     ],
     dependencies: [
         appstream_dep,

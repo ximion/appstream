@@ -31,7 +31,7 @@
 #include "asc-globals.h"
 #include "asc-media-private.h"
 
-struct {
+static const struct {
 	gint width;
 	gint height;
 } font_screenshot_sizes[] = {
