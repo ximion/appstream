@@ -2428,7 +2428,9 @@ asc_compose_run (AscCompose *compose, GCancellable *cancellable, GError **error)
 		/* Bound the pool, so we don't use too many parallel resources for media processing,
 		 * and also limit how much media we fetch over the network in parallel. */
 		max_threads = CLAMP (tasks->len, 1, MAX (g_get_num_processors () - 1, 1));
-		g_debug ("Processing %u unit(s) using up to %u thread(s).", tasks->len, max_threads);
+		g_debug ("Processing %u unit(s) using up to %u thread(s).",
+			 tasks->len,
+			 max_threads);
 
 		tpool = g_thread_pool_new ((GFunc) asc_compose_process_task_cb,
 					   compose,

@@ -86,6 +86,11 @@ static const AswImageSaverOptions asw_lossless_saver_options = {
 G_DEFINE_TYPE_WITH_PRIVATE (AswImage, asw_image, G_TYPE_OBJECT)
 #define GET_PRIVATE(o) (asw_image_get_instance_private (o))
 
+/* how much data we are willing to inflate a compressed image (SVGZ) into.
+ * vector graphics are text, so they compress very well, but a legitimate icon
+ * will never come anywhere close to this */
+#define ASW_IMAGE_MAX_GUNZIP_SIZE_BYTES (64 * 1024 * 1024)
+
 /**
  * asw_image_format_from_vips_loader:
  *
@@ -646,6 +651,63 @@ asw_image_new_from_file (const gchar *fname,
 }
 
 /**
+ * asw_image_gunzip_bytes:
+ *
+ * Decompress gzip-compressed image data (in other words: SVGZ).
+ *
+ * VIPS does recognize gzipped SVG in a buffer, but only inflates about a kilobyte of it
+ * in order to look for the SVG header. Vector graphics written by some tools carry a much
+ * larger comment/doctype preamble than that, and would be rejected as an unknown format,
+ * so we do the decompression ourselves to give VIPS something it can always identify.
+ *
+ * Returns: (transfer full): The decompressed data, or %NULL on error.
+ **/
+static GBytes *
+asw_image_gunzip_bytes (const void *data, gssize len, GError **error)
+{
+	g_autoptr(GConverter) decomp = NULL;
+	g_autoptr(GInputStream) mem_stream = NULL;
+	g_autoptr(GInputStream) conv_stream = NULL;
+	g_autoptr(GOutputStream) out_stream = NULL;
+
+	gsize total_read = 0;
+
+	decomp = G_CONVERTER (g_zlib_decompressor_new (G_ZLIB_COMPRESSOR_FORMAT_GZIP));
+	mem_stream = g_memory_input_stream_new_from_data (data, len, NULL);
+	conv_stream = g_converter_input_stream_new (mem_stream, decomp);
+	out_stream = g_memory_output_stream_new_resizable ();
+
+	/* the data we handle here is untrusted, so we inflate it in chunks and give up as
+	 * soon as the result grows out of proportion, rather than decompressing a bomb first
+	 * and checking its size afterwards */
+	while (TRUE) {
+		guint8 buf[8192];
+		gssize n_read = g_input_stream_read (conv_stream, buf, sizeof (buf), NULL, error);
+		if (n_read < 0)
+			return NULL;
+		if (n_read == 0)
+			break;
+
+		total_read += (gsize) n_read;
+		if (total_read > ASW_IMAGE_MAX_GUNZIP_SIZE_BYTES) {
+			g_set_error_literal (
+			    error,
+			    ASC_MEDIA_ERROR,
+			    ASC_MEDIA_ERROR_UNSUPPORTED,
+			    "Refusing to process compressed image data that is too large.");
+			return NULL;
+		}
+
+		if (!g_output_stream_write_all (out_stream, buf, n_read, NULL, NULL, error))
+			return NULL;
+	}
+
+	if (!g_output_stream_close (out_stream, NULL, error))
+		return NULL;
+	return g_memory_output_stream_steal_as_bytes (G_MEMORY_OUTPUT_STREAM (out_stream));
+}
+
+/**
  * asw_image_new_from_data:
  * @data: Data to load.
  * @len: Length of the data to load.
@@ -667,6 +729,16 @@ asw_image_new_from_data (const void *data,
 {
 	g_autoptr(VipsImage) vimg = NULL;
 	g_autoptr(AswImage) image = asw_image_new ();
+	g_autoptr(GBytes) gunzipped = NULL;
+
+	/* transparently handle gzip-compressed data (SVGZ) */
+	if (len > 2 && ((const guint8 *) data)[0] == 0x1f && ((const guint8 *) data)[1] == 0x8b) {
+		gunzipped = asw_image_gunzip_bytes (data, len, error);
+		if (gunzipped == NULL)
+			return NULL;
+		data = g_bytes_get_data (gunzipped, NULL);
+		len = (gssize) g_bytes_get_size (gunzipped);
+	}
 
 	if (dest_width <= 0 && dest_height <= 0) {
 		g_autoptr(VipsImage) vimg_norm = NULL;
