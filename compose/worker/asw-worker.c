@@ -766,6 +766,7 @@ asw_worker_handle_render_font (AswWorker *worker,
 		g_autofree gchar *target_path = NULL;
 		GVariantBuilder rb;
 		const gchar *name = NULL;
+		AscImageFormat format;
 		gint width = 0;
 		gint height = 0;
 		gint actual_width = 0;
@@ -783,6 +784,17 @@ asw_worker_handle_render_font (AswWorker *worker,
 			g_variant_builder_add_value (&results_builder, g_variant_builder_end (&rb));
 			continue;
 		}
+
+		/* the requested output format is implied by the target filename */
+		format = asc_image_format_from_filename (name);
+		if (format == ASC_IMAGE_FORMAT_UNKNOWN) {
+			g_autofree gchar *msg = g_strdup_printf (
+			    "Unable to determine the image format to render '%s' as.",
+			    name);
+			g_variant_builder_add (&rb, "{sv}", "error", g_variant_new_string (msg));
+			g_variant_builder_add_value (&results_builder, g_variant_builder_end (&rb));
+			continue;
+		}
 		target_path = asw_worker_build_target_path (dir_fd, name);
 
 		g_variant_lookup (entry, "width", "i", &width);
@@ -792,6 +804,7 @@ asw_worker_handle_render_font (AswWorker *worker,
 			/* font icons are always square, so the width is our canvas size */
 			rendered = asw_font_render_icon_to_file (font,
 								 target_path,
+								 format,
 								 width,
 								 &actual_width,
 								 &actual_height,
@@ -799,6 +812,7 @@ asw_worker_handle_render_font (AswWorker *worker,
 		} else {
 			rendered = asw_font_render_card_to_file (font,
 								 target_path,
+								 format,
 								 width,
 								 height,
 								 info_label,

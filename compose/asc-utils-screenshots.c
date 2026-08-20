@@ -382,6 +382,7 @@ asc_process_screenshot_images_lang (AscResult *cres,
 				    const gchar *scr_export_dir,
 				    const gchar *scr_base_url,
 				    const gssize max_size_bytes,
+				    AscImageFormat img_format,
 				    gboolean store_screenshots,
 				    guint scr_no)
 {
@@ -518,12 +519,17 @@ asc_process_screenshot_images_lang (AscResult *cres,
 		gint src_height = 0;
 
 		if (g_strcmp0 (locale, "C") == 0)
-			src_img_name = g_strdup_printf ("image-%i_orig.png", scr_no);
+			src_img_name = g_strdup_printf ("image-%i_orig.%s",
+							scr_no,
+							asc_image_format_to_string (img_format));
 		else
-			src_img_name = g_strdup_printf ("image-%i_%s_orig.png", scr_no, locale);
+			src_img_name = g_strdup_printf ("image-%i_%s_orig.%s",
+							scr_no,
+							locale,
+							asc_image_format_to_string (img_format));
 		src_img_url = g_build_filename (scr_base_url, src_img_name, NULL);
 
-		/* save the source screenshot as PNG image, via the media worker */
+		/* save the source screenshot image, via the media worker */
 		img_targets = g_ptr_array_new_with_free_func (
 		    (GDestroyNotify) asc_image_target_free);
 		src_target = asc_image_target_new (src_img_name, ASC_IMAGE_SCALE_MODE_NONE, 0, 0);
@@ -609,18 +615,22 @@ asc_process_screenshot_images_lang (AscResult *cres,
 
 			/* create thumbnail storage name */
 			if (g_strcmp0 (locale, "C") == 0)
-				thumb_img_name = g_strdup_printf ("image-%i_%ix%i@%i.png",
-								  scr_no,
-								  thumb_width,
-								  thumb_height,
-								  1);
+				thumb_img_name = g_strdup_printf (
+				    "image-%i_%ix%i@%i.%s",
+				    scr_no,
+				    thumb_width,
+				    thumb_height,
+				    1,
+				    asc_image_format_to_string (img_format));
 			else
-				thumb_img_name = g_strdup_printf ("image-%i_%ix%i@%i_%s.png",
-								  scr_no,
-								  thumb_width,
-								  thumb_height,
-								  1,
-								  locale);
+				thumb_img_name = g_strdup_printf (
+				    "image-%i_%ix%i@%i_%s.%s",
+				    scr_no,
+				    thumb_width,
+				    thumb_height,
+				    1,
+				    locale,
+				    asc_image_format_to_string (img_format));
 
 			target = asc_image_target_new (thumb_img_name,
 						       target_width > target_height
@@ -716,6 +726,7 @@ asc_process_screenshot_images (AscResult *cres,
 			       const gchar *scr_export_dir,
 			       const gchar *scr_base_url,
 			       const gssize max_size_bytes,
+			       AscImageFormat img_format,
 			       gboolean store_screenshots,
 			       guint scr_no)
 {
@@ -765,6 +776,7 @@ asc_process_screenshot_images (AscResult *cres,
 							 scr_export_dir,
 							 scr_base_url,
 							 max_size_bytes,
+							 img_format,
 							 store_screenshots,
 							 scr_no))
 			return NULL;
@@ -785,6 +797,7 @@ asc_process_screenshots (AscResult *cres,
 			 const gchar *media_export_root,
 			 const gchar *media_url_prefix,
 			 const gssize max_size_bytes,
+			 AscImageFormat img_format,
 			 gboolean process_videos,
 			 gboolean store_screenshots)
 {
@@ -857,6 +870,7 @@ asc_process_screenshots (AscResult *cres,
 								 scr_export_dir,
 								 scr_base_url,
 								 max_size_bytes,
+								 img_format,
 								 store_screenshots,
 								 i + 1);
 		}

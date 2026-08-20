@@ -37,6 +37,7 @@
 
 #include "asc-globals.h"
 #include "asw-canvas.h"
+#include "asw-image.h"
 #include "asw-resources.h"
 
 /* Fontconfig is not threadsafe, so we use this mutex to guard any section
@@ -910,7 +911,8 @@ asw_font_set_sample_icon_text (AswFont *font, const gchar *text)
 /**
  * asw_font_render_card_to_file:
  * @font: an #AswFont instance.
- * @png_fname: Filename of the resulting PNG image.
+ * @fname: Filename of the resulting image.
+ * @format: Format of the resulting image, e.g. %ASC_IMAGE_FORMAT_JXL
  * @width: Requested card width.
  * @height: Requested card height.
  * @info_label: Short info label for the font, or %NULL for the default.
@@ -918,7 +920,7 @@ asw_font_set_sample_icon_text (AswFont *font, const gchar *text)
  * @actual_height: (out) (optional): Actual height of the rendered card.
  * @error: A #GError or %NULL
  *
- * Render a font specimen card for the given font and save it as PNG image.
+ * Render a font specimen card for the given font and save it as image.
  * The card render may adjust the canvas height, so the actual dimensions
  * are returned and must be used by the caller.
  *
@@ -926,7 +928,8 @@ asw_font_set_sample_icon_text (AswFont *font, const gchar *text)
  **/
 gboolean
 asw_font_render_card_to_file (AswFont *font,
-			      const gchar *png_fname,
+			      const gchar *fname,
+			      AscImageFormat format,
 			      gint width,
 			      gint height,
 			      const gchar *info_label,
@@ -952,7 +955,8 @@ asw_font_render_card_to_file (AswFont *font,
 					error))
 		return FALSE;
 
-	if (!asw_canvas_save_png (cv, png_fname, error))
+	/* specimen cards use lossy encoding (they are used like screenshots) */
+	if (!asw_canvas_save_to_file (cv, fname, format, FALSE /* lossy */, error))
 		return FALSE;
 
 	if (actual_width != NULL)
@@ -965,7 +969,8 @@ asw_font_render_card_to_file (AswFont *font,
 /**
  * asw_font_render_icon_to_file:
  * @font: an #AswFont instance.
- * @png_fname: Filename of the resulting PNG image.
+ * @fname: Filename of the resulting image.
+ * @format: Format of the resulting image, e.g. %ASC_IMAGE_FORMAT_JXL
  * @size: Icon canvas size in pixels (width and height).
  * @actual_width: (out) (optional): Actual width of the rendered icon.
  * @actual_height: (out) (optional): Actual height of the rendered icon.
@@ -973,13 +978,14 @@ asw_font_render_card_to_file (AswFont *font,
  *
  * Render an icon for the given font, consisting of a background shape
  * (deterministically selected based on the font ID) with the font's
- * sample icon text drawn on top, and save it as PNG image.
+ * sample icon text drawn on top, and save it as image.
  *
  * Returns: %TRUE on success.
  **/
 gboolean
 asw_font_render_icon_to_file (AswFont *font,
-			      const gchar *png_fname,
+			      const gchar *fname,
+			      AscImageFormat format,
 			      gint size,
 			      gint *actual_width,
 			      gint *actual_height,
@@ -1030,7 +1036,8 @@ asw_font_render_icon_to_file (AswFont *font,
 					error))
 		return FALSE;
 
-	if (!asw_canvas_save_png (cv, png_fname, error))
+	/* save losslessly as an icon */
+	if (!asw_canvas_save_to_file (cv, fname, format, TRUE /* lossless */, error))
 		return FALSE;
 
 	if (actual_width != NULL)

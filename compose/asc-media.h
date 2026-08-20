@@ -74,6 +74,7 @@ typedef enum {
 /**
  * AscImageSaveFlags:
  * @ASC_IMAGE_SAVE_FLAG_NONE:		No special flags set
+ * @ASC_IMAGE_SAVE_FLAG_LOSSLESS:	Encode the image losslessly
  * @ASC_IMAGE_SAVE_FLAG_OPTIMIZE:	Optimize generated PNG for size
  * @ASC_IMAGE_SAVE_FLAG_PAD_16_9:	Pad with alpha to 16:9 aspect
  * @ASC_IMAGE_SAVE_FLAG_SHARPEN:	Sharpen the image to clarify detail
@@ -83,10 +84,11 @@ typedef enum {
  **/
 typedef enum {
 	ASC_IMAGE_SAVE_FLAG_NONE     = 0,
-	ASC_IMAGE_SAVE_FLAG_OPTIMIZE = 1 << 0,
-	ASC_IMAGE_SAVE_FLAG_PAD_16_9 = 1 << 1,
-	ASC_IMAGE_SAVE_FLAG_SHARPEN  = 1 << 2,
-	ASC_IMAGE_SAVE_FLAG_BLUR     = 1 << 3,
+	ASC_IMAGE_SAVE_FLAG_LOSSLESS = 1 << 0,
+	ASC_IMAGE_SAVE_FLAG_OPTIMIZE = 1 << 1,
+	ASC_IMAGE_SAVE_FLAG_PAD_16_9 = 1 << 2,
+	ASC_IMAGE_SAVE_FLAG_SHARPEN  = 1 << 3,
+	ASC_IMAGE_SAVE_FLAG_BLUR     = 1 << 4,
 	/*< private >*/
 	ASC_IMAGE_SAVE_FLAG_LAST
 } AscImageSaveFlags;

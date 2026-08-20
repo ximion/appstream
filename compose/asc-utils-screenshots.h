@@ -55,14 +55,15 @@ AscVideoInfo *asc_extract_video_info (AscResult	  *cres,
 AS_INTERNAL_VISIBLE
 void asc_video_info_free (AscVideoInfo *vinfo);
 
-void asc_process_screenshots (AscResult	  *cres,
-			      AsComponent *cpt,
-			      AsCurl	  *acurl,
-			      AscMedia	  *media,
-			      const gchar *media_export_root,
-			      const gchar *media_url_prefix,
-			      const gssize max_size_bytes,
-			      gboolean	   process_videos,
-			      gboolean	   store_screenshots);
+void asc_process_screenshots (AscResult	    *cres,
+			      AsComponent   *cpt,
+			      AsCurl	    *acurl,
+			      AscMedia	    *media,
+			      const gchar   *media_export_root,
+			      const gchar   *media_url_prefix,
+			      const gssize   max_size_bytes,
+			      AscImageFormat img_format,
+			      gboolean	     process_videos,
+			      gboolean	     store_screenshots);
 
 AS_END_PRIVATE_DECLS

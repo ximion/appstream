@@ -71,9 +71,10 @@ static const AswImageSaverOptions asw_default_saver_options = {
 	.jxl_effort = 7,
 };
 
-/* Settings for small images like icons: lossless JPEG-XL, which for
- * icon-sized images is usually even smaller than lossy encoding. */
-static const AswImageSaverOptions asw_icon_saver_options = {
+/* Settings for images that must not lose any detail, primarily icons.
+ * Lossless JPEG-XL actually produces smaller sizes for icon-style images with
+ * their (compared to photos) simpler shapes and colors than its lossy profile does. */
+static const AswImageSaverOptions asw_lossless_saver_options = {
 	.png_compression = 9,
 	.png_palette = FALSE,
 	.png_effort = 4,
@@ -1102,6 +1103,43 @@ asw_image_save_vips_to_file (VipsImage *vimg,
 }
 
 /**
+ * asw_canvas_save_to_file:
+ * @canvas: The canvas to store.
+ * @filename: Filename to write to.
+ * @format: Target image format, e.g. %ASC_IMAGE_FORMAT_PNG
+ * @lossless: %TRUE to encode without any loss of detail.
+ * @error: A #GError or %NULL
+ *
+ * Saves a rendered canvas to a file in a specific format.
+ *
+ * Returns: %TRUE for success
+ **/
+gboolean
+asw_canvas_save_to_file (AswCanvas *canvas,
+			 const gchar *filename,
+			 AscImageFormat format,
+			 gboolean lossless,
+			 GError **error)
+{
+	g_autoptr(VipsImage) vimg = NULL;
+
+	if (format == ASC_IMAGE_FORMAT_PNG) {
+		/* we can just save that PNG directly */
+		return asw_canvas_save_png (canvas, filename, error);
+	}
+
+	vimg = asw_canvas_to_vips (canvas, error);
+	if (vimg == NULL)
+		return FALSE;
+	return asw_image_save_vips_to_file (vimg,
+					    filename,
+					    format,
+					    lossless ? &asw_lossless_saver_options
+						     : &asw_default_saver_options,
+					    error);
+}
+
+/**
  * asw_render_svg_to_file:
  * @stream: Input stream with SVG data.
  * @width: Target width.
@@ -1123,7 +1161,6 @@ asw_render_svg_to_file (GInputStream *stream,
 			GError **error)
 {
 	g_autoptr(AswCanvas) cv = NULL;
-	g_autoptr(VipsImage) vimg = NULL;
 
 	g_return_val_if_fail (width > 0 && height > 0, FALSE);
 
@@ -1146,16 +1183,8 @@ asw_render_svg_to_file (GInputStream *stream,
 	if (!asw_canvas_render_svg (cv, stream, error))
 		return FALSE;
 
-	if (format == ASC_IMAGE_FORMAT_PNG) {
-		/* we can just save that PNG directly */
-		return asw_canvas_save_png (cv, filename, error);
-	}
-
-	/* save to other formats - this renders icons, so use the icon encoder settings */
-	vimg = asw_canvas_to_vips (cv, error);
-	if (vimg == NULL)
-		return FALSE;
-	return asw_image_save_vips_to_file (vimg, filename, format, &asw_icon_saver_options, error);
+	/* this renders icons, so we always want a lossless result */
+	return asw_canvas_save_to_file (cv, filename, format, TRUE, error);
 }
 
 /**
@@ -1264,7 +1293,8 @@ asw_image_save_vips (AswImage *image,
  * @flags: some #AscImageSaveFlags values, e.g. %ASC_IMAGE_SAVE_FLAG_PAD_16_9
  * @error: A #GError or %NULL.
  *
- * Saves the image to a file.
+ * Saves the image to a file. The image format is determined by the
+ * extension of @filename, and only PNG and JPEG-XL are permitted.
  *
  * Returns: %TRUE for success
  **/
@@ -1277,15 +1307,33 @@ asw_image_save_filename (AswImage *image,
 			 GError **error)
 {
 	g_autoptr(VipsImage) vimg = NULL;
+	AscImageFormat format = asc_image_format_from_filename (filename);
+
+	if (format == ASC_IMAGE_FORMAT_UNKNOWN) {
+		g_set_error (error,
+			     ASC_MEDIA_ERROR,
+			     ASC_MEDIA_ERROR_UNSUPPORTED,
+			     "Unable to determine the image format to save '%s' as.",
+			     filename);
+		return FALSE;
+	}
 
 	/* save source file */
 	vimg = asw_image_save_vips (image, width, height, flags, error);
 	if (vimg == NULL)
 		return FALSE;
-	if (!asw_image_save_vips_to_file (vimg, filename, ASC_IMAGE_FORMAT_PNG, NULL, error))
+	if (!asw_image_save_vips_to_file (vimg,
+					  filename,
+					  format,
+					  as_flags_contains (flags, ASC_IMAGE_SAVE_FLAG_LOSSLESS)
+					      ? &asw_lossless_saver_options
+					      : &asw_default_saver_options,
+					  error))
 		return FALSE;
 
-	if (!as_flags_contains (flags, ASC_IMAGE_SAVE_FLAG_OPTIMIZE))
+	/* optipng only ever applies to PNG images */
+	if (format != ASC_IMAGE_FORMAT_PNG ||
+	    !as_flags_contains (flags, ASC_IMAGE_SAVE_FLAG_OPTIMIZE))
 		return TRUE;
 	return asw_optimize_png (filename, error);
 }

@@ -285,6 +285,36 @@ test_image_transform (void)
 
 	g_assert_cmpint (asw_image_get_width (image), ==, 64);
 	g_assert_cmpint (asw_image_get_height (image), ==, 64);
+
+	/* the save format is implied by the filename extension */
+	g_clear_pointer (&out_fname, g_free);
+	out_fname = asx_build_workdir_path ("asw-isave_test.jxl");
+	ret = asw_image_save_filename (image,
+				       out_fname,
+				       0,
+				       0,
+				       ASC_IMAGE_SAVE_FLAG_LOSSLESS,
+				       &error);
+	g_assert_no_error (error);
+	g_assert_true (ret);
+	g_assert_cmpint (asc_image_format_from_filename (out_fname), ==, ASC_IMAGE_FORMAT_JXL);
+
+	/* we can not save images in formats that we only know how to read */
+	g_clear_pointer (&out_fname, g_free);
+	out_fname = asx_build_workdir_path ("asw-isave_test.webp");
+	ret = asw_image_save_filename (image, out_fname, 0, 0, ASC_IMAGE_SAVE_FLAG_NONE, &error);
+	g_assert_error (error, ASC_MEDIA_ERROR, ASC_MEDIA_ERROR_UNSUPPORTED);
+	g_assert_false (ret);
+	g_clear_error (&error);
+
+	/* ...and we refuse to guess if the filename tells us nothing */
+	g_clear_pointer (&out_fname, g_free);
+	out_fname = asx_build_workdir_path ("asw-isave_test-noext");
+	ret = asw_image_save_filename (image, out_fname, 0, 0, ASC_IMAGE_SAVE_FLAG_NONE, &error);
+	g_assert_error (error, ASC_MEDIA_ERROR, ASC_MEDIA_ERROR_UNSUPPORTED);
+	g_assert_false (ret);
+	g_clear_error (&error);
+
 	g_clear_object (&image);
 }
 
@@ -436,6 +466,7 @@ test_render_font_files (void)
 	g_autofree gchar *font_fname = NULL;
 	g_autofree gchar *card_fname = NULL;
 	g_autofree gchar *icon_fname = NULL;
+	g_autofree gchar *jxl_icon_fname = NULL;
 	g_autoptr(AswFont) font = NULL;
 	g_autoptr(GError) error = NULL;
 	gint width = 0;
@@ -449,6 +480,7 @@ test_render_font_files (void)
 	card_fname = asx_build_workdir_path ("asw-font-card-hl.png");
 	ret = asw_font_render_card_to_file (font,
 					    card_fname,
+					    ASC_IMAGE_FORMAT_PNG,
 					    752,
 					    423,
 					    NULL, /* default info label */
@@ -462,12 +494,33 @@ test_render_font_files (void)
 	g_assert_true (g_file_test (card_fname, G_FILE_TEST_EXISTS));
 
 	icon_fname = asx_build_workdir_path ("asw-font-icon-hl.png");
-	ret = asw_font_render_icon_to_file (font, icon_fname, 64, &width, &height, &error);
+	ret = asw_font_render_icon_to_file (font,
+					    icon_fname,
+					    ASC_IMAGE_FORMAT_PNG,
+					    64,
+					    &width,
+					    &height,
+					    &error);
 	g_assert_no_error (error);
 	g_assert_true (ret);
 	g_assert_cmpint (width, ==, 64);
 	g_assert_cmpint (height, ==, 64);
 	g_assert_true (g_file_test (icon_fname, G_FILE_TEST_EXISTS));
+
+	/* render a font icon as JPEG-XL, which is the default format for compose runs */
+	jxl_icon_fname = asx_build_workdir_path ("asw-font-icon-hl.jxl");
+	ret = asw_font_render_icon_to_file (font,
+					    jxl_icon_fname,
+					    ASC_IMAGE_FORMAT_JXL,
+					    64,
+					    &width,
+					    &height,
+					    &error);
+	g_assert_no_error (error);
+	g_assert_true (ret);
+	g_assert_cmpint (width, ==, 64);
+	g_assert_cmpint (height, ==, 64);
+	g_assert_true (g_file_test (jxl_icon_fname, G_FILE_TEST_EXISTS));
 }
 
 int

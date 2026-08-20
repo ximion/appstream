@@ -182,6 +182,7 @@ main (int argc, char **argv)
 	g_autofree gchar *prefix = NULL;
 	g_autofree gchar *components_str = NULL;
 	g_autofree gchar *icon_policy_str = NULL;
+	g_autofree gchar *image_format_str = NULL;
 	g_autofree gchar *custom_keys_str = NULL;
 	gboolean no_partial_urls = FALSE;
 	g_autoptr(GError) error = NULL;
@@ -295,6 +296,13 @@ main (int argc, char **argv)
 		  /* TRANSLATORS: ascompose flag description for: --icon-policy */
 		  _("An icon-policy string to set how icon sizes should be handled (refer to the man page for details)."),
 		  "POLICY-STRING" },
+
+		{ "image-format",
+		  '\0', 0,
+		  G_OPTION_ARG_STRING, &image_format_str,
+		  /* TRANSLATORS: ascompose flag description for: --image-format */
+		  _("The file format that generated icons and screenshots are stored in (`jxl` by default, or `png` for compatibility with older clients)."),
+		  "FORMAT" },
 
 		{ "allow-custom",
 		  '\0', 0,
@@ -446,6 +454,19 @@ main (int argc, char **argv)
 			g_printerr ("%s: %s\n", _("Unable to set icon policy"), error->message);
 			return EXIT_FAILURE;
 		}
+	}
+
+	/* set the format that generated media is stored in */
+	if (image_format_str != NULL) {
+		AscImageFormat image_format = asc_image_format_from_string (image_format_str);
+		if (image_format != ASC_IMAGE_FORMAT_PNG && image_format != ASC_IMAGE_FORMAT_JXL) {
+			/* TRANSLATORS: The user selected an invalid image format for generated media, %s is the format name they used */
+			g_printerr (_("Invalid image format: %s. Only `jxl` and `png` are "
+				      "supported for generated media.\n"),
+				      image_format_str);
+			return EXIT_FAILURE;
+		}
+		asc_compose_set_image_format (compose, image_format);
 	}
 
 	/* allow custom keys in catalog output, if requested */

@@ -24,6 +24,7 @@
 #include <appstream.h>
 
 #include "asc-media.h"
+#include "asw-canvas.h"
 
 G_BEGIN_DECLS
 
@@ -68,6 +69,12 @@ void	    asw_image_scale (AswImage *image, gint new_width, gint new_height);
 void	    asw_image_scale_to_width (AswImage *image, gint new_width);
 void	    asw_image_scale_to_height (AswImage *image, gint new_height);
 void	    asw_image_scale_to_fit (AswImage *image, gint size);
+
+gboolean    asw_canvas_save_to_file (AswCanvas	   *canvas,
+				     const gchar   *filename,
+				     AscImageFormat format,
+				     gboolean	    lossless,
+				     GError	  **error);
 
 gboolean    asw_render_svg_to_file (GInputStream  *stream,
 				    gint	   width,

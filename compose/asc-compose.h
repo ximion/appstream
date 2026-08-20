@@ -29,6 +29,7 @@
 #include "asc-unit.h"
 #include "asc-result.h"
 #include "asc-icon-policy.h"
+#include "asc-media.h"
 
 G_BEGIN_DECLS
 
@@ -133,6 +134,9 @@ void		asc_compose_set_origin (AscCompose *compose, const gchar *origin);
 
 AsFormatKind	asc_compose_get_format (AscCompose *compose);
 void		asc_compose_set_format (AscCompose *compose, AsFormatKind kind);
+
+AscImageFormat	asc_compose_get_image_format (AscCompose *compose);
+void		asc_compose_set_image_format (AscCompose *compose, AscImageFormat format);
 
 const gchar    *asc_compose_get_media_baseurl (AscCompose *compose);
 void		asc_compose_set_media_baseurl (AscCompose *compose, const gchar *url);

@@ -206,6 +206,26 @@
 			</varlistentry>
 
 			<varlistentry>
+				<term><option>--image-format <replaceable>FORMAT</replaceable></option></term>
+				<listitem>
+					<para>
+						Set the file format that generated icons and screenshots are stored in.
+						Only <literal>jxl</literal> and <literal>png</literal> are permitted here,
+						with <literal>jxl</literal> being the default.
+					</para>
+					<para>
+						JPEG-XL (jxl) yields considerably smaller files than PNG for the same visual quality,
+						but can not be displayed by older AppStream clients. Select <literal>png</literal>
+						if the generated metadata needs to be consumed by software that predates JPEG-XL support.
+					</para>
+					<para>
+						Icons are always stored losslessly, while screenshots are encoded with a
+						sensible quality/size balance.
+					</para>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
 				<term><option>--allow-custom <replaceable>CUSTOM-KEY-NAMES</replaceable></option></term>
 				<listitem>
 					<para>

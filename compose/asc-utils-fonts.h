@@ -39,6 +39,7 @@ void asc_process_fonts (AscResult      *cres,
 			const gchar    *media_export_root,
 			const gchar    *icons_export_dir,
 			AscIconPolicy  *icon_policy,
+			AscImageFormat	img_format,
 			AscComposeFlags flags);
 
 AS_END_PRIVATE_DECLS

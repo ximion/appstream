@@ -95,6 +95,7 @@ asc_render_font_screenshots (AscResult *cres,
 			     AscMedia *media,
 			     const gchar *cpt_screenshots_path,
 			     AsComponent *cpt,
+			     AscImageFormat img_format,
 			     const gchar *preferred_lang,
 			     const gchar *const *extra_langs)
 {
@@ -145,9 +146,10 @@ asc_render_font_screenshots (AscResult *cres,
 		for (guint j = 0; font_screenshot_sizes[j].width > 0; j++) {
 			g_autofree gchar *img_name = NULL;
 
-			img_name = g_strdup_printf ("image-%s_%i.png",
+			img_name = g_strdup_printf ("image-%s_%i.%s",
 						    font_id,
-						    font_screenshot_sizes[j].width);
+						    font_screenshot_sizes[j].width,
+						    asc_image_format_to_string (img_format));
 			g_ptr_array_add (targets,
 					 asc_image_target_new (img_name,
 							       ASC_IMAGE_SCALE_MODE_EXACT,
@@ -239,6 +241,7 @@ asc_render_font_icon (AscResult *cres,
 		      const gchar *icons_export_dir,
 		      AsComponent *cpt,
 		      AscIconPolicy *icon_policy,
+		      AscImageFormat img_format,
 		      const gchar *preferred_lang,
 		      const gchar *const *extra_langs)
 {
@@ -269,9 +272,10 @@ asc_render_font_icon (AscResult *cres,
 		 * the media worker will ensure that the value does not exceed 3 chars */
 		custom_icon_text = as_component_get_custom_value (cpt, "FontIconText");
 
-		icon_name = g_strdup_printf ("%s_%s.png",
+		icon_name = g_strdup_printf ("%s_%s.%s",
 					     asc_unit_get_bundle_id_safe (unit),
-					     entry->safe_id);
+					     entry->safe_id,
+					     asc_image_format_to_string (img_format));
 		icon_full_path = g_build_filename (icon_dir, icon_name, NULL);
 
 		if (!g_file_test (icon_full_path, G_FILE_TEST_EXISTS)) {
@@ -430,6 +434,7 @@ process_font_data_for_component (AscResult *cres,
 				 const gchar *media_export_root,
 				 const gchar *icons_export_dir,
 				 AscIconPolicy *icon_policy,
+				 AscImageFormat img_format,
 				 AscComposeFlags flags)
 {
 	const gchar *gcid = NULL;
@@ -591,6 +596,7 @@ process_font_data_for_component (AscResult *cres,
 						 icons_export_dir,
 						 cpt,
 						 icon_policy,
+						 img_format,
 						 preferred_lang,
 						 extra_langs);
 		break;
@@ -625,6 +631,7 @@ process_font_data_for_component (AscResult *cres,
 							 icons_export_dir,
 							 cpt,
 							 icon_policy,
+							 img_format,
 							 preferred_lang,
 							 extra_langs);
 
@@ -651,6 +658,7 @@ process_font_data_for_component (AscResult *cres,
 						     media,
 						     cpt_screenshots_path,
 						     cpt,
+						     img_format,
 						     preferred_lang,
 						     extra_langs);
 	}
@@ -669,6 +677,7 @@ asc_process_fonts (AscResult *cres,
 		   const gchar *media_export_root,
 		   const gchar *icons_export_dir,
 		   AscIconPolicy *icon_policy,
+		   AscImageFormat img_format,
 		   AscComposeFlags flags)
 {
 	GPtrArray *contents = NULL;
@@ -777,6 +786,7 @@ asc_process_fonts (AscResult *cres,
 						 media_export_root,
 						 icons_export_dir,
 						 icon_policy,
+						 img_format,
 						 flags);
 	}
 }

@@ -56,6 +56,7 @@ typedef struct {
 	GRefString *origin;
 	gchar *media_baseurl;
 	AsFormatKind format;
+	AscImageFormat image_format;
 	guint min_l10n_percentage;
 	GPtrArray *custom_allowed;
 	gssize max_scr_size_bytes;
@@ -96,6 +97,7 @@ asc_compose_init (AscCompose *compose)
 
 	/* defaults */
 	priv->format = AS_FORMAT_KIND_XML;
+	priv->image_format = ASC_IMAGE_FORMAT_JXL;
 	as_ref_string_assign_safe (&priv->prefix, "/usr");
 	priv->min_l10n_percentage = 25;
 	priv->max_scr_size_bytes = -1;
@@ -304,6 +306,41 @@ asc_compose_set_format (AscCompose *compose, AsFormatKind kind)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
 	priv->format = kind;
+}
+
+/**
+ * asc_compose_get_image_format:
+ * @compose: an #AscCompose instance.
+ *
+ * Get the file format that generated icons and screenshots are stored in.
+ * This is unrelated to %asc_compose_get_format, which selects the format
+ * of the generated catalog metadata.
+ */
+AscImageFormat
+asc_compose_get_image_format (AscCompose *compose)
+{
+	AscComposePrivate *priv = GET_PRIVATE (compose);
+	return priv->image_format;
+}
+
+/**
+ * asc_compose_set_image_format:
+ * @compose: an #AscCompose instance.
+ * @format: The image format, e.g. %ASC_IMAGE_FORMAT_JXL
+ *
+ * Set the file format that generated icons and screenshots should be stored in.
+ * We only support %ASC_IMAGE_FORMAT_JXL (the default) and %ASC_IMAGE_FORMAT_PNG
+ * here, any other format is rejected.
+ *
+ * Please note that JPEG-XL images can not be read by older AppStream clients,
+ * so PNG may be selected for backwards compatibility.
+ */
+void
+asc_compose_set_image_format (AscCompose *compose, AscImageFormat format)
+{
+	AscComposePrivate *priv = GET_PRIVATE (compose);
+	g_return_if_fail (format == ASC_IMAGE_FORMAT_PNG || format == ASC_IMAGE_FORMAT_JXL);
+	priv->image_format = format;
 }
 
 /**
@@ -1062,7 +1099,10 @@ asc_compose_process_icons (AscCompose *compose,
 		res_icon_sizedir = g_build_filename (icon_export_dir, res_icon_size_str, NULL);
 
 		g_mkdir_with_parents (res_icon_sizedir, 0755);
-		res_icon_basename = g_strdup_printf ("%s.png", as_component_get_id (cpt));
+		res_icon_basename = g_strdup_printf (
+		    "%s.%s",
+		    as_component_get_id (cpt),
+		    asc_image_format_to_string (priv->image_format));
 		res_icon_fname = g_build_filename (res_icon_sizedir, res_icon_basename, NULL);
 
 		/* let the media worker load, scale & store the icon */
@@ -1073,7 +1113,10 @@ asc_compose_process_icons (AscCompose *compose,
 						   ASC_IMAGE_SCALE_MODE_EXACT,
 						   size * scale_factor,
 						   size * scale_factor);
-		img_target->save_flags = ASC_IMAGE_SAVE_FLAG_OPTIMIZE;
+		/* icons are always stored losslessly, which for icons even results in smaller files than
+		 * lossy encoding would (due to their simply shapes and colors and non-photo-like qualities) */
+		img_target->save_flags = ASC_IMAGE_SAVE_FLAG_OPTIMIZE |
+					 ASC_IMAGE_SAVE_FLAG_LOSSLESS;
 		/* we only take exact-ish size matches for 48x48px */
 		if (size == 48)
 			img_target->skip_if_src_width_gt = 48;
@@ -1780,6 +1823,7 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 				? priv->media_baseurl
 				: NULL,
 			    priv->max_scr_size_bytes,
+			    priv->image_format,
 			    as_flags_contains (priv->flags, ASC_COMPOSE_FLAG_ALLOW_SCREENCASTS),
 			    as_flags_contains (priv->flags, ASC_COMPOSE_FLAG_STORE_SCREENSHOTS));
 
@@ -1796,6 +1840,7 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 				   priv->media_result_dir,
 				   priv->icons_result_dir,
 				   priv->icon_policy,
+				   priv->image_format,
 				   priv->flags);
 	}
 

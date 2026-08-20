@@ -1218,8 +1218,43 @@ test_compose_font (void)
 			   export_tmpdir,
 			   NULL, /* no icon export dir */
 			   icon_policy,
+			   ASC_IMAGE_FORMAT_JXL,
 			   ASC_COMPOSE_FLAG_STORE_SCREENSHOTS | ASC_COMPOSE_FLAG_PROCESS_FONTS);
 	asx_assert_no_hints_in_result (cres);
+
+	/* all rendered font media must be stored in the format we requested */
+	{
+		g_autoptr(GPtrArray) cpts = asc_result_fetch_components (cres);
+		GPtrArray *icons = NULL;
+		GPtrArray *screenshots = NULL;
+		AsComponent *cpt = NULL;
+
+		g_assert_cmpint (cpts->len, ==, 1);
+		cpt = AS_COMPONENT (g_ptr_array_index (cpts, 0));
+
+		icons = as_component_get_icons (cpt);
+		g_assert_cmpint (icons->len, >, 0);
+		for (guint i = 0; i < icons->len; i++) {
+			AsIcon *icon = AS_ICON (g_ptr_array_index (icons, i));
+			if (as_icon_get_kind (icon) == AS_ICON_KIND_CACHED)
+				g_assert_true (g_str_has_suffix (as_icon_get_name (icon), ".jxl"));
+			else
+				g_assert_true (g_str_has_suffix (as_icon_get_url (icon), ".jxl"));
+		}
+
+		screenshots = as_component_get_screenshots_all (cpt);
+		g_assert_cmpint (screenshots->len, >, 0);
+		for (guint i = 0; i < screenshots->len; i++) {
+			AsScreenshot *scr = AS_SCREENSHOT (g_ptr_array_index (screenshots, i));
+			GPtrArray *images = as_screenshot_get_images_all (scr);
+
+			g_assert_cmpint (images->len, >, 0);
+			for (guint j = 0; j < images->len; j++) {
+				AsImage *img = AS_IMAGE (g_ptr_array_index (images, j));
+				g_assert_true (g_str_has_suffix (as_image_get_url (img), ".jxl"));
+			}
+		}
+	}
 }
 
 static void
