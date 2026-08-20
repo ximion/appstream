@@ -134,14 +134,14 @@ asc_image_format_to_string (AscImageFormat format)
 		return "png";
 	if (format == ASC_IMAGE_FORMAT_JXL)
 		return "jxl";
-	if (format == ASC_IMAGE_FORMAT_AVIF)
-		return "avif";
-	if (format == ASC_IMAGE_FORMAT_WEBP)
-		return "webp";
 	if (format == ASC_IMAGE_FORMAT_SVG)
 		return "svg";
 	if (format == ASC_IMAGE_FORMAT_SVGZ)
 		return "svgz";
+	if (format == ASC_IMAGE_FORMAT_AVIF)
+		return "avif";
+	if (format == ASC_IMAGE_FORMAT_WEBP)
+		return "webp";
 	if (format == ASC_IMAGE_FORMAT_JPEG)
 		return "jpeg";
 	if (format == ASC_IMAGE_FORMAT_GIF)
@@ -167,14 +167,14 @@ asc_image_format_from_string (const gchar *str)
 		return ASC_IMAGE_FORMAT_PNG;
 	if (g_strcmp0 (str, "jxl") == 0)
 		return ASC_IMAGE_FORMAT_JXL;
-	if (g_strcmp0 (str, "avif") == 0)
-		return ASC_IMAGE_FORMAT_AVIF;
-	if (g_strcmp0 (str, "webp") == 0)
-		return ASC_IMAGE_FORMAT_WEBP;
 	if (g_strcmp0 (str, "svg") == 0)
 		return ASC_IMAGE_FORMAT_SVG;
 	if (g_strcmp0 (str, "svgz") == 0)
 		return ASC_IMAGE_FORMAT_SVGZ;
+	if (g_strcmp0 (str, "avif") == 0)
+		return ASC_IMAGE_FORMAT_AVIF;
+	if (g_strcmp0 (str, "webp") == 0)
+		return ASC_IMAGE_FORMAT_WEBP;
 	if (g_strcmp0 (str, "jpeg") == 0)
 		return ASC_IMAGE_FORMAT_JPEG;
 	if (g_strcmp0 (str, "gif") == 0)

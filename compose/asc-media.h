@@ -118,10 +118,10 @@ typedef enum {
  * @ASC_IMAGE_FORMAT_UNKNOWN:	Unknown image format.
  * @ASC_IMAGE_FORMAT_PNG:	PNG format
  * @ASC_IMAGE_FORMAT_JXL:	JPEG-XL format
- * @ASC_IMAGE_FORMAT_AVIF:	AVIF format
- * @ASC_IMAGE_FORMAT_WEBP:	WebP format
  * @ASC_IMAGE_FORMAT_SVG:	SVG format
  * @ASC_IMAGE_FORMAT_SVGZ:	Compressed SVG format
+ * @ASC_IMAGE_FORMAT_AVIF:	AVIF format
+ * @ASC_IMAGE_FORMAT_WEBP:	WebP format
  * @ASC_IMAGE_FORMAT_JPEG:	JPEG format
  * @ASC_IMAGE_FORMAT_GIF:	GIF format
  *
@@ -130,17 +130,15 @@ typedef enum {
  * All of these formats can be read, but renditions are only ever written as
  * %ASC_IMAGE_FORMAT_PNG or %ASC_IMAGE_FORMAT_JXL - the other values are for
  * classifying input data.
- *
- * Since: 0.13.0
  **/
 typedef enum {
 	ASC_IMAGE_FORMAT_UNKNOWN,
 	ASC_IMAGE_FORMAT_PNG,
 	ASC_IMAGE_FORMAT_JXL,
-	ASC_IMAGE_FORMAT_AVIF,
-	ASC_IMAGE_FORMAT_WEBP,
 	ASC_IMAGE_FORMAT_SVG,
 	ASC_IMAGE_FORMAT_SVGZ,
+	ASC_IMAGE_FORMAT_AVIF,
+	ASC_IMAGE_FORMAT_WEBP,
 	ASC_IMAGE_FORMAT_JPEG,
 	ASC_IMAGE_FORMAT_GIF,
 	/*< private >*/
