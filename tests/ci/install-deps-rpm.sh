@@ -9,7 +9,7 @@ set -x
 dnf makecache
 
 # install build dependencies
-dnf --assumeyes --quiet --setopt=install_weak_deps=False install \
+dnf --assumeyes --quiet --setopt=install_weak_deps=False --disablerepo=fedora-cisco-openh264 install \
     gcc \
     gcc-c++ \
     gdb \
