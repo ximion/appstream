@@ -1182,12 +1182,12 @@ asc_compose_process_icons (AscCompose *compose,
 			return;
 		}
 
-		/* skipped due to the 48x48px exact-match rule - drop the size
-		 * directory again if nothing else has been stored in it */
-		if (asc_image_target_get_skipped (img_target)) {
-			g_rmdir (res_icon_sizedir);
+		/* skipped due to the 48x48px exact-match rule - we can not drop the
+		 * size directory here, as it is shared with all other units that we
+		 * may currently be processing in parallel. It is pruned after all
+		 * units are done instead, see asc_compose_prune_empty_icon_dirs() */
+		if (asc_image_target_get_skipped (img_target))
 			continue;
-		}
 
 		if (asc_image_target_get_error_message (img_target) != NULL) {
 			asc_result_add_hint (cres,
@@ -2282,6 +2282,43 @@ asc_compose_finalize_result (AscCompose *compose, AscResult *result)
 }
 
 /**
+ * asc_compose_prune_empty_icon_dirs:
+ *
+ * Remove icon size directories which ended up without any icon in them, which
+ * happens if every icon of that size was rejected (e.g. by the 48x48px
+ * exact-match rule).
+ *
+ * The icon export directory is shared between all units, so this must only be
+ * run when no unit is being processed anymore.
+ */
+static void
+asc_compose_prune_empty_icon_dirs (AscCompose *compose)
+{
+	AscComposePrivate *priv = GET_PRIVATE (compose);
+	g_autoptr(GDir) dir = NULL;
+	const gchar *entry_name;
+
+	if (priv->icons_result_dir == NULL)
+		return;
+
+	dir = g_dir_open (priv->icons_result_dir, 0, NULL);
+	if (dir == NULL)
+		return;
+
+	while ((entry_name = g_dir_read_name (dir)) != NULL) {
+		g_autofree gchar *entry_path = g_build_filename (priv->icons_result_dir,
+								 entry_name,
+								 NULL);
+		if (!g_file_test (entry_path, G_FILE_TEST_IS_DIR))
+			continue;
+		/* this only succeeds if the directory is empty, which is exactly
+		 * what we want here */
+		if (g_rmdir (entry_path) == 0)
+			g_debug ("Pruned empty icon directory: %s", entry_path);
+	}
+}
+
+/**
  * asc_compose_run:
  * @compose: an #AscCompose instance.
  * @cancellable: a #GCancellable.
@@ -2414,6 +2451,10 @@ asc_compose_run (AscCompose *compose, GCancellable *cancellable, GError **error)
 			    (AscComposeTask *) g_ptr_array_index (tasks, i),
 			    compose);
 	}
+
+	/* all units are done, so we can now safely drop any icon size directory
+	 * that no unit has stored an icon in */
+	asc_compose_prune_empty_icon_dirs (compose);
 
 	/* collect results */
 	for (guint i = 0; i < tasks->len; i++) {
