@@ -64,6 +64,7 @@ typedef struct {
 
 	AscComposeFlags flags;
 	AscIconPolicy *icon_policy;
+	AscMedia *media;
 
 	gchar *data_result_dir;
 	gchar *icons_result_dir;
@@ -136,6 +137,7 @@ asc_compose_finalize (GObject *object)
 		g_object_unref (priv->locale_unit);
 
 	g_object_unref (priv->icon_policy);
+	g_clear_object (&priv->media);
 
 	g_mutex_clear (&priv->mutex);
 
@@ -459,6 +461,30 @@ asc_compose_set_icon_policy (AscCompose *compose, AscIconPolicy *policy)
 
 	g_object_unref (priv->icon_policy);
 	priv->icon_policy = g_object_ref (policy);
+}
+
+/**
+ * asc_compose_set_media:
+ * @compose: an #AscCompose instance.
+ * @media: (nullable): an #AscMedia instance, or %NULL
+ *
+ * Set a media processing interface to use for every unit that this compose
+ * object processes (otherwise it will create a fresh one per unit/thread that it uses).
+ * This allows a caller that wants to use an #AscMedia itself or that composes
+ * many units in sequence to amortize the cost of starting a second media worker.
+ *
+ * An #AscMedia instance must never be used by more than one thread, so while
+ * a media object is set, #AscCompose will always process its units
+ * sequentially, ignoring %ASC_COMPOSE_FLAG_USE_THREADS. Pass %NULL to restore
+ * the default behavior of using one media instance per unit.
+ *
+ * Since: 1.2.0
+ */
+void
+asc_compose_set_media (AscCompose *compose, AscMedia *media)
+{
+	AscComposePrivate *priv = GET_PRIVATE (compose);
+	g_set_object (&priv->media, media);
 }
 
 /**
@@ -1484,8 +1510,10 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 		as_curl_set_cainfo (acurl, priv->cainfo);
 
 	/* media processing interface for this task - its worker process
-	 * is only spawned if media actually needs to be processed */
-	media = asc_media_new ();
+	 * is only spawned if media actually needs to be processed.
+	 * if the user has given us one to reuse, we take that instead (in which
+	 * case we are guaranteed to run sequentially, see asc_compose_set_media()) */
+	media = priv->media != NULL ? g_object_ref (priv->media) : asc_media_new ();
 
 	/* give unit a hint as to which paths we want to read */
 	share_dir = g_build_filename (priv->prefix, "share", NULL);
@@ -2353,7 +2381,10 @@ asc_compose_run (AscCompose *compose, GCancellable *cancellable, GError **error)
 		g_ptr_array_add (tasks, ctask);
 	}
 
-	if (as_flags_contains (priv->flags, ASC_COMPOSE_FLAG_USE_THREADS)) {
+	if (priv->media != NULL && as_flags_contains (priv->flags, ASC_COMPOSE_FLAG_USE_THREADS))
+		g_debug ("A media instance was set explicitly, processing units sequentially.");
+
+	if (priv->media == NULL && as_flags_contains (priv->flags, ASC_COMPOSE_FLAG_USE_THREADS)) {
 		GThreadPool *tpool = NULL;
 		tpool = g_thread_pool_new ((GFunc) asc_compose_process_task_cb,
 					   compose,
