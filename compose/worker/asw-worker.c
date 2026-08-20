@@ -54,6 +54,7 @@ struct _AswWorker {
 
 typedef struct {
 	GSocket *socket;
+	gint root_fd;
 } AswWorkerPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AswWorker, asw_worker, G_TYPE_OBJECT)
@@ -67,6 +68,8 @@ asw_worker_finalize (GObject *object)
 
 	if (priv->socket != NULL)
 		g_object_unref (priv->socket);
+	if (priv->root_fd >= 0)
+		close (priv->root_fd);
 
 	G_OBJECT_CLASS (asw_worker_parent_class)->finalize (object);
 }
@@ -74,6 +77,8 @@ asw_worker_finalize (GObject *object)
 static void
 asw_worker_init (AswWorker *worker)
 {
+	AswWorkerPrivate *priv = GET_PRIVATE (worker);
+	priv->root_fd = -1;
 }
 
 static void
@@ -100,6 +105,18 @@ asw_worker_new_for_fd (gint socket_fd, GError **error)
 	if (priv->socket == NULL)
 		return NULL;
 	g_socket_set_blocking (priv->socket, TRUE);
+
+	/* we temporarily change into the output directory while writing results,
+	 * so we need somewhere neutral to return to afterwards */
+	priv->root_fd = open ("/", O_RDONLY | O_DIRECTORY | O_CLOEXEC);
+	if (priv->root_fd < 0) {
+		g_set_error (error,
+			     ASC_MEDIA_ERROR,
+			     ASC_MEDIA_ERROR_FAILED,
+			     "Unable to open the root directory: %s",
+			     g_strerror (errno));
+		return NULL;
+	}
 
 	return g_steal_pointer (&worker);
 }
@@ -258,8 +275,6 @@ asw_worker_get_readonly_file_fd (GVariant *params,
  * asw_worker_get_dir_fd:
  *
  * Retrieve the output directory fd referenced in the request parameters.
- * The close-on-exec flag is removed from the returned fd, so subprocesses
- * (optipng) can access the directory via /proc/self/fd/ paths as well.
  * Returns a duplicated fd owned by the caller, or -1 on error.
  */
 static gint
@@ -290,10 +305,6 @@ asw_worker_get_dir_fd (GVariant *params, GUnixFDList *fds, const gchar *key, GEr
 		close (fd);
 		return -1;
 	}
-
-	if (fcntl (fd, F_SETFD, 0) != 0)
-		g_warning ("Unable to clear close-on-exec flag on directory fd: %s",
-			   g_strerror (errno));
 
 	return fd;
 }
@@ -403,14 +414,47 @@ asw_worker_load_font (AswWorker *worker, GVariant *params, GUnixFDList *fds, GEr
 }
 
 /**
- * asw_worker_build_target_path:
+ * asw_worker_enter_dir_fd:
  *
- * Build a path for a result file, accessed through the output directory fd.
+ * Make the received output directory our working directory, so result files
+ * can be written using their plain (validated) names as relative paths.
+ *
+ * We must never resolve a path in the client's namespace ourselves, so the
+ * output location is only ever reachable through the passed directory fd.
+ * Changing directory - rather than constructing paths - is what allows the
+ * image encoders, Cairo and the optipng subprocess to write into it without
+ * any of them needing to know about the fd.
+ *
+ * NOTE: The working directory is process-global state. This is safe because
+ * the worker handles exactly one request at a time, and nothing else in it
+ * may ever rely on relative paths.
  */
-static gchar *
-asw_worker_build_target_path (gint dir_fd, const gchar *name)
+static gboolean
+asw_worker_enter_dir_fd (AswWorker *worker, gint dir_fd, GError **error)
 {
-	return g_strdup_printf ("/proc/self/fd/%d/%s", dir_fd, name);
+	if (fchdir (dir_fd) != 0) {
+		g_set_error (error,
+			     ASC_MEDIA_ERROR,
+			     ASC_MEDIA_ERROR_FAILED,
+			     "Unable to enter the output directory: %s",
+			     g_strerror (errno));
+		return FALSE;
+	}
+	return TRUE;
+}
+
+/**
+ * asw_worker_leave_dir:
+ *
+ * Return to our neutral working directory, so we do not keep the client's
+ * output directory pinned after a request has been handled.
+ */
+static void
+asw_worker_leave_dir (AswWorker *worker)
+{
+	AswWorkerPrivate *priv = GET_PRIVATE (worker);
+	if (fchdir (priv->root_fd) != 0)
+		g_warning ("Unable to leave the output directory: %s", g_strerror (errno));
 }
 
 /**
@@ -457,6 +501,10 @@ asw_worker_handle_process_image (AswWorker *worker,
 		dir_fd = asw_worker_get_dir_fd (params, fds, "dir-fd", error);
 		if (dir_fd < 0)
 			return NULL;
+		if (!asw_worker_enter_dir_fd (worker, dir_fd, error)) {
+			close (dir_fd);
+			return NULL;
+		}
 	}
 
 	image = asw_image_new_from_data (g_bytes_get_data (img_bytes, NULL),
@@ -467,8 +515,10 @@ asw_worker_handle_process_image (AswWorker *worker,
 					 asc_image_format_from_string (format_hint),
 					 error);
 	if (image == NULL) {
-		if (dir_fd >= 0)
+		if (dir_fd >= 0) {
+			asw_worker_leave_dir (worker);
 			close (dir_fd);
+		}
 		return NULL;
 	}
 	src_width = asw_image_get_width (image);
@@ -480,7 +530,6 @@ asw_worker_handle_process_image (AswWorker *worker,
 	while (targets != NULL && g_variant_iter_next (&targets_iter, "@a{sv}", &target_dict)) {
 		g_autoptr(GVariant) target = target_dict;
 		g_autoptr(GError) tmp_error = NULL;
-		g_autofree gchar *target_path = NULL;
 		GVariantBuilder rb;
 		const gchar *name = NULL;
 		gint width = 0;
@@ -528,12 +577,12 @@ asw_worker_handle_process_image (AswWorker *worker,
 			continue;
 		}
 
-		target_path = asw_worker_build_target_path (dir_fd, name);
-
+		/* our working directory is the output directory, so the validated
+		 * entry name is all we need to address the result file */
 		switch ((AscImageScaleMode) scale_mode) {
 		case ASC_IMAGE_SCALE_MODE_NONE:
 			saved = asw_image_save_filename (image,
-							 target_path,
+							 name,
 							 0,
 							 0,
 							 (AscImageSaveFlags) save_flags,
@@ -543,7 +592,7 @@ asw_worker_handle_process_image (AswWorker *worker,
 			break;
 		case ASC_IMAGE_SCALE_MODE_EXACT:
 			saved = asw_image_save_filename (image,
-							 target_path,
+							 name,
 							 width,
 							 height,
 							 (AscImageSaveFlags) save_flags,
@@ -592,7 +641,7 @@ asw_worker_handle_process_image (AswWorker *worker,
 			else
 				asw_image_scale_to_height (scaled_img, height);
 			saved = asw_image_save_filename (scaled_img,
-							 target_path,
+							 name,
 							 0,
 							 0,
 							 (AscImageSaveFlags) save_flags,
@@ -628,8 +677,10 @@ asw_worker_handle_process_image (AswWorker *worker,
 		g_variant_builder_add_value (&results_builder, g_variant_builder_end (&rb));
 	}
 
-	if (dir_fd >= 0)
+	if (dir_fd >= 0) {
+		asw_worker_leave_dir (worker);
 		close (dir_fd);
+	}
 
 	g_variant_builder_init (&pb, G_VARIANT_TYPE ("a{sv}"));
 	g_variant_builder_add (&pb, "{sv}", "src-width", g_variant_new_int32 (src_width));
@@ -753,6 +804,10 @@ asw_worker_handle_render_font (AswWorker *worker,
 	dir_fd = asw_worker_get_dir_fd (params, fds, "dir-fd", error);
 	if (dir_fd < 0)
 		return NULL;
+	if (!asw_worker_enter_dir_fd (worker, dir_fd, error)) {
+		close (dir_fd);
+		return NULL;
+	}
 
 	g_variant_lookup (params, "info-label", "&s", &info_label);
 	if (as_is_empty (info_label))
@@ -763,7 +818,6 @@ asw_worker_handle_render_font (AswWorker *worker,
 	while (g_variant_iter_next (&entries_iter, "@a{sv}", &entry_dict)) {
 		g_autoptr(GVariant) entry = entry_dict;
 		g_autoptr(GError) tmp_error = NULL;
-		g_autofree gchar *target_path = NULL;
 		GVariantBuilder rb;
 		const gchar *name = NULL;
 		AscImageFormat format;
@@ -795,15 +849,16 @@ asw_worker_handle_render_font (AswWorker *worker,
 			g_variant_builder_add_value (&results_builder, g_variant_builder_end (&rb));
 			continue;
 		}
-		target_path = asw_worker_build_target_path (dir_fd, name);
 
 		g_variant_lookup (entry, "width", "i", &width);
 		g_variant_lookup (entry, "height", "i", &height);
 
+		/* our working directory is the output directory, so the validated
+		 * entry name is all we need to address the result file */
 		if (render_icon) {
 			/* font icons are always square, so the width is our canvas size */
 			rendered = asw_font_render_icon_to_file (font,
-								 target_path,
+								 name,
 								 format,
 								 width,
 								 &actual_width,
@@ -811,7 +866,7 @@ asw_worker_handle_render_font (AswWorker *worker,
 								 &tmp_error);
 		} else {
 			rendered = asw_font_render_card_to_file (font,
-								 target_path,
+								 name,
 								 format,
 								 width,
 								 height,
@@ -838,6 +893,7 @@ asw_worker_handle_render_font (AswWorker *worker,
 		}
 		g_variant_builder_add_value (&results_builder, g_variant_builder_end (&rb));
 	}
+	asw_worker_leave_dir (worker);
 	close (dir_fd);
 
 	g_variant_builder_init (&pb, G_VARIANT_TYPE ("a{sv}"));
@@ -857,7 +913,6 @@ asw_worker_handle_probe_video (AswWorker *worker,
 			       GError **error)
 {
 	g_autoptr(AswVideoProbe) probe = NULL;
-	g_autofree gchar *fd_path = NULL;
 	GVariantBuilder pb;
 	gint video_fd;
 
@@ -866,14 +921,7 @@ asw_worker_handle_probe_video (AswWorker *worker,
 	if (video_fd < 0)
 		return NULL;
 
-	/* the fd must be inherited by the ffprobe subprocess so it can
-	 * open the /proc/self/fd/ path in its own context */
-	if (fcntl (video_fd, F_SETFD, 0) != 0)
-		g_warning ("Unable to clear close-on-exec flag on video fd: %s",
-			   g_strerror (errno));
-
-	fd_path = g_strdup_printf ("/proc/self/fd/%d", video_fd);
-	probe = asw_probe_video (fd_path, error);
+	probe = asw_probe_video (video_fd, error);
 	close (video_fd);
 	if (probe == NULL)
 		return NULL;

@@ -26,7 +26,6 @@
 #include "config.h"
 #include "asw-font-private.h"
 
-#include <glib/gstdio.h>
 #include <fontconfig/fontconfig.h>
 #include <fontconfig/fcfreetype.h>
 #include FT_SFNT_NAMES_H
@@ -35,7 +34,6 @@
 
 #include "as-utils-private.h"
 
-#include "asc-globals.h"
 #include "asw-canvas.h"
 #include "asw-image.h"
 #include "asw-resources.h"
@@ -52,6 +50,7 @@ struct _AswFont {
 typedef struct {
 	FT_Library library;
 	FT_Face fface;
+	GBytes *data;
 
 	GHashTable *languages;
 
@@ -94,10 +93,13 @@ asw_font_finalize (GObject *object)
 	AswFontPrivate *priv = GET_PRIVATE (font);
 	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&fontconfig_mutex);
 
+	/* the face borrows the font data, so it has to go first */
 	if (priv->fface != NULL)
 		FT_Done_Face (priv->fface);
 	if (priv->library != NULL)
 		FT_Done_FreeType (priv->library);
+	if (priv->data != NULL)
+		g_bytes_unref (priv->data);
 
 	g_hash_table_unref (priv->languages);
 
@@ -196,18 +198,27 @@ asw_font_read_sfnt_data (AswFont *font)
 }
 
 static void
-asw_font_load_fontconfig_data_from_file (AswFont *font, const gchar *fname)
+asw_font_load_fontconfig_data (AswFont *font, const gchar *file_basename)
 {
-	/* open FC font pattern
-	 * the count pointer has to be valid, otherwise FcFreeTypeQuery() crashes. */
-	int c;
 	FcPattern *fpattern;
 	gboolean any_lang_added = FALSE;
 	gboolean match = FALSE;
 	guchar *tmp_val;
 	AswFontPrivate *priv = GET_PRIVATE (font);
 
-	fpattern = FcFreeTypeQuery ((const guchar *) fname, 0, NULL, &c);
+	/* open the FC font pattern for the face we already have loaded - we deliberately
+	 * do not use FcFreeTypeQuery() here, as that would require the font to exist as
+	 * a file on the filesystem, which is not the case for data we received via IPC.
+	 * The filename is only used by Fontconfig to fill FC_FILE, which we never read. */
+	fpattern = FcFreeTypeQueryFace (priv->fface, (const FcChar8 *) file_basename, 0, NULL);
+	if (fpattern == NULL) {
+		/* Fontconfig could not make sense of this face at all - assume 'en' and
+		 * rely on whatever the SFNT tables give us */
+		g_hash_table_remove_all (priv->languages);
+		g_hash_table_add (priv->languages, g_strdup ("en"));
+		asw_font_read_sfnt_data (font);
+		return;
+	}
 
 	/* load information about the font */
 	g_hash_table_remove_all (priv->languages);
@@ -287,14 +298,13 @@ asw_font_new (GError **error)
 }
 
 /**
- * asw_font_new_from_file:
- * @fname: Name of the file to load.
- * @error: A #GError or %NULL
+ * asw_font_new_from_bytes:
  *
- * Creates a new #AswFont from a file on the filesystem.
+ * Creates a new #AswFont from font data held in memory. The data is kept
+ * alive for as long as the font exists, as FreeType only borrows it.
  **/
-AswFont *
-asw_font_new_from_file (const gchar *fname, GError **error)
+static AswFont *
+asw_font_new_from_bytes (GBytes *data, const gchar *file_basename, GError **error)
 {
 	AswFont *font;
 	AswFontPrivate *priv;
@@ -305,21 +315,50 @@ asw_font_new_from_file (const gchar *fname, GError **error)
 		return NULL;
 	priv = GET_PRIVATE (font);
 
-	err = FT_New_Face (priv->library, fname, 0, &priv->fface);
+	priv->data = g_bytes_ref (data);
+	err = FT_New_Memory_Face (priv->library,
+				  g_bytes_get_data (priv->data, NULL),
+				  (FT_Long) g_bytes_get_size (priv->data),
+				  0,
+				  &priv->fface);
 	if (err != 0) {
 		g_set_error (error,
 			     ASW_FONT_ERROR,
 			     ASW_FONT_ERROR_FAILED,
 			     "Unable to load font face from file. Error code: %i",
 			     err);
+		g_object_unref (font);
 		return NULL;
 	}
 
-	asw_font_load_fontconfig_data_from_file (font, fname);
+	asw_font_load_fontconfig_data (font, file_basename);
 	g_free (priv->file_basename);
-	priv->file_basename = g_path_get_basename (fname);
+	priv->file_basename = g_strdup (file_basename);
 
 	return font;
+}
+
+/**
+ * asw_font_new_from_file:
+ * @fname: Name of the file to load.
+ * @error: A #GError or %NULL
+ *
+ * Creates a new #AswFont from a file on the filesystem.
+ **/
+AswFont *
+asw_font_new_from_file (const gchar *fname, GError **error)
+{
+	g_autoptr(GMappedFile) mfile = NULL;
+	g_autoptr(GBytes) data = NULL;
+	g_autofree gchar *basename = NULL;
+
+	mfile = g_mapped_file_new (fname, FALSE, error);
+	if (mfile == NULL)
+		return NULL;
+	data = g_mapped_file_get_bytes (mfile);
+	basename = g_path_get_basename (fname);
+
+	return asw_font_new_from_bytes (data, basename, error);
 }
 
 /**
@@ -336,27 +375,12 @@ asw_font_new_from_file (const gchar *fname, GError **error)
 AswFont *
 asw_font_new_from_data (const void *data, gssize len, const gchar *file_basename, GError **error)
 {
-	const gchar *tmp_root;
-	gboolean ret;
-	g_autofree gchar *fname = NULL;
+	g_autoptr(GBytes) bytes = NULL;
 
-	/* we unfortunately need to create a stupid temporary file here, otherwise Fontconfig
-	 * does not work and we can not determine the right demo strings for this font.
-	 * (FreeType itself could load from memory) */
-	tmp_root = asc_globals_get_tmp_dir_create ();
+	g_return_val_if_fail (len >= 0, NULL);
 
-	fname = g_build_filename (tmp_root, file_basename, NULL);
-#if GLIB_CHECK_VERSION(2, 66, 0)
-	ret = g_file_set_contents_full (fname, data, len, G_FILE_SET_CONTENTS_NONE, 0666, error);
-#else
-	ret = g_file_set_contents (fname, data, len, error);
-	if (ret)
-		g_chmod (fname, 0666);
-#endif
-	if (!ret)
-		return NULL;
-
-	return asw_font_new_from_file (fname, error);
+	bytes = g_bytes_new (data, len);
+	return asw_font_new_from_bytes (bytes, file_basename, error);
 }
 
 /**
@@ -373,20 +397,15 @@ asw_font_new_from_data (const void *data, gssize len, const gchar *file_basename
 AswFont *
 asw_font_new_from_fd (gint fd, const gchar *file_basename, GError **error)
 {
-	AswFont *font;
-	AswFontPrivate *priv;
-	g_autofree gchar *fd_path = g_strdup_printf ("/proc/self/fd/%d", fd);
+	g_autoptr(GMappedFile) mfile = NULL;
+	g_autoptr(GBytes) data = NULL;
 
-	font = asw_font_new_from_file (fd_path, error);
-	if (font == NULL)
+	mfile = g_mapped_file_new_from_fd (fd, FALSE, error);
+	if (mfile == NULL)
 		return NULL;
+	data = g_mapped_file_get_bytes (mfile);
 
-	/* the procfs path is useless as basename, override it with the real name */
-	priv = GET_PRIVATE (font);
-	g_free (priv->file_basename);
-	priv->file_basename = g_strdup (file_basename);
-
-	return font;
+	return asw_font_new_from_bytes (data, file_basename, error);
 }
 
 /**

@@ -26,6 +26,8 @@
 #include "config.h"
 #include "asw-video.h"
 
+#include <unistd.h>
+
 #include "asc-globals.h"
 #include "asc-media.h"
 
@@ -46,8 +48,27 @@ asw_video_probe_free (AswVideoProbe *probe)
 }
 
 /**
+ * asw_ffprobe_child_setup:
+ *
+ * Hand the video to ffprobe as its standard input. dup2() clears the
+ * close-on-exec flag on the copy, so the descriptor survives the exec.
+ * The duplicated fd shares its file offset with the client's, so rewind it
+ * to be sure ffprobe sees the whole file.
+ */
+static void
+asw_ffprobe_child_setup (gpointer user_data)
+{
+	gint video_fd = GPOINTER_TO_INT (user_data);
+
+	if (lseek (video_fd, 0, SEEK_SET) < 0)
+		_exit (1);
+	if (dup2 (video_fd, STDIN_FILENO) < 0)
+		_exit (1);
+}
+
+/**
  * asw_probe_video:
- * @vid_fname: Path to the video file to inspect.
+ * @video_fd: Read-only file descriptor of the video file to inspect.
  * @error: A #GError or %NULL
  *
  * Run ffprobe on the given video file and extract raw stream information.
@@ -55,7 +76,7 @@ asw_video_probe_free (AswVideoProbe *probe)
  * Returns: (transfer full): Video information, or %NULL on error.
  */
 AswVideoProbe *
-asw_probe_video (const gchar *vid_fname, GError **error)
+asw_probe_video (gint video_fd, GError **error)
 {
 	g_autoptr(AswVideoProbe) probe = NULL;
 	gboolean ret = FALSE;
@@ -74,7 +95,9 @@ asw_probe_video (const gchar *vid_fname, GError **error)
 					"format=format_name",
 					"-of",
 					"default=noprint_wrappers=1",
-					vid_fname,
+					"-fd",
+					"0",
+					"fd:",
 					NULL };
 
 	if (asc_globals_get_ffprobe_binary () == NULL) {
@@ -88,9 +111,9 @@ asw_probe_video (const gchar *vid_fname, GError **error)
 	ret = g_spawn_sync (NULL, /* working directory */
 			    (gchar **) ffprobe_argv,
 			    NULL, /* envp */
-			    G_SPAWN_LEAVE_DESCRIPTORS_OPEN,
-			    NULL, /* child setup */
-			    NULL, /* user data */
+			    G_SPAWN_DEFAULT,
+			    asw_ffprobe_child_setup,
+			    GINT_TO_POINTER (video_fd),
 			    &ff_stdout,
 			    &ff_stderr,
 			    &exit_status,
