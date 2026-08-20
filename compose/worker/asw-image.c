@@ -559,6 +559,44 @@ asw_vips_sharpen (VipsImage *in, VipsImage **out, GError **error)
 }
 
 /**
+ * asw_image_check_heif_codec:
+ *
+ * Refuse a HEIF image that is not AVIF.
+ *
+ * One libvips loader reads every codec a HEIF container may hold, so allowing
+ * AVIF unavoidably lets HEIC and friends past the loader block list as well.
+ * Those need patent-encumbered decoders that libheif ships as separate,
+ * optional plugins, so accepting them would make the set of usable screenshots
+ * depend on which plugin packages the machine building the catalog happens to
+ * have. Turn them down deliberately instead, and say so.
+ *
+ * The codec is recorded in the container header, so this works the same
+ * whether or not a decoder for it is installed.
+ */
+static gboolean
+asw_image_check_heif_codec (VipsImage *vimg, GError **error)
+{
+	const gchar *compression = NULL;
+
+	if (vips_image_get_typeof (vimg, "heif-compression") == 0)
+		return TRUE;
+	if (vips_image_get_string (vimg, "heif-compression", &compression) != 0) {
+		vips_error_clear ();
+		return TRUE;
+	}
+	if (g_strcmp0 (compression, "av1") == 0)
+		return TRUE;
+
+	g_set_error (error,
+		     ASC_MEDIA_ERROR,
+		     ASC_MEDIA_ERROR_UNSUPPORTED,
+		     "Only AVIF images are read from HEIF containers, but this one holds "
+		     "'%s' data.",
+		     compression);
+	return FALSE;
+}
+
+/**
  * asw_image_normalize_and_store:
  *
  * Bring a freshly decoded image into the flat 8-bit sRGB representation that
@@ -572,6 +610,8 @@ asw_image_normalize_and_store (AswImage *image, VipsImage *vimg_raw, GError **er
 {
 	g_autoptr(VipsImage) vimg = NULL;
 
+	if (!asw_image_check_heif_codec (vimg_raw, error))
+		return FALSE;
 	if (!asw_vips_normalize (vimg_raw, &vimg, error))
 		return FALSE;
 	return asw_image_store_vips (image, vimg, error);
