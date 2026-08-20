@@ -46,7 +46,7 @@ struct _AscComposeClass {
 };
 
 /**
- * AsCacheFlags:
+ * AscComposeFlags:
  * @ASC_COMPOSE_FLAG_NONE:			No flags.
  * @ASC_COMPOSE_FLAG_USE_THREADS:		Use threads when possible.
  * @ASC_COMPOSE_FLAG_ALLOW_NET:			Allow network access for downloading extra data.
@@ -97,7 +97,7 @@ typedef enum {
  * and should not change any longer.
  *
  * Please note that this function may be called from any thread, and thread safety needs
- * to be taked care off by the callee.
+ * to be taken care of by the callee.
  */
 typedef void (*AscCheckMetadataEarlyFn) (AscResult *cres, const AscUnit *unit, gpointer user_data);
 

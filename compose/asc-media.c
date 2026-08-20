@@ -27,18 +27,17 @@
  * appstream-compose needs (processing images, extracting font metadata,
  * rendering font specimens, probing videos).
  *
- * The actual media processing is performed by a separate worker process
- * (`asc-mediaworker`), so parsing of untrusted media data is isolated from
- * the process using libappstream-compose. Input data is passed to the worker
- * exclusively via sealed memory file descriptors, and the worker writes its
- * results through a directory file descriptor provided per request, so it
- * requires no ambient filesystem access and can be sandboxed.
+ * The actual media processing is performed by a separate worker process,
+ * so parsing of untrusted media data is isolated.
+ * Input data is passed to the worker exclusively via sealed memory file
+ * descriptors, and the worker writes its results through a directory file
+ * descriptor provided per request, so it requires no ambient filesystem
+ * access and can be sandboxed.
  *
  * An #AscMedia instance manages the lifecycle of exactly one worker process,
  * which is spawned lazily on first use and respawned (up to a limit) in case
  * it crashes. Instances must not be shared between threads - each thread
- * processing media should use its own #AscMedia instance (and thereby its
- * own worker process).
+ * processing media must use its own #AscMedia instance.
  */
 
 #include "config.h"

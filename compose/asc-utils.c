@@ -45,7 +45,7 @@
  * Its primary usecase is to identify a media directory on the filesystem which is
  * associated with this component.
  *
- * Returns: The new global ID. Free with %g_free.
+ * Returns: (transfer full) (nullable): The new global ID, or %NULL if @component_id was empty.
  **/
 gchar *
 asc_build_component_global_id (const gchar *component_id, const gchar *checksum)
@@ -101,7 +101,7 @@ asc_build_component_global_id (const gchar *component_id, const gchar *checksum)
  * to form a unique global ID. The generated checksum is intended to be used as content-ID.
  * Do not assume it is cryptographically secure or has a certain length!
  *
- * Returns: The hash as hexadecimal string. Free with %g_free
+ * Returns: (transfer full): The hash as hexadecimal string. Free with %g_free
  */
 gchar *
 asc_compute_content_checksum_for_data (const gchar *data, gsize length)
@@ -142,6 +142,8 @@ asc_compute_content_checksum_for_data (const gchar *data, gsize length)
  *
  * Generate a filename from a web-URL that can be used to store the
  * file on disk after download.
+ *
+ * Returns: (transfer full) (nullable): The generated filename, or %NULL if @url was %NULL.
  */
 gchar *
 asc_filename_from_url (const gchar *url)

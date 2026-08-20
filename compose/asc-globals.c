@@ -22,6 +22,11 @@
  * SECTION:asc-globals
  * @short_description: Set and read a bunch of global settings used across appstream-compose
  * @include: appstream-compose.h
+ *
+ * These settings are global to the process, and are shared by every #AscCompose
+ * and #AscMedia instance in it. They are not synchronized against concurrent
+ * write access, so an application has to apply its configuration before it starts
+ * composing metadata, and must not change it while a compose run is in progress.
  */
 
 #define _GNU_SOURCE

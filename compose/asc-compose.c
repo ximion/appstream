@@ -702,7 +702,7 @@ asc_compose_set_max_screenshot_size (AscCompose *compose, gssize size_bytes)
 /**
  * asc_compose_set_check_metadata_early_func:
  * @compose: an #AscCompose instance.
- * @func: (scope notified): the #AscCheckMetainfoLoadResultFn function to be called
+ * @func: (scope notified): the #AscCheckMetadataEarlyFn function to be called
  * @user_data: user data for @func
  *
  * Set an custom callback to be run when most of the metadata has been loaded,

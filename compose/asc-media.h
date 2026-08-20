@@ -124,6 +124,10 @@ typedef enum {
  * @ASC_IMAGE_FORMAT_GIF:	GIF format
  *
  * File format of an image.
+ *
+ * All of these formats can be read, but renditions are only ever written as
+ * %ASC_IMAGE_FORMAT_PNG or %ASC_IMAGE_FORMAT_JXL - the other values are for
+ * classifying input data.
  **/
 typedef enum {
 	ASC_IMAGE_FORMAT_UNKNOWN,

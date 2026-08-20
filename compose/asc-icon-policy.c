@@ -278,7 +278,7 @@ asc_icon_policy_iter_next (AscIconPolicyIter *iter, guint *size, guint *scale, A
  *
  * Converts the current icon policy into a textual representation.
  *
- * Returns: The icon policy serialized into a string. Free with g_free()
+ * Returns: (transfer full): The icon policy serialized into a string. Free with g_free()
  **/
 gchar *
 asc_icon_policy_to_string (AscIconPolicy *ipolicy)
