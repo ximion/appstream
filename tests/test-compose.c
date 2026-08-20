@@ -151,6 +151,32 @@ test_utils (void)
 	g_free (tmp);
 
 	g_assert_null (asc_filename_from_url (NULL));
+
+	/* source icon selection: a stock icon wins over a local one, no matter
+	 * in which order they were added */
+	{
+		g_autoptr(AsComponent) cpt = as_component_new ();
+		g_autoptr(AsIcon) cached_icon = as_icon_new ();
+		g_autoptr(AsIcon) local_icon = as_icon_new ();
+		g_autoptr(AsIcon) stock_icon = as_icon_new ();
+
+		g_assert_null (asc_component_get_source_icon (cpt));
+
+		as_icon_set_kind (cached_icon, AS_ICON_KIND_CACHED);
+		as_icon_set_name (cached_icon, "cached.png");
+		as_component_add_icon (cpt, cached_icon);
+		g_assert_null (asc_component_get_source_icon (cpt));
+
+		as_icon_set_kind (local_icon, AS_ICON_KIND_LOCAL);
+		as_icon_set_name (local_icon, "/usr/share/pixmaps/local.png");
+		as_component_add_icon (cpt, local_icon);
+		g_assert_true (asc_component_get_source_icon (cpt) == local_icon);
+
+		as_icon_set_kind (stock_icon, AS_ICON_KIND_STOCK);
+		as_icon_set_name (stock_icon, "org.example.Test");
+		as_component_add_icon (cpt, stock_icon);
+		g_assert_true (asc_component_get_source_icon (cpt) == stock_icon);
+	}
 }
 
 /**
@@ -172,7 +198,10 @@ test_compose_issue_tag_sanity (void)
 				    all_hint_tags[i]);
 			g_assert_not_reached ();
 		}
+		g_assert_true (asc_globals_hint_tag_exists (all_hint_tags[i]));
 	}
+
+	g_assert_false (asc_globals_hint_tag_exists ("this-tag-does-not-exist"));
 }
 
 /**

@@ -1146,17 +1146,8 @@ asc_compose_process_icons (AscCompose *compose,
 		return;
 
 	/* find a suitable stock icon as template */
-	for (guint i = 0; i < icons->len; i++) {
-		AsIcon *icon = AS_ICON (g_ptr_array_index (icons, i));
-		if (as_icon_get_kind (icon) == AS_ICON_KIND_STOCK) {
-			stock_icon = icon;
-			break;
-		}
+	stock_icon = asc_component_get_source_icon (cpt);
 
-		/* we cheat here to accomodate for apps which used the "local" icon type wrong */
-		if (as_icon_get_kind (icon) == AS_ICON_KIND_LOCAL)
-			stock_icon = icon;
-	}
 	/* drop all preexisting icons */
 	if (stock_icon != NULL)
 		stock_icon = g_object_ref (stock_icon);

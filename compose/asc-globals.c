@@ -564,6 +564,22 @@ asc_globals_get_hint_tags (void)
 }
 
 /**
+ * asc_globals_hint_tag_exists:
+ * @tag: A hint tag name.
+ *
+ * Check whether a hint tag with the given name is registered.
+ *
+ * Returns: %TRUE if the tag is known.
+ *
+ * Since: 1.2.0
+ */
+gboolean
+asc_globals_hint_tag_exists (const gchar *tag)
+{
+	return asc_globals_get_hint_tag_details (tag) != NULL;
+}
+
+/**
  * asc_globals_hint_tag_severity:
  *
  * Retrieve the severity of the given hint tag.

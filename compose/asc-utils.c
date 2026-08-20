@@ -179,3 +179,47 @@ asc_filename_from_url (const gchar *url)
 		return as_random_alnum_string (4);
 	return g_path_get_basename (unescaped);
 }
+
+/**
+ * asc_component_get_source_icon:
+ * @cpt: an #AsComponent instance.
+ *
+ * Find the unprocessed icon that a component was created with, that is the
+ * icon reference that came straight from its metainfo or desktop-entry file.
+ * A stock icon is preferred, but a local one is accepted as well to
+ * accommodate for applications that used the "local" icon type wrong.
+ *
+ * This is the icon that appstream-compose renders its icon set from. If
+ * %ASC_COMPOSE_FLAG_IGNORE_ICONS is set, it is left on the component
+ * untouched, so that the caller can run its own icon processing on it.
+ *
+ * Returns: (transfer none) (nullable): The source #AsIcon, or %NULL if the
+ *    component has none.
+ *
+ * Since: 1.2.0
+ */
+AsIcon *
+asc_component_get_source_icon (AsComponent *cpt)
+{
+	GPtrArray *icons;
+	AsIcon *local_icon = NULL;
+
+	g_return_val_if_fail (AS_IS_COMPONENT (cpt), NULL);
+
+	icons = as_component_get_icons (cpt);
+	if (icons == NULL)
+		return NULL;
+
+	for (guint i = 0; i < icons->len; i++) {
+		AsIcon *icon = AS_ICON (g_ptr_array_index (icons, i));
+
+		if (as_icon_get_kind (icon) == AS_ICON_KIND_STOCK)
+			return icon;
+
+		/* we cheat here to accomodate for apps which used the "local" icon type wrong */
+		if (as_icon_get_kind (icon) == AS_ICON_KIND_LOCAL)
+			local_icon = icon;
+	}
+
+	return local_icon;
+}

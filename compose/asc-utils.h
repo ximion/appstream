@@ -28,9 +28,11 @@
 
 G_BEGIN_DECLS
 
-gchar *asc_build_component_global_id (const gchar *component_id, const gchar *checksum);
-gchar *asc_compute_content_checksum_for_data (const gchar *data, gsize length);
+gchar  *asc_build_component_global_id (const gchar *component_id, const gchar *checksum);
+gchar  *asc_compute_content_checksum_for_data (const gchar *data, gsize length);
 
-gchar *asc_filename_from_url (const gchar *url);
+gchar  *asc_filename_from_url (const gchar *url);
+
+AsIcon *asc_component_get_source_icon (AsComponent *cpt);
 
 G_END_DECLS
