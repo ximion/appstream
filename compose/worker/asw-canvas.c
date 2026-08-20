@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2016-2025 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2016-2026 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -20,7 +20,7 @@
 
 /**
  * SECTION:asw-canvas
- * @short_description: Draw text and render SVG graphics.
+ * @short_description: Draw text and simple shapes.
  * @include: appstream-compose.h
  */
 
@@ -30,9 +30,6 @@
 #include <cairo.h>
 #include <cairo-ft.h>
 #include <math.h>
-#ifdef HAVE_SVG_SUPPORT
-#include <librsvg/rsvg.h>
-#endif
 
 #include "as-utils-private.h"
 #include "asw-font-private.h"
@@ -140,94 +137,6 @@ asw_canvas_get_height (AswCanvas *canvas)
 {
 	AswCanvasPrivate *priv = GET_PRIVATE (canvas);
 	return priv->height;
-}
-
-/**
- * asw_canvas_render_svg:
- * @canvas: an #AswCanvas instance.
- * @stream: SVG data input stream.
- * @error: A #GError or %NULL
- *
- * Render an SVG graphic from the SVG data provided.
- **/
-gboolean
-asw_canvas_render_svg (AswCanvas *canvas, GInputStream *stream, GError **error)
-{
-#ifdef HAVE_SVG_SUPPORT
-	AswCanvasPrivate *priv = GET_PRIVATE (canvas);
-	RsvgHandle *handle = NULL;
-	gboolean ret = FALSE;
-	gdouble srf_width, srf_height;
-#if LIBRSVG_CHECK_VERSION(2, 52, 0)
-	RsvgRectangle viewport;
-#else
-	RsvgDimensionData dims;
-#endif
-
-	/* NOTE: unfortunately, Cairo/RSvg may use Fontconfig internally, so
-	 * we need to lock this down since a parallel-processed font
-	 * might need to access this too. */
-	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&fontconfig_mutex);
-
-	handle = rsvg_handle_new_from_stream_sync (stream,
-						   NULL,
-						   RSVG_HANDLE_FLAGS_NONE,
-						   NULL,
-						   error);
-	if (handle == NULL)
-		goto out;
-	rsvg_handle_set_dpi (handle, 100);
-
-	srf_width = (gdouble) cairo_image_surface_get_width (priv->srf);
-	srf_height = (gdouble) cairo_image_surface_get_height (priv->srf);
-
-	cairo_save (priv->cr);
-
-#if LIBRSVG_CHECK_VERSION(2, 52, 0)
-	viewport.x = 0;
-	viewport.y = 0;
-	viewport.width = srf_width;
-	viewport.height = srf_height;
-
-	ret = rsvg_handle_render_document (handle, priv->cr, &viewport, error);
-	if (!ret) {
-		cairo_restore (priv->cr);
-		g_prefix_error (error, "SVG graphic rendering failed:");
-		goto out;
-	}
-#else
-	rsvg_handle_get_dimensions (handle, &dims);
-
-	/* cairo_translate (cr, (srf_width - dims.width) / 2, (srf_height - dims.height) / 2); */
-	cairo_scale (priv->cr, srf_width / dims.width, srf_height / dims.height);
-
-	ret = rsvg_handle_render_cairo (handle, priv->cr);
-	if (!ret) {
-		cairo_restore (priv->cr);
-		g_set_error_literal (error,
-				     ASW_CANVAS_ERROR,
-				     ASW_CANVAS_ERROR_DRAWING,
-				     "SVG graphic rendering failed.");
-		goto out;
-	}
-#endif
-
-	ret = TRUE;
-out:
-	if (handle != NULL)
-		g_object_unref (handle);
-	return ret;
-#else
-	g_warning ("Unable to render SVG graphic: AppStream built without SVG support.");
-	g_set_error_literal (error,
-			     ASW_CANVAS_ERROR,
-			     ASW_CANVAS_ERROR_UNSUPPORTED,
-			     "AppStream was built without SVG support. This is an issue with your "
-			     "AppStream distribution. "
-			     "Please rebuild AppStream with SVG support enabled or contact your "
-			     "distributor to enable it for you.");
-	return FALSE;
-#endif
 }
 
 /**

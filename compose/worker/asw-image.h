@@ -43,7 +43,6 @@ AswImage   *asw_image_new_from_data (const void	      *data,
 				     gint	       dest_width,
 				     gint	       dest_height,
 				     AscImageLoadFlags flags,
-				     AscImageFormat    format_hint,
 				     GError	     **error);
 
 gboolean    asw_image_load_filename (AswImage	      *image,
@@ -75,12 +74,5 @@ gboolean    asw_canvas_save_to_file (AswCanvas	   *canvas,
 				     AscImageFormat format,
 				     gboolean	    lossless,
 				     GError	  **error);
-
-gboolean    asw_render_svg_to_file (GInputStream  *stream,
-				    gint	   width,
-				    gint	   height,
-				    AscImageFormat format,
-				    const gchar	  *filename,
-				    GError	 **error);
 
 G_END_DECLS

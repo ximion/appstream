@@ -42,7 +42,6 @@
 #include "asc-media.h"
 #include "asc-media-ipc.h"
 
-#include "asw-canvas.h"
 #include "asw-font.h"
 #include "asw-image-private.h"
 #include "asw-video.h"
@@ -146,11 +145,6 @@ asw_worker_send_hello (AswWorker *worker, GError **error)
 			       "{sv}",
 			       "program-version",
 			       g_variant_new_string (PACKAGE_VERSION));
-#ifdef HAVE_SVG_SUPPORT
-	g_variant_builder_add (&pb, "{sv}", "svg-support", g_variant_new_boolean (TRUE));
-#else
-	g_variant_builder_add (&pb, "{sv}", "svg-support", g_variant_new_boolean (FALSE));
-#endif
 
 	g_variant_builder_init (&fmt_builder, G_VARIANT_TYPE ("as"));
 	formats = asw_image_supported_format_names ();
@@ -475,7 +469,6 @@ asw_worker_handle_process_image (AswWorker *worker,
 	GVariant *target_dict = NULL;
 	GVariantBuilder pb;
 	GVariantBuilder results_builder;
-	const gchar *format_hint = NULL;
 	gint load_width = 0;
 	gint load_height = 0;
 	guint32 load_flags = 0;
@@ -491,7 +484,6 @@ asw_worker_handle_process_image (AswWorker *worker,
 	if (img_bytes == NULL)
 		return NULL;
 
-	g_variant_lookup (params, "format-hint", "&s", &format_hint);
 	g_variant_lookup (params, "load-width", "i", &load_width);
 	g_variant_lookup (params, "load-height", "i", &load_height);
 	g_variant_lookup (params, "load-flags", "u", &load_flags);
@@ -512,7 +504,6 @@ asw_worker_handle_process_image (AswWorker *worker,
 					 load_width,
 					 load_height,
 					 (AscImageLoadFlags) load_flags,
-					 asc_image_format_from_string (format_hint),
 					 error);
 	if (image == NULL) {
 		if (dir_fd >= 0) {

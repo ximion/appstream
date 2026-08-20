@@ -208,7 +208,6 @@ test_media_process_image (void)
 	/* read the image dimensions without storing any rendition */
 	ret = asc_media_process_image (media,
 				       img_bytes,
-				       ASC_IMAGE_FORMAT_UNKNOWN,
 				       0,
 				       0,
 				       ASC_IMAGE_LOAD_FLAG_NONE,
@@ -238,7 +237,6 @@ test_media_process_image (void)
 	src_height = 0;
 	ret = asc_media_process_image (media,
 				       img_bytes,
-				       ASC_IMAGE_FORMAT_UNKNOWN,
 				       0,
 				       0,
 				       ASC_IMAGE_LOAD_FLAG_NONE,
@@ -411,7 +409,6 @@ test_media_worker_failure (void)
 	bad_bytes = as_gbytes_from_literal ("This is not a valid image.");
 	ret = asc_media_process_image (media,
 				       bad_bytes,
-				       ASC_IMAGE_FORMAT_UNKNOWN,
 				       0,
 				       0,
 				       ASC_IMAGE_LOAD_FLAG_NONE,

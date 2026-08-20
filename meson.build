@@ -62,7 +62,6 @@ endif
 conf.set('HAVE_DISPLAY_DETECTION', display_detection != 'none')
 conf.set('HAVE_WAYLAND', wayland_enabled)
 conf.set('HAVE_MACOS_DISPLAY', macos_display_enabled)
-conf.set('HAVE_SVG_SUPPORT', get_option('svg-support'))
 conf.set('HAVE_ZSTD', get_option('zstd-support'))
 conf.set('HAVE_BLAKE3', get_option('blake3-support'))
 conf.set('ASC_MEDIAWORKER_USE_LIBEXEC', get_option('mediaworker-dir') == 'libexecdir')
@@ -95,9 +94,6 @@ if get_option('maintainer')
       '-Wfloat-equal',
       '-Wno-error=comment',
       '-Werror=format-security',
-
-      # used in rsvg's headers, so we can not make this fatal yet
-      '-Wno-error=expansion-to-defined',
     ]
     add_project_arguments(maintainer_c_args, language: 'c')
     add_project_arguments(maintainer_c_args, language: 'cpp')

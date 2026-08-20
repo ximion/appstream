@@ -210,6 +210,7 @@ test_image_transform (void)
 	g_autoptr(GHashTable) supported_fmts = NULL;
 	g_autofree gchar *sample_img_fname = NULL;
 	g_autofree gchar *sample_jxl_img_fname = NULL;
+	g_autofree gchar *sample_svgz_img_fname = NULL;
 	g_autoptr(AswImage) image = NULL;
 	g_autoptr(GError) error = NULL;
 	g_autofree gchar *out_fname = NULL;
@@ -227,6 +228,7 @@ test_image_transform (void)
 
 	sample_img_fname = g_build_filename (datadir, "appstream-logo.png", NULL);
 	sample_jxl_img_fname = g_build_filename (datadir, "image.jxl", NULL);
+	sample_svgz_img_fname = g_build_filename (datadir, "table.svgz", NULL);
 
 	/* load image from file */
 	image = asw_image_new_from_file (sample_img_fname,
@@ -256,13 +258,7 @@ test_image_transform (void)
 	g_file_get_contents (sample_img_fname, &data, &data_len, &error);
 	g_assert_no_error (error);
 
-	image = asw_image_new_from_data (data,
-					 data_len,
-					 -1,
-					 -1,
-					 ASC_IMAGE_LOAD_FLAG_NONE,
-					 ASC_IMAGE_FORMAT_UNKNOWN,
-					 &error);
+	image = asw_image_new_from_data (data, data_len, -1, -1, ASC_IMAGE_LOAD_FLAG_NONE, &error);
 	g_assert_no_error (error);
 	g_assert_nonnull (image);
 
@@ -272,6 +268,48 @@ test_image_transform (void)
 	ret = asw_image_save_filename (image, out_fname, 0, 0, ASC_IMAGE_SAVE_FLAG_NONE, &error);
 	g_assert_no_error (error);
 	g_assert_true (ret);
+	g_clear_object (&image);
+
+	/* vector graphics are rendered at the requested size, and GZip-compressed
+	 * SVG data is decompressed by the image loader itself */
+	g_clear_pointer (&data, g_free);
+	g_file_get_contents (sample_svgz_img_fname, &data, &data_len, &error);
+	g_assert_no_error (error);
+
+	image = asw_image_new_from_data (data,
+					 data_len,
+					 96,
+					 96,
+					 ASC_IMAGE_LOAD_FLAG_ALWAYS_RESIZE,
+					 &error);
+	g_assert_no_error (error);
+	g_assert_nonnull (image);
+	g_assert_cmpint (asw_image_get_width (image), ==, 96);
+	g_assert_cmpint (asw_image_get_height (image), ==, 96);
+	g_clear_object (&image);
+
+	/* ... the same, but read from a file */
+	image = asw_image_new_from_file (sample_svgz_img_fname,
+					 96,
+					 96,
+					 ASC_IMAGE_LOAD_FLAG_ALWAYS_RESIZE,
+					 &error);
+	g_assert_no_error (error);
+	g_assert_nonnull (image);
+	g_assert_cmpint (asw_image_get_width (image), ==, 96);
+	g_assert_cmpint (asw_image_get_height (image), ==, 96);
+
+	g_clear_pointer (&out_fname, g_free);
+	out_fname = asx_build_workdir_path ("asw-svgzrender_test.jxl");
+	ret = asw_image_save_filename (image,
+				       out_fname,
+				       0,
+				       0,
+				       ASC_IMAGE_SAVE_FLAG_LOSSLESS,
+				       &error);
+	g_assert_no_error (error);
+	g_assert_true (ret);
+	g_assert_true (g_file_test (out_fname, G_FILE_TEST_EXISTS));
 	g_clear_object (&image);
 
 	/* test loading a JPEG-XL image */
@@ -326,46 +364,14 @@ test_image_transform (void)
 static void
 test_canvas (void)
 {
-	g_autofree gchar *sample_svg_fname = NULL;
 	g_autofree gchar *font_fname = NULL;
-	g_autofree gchar *data = NULL;
-	gsize data_len;
 	gint cv_size;
 	gint text_border_width, shape_border_width;
 	AswCanvasShape bg_shape;
 	g_autofree gchar *out_fname = NULL;
 	g_autoptr(AswCanvas) cv = NULL;
 	g_autoptr(AswFont) font = NULL;
-	g_autoptr(GInputStream) stream = NULL;
 	g_autoptr(GError) error = NULL;
-
-	sample_svg_fname = g_build_filename (datadir, "table.svgz", NULL);
-
-	/* read & render compressed SVG file */
-	g_file_get_contents (sample_svg_fname, &data, &data_len, &error);
-	g_assert_no_error (error);
-
-	stream = g_memory_input_stream_new_from_data (data, data_len, NULL);
-
-	cv = asw_canvas_new (512, 512);
-	asw_canvas_render_svg (cv, stream, &error);
-	g_assert_no_error (error);
-
-	out_fname = asx_build_workdir_path ("asw-svgrender_test1.png");
-	asw_canvas_save_png (cv, out_fname, &error);
-	g_assert_no_error (error);
-
-	g_object_unref (cv);
-	cv = NULL;
-	g_clear_object (&stream);
-
-	/* render the same SVG to a JPEG-XL file, exercising the canvas image conversion */
-	stream = g_memory_input_stream_new_from_data (data, data_len, NULL);
-	g_clear_pointer (&out_fname, g_free);
-	out_fname = asx_build_workdir_path ("asw-svgrender_test2.jxl");
-	asw_render_svg_to_file (stream, 256, 256, ASC_IMAGE_FORMAT_JXL, out_fname, &error);
-	g_assert_no_error (error);
-	g_assert_true (g_file_test (out_fname, G_FILE_TEST_EXISTS));
 
 	/* test font rendering */
 	font_fname = g_build_filename (datadir, "Raleway-Regular.ttf", NULL);

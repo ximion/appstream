@@ -76,9 +76,6 @@ guint	   asw_canvas_get_width (AswCanvas *canvas);
 guint	   asw_canvas_get_height (AswCanvas *canvas);
 
 AS_INTERNAL_VISIBLE
-gboolean asw_canvas_render_svg (AswCanvas *canvas, GInputStream *stream, GError **error);
-
-AS_INTERNAL_VISIBLE
 gboolean   asw_canvas_save_png (AswCanvas *canvas, const gchar *fname, GError **error);
 
 VipsImage *asw_canvas_to_vips (AswCanvas *canvas, GError **error);

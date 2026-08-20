@@ -989,7 +989,6 @@ asc_media_apply_target_results (GVariant *payload, GPtrArray *targets, GError **
  * asc_media_process_image:
  * @media: an #AscMedia instance.
  * @img_data: The image data to process.
- * @format_hint: Assumed image format of the data, or %ASC_IMAGE_FORMAT_UNKNOWN to autodetect.
  * @load_width: Width to render vector graphics at, or 0 to load at the native size.
  * @load_height: Height to render vector graphics at, or 0 to load at the native size.
  * @load_flags: Flags to use when loading the image.
@@ -1011,7 +1010,6 @@ asc_media_apply_target_results (GVariant *payload, GPtrArray *targets, GError **
 gboolean
 asc_media_process_image (AscMedia *media,
 			 GBytes *img_data,
-			 AscImageFormat format_hint,
 			 gint load_width,
 			 gint load_height,
 			 AscImageLoadFlags load_flags,
@@ -1024,7 +1022,6 @@ asc_media_process_image (AscMedia *media,
 	g_autoptr(GUnixFDList) fds = g_unix_fd_list_new ();
 	g_autoptr(GVariant) payload = NULL;
 	g_auto(GVariantBuilder) pb = G_VARIANT_BUILDER_INIT (G_VARIANT_TYPE ("a{sv}"));
-	const gchar *format_str;
 	gint fd, handle;
 	gboolean have_targets = targets != NULL && targets->len > 0;
 
@@ -1043,11 +1040,6 @@ asc_media_process_image (AscMedia *media,
 		return FALSE;
 	g_variant_builder_add (&pb, "{sv}", "image-fd", g_variant_new_handle (handle));
 
-	format_str = asc_image_format_to_string (format_hint);
-	g_variant_builder_add (&pb,
-			       "{sv}",
-			       "format-hint",
-			       g_variant_new_string (format_str ? format_str : ""));
 	g_variant_builder_add (&pb, "{sv}", "load-width", g_variant_new_int32 (load_width));
 	g_variant_builder_add (&pb, "{sv}", "load-height", g_variant_new_int32 (load_height));
 	g_variant_builder_add (&pb, "{sv}", "load-flags", g_variant_new_uint32 (load_flags));

@@ -476,7 +476,6 @@ asc_process_screenshot_images_lang (AscResult *cres,
 
 		if (!asc_media_process_image (media,
 					      img_bytes,
-					      ASC_IMAGE_FORMAT_UNKNOWN,
 					      0, /* load width */
 					      0, /* load height */
 					      ASC_IMAGE_LOAD_FLAG_NONE,
@@ -538,7 +537,6 @@ asc_process_screenshot_images_lang (AscResult *cres,
 
 		if (!asc_media_process_image (media,
 					      img_bytes,
-					      ASC_IMAGE_FORMAT_UNKNOWN,
 					      0, /* load width */
 					      0, /* load height */
 					      ASC_IMAGE_LOAD_FLAG_NONE,
@@ -646,7 +644,6 @@ asc_process_screenshot_images_lang (AscResult *cres,
 
 		if (!asc_media_process_image (media,
 					      img_bytes,
-					      ASC_IMAGE_FORMAT_UNKNOWN,
 					      0, /* load width */
 					      0, /* load height */
 					      ASC_IMAGE_LOAD_FLAG_NONE,

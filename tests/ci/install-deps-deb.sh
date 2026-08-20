@@ -58,7 +58,6 @@ fi;
 eatmydata apt-get install -yq --no-install-recommends \
     $blake3_dev_pkg \
     libcairo2-dev \
-    librsvg2-dev \
     libvips-dev \
     libfontconfig-dev \
     libpango1.0-dev

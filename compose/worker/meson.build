@@ -32,12 +32,6 @@ vips_dep       = dependency('vips', version: '>= 8.14')
 freetype_dep   = dependency('freetype2')
 pango_dep      = dependency('pango')
 fontconfig_dep = dependency('fontconfig')
-if get_option ('svg-support')
-    rsvg_dep       = dependency('librsvg-2.0', version: '>= 2.48')
-else
-    rsvg_dep = dependency('', required: false)
-    warning('Building without SVG support. Therefore appstream-compose will be unable to render SVG icons.')
-endif
 
 # Image format support in libvips is a build-time option of libvips itself and not
 # discoverable at compile-time for us.
@@ -55,21 +49,17 @@ if meson.can_run_host_binaries()
             if (!vips_type_find ("VipsForeignLoad", "jxlload_buffer") ||
                 !vips_type_find ("VipsForeignSave", "jxlsave"))
                 return 3;
-        #ifdef CHECK_SVG
             if (!vips_type_find ("VipsForeignLoad", "svgload_buffer"))
                 return 4;
-        #endif
             vips_shutdown ();
             return 0;
         }'''
     vips_fmt_check = cc.run(vips_fmt_check_src,
         dependencies: [vips_dep],
-        args: get_option('svg-support') ? ['-DCHECK_SVG'] : [],
-        name: 'libvips has PNG, JPEG-XL (and SVG) support')
+        name: 'libvips has PNG, JPEG-XL and SVG support')
     if not vips_fmt_check.compiled() or vips_fmt_check.returncode() != 0
-        warning('The installed libvips is missing required image format support: ' +
-                'it must be built with PNG and JPEG-XL (libjxl) load & save support' +
-                (get_option('svg-support') ? ' as well as SVG (librsvg) load support.' : '.'))
+        warning('The installed libvips is missing required image format support: it must be ' +
+                'built with PNG and JPEG-XL (libjxl) load & save as well as SVG (librsvg) load support.')
     endif
 endif
 
@@ -86,7 +76,6 @@ asc_media_lib = static_library('asc-media',
         gio_unix_dep,
         cairo_dep,
         vips_dep,
-        rsvg_dep,
         freetype_dep,
         pango_dep,
         fontconfig_dep,

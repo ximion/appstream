@@ -1124,9 +1124,6 @@ asc_compose_process_icons (AscCompose *compose,
 
 		if (!asc_media_process_image (media,
 					      img_bytes,
-					      g_str_has_suffix (icon_fname, ".svgz")
-						  ? ASC_IMAGE_FORMAT_SVGZ
-						  : ASC_IMAGE_FORMAT_UNKNOWN,
 					      is_vector_icon ? size * scale_factor : 0,
 					      is_vector_icon ? size * scale_factor : 0,
 					      ASC_IMAGE_LOAD_FLAG_ALWAYS_RESIZE,

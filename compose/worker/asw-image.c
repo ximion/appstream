@@ -177,11 +177,9 @@ asw_image_backend_init (const gchar *argv0, GError **error)
 	vips_operation_block_set ("VipsForeignLoadWebp", FALSE);
 	vips_operation_block_set ("VipsForeignLoadHeif", FALSE);
 	vips_operation_block_set ("VipsForeignLoadNsgif", FALSE);
-#ifdef HAVE_SVG_SUPPORT
 	vips_operation_block_set ("VipsForeignLoadSvg", FALSE);
-#endif
 
-	/* support for PNG and JPEG-XL is an absolute requirement */
+	/* support for PNG, JPEG-XL and SVG is an absolute requirement */
 	if (vips_type_find ("VipsForeignLoad", "pngload_buffer") == 0 ||
 	    vips_type_find ("VipsForeignSave", "pngsave") == 0) {
 		g_set_error_literal (error,
@@ -202,7 +200,6 @@ asw_image_backend_init (const gchar *argv0, GError **error)
 				     "or contact your distributor to enable it for you.");
 		return FALSE;
 	}
-#ifdef HAVE_SVG_SUPPORT
 	if (vips_type_find ("VipsForeignLoad", "svgload_buffer") == 0) {
 		g_set_error_literal (error,
 				     ASC_MEDIA_ERROR,
@@ -212,7 +209,6 @@ asw_image_backend_init (const gchar *argv0, GError **error)
 				     "your distributor to enable it for you.");
 		return FALSE;
 	}
-#endif
 
 	/* allow tracking down refcount issues in the media worker */
 	if (g_strcmp0 (g_getenv ("ASC_VIPS_LEAK"), "1") == 0)
@@ -362,12 +358,11 @@ asw_image_supported_format_names (void)
 			g_hash_table_add (res, g_strdup (loaders[i].format));
 	}
 
-#ifdef HAVE_SVG_SUPPORT
 	if (vips_type_find ("VipsForeignLoad", "svgload_buffer") != 0) {
+		/* the SVG loader transparently handles compressed SVG data as well */
 		g_hash_table_add (res, g_strdup ("svg"));
 		g_hash_table_add (res, g_strdup ("svgz"));
 	}
-#endif
 
 	return res;
 }
@@ -657,10 +652,10 @@ asw_image_new_from_file (const gchar *fname,
  * @dest_width: The suggested width of the constructed image, or 0 for the native size
  * @dest_height: The suggested height of the constructed image, or 0 for the native size
  * @flags: a #AscImageLoadFlags, e.g. %ASC_IMAGE_LOAD_FLAG_NONE
- * @format_hint: Assume the specified image format for data, use %ASC_IMAGE_FORMAT_UNKNOWN to guess.
  * @error: A #GError or %NULL
  *
  * Creates a new #AswImage from data in memory.
+ * The image format is detected from the data itself.
  **/
 AswImage *
 asw_image_new_from_data (const void *data,
@@ -668,36 +663,10 @@ asw_image_new_from_data (const void *data,
 			 gint dest_width,
 			 gint dest_height,
 			 AscImageLoadFlags flags,
-			 AscImageFormat format_hint,
 			 GError **error)
 {
-	g_autoptr(GBytes) raw_bytes = NULL;
 	g_autoptr(VipsImage) vimg = NULL;
 	g_autoptr(AswImage) image = asw_image_new ();
-
-	if (format_hint == ASC_IMAGE_FORMAT_SVGZ) {
-		/* decompress the GZip data first */
-		g_autoptr(GInputStream) istream = NULL;
-		g_autoptr(GInputStream) dstream = NULL;
-		g_autoptr(GConverter) conv = NULL;
-		g_autoptr(GOutputStream) ostream = NULL;
-
-		istream = g_memory_input_stream_new_from_data (data, len, NULL);
-		conv = G_CONVERTER (g_zlib_decompressor_new (G_ZLIB_COMPRESSOR_FORMAT_GZIP));
-		dstream = g_converter_input_stream_new (istream, conv);
-		ostream = g_memory_output_stream_new_resizable ();
-		if (g_output_stream_splice (ostream,
-					    dstream,
-					    G_OUTPUT_STREAM_SPLICE_CLOSE_SOURCE |
-						G_OUTPUT_STREAM_SPLICE_CLOSE_TARGET,
-					    NULL,
-					    error) < 0)
-			return NULL;
-		raw_bytes = g_memory_output_stream_steal_as_bytes (
-		    G_MEMORY_OUTPUT_STREAM (ostream));
-		data = g_bytes_get_data (raw_bytes, NULL);
-		len = (gssize) g_bytes_get_size (raw_bytes);
-	}
 
 	if (dest_width <= 0 && dest_height <= 0) {
 		g_autoptr(VipsImage) vimg_norm = NULL;
@@ -792,19 +761,6 @@ asw_image_load_filename (AswImage *image,
 	g_return_val_if_fail (ASW_IS_IMAGE (image), FALSE);
 
 	is_svg = g_str_has_suffix (filename, ".svg") || g_str_has_suffix (filename, ".svgz");
-#ifndef HAVE_SVG_SUPPORT
-	if (is_svg) {
-		g_warning ("Unable to load SVG graphic: AppStream built without SVG support.");
-		g_set_error_literal (error,
-				     ASC_MEDIA_ERROR,
-				     ASC_MEDIA_ERROR_UNSUPPORTED,
-				     "AppStream was built without SVG support. This is an issue "
-				     "with your AppStream distribution. "
-				     "Please rebuild AppStream with SVG support enabled or contact "
-				     "your distributor to enable it for you.");
-		return FALSE;
-	}
-#endif
 
 	/* only support allowed types, unless support for any image is explicitly requested */
 	if (!as_flags_contains (flags, ASC_IMAGE_LOAD_FLAG_ALLOW_UNSUPPORTED)) {
@@ -1137,54 +1093,6 @@ asw_canvas_save_to_file (AswCanvas *canvas,
 					    lossless ? &asw_lossless_saver_options
 						     : &asw_default_saver_options,
 					    error);
-}
-
-/**
- * asw_render_svg_to_file:
- * @stream: Input stream with SVG data.
- * @width: Target width.
- * @height: Target height.
- * @format: Target image format, e.g. %ASC_IMAGE_FORMAT_PNG
- * @filename: Filename to write to.
- * @error: A #GError or %NULL
- *
- * Renders SVG data from a stream to a file in a specific format.
- *
- * Returns: %TRUE for success
- **/
-gboolean
-asw_render_svg_to_file (GInputStream *stream,
-			gint width,
-			gint height,
-			AscImageFormat format,
-			const gchar *filename,
-			GError **error)
-{
-	g_autoptr(AswCanvas) cv = NULL;
-
-	g_return_val_if_fail (width > 0 && height > 0, FALSE);
-
-	if (format == ASC_IMAGE_FORMAT_UNKNOWN) {
-		g_set_error (error,
-			     ASC_MEDIA_ERROR,
-			     ASC_MEDIA_ERROR_UNSUPPORTED,
-			     "Unknown image format specified");
-		return FALSE;
-	}
-	if (format == ASC_IMAGE_FORMAT_SVG || format == ASC_IMAGE_FORMAT_SVGZ) {
-		g_set_error (error,
-			     ASC_MEDIA_ERROR,
-			     ASC_MEDIA_ERROR_UNSUPPORTED,
-			     "Can not render existing SVG data to SVG");
-		return FALSE;
-	}
-
-	cv = asw_canvas_new (width, height);
-	if (!asw_canvas_render_svg (cv, stream, error))
-		return FALSE;
-
-	/* this renders icons, so we always want a lossless result */
-	return asw_canvas_save_to_file (cv, filename, format, TRUE, error);
 }
 
 /**

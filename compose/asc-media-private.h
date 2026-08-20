@@ -104,7 +104,6 @@ gboolean asc_media_error_is_worker_failure (const GError *error);
 AS_INTERNAL_VISIBLE
 gboolean asc_media_process_image (AscMedia	   *media,
 				  GBytes	   *img_data,
-				  AscImageFormat    format_hint,
 				  gint		    load_width,
 				  gint		    load_height,
 				  AscImageLoadFlags load_flags,

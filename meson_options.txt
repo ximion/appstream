@@ -49,11 +49,6 @@ option('tools',
        value : true,
        description : 'Build/install command-line tools (appstreamcli, ascli compose if enabled)'
 )
-option('svg-support',
-       type : 'boolean',
-       value : true,
-       description : 'SVG graphics support for compose (only disable this for bootstrapping purposes)'
-)
 option('zstd-support',
        type : 'boolean',
        value : true,
