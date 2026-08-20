@@ -75,7 +75,7 @@ endif
 
 # static library with the worker internals, so unit tests
 # can exercise the media processing code in-process
-asw_core_lib = static_library('asw-core',
+asc_media_lib = static_library('asc-media',
     [asw_src,
      asw_headers,
      asw_res],
@@ -108,7 +108,7 @@ endif
 
 asc_mediaworker_exe = executable('asc-mediaworker',
     ['asw-main.c'],
-    link_with: [asw_core_lib],
+    link_with: [asc_media_lib],
     dependencies: [
         appstream_compose_dep,
         gio_dep,

@@ -146,7 +146,7 @@ if get_option('compose')
     as_test_compose_worker_exe = executable ('as-test_compose-worker',
         ['test-compose-worker.c',
          as_test_common_src],
-        link_with: [asw_core_lib],
+        link_with: [asc_media_lib],
         dependencies: [appstream_compose_dep,
                        gio_dep,
                        cairo_dep,

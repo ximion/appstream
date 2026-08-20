@@ -47,6 +47,15 @@ asw_video_probe_free (AswVideoProbe *probe)
 	g_free (probe);
 }
 
+/* Handing a descriptor to a child process is exactly what asw_ffprobe_child_setup
+ * is for, so the standard input we set up here is deliberately never closed - GLib
+ * execs ffprobe right after us. The static analyzer can not see that and reports
+ * the descriptor as leaked. */
+#if defined(__GNUC__) && !defined(__clang__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wanalyzer-fd-leak"
+#endif
+
 /**
  * asw_ffprobe_child_setup:
  *
@@ -65,6 +74,10 @@ asw_ffprobe_child_setup (gpointer user_data)
 	if (dup2 (video_fd, STDIN_FILENO) < 0)
 		_exit (1);
 }
+
+#if defined(__GNUC__) && !defined(__clang__)
+#pragma GCC diagnostic pop
+#endif
 
 /**
  * asw_probe_video:
