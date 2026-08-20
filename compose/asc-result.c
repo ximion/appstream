@@ -95,6 +95,8 @@ asc_result_class_init (AscResultClass *klass)
  * @result: an #AscResult instance.
  *
  * Returns: %TRUE if this result means the analyzed unit was ignored entirely.
+ *
+ * Since: 0.13.0
  **/
 gboolean
 asc_result_unit_ignored (AscResult *result)
@@ -108,6 +110,8 @@ asc_result_unit_ignored (AscResult *result)
  * @result: an #AscResult instance.
  *
  * Returns: The amount of components found for this unit.
+ *
+ * Since: 0.13.0
  **/
 guint
 asc_result_components_count (AscResult *result)
@@ -121,6 +125,8 @@ asc_result_components_count (AscResult *result)
  * @result: an #AscResult instance.
  *
  * Returns: The amount of hints emitted for this unit.
+ *
+ * Since: 0.13.0
  **/
 guint
 asc_result_hints_count (AscResult *result)
@@ -145,6 +151,8 @@ asc_result_hints_count (AscResult *result)
  * (usually due to errors).
  *
  * Returns: %TRUE if the component is ignored.
+ *
+ * Since: 0.13.0
  **/
 gboolean
 asc_result_is_ignored (AscResult *result, AsComponent *cpt)
@@ -158,6 +166,8 @@ asc_result_is_ignored (AscResult *result, AsComponent *cpt)
  * @result: an #AscResult instance.
  *
  * Gets the bundle kind these results are for.
+ *
+ * Since: 0.13.0
  **/
 AsBundleKind
 asc_result_get_bundle_kind (AscResult *result)
@@ -171,6 +181,8 @@ asc_result_get_bundle_kind (AscResult *result)
  * @result: an #AscResult instance.
  *
  * Sets the kind of the bundle these results are for.
+ *
+ * Since: 0.13.0
  **/
 void
 asc_result_set_bundle_kind (AscResult *result, AsBundleKind kind)
@@ -185,6 +197,8 @@ asc_result_set_bundle_kind (AscResult *result, AsBundleKind kind)
  *
  * Gets the ID name of the bundle (a package / Flatpak / any entity containing metadata)
  * that these these results are generated for.
+ *
+ * Since: 0.13.0
  **/
 const gchar *
 asc_result_get_bundle_id (AscResult *result)
@@ -199,6 +213,8 @@ asc_result_get_bundle_id (AscResult *result)
  * @id: The new ID.
  *
  * Sets the name of the bundle these results are for.
+ *
+ * Since: 0.13.0
  **/
 void
 asc_result_set_bundle_id (AscResult *result, const gchar *id)
@@ -216,6 +232,8 @@ asc_result_set_bundle_id (AscResult *result, const gchar *id)
  * Gets the component by its component-id-
  *
  * returns: (transfer none): An #AsComponent
+ *
+ * Since: 0.13.0
  **/
 AsComponent *
 asc_result_get_component (AscResult *result, const gchar *cid)
@@ -231,6 +249,8 @@ asc_result_get_component (AscResult *result, const gchar *cid)
  * Gets all components this #AsResult instance contains.
  *
  * Returns: (transfer container) (element-type AsComponent) : An array of #AsComponent
+ *
+ * Since: 0.13.0
  **/
 GPtrArray *
 asc_result_fetch_components (AscResult *result)
@@ -256,6 +276,8 @@ asc_result_fetch_components (AscResult *result)
  * Gets hints for a component with the given component-id.
  *
  * Returns: (transfer none) (element-type AscHint): An array of #AscHint or %NULL
+ *
+ * Since: 0.13.0
  **/
 GPtrArray *
 asc_result_get_hints (AscResult *result, const gchar *cid)
@@ -271,6 +293,8 @@ asc_result_get_hints (AscResult *result, const gchar *cid)
  * Get a list of all hints for all components that are registered with this result.
  *
  * Returns: (transfer container) (element-type AscHint) : An array of #AscHint
+ *
+ * Since: 0.14.5
  **/
 GPtrArray *
 asc_result_fetch_hints_all (AscResult *result)
@@ -299,6 +323,8 @@ asc_result_fetch_hints_all (AscResult *result)
  * Gets list of component-IDs which do have issue hints associated with them.
  *
  * Returns: (transfer container): An array of component-IDs. Free container with %g_free
+ *
+ * Since: 0.14.0
  **/
 const gchar **
 asc_result_get_component_ids_with_hints (AscResult *result)
@@ -316,6 +342,8 @@ asc_result_get_component_ids_with_hints (AscResult *result)
  * Update the global component ID for the given component.
  *
  * Returns: %TRUE if the component existed and was updated.
+ *
+ * Since: 0.13.0
  **/
 gboolean
 asc_result_update_component_gcid (AscResult *result, AsComponent *cpt, GBytes *bytes)
@@ -377,6 +405,8 @@ asc_result_update_component_gcid (AscResult *result, AsComponent *cpt, GBytes *b
  * This is a convenience method for %asc_result_update_component_gcid
  *
  * Returns: %TRUE if the component existed and was updated.
+ *
+ * Since: 0.14.0
  **/
 gboolean
 asc_result_update_component_gcid_with_string (AscResult *result,
@@ -395,6 +425,8 @@ asc_result_update_component_gcid_with_string (AscResult *result,
  * Retrieve the global component-ID string for the given component-ID,
  * as long as component with the given ID is registered with this #AscResult.
  * Otherwise, %NULL is returned.
+ *
+ * Since: 0.14.0
  */
 const gchar *
 asc_result_gcid_for_cid (AscResult *result, const gchar *cid)
@@ -425,6 +457,8 @@ asc_result_gcid_for_component (AscResult *result, AsComponent *cpt)
  * Retrieve a list of all global component-IDs that this result knows of.
  *
  * Returns: (transfer container): An array of global component IDs. Free with %g_free
+ *
+ * Since: 0.14.0
  */
 const gchar **
 asc_result_get_component_gcids (AscResult *result)
@@ -452,6 +486,8 @@ asc_result_get_component_gcids (AscResult *result)
  * Add component to the results set.
  *
  * Returns: %TRUE on success.
+ *
+ * Since: 0.13.0
  **/
 gboolean
 asc_result_add_component (AscResult *result, AsComponent *cpt, GBytes *bytes, GError **error)
@@ -500,6 +536,8 @@ asc_result_add_component (AscResult *result, AsComponent *cpt, GBytes *bytes, GE
  * Add component to the results set, using string data.
  *
  * Returns: %TRUE on success.
+ *
+ * Since: 0.14.0
  **/
 gboolean
 asc_result_add_component_with_string (AscResult *result,
@@ -520,6 +558,8 @@ asc_result_add_component_with_string (AscResult *result,
  * Remove a component from the results set.
  *
  * Returns: %TRUE if the component was found and removed.
+ *
+ * Since: 0.15.1
  **/
 gboolean
 asc_result_remove_component_full (AscResult *result, AsComponent *cpt, gboolean remove_gcid)
@@ -543,6 +583,8 @@ asc_result_remove_component_full (AscResult *result, AsComponent *cpt, gboolean 
  * Remove a component from the results set.
  *
  * Returns: %TRUE if the component was found and removed.
+ *
+ * Since: 0.13.0
  **/
 gboolean
 asc_result_remove_component (AscResult *result, AsComponent *cpt)
@@ -556,6 +598,8 @@ asc_result_remove_component (AscResult *result, AsComponent *cpt)
  * @cid: The component ID
  *
  * Remove all hints that we have associated with the selected component-ID.
+ *
+ * Since: 0.14.5
  */
 void
 asc_result_remove_hints_for_cid (AscResult *result, const gchar *cid)
@@ -573,6 +617,8 @@ asc_result_remove_hints_for_cid (AscResult *result, const gchar *cid)
  * Test if a hint tag is associated with a given component in this result.
  *
  * Returns: %TRUE if a hint with this tag exists for the selected component.
+ *
+ * Since: 0.15.1
  */
 gboolean
 asc_result_has_hint (AscResult *result, AsComponent *cpt, const gchar *tag)
@@ -601,6 +647,8 @@ asc_result_has_hint (AscResult *result, AsComponent *cpt, const gchar *tag)
  * Remove a component from the results set.
  *
  * Returns: %TRUE if the component was found and removed.
+ *
+ * Since: 0.13.0
  **/
 gboolean
 asc_result_remove_component_by_id (AscResult *result, const gchar *cid)
@@ -690,6 +738,8 @@ asc_result_add_hint_va (AscResult *result,
  * Add an issue hint for a component.
  *
  * Returns: %TRUE if the added hint did not cause the component to be invalidated.
+ *
+ * Since: 0.13.0
  **/
 gboolean
 asc_result_add_hint_by_cid (AscResult *result,
@@ -717,6 +767,8 @@ asc_result_add_hint_by_cid (AscResult *result,
  * Add an issue hint for a component.
  *
  * Returns: %TRUE if the added hint did not cause the component to be invalidated.
+ *
+ * Since: 0.13.0
  **/
 gboolean
 asc_result_add_hint_by_cid_v (AscResult *result,
@@ -744,6 +796,8 @@ asc_result_add_hint_by_cid_v (AscResult *result,
  * Add an issue hint for a component.
  *
  * Returns: %TRUE if the added hint did not cause the component to be invalidated.
+ *
+ * Since: 0.13.0
  **/
 gboolean
 asc_result_add_hint (AscResult *result, AsComponent *cpt, const gchar *tag, const gchar *key1, ...)
@@ -774,6 +828,8 @@ asc_result_add_hint (AscResult *result, AsComponent *cpt, const gchar *tag, cons
  * explanation text for a component.
  *
  * Returns: %TRUE if the added hint did not cause the component to be invalidated.
+ *
+ * Since: 0.14.0
  **/
 gboolean
 asc_result_add_hint_simple (AscResult *result, AsComponent *cpt, const gchar *tag)
@@ -795,6 +851,8 @@ asc_result_add_hint_simple (AscResult *result, AsComponent *cpt, const gchar *ta
  * Add an issue hint for a component.
  *
  * Returns: %TRUE if the added hint did not cause the component to be invalidated.
+ *
+ * Since: 0.13.0
  **/
 gboolean
 asc_result_add_hint_v (AscResult *result, AsComponent *cpt, const gchar *tag, gchar **kv)
@@ -818,6 +876,8 @@ asc_result_add_hint_v (AscResult *result, AsComponent *cpt, const gchar *tag, gc
  * asc_result_new:
  *
  * Creates a new #AscResult.
+ *
+ * Since: 0.13.0
  **/
 AscResult *
 asc_result_new (void)

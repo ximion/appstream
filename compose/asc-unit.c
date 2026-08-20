@@ -78,6 +78,8 @@ asc_unit_class_init (AscUnitClass *klass)
  * @unit: an #AscUnit instance.
  *
  * Gets the bundle kind of this unit.
+ *
+ * Since: 0.14.5
  **/
 AsBundleKind
 asc_unit_get_bundle_kind (AscUnit *unit)
@@ -91,6 +93,8 @@ asc_unit_get_bundle_kind (AscUnit *unit)
  * @unit: an #AscUnit instance.
  *
  * Sets the kind of the bundle this unit represents.
+ *
+ * Since: 0.14.5
  **/
 void
 asc_unit_set_bundle_kind (AscUnit *unit, AsBundleKind kind)
@@ -105,6 +109,8 @@ asc_unit_set_bundle_kind (AscUnit *unit, AsBundleKind kind)
  *
  * Gets the ID name of the bundle (a package / Flatpak / any entity containing metadata)
  * that this unit represents.
+ *
+ * Since: 0.14.5
  **/
 const gchar *
 asc_unit_get_bundle_id (AscUnit *unit)
@@ -119,6 +125,8 @@ asc_unit_get_bundle_id (AscUnit *unit)
  *
  * Gets the ID name of the bundle, normalized to be safe to use
  * in filenames. This may *not* be the same name as set via asc_unit_get_bundle_id()
+ *
+ * Since: 0.15.1
  **/
 const gchar *
 asc_unit_get_bundle_id_safe (AscUnit *unit)
@@ -133,6 +141,8 @@ asc_unit_get_bundle_id_safe (AscUnit *unit)
  * @id: The new ID.
  *
  * Sets the ID of the bundle represented by this unit.
+ *
+ * Since: 0.14.5
  **/
 void
 asc_unit_set_bundle_id (AscUnit *unit, const gchar *id)
@@ -167,6 +177,8 @@ asc_unit_set_bundle_id (AscUnit *unit, const gchar *id)
  * Get a list of all files contained by this unit.
  *
  * Returns: (transfer none) (element-type utf8) : A file listing
+ *
+ * Since: 0.14.5
  **/
 GPtrArray *
 asc_unit_get_contents (AscUnit *unit)
@@ -181,6 +193,8 @@ asc_unit_get_contents (AscUnit *unit)
  * @contents: (element-type utf8): A list of files contained by this unit.
  *
  * Set list of files this unit contains.
+ *
+ * Since: 0.14.5
  **/
 void
 asc_unit_set_contents (AscUnit *unit, GPtrArray *contents)
@@ -199,6 +213,8 @@ asc_unit_set_contents (AscUnit *unit, GPtrArray *contents)
  * Get a list of paths that are relevant for data processing.
  *
  * Returns: (transfer none) (element-type utf8) : A list of paths
+ *
+ * Since: 0.14.5
  **/
 GPtrArray *
 asc_unit_get_relevant_paths (AscUnit *unit)
@@ -215,6 +231,8 @@ asc_unit_get_relevant_paths (AscUnit *unit)
  * Add a path to the list of relevant directories.
  * A unit may only read data in paths that were previously
  * registered as relevant.
+ *
+ * Since: 0.14.5
  **/
 void
 asc_unit_add_relevant_path (AscUnit *unit, const gchar *path)
@@ -235,6 +253,8 @@ asc_unit_add_relevant_path (AscUnit *unit, const gchar *path)
  * @error: A #GError
  *
  * Open this unit, populating its content listing.
+ *
+ * Since: 0.14.5
  **/
 gboolean
 asc_unit_open (AscUnit *unit, GError **error)
@@ -254,6 +274,8 @@ asc_unit_open (AscUnit *unit, GError **error)
  *
  * Close this unit, possibly freeing its resources. Calls to read_data() or
  * get_contents() may not produce results until open() is called again.
+ *
+ * Since: 0.14.5
  **/
 void
 asc_unit_close (AscUnit *unit)
@@ -272,6 +294,8 @@ asc_unit_close (AscUnit *unit)
  * @filename: The filename to check.
  *
  * Returns %TRUE if the filename exists and is readable using %asc_unit_read_data.
+ *
+ * Since: 0.14.5
  **/
 gboolean
 asc_unit_file_exists (AscUnit *unit, const gchar *filename)
@@ -301,6 +325,8 @@ asc_unit_file_exists (AscUnit *unit, const gchar *filename)
  * @dirname: The directory name to check.
  *
  * Returns %TRUE if the directory exists and files in it are readable.
+ *
+ * Since: 0.14.5
  **/
 gboolean
 asc_unit_dir_exists (AscUnit *unit, const gchar *dirname)
@@ -320,6 +346,8 @@ asc_unit_dir_exists (AscUnit *unit, const gchar *dirname)
  * @error: A #GError
  *
  * Read the contents of the selected file into memory and return them.
+ *
+ * Since: 0.14.5
  **/
 GBytes *
 asc_unit_read_data (AscUnit *unit, const gchar *filename, GError **error)
@@ -339,6 +367,8 @@ asc_unit_read_data (AscUnit *unit, const gchar *filename, GError **error)
  *
  * Get user-defined data. This is a helper
  * function for bindings.
+ *
+ * Since: 0.14.5
  **/
 gpointer
 asc_unit_get_user_data (AscUnit *unit)
@@ -354,6 +384,8 @@ asc_unit_get_user_data (AscUnit *unit)
  *
  * Assign user-defined data to this object. This is a helper
  * function for bindings.
+ *
+ * Since: 0.14.5
  **/
 void
 asc_unit_set_user_data (AscUnit *unit, gpointer user_data)
@@ -366,6 +398,8 @@ asc_unit_set_user_data (AscUnit *unit, gpointer user_data)
  * asc_unit_new:
  *
  * Creates a new #AscUnit.
+ *
+ * Since: 0.14.5
  **/
 AscUnit *
 asc_unit_new (void)

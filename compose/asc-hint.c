@@ -75,6 +75,8 @@ asc_hint_class_init (AscHintClass *klass)
  * @hint: an #AscHint instance.
  *
  * Gets the unique tag for the type of this hint.
+ *
+ * Since: 0.13.0
  **/
 const gchar *
 asc_hint_get_tag (AscHint *hint)
@@ -88,6 +90,8 @@ asc_hint_get_tag (AscHint *hint)
  * @hint: an #AscHint instance.
  *
  * Sets the unique tag for the type of this hint.
+ *
+ * Since: 0.13.0
  **/
 void
 asc_hint_set_tag (AscHint *hint, const gchar *tag)
@@ -102,6 +106,8 @@ asc_hint_set_tag (AscHint *hint, const gchar *tag)
  * @hint: an #AscHint instance.
  *
  * Gets the issue severity of this hint.
+ *
+ * Since: 0.13.0
  **/
 AsIssueSeverity
 asc_hint_get_severity (AscHint *hint)
@@ -115,6 +121,8 @@ asc_hint_get_severity (AscHint *hint)
  * @hint: an #AscHint instance.
  *
  * Sets the issue severity of this hint.
+ *
+ * Since: 0.13.0
  **/
 void
 asc_hint_set_severity (AscHint *hint, AsIssueSeverity severity)
@@ -128,6 +136,8 @@ asc_hint_set_severity (AscHint *hint, AsIssueSeverity severity)
  * @hint: an #AscHint instance.
  *
  * Gets the explanation template for this hint.
+ *
+ * Since: 0.13.0
  **/
 const gchar *
 asc_hint_get_explanation_template (AscHint *hint)
@@ -141,6 +151,8 @@ asc_hint_get_explanation_template (AscHint *hint)
  * @hint: an #AscHint instance.
  *
  * Sets the explanation template for this hint.
+ *
+ * Since: 0.13.0
  **/
 void
 asc_hint_set_explanation_template (AscHint *hint, const gchar *explanation_tmpl)
@@ -154,6 +166,8 @@ asc_hint_set_explanation_template (AscHint *hint, const gchar *explanation_tmpl)
  * @hint: an #AscHint instance.
  *
  * Returns: %TRUE if this hint describes an error.
+ *
+ * Since: 0.13.0
  **/
 gboolean
 asc_hint_is_error (AscHint *hint)
@@ -170,6 +184,8 @@ asc_hint_is_error (AscHint *hint)
  * in order to be considered valid).
  *
  * Returns: %TRUE if this hint is valid.
+ *
+ * Since: 0.13.0
  **/
 gboolean
 asc_hint_is_valid (AscHint *hint)
@@ -185,6 +201,8 @@ asc_hint_is_valid (AscHint *hint)
  * @text: Replacement for the variable name.
  *
  * Add a replacement variable for the explanation text.
+ *
+ * Since: 0.13.0
  **/
 void
 asc_hint_add_explanation_var (AscHint *hint, const gchar *var_name, const gchar *text)
@@ -214,6 +232,8 @@ asc_hint_add_explanation_var (AscHint *hint, const gchar *var_name, const gchar 
  * Values are located in uneven list entries, following their keys in even list entries.
  *
  * Returns: (transfer none) (element-type utf8): A flattened #GPtrArray with the key/value pairs.
+ *
+ * Since: 0.14.0
  **/
 GPtrArray *
 asc_hint_get_explanation_vars_list (AscHint *hint)
@@ -231,6 +251,8 @@ asc_hint_get_explanation_vars_list (AscHint *hint)
  * explanation, with all placeholder variables replaced.
  *
  * Returns: (transfer full): Explanation text for this hint, with variables replaced.
+ *
+ * Since: 0.13.0
  **/
 gchar *
 asc_hint_format_explanation (AscHint *hint)
@@ -280,6 +302,8 @@ asc_hint_format_explanation (AscHint *hint)
  * asc_hint_new:
  *
  * Creates a new #AscHint.
+ *
+ * Since: 0.13.0
  **/
 AscHint *
 asc_hint_new (void)
@@ -296,6 +320,8 @@ asc_hint_new (void)
  *
  * Creates a new #AscHint with the given tag. If the selected tag was not registered+
  * with the global tag registry, %NULL is returned and an error is set.
+ *
+ * Since: 0.14.0
  **/
 AscHint *
 asc_hint_new_for_tag (const gchar *tag, GError **error)

@@ -58,6 +58,8 @@ typedef struct {
  * @ASC_ICON_STATE_REMOTE_ONLY:		Set if this icon should be stored remotely and fetched on demand.
  *
  * Designated state for an icon of a given size.
+ *
+ * Since: 0.15.2
  **/
 typedef enum {
 	ASC_ICON_STATE_IGNORED,

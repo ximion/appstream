@@ -44,6 +44,8 @@ G_DEFINE_TYPE_WITH_PRIVATE (AscIconPolicy, asc_icon_policy, G_TYPE_OBJECT)
  * to iterate over the icon sizes / policy entries of an #AscIconPolicy.
  * #AscIconPolicyIter structures are typically allocated on the stack and
  * then initialized with asc_icon_policy_iter_init().
+ *
+ * Since: 0.15.2
  */
 
 typedef struct {
@@ -121,6 +123,8 @@ asc_icon_policy_class_init (AscIconPolicyClass *klass)
  * Converts the enumerated value to an text representation.
  *
  * Returns: string version of @istate
+ *
+ * Since: 1.0.2
  **/
 const gchar *
 asc_icon_state_to_string (AscIconState istate)
@@ -142,6 +146,8 @@ asc_icon_state_to_string (AscIconState istate)
  * Converts the text representation to an enumerated value.
  *
  * Returns: a #AscIconState
+ *
+ * Since: 1.0.2
  **/
 AscIconState
 asc_icon_state_from_string (const gchar *state_str)
@@ -164,6 +170,8 @@ asc_icon_state_from_string (const gchar *state_str)
  * @state: the designated #AscIconState
  *
  * Sets a designated state for an icon of the given size.
+ *
+ * Since: 0.15.2
  */
 void
 asc_icon_policy_set_policy (AscIconPolicy *ipolicy,
@@ -207,6 +215,8 @@ asc_icon_policy_set_policy (AscIconPolicy *ipolicy,
  * it with @ipolicy.
  * The #AscIconPolicyIter structure is typically allocated on the stack
  * and does not need to be freed explicitly.
+ *
+ * Since: 0.15.2
  */
 void
 asc_icon_policy_iter_init (AscIconPolicyIter *iter, AscIconPolicy *ipolicy)
@@ -242,6 +252,8 @@ asc_icon_policy_iter_init (AscIconPolicyIter *iter, AscIconPolicy *ipolicy)
  * ]|
  *
  * Returns: %FALSE if the last entry has been reached.
+ *
+ * Since: 0.15.2
  */
 gboolean
 asc_icon_policy_iter_next (AscIconPolicyIter *iter, guint *size, guint *scale, AscIconState *state)
@@ -279,6 +291,8 @@ asc_icon_policy_iter_next (AscIconPolicyIter *iter, guint *size, guint *scale, A
  * Converts the current icon policy into a textual representation.
  *
  * Returns: (transfer full): The icon policy serialized into a string. Free with g_free()
+ *
+ * Since: 1.0.2
  **/
 gchar *
 asc_icon_policy_to_string (AscIconPolicy *ipolicy)
@@ -318,6 +332,7 @@ asc_icon_policy_to_string (AscIconPolicy *ipolicy)
  *
  * Loads the icon policy from a textual representation.
  *
+ * Since: 1.0.2
  **/
 gboolean
 asc_icon_policy_from_string (AscIconPolicy *ipolicy, const gchar *serialized_policy, GError **error)
@@ -408,6 +423,8 @@ asc_icon_policy_from_string (AscIconPolicy *ipolicy, const gchar *serialized_pol
  * asc_icon_policy_new:
  *
  * Creates a new #AscIconPolicy.
+ *
+ * Since: 0.15.2
  **/
 AscIconPolicy *
 asc_icon_policy_new (void)

@@ -631,6 +631,8 @@ asc_directory_unit_read_data (AscUnit *unit, const gchar *filename, GError **err
  * @dirunit: an #AscDirectoryUnit instance.
  *
  * Get the root directory path for this unit.
+ *
+ * Since: 0.14.5
  **/
 const gchar *
 asc_directory_unit_get_root (AscDirectoryUnit *dirunit)
@@ -645,6 +647,8 @@ asc_directory_unit_get_root (AscDirectoryUnit *dirunit)
  * @root_dir: Absolute directory path
  *
  * Sets the root directory path for this unit.
+ *
+ * Since: 0.14.5
  **/
 void
 asc_directory_unit_set_root (AscDirectoryUnit *dirunit, const gchar *root_dir)
@@ -661,6 +665,8 @@ asc_directory_unit_set_root (AscDirectoryUnit *dirunit, const gchar *root_dir)
  * asc_directory_unit_new:
  *
  * Creates a new #AscDirectoryUnit.
+ *
+ * Since: 0.14.5
  **/
 AscDirectoryUnit *
 asc_directory_unit_new (const gchar *root_dir)

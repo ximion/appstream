@@ -33,6 +33,8 @@ G_BEGIN_DECLS
  * @ASC_COMPOSE_ERROR_FAILED:	Generic failure.
  *
  * A metadata composition error.
+ *
+ * Since: 0.13.0
  **/
 typedef enum {
 	ASC_COMPOSE_ERROR_FAILED,

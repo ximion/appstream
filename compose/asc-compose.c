@@ -157,6 +157,8 @@ asc_compose_class_init (AscComposeClass *klass)
  *
  * Reset the results, units and run-specific settings so the
  * instance can be reused for another metadata generation run.
+ *
+ * Since: 0.14.5
  **/
 void
 asc_compose_reset (AscCompose *compose)
@@ -176,6 +178,8 @@ asc_compose_reset (AscCompose *compose)
  * @unit: The #AscUnit to add
  *
  * Add an #AscUnit as data source for metadata processing.
+ *
+ * Since: 0.14.5
  **/
 void
 asc_compose_add_unit (AscCompose *compose, AscUnit *unit)
@@ -200,6 +204,8 @@ asc_compose_add_unit (AscCompose *compose, AscUnit *unit)
  *
  * Adds a component ID to the allowlist. If the list is not empty, only
  * components in the list will be added to the metadata output.
+ *
+ * Since: 0.14.5
  **/
 void
 asc_compose_add_allowed_cid (AscCompose *compose, const gchar *component_id)
@@ -214,6 +220,8 @@ asc_compose_add_allowed_cid (AscCompose *compose, const gchar *component_id)
  * @compose: an #AscCompose instance.
  *
  * Get the directory prefix used for processing.
+ *
+ * Since: 0.14.5
  */
 const gchar *
 asc_compose_get_prefix (AscCompose *compose)
@@ -228,6 +236,8 @@ asc_compose_get_prefix (AscCompose *compose)
  * @prefix: a directory prefix, e.g. "/usr"
  *
  * Set the directory prefix the to-be-processed units are using.
+ *
+ * Since: 0.14.5
  */
 void
 asc_compose_set_prefix (AscCompose *compose, const gchar *prefix)
@@ -247,6 +257,8 @@ asc_compose_set_prefix (AscCompose *compose, const gchar *prefix)
  * @compose: an #AscCompose instance.
  *
  * Get the metadata origin field.
+ *
+ * Since: 0.14.5
  */
 const gchar *
 asc_compose_get_origin (AscCompose *compose)
@@ -261,6 +273,8 @@ asc_compose_get_origin (AscCompose *compose)
  * @origin: the origin.
  *
  * Set the metadata origin field (e.g. "debian" or "flathub")
+ *
+ * Since: 0.14.5
  */
 void
 asc_compose_set_origin (AscCompose *compose, const gchar *origin)
@@ -288,6 +302,8 @@ asc_compose_set_origin (AscCompose *compose, const gchar *origin)
  * @compose: an #AscCompose instance.
  *
  * get the format type we are generating.
+ *
+ * Since: 0.14.5
  */
 AsFormatKind
 asc_compose_get_format (AscCompose *compose)
@@ -302,6 +318,8 @@ asc_compose_get_format (AscCompose *compose)
  * @kind: The format, e.g. %AS_FORMAT_KIND_XML
  *
  * Set the format kind of the catalog metadata that we should generate.
+ *
+ * Since: 0.14.5
  */
 void
 asc_compose_set_format (AscCompose *compose, AsFormatKind kind)
@@ -317,6 +335,8 @@ asc_compose_set_format (AscCompose *compose, AsFormatKind kind)
  * Get the file format that generated icons and screenshots are stored in.
  * This is unrelated to %asc_compose_get_format, which selects the format
  * of the generated catalog metadata.
+ *
+ * Since: 1.2.0
  */
 AscImageFormat
 asc_compose_get_image_format (AscCompose *compose)
@@ -336,6 +356,8 @@ asc_compose_get_image_format (AscCompose *compose)
  *
  * Please note that JPEG-XL images can not be read by older AppStream clients,
  * so PNG may be selected for backwards compatibility.
+ *
+ * Since: 1.2.0
  */
 void
 asc_compose_set_image_format (AscCompose *compose, AscImageFormat format)
@@ -351,6 +373,8 @@ asc_compose_set_image_format (AscCompose *compose, AscImageFormat format)
  *
  * Get the media base URL to be used for the generated data,
  * or %NULL if no media is cached.
+ *
+ * Since: 0.14.5
  */
 const gchar *
 asc_compose_get_media_baseurl (AscCompose *compose)
@@ -366,6 +390,8 @@ asc_compose_get_media_baseurl (AscCompose *compose)
  *
  * Set the media base URL for the generated metadata. Can be %NULL if no media
  * should be cached and the original URLs should be kept.
+ *
+ * Since: 0.14.5
  */
 void
 asc_compose_set_media_baseurl (AscCompose *compose, const gchar *url)
@@ -379,6 +405,8 @@ asc_compose_set_media_baseurl (AscCompose *compose, const gchar *url)
  * @compose: an #AscCompose instance.
  *
  * Get the flags controlling compose behavior.
+ *
+ * Since: 0.14.5
  */
 AscComposeFlags
 asc_compose_get_flags (AscCompose *compose)
@@ -394,6 +422,8 @@ asc_compose_get_flags (AscCompose *compose)
  *
  * Set compose flags bitfield that controls the enabled features
  * for this #AscCompose.
+ *
+ * Since: 0.14.5
  */
 void
 asc_compose_set_flags (AscCompose *compose, AscComposeFlags flags)
@@ -408,6 +438,8 @@ asc_compose_set_flags (AscCompose *compose, AscComposeFlags flags)
  * @flags: The compose flags to add.
  *
  * Add compose flags.
+ *
+ * Since: 0.15.1
  */
 void
 asc_compose_add_flags (AscCompose *compose, AscComposeFlags flags)
@@ -422,6 +454,8 @@ asc_compose_add_flags (AscCompose *compose, AscComposeFlags flags)
  * @flags: The compose flags to remove.
  *
  * Remove compose flags.
+ *
+ * Since: 0.15.1
  */
 void
 asc_compose_remove_flags (AscCompose *compose, AscComposeFlags flags)
@@ -438,6 +472,8 @@ asc_compose_remove_flags (AscCompose *compose, AscComposeFlags flags)
  * any AppStream clients.
  *
  * Returns: (transfer none): an #AscIconPolicy
+ *
+ * Since: 0.15.1
  */
 AscIconPolicy *
 asc_compose_get_icon_policy (AscCompose *compose)
@@ -452,6 +488,8 @@ asc_compose_get_icon_policy (AscCompose *compose)
  * @policy: (not nullable): an #AscIconPolicy instance
  *
  * Set an icon policy object, overriding the existing one.
+ *
+ * Since: 0.15.1
  */
 void
 asc_compose_set_icon_policy (AscCompose *compose, AscIconPolicy *policy)
@@ -492,6 +530,8 @@ asc_compose_set_media (AscCompose *compose, AscMedia *media)
  * @compose: an #AscCompose instance.
  *
  * Get the CA file used to verify peers with, or %NULL for default.
+ *
+ * Since: 0.15.2
  */
 const gchar *
 asc_compose_get_cainfo (AscCompose *compose)
@@ -507,6 +547,8 @@ asc_compose_get_cainfo (AscCompose *compose)
  *
  * Set a CA file holding one or more certificates to verify peers with
  * for download operations performed by this #AscCompose.
+ *
+ * Since: 0.15.2
  */
 void
 asc_compose_set_cainfo (AscCompose *compose, const gchar *cainfo)
@@ -521,6 +563,8 @@ asc_compose_set_cainfo (AscCompose *compose, const gchar *cainfo)
  * @compose: an #AscCompose instance.
  *
  * Get the data result directory.
+ *
+ * Since: 0.14.5
  */
 const gchar *
 asc_compose_get_data_result_dir (AscCompose *compose)
@@ -536,6 +580,8 @@ asc_compose_get_data_result_dir (AscCompose *compose)
  *
  * Set an output location where generated metadata should be saved.
  * If this is set to %NULL, no metadata will be saved.
+ *
+ * Since: 0.14.5
  */
 void
 asc_compose_set_data_result_dir (AscCompose *compose, const gchar *dir)
@@ -550,6 +596,8 @@ asc_compose_set_data_result_dir (AscCompose *compose, const gchar *dir)
  * @compose: an #AscCompose instance.
  *
  * Get the icon result directory.
+ *
+ * Since: 0.14.5
  */
 const gchar *
 asc_compose_get_icons_result_dir (AscCompose *compose)
@@ -565,6 +613,8 @@ asc_compose_get_icons_result_dir (AscCompose *compose)
  *
  * Set an output location where plain icons for the processed metadata
  * are stored.
+ *
+ * Since: 0.14.5
  */
 void
 asc_compose_set_icons_result_dir (AscCompose *compose, const gchar *dir)
@@ -579,6 +629,8 @@ asc_compose_set_icons_result_dir (AscCompose *compose, const gchar *dir)
  * @compose: an #AscCompose instance.
  *
  * Get the media result directory, that can be served on a webserver.
+ *
+ * Since: 0.14.5
  */
 const gchar *
 asc_compose_get_media_result_dir (AscCompose *compose)
@@ -594,6 +646,8 @@ asc_compose_get_media_result_dir (AscCompose *compose)
  *
  * Set an output location to store media (screenshots, icons, ...) that
  * will be served on a webserver via the URL set as media baseurl.
+ *
+ * Since: 0.14.5
  */
 void
 asc_compose_set_media_result_dir (AscCompose *compose, const gchar *dir)
@@ -608,6 +662,8 @@ asc_compose_set_media_result_dir (AscCompose *compose, const gchar *dir)
  * @compose: an #AscCompose instance.
  *
  * Get hints report output directory.
+ *
+ * Since: 0.14.5
  */
 const gchar *
 asc_compose_get_hints_result_dir (AscCompose *compose)
@@ -623,6 +679,8 @@ asc_compose_get_hints_result_dir (AscCompose *compose)
  *
  * Set an output location for HTML reports of issues generated
  * during a compose run.
+ *
+ * Since: 0.14.5
  */
 void
 asc_compose_set_hints_result_dir (AscCompose *compose, const gchar *dir)
@@ -638,6 +696,8 @@ asc_compose_set_hints_result_dir (AscCompose *compose, const gchar *dir)
  * @key_id: the custom key to drop from the allowed list.
  *
  * Remove a key from the allowlist used to filter the `<custom/>` tag entries.
+ *
+ * Since: 0.15.1
  */
 void
 asc_compose_remove_custom_allowed (AscCompose *compose, const gchar *key_id)
@@ -659,6 +719,8 @@ asc_compose_remove_custom_allowed (AscCompose *compose, const gchar *key_id)
  * @key_id: the custom key to add to the allowed list.
  *
  * Add a key to the allowlist that is used to filter custom tag values.
+ *
+ * Since: 0.15.1
  */
 void
 asc_compose_add_custom_allowed (AscCompose *compose, const gchar *key_id)
@@ -675,6 +737,8 @@ asc_compose_add_custom_allowed (AscCompose *compose, const gchar *key_id)
  * Get the maximum size a screenshot video or image can have.
  * A size < 0 may be returned for no limit, setting a limit of 0
  * will disable screenshots.
+ *
+ * Since: 0.15.1
  */
 gssize
 asc_compose_get_max_screenshot_size (AscCompose *compose)
@@ -691,6 +755,8 @@ asc_compose_get_max_screenshot_size (AscCompose *compose)
  * Set the maximum size a screenshot video or image can have.
  * A size < 0 may be set to allow unlimited sizes, setting a limit of 0
  * will disable screenshot caching entirely.
+ *
+ * Since: 0.15.1
  */
 void
 asc_compose_set_max_screenshot_size (AscCompose *compose, gssize size_bytes)
@@ -710,6 +776,8 @@ asc_compose_set_max_screenshot_size (AscCompose *compose, gssize size_bytes)
  * This can be used to ignore unwanted components early on.
  *
  * The callback function may be called from any thread, so it needs to ensure thread safety on its own.
+ *
+ * Since: 0.15.1
  */
 void
 asc_compose_set_check_metadata_early_func (AscCompose *compose,
@@ -731,6 +799,8 @@ asc_compose_set_check_metadata_early_func (AscCompose *compose,
  * desktop-entry localization schemes such as used in Ubuntu.
  *
  * The callback function may be called from any thread, so it needs to ensure thread safety on its own.
+ *
+ * Since: 0.15.1
  */
 void
 asc_compose_set_desktop_entry_l10n_func (AscCompose *compose,
@@ -749,6 +819,8 @@ asc_compose_set_desktop_entry_l10n_func (AscCompose *compose,
  * Get the unit we use for locale processing
  *
  * Return: (transfer none) (nullable): The unit used for locale processing, or %NULL for default.
+ *
+ * Since: 0.15.1
  */
 AscUnit *
 asc_compose_get_locale_unit (AscCompose *compose)
@@ -769,6 +841,8 @@ asc_compose_get_locale_unit (AscCompose *compose)
  *
  * Do not forget to open the locale unit, before running compose
  * actions with it!
+ *
+ * Since: 0.15.1
  */
 void
 asc_compose_set_locale_unit (AscCompose *compose, AscUnit *locale_unit)
@@ -788,6 +862,8 @@ asc_compose_set_locale_unit (AscCompose *compose, AscUnit *locale_unit)
  * Get the results of the last processing run.
  *
  * Returns: (transfer none) (element-type AscResult): The results
+ *
+ * Since: 0.14.5
  */
 GPtrArray *
 asc_compose_get_results (AscCompose *compose)
@@ -803,6 +879,8 @@ asc_compose_get_results (AscCompose *compose)
  * Get the results components extracted in the last data processing run.
  *
  * Returns: (transfer container) (element-type AsComponent): The components
+ *
+ * Since: 0.14.5
  */
 GPtrArray *
 asc_compose_fetch_components (AscCompose *compose)
@@ -829,6 +907,8 @@ asc_compose_fetch_components (AscCompose *compose)
  * Check if the last run generated any errors (which will cause metadata to be ignored).
  *
  * Returns: %TRUE if we had errors.
+ *
+ * Since: 0.14.5
  */
 gboolean
 asc_compose_has_errors (AscCompose *compose)
@@ -2255,6 +2335,8 @@ asc_compose_save_metadata_result (AscCompose *compose, gboolean *results_not_emp
  * Perform final validation of generated data.
  * Calling this function is not necessary, unless the final check was explicitly
  * disabled using the %ASC_COMPOSE_FLAG_NO_FINAL_CHECK flag.
+ *
+ * Since: 0.15.1
  */
 void
 asc_compose_finalize_results (AscCompose *compose)
@@ -2274,6 +2356,8 @@ asc_compose_finalize_results (AscCompose *compose)
  *
  * Perform final validation of generated data for the specified
  * result container.
+ *
+ * Since: 0.15.1
  */
 void
 asc_compose_finalize_result (AscCompose *compose, AscResult *result)
@@ -2328,6 +2412,8 @@ asc_compose_prune_empty_icon_dirs (AscCompose *compose)
  * found components.
  *
  * Returns: (transfer none) (element-type AscResult): The results, or %NULL on error
+ *
+ * Since: 0.14.5
  */
 GPtrArray *
 asc_compose_run (AscCompose *compose, GCancellable *cancellable, GError **error)
@@ -2499,6 +2585,8 @@ asc_compose_run (AscCompose *compose, GCancellable *cancellable, GError **error)
  * asc_compose_new:
  *
  * Creates a new #AscCompose.
+ *
+ * Since: 0.14.5
  **/
 AscCompose *
 asc_compose_new (void)

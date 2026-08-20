@@ -82,6 +82,8 @@ __attribute__((used)) static gchar asc_globals_dso_anchor;
  * asc_compose_error_quark:
  *
  * Return value: An error quark.
+ *
+ * Since: 0.13.0
  **/
 GQuark
 asc_compose_error_quark (void)
@@ -220,6 +222,8 @@ asc_globals_get_priv (void)
  * asc_globals_clear:
  *
  * Clear all global state and restore defaults.
+ *
+ * Since: 0.14.6
  */
 void
 asc_globals_clear (void)
@@ -236,6 +240,8 @@ asc_globals_clear (void)
  * asc_globals_get_tmp_dir:
  *
  * Get temporary directory used by appstream-compose.
+ *
+ * Since: 0.13.0
  **/
 const gchar *
 asc_globals_get_tmp_dir (void)
@@ -249,6 +255,8 @@ asc_globals_get_tmp_dir (void)
  *
  * Get temporary directory used by appstream-compose
  * and try to create it if it does not exist.
+ *
+ * Since: 0.13.0
  **/
 const gchar *
 asc_globals_get_tmp_dir_create (void)
@@ -262,6 +270,8 @@ asc_globals_get_tmp_dir_create (void)
  * asc_globals_set_tmp_dir:
  *
  * Set temporary directory used by appstream-compose.
+ *
+ * Since: 0.13.0
  **/
 void
 asc_globals_set_tmp_dir (const gchar *path)
@@ -275,6 +285,8 @@ asc_globals_set_tmp_dir (const gchar *path)
  * asc_globals_get_use_optipng:
  *
  * Get whether images should be optimized using optipng.
+ *
+ * Since: 0.13.0
  **/
 gboolean
 asc_globals_get_use_optipng (void)
@@ -287,6 +299,8 @@ asc_globals_get_use_optipng (void)
  * asc_globals_set_use_optipng:
  *
  * Set whether images should be optimized using optipng.
+ *
+ * Since: 0.13.0
  **/
 void
 asc_globals_set_use_optipng (gboolean enabled)
@@ -304,6 +318,8 @@ asc_globals_set_use_optipng (gboolean enabled)
  * asc_globals_get_optipng_binary:
  *
  * Get path to the "optipng" binary we should use.
+ *
+ * Since: 0.13.0
  **/
 const gchar *
 asc_globals_get_optipng_binary (void)
@@ -316,6 +332,8 @@ asc_globals_get_optipng_binary (void)
  * asc_globals_set_optipng_binary:
  *
  * Set path to the "optipng" binary we should use.
+ *
+ * Since: 0.13.0
  **/
 void
 asc_globals_set_optipng_binary (const gchar *path)
@@ -331,6 +349,8 @@ asc_globals_set_optipng_binary (const gchar *path)
  * asc_globals_get_ffprobe_binary:
  *
  * Get path to the "ffprobe" binary we should use.
+ *
+ * Since: 0.14.6
  **/
 const gchar *
 asc_globals_get_ffprobe_binary (void)
@@ -343,6 +363,8 @@ asc_globals_get_ffprobe_binary (void)
  * asc_globals_set_ffprobe_binary:
  *
  * Set path to the "ffprobe" binary we should use.
+ *
+ * Since: 0.14.6
  **/
 void
 asc_globals_set_ffprobe_binary (const gchar *path)
@@ -456,6 +478,8 @@ asc_globals_create_hint_tag_table (void)
  * be lowered by overriding a tag.
  *
  * Returns: %TRUE if the tag was registered and did not exist previously.
+ *
+ * Since: 0.14.0
  */
 gboolean
 asc_globals_add_hint_tag (const gchar *tag,
@@ -514,6 +538,8 @@ asc_globals_get_hint_tag_details (const gchar *tag)
  * Retrieve all hint tags that we know.
  *
  * Returns: (transfer full): A list of valid hint tags. Free with %g_strfreev
+ *
+ * Since: 0.14.0
  */
 gchar **
 asc_globals_get_hint_tags (void)
@@ -544,6 +570,8 @@ asc_globals_get_hint_tags (void)
  *
  * Returns: An #AsIssueSeverity or %AS_ISSUE_SEVERITY_UNKNOWN if the tag did not exist
  *          or has an unknown severity.
+ *
+ * Since: 0.14.0
  */
 AsIssueSeverity
 asc_globals_hint_tag_severity (const gchar *tag)
@@ -560,6 +588,8 @@ asc_globals_hint_tag_severity (const gchar *tag)
  * Retrieve the explanation template of the given hint tag.
  *
  * Returns: An explanation template, or %NULL if the tag was not found.
+ *
+ * Since: 0.14.0
  */
 const gchar *
 asc_globals_hint_tag_explanation (const gchar *tag)

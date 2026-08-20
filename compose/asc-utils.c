@@ -46,6 +46,8 @@
  * associated with this component.
  *
  * Returns: (transfer full) (nullable): The new global ID, or %NULL if @component_id was empty.
+ *
+ * Since: 0.13.0
  **/
 gchar *
 asc_build_component_global_id (const gchar *component_id, const gchar *checksum)
@@ -102,6 +104,8 @@ asc_build_component_global_id (const gchar *component_id, const gchar *checksum)
  * Do not assume it is cryptographically secure or has a certain length!
  *
  * Returns: (transfer full): The hash as hexadecimal string. Free with %g_free
+ *
+ * Since: 1.1.3
  */
 gchar *
 asc_compute_content_checksum_for_data (const gchar *data, gsize length)
@@ -144,6 +148,8 @@ asc_compute_content_checksum_for_data (const gchar *data, gsize length)
  * file on disk after download.
  *
  * Returns: (transfer full) (nullable): The generated filename, or %NULL if @url was %NULL.
+ *
+ * Since: 0.14.6
  */
 gchar *
 asc_filename_from_url (const gchar *url)

@@ -63,6 +63,8 @@ struct _AscComposeClass {
  * @ASC_COMPOSE_FLAG_NO_PARTIAL_URLS:		Do not use `media_baseurl` and always embed complete URLs in generated metadata.
  *
  * Flags that affect the compose process.
+ *
+ * Since: 0.14.5
  **/
 typedef enum {
 	ASC_COMPOSE_FLAG_NONE			  = 0,
@@ -98,6 +100,8 @@ typedef enum {
  *
  * Please note that this function may be called from any thread, and thread safety needs
  * to be taken care of by the callee.
+ *
+ * Since: 0.15.1
  */
 typedef void (*AscCheckMetadataEarlyFn) (AscResult *cres, const AscUnit *unit, gpointer user_data);
 
@@ -114,6 +118,8 @@ typedef void (*AscCheckMetadataEarlyFn) (AscResult *cres, const AscUnit *unit, g
  * and the text translated to the preceding locale in the following odd indices.
  *
  * Returns: (not nullable) (transfer full): A new #GPtrArray containing the translation mapping.
+ *
+ * Since: 0.14.2
  */
 typedef GPtrArray *(*AscTranslateDesktopTextFn) (GKeyFile    *de,
 						 const gchar *text,

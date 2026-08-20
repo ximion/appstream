@@ -38,6 +38,8 @@ G_BEGIN_DECLS
  * @ASC_MEDIA_ERROR_UNSUPPORTED:	The requested operation or image type was not supported.
  *
  * A media processing error.
+ *
+ * Since: 1.2.0
  **/
 typedef enum {
 	ASC_MEDIA_ERROR_FAILED,
@@ -61,6 +63,8 @@ GQuark asc_media_error_quark (void);
  * @ASC_IMAGE_SCALE_MODE_FIT_HEIGHT:	Scale proportionally to match the target height.
  *
  * How an image rendition should be scaled.
+ *
+ * Since: 1.2.0
  **/
 typedef enum {
 	ASC_IMAGE_SCALE_MODE_NONE,
@@ -81,6 +85,8 @@ typedef enum {
  * @ASC_IMAGE_SAVE_FLAG_BLUR:		Blur the image to clear detail
  *
  * The flags used for saving images.
+ *
+ * Since: 0.14.0
  **/
 typedef enum {
 	ASC_IMAGE_SAVE_FLAG_NONE     = 0,
@@ -101,6 +107,8 @@ typedef enum {
  * @ASC_IMAGE_LOAD_FLAG_ALWAYS_RESIZE:		Always resize the source image to the perfect size
  *
  * The flags used for loading images.
+ *
+ * Since: 0.14.0
  **/
 typedef enum {
 	ASC_IMAGE_LOAD_FLAG_NONE	      = 0,
@@ -128,6 +136,8 @@ typedef enum {
  * All of these formats can be read, but renditions are only ever written as
  * %ASC_IMAGE_FORMAT_PNG or %ASC_IMAGE_FORMAT_JXL - the other values are for
  * classifying input data.
+ *
+ * Since: 0.13.0
  **/
 typedef enum {
 	ASC_IMAGE_FORMAT_UNKNOWN,

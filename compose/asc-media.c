@@ -84,6 +84,8 @@ G_DEFINE_TYPE_WITH_PRIVATE (AscMedia, asc_media, G_TYPE_OBJECT)
  * asc_media_error_quark:
  *
  * Return value: An error quark.
+ *
+ * Since: 1.2.0
  **/
 GQuark
 asc_media_error_quark (void)
@@ -103,6 +105,8 @@ asc_media_error_quark (void)
  * Only the former should be reported to users as a worker problem.
  *
  * Returns: %TRUE if the worker misbehaved.
+ *
+ * Since: 1.2.0
  */
 gboolean
 asc_media_error_is_worker_failure (const GError *error)
@@ -120,6 +124,8 @@ asc_media_error_is_worker_failure (const GError *error)
  * Converts the enumerated value to an text representation.
  *
  * Returns: string version of @format
+ *
+ * Since: 0.13.0
  **/
 const gchar *
 asc_image_format_to_string (AscImageFormat format)
@@ -151,6 +157,8 @@ asc_image_format_to_string (AscImageFormat format)
  * Converts the text representation to an enumerated value.
  *
  * Returns: a #AscImageFormat or %ASC_IMAGE_FORMAT_UNKNOWN for unknown
+ *
+ * Since: 0.13.0
  **/
 AscImageFormat
 asc_image_format_from_string (const gchar *str)
@@ -182,6 +190,8 @@ asc_image_format_from_string (const gchar *str)
  * Returns the image format type based on the given file's filename.
  *
  * Returns: a #AscImageFormat or %ASC_IMAGE_FORMAT_UNKNOWN for unknown
+ *
+ * Since: 0.13.0
  **/
 AscImageFormat
 asc_image_format_from_filename (const gchar *fname)
@@ -215,6 +225,8 @@ asc_image_format_from_filename (const gchar *fname)
  * its result data after the operation was run. Renditions that were skipped
  * due to one of their source-size conditions are not an error: the operation
  * still succeeds, and %asc_image_target_get_skipped will return %TRUE.
+ *
+ * Since: 1.2.0
  */
 struct _AscImageTarget {
 	gchar *name;
@@ -246,6 +258,8 @@ struct _AscImageTarget {
  * is derived from the file extension of @name.
  *
  * Returns: (transfer full): an #AscImageTarget
+ *
+ * Since: 1.2.0
  */
 AscImageTarget *
 asc_image_target_new (const gchar *name, AscImageScaleMode scale_mode, gint width, gint height)
@@ -266,6 +280,8 @@ asc_image_target_new (const gchar *name, AscImageScaleMode scale_mode, gint widt
  * @target: an #AscImageTarget
  *
  * Free an #AscImageTarget.
+ *
+ * Since: 1.2.0
  */
 void
 asc_image_target_free (AscImageTarget *target)
@@ -285,6 +301,8 @@ asc_image_target_free (AscImageTarget *target)
  * it may already carry.
  *
  * Returns: (transfer full): a new #AscImageTarget
+ *
+ * Since: 1.2.0
  */
 AscImageTarget *
 asc_image_target_copy (AscImageTarget *target)
@@ -308,6 +326,8 @@ G_DEFINE_BOXED_TYPE (AscImageTarget, asc_image_target, asc_image_target_copy, as
  * Get the filename this rendition is stored as.
  *
  * Returns: The rendition filename.
+ *
+ * Since: 1.2.0
  */
 const gchar *
 asc_image_target_get_name (AscImageTarget *target)
@@ -322,6 +342,8 @@ asc_image_target_get_name (AscImageTarget *target)
  * @flags: the #AscImageSaveFlags to use.
  *
  * Set the flags used when storing this rendition.
+ *
+ * Since: 1.2.0
  */
 void
 asc_image_target_set_save_flags (AscImageTarget *target, AscImageSaveFlags flags)
@@ -337,6 +359,8 @@ asc_image_target_set_save_flags (AscImageTarget *target, AscImageSaveFlags flags
  *
  * Set whether this rendition should be skipped in case creating it would
  * mean upscaling the source image.
+ *
+ * Since: 1.2.0
  */
 void
 asc_image_target_set_only_downscale (AscImageTarget *target, gboolean only_downscale)
@@ -357,6 +381,8 @@ asc_image_target_set_only_downscale (AscImageTarget *target, gboolean only_downs
  * image's dimensions fall outside of the given range, the rendition is
  * skipped and no file is written for it, while the media operation as a
  * whole still succeeds.
+ *
+ * Since: 1.2.0
  */
 void
 asc_image_target_set_source_size_range (AscImageTarget *target,
@@ -381,6 +407,8 @@ asc_image_target_set_source_size_range (AscImageTarget *target,
  * this target was passed to has completed successfully.
  *
  * Returns: %TRUE if no file was written for this rendition.
+ *
+ * Since: 1.2.0
  */
 gboolean
 asc_image_target_get_skipped (AscImageTarget *target)
@@ -396,6 +424,8 @@ asc_image_target_get_skipped (AscImageTarget *target)
  * Get the actual width of the stored rendition.
  *
  * Returns: The rendition width in pixels, or 0 if it was not stored.
+ *
+ * Since: 1.2.0
  */
 gint
 asc_image_target_get_result_width (AscImageTarget *target)
@@ -411,6 +441,8 @@ asc_image_target_get_result_width (AscImageTarget *target)
  * Get the actual height of the stored rendition.
  *
  * Returns: The rendition height in pixels, or 0 if it was not stored.
+ *
+ * Since: 1.2.0
  */
 gint
 asc_image_target_get_result_height (AscImageTarget *target)
@@ -427,6 +459,8 @@ asc_image_target_get_result_height (AscImageTarget *target)
  * A failed rendition does not fail the media operation as a whole.
  *
  * Returns: (nullable): The error message, or %NULL if this rendition was fine.
+ *
+ * Since: 1.2.0
  */
 const gchar *
 asc_image_target_get_error_message (AscImageTarget *target)
@@ -515,6 +549,8 @@ asc_media_class_init (AscMediaClass *klass)
  * asc_media_new:
  *
  * Creates a new #AscMedia.
+ *
+ * Since: 1.2.0
  **/
 AscMedia *
 asc_media_new (void)
@@ -529,6 +565,8 @@ asc_media_new (void)
  * @media: an #AscMedia instance.
  *
  * Get the request timeout in seconds.
+ *
+ * Since: 1.2.0
  */
 guint
 asc_media_get_request_timeout (AscMedia *media)
@@ -544,6 +582,8 @@ asc_media_get_request_timeout (AscMedia *media)
  *
  * Set the time a single media operation may take before the worker
  * is assumed to hang and gets killed.
+ *
+ * Since: 1.2.0
  */
 void
 asc_media_set_request_timeout (AscMedia *media, guint seconds)
@@ -560,6 +600,8 @@ asc_media_set_request_timeout (AscMedia *media, guint seconds)
  *
  * Get the path to the worker binary this instance will use,
  * or %NULL if no worker binary was found at all.
+ *
+ * Since: 1.2.0
  */
 const gchar *
 asc_media_get_worker_path (AscMedia *media)
@@ -574,6 +616,8 @@ asc_media_get_worker_path (AscMedia *media)
  * @path: Path to an asc-mediaworker binary, or %NULL to use the default.
  *
  * Override the media worker binary used by this instance.
+ *
+ * Since: 1.2.0
  */
 void
 asc_media_set_worker_path (AscMedia *media, const gchar *path)
@@ -590,6 +634,8 @@ asc_media_set_worker_path (AscMedia *media, const gchar *path)
  *
  * Get the address space limit applied to the worker process in MiB,
  * or 0 if the worker may use as much memory as it wants.
+ *
+ * Since: 1.2.0
  */
 guint32
 asc_media_get_memory_limit (AscMedia *media)
@@ -605,6 +651,8 @@ asc_media_get_memory_limit (AscMedia *media)
  *
  * Limit the amount of memory the worker process may use.
  * The limit is applied when the next worker process is spawned.
+ *
+ * Since: 1.2.0
  */
 void
 asc_media_set_memory_limit (AscMedia *media, guint32 limit_mib)
@@ -760,6 +808,8 @@ asc_media_shutdown_worker (AscMedia *media, gboolean force)
  * Stop the worker process of this instance, if it is running.
  * A new worker will be spawned automatically if another media
  * operation is requested.
+ *
+ * Since: 1.2.0
  */
 void
 asc_media_stop (AscMedia *media)
@@ -959,6 +1009,8 @@ asc_media_spawn_worker (AscMedia *media, GError **error)
  * early.
  *
  * Returns: %TRUE if the worker is running.
+ *
+ * Since: 1.2.0
  */
 gboolean
 asc_media_ensure_worker (AscMedia *media, GError **error)
@@ -1191,6 +1243,8 @@ asc_media_apply_target_results (GVariant *payload, GPtrArray *targets, GError **
  * fields and does not affect the return value of this function.
  *
  * Returns: %TRUE if the image was processed.
+ *
+ * Since: 1.2.0
  */
 gboolean
 asc_media_process_image (AscMedia *media,
