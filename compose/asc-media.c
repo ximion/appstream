@@ -262,10 +262,11 @@ asc_image_source_new (GBytes *data)
 }
 
 /**
- * asc_image_source_free:
+ * asc_image_source_free: (skip)
  * @source: an #AscImageSource
  *
- * Free an #AscImageSource.
+ * Free an #AscImageSource. Bindings must not call this: they own the boxed value and
+ * release it themselves, so freeing it here would free it twice.
  *
  * Since: 1.2.0
  */
@@ -488,10 +489,11 @@ asc_image_target_new (const gchar *name, AscImageScaleMode scale_mode, gint widt
 }
 
 /**
- * asc_image_target_free:
+ * asc_image_target_free: (skip)
  * @target: an #AscImageTarget
  *
- * Free an #AscImageTarget.
+ * Free an #AscImageTarget. Bindings must not call this: they own the boxed value and
+ * release it themselves, so freeing it here would free it twice.
  *
  * Since: 1.2.0
  */
@@ -520,6 +522,8 @@ AscImageTarget *
 asc_image_target_copy (AscImageTarget *target)
 {
 	AscImageTarget *copy;
+
+	g_return_val_if_fail (target != NULL, NULL);
 
 	copy = g_new0 (AscImageTarget, 1);
 	*copy = *target;
