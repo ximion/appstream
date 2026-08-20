@@ -262,13 +262,13 @@ test_media_process_image (void)
 
 	g_ptr_array_add (
 	    targets,
-	    asc_image_target_new ("src-too-small.png", ASC_IMAGE_SCALE_MODE_EXACT, 64, 64));
+	    asc_image_target_new ("src-too-small.png", ASC_IMAGE_SCALE_MODE_PAD, 64, 64));
 	target = g_ptr_array_index (targets, 3);
 	asc_image_target_set_source_size_range (target, 512, 512, 0, 0);
 
 	g_ptr_array_add (
 	    targets,
-	    asc_image_target_new ("src-too-large.png", ASC_IMAGE_SCALE_MODE_EXACT, 64, 64));
+	    asc_image_target_new ("src-too-large.png", ASC_IMAGE_SCALE_MODE_PAD, 64, 64));
 	target = g_ptr_array_index (targets, 4);
 	asc_image_target_set_source_size_range (target, 0, 0, 48, 48);
 
@@ -379,7 +379,7 @@ test_media_font (void)
 	/* render a font specimen card */
 	targets = g_ptr_array_new_with_free_func ((GDestroyNotify) asc_image_target_free);
 	g_ptr_array_add (targets,
-			 asc_image_target_new ("card.png", ASC_IMAGE_SCALE_MODE_EXACT, 752, 423));
+			 asc_image_target_new ("card.png", ASC_IMAGE_SCALE_MODE_PAD, 752, 423));
 	ret = asc_media_render_font_card (media,
 					  font_bytes,
 					  "Raleway-Regular.ttf",
@@ -406,7 +406,7 @@ test_media_font (void)
 	/* render a font icon */
 	g_ptr_array_set_size (targets, 0);
 	g_ptr_array_add (targets,
-			 asc_image_target_new ("icon.png", ASC_IMAGE_SCALE_MODE_EXACT, 64, 64));
+			 asc_image_target_new ("icon.png", ASC_IMAGE_SCALE_MODE_PAD, 64, 64));
 	ret = asc_media_render_font_icon (media,
 					  font_bytes,
 					  "Raleway-Regular.ttf",

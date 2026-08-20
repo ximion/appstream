@@ -152,7 +152,7 @@ asc_render_font_screenshots (AscResult *cres,
 						    asc_image_format_to_string (img_format));
 			g_ptr_array_add (targets,
 					 asc_image_target_new (img_name,
-							       ASC_IMAGE_SCALE_MODE_EXACT,
+							       ASC_IMAGE_SCALE_MODE_PAD,
 							       font_screenshot_sizes[j].width,
 							       font_screenshot_sizes[j].height));
 		}
@@ -290,7 +290,7 @@ asc_render_font_icon (AscResult *cres,
 			targets = g_ptr_array_new_with_free_func (
 			    (GDestroyNotify) asc_image_target_free);
 			target = asc_image_target_new (icon_name,
-						       ASC_IMAGE_SCALE_MODE_EXACT,
+						       ASC_IMAGE_SCALE_MODE_PAD,
 						       size * scale_factor,
 						       size * scale_factor);
 			g_ptr_array_add (targets, target);

@@ -591,7 +591,7 @@ asw_worker_handle_process_image (AswWorker *worker,
 			result_width = src_width;
 			result_height = src_height;
 			break;
-		case ASC_IMAGE_SCALE_MODE_EXACT:
+		case ASC_IMAGE_SCALE_MODE_PAD:
 			saved = asw_image_save_filename (image,
 							 name,
 							 width,

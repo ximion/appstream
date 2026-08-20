@@ -276,12 +276,7 @@ test_image_transform (void)
 	g_file_get_contents (sample_svgz_img_fname, &data, &data_len, &error);
 	g_assert_no_error (error);
 
-	image = asw_image_new_from_data (data,
-					 data_len,
-					 96,
-					 96,
-					 ASC_IMAGE_LOAD_FLAG_ALWAYS_RESIZE,
-					 &error);
+	image = asw_image_new_from_data (data, data_len, 96, 96, ASC_IMAGE_LOAD_FLAG_NONE, &error);
 	g_assert_no_error (error);
 	g_assert_nonnull (image);
 	g_assert_cmpint (asw_image_get_width (image), ==, 96);
@@ -292,7 +287,7 @@ test_image_transform (void)
 	image = asw_image_new_from_file (sample_svgz_img_fname,
 					 96,
 					 96,
-					 ASC_IMAGE_LOAD_FLAG_ALWAYS_RESIZE,
+					 ASC_IMAGE_LOAD_FLAG_NONE,
 					 &error);
 	g_assert_no_error (error);
 	g_assert_nonnull (image);

@@ -34,22 +34,21 @@ G_DECLARE_FINAL_TYPE (AswImage, asw_image, ASW, IMAGE, GObject)
 GHashTable *asw_image_supported_format_names (void);
 AswImage   *asw_image_new (void);
 AswImage   *asw_image_new_from_file (const gchar      *fname,
-				     gint	       dest_width,
-				     gint	       dest_height,
+				     gint	       render_width,
+				     gint	       render_height,
 				     AscImageLoadFlags flags,
 				     GError	     **error);
 AswImage   *asw_image_new_from_data (const void	      *data,
 				     gssize	       len,
-				     gint	       dest_width,
-				     gint	       dest_height,
+				     gint	       render_width,
+				     gint	       render_height,
 				     AscImageLoadFlags flags,
 				     GError	     **error);
 
 gboolean    asw_image_load_filename (AswImage	      *image,
 				     const gchar      *filename,
-				     gint	       dest_width,
-				     gint	       dest_height,
-				     gint	       src_size_min,
+				     gint	       render_width,
+				     gint	       render_height,
 				     AscImageLoadFlags flags,
 				     GError	     **error);
 
@@ -67,7 +66,6 @@ void	    asw_image_scale (AswImage *image, gint new_width, gint new_height);
 
 void	    asw_image_scale_to_width (AswImage *image, gint new_width);
 void	    asw_image_scale_to_height (AswImage *image, gint new_height);
-void	    asw_image_scale_to_fit (AswImage *image, gint size);
 
 gboolean    asw_canvas_save_to_file (AswCanvas	   *canvas,
 				     const gchar   *filename,

@@ -58,17 +58,19 @@ GQuark asc_media_error_quark (void);
 /**
  * AscImageScaleMode:
  * @ASC_IMAGE_SCALE_MODE_NONE:		Keep the original (loaded) image size.
- * @ASC_IMAGE_SCALE_MODE_EXACT:		Scale to the exact target dimensions.
+ * @ASC_IMAGE_SCALE_MODE_PAD:		Scale to fit the target dimensions and center the
+ *					result on a transparent canvas of exactly that size.
  * @ASC_IMAGE_SCALE_MODE_FIT_WIDTH:	Scale proportionally to match the target width.
  * @ASC_IMAGE_SCALE_MODE_FIT_HEIGHT:	Scale proportionally to match the target height.
  *
- * How an image rendition should be scaled.
+ * How an image rendition should be scaled. Every mode preserves the aspect ratio of
+ * the source image - an image is never stretched or cropped to fill a target size.
  *
  * Since: 1.2.0
  **/
 typedef enum {
 	ASC_IMAGE_SCALE_MODE_NONE,
-	ASC_IMAGE_SCALE_MODE_EXACT,
+	ASC_IMAGE_SCALE_MODE_PAD,
 	ASC_IMAGE_SCALE_MODE_FIT_WIDTH,
 	ASC_IMAGE_SCALE_MODE_FIT_HEIGHT,
 	/*< private >*/
@@ -98,9 +100,7 @@ typedef enum {
 /**
  * AscImageLoadFlags:
  * @ASC_IMAGE_LOAD_FLAG_NONE:			No special flags set
- * @ASC_IMAGE_LOAD_FLAG_SHARPEN:		Sharpen the resulting image
  * @ASC_IMAGE_LOAD_FLAG_ALLOW_UNSUPPORTED:	Allow loading of unsupported image types.
- * @ASC_IMAGE_LOAD_FLAG_ALWAYS_RESIZE:		Always resize the source image to the perfect size
  *
  * The flags used for loading images.
  *
@@ -108,9 +108,7 @@ typedef enum {
  **/
 typedef enum {
 	ASC_IMAGE_LOAD_FLAG_NONE	      = 0,
-	ASC_IMAGE_LOAD_FLAG_SHARPEN	      = 1 << 0,
-	ASC_IMAGE_LOAD_FLAG_ALLOW_UNSUPPORTED = 1 << 1,
-	ASC_IMAGE_LOAD_FLAG_ALWAYS_RESIZE     = 1 << 2,
+	ASC_IMAGE_LOAD_FLAG_ALLOW_UNSUPPORTED = 1 << 0,
 } AscImageLoadFlags;
 
 /**

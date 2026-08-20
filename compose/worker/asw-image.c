@@ -432,6 +432,31 @@ asw_vips_resize_exact (VipsImage *in, VipsImage **out, gint width, gint height, 
 }
 
 /**
+ * asw_vips_resize_fit:
+ *
+ * Resize an image to fit within the given dimensions, preserving its aspect
+ * ratio, using premultiplied alpha and a high-quality (Lanczos3) kernel.
+ * The result matches at least one of the given dimensions and never exceeds
+ * either of them.
+ */
+static gboolean
+asw_vips_resize_fit (VipsImage *in, VipsImage **out, gint width, gint height, GError **error)
+{
+	if (vips_thumbnail_image (in,
+				  out,
+				  width,
+				  "height",
+				  height,
+				  "size",
+				  VIPS_SIZE_BOTH,
+				  "no_rotate",
+				  TRUE,
+				  NULL) != 0)
+		return asw_vips_error ("Unable to resize image", error);
+	return TRUE;
+}
+
+/**
  * asw_vips_pad_center:
  *
  * Center an image on a (usually larger) transparent canvas of the
@@ -449,6 +474,20 @@ asw_vips_pad_center (VipsImage *in,
 	VipsArrayDouble *bg;
 	static const double transparent[4] = { 0.0, 0.0, 0.0, 0.0 };
 	gint ret;
+
+	/* vips_embed() takes a negative offset for an image that does not fit and
+	 * quietly crops it, which is never what we want */
+	if (dest_width < vips_image_get_width (in) || dest_height < vips_image_get_height (in)) {
+		g_set_error (error,
+			     ASC_MEDIA_ERROR,
+			     ASC_MEDIA_ERROR_FAILED,
+			     "Refusing to pad a %ix%i image onto a smaller %ix%i canvas.",
+			     vips_image_get_width (in),
+			     vips_image_get_height (in),
+			     dest_width,
+			     dest_height);
+		return FALSE;
+	}
 
 	/* the padding is transparent, so the image itself needs an alpha channel too */
 	if (vips_colourspace (in, &srgb, VIPS_INTERPRETATION_sRGB, NULL) != 0)
@@ -544,98 +583,29 @@ asw_vips_sharpen (VipsImage *in, VipsImage **out, gdouble sigma, gdouble amount,
 }
 
 /**
- * asw_image_load_vips:
- **/
+ * asw_image_normalize_and_store:
+ *
+ * Bring a freshly decoded image into the flat 8-bit sRGB representation that
+ * all further operations expect and make it the data of @image.
+ *
+ * No geometry is decided here: how a rendition is scaled and padded is
+ * entirely up to the target it is written for.
+ */
 static gboolean
-asw_image_load_vips (AswImage *image,
-		     VipsImage *vimg_raw,
-		     gint dest_width,
-		     gint dest_height,
-		     gint src_size_min,
-		     AscImageLoadFlags flags,
-		     GError **error)
+asw_image_normalize_and_store (AswImage *image, VipsImage *vimg_raw, GError **error)
 {
 	g_autoptr(VipsImage) vimg = NULL;
-	g_autoptr(VipsImage) vimg_scaled = NULL;
-	g_autoptr(VipsImage) vimg_new = NULL;
-	gint src_height;
-	gint src_width;
-	gint tmp_height;
-	gint tmp_width;
 
 	if (!asw_vips_normalize (vimg_raw, &vimg, error))
 		return FALSE;
-	src_width = vips_image_get_width (vimg);
-	src_height = vips_image_get_height (vimg);
-
-	/* check size */
-	if (src_width < src_size_min && src_height < src_size_min) {
-		g_set_error (error,
-			     ASC_MEDIA_ERROR,
-			     ASC_MEDIA_ERROR_FAILED,
-			     "Image was too small %ix%i",
-			     src_width,
-			     src_height);
-		return FALSE;
-	}
-
-	/* don't do anything to an icon with the perfect size */
-	if (src_width == dest_width && src_height == dest_height)
-		return asw_image_store_vips (image, vimg, error);
-
-	/* this makes icons look blurry, but allows the software center to look
-	 * good as icons are properly aligned in the UI layout */
-	if (as_flags_contains (flags, ASC_IMAGE_LOAD_FLAG_ALWAYS_RESIZE)) {
-		if (!asw_vips_resize_exact (vimg, &vimg_new, dest_width, dest_height, error))
-			return FALSE;
-		return asw_image_store_vips (image, vimg_new, error);
-	}
-
-	/* never scale up, just pad */
-	if (src_width < dest_width && src_height < dest_height) {
-		g_debug ("Image padded to %dx%d as size %dx%d",
-			 dest_width,
-			 dest_height,
-			 src_width,
-			 src_height);
-		if (!asw_vips_pad_center (vimg, &vimg_new, dest_width, dest_height, error))
-			return FALSE;
-		return asw_image_store_vips (image, vimg_new, error);
-	}
-
-	/* is the aspect ratio perfectly square */
-	if (src_width == src_height) {
-		if (!asw_vips_resize_exact (vimg, &vimg_new, dest_width, dest_height, error))
-			return FALSE;
-		return asw_image_store_vips (image, vimg_new, error);
-	}
-
-	/* scale, preserving the aspect ratio, and center on a transparent canvas */
-	if (src_width > src_height) {
-		tmp_width = dest_width;
-		tmp_height = dest_height * src_height / src_width;
-	} else {
-		tmp_width = dest_width * src_width / src_height;
-		tmp_height = dest_height;
-	}
-	if (!asw_vips_resize_exact (vimg, &vimg_scaled, tmp_width, tmp_height, error))
-		return FALSE;
-	if (as_flags_contains (flags, ASC_IMAGE_LOAD_FLAG_SHARPEN)) {
-		g_autoptr(VipsImage) sharpened = NULL;
-		if (!asw_vips_sharpen (vimg_scaled, &sharpened, 1.4, 0.5, error))
-			return FALSE;
-		g_set_object (&vimg_scaled, sharpened);
-	}
-	if (!asw_vips_pad_center (vimg_scaled, &vimg_new, dest_width, dest_height, error))
-		return FALSE;
-	return asw_image_store_vips (image, vimg_new, error);
+	return asw_image_store_vips (image, vimg, error);
 }
 
 /**
  * asw_image_new_from_file:
  * @fname: Name of the file to load.
- * @dest_width: The suggested width of the constructed image, or 0 for the native size
- * @dest_height: The suggested height of the constructed image, or 0 for the native size
+ * @render_width: The width to rasterize vector graphics at, or 0 for their native size
+ * @render_height: The height to rasterize vector graphics at, or 0 for their native size
  * @flags: a #AscImageLoadFlags, e.g. %ASC_IMAGE_LOAD_FLAG_NONE
  * @error: A #GError or %NULL
  *
@@ -643,15 +613,15 @@ asw_image_load_vips (AswImage *image,
  **/
 AswImage *
 asw_image_new_from_file (const gchar *fname,
-			 gint dest_width,
-			 gint dest_height,
+			 gint render_width,
+			 gint render_height,
 			 AscImageLoadFlags flags,
 			 GError **error)
 {
 	gboolean ret;
 	g_autoptr(AswImage) image = asw_image_new ();
 
-	ret = asw_image_load_filename (image, fname, dest_width, dest_height, 0, flags, error);
+	ret = asw_image_load_filename (image, fname, render_width, render_height, flags, error);
 	if (!ret)
 		return NULL;
 	return g_steal_pointer (&image);
@@ -715,22 +685,43 @@ asw_image_gunzip_bytes (const void *data, gssize len, GError **error)
 }
 
 /**
+ * asw_image_data_is_vector:
+ *
+ * Check whether the given (already decompressed) image data is a vector
+ * graphic, and can therefore be rasterized at any resolution we like.
+ */
+static gboolean
+asw_image_data_is_vector (const void *data, gssize len)
+{
+	const gchar *loader_name = vips_foreign_find_load_buffer (data, (size_t) len);
+	if (loader_name == NULL) {
+		vips_error_clear ();
+		return FALSE;
+	}
+	return asw_image_format_from_vips_loader (loader_name) == ASC_IMAGE_FORMAT_SVG;
+}
+
+/**
  * asw_image_new_from_data:
  * @data: Data to load.
  * @len: Length of the data to load.
- * @dest_width: The suggested width of the constructed image, or 0 for the native size
- * @dest_height: The suggested height of the constructed image, or 0 for the native size
+ * @render_width: The width to rasterize vector graphics at, or 0 for their native size
+ * @render_height: The height to rasterize vector graphics at, or 0 for their native size
  * @flags: a #AscImageLoadFlags, e.g. %ASC_IMAGE_LOAD_FLAG_NONE
  * @error: A #GError or %NULL
  *
  * Creates a new #AswImage from data in memory.
  * The image format is detected from the data itself.
+ *
+ * The render size only says how vector graphics should be rasterized - raster
+ * images are always decoded at their native size, and the geometry of every
+ * rendition is decided when the image is saved.
  **/
 AswImage *
 asw_image_new_from_data (const void *data,
 			 gssize len,
-			 gint dest_width,
-			 gint dest_height,
+			 gint render_width,
+			 gint render_height,
 			 AscImageLoadFlags flags,
 			 GError **error)
 {
@@ -747,34 +738,12 @@ asw_image_new_from_data (const void *data,
 		len = (gssize) g_bytes_get_size (gunzipped);
 	}
 
-	if (dest_width <= 0 && dest_height <= 0) {
-		g_autoptr(VipsImage) vimg_norm = NULL;
+	if ((render_width > 0 || render_height > 0) && asw_image_data_is_vector (data, len)) {
+		gint tmp_width = render_width > 0 ? render_width : render_height;
+		gint tmp_height = render_height > 0 ? render_height : render_width;
 
-		/* use the native size and don't perform any scaling */
-		vimg = vips_image_new_from_buffer (data,
-						   (size_t) len,
-						   "", /* option string */
-						   "fail_on",
-						   VIPS_FAIL_ON_ERROR,
-						   NULL);
-		if (vimg == NULL) {
-			asw_vips_error ("Unable to load image", error);
-			return NULL;
-		}
-		if (!asw_vips_normalize (vimg, &vimg_norm, error))
-			return NULL;
-		if (!asw_image_store_vips (image, vimg_norm, error))
-			return NULL;
-		return g_steal_pointer (&image);
-	}
-
-	/* load & scale */
-	if (as_flags_contains (flags, ASC_IMAGE_LOAD_FLAG_ALWAYS_RESIZE)) {
-		gint tmp_width = dest_width > 0 ? dest_width : dest_height;
-		gint tmp_height = dest_height > 0 ? dest_height : dest_width;
-
-		/* load already scaled to fit the target size, so any vector
-		 * graphics are rendered at the right resolution */
+		/* rasterize the drawing at the resolution it is wanted in, so it stays
+		 * sharp instead of being blown up from a smaller rendering later */
 		if (vips_thumbnail_buffer ((void *) data,
 					   (size_t) len,
 					   &vimg,
@@ -788,11 +757,10 @@ asw_image_new_from_data (const void *data,
 					   "fail_on",
 					   VIPS_FAIL_ON_ERROR,
 					   NULL) != 0) {
-			asw_vips_error ("Unable to load image", error);
+			asw_vips_error ("Unable to render image", error);
 			return NULL;
 		}
 	} else {
-		/* just load, we will do resizing later */
 		vimg = vips_image_new_from_buffer (data,
 						   (size_t) len,
 						   "", /* option string */
@@ -805,7 +773,7 @@ asw_image_new_from_data (const void *data,
 		}
 	}
 
-	if (!asw_image_load_vips (image, vimg, dest_width, dest_height, 0, flags, error))
+	if (!asw_image_normalize_and_store (image, vimg, error))
 		return NULL;
 
 	return g_steal_pointer (&image);
@@ -815,22 +783,23 @@ asw_image_new_from_data (const void *data,
  * asw_image_load_filename:
  * @image: a #AswImage instance.
  * @filename: filename to read from
- * @dest_width: The suggested width of the constructed image, or 0 for the native size
- * @dest_height: The suggested height of the constructed image, or 0 for the native size
- * @src_size_min: The smallest source size (width or height) allowed, or 0 for no limit
+ * @render_width: The width to rasterize vector graphics at, or 0 for their native size
+ * @render_height: The height to rasterize vector graphics at, or 0 for their native size
  * @flags: a #AscImageLoadFlags, e.g. %ASC_IMAGE_LOAD_FLAG_NONE
  * @error: A #GError or %NULL.
  *
  * Reads an image from a file.
+ *
+ * As with asw_image_new_from_data(), the render size only applies to vector
+ * graphics, and no rendition geometry is decided here.
  *
  * Returns: %TRUE for success
  **/
 gboolean
 asw_image_load_filename (AswImage *image,
 			 const gchar *filename,
-			 gint dest_width,
-			 gint dest_height,
-			 gint src_size_min,
+			 gint render_width,
+			 gint render_height,
 			 AscImageLoadFlags flags,
 			 GError **error)
 {
@@ -862,22 +831,11 @@ asw_image_load_filename (AswImage *image,
 		}
 	}
 
-	/* load the image at its native size */
-	if (dest_width <= 0 && dest_height <= 0) {
-		g_autoptr(VipsImage) vimg_norm = NULL;
-
-		vimg_src = vips_image_new_from_file (filename, "fail_on", VIPS_FAIL_ON_ERROR, NULL);
-		if (vimg_src == NULL)
-			return asw_vips_error ("Unable to load image", error);
-		if (!asw_vips_normalize (vimg_src, &vimg_norm, error))
-			return FALSE;
-		return asw_image_store_vips (image, vimg_norm, error);
-	}
-
-	/* open file in native size, but render vector graphics to fit the target size */
-	if (is_svg) {
-		gint tmp_width = dest_width > 0 ? dest_width : dest_height;
-		gint tmp_height = dest_height > 0 ? dest_height : dest_width;
+	/* open the file at its native size, but rasterize vector graphics at the
+	 * resolution they were asked for */
+	if (is_svg && (render_width > 0 || render_height > 0)) {
+		gint tmp_width = render_width > 0 ? render_width : render_height;
+		gint tmp_height = render_height > 0 ? render_height : render_width;
 
 		if (vips_thumbnail (filename,
 				    &vimg_src,
@@ -898,14 +856,7 @@ asw_image_load_filename (AswImage *image,
 			return asw_vips_error ("Unable to load image", error);
 	}
 
-	/* resize as requested */
-	return asw_image_load_vips (image,
-				    vimg_src,
-				    dest_width,
-				    dest_height,
-				    src_size_min,
-				    flags,
-				    error);
+	return asw_image_normalize_and_store (image, vimg_src, error);
 }
 
 /**
@@ -1038,24 +989,6 @@ asw_image_scale_to_height (AswImage *image, gint new_height)
 }
 
 /**
- * asw_image_scale_to_fit:
- * @image: an #AswImage instance.
- * @size: the maximum edge length.
- *
- * Scale the image to fir in a square with the given edge length,
- * and keep its aspect ratio.
- **/
-void
-asw_image_scale_to_fit (AswImage *image, gint size)
-{
-	g_return_if_fail (size > 0);
-	if (asw_image_get_height (image) > asw_image_get_width (image))
-		asw_image_scale_to_height (image, size);
-	else
-		asw_image_scale_to_width (image, size);
-}
-
-/**
  * asw_image_save_vips_to_file:
  *
  * Encode an image to a file in the given format, using the provided
@@ -1182,7 +1115,8 @@ asw_canvas_save_to_file (AswCanvas *canvas,
  * @flags: some #AscImageSaveFlags values, e.g. %ASC_IMAGE_SAVE_FLAG_SHARPEN
  * @error: A #GError or %NULL
  *
- * Resamples the image to a specific size.
+ * Scale the image to fit a specific size, preserving its aspect ratio, and
+ * center the result on a transparent canvas of exactly that size.
  *
  * Returns: (transfer full): A #VipsImage of the specified size
  **/
@@ -1196,8 +1130,6 @@ asw_image_save_vips (AswImage *image,
 	AswImagePrivate *priv = GET_PRIVATE (image);
 	g_autoptr(VipsImage) vimg_scaled = NULL;
 	g_autoptr(VipsImage) vimg_new = NULL;
-	gint tmp_height;
-	gint tmp_width;
 	gint src_height;
 	gint src_width;
 
@@ -1225,47 +1157,18 @@ asw_image_save_vips (AswImage *image,
 	if (width == src_width && height == src_height)
 		return g_object_ref (priv->vimg);
 
-	/* is the aspect ratio of the source perfectly 16:9 */
-	if (flags == ASC_IMAGE_SAVE_FLAG_NONE || (src_width / 16) * 9 == src_height) {
-		if (!asw_vips_resize_exact (priv->vimg, &vimg_scaled, width, height, error))
-			return NULL;
-		if (as_flags_contains (flags, ASC_IMAGE_SAVE_FLAG_SHARPEN)) {
-			g_autoptr(VipsImage) sharpened = NULL;
-			if (!asw_vips_sharpen (vimg_scaled, &sharpened, 1.4, 0.5, error))
-				return NULL;
-			g_set_object (&vimg_scaled, sharpened);
-		}
-		if (as_flags_contains (flags, ASC_IMAGE_SAVE_FLAG_BLUR)) {
-			g_autoptr(VipsImage) blurred = NULL;
-			if (!asw_vips_blur (vimg_scaled, &blurred, 5.5, error))
-				return NULL;
-			g_set_object (&vimg_scaled, blurred);
-		}
-		return g_steal_pointer (&vimg_scaled);
-	}
-
-	/* scale and pad to a new 16:9 rectangle with transparency */
-	if (src_width * 9 > src_height * 16) {
-		tmp_width = width;
-		tmp_height = width * src_height / src_width;
-	} else {
-		tmp_width = height * src_width / src_height;
-		tmp_height = height;
-	}
-	if (!asw_vips_resize_exact (priv->vimg, &vimg_scaled, tmp_width, tmp_height, error))
+	if (!asw_vips_resize_fit (priv->vimg, &vimg_scaled, width, height, error))
 		return NULL;
+
 	if (as_flags_contains (flags, ASC_IMAGE_SAVE_FLAG_SHARPEN)) {
 		g_autoptr(VipsImage) sharpened = NULL;
 		if (!asw_vips_sharpen (vimg_scaled, &sharpened, 1.4, 0.5, error))
 			return NULL;
 		g_set_object (&vimg_scaled, sharpened);
 	}
-	if (as_flags_contains (flags, ASC_IMAGE_SAVE_FLAG_BLUR)) {
-		g_autoptr(VipsImage) blurred = NULL;
-		if (!asw_vips_blur (vimg_scaled, &blurred, 5.5, error))
-			return NULL;
-		g_set_object (&vimg_scaled, blurred);
-	}
+
+	/* the scaled image only matches one of the target dimensions unless it happens
+	 * to share the aspect ratio of the target, so pad it out to the full canvas */
 	if (!asw_vips_pad_center (vimg_scaled, &vimg_new, width, height, error))
 		return NULL;
 	return g_steal_pointer (&vimg_new);

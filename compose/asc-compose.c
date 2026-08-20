@@ -1234,7 +1234,7 @@ asc_compose_process_icons (AscCompose *compose,
 		img_targets = g_ptr_array_new_with_free_func (
 		    (GDestroyNotify) asc_image_target_free);
 		img_target = asc_image_target_new (res_icon_basename,
-						   ASC_IMAGE_SCALE_MODE_EXACT,
+						   ASC_IMAGE_SCALE_MODE_PAD,
 						   size * scale_factor,
 						   size * scale_factor);
 		/* icons are always stored losslessly, which for icons even results in smaller files than
@@ -1248,7 +1248,6 @@ asc_compose_process_icons (AscCompose *compose,
 		g_ptr_array_add (img_targets, img_target);
 
 		img_source = asc_image_source_new (img_bytes);
-		asc_image_source_set_load_flags (img_source, ASC_IMAGE_LOAD_FLAG_ALWAYS_RESIZE);
 		if (is_vector_icon)
 			asc_image_source_set_render_size (img_source,
 							  size * scale_factor,
