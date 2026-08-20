@@ -84,7 +84,6 @@ asc_media_lib = static_library('asc-media',
                           include_directories('..')],
     c_args: [
         '-DASC_COMPILATION',
-        '-DI_KNOW_THE_APPSTREAM_COMPOSE_API_IS_SUBJECT_TO_CHANGE'
     ],
 )
 
@@ -104,10 +103,7 @@ asc_mediaworker_exe = executable('asc-mediaworker',
     ],
     include_directories: [root_inc_dir,
                           include_directories('..')],
-    c_args: [
-        '-DASC_COMPILATION',
-        '-DI_KNOW_THE_APPSTREAM_COMPOSE_API_IS_SUBJECT_TO_CHANGE'
-    ],
+    c_args: ['-DASC_COMPILATION'],
     install: true,
     install_dir: asc_mediaworker_installdir,
 )
