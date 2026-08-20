@@ -1172,7 +1172,7 @@ asw_canvas_save_to_file (AswCanvas *canvas,
  * @image: a #AswImage instance.
  * @width: target width, or 0 for default
  * @height: target height, or 0 for default
- * @flags: some #AscImageSaveFlags values, e.g. %ASC_IMAGE_SAVE_FLAG_PAD_16_9
+ * @flags: some #AscImageSaveFlags values, e.g. %ASC_IMAGE_SAVE_FLAG_SHARPEN
  * @error: A #GError or %NULL
  *
  * Resamples the image to a specific size.
@@ -1270,7 +1270,7 @@ asw_image_save_vips (AswImage *image,
  * @filename: filename to write to
  * @width: target width, or 0 for default
  * @height: target height, or 0 for default
- * @flags: some #AscImageSaveFlags values, e.g. %ASC_IMAGE_SAVE_FLAG_PAD_16_9
+ * @flags: some #AscImageSaveFlags values, e.g. %ASC_IMAGE_SAVE_FLAG_SHARPEN
  * @error: A #GError or %NULL.
  *
  * Saves the image to a file. The image format is determined by the

@@ -222,8 +222,8 @@ asc_globals_get_priv (void)
  * asc_globals_clear:
  *
  * Clear all global state and restore defaults.
- *
- * Since: 0.14.6
+ * This is internal API used by the test suite: dropping global state while
+ * any compose operation may still be using it is not safe.
  */
 void
 asc_globals_clear (void)
