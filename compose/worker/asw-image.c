@@ -385,18 +385,25 @@ asw_image_supported_format_names (void)
 static gboolean
 asw_vips_normalize (VipsImage *in, VipsImage **out, GError **error)
 {
-	if (vips_thumbnail_image (in,
-				  out,
-				  vips_image_get_width (in),
-				  "height",
-				  vips_image_get_height (in),
-				  "size",
-				  VIPS_SIZE_FORCE,
-				  "no_rotate",
-				  TRUE,
-				  "export_profile",
-				  "srgb",
-				  NULL) != 0)
+	/* only an embedded profile calls for an actual colour transform - without
+	 * one the data already is sRGB and merely needs its band layout and bit
+	 * depth adjusted, which is a great deal cheaper */
+	if (vips_image_get_typeof (in, VIPS_META_ICC_NAME) != 0) {
+		g_autoptr(VipsImage) converted = NULL;
+
+		if (vips_icc_transform (in, &converted, "srgb", "embedded", TRUE, NULL) == 0) {
+			*out = g_steal_pointer (&converted);
+			return TRUE;
+		}
+
+		/* the input is untrusted, so an unusable profile must not make the
+		 * image unusable as well: interpret its data as sRGB instead, which
+		 * is what a viewer that does not colour-manage would do anyway */
+		vips_error_clear ();
+		g_debug ("Ignoring an ICC profile that we can not convert from.");
+	}
+
+	if (vips_colourspace (in, out, VIPS_INTERPRETATION_sRGB, NULL) != 0)
 		return asw_vips_error ("Unable to normalize image", error);
 	return TRUE;
 }
