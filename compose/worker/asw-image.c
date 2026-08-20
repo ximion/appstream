@@ -539,45 +539,21 @@ asw_image_store_vips (AswImage *image, VipsImage *vimg, GError **error)
 }
 
 /**
- * asw_vips_blur:
- * @in: Source image.
- * @out: (out): Location for the blurred image.
- * @sigma: Standard deviation of the gaussian blur.
- * @error: A #GError or %NULL
- *
- * Blurs an image.
- **/
-gboolean
-asw_vips_blur (VipsImage *in, VipsImage **out, gdouble sigma, GError **error)
-{
-	if (vips_gaussblur (in, out, sigma, NULL) != 0)
-		return asw_vips_error ("Unable to blur image", error);
-	return TRUE;
-}
-
-/**
  * asw_vips_sharpen:
  * @in: Source image.
  * @out: (out): Location for the sharpened image.
- * @sigma: Standard deviation of the unsharp mask, typical values are 1..3
- * @amount: Amount to sharpen the image, typical values are 0.1 to 0.9
  * @error: A #GError or %NULL
  *
- * Sharpens an image using an unsharp mask:
- * out = (1 + amount) * in - amount * blurred
+ * Sharpen an image to bring back detail that downscaling has softened.
+ *
+ * This works on lightness alone, in LAB space: an unsharp mask applied to
+ * the color channels shifts hues, and one applied to the alpha channel
+ * sharpens the transparency mask along with the picture.
  **/
-gboolean
-asw_vips_sharpen (VipsImage *in, VipsImage **out, gdouble sigma, gdouble amount, GError **error)
+static gboolean
+asw_vips_sharpen (VipsImage *in, VipsImage **out, GError **error)
 {
-	g_autoptr(VipsImage) blurred = NULL;
-	g_autoptr(VipsImage) base = NULL;
-	g_autoptr(VipsImage) mask = NULL;
-	g_autoptr(VipsImage) sum = NULL;
-
-	if (vips_gaussblur (in, &blurred, sigma, NULL) != 0 ||
-	    vips_linear1 (in, &base, 1.0 + amount, 0.0, NULL) != 0 ||
-	    vips_linear1 (blurred, &mask, -amount, 0.0, NULL) != 0 ||
-	    vips_add (base, mask, &sum, NULL) != 0 || vips_cast_uchar (sum, out, NULL) != 0)
+	if (vips_sharpen (in, out, NULL) != 0)
 		return asw_vips_error ("Unable to sharpen image", error);
 	return TRUE;
 }
@@ -1162,7 +1138,7 @@ asw_image_save_vips (AswImage *image,
 
 	if (as_flags_contains (flags, ASC_IMAGE_SAVE_FLAG_SHARPEN)) {
 		g_autoptr(VipsImage) sharpened = NULL;
-		if (!asw_vips_sharpen (vimg_scaled, &sharpened, 1.4, 0.5, error))
+		if (!asw_vips_sharpen (vimg_scaled, &sharpened, error))
 			return NULL;
 		g_set_object (&vimg_scaled, sharpened);
 	}

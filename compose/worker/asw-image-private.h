@@ -42,11 +42,4 @@ VipsImage *asw_image_save_vips (AswImage	 *image,
 VipsImage *asw_image_get_vips (AswImage *image);
 void	   asw_image_set_vips (AswImage *image, VipsImage *vimg);
 
-gboolean   asw_vips_blur (VipsImage *in, VipsImage **out, gdouble sigma, GError **error);
-gboolean   asw_vips_sharpen (VipsImage	*in,
-			     VipsImage **out,
-			     gdouble	 sigma,
-			     gdouble	 amount,
-			     GError    **error);
-
 AS_END_PRIVATE_DECLS

@@ -83,7 +83,6 @@ typedef enum {
  * @ASC_IMAGE_SAVE_FLAG_LOSSLESS:	Encode the image losslessly
  * @ASC_IMAGE_SAVE_FLAG_OPTIMIZE:	Optimize generated PNG for size
  * @ASC_IMAGE_SAVE_FLAG_SHARPEN:	Sharpen the image to clarify detail
- * @ASC_IMAGE_SAVE_FLAG_BLUR:		Blur the image to clear detail
  *
  * The flags used for saving images.
  *
@@ -94,7 +93,6 @@ typedef enum {
 	ASC_IMAGE_SAVE_FLAG_LOSSLESS = 1 << 0,
 	ASC_IMAGE_SAVE_FLAG_OPTIMIZE = 1 << 1,
 	ASC_IMAGE_SAVE_FLAG_SHARPEN  = 1 << 2,
-	ASC_IMAGE_SAVE_FLAG_BLUR     = 1 << 3,
 } AscImageSaveFlags;
 
 /**
