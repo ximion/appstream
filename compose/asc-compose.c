@@ -2386,9 +2386,16 @@ asc_compose_run (AscCompose *compose, GCancellable *cancellable, GError **error)
 
 	if (priv->media == NULL && as_flags_contains (priv->flags, ASC_COMPOSE_FLAG_USE_THREADS)) {
 		GThreadPool *tpool = NULL;
+		guint max_threads;
+
+		/* Bound the pool, so we don't use too many parallel resources for media processing,
+		 * and also limit how much media we fetch over the network in parallel. */
+		max_threads = CLAMP (tasks->len, 1, MAX (g_get_num_processors () - 1, 1));
+		g_debug ("Processing %u unit(s) using up to %u thread(s).", tasks->len, max_threads);
+
 		tpool = g_thread_pool_new ((GFunc) asc_compose_process_task_cb,
 					   compose,
-					   -1,	  /* max threads */
+					   max_threads,
 					   FALSE, /* exclusive */
 					   error);
 		if (tpool == NULL)
