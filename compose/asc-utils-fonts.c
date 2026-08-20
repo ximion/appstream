@@ -195,24 +195,27 @@ asc_render_font_screenshots (AscResult *cres,
 			g_autoptr(AsImage) img = NULL;
 			AscImageTarget *target = g_ptr_array_index (targets, j);
 
-			if (target->error_msg != NULL) {
+			if (asc_image_target_get_error_message (target) != NULL) {
 				asc_result_add_hint (cres,
 						     cpt,
 						     "font-render-error",
 						     "name",
 						     entry->info->fullname,
 						     "error",
-						     target->error_msg,
+						     asc_image_target_get_error_message (target),
 						     NULL);
 				continue;
 			}
-			g_debug ("Saved font screenshot image: %s", target->name);
+			g_debug ("Saved font screenshot image: %s",
+				 asc_image_target_get_name (target));
 
-			img_url = g_build_filename (scr_url_root, target->name, NULL);
+			img_url = g_build_filename (scr_url_root,
+						    asc_image_target_get_name (target),
+						    NULL);
 			img = as_image_new ();
 			as_image_set_kind (img, AS_IMAGE_KIND_THUMBNAIL);
-			as_image_set_width (img, target->result_width);
-			as_image_set_height (img, target->result_height);
+			as_image_set_width (img, asc_image_target_get_result_width (target));
+			as_image_set_height (img, asc_image_target_get_result_height (target));
 			as_image_set_url (img, img_url);
 
 			as_screenshot_add_image (scr, img);
@@ -323,14 +326,14 @@ asc_render_font_icon (AscResult *cres,
 							     NULL);
 				continue;
 			}
-			if (target->error_msg != NULL) {
+			if (asc_image_target_get_error_message (target) != NULL) {
 				asc_result_add_hint (cres,
 						     cpt,
 						     "font-render-error",
 						     "name",
 						     entry->info->fullname,
 						     "error",
-						     target->error_msg,
+						     asc_image_target_get_error_message (target),
 						     NULL);
 				continue;
 			}

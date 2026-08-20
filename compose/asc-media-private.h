@@ -26,51 +26,6 @@
 AS_BEGIN_PRIVATE_DECLS
 
 /**
- * AscImageTarget:
- * @name: Filename (without directory components) the rendition should be stored as.
- * @scale_mode: How the image should be scaled for this rendition.
- * @width: Target width (used depending on @scale_mode).
- * @height: Target height (used depending on @scale_mode).
- * @save_flags: Flags to use when storing this rendition.
- * @only_downscale: Skip this rendition if it would upscale the source image.
- * @skip_if_src_width_gt: Skip this rendition if the source image is wider than this value (0 to disable).
- * @skipped: Result: Whether this rendition was skipped due to one of the skip conditions.
- * @result_width: Result: Actual width of the stored rendition.
- * @result_height: Result: Actual height of the stored rendition.
- * @error_msg: Result: Error message if (and only if) creating this particular rendition failed.
- *
- * Describes one requested output rendition of a media operation, and
- * carries its result data after the operation was run.
- */
-typedef struct {
-	gchar		 *name;
-	AscImageScaleMode scale_mode;
-	gint		  width;
-	gint		  height;
-	AscImageSaveFlags save_flags;
-	gboolean	  only_downscale;
-	gint		  skip_if_src_width_gt;
-
-	/* result fields, set by the media operation */
-	gboolean	  skipped;
-	gint		  result_width;
-	gint		  result_height;
-	gchar		 *error_msg;
-} AscImageTarget;
-
-#define ASC_TYPE_IMAGE_TARGET (asc_image_target_get_type ())
-AS_INTERNAL_VISIBLE
-GType asc_image_target_get_type (void);
-AS_INTERNAL_VISIBLE
-AscImageTarget *asc_image_target_new (const gchar      *name,
-				      AscImageScaleMode scale_mode,
-				      gint		width,
-				      gint		height);
-AS_INTERNAL_VISIBLE
-void asc_image_target_free (AscImageTarget *target);
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (AscImageTarget, asc_image_target_free)
-
-/**
  * AscFontInfo:
  *
  * Metadata of a font file, as extracted by the media worker.
@@ -95,23 +50,6 @@ GType asc_font_info_get_type (void);
 AS_INTERNAL_VISIBLE
 void asc_font_info_free (AscFontInfo *info);
 G_DEFINE_AUTOPTR_CLEANUP_FUNC (AscFontInfo, asc_font_info_free)
-
-AS_INTERNAL_VISIBLE
-void	 asc_media_set_memory_limit (AscMedia *media, guint32 limit_mib);
-
-gboolean asc_media_error_is_worker_failure (const GError *error);
-
-AS_INTERNAL_VISIBLE
-gboolean asc_media_process_image (AscMedia	   *media,
-				  GBytes	   *img_data,
-				  gint		    load_width,
-				  gint		    load_height,
-				  AscImageLoadFlags load_flags,
-				  const gchar	   *out_dir,
-				  GPtrArray	   *targets,
-				  gint		   *src_width,
-				  gint		   *src_height,
-				  GError	  **error);
 
 AS_INTERNAL_VISIBLE
 AscFontInfo *asc_media_read_font_info (AscMedia		  *media,

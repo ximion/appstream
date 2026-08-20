@@ -139,9 +139,37 @@ typedef enum {
 	ASC_IMAGE_FORMAT_LAST
 } AscImageFormat;
 
-const gchar   *asc_image_format_to_string (AscImageFormat format);
-AscImageFormat asc_image_format_from_string (const gchar *str);
-AscImageFormat asc_image_format_from_filename (const gchar *fname);
+const gchar		      *asc_image_format_to_string (AscImageFormat format);
+AscImageFormat		       asc_image_format_from_string (const gchar *str);
+AscImageFormat		       asc_image_format_from_filename (const gchar *fname);
+
+typedef struct _AscImageTarget AscImageTarget;
+
+#define ASC_TYPE_IMAGE_TARGET (asc_image_target_get_type ())
+GType		asc_image_target_get_type (void);
+
+AscImageTarget *asc_image_target_new (const gchar      *name,
+				      AscImageScaleMode scale_mode,
+				      gint		width,
+				      gint		height);
+AscImageTarget *asc_image_target_copy (AscImageTarget *target);
+void		asc_image_target_free (AscImageTarget *target);
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (AscImageTarget, asc_image_target_free)
+
+const gchar *asc_image_target_get_name (AscImageTarget *target);
+
+void	     asc_image_target_set_save_flags (AscImageTarget *target, AscImageSaveFlags flags);
+void	     asc_image_target_set_only_downscale (AscImageTarget *target, gboolean only_downscale);
+void	     asc_image_target_set_source_size_range (AscImageTarget *target,
+						     gint	     min_width,
+						     gint	     min_height,
+						     gint	     max_width,
+						     gint	     max_height);
+
+gboolean     asc_image_target_get_skipped (AscImageTarget *target);
+gint	     asc_image_target_get_result_width (AscImageTarget *target);
+gint	     asc_image_target_get_result_height (AscImageTarget *target);
+const gchar *asc_image_target_get_error_message (AscImageTarget *target);
 
 #define ASC_TYPE_MEDIA (asc_media_get_type ())
 G_DECLARE_FINAL_TYPE (AscMedia, asc_media, ASC, MEDIA, GObject)
@@ -151,10 +179,26 @@ AscMedia    *asc_media_new (void);
 guint	     asc_media_get_request_timeout (AscMedia *media);
 void	     asc_media_set_request_timeout (AscMedia *media, guint seconds);
 
+guint32	     asc_media_get_memory_limit (AscMedia *media);
+void	     asc_media_set_memory_limit (AscMedia *media, guint32 limit_mib);
+
 const gchar *asc_media_get_worker_path (AscMedia *media);
 void	     asc_media_set_worker_path (AscMedia *media, const gchar *path);
 
 gboolean     asc_media_ensure_worker (AscMedia *media, GError **error);
 void	     asc_media_stop (AscMedia *media);
+
+gboolean     asc_media_error_is_worker_failure (const GError *error);
+
+gboolean     asc_media_process_image (AscMedia	       *media,
+				      GBytes	       *img_data,
+				      gint		load_width,
+				      gint		load_height,
+				      AscImageLoadFlags load_flags,
+				      const gchar      *out_dir,
+				      GPtrArray	       *targets,
+				      gint	       *src_width,
+				      gint	       *src_height,
+				      GError	      **error);
 
 G_END_DECLS

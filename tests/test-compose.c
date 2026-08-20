@@ -231,7 +231,19 @@ test_media_process_image (void)
 	    targets,
 	    asc_image_target_new ("too-big.png", ASC_IMAGE_SCALE_MODE_FIT_WIDTH, 4000, 0));
 	target = g_ptr_array_index (targets, 2);
-	target->only_downscale = TRUE;
+	asc_image_target_set_only_downscale (target, TRUE);
+
+	g_ptr_array_add (
+	    targets,
+	    asc_image_target_new ("src-too-small.png", ASC_IMAGE_SCALE_MODE_EXACT, 64, 64));
+	target = g_ptr_array_index (targets, 3);
+	asc_image_target_set_source_size_range (target, 512, 512, 0, 0);
+
+	g_ptr_array_add (
+	    targets,
+	    asc_image_target_new ("src-too-large.png", ASC_IMAGE_SCALE_MODE_EXACT, 64, 64));
+	target = g_ptr_array_index (targets, 4);
+	asc_image_target_set_source_size_range (target, 0, 0, 48, 48);
 
 	src_width = 0;
 	src_height = 0;
@@ -251,29 +263,46 @@ test_media_process_image (void)
 	g_assert_cmpint (src_height, ==, 144);
 
 	target = g_ptr_array_index (targets, 0);
-	g_assert_false (target->skipped);
-	g_assert_null (target->error_msg);
-	g_assert_cmpint (target->result_width, ==, 136);
-	g_assert_cmpint (target->result_height, ==, 144);
+	g_assert_false (asc_image_target_get_skipped (target));
+	g_assert_null (asc_image_target_get_error_message (target));
+	g_assert_cmpint (asc_image_target_get_result_width (target), ==, 136);
+	g_assert_cmpint (asc_image_target_get_result_height (target), ==, 144);
 
 	target = g_ptr_array_index (targets, 1);
-	g_assert_false (target->skipped);
-	g_assert_null (target->error_msg);
-	g_assert_cmpint (target->result_height, ==, 64);
-	g_assert_cmpint (target->result_width, ==, 60);
+	g_assert_false (asc_image_target_get_skipped (target));
+	g_assert_null (asc_image_target_get_error_message (target));
+	g_assert_cmpint (asc_image_target_get_result_height (target), ==, 64);
+	g_assert_cmpint (asc_image_target_get_result_width (target), ==, 60);
 
 	/* the upscaling rendition must have been skipped */
 	target = g_ptr_array_index (targets, 2);
-	g_assert_true (target->skipped);
-	g_assert_null (target->error_msg);
+	g_assert_true (asc_image_target_get_skipped (target));
+	g_assert_null (asc_image_target_get_error_message (target));
+
+	/* as must the renditions whose source-size conditions were not met */
+	target = g_ptr_array_index (targets, 3);
+	g_assert_true (asc_image_target_get_skipped (target));
+	g_assert_null (asc_image_target_get_error_message (target));
+
+	target = g_ptr_array_index (targets, 4);
+	g_assert_true (asc_image_target_get_skipped (target));
+	g_assert_null (asc_image_target_get_error_message (target));
 
 	out_fname_orig = g_build_filename (out_dir, "orig.png", NULL);
 	out_fname_scaled = g_build_filename (out_dir, "64.png", NULL);
 	g_assert_true (g_file_test (out_fname_orig, G_FILE_TEST_EXISTS));
 	g_assert_true (g_file_test (out_fname_scaled, G_FILE_TEST_EXISTS));
 	{
-		g_autofree gchar *check_fname = g_build_filename (out_dir, "too-big.png", NULL);
-		g_assert_false (g_file_test (check_fname, G_FILE_TEST_EXISTS));
+		const gchar *skipped_names[] = { "too-big.png",
+						 "src-too-small.png",
+						 "src-too-large.png",
+						 NULL };
+		for (guint i = 0; skipped_names[i] != NULL; i++) {
+			g_autofree gchar *check_fname = g_build_filename (out_dir,
+									  skipped_names[i],
+									  NULL);
+			g_assert_false (g_file_test (check_fname, G_FILE_TEST_EXISTS));
+		}
 	}
 }
 
@@ -344,9 +373,9 @@ test_media_font (void)
 	g_assert_true (ret);
 
 	target = g_ptr_array_index (targets, 0);
-	g_assert_null (target->error_msg);
-	g_assert_cmpint (target->result_width, ==, 752);
-	g_assert_cmpint (target->result_height, >, 0);
+	g_assert_null (asc_image_target_get_error_message (target));
+	g_assert_cmpint (asc_image_target_get_result_width (target), ==, 752);
+	g_assert_cmpint (asc_image_target_get_result_height (target), >, 0);
 	{
 		g_autofree gchar *check_fname = g_build_filename (out_dir, "card.png", NULL);
 		g_assert_true (g_file_test (check_fname, G_FILE_TEST_EXISTS));
@@ -370,9 +399,9 @@ test_media_font (void)
 	g_assert_true (ret);
 
 	target = g_ptr_array_index (targets, 0);
-	g_assert_null (target->error_msg);
-	g_assert_cmpint (target->result_width, ==, 64);
-	g_assert_cmpint (target->result_height, ==, 64);
+	g_assert_null (asc_image_target_get_error_message (target));
+	g_assert_cmpint (asc_image_target_get_result_width (target), ==, 64);
+	g_assert_cmpint (asc_image_target_get_result_height (target), ==, 64);
 	{
 		g_autofree gchar *check_fname = g_build_filename (out_dir, "icon.png", NULL);
 		g_assert_true (g_file_test (check_fname, G_FILE_TEST_EXISTS));

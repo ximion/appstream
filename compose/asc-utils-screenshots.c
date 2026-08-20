@@ -532,7 +532,7 @@ asc_process_screenshot_images_lang (AscResult *cres,
 		img_targets = g_ptr_array_new_with_free_func (
 		    (GDestroyNotify) asc_image_target_free);
 		src_target = asc_image_target_new (src_img_name, ASC_IMAGE_SCALE_MODE_NONE, 0, 0);
-		src_target->save_flags = ASC_IMAGE_SAVE_FLAG_OPTIMIZE;
+		asc_image_target_set_save_flags (src_target, ASC_IMAGE_SAVE_FLAG_OPTIMIZE);
 		g_ptr_array_add (img_targets, src_target);
 
 		if (!asc_media_process_image (media,
@@ -553,10 +553,10 @@ asc_process_screenshot_images_lang (AscResult *cres,
 			    error);
 			return FALSE;
 		}
-		if (src_target->error_msg != NULL) {
+		if (asc_image_target_get_error_message (src_target) != NULL) {
 			g_autofree gchar *msg = g_strdup_printf (
 			    "Can not store source screenshot: %s",
-			    src_target->error_msg);
+			    asc_image_target_get_error_message (src_target));
 			asc_result_add_hint (cres,
 					     cpt,
 					     "screenshot-save-error",
@@ -636,9 +636,9 @@ asc_process_screenshot_images_lang (AscResult *cres,
 							   : ASC_IMAGE_SCALE_MODE_FIT_HEIGHT,
 						       target_width,
 						       target_height);
-			target->save_flags = ASC_IMAGE_SAVE_FLAG_OPTIMIZE;
+			asc_image_target_set_save_flags (target, ASC_IMAGE_SAVE_FLAG_OPTIMIZE);
 			/* ensure we will only downscale the screenshot for thumbnailing */
-			target->only_downscale = TRUE;
+			asc_image_target_set_only_downscale (target, TRUE);
 			g_ptr_array_add (thumb_targets, target);
 		}
 
@@ -667,12 +667,12 @@ asc_process_screenshot_images_lang (AscResult *cres,
 			g_autofree gchar *thumb_img_url = NULL;
 			AscImageTarget *target = g_ptr_array_index (thumb_targets, i);
 
-			if (target->skipped)
+			if (asc_image_target_get_skipped (target))
 				continue;
-			if (target->error_msg != NULL) {
+			if (asc_image_target_get_error_message (target) != NULL) {
 				g_autofree gchar *msg = g_strdup_printf (
 				    "Can not store thumbnail image: %s",
-				    target->error_msg);
+				    asc_image_target_get_error_message (target));
 				asc_result_add_hint (cres,
 						     cpt,
 						     "screenshot-save-error",
@@ -685,12 +685,14 @@ asc_process_screenshot_images_lang (AscResult *cres,
 			}
 
 			/* finally prepare the thumbnail definition and add it to the metadata */
-			thumb_img_url = g_build_filename (scr_base_url, target->name, NULL);
+			thumb_img_url = g_build_filename (scr_base_url,
+							  asc_image_target_get_name (target),
+							  NULL);
 			img = as_image_new ();
 			as_image_set_locale (img, locale);
 			as_image_set_kind (img, AS_IMAGE_KIND_THUMBNAIL);
-			as_image_set_width (img, target->result_width);
-			as_image_set_height (img, target->result_height);
+			as_image_set_width (img, asc_image_target_get_result_width (target));
+			as_image_set_height (img, asc_image_target_get_result_height (target));
 			as_image_set_url (img, thumb_img_url);
 			as_screenshot_add_image (scr, img);
 

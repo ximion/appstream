@@ -210,13 +210,41 @@ asc_image_format_from_filename (const gchar *fname)
 }
 
 /**
- * asc_image_target_new:
- * @name: Filename the rendition should be stored as.
- * @scale_mode: an #AscImageScaleMode
- * @width: Target width.
- * @height: Target height.
+ * AscImageTarget:
  *
- * Create a new #AscImageTarget.
+ * Describes one requested output rendition of a media operation, and carries
+ * its result data after the operation was run. Renditions that were skipped
+ * due to one of their source-size conditions are not an error: the operation
+ * still succeeds, and %asc_image_target_get_skipped will return %TRUE.
+ */
+struct _AscImageTarget {
+	gchar *name;
+	AscImageScaleMode scale_mode;
+	gint width;
+	gint height;
+	AscImageSaveFlags save_flags;
+	gboolean only_downscale;
+	gint min_src_width;
+	gint min_src_height;
+	gint max_src_width;
+	gint max_src_height;
+
+	/* result fields, set by the media operation */
+	gboolean skipped;
+	gint result_width;
+	gint result_height;
+	gchar *error_msg;
+};
+
+/**
+ * asc_image_target_new:
+ * @name: Filename (without any directory components) the rendition should be stored as.
+ * @scale_mode: an #AscImageScaleMode
+ * @width: Target width (used depending on @scale_mode).
+ * @height: Target height (used depending on @scale_mode).
+ *
+ * Create a new #AscImageTarget. The image format the rendition is stored in
+ * is derived from the file extension of @name.
  *
  * Returns: (transfer full): an #AscImageTarget
  */
@@ -236,6 +264,7 @@ asc_image_target_new (const gchar *name, AscImageScaleMode scale_mode, gint widt
 
 /**
  * asc_image_target_free:
+ * @target: an #AscImageTarget
  *
  * Free an #AscImageTarget.
  */
@@ -249,7 +278,16 @@ asc_image_target_free (AscImageTarget *target)
 	g_free (target);
 }
 
-static AscImageTarget *
+/**
+ * asc_image_target_copy:
+ * @target: an #AscImageTarget
+ *
+ * Create a deep copy of an #AscImageTarget, including any result data
+ * it may already carry.
+ *
+ * Returns: (transfer full): a new #AscImageTarget
+ */
+AscImageTarget *
 asc_image_target_copy (AscImageTarget *target)
 {
 	AscImageTarget *copy;
@@ -263,6 +301,140 @@ asc_image_target_copy (AscImageTarget *target)
 }
 
 G_DEFINE_BOXED_TYPE (AscImageTarget, asc_image_target, asc_image_target_copy, asc_image_target_free)
+
+/**
+ * asc_image_target_get_name:
+ * @target: an #AscImageTarget
+ *
+ * Get the filename this rendition is stored as.
+ *
+ * Returns: The rendition filename.
+ */
+const gchar *
+asc_image_target_get_name (AscImageTarget *target)
+{
+	g_return_val_if_fail (target != NULL, NULL);
+	return target->name;
+}
+
+/**
+ * asc_image_target_set_save_flags:
+ * @target: an #AscImageTarget
+ * @flags: the #AscImageSaveFlags to use.
+ *
+ * Set the flags used when storing this rendition.
+ */
+void
+asc_image_target_set_save_flags (AscImageTarget *target, AscImageSaveFlags flags)
+{
+	g_return_if_fail (target != NULL);
+	target->save_flags = flags;
+}
+
+/**
+ * asc_image_target_set_only_downscale:
+ * @target: an #AscImageTarget
+ * @only_downscale: %TRUE to never upscale.
+ *
+ * Set whether this rendition should be skipped in case creating it would
+ * mean upscaling the source image.
+ */
+void
+asc_image_target_set_only_downscale (AscImageTarget *target, gboolean only_downscale)
+{
+	g_return_if_fail (target != NULL);
+	target->only_downscale = only_downscale;
+}
+
+/**
+ * asc_image_target_set_source_size_range:
+ * @target: an #AscImageTarget
+ * @min_width: Minimum source image width, or 0 for no limit.
+ * @min_height: Minimum source image height, or 0 for no limit.
+ * @max_width: Maximum source image width, or 0 for no limit.
+ * @max_height: Maximum source image height, or 0 for no limit.
+ *
+ * Restrict the source images this rendition is created for. If the source
+ * image's dimensions fall outside of the given range, the rendition is
+ * skipped and no file is written for it, while the media operation as a
+ * whole still succeeds.
+ */
+void
+asc_image_target_set_source_size_range (AscImageTarget *target,
+					gint min_width,
+					gint min_height,
+					gint max_width,
+					gint max_height)
+{
+	g_return_if_fail (target != NULL);
+	target->min_src_width = min_width;
+	target->min_src_height = min_height;
+	target->max_src_width = max_width;
+	target->max_src_height = max_height;
+}
+
+/**
+ * asc_image_target_get_skipped:
+ * @target: an #AscImageTarget
+ *
+ * Check whether this rendition was skipped because the source image did not
+ * satisfy its source-size conditions. Only valid after the media operation
+ * this target was passed to has completed successfully.
+ *
+ * Returns: %TRUE if no file was written for this rendition.
+ */
+gboolean
+asc_image_target_get_skipped (AscImageTarget *target)
+{
+	g_return_val_if_fail (target != NULL, FALSE);
+	return target->skipped;
+}
+
+/**
+ * asc_image_target_get_result_width:
+ * @target: an #AscImageTarget
+ *
+ * Get the actual width of the stored rendition.
+ *
+ * Returns: The rendition width in pixels, or 0 if it was not stored.
+ */
+gint
+asc_image_target_get_result_width (AscImageTarget *target)
+{
+	g_return_val_if_fail (target != NULL, 0);
+	return target->result_width;
+}
+
+/**
+ * asc_image_target_get_result_height:
+ * @target: an #AscImageTarget
+ *
+ * Get the actual height of the stored rendition.
+ *
+ * Returns: The rendition height in pixels, or 0 if it was not stored.
+ */
+gint
+asc_image_target_get_result_height (AscImageTarget *target)
+{
+	g_return_val_if_fail (target != NULL, 0);
+	return target->result_height;
+}
+
+/**
+ * asc_image_target_get_error_message:
+ * @target: an #AscImageTarget
+ *
+ * Get the error message in case creating this particular rendition failed.
+ * A failed rendition does not fail the media operation as a whole.
+ *
+ * Returns: (nullable): The error message, or %NULL if this rendition was fine.
+ */
+const gchar *
+asc_image_target_get_error_message (AscImageTarget *target)
+{
+	g_return_val_if_fail (target != NULL, NULL);
+	return target->error_msg;
+}
 
 /**
  * asc_font_info_free:
@@ -411,6 +583,20 @@ asc_media_set_worker_path (AscMedia *media, const gchar *path)
 	if (path == NULL)
 		path = asc_globals_get_mediaworker_binary ();
 	as_assign_string_safe (priv->worker_path, path);
+}
+
+/**
+ * asc_media_get_memory_limit:
+ * @media: an #AscMedia instance.
+ *
+ * Get the address space limit applied to the worker process in MiB,
+ * or 0 if the worker may use as much memory as it wants.
+ */
+guint32
+asc_media_get_memory_limit (AscMedia *media)
+{
+	AscMediaPrivate *priv = GET_PRIVATE (media);
+	return priv->memory_limit_mb;
 }
 
 /**
@@ -1085,10 +1271,16 @@ asc_media_process_image (AscMedia *media,
 					       "{sv}",
 					       "only-downscale",
 					       g_variant_new_boolean (target->only_downscale));
-			g_variant_builder_add (&tb,
-					       "{sv}",
-					       "skip-if-src-width-gt",
-					       g_variant_new_int32 (target->skip_if_src_width_gt));
+			g_variant_builder_add (
+			    &tb,
+			    "{sv}",
+			    "min-src-size",
+			    g_variant_new ("(ii)", target->min_src_width, target->min_src_height));
+			g_variant_builder_add (
+			    &tb,
+			    "{sv}",
+			    "max-src-size",
+			    g_variant_new ("(ii)", target->max_src_width, target->max_src_height));
 			g_variant_builder_add_value (&targets_builder, g_variant_builder_end (&tb));
 		}
 		g_variant_builder_add (&pb,

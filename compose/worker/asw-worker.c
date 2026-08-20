@@ -528,7 +528,10 @@ asw_worker_handle_process_image (AswWorker *worker,
 		guint32 scale_mode = ASC_IMAGE_SCALE_MODE_NONE;
 		guint32 save_flags = 0;
 		gboolean only_downscale = FALSE;
-		gint skip_if_src_width_gt = 0;
+		gint min_src_width = 0;
+		gint min_src_height = 0;
+		gint max_src_width = 0;
+		gint max_src_height = 0;
 		gint result_width = 0;
 		gint result_height = 0;
 		gboolean skipped = FALSE;
@@ -540,7 +543,8 @@ asw_worker_handle_process_image (AswWorker *worker,
 		g_variant_lookup (target, "scale-mode", "u", &scale_mode);
 		g_variant_lookup (target, "save-flags", "u", &save_flags);
 		g_variant_lookup (target, "only-downscale", "b", &only_downscale);
-		g_variant_lookup (target, "skip-if-src-width-gt", "i", &skip_if_src_width_gt);
+		g_variant_lookup (target, "min-src-size", "(ii)", &min_src_width, &min_src_height);
+		g_variant_lookup (target, "max-src-size", "(ii)", &max_src_width, &max_src_height);
 
 		g_variant_builder_init (&rb, G_VARIANT_TYPE ("a{sv}"));
 
@@ -554,7 +558,13 @@ asw_worker_handle_process_image (AswWorker *worker,
 		}
 
 		/* check the skip-conditions for this rendition */
-		if (skip_if_src_width_gt > 0 && src_width > skip_if_src_width_gt)
+		if (min_src_width > 0 && src_width < min_src_width)
+			skipped = TRUE;
+		if (min_src_height > 0 && src_height < min_src_height)
+			skipped = TRUE;
+		if (max_src_width > 0 && src_width > max_src_width)
+			skipped = TRUE;
+		if (max_src_height > 0 && src_height > max_src_height)
 			skipped = TRUE;
 		if (only_downscale && (width > src_width || height > src_height))
 			skipped = TRUE;

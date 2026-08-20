@@ -1115,11 +1115,12 @@ asc_compose_process_icons (AscCompose *compose,
 						   size * scale_factor);
 		/* icons are always stored losslessly, which for icons even results in smaller files than
 		 * lossy encoding would (due to their simply shapes and colors and non-photo-like qualities) */
-		img_target->save_flags = ASC_IMAGE_SAVE_FLAG_OPTIMIZE |
-					 ASC_IMAGE_SAVE_FLAG_LOSSLESS;
+		asc_image_target_set_save_flags (img_target,
+						 ASC_IMAGE_SAVE_FLAG_OPTIMIZE |
+						     ASC_IMAGE_SAVE_FLAG_LOSSLESS);
 		/* we only take exact-ish size matches for 48x48px */
 		if (size == 48)
-			img_target->skip_if_src_width_gt = 48;
+			asc_image_target_set_source_size_range (img_target, 0, 0, 48, 0);
 		g_ptr_array_add (img_targets, img_target);
 
 		if (!asc_media_process_image (media,
@@ -1157,19 +1158,19 @@ asc_compose_process_icons (AscCompose *compose,
 
 		/* skipped due to the 48x48px exact-match rule - drop the size
 		 * directory again if nothing else has been stored in it */
-		if (img_target->skipped) {
+		if (asc_image_target_get_skipped (img_target)) {
 			g_rmdir (res_icon_sizedir);
 			continue;
 		}
 
-		if (img_target->error_msg != NULL) {
+		if (asc_image_target_get_error_message (img_target) != NULL) {
 			asc_result_add_hint (cres,
 					     cpt,
 					     "icon-write-error",
 					     "fname",
 					     icon_fname,
 					     "msg",
-					     img_target->error_msg,
+					     asc_image_target_get_error_message (img_target),
 					     NULL);
 			return;
 		}
