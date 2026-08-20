@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2025-2026 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2024-2026 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -219,6 +219,218 @@ asc_image_format_from_filename (const gchar *fname)
 }
 
 /**
+ * AscImageSource:
+ *
+ * Describes the image a media operation should read, and how it should be
+ * loaded. After the operation has run, it also carries the dimensions the
+ * source image was loaded at.
+ *
+ * Since: 1.2.0
+ */
+struct _AscImageSource {
+	GBytes *data;
+	gint render_width;
+	gint render_height;
+	AscImageLoadFlags load_flags;
+
+	/* result fields, set by the media operation */
+	gint width;
+	gint height;
+};
+
+/**
+ * asc_image_source_new:
+ * @data: The raw image data to process.
+ *
+ * Create a new #AscImageSource for the given image data.
+ *
+ * Returns: (transfer full): an #AscImageSource
+ *
+ * Since: 1.2.0
+ */
+AscImageSource *
+asc_image_source_new (GBytes *data)
+{
+	AscImageSource *source;
+
+	g_return_val_if_fail (data != NULL, NULL);
+
+	source = g_new0 (AscImageSource, 1);
+	source->data = g_bytes_ref (data);
+
+	return source;
+}
+
+/**
+ * asc_image_source_free:
+ * @source: an #AscImageSource
+ *
+ * Free an #AscImageSource.
+ *
+ * Since: 1.2.0
+ */
+void
+asc_image_source_free (AscImageSource *source)
+{
+	if (source == NULL)
+		return;
+	g_bytes_unref (source->data);
+	g_free (source);
+}
+
+/**
+ * asc_image_source_copy:
+ * @source: an #AscImageSource
+ *
+ * Create a copy of an #AscImageSource, including any result data
+ * it may already carry.
+ *
+ * Returns: (transfer full): a new #AscImageSource
+ *
+ * Since: 1.2.0
+ */
+AscImageSource *
+asc_image_source_copy (AscImageSource *source)
+{
+	AscImageSource *copy;
+
+	g_return_val_if_fail (source != NULL, NULL);
+
+	copy = g_new0 (AscImageSource, 1);
+	*copy = *source;
+	copy->data = g_bytes_ref (source->data);
+
+	return copy;
+}
+
+G_DEFINE_BOXED_TYPE (AscImageSource, asc_image_source, asc_image_source_copy, asc_image_source_free)
+
+/**
+ * asc_image_source_get_data:
+ * @source: an #AscImageSource
+ *
+ * Get the raw image data this source was created for.
+ *
+ * Returns: (transfer none): The image data.
+ *
+ * Since: 1.2.0
+ */
+GBytes *
+asc_image_source_get_data (AscImageSource *source)
+{
+	g_return_val_if_fail (source != NULL, NULL);
+	return source->data;
+}
+
+/**
+ * asc_image_source_get_render_size:
+ * @source: an #AscImageSource
+ * @width: (out) (optional): Destination of the render width.
+ * @height: (out) (optional): Destination of the render height.
+ *
+ * Get the size vector graphics are rendered at.
+ *
+ * Since: 1.2.0
+ */
+void
+asc_image_source_get_render_size (AscImageSource *source, gint *width, gint *height)
+{
+	g_return_if_fail (source != NULL);
+	if (width != NULL)
+		*width = source->render_width;
+	if (height != NULL)
+		*height = source->render_height;
+}
+
+/**
+ * asc_image_source_set_render_size:
+ * @source: an #AscImageSource
+ * @width: Width to render at, or 0 for the native size.
+ * @height: Height to render at, or 0 for the native size.
+ *
+ * Set the size vector graphics should be rendered at. This has no effect
+ * on raster images, which are always loaded at their native size.
+ *
+ * Since: 1.2.0
+ */
+void
+asc_image_source_set_render_size (AscImageSource *source, gint width, gint height)
+{
+	g_return_if_fail (source != NULL);
+	source->render_width = width;
+	source->render_height = height;
+}
+
+/**
+ * asc_image_source_get_load_flags:
+ * @source: an #AscImageSource
+ *
+ * Get the flags used when loading this image.
+ *
+ * Returns: the #AscImageLoadFlags in use.
+ *
+ * Since: 1.2.0
+ */
+AscImageLoadFlags
+asc_image_source_get_load_flags (AscImageSource *source)
+{
+	g_return_val_if_fail (source != NULL, ASC_IMAGE_LOAD_FLAG_NONE);
+	return source->load_flags;
+}
+
+/**
+ * asc_image_source_set_load_flags:
+ * @source: an #AscImageSource
+ * @flags: the #AscImageLoadFlags to use.
+ *
+ * Set the flags used when loading this image.
+ *
+ * Since: 1.2.0
+ */
+void
+asc_image_source_set_load_flags (AscImageSource *source, AscImageLoadFlags flags)
+{
+	g_return_if_fail (source != NULL);
+	source->load_flags = flags;
+}
+
+/**
+ * asc_image_source_get_width:
+ * @source: an #AscImageSource
+ *
+ * Get the width the source image was loaded at. Only valid after the media
+ * operation this source was passed to has completed successfully.
+ *
+ * Returns: The source width in pixels, or 0 if it is not known yet.
+ *
+ * Since: 1.2.0
+ */
+gint
+asc_image_source_get_width (AscImageSource *source)
+{
+	g_return_val_if_fail (source != NULL, 0);
+	return source->width;
+}
+
+/**
+ * asc_image_source_get_height:
+ * @source: an #AscImageSource
+ *
+ * Get the height the source image was loaded at. Only valid after the media
+ * operation this source was passed to has completed successfully.
+ *
+ * Returns: The source height in pixels, or 0 if it is not known yet.
+ *
+ * Since: 1.2.0
+ */
+gint
+asc_image_source_get_height (AscImageSource *source)
+{
+	g_return_val_if_fail (source != NULL, 0);
+	return source->height;
+}
+
+/**
  * AscImageTarget:
  *
  * Describes one requested output rendition of a media operation, and carries
@@ -337,6 +549,76 @@ asc_image_target_get_name (AscImageTarget *target)
 }
 
 /**
+ * asc_image_target_get_scale_mode:
+ * @target: an #AscImageTarget
+ *
+ * Get the scaling mode this rendition is created with.
+ *
+ * Returns: an #AscImageScaleMode
+ *
+ * Since: 1.2.0
+ */
+AscImageScaleMode
+asc_image_target_get_scale_mode (AscImageTarget *target)
+{
+	g_return_val_if_fail (target != NULL, ASC_IMAGE_SCALE_MODE_NONE);
+	return target->scale_mode;
+}
+
+/**
+ * asc_image_target_get_width:
+ * @target: an #AscImageTarget
+ *
+ * Get the requested width of this rendition. Depending on the scale mode,
+ * this may differ from the width the rendition is actually stored at.
+ *
+ * Returns: The requested width in pixels.
+ *
+ * Since: 1.2.0
+ */
+gint
+asc_image_target_get_width (AscImageTarget *target)
+{
+	g_return_val_if_fail (target != NULL, 0);
+	return target->width;
+}
+
+/**
+ * asc_image_target_get_height:
+ * @target: an #AscImageTarget
+ *
+ * Get the requested height of this rendition. Depending on the scale mode,
+ * this may differ from the height the rendition is actually stored at.
+ *
+ * Returns: The requested height in pixels.
+ *
+ * Since: 1.2.0
+ */
+gint
+asc_image_target_get_height (AscImageTarget *target)
+{
+	g_return_val_if_fail (target != NULL, 0);
+	return target->height;
+}
+
+/**
+ * asc_image_target_get_save_flags:
+ * @target: an #AscImageTarget
+ *
+ * Get the flags used when storing this rendition.
+ *
+ * Returns: the #AscImageSaveFlags in use.
+ *
+ * Since: 1.2.0
+ */
+AscImageSaveFlags
+asc_image_target_get_save_flags (AscImageTarget *target)
+{
+	g_return_val_if_fail (target != NULL, ASC_IMAGE_SAVE_FLAG_NONE);
+	return target->save_flags;
+}
+
+/**
  * asc_image_target_set_save_flags:
  * @target: an #AscImageTarget
  * @flags: the #AscImageSaveFlags to use.
@@ -350,6 +632,24 @@ asc_image_target_set_save_flags (AscImageTarget *target, AscImageSaveFlags flags
 {
 	g_return_if_fail (target != NULL);
 	target->save_flags = flags;
+}
+
+/**
+ * asc_image_target_get_only_downscale:
+ * @target: an #AscImageTarget
+ *
+ * Get whether this rendition should be skipped rather than
+ * considering to upscale it to the target size(s).
+ *
+ * Returns: %TRUE if the rendition is never upscaled.
+ *
+ * Since: 1.2.0
+ */
+gboolean
+asc_image_target_get_only_downscale (AscImageTarget *target)
+{
+	g_return_val_if_fail (target != NULL, FALSE);
+	return target->only_downscale;
 }
 
 /**
@@ -367,6 +667,37 @@ asc_image_target_set_only_downscale (AscImageTarget *target, gboolean only_downs
 {
 	g_return_if_fail (target != NULL);
 	target->only_downscale = only_downscale;
+}
+
+/**
+ * asc_image_target_get_source_size_range:
+ * @target: an #AscImageTarget
+ * @min_width: (out) (optional): Destination of the minimum source image width.
+ * @min_height: (out) (optional): Destination of the minimum source image height.
+ * @max_width: (out) (optional): Destination of the maximum source image width.
+ * @max_height: (out) (optional): Destination of the maximum source image height.
+ *
+ * Get the source image dimensions this rendition is restricted to.
+ * A value of 0 means that the respective dimension is not limited.
+ *
+ * Since: 1.2.0
+ */
+void
+asc_image_target_get_source_size_range (AscImageTarget *target,
+					gint *min_width,
+					gint *min_height,
+					gint *max_width,
+					gint *max_height)
+{
+	g_return_if_fail (target != NULL);
+	if (min_width != NULL)
+		*min_width = target->min_src_width;
+	if (min_height != NULL)
+		*min_height = target->min_src_height;
+	if (max_width != NULL)
+		*max_width = target->max_src_width;
+	if (max_height != NULL)
+		*max_height = target->max_src_height;
 }
 
 /**
@@ -775,12 +1106,14 @@ asc_media_shutdown_worker (AscMedia *media, gboolean force)
 							ASC_MEDIA_OP_SHUTDOWN,
 							NULL,
 							NULL,
+							NULL, /* cancellable */
 							&tmp_error)) {
 				clean_quit = asc_media_ipc_receive_response (priv->socket,
 									     &rid,
 									     &status,
 									     &payload,
 									     &eof,
+									     NULL, /* cancellable */
 									     &tmp_error);
 			}
 		}
@@ -824,7 +1157,7 @@ asc_media_stop (AscMedia *media)
  * to a freshly spawned worker.
  */
 static gboolean
-asc_media_worker_setup (AscMedia *media, GError **error)
+asc_media_worker_setup (AscMedia *media, GCancellable *cancellable, GError **error)
 {
 	AscMediaPrivate *priv = GET_PRIVATE (media);
 	g_autoptr(GVariant) payload = NULL;
@@ -859,9 +1192,16 @@ asc_media_worker_setup (AscMedia *media, GError **error)
 					 ASC_MEDIA_OP_SETUP,
 					 g_variant_builder_end (&pb),
 					 NULL,
+					 cancellable,
 					 error))
 		return FALSE;
-	if (!asc_media_ipc_receive_response (priv->socket, &rid, &status, &payload, &eof, error))
+	if (!asc_media_ipc_receive_response (priv->socket,
+					     &rid,
+					     &status,
+					     &payload,
+					     &eof,
+					     cancellable,
+					     error))
 		return FALSE;
 	if (rid != priv->last_request_id || status != ASC_MEDIA_STATUS_OK) {
 		g_set_error_literal (error,
@@ -880,7 +1220,7 @@ asc_media_worker_setup (AscMedia *media, GError **error)
  * Spawn a new worker process and perform the initial handshake with it.
  */
 static gboolean
-asc_media_spawn_worker (AscMedia *media, GError **error)
+asc_media_spawn_worker (AscMedia *media, GCancellable *cancellable, GError **error)
 {
 	AscMediaPrivate *priv = GET_PRIVATE (media);
 	g_autoptr(GSubprocessLauncher) launcher = NULL;
@@ -953,6 +1293,7 @@ asc_media_spawn_worker (AscMedia *media, GError **error)
 					     &status,
 					     &hello,
 					     &eof,
+					     cancellable,
 					     &tmp_error)) {
 		g_autofree gchar *death_desc = NULL;
 		asc_media_shutdown_worker (media, eof ? FALSE : TRUE);
@@ -984,7 +1325,7 @@ asc_media_spawn_worker (AscMedia *media, GError **error)
 	}
 
 	/* configure the new worker */
-	if (!asc_media_worker_setup (media, &tmp_error)) {
+	if (!asc_media_worker_setup (media, cancellable, &tmp_error)) {
 		g_set_error (error,
 			     ASC_MEDIA_ERROR,
 			     ASC_MEDIA_ERROR_DEAD_WORKER,
@@ -1001,6 +1342,7 @@ asc_media_spawn_worker (AscMedia *media, GError **error)
 /**
  * asc_media_ensure_worker:
  * @media: an #AscMedia instance.
+ * @cancellable: (nullable): a #GCancellable, or %NULL
  * @error: A #GError or %NULL
  *
  * Ensure a media worker process is running, spawning one if necessary.
@@ -1013,11 +1355,14 @@ asc_media_spawn_worker (AscMedia *media, GError **error)
  * Since: 1.2.0
  */
 gboolean
-asc_media_ensure_worker (AscMedia *media, GError **error)
+asc_media_ensure_worker (AscMedia *media, GCancellable *cancellable, GError **error)
 {
 	AscMediaPrivate *priv = GET_PRIVATE (media);
 
 	g_return_val_if_fail (ASC_IS_MEDIA (media), FALSE);
+
+	if (g_cancellable_set_error_if_cancelled (cancellable, error))
+		return FALSE;
 
 	if (priv->socket != NULL)
 		return TRUE;
@@ -1031,7 +1376,7 @@ asc_media_ensure_worker (AscMedia *media, GError **error)
 		return FALSE;
 	}
 
-	if (!asc_media_spawn_worker (media, error)) {
+	if (!asc_media_spawn_worker (media, cancellable, error)) {
 		priv->failure_count++;
 		return FALSE;
 	}
@@ -1048,7 +1393,12 @@ asc_media_ensure_worker (AscMedia *media, GError **error)
  * Returns: (transfer full): The response payload, or %NULL on any error.
  */
 static GVariant *
-asc_media_call (AscMedia *media, AscMediaOp op, GVariant *params, GUnixFDList *fds, GError **error)
+asc_media_call (AscMedia *media,
+		AscMediaOp op,
+		GVariant *params,
+		GUnixFDList *fds,
+		GCancellable *cancellable,
+		GError **error)
 {
 	AscMediaPrivate *priv = GET_PRIVATE (media);
 	g_autoptr(GVariant) params_ref = g_variant_ref_sink (params);
@@ -1059,11 +1409,17 @@ asc_media_call (AscMedia *media, AscMediaOp op, GVariant *params, GUnixFDList *f
 	guint32 status = 0;
 	gboolean eof = FALSE;
 
-	if (!asc_media_ensure_worker (media, error))
+	if (!asc_media_ensure_worker (media, cancellable, error))
 		return NULL;
 
 	request_id = ++priv->last_request_id;
-	if (!asc_media_ipc_send_request (priv->socket, request_id, op, params_ref, fds, &tmp_error))
+	if (!asc_media_ipc_send_request (priv->socket,
+					 request_id,
+					 op,
+					 params_ref,
+					 fds,
+					 cancellable,
+					 &tmp_error))
 		goto worker_failed;
 
 	if (!asc_media_ipc_receive_response (priv->socket,
@@ -1071,7 +1427,16 @@ asc_media_call (AscMedia *media, AscMediaOp op, GVariant *params, GUnixFDList *f
 					     &status,
 					     &payload,
 					     &eof,
+					     cancellable,
 					     &tmp_error)) {
+		if (g_error_matches (tmp_error, G_IO_ERROR, G_IO_ERROR_CANCELLED)) {
+			/* the worker is mid-operation and its response would desynchronize
+			 * the next request, so it has to go - but this is not its fault
+			 * and must not count towards the respawn limit */
+			asc_media_shutdown_worker (media, TRUE);
+			g_propagate_error (error, g_steal_pointer (&tmp_error));
+			return NULL;
+		}
 		if (g_error_matches (tmp_error, G_IO_ERROR, G_IO_ERROR_TIMED_OUT)) {
 			priv->failure_count++;
 			asc_media_shutdown_worker (media, TRUE);
@@ -1150,6 +1515,16 @@ asc_media_open_out_dir (const gchar *out_dir, GError **error)
 {
 	gint fd;
 
+	if (g_mkdir_with_parents (out_dir, 0755) != 0) {
+		g_set_error (error,
+			     ASC_MEDIA_ERROR,
+			     ASC_MEDIA_ERROR_FAILED,
+			     "Unable to create media output directory '%s': %s",
+			     out_dir,
+			     g_strerror (errno));
+		return -1;
+	}
+
 	fd = open (out_dir, O_RDONLY | O_DIRECTORY | O_CLOEXEC);
 	if (fd < 0) {
 		g_set_error (error,
@@ -1225,22 +1600,24 @@ asc_media_apply_target_results (GVariant *payload, GPtrArray *targets, GError **
 /**
  * asc_media_process_image:
  * @media: an #AscMedia instance.
- * @img_data: The image data to process.
- * @load_width: Width to render vector graphics at, or 0 to load at the native size.
- * @load_height: Height to render vector graphics at, or 0 to load at the native size.
- * @load_flags: Flags to use when loading the image.
- * @out_dir: Directory to store the renditions in, may be %NULL if @targets is empty.
+ * @source: (not nullable): The #AscImageSource describing the image to process.
  * @targets: (nullable) (element-type AscImageTarget): Renditions to generate, or %NULL to just read image info.
- * @src_width: (out) (optional): Width of the (loaded) source image.
- * @src_height: (out) (optional): Height of the (loaded) source image.
+ * @out_dir: Directory to store the renditions in, may be %NULL if @targets is empty.
+ * @cancellable: (nullable): a #GCancellable, or %NULL
  * @error: A #GError or %NULL
  *
  * Load an image (in the media worker process) and store an arbitrary set of
- * scaled renditions of it as PNG files in the given output directory.
+ * scaled renditions of it in the given output directory. The directory is
+ * created if it does not exist yet.
  *
- * On success, the result fields of all @targets are updated. Individual
- * renditions may still have failed - this is recorded in their %error_msg
- * fields and does not affect the return value of this function.
+ * On success, the dimensions the source image was loaded at are recorded in
+ * @source, and the result fields of all @targets are updated. Individual
+ * renditions may still have failed - this is recorded in their error message
+ * and does not affect the return value of this function.
+ *
+ * Cancelling this operation terminates the media worker process, as its
+ * pending reply would otherwise desynchronize the next request. A fresh
+ * worker is spawned automatically for the next operation.
  *
  * Returns: %TRUE if the image was processed.
  *
@@ -1248,14 +1625,10 @@ asc_media_apply_target_results (GVariant *payload, GPtrArray *targets, GError **
  */
 gboolean
 asc_media_process_image (AscMedia *media,
-			 GBytes *img_data,
-			 gint load_width,
-			 gint load_height,
-			 AscImageLoadFlags load_flags,
-			 const gchar *out_dir,
+			 AscImageSource *source,
 			 GPtrArray *targets,
-			 gint *src_width,
-			 gint *src_height,
+			 const gchar *out_dir,
+			 GCancellable *cancellable,
 			 GError **error)
 {
 	g_autoptr(GUnixFDList) fds = g_unix_fd_list_new ();
@@ -1265,12 +1638,12 @@ asc_media_process_image (AscMedia *media,
 	gboolean have_targets = targets != NULL && targets->len > 0;
 
 	g_return_val_if_fail (ASC_IS_MEDIA (media), FALSE);
-	g_return_val_if_fail (img_data != NULL, FALSE);
+	g_return_val_if_fail (source != NULL, FALSE);
 	g_return_val_if_fail (!have_targets || out_dir != NULL, FALSE);
 
 	fd = asc_memfd_new_sealed ("asc-image-data",
-				   g_bytes_get_data (img_data, NULL),
-				   g_bytes_get_size (img_data),
+				   g_bytes_get_data (source->data, NULL),
+				   g_bytes_get_size (source->data),
 				   error);
 	if (fd < 0)
 		return FALSE;
@@ -1279,9 +1652,18 @@ asc_media_process_image (AscMedia *media,
 		return FALSE;
 	g_variant_builder_add (&pb, "{sv}", "image-fd", g_variant_new_handle (handle));
 
-	g_variant_builder_add (&pb, "{sv}", "load-width", g_variant_new_int32 (load_width));
-	g_variant_builder_add (&pb, "{sv}", "load-height", g_variant_new_int32 (load_height));
-	g_variant_builder_add (&pb, "{sv}", "load-flags", g_variant_new_uint32 (load_flags));
+	g_variant_builder_add (&pb,
+			       "{sv}",
+			       "load-width",
+			       g_variant_new_int32 (source->render_width));
+	g_variant_builder_add (&pb,
+			       "{sv}",
+			       "load-height",
+			       g_variant_new_int32 (source->render_height));
+	g_variant_builder_add (&pb,
+			       "{sv}",
+			       "load-flags",
+			       g_variant_new_uint32 (source->load_flags));
 
 	if (have_targets) {
 		GVariantBuilder targets_builder;
@@ -1346,14 +1728,15 @@ asc_media_process_image (AscMedia *media,
 				  ASC_MEDIA_OP_PROCESS_IMAGE,
 				  g_variant_builder_end (&pb),
 				  fds,
+				  cancellable,
 				  error);
 	if (payload == NULL)
 		return FALSE;
 
-	if (src_width != NULL)
-		g_variant_lookup (payload, "src-width", "i", src_width);
-	if (src_height != NULL)
-		g_variant_lookup (payload, "src-height", "i", src_height);
+	source->width = 0;
+	source->height = 0;
+	g_variant_lookup (payload, "src-width", "i", &source->width);
+	g_variant_lookup (payload, "src-height", "i", &source->height);
 
 	if (have_targets)
 		return asc_media_apply_target_results (payload, targets, error);
@@ -1464,6 +1847,7 @@ asc_media_read_font_info (AscMedia *media,
 				  ASC_MEDIA_OP_FONT_INFO,
 				  g_variant_builder_end (&pb),
 				  fds,
+				  NULL, /* cancellable */
 				  error);
 	if (payload == NULL)
 		return NULL;
@@ -1552,7 +1936,12 @@ asc_media_render_font (AscMedia *media,
 	}
 	g_variant_builder_add (&pb, "{sv}", "entries", g_variant_builder_end (&entries_builder));
 
-	payload = asc_media_call (media, op, g_variant_builder_end (&pb), fds, error);
+	payload = asc_media_call (media,
+				  op,
+				  g_variant_builder_end (&pb),
+				  fds,
+				  NULL, /* cancellable */
+				  error);
 	if (payload == NULL)
 		return FALSE;
 
@@ -1713,6 +2102,7 @@ asc_media_probe_video (AscMedia *media,
 				  ASC_MEDIA_OP_PROBE_VIDEO,
 				  g_variant_builder_end (&pb),
 				  fds,
+				  NULL, /* cancellable */
 				  error);
 	if (payload == NULL)
 		return FALSE;

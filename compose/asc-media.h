@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2025-2026 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2024-2026 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -151,6 +151,27 @@ const gchar		      *asc_image_format_to_string (AscImageFormat format);
 AscImageFormat		       asc_image_format_from_string (const gchar *str);
 AscImageFormat		       asc_image_format_from_filename (const gchar *fname);
 
+typedef struct _AscImageSource AscImageSource;
+
+#define ASC_TYPE_IMAGE_SOURCE (asc_image_source_get_type ())
+GType		asc_image_source_get_type (void);
+
+AscImageSource *asc_image_source_new (GBytes *data);
+AscImageSource *asc_image_source_copy (AscImageSource *source);
+void		asc_image_source_free (AscImageSource *source);
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (AscImageSource, asc_image_source_free)
+
+GBytes *asc_image_source_get_data (AscImageSource *source);
+
+void	asc_image_source_get_render_size (AscImageSource *source, gint *width, gint *height);
+void	asc_image_source_set_render_size (AscImageSource *source, gint width, gint height);
+
+AscImageLoadFlags asc_image_source_get_load_flags (AscImageSource *source);
+void		  asc_image_source_set_load_flags (AscImageSource *source, AscImageLoadFlags flags);
+
+gint		  asc_image_source_get_width (AscImageSource *source);
+gint		  asc_image_source_get_height (AscImageSource *source);
+
 typedef struct _AscImageTarget AscImageTarget;
 
 #define ASC_TYPE_IMAGE_TARGET (asc_image_target_get_type ())
@@ -164,10 +185,22 @@ AscImageTarget *asc_image_target_copy (AscImageTarget *target);
 void		asc_image_target_free (AscImageTarget *target);
 G_DEFINE_AUTOPTR_CLEANUP_FUNC (AscImageTarget, asc_image_target_free)
 
-const gchar *asc_image_target_get_name (AscImageTarget *target);
+const gchar	 *asc_image_target_get_name (AscImageTarget *target);
+AscImageScaleMode asc_image_target_get_scale_mode (AscImageTarget *target);
+gint		  asc_image_target_get_width (AscImageTarget *target);
+gint		  asc_image_target_get_height (AscImageTarget *target);
 
-void	     asc_image_target_set_save_flags (AscImageTarget *target, AscImageSaveFlags flags);
+AscImageSaveFlags asc_image_target_get_save_flags (AscImageTarget *target);
+void		  asc_image_target_set_save_flags (AscImageTarget *target, AscImageSaveFlags flags);
+
+gboolean	  asc_image_target_get_only_downscale (AscImageTarget *target);
 void	     asc_image_target_set_only_downscale (AscImageTarget *target, gboolean only_downscale);
+
+void	     asc_image_target_get_source_size_range (AscImageTarget *target,
+						     gint	    *min_width,
+						     gint	    *min_height,
+						     gint	    *max_width,
+						     gint	    *max_height);
 void	     asc_image_target_set_source_size_range (AscImageTarget *target,
 						     gint	     min_width,
 						     gint	     min_height,
@@ -193,20 +226,16 @@ void	     asc_media_set_memory_limit (AscMedia *media, guint32 limit_mib);
 const gchar *asc_media_get_worker_path (AscMedia *media);
 void	     asc_media_set_worker_path (AscMedia *media, const gchar *path);
 
-gboolean     asc_media_ensure_worker (AscMedia *media, GError **error);
+gboolean     asc_media_ensure_worker (AscMedia *media, GCancellable *cancellable, GError **error);
 void	     asc_media_stop (AscMedia *media);
 
 gboolean     asc_media_error_is_worker_failure (const GError *error);
 
-gboolean     asc_media_process_image (AscMedia	       *media,
-				      GBytes	       *img_data,
-				      gint		load_width,
-				      gint		load_height,
-				      AscImageLoadFlags load_flags,
-				      const gchar      *out_dir,
-				      GPtrArray	       *targets,
-				      gint	       *src_width,
-				      gint	       *src_height,
-				      GError	      **error);
+gboolean     asc_media_process_image (AscMedia	     *media,
+				      AscImageSource *source,
+				      GPtrArray	     *targets,
+				      const gchar    *out_dir,
+				      GCancellable   *cancellable,
+				      GError	    **error);
 
 G_END_DECLS

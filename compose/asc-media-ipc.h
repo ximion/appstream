@@ -70,32 +70,36 @@ typedef enum {
 
 /* low-level message framing, shared between client and worker */
 AS_INTERNAL_VISIBLE
-gboolean asc_media_ipc_send_message (GSocket	 *socket,
-				     GVariant	 *message,
-				     GUnixFDList *fds,
-				     GError	**error);
+gboolean asc_media_ipc_send_message (GSocket	  *socket,
+				     GVariant	  *message,
+				     GUnixFDList  *fds,
+				     GCancellable *cancellable,
+				     GError	 **error);
 AS_INTERNAL_VISIBLE
 GVariant *asc_media_ipc_receive_message (GSocket	    *socket,
 					 const GVariantType *message_type,
 					 GUnixFDList	   **fds,
 					 gboolean	    *eof,
+					 GCancellable	    *cancellable,
 					 GError		   **error);
 
 /* client-side API, used by AscMedia only */
 gint	  asc_memfd_new_sealed (const gchar *name, gconstpointer data, gsize len, GError **error);
 
-gboolean  asc_media_ipc_send_request (GSocket	  *socket,
-				      guint32	   request_id,
-				      AscMediaOp   op,
-				      GVariant	  *params,
-				      GUnixFDList *fds,
-				      GError	 **error);
-gboolean  asc_media_ipc_receive_response (GSocket   *socket,
-					  guint32   *request_id,
-					  guint32   *status,
-					  GVariant **payload,
-					  gboolean  *eof,
-					  GError   **error);
+gboolean  asc_media_ipc_send_request (GSocket	   *socket,
+				      guint32	    request_id,
+				      AscMediaOp    op,
+				      GVariant	   *params,
+				      GUnixFDList  *fds,
+				      GCancellable *cancellable,
+				      GError	  **error);
+gboolean  asc_media_ipc_receive_response (GSocket      *socket,
+					  guint32      *request_id,
+					  guint32      *status,
+					  GVariant    **payload,
+					  gboolean     *eof,
+					  GCancellable *cancellable,
+					  GError      **error);
 
 GError	 *asc_media_ipc_error_from_payload (GVariant *payload);
 

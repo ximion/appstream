@@ -159,6 +159,7 @@ asw_ipc_receive_request (GSocket *socket,
 						 G_VARIANT_TYPE (ASC_MEDIA_REQUEST_VTYPE),
 						 fds,
 						 eof,
+						 NULL, /* cancellable */
 						 error);
 	if (message == NULL)
 		return FALSE;
@@ -188,7 +189,7 @@ asw_ipc_send_response (GSocket *socket,
 	payload_ref = g_variant_ref_sink (payload);
 
 	message = g_variant_new ("(uu@a{sv})", request_id, status, payload_ref);
-	return asc_media_ipc_send_message (socket, message, NULL, error);
+	return asc_media_ipc_send_message (socket, message, NULL, NULL, error);
 }
 
 /**

@@ -193,9 +193,8 @@ test_media_process_image (void)
 	g_autofree gchar *out_fname_orig = NULL;
 	g_autofree gchar *out_fname_scaled = NULL;
 	AscImageTarget *target;
+	g_autoptr(AscImageSource) img_source = NULL;
 	gsize data_len;
-	gint src_width = 0;
-	gint src_height = 0;
 	gboolean ret;
 
 	sample_img_fname = g_build_filename (datadir, "appstream-logo.png", NULL);
@@ -203,24 +202,22 @@ test_media_process_image (void)
 	g_assert_no_error (error);
 	img_bytes = g_bytes_new_take (g_steal_pointer (&data), data_len);
 
+	/* the output directory is created on demand by the media operation */
 	out_dir = asx_build_workdir_path ("media-image-test");
-	g_assert_cmpint (g_mkdir_with_parents (out_dir, 0755), ==, 0);
+	g_assert_false (g_file_test (out_dir, G_FILE_TEST_EXISTS));
 
 	/* read the image dimensions without storing any rendition */
+	img_source = asc_image_source_new (img_bytes);
 	ret = asc_media_process_image (media,
-				       img_bytes,
-				       0,
-				       0,
-				       ASC_IMAGE_LOAD_FLAG_NONE,
-				       NULL, /* out dir */
+				       img_source,
 				       NULL, /* targets */
-				       &src_width,
-				       &src_height,
+				       NULL, /* out dir */
+				       NULL, /* cancellable */
 				       &error);
 	g_assert_no_error (error);
 	g_assert_true (ret);
-	g_assert_cmpint (src_width, ==, 136);
-	g_assert_cmpint (src_height, ==, 144);
+	g_assert_cmpint (asc_image_source_get_width (img_source), ==, 136);
+	g_assert_cmpint (asc_image_source_get_height (img_source), ==, 144);
 
 	/* store the image in its original size and a scaled-down rendition */
 	targets = g_ptr_array_new_with_free_func ((GDestroyNotify) asc_image_target_free);
@@ -246,22 +243,17 @@ test_media_process_image (void)
 	target = g_ptr_array_index (targets, 4);
 	asc_image_target_set_source_size_range (target, 0, 0, 48, 48);
 
-	src_width = 0;
-	src_height = 0;
 	ret = asc_media_process_image (media,
-				       img_bytes,
-				       0,
-				       0,
-				       ASC_IMAGE_LOAD_FLAG_NONE,
-				       out_dir,
+				       img_source,
 				       targets,
-				       &src_width,
-				       &src_height,
+				       out_dir,
+				       NULL, /* cancellable */
 				       &error);
 	g_assert_no_error (error);
 	g_assert_true (ret);
-	g_assert_cmpint (src_width, ==, 136);
-	g_assert_cmpint (src_height, ==, 144);
+	g_assert_true (g_file_test (out_dir, G_FILE_TEST_IS_DIR));
+	g_assert_cmpint (asc_image_source_get_width (img_source), ==, 136);
+	g_assert_cmpint (asc_image_source_get_height (img_source), ==, 144);
 
 	target = g_ptr_array_index (targets, 0);
 	g_assert_false (asc_image_target_get_skipped (target));
@@ -420,32 +412,30 @@ test_media_worker_failure (void)
 	g_autoptr(AscMedia) media = asc_media_new ();
 	g_autoptr(GError) error = NULL;
 	g_autoptr(GBytes) bad_bytes = NULL;
+	g_autoptr(AscImageSource) bad_source = NULL;
 	gboolean ret;
 
 	/* a worker that quits immediately must yield a proper error */
 	asc_media_set_worker_path (media, "/bin/false");
-	ret = asc_media_ensure_worker (media, &error);
+	ret = asc_media_ensure_worker (media, NULL, &error);
 	g_assert_error (error, ASC_MEDIA_ERROR, ASC_MEDIA_ERROR_DEAD_WORKER);
 	g_assert_false (ret);
 	g_clear_error (&error);
 
 	/* the instance must recover once a functional worker is available again */
 	asc_media_set_worker_path (media, NULL);
-	ret = asc_media_ensure_worker (media, &error);
+	ret = asc_media_ensure_worker (media, NULL, &error);
 	g_assert_no_error (error);
 	g_assert_true (ret);
 
 	/* a broken input must fail the operation, but not the worker */
 	bad_bytes = as_gbytes_from_literal ("This is not a valid image.");
+	bad_source = asc_image_source_new (bad_bytes);
 	ret = asc_media_process_image (media,
-				       bad_bytes,
-				       0,
-				       0,
-				       ASC_IMAGE_LOAD_FLAG_NONE,
-				       NULL,
-				       NULL,
-				       NULL,
-				       NULL,
+				       bad_source,
+				       NULL, /* targets */
+				       NULL, /* out dir */
+				       NULL, /* cancellable */
 				       &error);
 	g_assert_false (ret);
 	g_assert_nonnull (error);
@@ -453,7 +443,28 @@ test_media_worker_failure (void)
 	g_clear_error (&error);
 
 	/* ... and the worker must still respond afterwards */
-	ret = asc_media_ensure_worker (media, &error);
+	ret = asc_media_ensure_worker (media, NULL, &error);
+	g_assert_no_error (error);
+	g_assert_true (ret);
+
+	/* an already cancelled operation must not be attempted at all */
+	{
+		g_autoptr(GCancellable) cancellable = g_cancellable_new ();
+		g_cancellable_cancel (cancellable);
+
+		ret = asc_media_process_image (media,
+					       bad_source,
+					       NULL, /* targets */
+					       NULL, /* out dir */
+					       cancellable,
+					       &error);
+		g_assert_error (error, G_IO_ERROR, G_IO_ERROR_CANCELLED);
+		g_assert_false (ret);
+		g_clear_error (&error);
+	}
+
+	/* the worker is untouched by that, so it keeps working */
+	ret = asc_media_ensure_worker (media, NULL, &error);
 	g_assert_no_error (error);
 	g_assert_true (ret);
 }

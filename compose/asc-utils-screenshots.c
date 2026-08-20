@@ -471,18 +471,13 @@ asc_process_screenshot_images_lang (AscResult *cres,
 	 * dimensions and keep the original upstream URL as source */
 	if (!store_screenshots) {
 		g_autoptr(AsImage) simg = NULL;
-		gint src_width = 0;
-		gint src_height = 0;
+		g_autoptr(AscImageSource) img_source = asc_image_source_new (img_bytes);
 
 		if (!asc_media_process_image (media,
-					      img_bytes,
-					      0, /* load width */
-					      0, /* load height */
-					      ASC_IMAGE_LOAD_FLAG_NONE,
-					      NULL, /* output dir */
+					      img_source,
 					      NULL, /* targets */
-					      &src_width,
-					      &src_height,
+					      NULL, /* output dir */
+					      NULL, /* cancellable */
 					      &error)) {
 			asc_add_screenshot_media_error_hint (
 			    cres,
@@ -496,8 +491,8 @@ asc_process_screenshot_images_lang (AscResult *cres,
 		simg = as_image_new ();
 		as_image_set_kind (simg, AS_IMAGE_KIND_SOURCE);
 		as_image_set_locale (simg, locale);
-		as_image_set_width (simg, src_width);
-		as_image_set_height (simg, src_height);
+		as_image_set_width (simg, asc_image_source_get_width (img_source));
+		as_image_set_height (simg, asc_image_source_get_height (img_source));
 		as_image_set_scale (simg, source_scr_scale);
 		as_image_set_url (simg, orig_img_url);
 		as_screenshot_add_image (scr, simg);
@@ -514,8 +509,7 @@ asc_process_screenshot_images_lang (AscResult *cres,
 		g_autofree gchar *src_img_url = NULL;
 		AscImageTarget *src_target = NULL;
 		g_autoptr(AsImage) simg = NULL;
-		gint src_width = 0;
-		gint src_height = 0;
+		g_autoptr(AscImageSource) img_source = asc_image_source_new (img_bytes);
 
 		if (g_strcmp0 (locale, "C") == 0)
 			src_img_name = g_strdup_printf ("image-%i_orig.%s",
@@ -536,14 +530,10 @@ asc_process_screenshot_images_lang (AscResult *cres,
 		g_ptr_array_add (img_targets, src_target);
 
 		if (!asc_media_process_image (media,
-					      img_bytes,
-					      0, /* load width */
-					      0, /* load height */
-					      ASC_IMAGE_LOAD_FLAG_NONE,
-					      scr_export_dir,
+					      img_source,
 					      img_targets,
-					      &src_width,
-					      &src_height,
+					      scr_export_dir,
+					      NULL, /* cancellable */
 					      &error)) {
 			asc_add_screenshot_media_error_hint (
 			    cres,
@@ -568,8 +558,8 @@ asc_process_screenshot_images_lang (AscResult *cres,
 			return FALSE;
 		}
 
-		source_scr_width = src_width;
-		source_scr_height = src_height;
+		source_scr_width = asc_image_source_get_width (img_source);
+		source_scr_height = asc_image_source_get_height (img_source);
 
 		simg = as_image_new ();
 		as_image_set_kind (simg, AS_IMAGE_KIND_SOURCE);
@@ -586,6 +576,7 @@ asc_process_screenshot_images_lang (AscResult *cres,
 	thumbnails_generated = FALSE;
 	if (source_scr_scale <= 1) {
 		g_autoptr(GPtrArray) thumb_targets = NULL;
+		g_autoptr(AscImageSource) thumb_source = asc_image_source_new (img_bytes);
 
 		thumb_targets = g_ptr_array_new_with_free_func (
 		    (GDestroyNotify) asc_image_target_free);
@@ -643,14 +634,10 @@ asc_process_screenshot_images_lang (AscResult *cres,
 		}
 
 		if (!asc_media_process_image (media,
-					      img_bytes,
-					      0, /* load width */
-					      0, /* load height */
-					      ASC_IMAGE_LOAD_FLAG_NONE,
-					      scr_export_dir,
+					      thumb_source,
 					      thumb_targets,
-					      NULL,
-					      NULL,
+					      scr_export_dir,
+					      NULL, /* cancellable */
 					      &error)) {
 			asc_add_screenshot_media_error_hint (
 			    cres,

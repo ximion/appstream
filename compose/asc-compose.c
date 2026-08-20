@@ -1182,6 +1182,7 @@ asc_compose_process_icons (AscCompose *compose,
 		g_autofree gchar *res_icon_basename = NULL;
 		g_autoptr(GPtrArray) img_targets = NULL;
 		AscImageTarget *img_target = NULL;
+		g_autoptr(AscImageSource) img_source = NULL;
 		g_autoptr(AsIcon) icon = NULL;
 		g_autoptr(GBytes) img_bytes = NULL;
 		gboolean is_vector_icon = FALSE;
@@ -1231,7 +1232,6 @@ asc_compose_process_icons (AscCompose *compose,
 					: g_strdup_printf ("%ix%i@%i", size, size, scale_factor);
 		res_icon_sizedir = g_build_filename (icon_export_dir, res_icon_size_str, NULL);
 
-		g_mkdir_with_parents (res_icon_sizedir, 0755);
 		res_icon_basename = g_strdup_printf (
 		    "%s.%s",
 		    as_component_get_id (cpt),
@@ -1256,15 +1256,18 @@ asc_compose_process_icons (AscCompose *compose,
 			asc_image_target_set_source_size_range (img_target, 0, 0, 48, 0);
 		g_ptr_array_add (img_targets, img_target);
 
+		img_source = asc_image_source_new (img_bytes);
+		asc_image_source_set_load_flags (img_source, ASC_IMAGE_LOAD_FLAG_ALWAYS_RESIZE);
+		if (is_vector_icon)
+			asc_image_source_set_render_size (img_source,
+							  size * scale_factor,
+							  size * scale_factor);
+
 		if (!asc_media_process_image (media,
-					      img_bytes,
-					      is_vector_icon ? size * scale_factor : 0,
-					      is_vector_icon ? size * scale_factor : 0,
-					      ASC_IMAGE_LOAD_FLAG_ALWAYS_RESIZE,
-					      res_icon_sizedir,
+					      img_source,
 					      img_targets,
-					      NULL, /* source width */
-					      NULL, /* source height */
+					      res_icon_sizedir,
+					      NULL, /* cancellable */
 					      &error)) {
 			/* only genuine worker malfunctions get the worker-error hint,
 			 * anything else is reported as a regular media issue */

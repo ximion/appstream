@@ -107,7 +107,11 @@ asc_memfd_new_sealed (const gchar *name, gconstpointer data, gsize len, GError *
  * with an optional list of file descriptors attached.
  */
 gboolean
-asc_media_ipc_send_message (GSocket *socket, GVariant *message, GUnixFDList *fds, GError **error)
+asc_media_ipc_send_message (GSocket *socket,
+			    GVariant *message,
+			    GUnixFDList *fds,
+			    GCancellable *cancellable,
+			    GError **error)
 {
 	g_autoptr(GVariant) msg = g_variant_ref_sink (message);
 	gconstpointer data;
@@ -148,7 +152,7 @@ asc_media_ipc_send_message (GSocket *socket, GVariant *message, GUnixFDList *fds
 				     n_cmsgs > 0 ? cmsgs : NULL,
 				     n_cmsgs,
 				     G_SOCKET_MSG_NONE,
-				     NULL, /* cancellable */
+				     cancellable,
 				     error);
 	if (ret < 0)
 		goto out;
@@ -180,6 +184,7 @@ asc_media_ipc_receive_message (GSocket *socket,
 			       const GVariantType *message_type,
 			       GUnixFDList **fds,
 			       gboolean *eof,
+			       GCancellable *cancellable,
 			       GError **error)
 {
 	g_autofree guint8 *buffer = NULL;
@@ -207,7 +212,7 @@ asc_media_ipc_receive_message (GSocket *socket,
 					&cmsgs,
 					&n_cmsgs,
 					&msg_flags,
-					NULL, /* cancellable */
+					cancellable,
 					error);
 	if (ret < 0)
 		return NULL;
@@ -275,6 +280,7 @@ asc_media_ipc_send_request (GSocket *socket,
 			    AscMediaOp op,
 			    GVariant *params,
 			    GUnixFDList *fds,
+			    GCancellable *cancellable,
 			    GError **error)
 {
 	GVariant *message;
@@ -285,7 +291,7 @@ asc_media_ipc_send_request (GSocket *socket,
 	params_ref = g_variant_ref_sink (params);
 
 	message = g_variant_new ("(uu@a{sv})", request_id, (guint32) op, params_ref);
-	return asc_media_ipc_send_message (socket, message, fds, error);
+	return asc_media_ipc_send_message (socket, message, fds, cancellable, error);
 }
 
 /**
@@ -300,6 +306,7 @@ asc_media_ipc_receive_response (GSocket *socket,
 				guint32 *status,
 				GVariant **payload,
 				gboolean *eof,
+				GCancellable *cancellable,
 				GError **error)
 {
 	g_autoptr(GVariant) message = NULL;
@@ -309,6 +316,7 @@ asc_media_ipc_receive_response (GSocket *socket,
 						 G_VARIANT_TYPE (ASC_MEDIA_RESPONSE_VTYPE),
 						 &fds,
 						 eof,
+						 cancellable,
 						 error);
 	if (message == NULL)
 		return FALSE;
