@@ -76,9 +76,11 @@ typedef struct {
 
 	AscCheckMetadataEarlyFn check_md_early_fn;
 	gpointer check_md_early_fn_udata;
+	GDestroyNotify check_md_early_fn_udata_free;
 
 	AscTranslateDesktopTextFn de_l10n_fn;
 	gpointer de_l10n_fn_udata;
+	GDestroyNotify de_l10n_fn_udata_free;
 } AscComposePrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AscCompose, asc_compose, G_TYPE_OBJECT)
@@ -138,6 +140,11 @@ asc_compose_finalize (GObject *object)
 
 	g_object_unref (priv->icon_policy);
 	g_clear_object (&priv->media);
+
+	if (priv->check_md_early_fn_udata_free != NULL)
+		priv->check_md_early_fn_udata_free (priv->check_md_early_fn_udata);
+	if (priv->de_l10n_fn_udata_free != NULL)
+		priv->de_l10n_fn_udata_free (priv->de_l10n_fn_udata);
 
 	g_mutex_clear (&priv->mutex);
 
@@ -768,8 +775,9 @@ asc_compose_set_max_screenshot_size (AscCompose *compose, gssize size_bytes)
 /**
  * asc_compose_set_check_metadata_early_func:
  * @compose: an #AscCompose instance.
- * @func: (scope notified): the #AscCheckMetadataEarlyFn function to be called
+ * @func: (scope notified) (nullable): the #AscCheckMetadataEarlyFn function to be called
  * @user_data: user data for @func
+ * @udata_free_func: (destroy user_data) (nullable): function to free @user_data
  *
  * Set an custom callback to be run when most of the metadata has been loaded,
  * but no expensive operations (like downloads or icon rendering) have been done yet.
@@ -777,39 +785,58 @@ asc_compose_set_max_screenshot_size (AscCompose *compose, gssize size_bytes)
  *
  * The callback function may be called from any thread, so it needs to ensure thread safety on its own.
  *
+ * Any previously set callback is replaced, and its user data released using the
+ * destroy function it was registered with.
+ *
  * Since: 0.15.1
  */
 void
 asc_compose_set_check_metadata_early_func (AscCompose *compose,
 					   AscCheckMetadataEarlyFn func,
-					   gpointer user_data)
+					   gpointer user_data,
+					   GDestroyNotify udata_free_func)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
+
+	if (priv->check_md_early_fn_udata_free != NULL)
+		priv->check_md_early_fn_udata_free (priv->check_md_early_fn_udata);
+
 	priv->check_md_early_fn = func;
 	priv->check_md_early_fn_udata = user_data;
+	priv->check_md_early_fn_udata_free = udata_free_func;
 }
 
 /**
  * asc_compose_set_desktop_entry_l10n_func:
  * @compose: an #AscCompose instance.
- * @func: (scope notified): the #AscTranslateDesktopTextFn function to be called
+ * @func: (scope notified) (nullable): the #AscTranslateDesktopTextFn function to be called
  * @user_data: user data for @func
+ * @udata_free_func: (destroy user_data) (nullable): function to free @user_data
  *
  * Set a custom desktop-entry field localization functions to be run for specialized
  * desktop-entry localization schemes such as used in Ubuntu.
  *
  * The callback function may be called from any thread, so it needs to ensure thread safety on its own.
  *
+ * Any previously set callback is replaced, and its user data released using the
+ * destroy function it was registered with.
+ *
  * Since: 0.15.1
  */
 void
 asc_compose_set_desktop_entry_l10n_func (AscCompose *compose,
 					 AscTranslateDesktopTextFn func,
-					 gpointer user_data)
+					 gpointer user_data,
+					 GDestroyNotify udata_free_func)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
+
+	if (priv->de_l10n_fn_udata_free != NULL)
+		priv->de_l10n_fn_udata_free (priv->de_l10n_fn_udata);
+
 	priv->de_l10n_fn = func;
 	priv->de_l10n_fn_udata = user_data;
+	priv->de_l10n_fn_udata_free = udata_free_func;
 }
 
 /**

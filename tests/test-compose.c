@@ -1320,6 +1320,51 @@ test_compose_icon_policy_serialize (void)
 	g_assert_false (ret);
 }
 
+static void
+asx_count_destroy_notify (gpointer user_data)
+{
+	guint *counter = (guint *) user_data;
+	(*counter)++;
+}
+
+/**
+ * test_compose_callback_lifetime:
+ *
+ * Verify that the user data of the compose callbacks is released when a
+ * callback is replaced, and when the #AscCompose itself goes away.
+ */
+static void
+test_compose_callback_lifetime (void)
+{
+	AscCompose *compose = asc_compose_new ();
+	guint early_freed = 0;
+	guint l10n_freed = 0;
+
+	asc_compose_set_check_metadata_early_func (compose,
+						   NULL,
+						   &early_freed,
+						   asx_count_destroy_notify);
+	asc_compose_set_desktop_entry_l10n_func (compose,
+						 NULL,
+						 &l10n_freed,
+						 asx_count_destroy_notify);
+	g_assert_cmpuint (early_freed, ==, 0);
+	g_assert_cmpuint (l10n_freed, ==, 0);
+
+	/* replacing a callback must release the previous user data */
+	asc_compose_set_check_metadata_early_func (compose,
+						   NULL,
+						   &early_freed,
+						   asx_count_destroy_notify);
+	g_assert_cmpuint (early_freed, ==, 1);
+	g_assert_cmpuint (l10n_freed, ==, 0);
+
+	/* and so must dropping the last reference */
+	g_object_unref (compose);
+	g_assert_cmpuint (early_freed, ==, 2);
+	g_assert_cmpuint (l10n_freed, ==, 1);
+}
+
 int
 main (int argc, char **argv)
 {
@@ -1369,6 +1414,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/AppStream/Compose/Font", test_compose_font);
 	g_test_add_func ("/AppStream/Compose/IconPolicySerialize",
 			 test_compose_icon_policy_serialize);
+	g_test_add_func ("/AppStream/Compose/CallbackLifetime", test_compose_callback_lifetime);
 
 	ret = g_test_run ();
 	as_utils_delete_dir_recursive (workdir);

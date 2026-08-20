@@ -103,7 +103,7 @@ typedef enum {
  *
  * Since: 0.15.1
  */
-typedef void (*AscCheckMetadataEarlyFn) (AscResult *cres, const AscUnit *unit, gpointer user_data);
+typedef void (*AscCheckMetadataEarlyFn) (AscResult *cres, AscUnit *unit, gpointer user_data);
 
 /**
  * AscTranslateDesktopTextFn:
@@ -180,10 +180,12 @@ void		asc_compose_set_max_screenshot_size (AscCompose *compose, gssize size_byte
 
 void		asc_compose_set_check_metadata_early_func (AscCompose		  *compose,
 							   AscCheckMetadataEarlyFn func,
-							   gpointer		   user_data);
+							   gpointer		   user_data,
+							   GDestroyNotify	   udata_free_func);
 void		asc_compose_set_desktop_entry_l10n_func (AscCompose		  *compose,
 							 AscTranslateDesktopTextFn func,
-							 gpointer		   user_data);
+							 gpointer		   user_data,
+							 GDestroyNotify		   udata_free_func);
 
 AscUnit	       *asc_compose_get_locale_unit (AscCompose *compose);
 void		asc_compose_set_locale_unit (AscCompose *compose, AscUnit *locale_unit);
