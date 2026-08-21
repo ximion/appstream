@@ -67,42 +67,58 @@ typedef enum {
 AsReview     *as_review_new (void);
 
 gint	      as_review_get_priority (AsReview *review);
-void	      as_review_set_priority (AsReview *review, gint priority);
+void	      as_review_set_priority (AsReview *review,
+				      gint	priority);
 
 const gchar  *as_review_get_id (AsReview *review);
-void	      as_review_set_id (AsReview *review, const gchar *id);
+void	      as_review_set_id (AsReview    *review,
+				const gchar *id);
 
 const gchar  *as_review_get_summary (AsReview *review);
-void	      as_review_set_summary (AsReview *review, const gchar *summary);
+void	      as_review_set_summary (AsReview	 *review,
+				     const gchar *summary);
 
 const gchar  *as_review_get_description (AsReview *review);
-void	      as_review_set_description (AsReview *review, const gchar *description);
+void	      as_review_set_description (AsReview    *review,
+					 const gchar *description);
 
 const gchar  *as_review_get_locale (AsReview *review);
-void	      as_review_set_locale (AsReview *review, const gchar *locale);
+void	      as_review_set_locale (AsReview	*review,
+				    const gchar *locale);
 
 gint	      as_review_get_rating (AsReview *review);
-void	      as_review_set_rating (AsReview *review, gint rating);
+void	      as_review_set_rating (AsReview *review,
+				    gint      rating);
 
 const gchar  *as_review_get_version (AsReview *review);
-void	      as_review_set_version (AsReview *review, const gchar *version);
+void	      as_review_set_version (AsReview	 *review,
+				     const gchar *version);
 
 const gchar  *as_review_get_reviewer_id (AsReview *review);
-void	      as_review_set_reviewer_id (AsReview *review, const gchar *reviewer_id);
+void	      as_review_set_reviewer_id (AsReview    *review,
+					 const gchar *reviewer_id);
 
 const gchar  *as_review_get_reviewer_name (AsReview *review);
-void	      as_review_set_reviewer_name (AsReview *review, const gchar *reviewer_name);
+void	      as_review_set_reviewer_name (AsReview    *review,
+					   const gchar *reviewer_name);
 
 GDateTime    *as_review_get_date (AsReview *review);
-void	      as_review_set_date (AsReview *review, GDateTime *date);
+void	      as_review_set_date (AsReview  *review,
+				  GDateTime *date);
 
 AsReviewFlags as_review_get_flags (AsReview *review);
-void	      as_review_set_flags (AsReview *review, AsReviewFlags flags);
-void	      as_review_add_flags (AsReview *review, AsReviewFlags flags);
+void	      as_review_set_flags (AsReview	*review,
+				   AsReviewFlags flags);
+void	      as_review_add_flags (AsReview	*review,
+				   AsReviewFlags flags);
 
-const gchar  *as_review_get_metadata_item (AsReview *review, const gchar *key);
-void	      as_review_add_metadata (AsReview *review, const gchar *key, const gchar *value);
+const gchar  *as_review_get_metadata_item (AsReview    *review,
+					   const gchar *key);
+void	      as_review_add_metadata (AsReview	  *review,
+				      const gchar *key,
+				      const gchar *value);
 
-gboolean      as_review_equal (AsReview *review1, AsReview *review2);
+gboolean      as_review_equal (AsReview *review1,
+			       AsReview *review2);
 
 G_END_DECLS

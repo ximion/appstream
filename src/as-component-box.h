@@ -79,12 +79,16 @@ GPtrArray	   *as_component_box_as_array (AsComponentBox *cbox);
 AsComponentBoxFlags as_component_box_get_flags (AsComponentBox *cbox);
 
 guint		    as_component_box_get_size (AsComponentBox *cbox);
-AsComponent	   *as_component_box_index_safe (AsComponentBox *cbox, guint index);
+AsComponent	   *as_component_box_index_safe (AsComponentBox *cbox,
+						 guint		 index);
 gboolean	    as_component_box_is_empty (AsComponentBox *cbox);
 
-gboolean	    as_component_box_add (AsComponentBox *cbox, AsComponent *cpt, GError **error);
+gboolean	    as_component_box_add (AsComponentBox *cbox,
+					  AsComponent	 *cpt,
+					  GError	**error);
 void		    as_component_box_clear (AsComponentBox *cbox);
-void		    as_component_box_remove_at (AsComponentBox *cbox, guint index);
+void		    as_component_box_remove_at (AsComponentBox *cbox,
+						guint		index);
 
 void		    as_component_box_sort (AsComponentBox *cbox);
 void		    as_component_box_sort_by_score (AsComponentBox *cbox);

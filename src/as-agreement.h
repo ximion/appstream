@@ -72,14 +72,17 @@ const gchar	   *as_agreement_kind_to_string (AsAgreementKind value);
 AsAgreementKind	    as_agreement_kind_from_string (const gchar *value);
 
 AsAgreementKind	    as_agreement_get_kind (AsAgreement *agreement);
-void		    as_agreement_set_kind (AsAgreement *agreement, AsAgreementKind kind);
+void		    as_agreement_set_kind (AsAgreement	  *agreement,
+					   AsAgreementKind kind);
 
 const gchar	   *as_agreement_get_version_id (AsAgreement *agreement);
-void		    as_agreement_set_version_id (AsAgreement *agreement, const gchar *version_id);
+void		    as_agreement_set_version_id (AsAgreement *agreement,
+						 const gchar *version_id);
 
 AsAgreementSection *as_agreement_get_section_default (AsAgreement *agreement);
 GPtrArray	   *as_agreement_get_sections (AsAgreement *agreement);
-void as_agreement_add_section (AsAgreement *agreement, AsAgreementSection *agreement_section);
+void		    as_agreement_add_section (AsAgreement	 *agreement,
+					      AsAgreementSection *agreement_section);
 
 G_END_DECLS
 

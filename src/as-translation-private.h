@@ -32,7 +32,9 @@ gboolean as_translation_load_from_xml (AsTranslation *tr,
 				       xmlNode	     *node,
 				       GError	    **error);
 
-void	 as_translation_to_xml_node (AsTranslation *tr, AsContext *ctx, xmlNode *root);
+void	 as_translation_to_xml_node (AsTranslation *tr,
+				     AsContext	   *ctx,
+				     xmlNode	   *root);
 
 AS_END_PRIVATE_DECLS
 

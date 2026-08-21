@@ -85,23 +85,29 @@ AsReleaseList	 *as_release_list_new (void);
 
 GPtrArray	 *as_release_list_get_entries (AsReleaseList *rels);
 guint		  as_release_list_get_size (AsReleaseList *rels);
-void		  as_release_list_set_size (AsReleaseList *rels, guint size);
-AsRelease	 *as_release_list_index_safe (AsReleaseList *rels, guint index);
+void		  as_release_list_set_size (AsReleaseList *rels,
+					    guint	   size);
+AsRelease	 *as_release_list_index_safe (AsReleaseList *rels,
+					      guint	     index);
 gboolean	  as_release_list_is_empty (AsReleaseList *rels);
 
-void		  as_release_list_add (AsReleaseList *rels, AsRelease *release);
+void		  as_release_list_add (AsReleaseList *rels,
+				       AsRelease     *release);
 void		  as_release_list_clear (AsReleaseList *rels);
 
 void		  as_release_list_sort (AsReleaseList *rels);
 
 AsContext	 *as_release_list_get_context (AsReleaseList *rels);
-void		  as_release_list_set_context (AsReleaseList *rels, AsContext *context);
+void		  as_release_list_set_context (AsReleaseList *rels,
+					       AsContext     *context);
 
 AsReleaseListKind as_release_list_get_kind (AsReleaseList *rels);
-void		  as_release_list_set_kind (AsReleaseList *rels, AsReleaseListKind kind);
+void		  as_release_list_set_kind (AsReleaseList    *rels,
+					    AsReleaseListKind kind);
 
 const gchar	 *as_release_list_get_url (AsReleaseList *rels);
-void		  as_release_list_set_url (AsReleaseList *rels, const gchar *url);
+void		  as_release_list_set_url (AsReleaseList *rels,
+					   const gchar	 *url);
 
 gboolean	  as_release_list_load_from_bytes (AsReleaseList *rels,
 						   AsContext	 *context,

@@ -42,14 +42,18 @@ gint ascli_metainfo_to_news (const gchar *mi_fname,
 			     const gchar *news_fname,
 			     const gchar *format_str);
 
-int  ascli_show_sysinfo (const gchar *cachepath, gboolean no_cache, gboolean detailed);
+int  ascli_show_sysinfo (const gchar *cachepath,
+			 gboolean     no_cache,
+			 gboolean     detailed);
 
 gint ascli_list_reviews (const gchar *cpt_id,
 			 const gchar *server_url,
 			 const gchar *locale,
 			 guint	      start,
 			 guint	      limit);
-gint ascli_submit_review (const gchar *cpt_id, const gchar *server_url, const gchar *locale);
+gint ascli_submit_review (const gchar *cpt_id,
+			  const gchar *server_url,
+			  const gchar *locale);
 
 G_END_DECLS
 

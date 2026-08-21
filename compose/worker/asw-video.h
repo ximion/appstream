@@ -38,7 +38,8 @@ typedef struct {
 	gint   height;
 } AswVideoProbe;
 
-AswVideoProbe *asw_probe_video (gint video_fd, GError **error);
+AswVideoProbe *asw_probe_video (gint	 video_fd,
+				GError **error);
 void	       asw_video_probe_free (AswVideoProbe *probe);
 
 G_DEFINE_AUTOPTR_CLEANUP_FUNC (AswVideoProbe, asw_video_probe_free)

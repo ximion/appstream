@@ -70,15 +70,19 @@ typedef enum {
 GQuark asw_canvas_error_quark (void);
 
 AS_INTERNAL_VISIBLE
-AswCanvas *asw_canvas_new (gint width, gint height);
+AswCanvas *asw_canvas_new (gint width,
+			   gint height);
 
 guint	   asw_canvas_get_width (AswCanvas *canvas);
 guint	   asw_canvas_get_height (AswCanvas *canvas);
 
 AS_INTERNAL_VISIBLE
-gboolean   asw_canvas_save_png (AswCanvas *canvas, const gchar *fname, GError **error);
+gboolean   asw_canvas_save_png (AswCanvas   *canvas,
+				const gchar *fname,
+				GError	   **error);
 
-VipsImage *asw_canvas_to_vips (AswCanvas *canvas, GError **error);
+VipsImage *asw_canvas_to_vips (AswCanvas *canvas,
+			       GError	**error);
 
 AS_INTERNAL_VISIBLE
 gboolean asw_canvas_draw_text_line (AswCanvas	*canvas,

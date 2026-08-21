@@ -31,13 +31,17 @@ gboolean as_suggested_load_from_xml (AsSuggested *suggested,
 				     AsContext	 *ctx,
 				     xmlNode	 *node,
 				     GError	**error);
-void	 as_suggested_to_xml_node (AsSuggested *suggested, AsContext *ctx, xmlNode *root);
+void	 as_suggested_to_xml_node (AsSuggested *suggested,
+				   AsContext   *ctx,
+				   xmlNode     *root);
 
 gboolean as_suggested_load_from_yaml (AsSuggested    *suggested,
 				      AsContext	     *ctx,
 				      struct fy_node *node,
 				      GError	    **error);
-void as_suggested_emit_yaml (AsSuggested *suggested, AsContext *ctx, struct fy_emitter *emitter);
+void	 as_suggested_emit_yaml (AsSuggested	   *suggested,
+				 AsContext	   *ctx,
+				 struct fy_emitter *emitter);
 
 AS_END_PRIVATE_DECLS
 

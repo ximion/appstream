@@ -120,31 +120,39 @@ typedef enum {
 AsContext      *as_context_new (void);
 
 AsFormatVersion as_context_get_format_version (AsContext *ctx);
-void		as_context_set_format_version (AsContext *ctx, AsFormatVersion ver);
+void		as_context_set_format_version (AsContext      *ctx,
+					       AsFormatVersion ver);
 
 AsFormatStyle	as_context_get_style (AsContext *ctx);
-void		as_context_set_style (AsContext *ctx, AsFormatStyle style);
+void		as_context_set_style (AsContext	   *ctx,
+				      AsFormatStyle style);
 
 gint		as_context_get_priority (AsContext *ctx);
-void		as_context_set_priority (AsContext *ctx, gint priority);
+void		as_context_set_priority (AsContext *ctx,
+					 gint	    priority);
 
 const gchar    *as_context_get_origin (AsContext *ctx);
-void		as_context_set_origin (AsContext *ctx, const gchar *value);
+void		as_context_set_origin (AsContext   *ctx,
+				       const gchar *value);
 
 const gchar    *as_context_get_locale (AsContext *ctx);
-void		as_context_set_locale (AsContext *ctx, const gchar *locale);
+void		as_context_set_locale (AsContext   *ctx,
+				       const gchar *locale);
 
 gboolean	as_context_has_media_baseurl (AsContext *ctx);
 const gchar    *as_context_get_media_baseurl (AsContext *ctx);
-void		as_context_set_media_baseurl (AsContext *ctx, const gchar *value);
+void		as_context_set_media_baseurl (AsContext	  *ctx,
+					      const gchar *value);
 
 gboolean	as_context_get_locale_use_all (AsContext *ctx);
 
 const gchar    *as_context_get_filename (AsContext *ctx);
-void		as_context_set_filename (AsContext *ctx, const gchar *fname);
+void		as_context_set_filename (AsContext   *ctx,
+					 const gchar *fname);
 
 AsValueFlags	as_context_get_value_flags (AsContext *ctx);
-void		as_context_set_value_flags (AsContext *ctx, AsValueFlags flags);
+void		as_context_set_value_flags (AsContext	*ctx,
+					    AsValueFlags flags);
 
 G_END_DECLS
 

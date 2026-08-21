@@ -80,7 +80,8 @@ void	       asc_icon_policy_set_policy (AscIconPolicy *ipolicy,
 					   guint	  icon_scale,
 					   AscIconState	  state);
 
-void	       asc_icon_policy_iter_init (AscIconPolicyIter *iter, AscIconPolicy *ipolicy);
+void	       asc_icon_policy_iter_init (AscIconPolicyIter *iter,
+					  AscIconPolicy	    *ipolicy);
 gboolean       asc_icon_policy_iter_next (AscIconPolicyIter *iter,
 					  guint		    *size,
 					  guint		    *scale,

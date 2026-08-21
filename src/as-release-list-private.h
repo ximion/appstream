@@ -33,15 +33,20 @@ gboolean as_release_list_load_from_xml (AsReleaseList *rels,
 					AsContext     *ctx,
 					xmlNode	      *node,
 					GError	     **error);
-void	 as_release_list_to_xml_node (AsReleaseList *rels, AsContext *ctx, xmlNode *root);
+void	 as_release_list_to_xml_node (AsReleaseList *rels,
+				      AsContext	    *ctx,
+				      xmlNode	    *root);
 
 gboolean as_release_list_load_from_yaml (AsReleaseList	*rels,
 					 AsContext	*ctx,
 					 struct fy_node *root,
 					 GError	       **error);
-void as_release_list_emit_yaml (AsReleaseList *rels, AsContext *ctx, struct fy_emitter *emitter);
+void	 as_release_list_emit_yaml (AsReleaseList     *rels,
+				    AsContext	      *ctx,
+				    struct fy_emitter *emitter);
 
-gint as_release_compare (gconstpointer a, gconstpointer b);
+gint	 as_release_compare (gconstpointer a,
+			     gconstpointer b);
 
 gboolean as_release_list_load (AsReleaseList *rels,
 			       AsComponent   *cpt,

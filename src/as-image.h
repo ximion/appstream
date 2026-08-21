@@ -65,22 +65,28 @@ const gchar *as_image_kind_to_string (AsImageKind kind);
 AsImage	    *as_image_new (void);
 
 AsImageKind  as_image_get_kind (AsImage *image);
-void	     as_image_set_kind (AsImage *image, AsImageKind kind);
+void	     as_image_set_kind (AsImage	   *image,
+				AsImageKind kind);
 
 const gchar *as_image_get_url (AsImage *image);
-void	     as_image_set_url (AsImage *image, const gchar *url);
+void	     as_image_set_url (AsImage	   *image,
+			       const gchar *url);
 
 guint	     as_image_get_width (AsImage *image);
-void	     as_image_set_width (AsImage *image, guint width);
+void	     as_image_set_width (AsImage *image,
+				 guint	  width);
 
 guint	     as_image_get_height (AsImage *image);
-void	     as_image_set_height (AsImage *image, guint height);
+void	     as_image_set_height (AsImage *image,
+				  guint	   height);
 
 guint	     as_image_get_scale (AsImage *image);
-void	     as_image_set_scale (AsImage *image, guint scale);
+void	     as_image_set_scale (AsImage *image,
+				 guint	  scale);
 
 const gchar *as_image_get_locale (AsImage *image);
-void	     as_image_set_locale (AsImage *image, const gchar *locale);
+void	     as_image_set_locale (AsImage     *image,
+				  const gchar *locale);
 
 G_END_DECLS
 

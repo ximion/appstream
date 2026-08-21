@@ -44,12 +44,15 @@ typedef enum {
 #define ASW_FONT_ERROR asw_font_error_quark ()
 GQuark	     asw_font_error_quark (void);
 
-AswFont	    *asw_font_new_from_file (const gchar *fname, GError **error);
+AswFont	    *asw_font_new_from_file (const gchar *fname,
+				     GError	**error);
 AswFont	    *asw_font_new_from_data (const void	 *data,
 				     gssize	  len,
 				     const gchar *file_basename,
 				     GError	**error);
-AswFont	    *asw_font_new_from_fd (gint fd, const gchar *file_basename, GError **error);
+AswFont	    *asw_font_new_from_fd (gint		fd,
+				   const gchar *file_basename,
+				   GError     **error);
 
 const gchar *asw_font_get_family (AswFont *font);
 const gchar *asw_font_get_style (AswFont *font);
@@ -57,19 +60,23 @@ const gchar *asw_font_get_fullname (AswFont *font);
 const gchar *asw_font_get_id (AswFont *font);
 
 GList	    *asw_font_get_language_list (AswFont *font);
-void	     asw_font_add_language (AswFont *font, const gchar *lang);
+void	     asw_font_add_language (AswFont	*font,
+				    const gchar *lang);
 
 const gchar *asw_font_get_preferred_language (AswFont *font);
-void	     asw_font_set_preferred_language (AswFont *font, const gchar *lang);
+void	     asw_font_set_preferred_language (AswFont	  *font,
+					      const gchar *lang);
 
 const gchar *asw_font_get_description (AswFont *font);
 const gchar *asw_font_get_homepage (AswFont *font);
 
 const gchar *asw_font_get_sample_text (AswFont *font);
-void	     asw_font_set_sample_text (AswFont *font, const gchar *text);
+void	     asw_font_set_sample_text (AswFont	   *font,
+				       const gchar *text);
 
 const gchar *asw_font_get_sample_icon_text (AswFont *font);
-void	     asw_font_set_sample_icon_text (AswFont *font, const gchar *text);
+void	     asw_font_set_sample_icon_text (AswFont	*font,
+					    const gchar *text);
 
 gboolean     asw_font_render_card_to_file (AswFont	 *font,
 					   const gchar	 *fname,

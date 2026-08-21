@@ -69,18 +69,22 @@ typedef enum {
 AsRelationCheckResult *as_relation_check_result_new (void);
 
 AsRelationStatus       as_relation_check_result_get_status (AsRelationCheckResult *relcr);
-void as_relation_check_result_set_status (AsRelationCheckResult *relcr, AsRelationStatus status);
+void		       as_relation_check_result_set_status (AsRelationCheckResult *relcr,
+							    AsRelationStatus	   status);
 
-AsRelation *as_relation_check_result_get_relation (AsRelationCheckResult *relcr);
-void as_relation_check_result_set_relation (AsRelationCheckResult *relcr, AsRelation *relation);
+AsRelation	      *as_relation_check_result_get_relation (AsRelationCheckResult *relcr);
+void		       as_relation_check_result_set_relation (AsRelationCheckResult *relcr,
+							      AsRelation	    *relation);
 
-const gchar *as_relation_check_result_get_message (AsRelationCheckResult *relcr);
-void as_relation_check_result_set_message (AsRelationCheckResult *relcr, const gchar *format, ...)
-    G_GNUC_PRINTF (2, 3);
+const gchar	      *as_relation_check_result_get_message (AsRelationCheckResult *relcr);
+void		       as_relation_check_result_set_message (AsRelationCheckResult *relcr,
+							     const gchar	   *format,
+							     ...) G_GNUC_PRINTF (2, 3);
 
-AsRelationError as_relation_check_result_get_error_code (AsRelationCheckResult *relcr);
-void as_relation_check_result_set_error_code (AsRelationCheckResult *relcr, AsRelationError ecode);
+AsRelationError	       as_relation_check_result_get_error_code (AsRelationCheckResult *relcr);
+void		       as_relation_check_result_set_error_code (AsRelationCheckResult *relcr,
+								AsRelationError	       ecode);
 
-gint as_relation_check_results_get_compatibility_score (GPtrArray *rc_results);
+gint		       as_relation_check_results_get_compatibility_score (GPtrArray *rc_results);
 
 G_END_DECLS

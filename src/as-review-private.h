@@ -31,13 +31,20 @@
 
 AS_BEGIN_PRIVATE_DECLS
 
-gboolean as_review_load_from_xml (AsReview *review, AsContext *ctx, xmlNode *node, GError **error);
-void	 as_review_to_xml_node (AsReview *review, AsContext *ctx, xmlNode *root);
+gboolean as_review_load_from_xml (AsReview  *review,
+				  AsContext *ctx,
+				  xmlNode   *node,
+				  GError   **error);
+void	 as_review_to_xml_node (AsReview  *review,
+				AsContext *ctx,
+				xmlNode	  *root);
 
 gboolean as_review_load_from_yaml (AsReview	  *review,
 				   AsContext	  *ctx,
 				   struct fy_node *node,
 				   GError	 **error);
-void	 as_review_emit_yaml (AsReview *review, AsContext *ctx, struct fy_emitter *emitter);
+void	 as_review_emit_yaml (AsReview		*review,
+			      AsContext		*ctx,
+			      struct fy_emitter *emitter);
 
 AS_END_PRIVATE_DECLS

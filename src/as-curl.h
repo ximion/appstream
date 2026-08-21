@@ -54,15 +54,20 @@ GQuark	     as_curl_error_quark (void);
 
 AsCurl	    *as_curl_new (GError **error);
 
-void	     as_curl_set_cainfo (AsCurl *acurl, const gchar *cainfo);
+void	     as_curl_set_cainfo (AsCurl	     *acurl,
+				 const gchar *cainfo);
 
 const gchar *as_curl_get_user_agent (AsCurl *acurl);
-void	     as_curl_set_user_agent (AsCurl *acurl, const gchar *user_agent);
+void	     as_curl_set_user_agent (AsCurl	 *acurl,
+				     const gchar *user_agent);
 
 guint	     as_curl_get_retry_count (AsCurl *acurl);
-void	     as_curl_set_retry_count (AsCurl *acurl, guint count);
+void	     as_curl_set_retry_count (AsCurl *acurl,
+				      guint   count);
 
-GBytes	    *as_curl_download_bytes (AsCurl *acurl, const gchar *url, GError **error);
+GBytes	    *as_curl_download_bytes (AsCurl	 *acurl,
+				     const gchar *url,
+				     GError	**error);
 gboolean     as_curl_download_to_filename (AsCurl      *acurl,
 					   const gchar *url,
 					   const gchar *fname,
@@ -75,7 +80,9 @@ GBytes	    *as_curl_post_bytes (AsCurl	     *acurl,
 				 GBytes	    **error_reply,
 				 GError	    **error);
 
-gboolean     as_curl_check_url_exists (AsCurl *acurl, const gchar *url, GError **error);
+gboolean     as_curl_check_url_exists (AsCurl	   *acurl,
+				       const gchar *url,
+				       GError	  **error);
 
 gboolean     as_curl_is_url (const gchar *url);
 

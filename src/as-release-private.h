@@ -29,19 +29,24 @@
 AS_BEGIN_PRIVATE_DECLS
 
 gboolean as_release_description_translatable (AsRelease *release);
-void	 as_release_set_description_translatable (AsRelease *release, gboolean translatable);
+void	 as_release_set_description_translatable (AsRelease *release,
+						  gboolean   translatable);
 
 gboolean as_release_load_from_xml (AsRelease *release,
 				   AsContext *ctx,
 				   xmlNode   *node,
 				   GError   **error);
-void	 as_release_to_xml_node (AsRelease *release, AsContext *ctx, xmlNode *root);
+void	 as_release_to_xml_node (AsRelease *release,
+				 AsContext *ctx,
+				 xmlNode   *root);
 
 gboolean as_release_load_from_yaml (AsRelease	   *release,
 				    AsContext	   *ctx,
 				    struct fy_node *node,
 				    GError	  **error);
-void	 as_release_emit_yaml (AsRelease *release, AsContext *ctx, struct fy_emitter *emitter);
+void	 as_release_emit_yaml (AsRelease	 *release,
+			       AsContext	 *ctx,
+			       struct fy_emitter *emitter);
 
 AS_END_PRIVATE_DECLS
 

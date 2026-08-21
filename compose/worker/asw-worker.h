@@ -27,8 +27,10 @@ G_BEGIN_DECLS
 #define ASW_TYPE_WORKER (asw_worker_get_type ())
 G_DECLARE_FINAL_TYPE (AswWorker, asw_worker, ASW, WORKER, GObject)
 
-AswWorker *asw_worker_new_for_fd (gint socket_fd, GError **error);
-gboolean   asw_worker_send_hello (AswWorker *worker, GError **error);
+AswWorker *asw_worker_new_for_fd (gint	   socket_fd,
+				  GError **error);
+gboolean   asw_worker_send_hello (AswWorker *worker,
+				  GError   **error);
 gint	   asw_worker_run (AswWorker *worker);
 
 G_END_DECLS

@@ -37,28 +37,40 @@ G_BEGIN_DECLS
 #define ASCLI_CHAR_SUCCESS ascli_get_char_success ()
 #define ASCLI_CHAR_FAIL	   ascli_get_char_failure ()
 
-gchar	    *ascli_format_long_output (const gchar *str, guint line_length, guint indent_level);
-void	     ascli_print_key_value (const gchar *key, const gchar *val, gboolean line_wrap);
+gchar	    *ascli_format_long_output (const gchar *str,
+				       guint	    line_length,
+				       guint	    indent_level);
+void	     ascli_print_key_value (const gchar *key,
+				    const gchar *val,
+				    gboolean	 line_wrap);
 void	     ascli_print_separator (void);
 
-void	     ascli_print_stdout (const gchar *format, ...);
-void	     ascli_print_stderr (const gchar *format, ...);
-void	     ascli_print_highlight (const gchar *format, ...);
+void	     ascli_print_stdout (const gchar *format,
+				 ...);
+void	     ascli_print_stderr (const gchar *format,
+				 ...);
+void	     ascli_print_highlight (const gchar *format,
+				    ...);
 
 const gchar *ascli_get_char_success (void);
 const gchar *ascli_get_char_failure (void);
 
-void	     ascli_print_component (AsComponent *cpt, gboolean show_detailed);
-void	     ascli_print_components (AsComponentBox *cbox, gboolean show_detailed);
+void	     ascli_print_component (AsComponent *cpt,
+				    gboolean	 show_detailed);
+void	     ascli_print_components (AsComponentBox *cbox,
+				     gboolean	     show_detailed);
 
-AsPool	*ascli_data_pool_new_and_open (const gchar *cachepath, gboolean no_cache, GError **error);
+AsPool	    *ascli_data_pool_new_and_open (const gchar *cachepath,
+					   gboolean	no_cache,
+					   GError     **error);
 
-void	 ascli_set_output_colored (gboolean colored);
-gboolean ascli_get_output_colored (void);
+void	     ascli_set_output_colored (gboolean colored);
+gboolean     ascli_get_output_colored (void);
 
-guint	 ascli_prompt_number (const gchar *question, guint maxnum);
-gchar	*ascli_prompt_line (const gchar *question);
-gchar	*ascli_prompt_multiline (const gchar *question);
+guint	     ascli_prompt_number (const gchar *question,
+				  guint	       maxnum);
+gchar	    *ascli_prompt_line (const gchar *question);
+gchar	    *ascli_prompt_multiline (const gchar *question);
 
 G_END_DECLS
 

@@ -66,12 +66,15 @@ AsReferenceKind as_reference_kind_from_string (const gchar *str);
 AsReference    *as_reference_new (void);
 
 AsReferenceKind as_reference_get_kind (AsReference *reference);
-void		as_reference_set_kind (AsReference *reference, AsReferenceKind kind);
+void		as_reference_set_kind (AsReference    *reference,
+				       AsReferenceKind kind);
 
 const gchar    *as_reference_get_value (AsReference *reference);
-void		as_reference_set_value (AsReference *reference, const gchar *value);
+void		as_reference_set_value (AsReference *reference,
+					const gchar *value);
 
 const gchar    *as_reference_get_registry_name (AsReference *reference);
-void		as_reference_set_registry_name (AsReference *reference, const gchar *name);
+void		as_reference_set_registry_name (AsReference *reference,
+						const gchar *name);
 
 G_END_DECLS

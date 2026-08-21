@@ -42,6 +42,8 @@ gint as_reviews_client_parse_rating (AsReviewsClient *rrc,
 				     GError	    **error);
 
 AS_INTERNAL_VISIBLE
-gboolean as_reviews_client_check_success_reply (GBytes *reply, gchar **review_id, GError **error);
+gboolean as_reviews_client_check_success_reply (GBytes	*reply,
+						gchar  **review_id,
+						GError **error);
 
 AS_END_PRIVATE_DECLS

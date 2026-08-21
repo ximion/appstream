@@ -141,13 +141,17 @@ AscImageSource *asc_image_source_copy (AscImageSource *source);
 void		asc_image_source_free (AscImageSource *source);
 G_DEFINE_AUTOPTR_CLEANUP_FUNC (AscImageSource, asc_image_source_free)
 
-GBytes *asc_image_source_get_data (AscImageSource *source);
+GBytes			      *asc_image_source_get_data (AscImageSource *source);
 
-void	asc_image_source_get_render_size (AscImageSource *source, gint *width, gint *height);
-void	asc_image_source_set_render_size (AscImageSource *source, gint width, gint height);
+void			       asc_image_source_get_render_size (AscImageSource *source,
+								 gint		*width,
+								 gint		*height);
+void			       asc_image_source_set_render_size (AscImageSource *source,
+								 gint		 width,
+								 gint		 height);
 
-gint	asc_image_source_get_width (AscImageSource *source);
-gint	asc_image_source_get_height (AscImageSource *source);
+gint			       asc_image_source_get_width (AscImageSource *source);
+gint			       asc_image_source_get_height (AscImageSource *source);
 
 typedef struct _AscImageTarget AscImageTarget;
 
@@ -168,26 +172,28 @@ gint		  asc_image_target_get_width (AscImageTarget *target);
 gint		  asc_image_target_get_height (AscImageTarget *target);
 
 AscImageSaveFlags asc_image_target_get_save_flags (AscImageTarget *target);
-void		  asc_image_target_set_save_flags (AscImageTarget *target, AscImageSaveFlags flags);
+void		  asc_image_target_set_save_flags (AscImageTarget   *target,
+						   AscImageSaveFlags flags);
 
 gboolean	  asc_image_target_get_only_downscale (AscImageTarget *target);
-void	     asc_image_target_set_only_downscale (AscImageTarget *target, gboolean only_downscale);
+void		  asc_image_target_set_only_downscale (AscImageTarget *target,
+						       gboolean	       only_downscale);
 
-void	     asc_image_target_get_source_size_range (AscImageTarget *target,
-						     gint	    *min_width,
-						     gint	    *min_height,
-						     gint	    *max_width,
-						     gint	    *max_height);
-void	     asc_image_target_set_source_size_range (AscImageTarget *target,
-						     gint	     min_width,
-						     gint	     min_height,
-						     gint	     max_width,
-						     gint	     max_height);
+void		  asc_image_target_get_source_size_range (AscImageTarget *target,
+							  gint		 *min_width,
+							  gint		 *min_height,
+							  gint		 *max_width,
+							  gint		 *max_height);
+void		  asc_image_target_set_source_size_range (AscImageTarget *target,
+							  gint		  min_width,
+							  gint		  min_height,
+							  gint		  max_width,
+							  gint		  max_height);
 
-gboolean     asc_image_target_get_skipped (AscImageTarget *target);
-gint	     asc_image_target_get_result_width (AscImageTarget *target);
-gint	     asc_image_target_get_result_height (AscImageTarget *target);
-const gchar *asc_image_target_get_error_message (AscImageTarget *target);
+gboolean	  asc_image_target_get_skipped (AscImageTarget *target);
+gint		  asc_image_target_get_result_width (AscImageTarget *target);
+gint		  asc_image_target_get_result_height (AscImageTarget *target);
+const gchar	 *asc_image_target_get_error_message (AscImageTarget *target);
 
 #define ASC_TYPE_MEDIA (asc_media_get_type ())
 G_DECLARE_FINAL_TYPE (AscMedia, asc_media, ASC, MEDIA, GObject)
@@ -195,12 +201,16 @@ G_DECLARE_FINAL_TYPE (AscMedia, asc_media, ASC, MEDIA, GObject)
 AscMedia *asc_media_new (void);
 
 guint	  asc_media_get_request_timeout (AscMedia *media);
-void	  asc_media_set_request_timeout (AscMedia *media, guint seconds);
+void	  asc_media_set_request_timeout (AscMedia *media,
+					 guint	   seconds);
 
 guint32	  asc_media_get_memory_limit (AscMedia *media);
-void	  asc_media_set_memory_limit (AscMedia *media, guint32 limit_mib);
+void	  asc_media_set_memory_limit (AscMedia *media,
+				      guint32	limit_mib);
 
-gboolean  asc_media_ensure_worker (AscMedia *media, GCancellable *cancellable, GError **error);
+gboolean  asc_media_ensure_worker (AscMedia	*media,
+				   GCancellable *cancellable,
+				   GError      **error);
 void	  asc_media_stop (AscMedia *media);
 
 gboolean  asc_media_error_is_worker_failure (const GError *error);

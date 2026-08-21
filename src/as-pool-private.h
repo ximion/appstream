@@ -36,7 +36,9 @@ gboolean as_pool_refresh_system_cache (AsPool	*pool,
 				       GError  **error);
 
 AS_INTERNAL_VISIBLE
-void as_pool_override_cache_locations (AsPool *pool, const gchar *dir_sys, const gchar *dir_user);
+void as_pool_override_cache_locations (AsPool	   *pool,
+				       const gchar *dir_sys,
+				       const gchar *dir_user);
 
 AS_INTERNAL_VISIBLE
 gboolean as_pool_print_std_data_locations_info_private (AsPool	*pool,

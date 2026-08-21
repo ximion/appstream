@@ -108,15 +108,17 @@ typedef enum {
 	AS_CONTENT_RATING_VALUE_LAST
 } AsContentRatingValue;
 
-const gchar	    *as_content_rating_value_to_string (AsContentRatingValue value);
-AsContentRatingValue as_content_rating_value_from_string (const gchar *value);
+const gchar	     *as_content_rating_value_to_string (AsContentRatingValue value);
+AsContentRatingValue  as_content_rating_value_from_string (const gchar *value);
 
-guint	      as_content_rating_attribute_to_csm_age (const gchar *id, AsContentRatingValue value);
+guint		      as_content_rating_attribute_to_csm_age (const gchar	  *id,
+							      AsContentRatingValue value);
 
-const gchar **as_content_rating_get_all_rating_ids (void);
+const gchar	    **as_content_rating_get_all_rating_ids (void);
 
-const gchar  *as_content_rating_system_to_string (AsContentRatingSystem system);
-gchar	     *as_content_rating_system_format_age (AsContentRatingSystem system, guint age);
+const gchar	     *as_content_rating_system_to_string (AsContentRatingSystem system);
+gchar		     *as_content_rating_system_format_age (AsContentRatingSystem system,
+							   guint		 age);
 
 AsContentRatingSystem as_content_rating_system_from_locale (const gchar *locale);
 
@@ -124,27 +126,30 @@ gchar		    **as_content_rating_system_get_formatted_ages (AsContentRatingSystem 
 const guint	     *as_content_rating_system_get_csm_ages (AsContentRatingSystem system,
 							     gsize		  *length_out);
 
-AsContentRatingValue  as_content_rating_attribute_from_csm_age (const gchar *id, guint age);
+AsContentRatingValue  as_content_rating_attribute_from_csm_age (const gchar *id,
+								guint	     age);
 const gchar	     *as_content_rating_attribute_get_description (const gchar	       *id,
 								   AsContentRatingValue value);
 
 AsContentRating	     *as_content_rating_new (void);
 
 const gchar	     *as_content_rating_get_kind (AsContentRating *content_rating);
-void  as_content_rating_set_kind (AsContentRating *content_rating, const gchar *kind);
+void		      as_content_rating_set_kind (AsContentRating *content_rating,
+						  const gchar	  *kind);
 
-guint as_content_rating_get_minimum_age (AsContentRating *content_rating);
+guint		      as_content_rating_get_minimum_age (AsContentRating *content_rating);
 
-AsContentRatingValue as_content_rating_get_value (AsContentRating *content_rating, const gchar *id);
-void		     as_content_rating_set_value (AsContentRating     *content_rating,
-						  const gchar	      *id,
-						  AsContentRatingValue value);
+AsContentRatingValue  as_content_rating_get_value (AsContentRating *content_rating,
+						   const gchar	   *id);
+void		      as_content_rating_set_value (AsContentRating     *content_rating,
+						   const gchar	       *id,
+						   AsContentRatingValue value);
 
-const gchar	   **as_content_rating_get_rating_ids (AsContentRating *content_rating);
+const gchar	    **as_content_rating_get_rating_ids (AsContentRating *content_rating);
 
-void		     as_content_rating_add_attribute (AsContentRating	  *content_rating,
-						      const gchar	  *id,
-						      AsContentRatingValue value);
+void		      as_content_rating_add_attribute (AsContentRating	   *content_rating,
+						       const gchar	   *id,
+						       AsContentRatingValue value);
 
 G_END_DECLS
 

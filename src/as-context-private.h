@@ -28,10 +28,12 @@
 AS_BEGIN_PRIVATE_DECLS
 
 const gchar *as_context_get_architecture (AsContext *ctx);
-void	     as_context_set_architecture (AsContext *ctx, const gchar *value);
+void	     as_context_set_architecture (AsContext   *ctx,
+					  const gchar *value);
 
 gboolean     as_context_get_internal_mode (AsContext *ctx);
-void	     as_context_set_internal_mode (AsContext *ctx, gboolean enabled);
+void	     as_context_set_internal_mode (AsContext *ctx,
+					   gboolean   enabled);
 
 const gchar *as_context_localized_ht_get (AsContext   *ctx,
 					  GHashTable  *lht,
@@ -41,9 +43,11 @@ void	     as_context_localized_ht_set (AsContext   *ctx,
 					  const gchar *value,
 					  const gchar *locale);
 
-AsCurl	    *as_context_get_curl (AsContext *ctx, GError **error);
+AsCurl	    *as_context_get_curl (AsContext *ctx,
+				  GError   **error);
 
-gboolean     as_context_os_origin_is_free (AsContext *ctx, const gchar *origin);
+gboolean     as_context_os_origin_is_free (AsContext   *ctx,
+					   const gchar *origin);
 
 AS_END_PRIVATE_DECLS
 

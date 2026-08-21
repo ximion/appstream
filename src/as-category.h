@@ -46,28 +46,37 @@ struct _AsCategoryClass {
 AsCategory  *as_category_new (void);
 
 const gchar *as_category_get_id (AsCategory *category);
-void	     as_category_set_id (AsCategory *category, const gchar *id);
+void	     as_category_set_id (AsCategory  *category,
+				 const gchar *id);
 
 const gchar *as_category_get_name (AsCategory *category);
-void	     as_category_set_name (AsCategory *category, const gchar *value);
+void	     as_category_set_name (AsCategory  *category,
+				   const gchar *value);
 
 const gchar *as_category_get_summary (AsCategory *category);
-void	     as_category_set_summary (AsCategory *category, const gchar *value);
+void	     as_category_set_summary (AsCategory  *category,
+				      const gchar *value);
 
 const gchar *as_category_get_icon (AsCategory *category);
-void	     as_category_set_icon (AsCategory *category, const gchar *value);
+void	     as_category_set_icon (AsCategory  *category,
+				   const gchar *value);
 
 GPtrArray   *as_category_get_children (AsCategory *category);
 gboolean     as_category_has_children (AsCategory *category);
-void	     as_category_add_child (AsCategory *category, AsCategory *subcat);
-void	     as_category_remove_child (AsCategory *category, AsCategory *subcat);
+void	     as_category_add_child (AsCategory *category,
+				    AsCategory *subcat);
+void	     as_category_remove_child (AsCategory *category,
+				       AsCategory *subcat);
 
 GPtrArray   *as_category_get_desktop_groups (AsCategory *category);
-void	     as_category_add_desktop_group (AsCategory *category, const gchar *group_name);
+void	     as_category_add_desktop_group (AsCategory	*category,
+					    const gchar *group_name);
 
 GPtrArray   *as_category_get_components (AsCategory *category);
-void	     as_category_add_component (AsCategory *category, AsComponent *cpt);
-gboolean     as_category_has_component (AsCategory *category, AsComponent *cpt);
+void	     as_category_add_component (AsCategory  *category,
+					AsComponent *cpt);
+gboolean     as_category_has_component (AsCategory  *category,
+					AsComponent *cpt);
 
 GPtrArray   *as_get_default_categories (gboolean with_special);
 

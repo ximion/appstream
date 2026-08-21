@@ -27,14 +27,21 @@
 
 AS_BEGIN_PRIVATE_DECLS
 
-gboolean as_bundle_load_from_xml (AsBundle *bundle, AsContext *ctx, xmlNode *node, GError **error);
-void	 as_bundle_to_xml_node (AsBundle *bundle, AsContext *ctx, xmlNode *root);
+gboolean as_bundle_load_from_xml (AsBundle  *bundle,
+				  AsContext *ctx,
+				  xmlNode   *node,
+				  GError   **error);
+void	 as_bundle_to_xml_node (AsBundle  *bundle,
+				AsContext *ctx,
+				xmlNode	  *root);
 
 gboolean as_bundle_load_from_yaml (AsBundle	  *bundle,
 				   AsContext	  *ctx,
 				   struct fy_node *node,
 				   GError	 **error);
-void	 as_bundle_emit_yaml (AsBundle *bundle, AsContext *ctx, struct fy_emitter *emitter);
+void	 as_bundle_emit_yaml (AsBundle		*bundle,
+			      AsContext		*ctx,
+			      struct fy_emitter *emitter);
 
 AS_END_PRIVATE_DECLS
 

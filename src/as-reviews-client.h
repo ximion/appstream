@@ -89,19 +89,24 @@ typedef enum {
 AsReviewsClient *as_reviews_client_new (void);
 
 const gchar	*as_reviews_client_get_server_url (AsReviewsClient *rrc);
-void		 as_reviews_client_set_server_url (AsReviewsClient *rrc, const gchar *url);
+void		 as_reviews_client_set_server_url (AsReviewsClient *rrc,
+						   const gchar	   *url);
 
 const gchar	*as_reviews_client_get_client_id (AsReviewsClient *rrc);
-void		 as_reviews_client_set_client_id (AsReviewsClient *rrc, const gchar *client_id);
+void		 as_reviews_client_set_client_id (AsReviewsClient *rrc,
+						  const gchar	  *client_id);
 
 const gchar	*as_reviews_client_get_user_agent (AsReviewsClient *rrc);
-void		 as_reviews_client_set_user_agent (AsReviewsClient *rrc, const gchar *user_agent);
+void		 as_reviews_client_set_user_agent (AsReviewsClient *rrc,
+						   const gchar	   *user_agent);
 
 const gchar	*as_reviews_client_get_user_hash (AsReviewsClient *rrc);
-void		 as_reviews_client_set_user_hash (AsReviewsClient *rrc, const gchar *user_hash);
+void		 as_reviews_client_set_user_hash (AsReviewsClient *rrc,
+						  const gchar	  *user_hash);
 
 const gchar	*as_reviews_client_get_locale (AsReviewsClient *rrc);
-void		 as_reviews_client_set_locale (AsReviewsClient *rrc, const gchar *locale);
+void		 as_reviews_client_set_locale (AsReviewsClient *rrc,
+					       const gchar     *locale);
 
 GPtrArray	*as_reviews_client_fetch_reviews (AsReviewsClient *rrc,
 						  AsComponent	  *cpt,
@@ -127,6 +132,8 @@ gboolean	 as_reviews_client_vote_review (AsReviewsClient *rrc,
 						AsReview	*review,
 						AsReviewVoteKind vote,
 						GError	       **error);
-gboolean as_reviews_client_remove_review (AsReviewsClient *rrc, AsReview *review, GError **error);
+gboolean	 as_reviews_client_remove_review (AsReviewsClient *rrc,
+						  AsReview	  *review,
+						  GError	 **error);
 
 G_END_DECLS

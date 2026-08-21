@@ -107,7 +107,8 @@ typedef enum {
 GQuark	      as_system_info_error_quark (void);
 
 AsSystemInfo *as_system_info_new (void);
-AsSystemInfo *as_system_info_new_template_for_chassis (AsChassisKind chassis, GError **error);
+AsSystemInfo *as_system_info_new_template_for_chassis (AsChassisKind chassis,
+						       GError	   **error);
 
 const gchar  *as_system_info_get_os_id (AsSystemInfo *sysinfo);
 const gchar  *as_system_info_get_os_cid (AsSystemInfo *sysinfo);
@@ -121,7 +122,8 @@ const gchar  *as_system_info_get_kernel_version (AsSystemInfo *sysinfo);
 gulong	      as_system_info_get_memory_total (AsSystemInfo *sysinfo);
 
 GPtrArray    *as_system_info_get_modaliases (AsSystemInfo *sysinfo);
-const gchar  *as_system_info_modalias_to_syspath (AsSystemInfo *sysinfo, const gchar *modalias);
+const gchar  *as_system_info_modalias_to_syspath (AsSystemInfo *sysinfo,
+						  const gchar  *modalias);
 gboolean      as_system_info_has_device_matching_modalias (AsSystemInfo *sysinfo,
 							   const gchar	*modalias_glob);
 
@@ -133,17 +135,21 @@ gchar	     *as_system_info_get_device_name_for_modalias (AsSystemInfo *sysinfo,
 AsCheckResult as_system_info_has_input_control (AsSystemInfo *sysinfo,
 						AsControlKind kind,
 						GError	    **error);
-void as_system_info_set_input_control (AsSystemInfo *sysinfo, AsControlKind kind, gboolean found);
+void	      as_system_info_set_input_control (AsSystemInfo *sysinfo,
+						AsControlKind kind,
+						gboolean      found);
 
-gboolean as_system_info_get_gui_available (AsSystemInfo *sysinfo);
-void	 as_system_info_set_gui_available (AsSystemInfo *sysinfo, gboolean available);
+gboolean      as_system_info_get_gui_available (AsSystemInfo *sysinfo);
+void	      as_system_info_set_gui_available (AsSystemInfo *sysinfo,
+						gboolean      available);
 
-gulong	 as_system_info_get_display_length (AsSystemInfo *sysinfo, AsDisplaySideKind side);
-void	 as_system_info_set_display_length (AsSystemInfo     *sysinfo,
-					    AsDisplaySideKind side,
-					    gulong	      value_dip);
+gulong	      as_system_info_get_display_length (AsSystemInfo	  *sysinfo,
+						 AsDisplaySideKind side);
+void	      as_system_info_set_display_length (AsSystemInfo	  *sysinfo,
+						 AsDisplaySideKind side,
+						 gulong		   value_dip);
 
-gchar	*as_get_current_distro_component_id (void);
+gchar	     *as_get_current_distro_component_id (void);
 
 G_END_DECLS
 

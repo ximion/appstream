@@ -88,26 +88,36 @@ const gchar   *as_artifact_kind_to_string (AsArtifactKind kind);
 AsArtifact    *as_artifact_new (void);
 
 AsArtifactKind as_artifact_get_kind (AsArtifact *artifact);
-void	       as_artifact_set_kind (AsArtifact *artifact, AsArtifactKind kind);
+void	       as_artifact_set_kind (AsArtifact	   *artifact,
+				     AsArtifactKind kind);
 
 GPtrArray     *as_artifact_get_locations (AsArtifact *artifact);
-void	       as_artifact_add_location (AsArtifact *artifact, const gchar *location);
+void	       as_artifact_add_location (AsArtifact  *artifact,
+					 const gchar *location);
 
 GPtrArray     *as_artifact_get_checksums (AsArtifact *artifact);
-AsChecksum    *as_artifact_get_checksum (AsArtifact *artifact, AsChecksumKind kind);
-void	       as_artifact_add_checksum (AsArtifact *artifact, AsChecksum *cs);
+AsChecksum    *as_artifact_get_checksum (AsArtifact    *artifact,
+					 AsChecksumKind kind);
+void	       as_artifact_add_checksum (AsArtifact *artifact,
+					 AsChecksum *cs);
 
-guint64	       as_artifact_get_size (AsArtifact *artifact, AsSizeKind kind);
-void	       as_artifact_set_size (AsArtifact *artifact, guint64 size, AsSizeKind kind);
+guint64	       as_artifact_get_size (AsArtifact *artifact,
+				     AsSizeKind	 kind);
+void	       as_artifact_set_size (AsArtifact *artifact,
+				     guint64	 size,
+				     AsSizeKind	 kind);
 
 const gchar   *as_artifact_get_platform (AsArtifact *artifact);
-void	       as_artifact_set_platform (AsArtifact *artifact, const gchar *platform);
+void	       as_artifact_set_platform (AsArtifact  *artifact,
+					 const gchar *platform);
 
 AsBundleKind   as_artifact_get_bundle_kind (AsArtifact *artifact);
-void	       as_artifact_set_bundle_kind (AsArtifact *artifact, AsBundleKind kind);
+void	       as_artifact_set_bundle_kind (AsArtifact	*artifact,
+					    AsBundleKind kind);
 
 const gchar   *as_artifact_get_filename (AsArtifact *artifact);
-void	       as_artifact_set_filename (AsArtifact *artifact, const gchar *filename);
+void	       as_artifact_set_filename (AsArtifact  *artifact,
+					 const gchar *filename);
 
 G_END_DECLS
 

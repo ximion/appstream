@@ -28,8 +28,11 @@
 
 G_BEGIN_DECLS
 
-gboolean asw_memfd_verify_sealed (gint fd, gsize *size_out, GError **error);
-GBytes	*asw_memfd_map_bytes (gint fd, GError **error);
+gboolean asw_memfd_verify_sealed (gint	   fd,
+				  gsize	  *size_out,
+				  GError **error);
+GBytes	*asw_memfd_map_bytes (gint     fd,
+			      GError **error);
 
 gboolean asw_ipc_receive_request (GSocket      *socket,
 				  guint32      *request_id,

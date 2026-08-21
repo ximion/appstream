@@ -28,10 +28,12 @@
 
 AS_BEGIN_PRIVATE_DECLS
 
-gboolean   asw_image_backend_init (const gchar *argv0, GError **error);
+gboolean   asw_image_backend_init (const gchar *argv0,
+				   GError     **error);
 void	   asw_image_backend_shutdown (void);
 
-gboolean   asw_optimize_png (const gchar *fname, GError **error);
+gboolean   asw_optimize_png (const gchar *fname,
+			     GError	**error);
 
 VipsImage *asw_image_save_vips (AswImage	 *image,
 				gint		  width,
@@ -40,6 +42,7 @@ VipsImage *asw_image_save_vips (AswImage	 *image,
 				GError		**error);
 
 VipsImage *asw_image_get_vips (AswImage *image);
-void	   asw_image_set_vips (AswImage *image, VipsImage *vimg);
+void	   asw_image_set_vips (AswImage	 *image,
+			       VipsImage *vimg);
 
 AS_END_PRIVATE_DECLS

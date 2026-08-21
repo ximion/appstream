@@ -66,10 +66,12 @@ const gchar    *as_suggested_kind_to_string (AsSuggestedKind kind);
 AsSuggested    *as_suggested_new (void);
 
 AsSuggestedKind as_suggested_get_kind (AsSuggested *suggested);
-void		as_suggested_set_kind (AsSuggested *suggested, AsSuggestedKind kind);
+void		as_suggested_set_kind (AsSuggested    *suggested,
+				       AsSuggestedKind kind);
 
 GPtrArray      *as_suggested_get_ids (AsSuggested *suggested);
-void		as_suggested_add_id (AsSuggested *suggested, const gchar *cid);
+void		as_suggested_add_id (AsSuggested *suggested,
+				     const gchar *cid);
 
 gboolean	as_suggested_is_valid (AsSuggested *suggested);
 

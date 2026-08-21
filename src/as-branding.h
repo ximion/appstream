@@ -99,7 +99,8 @@ void		  as_branding_remove_color (AsBranding	     *branding,
 					    AsColorKind	      kind,
 					    AsColorSchemeKind scheme_preference);
 
-void		  as_branding_color_iter_init (AsBrandingColorIter *iter, AsBranding *branding);
+void		  as_branding_color_iter_init (AsBrandingColorIter *iter,
+					       AsBranding	   *branding);
 gboolean	  as_branding_color_iter_next (AsBrandingColorIter *iter,
 					       AsColorKind	   *kind,
 					       AsColorSchemeKind   *scheme_preference,

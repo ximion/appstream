@@ -35,9 +35,12 @@ G_DECLARE_DERIVABLE_TYPE (AsFileMonitor, as_file_monitor, AS, FILE_MONITOR, GObj
 
 struct _AsFileMonitorClass {
 	GObjectClass parent_class;
-	void (*added) (AsFileMonitor *monitor, const gchar *filename);
-	void (*removed) (AsFileMonitor *monitor, const gchar *filename);
-	void (*changed) (AsFileMonitor *monitor, const gchar *filename);
+	void (*added) (AsFileMonitor *monitor,
+		       const gchar   *filename);
+	void (*removed) (AsFileMonitor *monitor,
+			 const gchar   *filename);
+	void (*changed) (AsFileMonitor *monitor,
+			 const gchar   *filename);
 	/*< private >*/
 	void (*_as_reserved1) (void);
 	void (*_as_reserved2) (void);

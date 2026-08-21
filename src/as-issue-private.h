@@ -27,14 +27,21 @@
 
 AS_BEGIN_PRIVATE_DECLS
 
-gboolean as_issue_load_from_xml (AsIssue *issue, AsContext *ctx, xmlNode *node, GError **error);
-void	 as_issue_to_xml_node (AsIssue *issue, AsContext *ctx, xmlNode *root);
+gboolean as_issue_load_from_xml (AsIssue   *issue,
+				 AsContext *ctx,
+				 xmlNode   *node,
+				 GError	  **error);
+void	 as_issue_to_xml_node (AsIssue	 *issue,
+			       AsContext *ctx,
+			       xmlNode	 *root);
 
 gboolean as_issue_load_from_yaml (AsIssue	 *issue,
 				  AsContext	 *ctx,
 				  struct fy_node *node,
 				  GError	**error);
-void	 as_issue_emit_yaml (AsIssue *issue, AsContext *ctx, struct fy_emitter *emitter);
+void	 as_issue_emit_yaml (AsIssue	       *issue,
+			     AsContext	       *ctx,
+			     struct fy_emitter *emitter);
 
 AS_END_PRIVATE_DECLS
 

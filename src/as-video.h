@@ -84,22 +84,28 @@ const gchar	    *as_video_container_kind_to_string (AsVideoContainerKind kind);
 AsVideo		    *as_video_new (void);
 
 AsVideoCodecKind     as_video_get_codec_kind (AsVideo *video);
-void		     as_video_set_codec_kind (AsVideo *video, AsVideoCodecKind kind);
+void		     as_video_set_codec_kind (AsVideo	      *video,
+					      AsVideoCodecKind kind);
 
 AsVideoContainerKind as_video_get_container_kind (AsVideo *video);
-void		     as_video_set_container_kind (AsVideo *video, AsVideoContainerKind kind);
+void		     as_video_set_container_kind (AsVideo	      *video,
+						  AsVideoContainerKind kind);
 
 const gchar	    *as_video_get_url (AsVideo *video);
-void		     as_video_set_url (AsVideo *video, const gchar *url);
+void		     as_video_set_url (AsVideo	   *video,
+				       const gchar *url);
 
 guint		     as_video_get_width (AsVideo *video);
-void		     as_video_set_width (AsVideo *video, guint width);
+void		     as_video_set_width (AsVideo *video,
+					 guint	  width);
 
 guint		     as_video_get_height (AsVideo *video);
-void		     as_video_set_height (AsVideo *video, guint height);
+void		     as_video_set_height (AsVideo *video,
+					  guint	   height);
 
 const gchar	    *as_video_get_locale (AsVideo *video);
-void		     as_video_set_locale (AsVideo *video, const gchar *locale);
+void		     as_video_set_locale (AsVideo     *video,
+					  const gchar *locale);
 
 G_END_DECLS
 

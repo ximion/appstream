@@ -45,9 +45,12 @@ struct _AsDeveloperClass {
 AsDeveloper *as_developer_new (void);
 
 const gchar *as_developer_get_id (AsDeveloper *devp);
-void	     as_developer_set_id (AsDeveloper *devp, const gchar *id);
+void	     as_developer_set_id (AsDeveloper *devp,
+				  const gchar *id);
 
 const gchar *as_developer_get_name (AsDeveloper *devp);
-void	     as_developer_set_name (AsDeveloper *devp, const gchar *value, const gchar *locale);
+void	     as_developer_set_name (AsDeveloper *devp,
+				    const gchar *value,
+				    const gchar *locale);
 
 G_END_DECLS

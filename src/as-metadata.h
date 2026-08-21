@@ -82,84 +82,104 @@ typedef enum {
 
 #define AS_METADATA_ERROR as_metadata_error_quark ()
 
-AsFormatStyle as_metadata_file_guess_style (const gchar *filename);
+AsFormatStyle	as_metadata_file_guess_style (const gchar *filename);
 
-AsMetadata   *as_metadata_new (void);
-GQuark	      as_metadata_error_quark (void);
+AsMetadata     *as_metadata_new (void);
+GQuark		as_metadata_error_quark (void);
 
-gboolean      as_metadata_parse_file (AsMetadata  *metad,
-				      GFile	  *file,
-				      AsFormatKind format,
-				      GError	 **error);
+gboolean	as_metadata_parse_file (AsMetadata  *metad,
+					GFile	    *file,
+					AsFormatKind format,
+					GError	   **error);
 
-gboolean      as_metadata_parse_data (AsMetadata  *metad,
-				      const gchar *data,
-				      gssize	   data_len,
-				      AsFormatKind format,
-				      GError	 **error);
-gboolean      as_metadata_parse_bytes (AsMetadata  *metad,
-				       GBytes	   *bytes,
-				       AsFormatKind format,
-				       GError	  **error);
+gboolean	as_metadata_parse_data (AsMetadata  *metad,
+					const gchar *data,
+					gssize	     data_len,
+					AsFormatKind format,
+					GError	   **error);
+gboolean	as_metadata_parse_bytes (AsMetadata  *metad,
+					 GBytes	     *bytes,
+					 AsFormatKind format,
+					 GError	    **error);
 
-gboolean      as_metadata_parse_desktop_data (AsMetadata  *metad,
-					      const gchar *cid,
-					      const gchar *data,
-					      gssize	   data_len,
-					      GError	 **error);
+gboolean	as_metadata_parse_desktop_data (AsMetadata  *metad,
+						const gchar *cid,
+						const gchar *data,
+						gssize	     data_len,
+						GError	   **error);
 
-gchar	*as_metadata_component_to_metainfo (AsMetadata *metad, AsFormatKind format, GError **error);
-gboolean as_metadata_save_metainfo (AsMetadata	*metad,
-				    const gchar *fname,
-				    AsFormatKind format,
-				    GError     **error);
+gchar	       *as_metadata_component_to_metainfo (AsMetadata  *metad,
+						   AsFormatKind format,
+						   GError     **error);
+gboolean	as_metadata_save_metainfo (AsMetadata  *metad,
+					   const gchar *fname,
+					   AsFormatKind format,
+					   GError     **error);
 
-gchar	*as_metadata_components_to_catalog (AsMetadata *metad, AsFormatKind format, GError **error);
-gboolean as_metadata_save_catalog (AsMetadata  *metad,
-				   const gchar *fname,
-				   AsFormatKind format,
-				   GError     **error);
+gchar	       *as_metadata_components_to_catalog (AsMetadata  *metad,
+						   AsFormatKind format,
+						   GError     **error);
+gboolean	as_metadata_save_catalog (AsMetadata  *metad,
+					  const gchar *fname,
+					  AsFormatKind format,
+					  GError     **error);
 
 AsComponent    *as_metadata_get_component (AsMetadata *metad);
 AsComponentBox *as_metadata_get_components (AsMetadata *metad);
 
 void		as_metadata_clear_components (AsMetadata *metad);
-void		as_metadata_add_component (AsMetadata *metad, AsComponent *cpt);
+void		as_metadata_add_component (AsMetadata  *metad,
+					   AsComponent *cpt);
 
-gboolean	as_metadata_parse_releases_bytes (AsMetadata *metad, GBytes *bytes, GError **error);
-gboolean	as_metadata_parse_releases_file (AsMetadata *metad, GFile *file, GError **error);
-gchar *as_metadata_releases_to_data (AsMetadata *metad, AsReleaseList *releases, GError **error);
+gboolean	as_metadata_parse_releases_bytes (AsMetadata *metad,
+						  GBytes     *bytes,
+						  GError    **error);
+gboolean	as_metadata_parse_releases_file (AsMetadata *metad,
+						 GFile	    *file,
+						 GError	   **error);
+gchar	       *as_metadata_releases_to_data (AsMetadata    *metad,
+					      AsReleaseList *releases,
+					      GError	   **error);
 
 AsReleaseList  *as_metadata_get_release_list (AsMetadata *metad);
 GPtrArray      *as_metadata_get_release_lists (AsMetadata *metad);
 void		as_metadata_clear_releases (AsMetadata *metad);
 
 AsFormatVersion as_metadata_get_format_version (AsMetadata *metad);
-void		as_metadata_set_format_version (AsMetadata *metad, AsFormatVersion version);
+void		as_metadata_set_format_version (AsMetadata     *metad,
+						AsFormatVersion version);
 
 AsFormatStyle	as_metadata_get_format_style (AsMetadata *metad);
-void		as_metadata_set_format_style (AsMetadata *metad, AsFormatStyle mode);
+void		as_metadata_set_format_style (AsMetadata   *metad,
+					      AsFormatStyle mode);
 
-void		as_metadata_set_locale (AsMetadata *metad, const gchar *locale);
+void		as_metadata_set_locale (AsMetadata  *metad,
+					const gchar *locale);
 const gchar    *as_metadata_get_locale (AsMetadata *metad);
 
 const gchar    *as_metadata_get_origin (AsMetadata *metad);
-void		as_metadata_set_origin (AsMetadata *metad, const gchar *origin);
+void		as_metadata_set_origin (AsMetadata  *metad,
+					const gchar *origin);
 
 gboolean	as_metadata_get_update_existing (AsMetadata *metad);
-void		as_metadata_set_update_existing (AsMetadata *metad, gboolean update);
+void		as_metadata_set_update_existing (AsMetadata *metad,
+						 gboolean    update);
 
 gboolean	as_metadata_get_write_header (AsMetadata *metad);
-void		as_metadata_set_write_header (AsMetadata *metad, gboolean wheader);
+void		as_metadata_set_write_header (AsMetadata *metad,
+					      gboolean	  wheader);
 
 const gchar    *as_metadata_get_media_baseurl (AsMetadata *metad);
-void		as_metadata_set_media_baseurl (AsMetadata *metad, const gchar *url);
+void		as_metadata_set_media_baseurl (AsMetadata  *metad,
+					       const gchar *url);
 
 const gchar    *as_metadata_get_architecture (AsMetadata *metad);
-void		as_metadata_set_architecture (AsMetadata *metad, const gchar *arch);
+void		as_metadata_set_architecture (AsMetadata  *metad,
+					      const gchar *arch);
 
 AsParseFlags	as_metadata_get_parse_flags (AsMetadata *metad);
-void		as_metadata_set_parse_flags (AsMetadata *metad, AsParseFlags flags);
+void		as_metadata_set_parse_flags (AsMetadata	 *metad,
+					     AsParseFlags flags);
 
 G_END_DECLS
 

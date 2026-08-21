@@ -65,10 +65,14 @@ GQuark		as_validator_error_quark (void);
 
 AsValidator    *as_validator_new (void);
 
-gboolean	as_validator_validate_file (AsValidator *validator, GFile *metadata_file);
-gboolean	as_validator_validate_bytes (AsValidator *validator, GBytes *metadata);
-gboolean	as_validator_validate_data (AsValidator *validator, const gchar *metadata);
-gboolean	as_validator_validate_tree (AsValidator *validator, const gchar *root_dir);
+gboolean	as_validator_validate_file (AsValidator *validator,
+					    GFile	*metadata_file);
+gboolean	as_validator_validate_bytes (AsValidator *validator,
+					     GBytes	 *metadata);
+gboolean	as_validator_validate_data (AsValidator *validator,
+					    const gchar *metadata);
+gboolean	as_validator_validate_tree (AsValidator *validator,
+					    const gchar *root_dir);
 
 void		as_validator_clear_release_data (AsValidator *validator);
 gboolean	as_validator_add_release_bytes (AsValidator *validator,
@@ -82,22 +86,27 @@ gboolean	as_validator_add_release_file (AsValidator *validator,
 guint		as_validator_get_issue_files_count (AsValidator *validator);
 GList	       *as_validator_get_issues (AsValidator *validator);
 GHashTable     *as_validator_get_issues_per_file (AsValidator *validator);
-gchar	       *as_validator_get_report_yaml (AsValidator *validator, GError **error);
+gchar	       *as_validator_get_report_yaml (AsValidator *validator,
+					      GError	 **error);
 gboolean	as_validator_check_success (AsValidator *validator);
 
 gboolean	as_validator_get_allow_net (AsValidator *validator);
-void		as_validator_set_allow_net (AsValidator *validator, gboolean value);
+void		as_validator_set_allow_net (AsValidator *validator,
+					    gboolean	 value);
 
 gboolean	as_validator_get_strict (AsValidator *validator);
-void		as_validator_set_strict (AsValidator *validator, gboolean is_strict);
+void		as_validator_set_strict (AsValidator *validator,
+					 gboolean     is_strict);
 
 gboolean	as_validator_add_override (AsValidator	  *validator,
 					   const gchar	  *tag,
 					   AsIssueSeverity severity_override,
 					   GError	 **error);
 
-const gchar    *as_validator_get_tag_explanation (AsValidator *validator, const gchar *tag);
-AsIssueSeverity as_validator_get_tag_severity (AsValidator *validator, const gchar *tag);
+const gchar    *as_validator_get_tag_explanation (AsValidator *validator,
+						  const gchar *tag);
+AsIssueSeverity as_validator_get_tag_severity (AsValidator *validator,
+					       const gchar *tag);
 gchar	      **as_validator_get_tags (AsValidator *validator);
 
 G_END_DECLS

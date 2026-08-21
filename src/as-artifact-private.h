@@ -31,13 +31,17 @@ gboolean as_artifact_load_from_xml (AsArtifact *artifact,
 				    AsContext  *ctx,
 				    xmlNode    *node,
 				    GError    **error);
-void	 as_artifact_to_xml_node (AsArtifact *artifact, AsContext *ctx, xmlNode *root);
+void	 as_artifact_to_xml_node (AsArtifact *artifact,
+				  AsContext  *ctx,
+				  xmlNode    *root);
 
 gboolean as_artifact_load_from_yaml (AsArtifact	    *artifact,
 				     AsContext	    *ctx,
 				     struct fy_node *node,
 				     GError	   **error);
-void	 as_artifact_emit_yaml (AsArtifact *artifact, AsContext *ctx, struct fy_emitter *emitter);
+void	 as_artifact_emit_yaml (AsArtifact	  *artifact,
+				AsContext	  *ctx,
+				struct fy_emitter *emitter);
 
 AS_END_PRIVATE_DECLS
 

@@ -36,6 +36,8 @@ AS_INTERNAL_VISIBLE
 FT_Face asw_font_get_ftface (AswFont *font);
 
 AS_INTERNAL_VISIBLE
-const gchar *asw_font_find_pangram (AswFont *font, const gchar *lang, const gchar *rand_id);
+const gchar *asw_font_find_pangram (AswFont	*font,
+				    const gchar *lang,
+				    const gchar *rand_id);
 
 AS_END_PRIVATE_DECLS

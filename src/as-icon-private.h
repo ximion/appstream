@@ -27,8 +27,13 @@
 
 AS_BEGIN_PRIVATE_DECLS
 
-gboolean as_icon_load_from_xml (AsIcon *icon, AsContext *ctx, xmlNode *node, GError **error);
-void	 as_icon_to_xml_node (AsIcon *icon, AsContext *ctx, xmlNode *root);
+gboolean as_icon_load_from_xml (AsIcon	  *icon,
+				AsContext *ctx,
+				xmlNode	  *node,
+				GError	 **error);
+void	 as_icon_to_xml_node (AsIcon	*icon,
+			      AsContext *ctx,
+			      xmlNode	*root);
 
 /* NOTE: For YAML, icons are loaded in AsComponent, due to how YAML is structured. */
 

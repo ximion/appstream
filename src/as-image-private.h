@@ -27,15 +27,22 @@
 
 AS_BEGIN_PRIVATE_DECLS
 
-gboolean as_image_load_from_xml (AsImage *image, AsContext *ctx, xmlNode *node, GError **error);
-void	 as_image_to_xml_node (AsImage *image, AsContext *ctx, xmlNode *root);
+gboolean as_image_load_from_xml (AsImage   *image,
+				 AsContext *ctx,
+				 xmlNode   *node,
+				 GError	  **error);
+void	 as_image_to_xml_node (AsImage	 *image,
+			       AsContext *ctx,
+			       xmlNode	 *root);
 
 gboolean as_image_load_from_yaml (AsImage	 *image,
 				  AsContext	 *ctx,
 				  struct fy_node *node,
 				  AsImageKind	  kind,
 				  GError	**error);
-void	 as_image_emit_yaml (AsImage *image, AsContext *ctx, struct fy_emitter *emitter);
+void	 as_image_emit_yaml (AsImage	       *image,
+			     AsContext	       *ctx,
+			     struct fy_emitter *emitter);
 
 AS_END_PRIVATE_DECLS
 

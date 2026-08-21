@@ -103,7 +103,9 @@ typedef enum {
  *
  * Since: 0.15.1
  */
-typedef void (*AscCheckMetadataEarlyFn) (AscResult *cres, AscUnit *unit, gpointer user_data);
+typedef void (*AscCheckMetadataEarlyFn) (AscResult *cres,
+					 AscUnit   *unit,
+					 gpointer   user_data);
 
 /**
  * AscTranslateDesktopTextFn:
@@ -128,55 +130,75 @@ typedef GPtrArray *(*AscTranslateDesktopTextFn) (GKeyFile    *de,
 AscCompose     *asc_compose_new (void);
 
 void		asc_compose_reset (AscCompose *compose);
-void		asc_compose_add_unit (AscCompose *compose, AscUnit *unit);
+void		asc_compose_add_unit (AscCompose *compose,
+				      AscUnit	 *unit);
 
-void		asc_compose_add_allowed_cid (AscCompose *compose, const gchar *component_id);
+void		asc_compose_add_allowed_cid (AscCompose	 *compose,
+					     const gchar *component_id);
 
 const gchar    *asc_compose_get_prefix (AscCompose *compose);
-void		asc_compose_set_prefix (AscCompose *compose, const gchar *prefix);
+void		asc_compose_set_prefix (AscCompose  *compose,
+					const gchar *prefix);
 
 const gchar    *asc_compose_get_origin (AscCompose *compose);
-void		asc_compose_set_origin (AscCompose *compose, const gchar *origin);
+void		asc_compose_set_origin (AscCompose  *compose,
+					const gchar *origin);
 
 AsFormatKind	asc_compose_get_format (AscCompose *compose);
-void		asc_compose_set_format (AscCompose *compose, AsFormatKind kind);
+void		asc_compose_set_format (AscCompose  *compose,
+					AsFormatKind kind);
 
 AscImageFormat	asc_compose_get_image_format (AscCompose *compose);
-void		asc_compose_set_image_format (AscCompose *compose, AscImageFormat format);
+void		asc_compose_set_image_format (AscCompose    *compose,
+					      AscImageFormat format);
 
 const gchar    *asc_compose_get_media_baseurl (AscCompose *compose);
-void		asc_compose_set_media_baseurl (AscCompose *compose, const gchar *url);
+void		asc_compose_set_media_baseurl (AscCompose  *compose,
+					       const gchar *url);
 
 AscComposeFlags asc_compose_get_flags (AscCompose *compose);
-void		asc_compose_set_flags (AscCompose *compose, AscComposeFlags flags);
-void		asc_compose_add_flags (AscCompose *compose, AscComposeFlags flags);
-void		asc_compose_remove_flags (AscCompose *compose, AscComposeFlags flags);
+void		asc_compose_set_flags (AscCompose     *compose,
+				       AscComposeFlags flags);
+void		asc_compose_add_flags (AscCompose     *compose,
+				       AscComposeFlags flags);
+void		asc_compose_remove_flags (AscCompose	 *compose,
+					  AscComposeFlags flags);
 
 AscIconPolicy  *asc_compose_get_icon_policy (AscCompose *compose);
-void		asc_compose_set_icon_policy (AscCompose *compose, AscIconPolicy *policy);
+void		asc_compose_set_icon_policy (AscCompose	   *compose,
+					     AscIconPolicy *policy);
 
-void		asc_compose_set_media (AscCompose *compose, AscMedia *media);
+void		asc_compose_set_media (AscCompose *compose,
+				       AscMedia	  *media);
 
 const gchar    *asc_compose_get_cainfo (AscCompose *compose);
-void		asc_compose_set_cainfo (AscCompose *compose, const gchar *cainfo);
+void		asc_compose_set_cainfo (AscCompose  *compose,
+					const gchar *cainfo);
 
 const gchar    *asc_compose_get_data_result_dir (AscCompose *compose);
-void		asc_compose_set_data_result_dir (AscCompose *compose, const gchar *dir);
+void		asc_compose_set_data_result_dir (AscCompose  *compose,
+						 const gchar *dir);
 
 const gchar    *asc_compose_get_icons_result_dir (AscCompose *compose);
-void		asc_compose_set_icons_result_dir (AscCompose *compose, const gchar *dir);
+void		asc_compose_set_icons_result_dir (AscCompose  *compose,
+						  const gchar *dir);
 
 const gchar    *asc_compose_get_media_result_dir (AscCompose *compose);
-void		asc_compose_set_media_result_dir (AscCompose *compose, const gchar *dir);
+void		asc_compose_set_media_result_dir (AscCompose  *compose,
+						  const gchar *dir);
 
 const gchar    *asc_compose_get_hints_result_dir (AscCompose *compose);
-void		asc_compose_set_hints_result_dir (AscCompose *compose, const gchar *dir);
+void		asc_compose_set_hints_result_dir (AscCompose  *compose,
+						  const gchar *dir);
 
-void		asc_compose_remove_custom_allowed (AscCompose *compose, const gchar *key_id);
-void		asc_compose_add_custom_allowed (AscCompose *compose, const gchar *key_id);
+void		asc_compose_remove_custom_allowed (AscCompose  *compose,
+						   const gchar *key_id);
+void		asc_compose_add_custom_allowed (AscCompose  *compose,
+						const gchar *key_id);
 
 gssize		asc_compose_get_max_screenshot_size (AscCompose *compose);
-void		asc_compose_set_max_screenshot_size (AscCompose *compose, gssize size_bytes);
+void		asc_compose_set_max_screenshot_size (AscCompose *compose,
+						     gssize	 size_bytes);
 
 void		asc_compose_set_check_metadata_early_func (AscCompose		  *compose,
 							   AscCheckMetadataEarlyFn func,
@@ -188,15 +210,19 @@ void		asc_compose_set_desktop_entry_l10n_func (AscCompose		  *compose,
 							 GDestroyNotify		   udata_free_func);
 
 AscUnit	       *asc_compose_get_locale_unit (AscCompose *compose);
-void		asc_compose_set_locale_unit (AscCompose *compose, AscUnit *locale_unit);
+void		asc_compose_set_locale_unit (AscCompose *compose,
+					     AscUnit	*locale_unit);
 
 GPtrArray      *asc_compose_get_results (AscCompose *compose);
 GPtrArray      *asc_compose_fetch_components (AscCompose *compose);
 gboolean	asc_compose_has_errors (AscCompose *compose);
 
-GPtrArray      *asc_compose_run (AscCompose *compose, GCancellable *cancellable, GError **error);
+GPtrArray      *asc_compose_run (AscCompose   *compose,
+				 GCancellable *cancellable,
+				 GError	     **error);
 
 void		asc_compose_finalize_results (AscCompose *compose);
-void		asc_compose_finalize_result (AscCompose *compose, AscResult *result);
+void		asc_compose_finalize_result (AscCompose *compose,
+					     AscResult	*result);
 
 G_END_DECLS

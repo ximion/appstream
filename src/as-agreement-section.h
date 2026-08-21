@@ -51,20 +51,22 @@ struct _AsAgreementSectionClass {
 AsAgreementSection *as_agreement_section_new (void);
 
 AsContext	   *as_agreement_section_get_context (AsAgreementSection *agreement_section);
-void as_agreement_section_set_context (AsAgreementSection *agreement_section, AsContext *context);
+void		    as_agreement_section_set_context (AsAgreementSection *agreement_section,
+						      AsContext		 *context);
 
-const gchar *as_agreement_section_get_kind (AsAgreementSection *agreement_section);
-void as_agreement_section_set_kind (AsAgreementSection *agreement_section, const gchar *kind);
+const gchar	   *as_agreement_section_get_kind (AsAgreementSection *agreement_section);
+void		    as_agreement_section_set_kind (AsAgreementSection *agreement_section,
+						   const gchar	      *kind);
 
-const gchar *as_agreement_section_get_name (AsAgreementSection *agreement_section);
-void	     as_agreement_section_set_name (AsAgreementSection *agreement_section,
-					    const gchar	       *name,
-					    const gchar	       *locale);
-
-const gchar *as_agreement_section_get_description (AsAgreementSection *agreement_section);
-void	     as_agreement_section_set_description (AsAgreementSection *agreement_section,
-						   const gchar	      *desc,
+const gchar	   *as_agreement_section_get_name (AsAgreementSection *agreement_section);
+void		    as_agreement_section_set_name (AsAgreementSection *agreement_section,
+						   const gchar	      *name,
 						   const gchar	      *locale);
+
+const gchar	   *as_agreement_section_get_description (AsAgreementSection *agreement_section);
+void		    as_agreement_section_set_description (AsAgreementSection *agreement_section,
+							  const gchar	     *desc,
+							  const gchar	     *locale);
 
 G_END_DECLS
 

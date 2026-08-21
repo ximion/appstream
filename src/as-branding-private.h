@@ -31,13 +31,17 @@ gboolean as_branding_load_from_xml (AsBranding *branding,
 				    AsContext  *ctx,
 				    xmlNode    *node,
 				    GError    **error);
-void	 as_branding_to_xml_node (AsBranding *branding, AsContext *ctx, xmlNode *root);
+void	 as_branding_to_xml_node (AsBranding *branding,
+				  AsContext  *ctx,
+				  xmlNode    *root);
 
 gboolean as_branding_load_from_yaml (AsBranding	    *branding,
 				     AsContext	    *ctx,
 				     struct fy_node *node,
 				     GError	   **error);
-void	 as_branding_emit_yaml (AsBranding *branding, AsContext *ctx, struct fy_emitter *emitter);
+void	 as_branding_emit_yaml (AsBranding	  *branding,
+				AsContext	  *ctx,
+				struct fy_emitter *emitter);
 
 AS_END_PRIVATE_DECLS
 

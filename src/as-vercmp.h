@@ -42,8 +42,11 @@ typedef enum {
 	AS_VERCMP_FLAG_LAST
 } AsVercmpFlags;
 
-gint	 as_vercmp (const gchar *a, const gchar *b, AsVercmpFlags flags);
-gint	 as_vercmp_simple (const gchar *a, const gchar *b);
+gint	 as_vercmp (const gchar	 *a,
+		    const gchar	 *b,
+		    AsVercmpFlags flags);
+gint	 as_vercmp_simple (const gchar *a,
+			   const gchar *b);
 
 gboolean as_vercmp_test_match (const gchar	*ver1,
 			       AsRelationCompare compare,

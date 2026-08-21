@@ -114,45 +114,67 @@ AsReleaseUrlKind as_release_url_kind_from_string (const gchar *kind_str);
 AsRelease	*as_release_new (void);
 
 AsContext	*as_release_get_context (AsRelease *release);
-void		 as_release_set_context (AsRelease *release, AsContext *context);
+void		 as_release_set_context (AsRelease *release,
+					 AsContext *context);
 
 AsReleaseKind	 as_release_get_kind (AsRelease *release);
-void		 as_release_set_kind (AsRelease *release, AsReleaseKind kind);
+void		 as_release_set_kind (AsRelease	   *release,
+				      AsReleaseKind kind);
 
 const gchar	*as_release_get_version (AsRelease *release);
-void		 as_release_set_version (AsRelease *release, const gchar *version);
+void		 as_release_set_version (AsRelease   *release,
+					 const gchar *version);
 
-gint		 as_release_vercmp (AsRelease *rel1, AsRelease *rel2);
+gint		 as_release_vercmp (AsRelease *rel1,
+				    AsRelease *rel2);
 
 const gchar	*as_release_get_date (AsRelease *release);
-void		 as_release_set_date (AsRelease *release, const gchar *date);
+void		 as_release_set_date (AsRelease	  *release,
+				      const gchar *date);
 guint64		 as_release_get_timestamp (AsRelease *release);
-void		 as_release_set_timestamp (AsRelease *release, guint64 timestamp);
+void		 as_release_set_timestamp (AsRelease *release,
+					   guint64    timestamp);
 
 const gchar	*as_release_get_date_eol (AsRelease *release);
-void		 as_release_set_date_eol (AsRelease *release, const gchar *date);
+void		 as_release_set_date_eol (AsRelease   *release,
+					  const gchar *date);
 guint64		 as_release_get_timestamp_eol (AsRelease *release);
-void		 as_release_set_timestamp_eol (AsRelease *release, guint64 timestamp);
+void		 as_release_set_timestamp_eol (AsRelease *release,
+					       guint64	  timestamp);
 
 const gchar	*as_release_get_description (AsRelease *release);
-void as_release_set_description (AsRelease *release, const gchar *description, const gchar *locale);
+void		 as_release_set_description (AsRelease	 *release,
+					     const gchar *description,
+					     const gchar *locale);
 
-AsUrgencyKind as_release_get_urgency (AsRelease *release);
-void	      as_release_set_urgency (AsRelease *release, AsUrgencyKind urgency);
+AsUrgencyKind	 as_release_get_urgency (AsRelease *release);
+void		 as_release_set_urgency (AsRelease    *release,
+					 AsUrgencyKind urgency);
 
-GPtrArray    *as_release_get_issues (AsRelease *release);
-void	      as_release_add_issue (AsRelease *release, AsIssue *issue);
+GPtrArray	*as_release_get_issues (AsRelease *release);
+void		 as_release_add_issue (AsRelease *release,
+				       AsIssue	 *issue);
 
-GPtrArray    *as_release_get_artifacts (AsRelease *release);
-void	      as_release_add_artifact (AsRelease *release, AsArtifact *artifact);
+GPtrArray	*as_release_get_artifacts (AsRelease *release);
+void		 as_release_add_artifact (AsRelease  *release,
+					  AsArtifact *artifact);
 
-const gchar  *as_release_get_url (AsRelease *release, AsReleaseUrlKind url_kind);
-void	      as_release_set_url (AsRelease *release, AsReleaseUrlKind url_kind, const gchar *url);
+const gchar	*as_release_get_url (AsRelease	     *release,
+				     AsReleaseUrlKind url_kind);
+void		 as_release_set_url (AsRelease	     *release,
+				     AsReleaseUrlKind url_kind,
+				     const gchar     *url);
 
-void	      as_release_clear_tags (AsRelease *release);
-gboolean      as_release_add_tag (AsRelease *release, const gchar *ns, const gchar *tag);
-gboolean      as_release_remove_tag (AsRelease *release, const gchar *ns, const gchar *tag);
-gboolean      as_release_has_tag (AsRelease *release, const gchar *ns, const gchar *tag);
+void		 as_release_clear_tags (AsRelease *release);
+gboolean	 as_release_add_tag (AsRelease	 *release,
+				     const gchar *ns,
+				     const gchar *tag);
+gboolean	 as_release_remove_tag (AsRelease   *release,
+					const gchar *ns,
+					const gchar *tag);
+gboolean	 as_release_has_tag (AsRelease	 *release,
+				     const gchar *ns,
+				     const gchar *tag);
 
 G_END_DECLS
 

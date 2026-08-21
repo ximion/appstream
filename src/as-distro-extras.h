@@ -28,7 +28,9 @@
 
 AS_BEGIN_PRIVATE_DECLS
 
-void as_pool_scan_apt (AsPool *pool, gboolean force, GError **error);
+void as_pool_scan_apt (AsPool  *pool,
+		       gboolean force,
+		       GError **error);
 
 AS_END_PRIVATE_DECLS
 

@@ -79,10 +79,12 @@ AsBundleKind as_bundle_kind_from_string (const gchar *bundle_str);
 AsBundle    *as_bundle_new (void);
 
 AsBundleKind as_bundle_get_kind (AsBundle *bundle);
-void	     as_bundle_set_kind (AsBundle *bundle, AsBundleKind kind);
+void	     as_bundle_set_kind (AsBundle    *bundle,
+				 AsBundleKind kind);
 
 const gchar *as_bundle_get_id (AsBundle *bundle);
-void	     as_bundle_set_id (AsBundle *bundle, const gchar *id);
+void	     as_bundle_set_id (AsBundle	   *bundle,
+			       const gchar *id);
 
 G_END_DECLS
 

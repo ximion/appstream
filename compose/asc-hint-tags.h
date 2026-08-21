@@ -35,7 +35,9 @@ typedef struct {
 	GRefString     *explanation;
 } AscHintTag;
 
-AscHintTag *asc_hint_tag_new (const gchar *tag, AsIssueSeverity severity, const gchar *explanation);
+AscHintTag *asc_hint_tag_new (const gchar    *tag,
+			      AsIssueSeverity severity,
+			      const gchar    *explanation);
 void	    asc_hint_tag_free (AscHintTag *htag);
 
 typedef struct {

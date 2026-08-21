@@ -74,28 +74,36 @@ AS_BEGIN_PRIVATE_DECLS
 		     (pair) != NULL;                                              \
 		     (pair) = fy_node_mapping_iterate ((map_node), &_iter_##map_node))
 
-struct fy_diag *as_yaml_error_diag_create (void);
-gchar	       *as_yaml_make_error_message (struct fy_diag *diag);
+struct fy_diag	      *as_yaml_error_diag_create (void);
+gchar		      *as_yaml_make_error_message (struct fy_diag *diag);
 
-const gchar    *as_yaml_node_get_key0 (struct fy_node_pair *ynp);
-const gchar    *as_yaml_node_get_key (struct fy_node_pair *ynp, size_t *lenp);
-const gchar    *as_yaml_node_get_value0 (struct fy_node_pair *ynp);
-const gchar    *as_yaml_node_get_value (struct fy_node_pair *ynp, size_t *lenp);
+const gchar	      *as_yaml_node_get_key0 (struct fy_node_pair *ynp);
+const gchar	      *as_yaml_node_get_key (struct fy_node_pair *ynp,
+					     size_t		 *lenp);
+const gchar	      *as_yaml_node_get_value0 (struct fy_node_pair *ynp);
+const gchar	      *as_yaml_node_get_value (struct fy_node_pair *ynp,
+					       size_t		   *lenp);
 
-GRefString     *as_yaml_node_get_key_refstr (struct fy_node_pair *ynp);
-GRefString     *as_yaml_node_get_value_refstr (struct fy_node_pair *ynp);
+GRefString	      *as_yaml_node_get_key_refstr (struct fy_node_pair *ynp);
+GRefString	      *as_yaml_node_get_value_refstr (struct fy_node_pair *ynp);
 
-struct fy_node *as_yaml_get_localized_node (AsContext	   *ctx,
-					    struct fy_node *node,
-					    const gchar	   *locale_override);
-const gchar    *as_yaml_get_node_locale (AsContext *ctx, struct fy_node_pair *node_pair);
-void as_yaml_set_localized_table (AsContext *ctx, struct fy_node *node, GHashTable *l10n_table);
-void as_yaml_set_localized_desc_table (AsContext      *ctx,
-				       struct fy_node *node,
-				       GHashTable     *l10n_table);
-void as_yaml_list_to_str_array (struct fy_node *node, GPtrArray *array);
+struct fy_node	      *as_yaml_get_localized_node (AsContext	  *ctx,
+						   struct fy_node *node,
+						   const gchar	  *locale_override);
+const gchar	      *as_yaml_get_node_locale (AsContext	    *ctx,
+						struct fy_node_pair *node_pair);
+void		       as_yaml_set_localized_table (AsContext	   *ctx,
+						    struct fy_node *node,
+						    GHashTable	   *l10n_table);
+void		       as_yaml_set_localized_desc_table (AsContext	*ctx,
+							 struct fy_node *node,
+							 GHashTable	*l10n_table);
+void		       as_yaml_list_to_str_array (struct fy_node *node,
+						  GPtrArray	 *array);
 
-void as_yaml_print_unknown (const gchar *root, const gchar *key, ssize_t key_len);
+void		       as_yaml_print_unknown (const gchar *root,
+					      const gchar *key,
+					      ssize_t	   key_len);
 
 /* these functions have internal visibility, so appstream-compose can write YAML data */
 #pragma GCC visibility push(default)
@@ -108,28 +116,48 @@ void		       as_yaml_sequence_end (struct fy_emitter *emitter);
 void		       as_yaml_emit_long_entry_literal (struct fy_emitter *emitter,
 							const gchar	  *key,
 							const gchar	  *value);
-void		       as_yaml_emit_scalar (struct fy_emitter *emitter, const gchar *value);
-void		       as_yaml_emit_scalar_str (struct fy_emitter *emitter, const gchar *value);
-void		       as_yaml_emit_scalar_uint64 (struct fy_emitter *emitter, guint64 value);
-void		       as_yaml_emit_scalar_key (struct fy_emitter *emitter, const gchar *key);
+void		       as_yaml_emit_scalar (struct fy_emitter *emitter,
+					    const gchar	      *value);
+void		       as_yaml_emit_scalar_str (struct fy_emitter *emitter,
+						const gchar	  *value);
+void		       as_yaml_emit_scalar_uint64 (struct fy_emitter *emitter,
+						   guint64	      value);
+void		       as_yaml_emit_scalar_key (struct fy_emitter *emitter,
+						const gchar	  *key);
 
-void as_yaml_emit_entry (struct fy_emitter *emitter, const gchar *key, const gchar *value);
-void as_yaml_emit_entry_str (struct fy_emitter *emitter, const gchar *key, const gchar *value);
-void as_yaml_emit_entry_uint64 (struct fy_emitter *emitter, const gchar *key, guint64 value);
-void as_yaml_emit_entry_timestamp (struct fy_emitter *emitter, const gchar *key, guint64 unixtime);
-void as_yaml_emit_long_entry (struct fy_emitter *emitter, const gchar *key, const gchar *value);
-void as_yaml_emit_sequence (struct fy_emitter *emitter, const gchar *key, GPtrArray *list);
+void		       as_yaml_emit_entry (struct fy_emitter *emitter,
+					   const gchar	     *key,
+					   const gchar	     *value);
+void		       as_yaml_emit_entry_str (struct fy_emitter *emitter,
+					       const gchar	 *key,
+					       const gchar	 *value);
+void		       as_yaml_emit_entry_uint64 (struct fy_emitter *emitter,
+						  const gchar	    *key,
+						  guint64	     value);
+void		       as_yaml_emit_entry_timestamp (struct fy_emitter *emitter,
+						     const gchar       *key,
+						     guint64		unixtime);
+void		       as_yaml_emit_long_entry (struct fy_emitter *emitter,
+						const gchar	  *key,
+						const gchar	  *value);
+void		       as_yaml_emit_sequence (struct fy_emitter *emitter,
+					      const gchar	*key,
+					      GPtrArray		*list);
 
 #pragma GCC visibility pop
 void as_yaml_emit_sequence_from_str_array (struct fy_emitter *emitter,
 					   const gchar	     *key,
 					   GPtrArray	     *array);
-void as_yaml_emit_localized_strv (struct fy_emitter *emitter, const gchar *key, GHashTable *ltab);
+void as_yaml_emit_localized_strv (struct fy_emitter *emitter,
+				  const gchar	    *key,
+				  GHashTable	    *ltab);
 void as_yaml_emit_localized_str_array (struct fy_emitter *emitter,
 				       const gchar	 *key,
 				       GHashTable	 *ltab);
 
-void as_yaml_emit_localized_entry (struct fy_emitter *emitter, const gchar *key, GHashTable *ltab);
+void as_yaml_emit_localized_entry (struct fy_emitter *emitter,
+				   const gchar	     *key,
+				   GHashTable	     *ltab);
 void as_yaml_emit_long_localized_entry (struct fy_emitter *emitter,
 					const gchar	  *key,
 					GHashTable	  *ltab);

@@ -32,19 +32,24 @@ AS_BEGIN_PRIVATE_DECLS
  * a requires/recommends block */
 
 GVariant *as_relation_get_value_var (AsRelation *relation);
-void	  as_relation_set_value_var (AsRelation *relation, GVariant *value);
+void	  as_relation_set_value_var (AsRelation *relation,
+				     GVariant	*value);
 
 gboolean  as_relation_load_from_xml (AsRelation *relation,
 				     AsContext	*ctx,
 				     xmlNode	*node,
 				     GError    **error);
-void	  as_relation_to_xml_node (AsRelation *relation, AsContext *ctx, xmlNode *root);
+void	  as_relation_to_xml_node (AsRelation *relation,
+				   AsContext  *ctx,
+				   xmlNode    *root);
 
 gboolean  as_relation_load_from_yaml (AsRelation     *relation,
 				      AsContext	     *ctx,
 				      struct fy_node *node,
 				      GError	    **error);
-void	  as_relation_emit_yaml (AsRelation *relation, AsContext *ctx, struct fy_emitter *emitter);
+void	  as_relation_emit_yaml (AsRelation	   *relation,
+				 AsContext	   *ctx,
+				 struct fy_emitter *emitter);
 
 AS_END_PRIVATE_DECLS
 

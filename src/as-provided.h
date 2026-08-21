@@ -84,11 +84,14 @@ const gchar   *as_provided_kind_to_l10n_string (AsProvidedKind kind);
 AsProvided    *as_provided_new (void);
 
 AsProvidedKind as_provided_get_kind (AsProvided *prov);
-void	       as_provided_set_kind (AsProvided *prov, AsProvidedKind kind);
+void	       as_provided_set_kind (AsProvided	   *prov,
+				     AsProvidedKind kind);
 
 GPtrArray     *as_provided_get_items (AsProvided *prov);
-void	       as_provided_add_item (AsProvided *prov, const gchar *item);
-gboolean       as_provided_has_item (AsProvided *prov, const gchar *item);
+void	       as_provided_add_item (AsProvided	 *prov,
+				     const gchar *item);
+gboolean       as_provided_has_item (AsProvided	 *prov,
+				     const gchar *item);
 
 G_END_DECLS
 

@@ -34,12 +34,17 @@ G_DECLARE_DERIVABLE_TYPE (AscUnit, asc_unit, ASC, UNIT, GObject)
 struct _AscUnitClass {
 	GObjectClass parent_class;
 
-	gboolean (*open) (AscUnit *unit, GError **error);
+	gboolean (*open) (AscUnit *unit,
+			  GError **error);
 	void (*close) (AscUnit *unit);
 
-	gboolean (*file_exists) (AscUnit *unit, const gchar *filename);
-	gboolean (*dir_exists) (AscUnit *unit, const gchar *dirname);
-	GBytes *(*read_data) (AscUnit *unit, const gchar *filename, GError **error);
+	gboolean (*file_exists) (AscUnit     *unit,
+				 const gchar *filename);
+	gboolean (*dir_exists) (AscUnit	    *unit,
+				const gchar *dirname);
+	GBytes *(*read_data) (AscUnit	  *unit,
+			      const gchar *filename,
+			      GError	 **error);
 
 	/*< private >*/
 	void (*_as_reserved1) (void);
@@ -51,23 +56,32 @@ struct _AscUnitClass {
 AscUnit	    *asc_unit_new (void);
 
 AsBundleKind asc_unit_get_bundle_kind (AscUnit *unit);
-void	     asc_unit_set_bundle_kind (AscUnit *unit, AsBundleKind kind);
+void	     asc_unit_set_bundle_kind (AscUnit	   *unit,
+				       AsBundleKind kind);
 
 const gchar *asc_unit_get_bundle_id (AscUnit *unit);
 const gchar *asc_unit_get_bundle_id_fs_safe (AscUnit *unit);
-void	     asc_unit_set_bundle_id (AscUnit *unit, const gchar *id);
+void	     asc_unit_set_bundle_id (AscUnit	 *unit,
+				     const gchar *id);
 
 GPtrArray   *asc_unit_get_contents (AscUnit *unit);
-void	     asc_unit_set_contents (AscUnit *unit, GPtrArray *contents);
+void	     asc_unit_set_contents (AscUnit   *unit,
+				    GPtrArray *contents);
 
 GPtrArray   *asc_unit_get_relevant_paths (AscUnit *unit);
-void	     asc_unit_add_relevant_path (AscUnit *unit, const gchar *path);
+void	     asc_unit_add_relevant_path (AscUnit     *unit,
+					 const gchar *path);
 
-gboolean     asc_unit_open (AscUnit *unit, GError **error);
+gboolean     asc_unit_open (AscUnit *unit,
+			    GError **error);
 void	     asc_unit_close (AscUnit *unit);
 
-gboolean     asc_unit_file_exists (AscUnit *unit, const gchar *filename);
-gboolean     asc_unit_dir_exists (AscUnit *unit, const gchar *dirname);
-GBytes	    *asc_unit_read_data (AscUnit *unit, const gchar *filename, GError **error);
+gboolean     asc_unit_file_exists (AscUnit     *unit,
+				   const gchar *filename);
+gboolean     asc_unit_dir_exists (AscUnit     *unit,
+				  const gchar *dirname);
+GBytes	    *asc_unit_read_data (AscUnit     *unit,
+				 const gchar *filename,
+				 GError	    **error);
 
 G_END_DECLS

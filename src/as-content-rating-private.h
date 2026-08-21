@@ -34,11 +34,13 @@ typedef enum {
 	AS_OARS_VERSION_1_1
 } AsOarsVersion;
 
-gboolean as_content_rating_load_from_xml (AsContentRating *content_rating,
-					  AsContext	  *ctx,
-					  xmlNode	  *node,
-					  GError	 **error);
-void as_content_rating_to_xml_node (AsContentRating *content_rating, AsContext *ctx, xmlNode *root);
+gboolean      as_content_rating_load_from_xml (AsContentRating *content_rating,
+					       AsContext       *ctx,
+					       xmlNode	       *node,
+					       GError	      **error);
+void	      as_content_rating_to_xml_node (AsContentRating *content_rating,
+					     AsContext	     *ctx,
+					     xmlNode	     *root);
 
 gboolean      as_content_rating_load_from_yaml (AsContentRating	    *content_rating,
 						AsContext	    *ctx,
@@ -48,11 +50,13 @@ void	      as_content_rating_emit_yaml (AsContentRating   *content_rating,
 					   AsContext	     *ctx,
 					   struct fy_emitter *emitter);
 
-gboolean      as_is_oars_key (const gchar *id, AsOarsVersion version);
+gboolean      as_is_oars_key (const gchar  *id,
+			      AsOarsVersion version);
 
 AsOarsVersion as_oars_version_from_string (const gchar *value);
 
-gboolean      as_content_rating_id_is_valid (const gchar *id, AsContentRatingValue value);
+gboolean      as_content_rating_id_is_valid (const gchar	 *id,
+					     AsContentRatingValue value);
 
 AS_END_PRIVATE_DECLS
 

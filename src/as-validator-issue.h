@@ -69,27 +69,34 @@ const gchar	 *as_issue_severity_to_string (AsIssueSeverity severity);
 AsValidatorIssue *as_validator_issue_new (void);
 
 const gchar	 *as_validator_issue_get_tag (AsValidatorIssue *issue);
-void		  as_validator_issue_set_tag (AsValidatorIssue *issue, const gchar *tag);
+void		  as_validator_issue_set_tag (AsValidatorIssue *issue,
+					      const gchar      *tag);
 
 AsIssueSeverity	  as_validator_issue_get_severity (AsValidatorIssue *issue);
-void	     as_validator_issue_set_severity (AsValidatorIssue *issue, AsIssueSeverity severity);
+void		  as_validator_issue_set_severity (AsValidatorIssue *issue,
+						   AsIssueSeverity   severity);
 
-const gchar *as_validator_issue_get_hint (AsValidatorIssue *issue);
-void	     as_validator_issue_set_hint (AsValidatorIssue *issue, const gchar *hint);
+const gchar	 *as_validator_issue_get_hint (AsValidatorIssue *issue);
+void		  as_validator_issue_set_hint (AsValidatorIssue *issue,
+					       const gchar	*hint);
 
-const gchar *as_validator_issue_get_explanation (AsValidatorIssue *issue);
-void	     as_validator_issue_set_explanation (AsValidatorIssue *issue, const gchar *explanation);
+const gchar	 *as_validator_issue_get_explanation (AsValidatorIssue *issue);
+void		  as_validator_issue_set_explanation (AsValidatorIssue *issue,
+						      const gchar      *explanation);
 
-const gchar *as_validator_issue_get_cid (AsValidatorIssue *issue);
-void	     as_validator_issue_set_cid (AsValidatorIssue *issue, const gchar *cid);
+const gchar	 *as_validator_issue_get_cid (AsValidatorIssue *issue);
+void		  as_validator_issue_set_cid (AsValidatorIssue *issue,
+					      const gchar      *cid);
 
-const gchar *as_validator_issue_get_filename (AsValidatorIssue *issue);
-void	     as_validator_issue_set_filename (AsValidatorIssue *issue, const gchar *fname);
+const gchar	 *as_validator_issue_get_filename (AsValidatorIssue *issue);
+void		  as_validator_issue_set_filename (AsValidatorIssue *issue,
+						   const gchar	    *fname);
 
-glong	     as_validator_issue_get_line (AsValidatorIssue *issue);
-void	     as_validator_issue_set_line (AsValidatorIssue *issue, glong line);
+glong		  as_validator_issue_get_line (AsValidatorIssue *issue);
+void		  as_validator_issue_set_line (AsValidatorIssue *issue,
+					       glong		 line);
 
-gchar	    *as_validator_issue_get_location (AsValidatorIssue *issue);
+gchar		 *as_validator_issue_get_location (AsValidatorIssue *issue);
 
 G_END_DECLS
 

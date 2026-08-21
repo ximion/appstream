@@ -29,13 +29,17 @@ AS_BEGIN_PRIVATE_DECLS
 
 /* NOTE: The AsComponent load the AsLaunchable from XML, because it needs to aggregate multiple tags in one object. */
 
-void	 as_launchable_to_xml_node (AsLaunchable *launchable, AsContext *ctx, xmlNode *root);
+void	 as_launchable_to_xml_node (AsLaunchable *launchable,
+				    AsContext	 *ctx,
+				    xmlNode	 *root);
 
 gboolean as_launchable_load_from_yaml (AsLaunchable	   *launch,
 				       AsContext	   *ctx,
 				       struct fy_node_pair *npair,
 				       GError		  **error);
-void	 as_launchable_emit_yaml (AsLaunchable *launch, AsContext *ctx, struct fy_emitter *emitter);
+void	 as_launchable_emit_yaml (AsLaunchable	    *launch,
+				  AsContext	    *ctx,
+				  struct fy_emitter *emitter);
 
 AS_END_PRIVATE_DECLS
 

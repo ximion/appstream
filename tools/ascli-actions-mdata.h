@@ -56,9 +56,13 @@ int  ascli_dump_component (const gchar *cachepath,
 			   AsFormatKind mformat,
 			   gboolean	no_cache);
 
-int  ascli_put_metainfo (const gchar *fname, const gchar *origin, gboolean for_user);
+int  ascli_put_metainfo (const gchar *fname,
+			 const gchar *origin,
+			 gboolean     for_user);
 
-int  ascli_convert_data (const gchar *in_fname, const gchar *out_fname, AsFormatKind mformat);
+int  ascli_convert_data (const gchar *in_fname,
+			 const gchar *out_fname,
+			 AsFormatKind mformat);
 
 int  ascli_create_metainfo_template (const gchar *out_fname,
 				     const gchar *cpt_kind_str,

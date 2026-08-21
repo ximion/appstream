@@ -59,10 +59,14 @@ gboolean    asw_image_save_filename (AswImage	      *image,
 gint	    asw_image_get_width (AswImage *image);
 gint	    asw_image_get_height (AswImage *image);
 
-void	    asw_image_scale (AswImage *image, gint new_width, gint new_height);
+void	    asw_image_scale (AswImage *image,
+			     gint      new_width,
+			     gint      new_height);
 
-void	    asw_image_scale_to_width (AswImage *image, gint new_width);
-void	    asw_image_scale_to_height (AswImage *image, gint new_height);
+void	    asw_image_scale_to_width (AswImage *image,
+				      gint	new_width);
+void	    asw_image_scale_to_height (AswImage *image,
+				       gint	 new_height);
 
 gboolean    asw_canvas_save_to_file (AswCanvas	   *canvas,
 				     const gchar   *filename,

@@ -69,10 +69,12 @@ AsLaunchableKind as_launchable_kind_from_string (const gchar *kind_str);
 AsLaunchable	*as_launchable_new (void);
 
 AsLaunchableKind as_launchable_get_kind (AsLaunchable *launch);
-void		 as_launchable_set_kind (AsLaunchable *launch, AsLaunchableKind kind);
+void		 as_launchable_set_kind (AsLaunchable	 *launch,
+					 AsLaunchableKind kind);
 
 GPtrArray	*as_launchable_get_entries (AsLaunchable *launch);
-void		 as_launchable_add_entry (AsLaunchable *launch, const gchar *entry);
+void		 as_launchable_add_entry (AsLaunchable *launch,
+					  const gchar  *entry);
 
 G_END_DECLS
 

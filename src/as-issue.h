@@ -67,13 +67,16 @@ AsIssueKind  as_issue_kind_from_string (const gchar *kind_str);
 AsIssue	    *as_issue_new (void);
 
 AsIssueKind  as_issue_get_kind (AsIssue *issue);
-void	     as_issue_set_kind (AsIssue *issue, AsIssueKind kind);
+void	     as_issue_set_kind (AsIssue	   *issue,
+				AsIssueKind kind);
 
 const gchar *as_issue_get_id (AsIssue *issue);
-void	     as_issue_set_id (AsIssue *issue, const gchar *id);
+void	     as_issue_set_id (AsIssue	  *issue,
+			      const gchar *id);
 
 const gchar *as_issue_get_url (AsIssue *issue);
-void	     as_issue_set_url (AsIssue *issue, const gchar *url);
+void	     as_issue_set_url (AsIssue	   *issue,
+			       const gchar *url);
 
 const gchar *as_issue_get_json_url (AsIssue *issue);
 

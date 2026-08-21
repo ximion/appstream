@@ -29,22 +29,28 @@
 AS_BEGIN_PRIVATE_DECLS
 
 AS_INTERNAL_VISIBLE
-void	 as_screenshot_set_context_locale (AsScreenshot *screenshot, const gchar *locale);
+void	 as_screenshot_set_context_locale (AsScreenshot *screenshot,
+					   const gchar	*locale);
 
 gboolean as_screenshot_load_from_xml (AsScreenshot *screenshot,
 				      AsContext	   *ctx,
 				      xmlNode	   *node,
 				      GError	  **error);
-void	 as_screenshot_to_xml_node (AsScreenshot *screenshot, AsContext *ctx, xmlNode *root);
+void	 as_screenshot_to_xml_node (AsScreenshot *screenshot,
+				    AsContext	 *ctx,
+				    xmlNode	 *root);
 
 gboolean as_screenshot_load_from_yaml (AsScreenshot   *screenshot,
 				       AsContext      *ctx,
 				       struct fy_node *node,
 				       GError	     **error);
-void as_screenshot_emit_yaml (AsScreenshot *screenshot, AsContext *ctx, struct fy_emitter *emitter);
+void	 as_screenshot_emit_yaml (AsScreenshot	    *screenshot,
+				  AsContext	    *ctx,
+				  struct fy_emitter *emitter);
 
-gint as_screenshot_get_position (AsScreenshot *screenshot);
-void as_screenshot_set_position (AsScreenshot *screenshot, gint pos);
+gint	 as_screenshot_get_position (AsScreenshot *screenshot);
+void	 as_screenshot_set_position (AsScreenshot *screenshot,
+				     gint	   pos);
 
 AS_END_PRIVATE_DECLS
 

@@ -141,7 +141,8 @@ typedef enum {
 
 AsTag as_xml_tag_from_string (const gchar *tag);
 
-AsTag as_yaml_tag_from_string (const gchar *tag, ssize_t len);
+AsTag as_yaml_tag_from_string (const gchar *tag,
+			       ssize_t	    len);
 
 AS_END_PRIVATE_DECLS
 

@@ -30,7 +30,8 @@ AS_BEGIN_PRIVATE_DECLS
 AsDeveloper *as_developer_new_with_context (AsContext *ctx);
 
 AsContext   *as_developer_get_context (AsDeveloper *devp);
-void	     as_developer_set_context (AsDeveloper *devp, AsContext *context);
+void	     as_developer_set_context (AsDeveloper *devp,
+				       AsContext   *context);
 
 GHashTable  *as_developer_get_name_table (AsDeveloper *devp);
 
@@ -38,12 +39,16 @@ gboolean     as_developer_load_from_xml (AsDeveloper *devp,
 					 AsContext   *ctx,
 					 xmlNode     *node,
 					 GError	    **error);
-void	     as_developer_to_xml_node (AsDeveloper *devp, AsContext *ctx, xmlNode *root);
+void	     as_developer_to_xml_node (AsDeveloper *devp,
+				       AsContext   *ctx,
+				       xmlNode	   *root);
 
 gboolean     as_developer_load_from_yaml (AsDeveloper	 *devp,
 					  AsContext	 *ctx,
 					  struct fy_node *node,
 					  GError	**error);
-void	     as_developer_emit_yaml (AsDeveloper *devp, AsContext *ctx, struct fy_emitter *emitter);
+void	     as_developer_emit_yaml (AsDeveloper       *devp,
+				     AsContext	       *ctx,
+				     struct fy_emitter *emitter);
 
 AS_END_PRIVATE_DECLS

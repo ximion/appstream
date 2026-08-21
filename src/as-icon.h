@@ -69,25 +69,32 @@ const gchar *as_icon_kind_to_string (AsIconKind kind);
 AsIcon	    *as_icon_new (void);
 
 AsIconKind   as_icon_get_kind (AsIcon *icon);
-void	     as_icon_set_kind (AsIcon *icon, AsIconKind kind);
+void	     as_icon_set_kind (AsIcon	 *icon,
+			       AsIconKind kind);
 
 const gchar *as_icon_get_name (AsIcon *icon);
-void	     as_icon_set_name (AsIcon *icon, const gchar *name);
+void	     as_icon_set_name (AsIcon	   *icon,
+			       const gchar *name);
 
 const gchar *as_icon_get_url (AsIcon *icon);
-void	     as_icon_set_url (AsIcon *icon, const gchar *url);
+void	     as_icon_set_url (AsIcon	  *icon,
+			      const gchar *url);
 
 const gchar *as_icon_get_filename (AsIcon *icon);
-void	     as_icon_set_filename (AsIcon *icon, const gchar *filename);
+void	     as_icon_set_filename (AsIcon      *icon,
+				   const gchar *filename);
 
 guint	     as_icon_get_width (AsIcon *icon);
-void	     as_icon_set_width (AsIcon *icon, guint width);
+void	     as_icon_set_width (AsIcon *icon,
+				guint	width);
 
 guint	     as_icon_get_height (AsIcon *icon);
-void	     as_icon_set_height (AsIcon *icon, guint height);
+void	     as_icon_set_height (AsIcon *icon,
+				 guint	 height);
 
 guint	     as_icon_get_scale (AsIcon *icon);
-void	     as_icon_set_scale (AsIcon *icon, guint scale);
+void	     as_icon_set_scale (AsIcon *icon,
+				guint	scale);
 
 G_END_DECLS
 

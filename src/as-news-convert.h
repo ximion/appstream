@@ -62,7 +62,8 @@ GPtrArray	*as_news_to_releases_from_filename (const gchar	    *fname,
 						    gint	     translatable_limit,
 						    GError	   **error);
 
-gchar		*as_releases_to_metainfo_xml_chunk (GPtrArray *releases, GError **error);
+gchar		*as_releases_to_metainfo_xml_chunk (GPtrArray *releases,
+						    GError   **error);
 
 gboolean	 as_releases_to_news_data (GPtrArray	   *releases,
 					   AsNewsFormatKind kind,

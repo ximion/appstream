@@ -84,7 +84,10 @@ GVariant *asc_media_ipc_receive_message (GSocket	    *socket,
 					 GError		   **error);
 
 /* client-side API, used by AscMedia only */
-gint	  asc_memfd_new_sealed (const gchar *name, gconstpointer data, gsize len, GError **error);
+gint	  asc_memfd_new_sealed (const gchar  *name,
+				gconstpointer data,
+				gsize	      len,
+				GError	    **error);
 
 gboolean  asc_media_ipc_send_request (GSocket	   *socket,
 				      guint32	    request_id,

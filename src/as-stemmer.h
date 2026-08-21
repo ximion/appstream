@@ -36,10 +36,12 @@ G_DECLARE_FINAL_TYPE (AsStemmer, as_stemmer, AS, STEMMER, GObject)
 AS_INTERNAL_VISIBLE
 AsStemmer *as_stemmer_get (const gchar *locale);
 
-void	   as_stemmer_reload (AsStemmer *stemmer, const gchar *locale);
+void	   as_stemmer_reload (AsStemmer	  *stemmer,
+			      const gchar *locale);
 
 AS_INTERNAL_VISIBLE
-gchar *as_stemmer_stem (AsStemmer *stemmer, const gchar *term);
+gchar *as_stemmer_stem (AsStemmer   *stemmer,
+			const gchar *term);
 
 AS_END_PRIVATE_DECLS
 

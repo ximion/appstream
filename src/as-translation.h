@@ -65,13 +65,16 @@ AsTranslationKind as_translation_kind_from_string (const gchar *kind_str);
 AsTranslation	 *as_translation_new (void);
 
 AsTranslationKind as_translation_get_kind (AsTranslation *tr);
-void		  as_translation_set_kind (AsTranslation *tr, AsTranslationKind kind);
+void		  as_translation_set_kind (AsTranslation    *tr,
+					   AsTranslationKind kind);
 
 const gchar	 *as_translation_get_id (AsTranslation *tr);
-void		  as_translation_set_id (AsTranslation *tr, const gchar *id);
+void		  as_translation_set_id (AsTranslation *tr,
+					 const gchar   *id);
 
 const gchar	 *as_translation_get_source_locale (AsTranslation *tr);
-void		  as_translation_set_source_locale (AsTranslation *tr, const gchar *locale);
+void		  as_translation_set_source_locale (AsTranslation *tr,
+						    const gchar	  *locale);
 
 G_END_DECLS
 
