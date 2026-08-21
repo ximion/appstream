@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2019-2024 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2019-2026 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -345,8 +345,8 @@ main (int argc, char **argv)
 			/* TRANSLATORS: Output if appstreamcli --version is executed. */
 			ascli_print_stdout (_("AppStream version: %s"), PACKAGE_VERSION);
 		} else {
-			/* TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ. */
 			ascli_print_stdout (
+			    /* TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ. */
 			    _("AppStream CLI tool version: %s\nAppStream library version: %s"),
 			      PACKAGE_VERSION,
 			      as_version_string ());
@@ -367,8 +367,8 @@ main (int argc, char **argv)
 	else if (g_strcmp0 (report_mode_str, "none") == 0)
 		report_mode = ASC_REPORT_MODE_NONE;
 	if (report_mode == ASC_REPORT_MODE_UNKNOWN) {
-		/* TRANSLATORS: invalid value for the --print-report CLI option */
 		ascli_print_stderr (
+		    /* TRANSLATORS: invalid value for the --print-report CLI option */
 		    _("Invalid value for `--print-report` option: %s\n"
 				      "Possible values are:\n"
 				      "`on-error` - only prints a short report if the run failed (default)\n"
@@ -402,9 +402,10 @@ main (int argc, char **argv)
 			    _("Automatically selected '%s' as data output location."),
 			      res_root_dir);
 		} else {
-			/* TRANSLATORS: We don't have a destination directory for compose */
-			g_printerr ("%s\n",
-				    _("No destination directory set, please provide a data output location!"));
+			g_printerr (
+			    "%s\n",
+			    /* TRANSLATORS: We don't have a destination directory for compose */
+			    _("No destination directory set, please provide a data output location!"));
 			return EXIT_FAILURE;
 		}
 	}
@@ -412,7 +413,7 @@ main (int argc, char **argv)
 		g_autofree gchar *tmp = NULL;
 		origin = g_strdup ("example");
 		/* TRANSLATORS: Information message of appstream-compose */
-		tmp = g_strdup_printf ("Metadata origin not set, using '%s'", origin);
+		tmp = g_strdup_printf (_("Metadata origin not set, using '%s'"), origin);
 		if (ascli_get_output_colored ())
 			ascli_print_stderr ("%c[%dm%s%c[%dm: %s",
 					    0x1B,
@@ -535,10 +536,10 @@ main (int argc, char **argv)
 	if (asc_compose_has_errors (compose)) {
 		/* TRANSLATORS: appstream-compose failed to include all data */
 		g_print ("%s\n", _("Run failed, some data was ignored."));
-		/* TRANSLATORS: information message of appstream-compose */
-		composecli_print_hints_report (results,
-					       _("Errors were raised during this compose run:"),
-						 report_mode);
+		composecli_print_hints_report (
+		    results,
+		    /* TRANSLATORS: information message of appstream-compose */
+		    _("Errors were raised during this compose run:"), report_mode);
 		g_printerr ("%s\n",
 			    _("Refer to the generated issue report data for details on the individual problems."));
 		return EXIT_FAILURE;

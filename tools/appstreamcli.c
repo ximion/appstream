@@ -578,8 +578,8 @@ as_client_run_check_license (const gchar *command, char **argv, int argc)
 		return ret;
 
 	if (argc != 3) {
-		/* TRANSLATORS: ascli check-license is missing its parameter */
 		ascli_print_stderr (
+		    /* TRANSLATORS: ascli check-license is missing its parameter */
 		    _("No license, license expression or license exception string was provided."));
 		return 4;
 	}
@@ -1030,13 +1030,14 @@ as_client_run_new_template (const gchar *command, char **argv, int argc)
 		{ NULL }
 	};
 
-	/* TRANSLATORS: Additional help text for the 'new-template' ascli subcommand */
 	desc_str = g_string_new (
+	    /* TRANSLATORS: Additional help text for the 'new-template' ascli subcommand */
 	    _("This command takes optional TYPE and FILE positional arguments, FILE being a file to write to (or \"-\" for standard output)."));
 	g_string_append (desc_str, "\n");
-	/* TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows */
-	g_string_append_printf (desc_str,
-				_("The TYPE must be a valid component-type, such as: %s"), "\n");
+	g_string_append_printf (
+	    desc_str,
+	    /* TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows */
+	    _("The TYPE must be a valid component-type, such as: %s"), "\n");
 	for (i = 1; i < AS_COMPONENT_KIND_LAST; i++)
 		g_string_append_printf (desc_str, " • %s\n", as_component_kind_to_string (i));
 
@@ -1216,12 +1217,12 @@ as_client_run_compose (const gchar *command, char **argv, int argc)
 	g_autoptr(GError) error = NULL;
 #endif
 	if (!g_file_test (ascompose_exe, G_FILE_TEST_EXISTS)) {
-		/* TRANSLATORS: appstreamcli-compose was not found */
 		ascli_print_stderr (
+		    /* TRANSLATORS: appstreamcli-compose was not found */
 		    _("AppStream Compose binary '%s' was not found! Can not continue."),
 		      ascompose_exe);
-		/* TRANSLATORS: appstreamcli-compose was not found - info text */
 		ascli_print_stderr (
+		    /* TRANSLATORS: appstreamcli-compose was not found - info text */
 		    _("You may be able to install the AppStream Compose addon via: `%s`"),
 		      "sudo appstreamcli install org.freedesktop.appstream.compose");
 		return 4;
@@ -1341,9 +1342,9 @@ as_client_get_help_summary (GPtrArray *commands)
 	g_autoptr(GArray) blocks_maxlen = NULL;
 	GString *string = g_string_new ("");
 
-	/* TRANSLATORS: This is the header to the --help menu */
 	g_string_append_printf (string,
 				"%s\n\n%s\n",
+				/* TRANSLATORS: This is the header to the --help menu */
 				_("AppStream command-line interface"),
 				  /* these are commands we can use with appstreamcli */
 				  _("Subcommands:"));
@@ -1422,8 +1423,8 @@ ascli_run_command (GPtrArray *commands, const gchar *command, char **argv, int a
 			return item->callback (item->name, argv, argc);
 	}
 
-	/* TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated. */
 	ascli_print_stderr (
+	    /* TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated. */
 	    _("Command '%s' is unknown. Run '%s --help' for a list of available commands."),
 	      command,
 	      argv[0]);
@@ -1714,8 +1715,8 @@ as_client_run (char **argv, int argc)
 			/* TRANSLATORS: Output if appstreamcli --version is executed. */
 			ascli_print_stdout (_("AppStream version: %s"), PACKAGE_VERSION);
 		} else {
-			/* TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ. */
 			ascli_print_stdout (
+			    /* TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ. */
 			    _("AppStream CLI tool version: %s\nAppStream library version: %s"),
 			      PACKAGE_VERSION,
 			      as_version_string ());

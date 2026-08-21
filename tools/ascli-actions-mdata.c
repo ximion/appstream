@@ -44,8 +44,8 @@ ascli_refresh_cache (const gchar *cachepath,
 	gboolean ret = FALSE;
 
 	if (!as_utils_is_root ())
-		/* TRANSLATORS: In ascli: Status information during a "refresh" action. */
 		g_print ("• %s\n",
+			 /* TRANSLATORS: In ascli: Status information during a "refresh" action. */
 			 _("Only refreshing metadata cache specific to the current user."));
 
 	pool = as_pool_new ();
@@ -91,10 +91,10 @@ ascli_refresh_cache (const gchar *cachepath,
 
 	if (!ret) {
 		if (g_error_matches (error, AS_POOL_ERROR, AS_POOL_ERROR_CACHE_WRITE_FAILED))
-			/* TRANSLATORS: In ascli: The requested action needs higher permissions. */
 			g_printerr (
 			    "✘ %s\n  %s\n",
 			    error->message,
+			    /* TRANSLATORS: In ascli: The requested action needs higher permissions. */
 			    _("You might need superuser permissions to perform this action."));
 		else
 			g_printerr ("✘ %s\n", error->message);
@@ -225,8 +225,8 @@ ascli_what_provides (const gchar *cachepath,
 
 	result = as_pool_get_components_by_provided_item (pool, kind, item);
 	if (as_component_box_len (result) == 0) {
-		/* TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results */
 		ascli_print_stdout (
+		    /* TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results */
 		    _("Could not find component providing '%s::%s'."), kind_str, item);
 		return 0;
 	}
@@ -428,8 +428,8 @@ ascli_convert_data (const gchar *in_fname, const gchar *out_fname, AsFormatKind 
 			mformat = AS_FORMAT_KIND_XML;
 
 		if (mformat == AS_FORMAT_KIND_UNKNOWN) {
-			/* TRANSLATORS: User is trying to convert a file in ascli */
 			ascli_print_stderr (
+			    /* TRANSLATORS: User is trying to convert a file in ascli */
 			    _("Unable to convert file: Could not determine output format, please set it explicitly using '--format='."));
 			return 3;
 		}
