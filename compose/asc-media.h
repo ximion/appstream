@@ -192,24 +192,24 @@ const gchar *asc_image_target_get_error_message (AscImageTarget *target);
 #define ASC_TYPE_MEDIA (asc_media_get_type ())
 G_DECLARE_FINAL_TYPE (AscMedia, asc_media, ASC, MEDIA, GObject)
 
-AscMedia    *asc_media_new (void);
+AscMedia *asc_media_new (void);
 
-guint	     asc_media_get_request_timeout (AscMedia *media);
-void	     asc_media_set_request_timeout (AscMedia *media, guint seconds);
+guint	  asc_media_get_request_timeout (AscMedia *media);
+void	  asc_media_set_request_timeout (AscMedia *media, guint seconds);
 
-guint32	     asc_media_get_memory_limit (AscMedia *media);
-void	     asc_media_set_memory_limit (AscMedia *media, guint32 limit_mib);
+guint32	  asc_media_get_memory_limit (AscMedia *media);
+void	  asc_media_set_memory_limit (AscMedia *media, guint32 limit_mib);
 
-gboolean     asc_media_ensure_worker (AscMedia *media, GCancellable *cancellable, GError **error);
-void	     asc_media_stop (AscMedia *media);
+gboolean  asc_media_ensure_worker (AscMedia *media, GCancellable *cancellable, GError **error);
+void	  asc_media_stop (AscMedia *media);
 
-gboolean     asc_media_error_is_worker_failure (const GError *error);
+gboolean  asc_media_error_is_worker_failure (const GError *error);
 
-gboolean     asc_media_process_image (AscMedia	     *media,
-				      AscImageSource *source,
-				      GPtrArray	     *targets,
-				      const gchar    *out_dir,
-				      GCancellable   *cancellable,
-				      GError	    **error);
+gboolean  asc_media_process_image (AscMedia	  *media,
+				   AscImageSource *source,
+				   GPtrArray	  *targets,
+				   const gchar	  *out_dir,
+				   GCancellable	  *cancellable,
+				   GError	 **error);
 
 G_END_DECLS

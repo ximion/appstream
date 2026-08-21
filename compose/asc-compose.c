@@ -162,8 +162,10 @@ asc_compose_class_init (AscComposeClass *klass)
  * asc_compose_reset:
  * @compose: an #AscCompose instance.
  *
- * Reset the results, units and run-specific settings so the
- * instance can be reused for another metadata generation run.
+ * Drop the results, the registered units and the allowed component-ID list of
+ * the last run, so the instance can be reused for another metadata generation
+ * run. Everything else - flags, result directories, icon policy, media
+ * instance, locale unit, allowed custom keys and the callbacks - is retained.
  *
  * Since: 0.14.5
  **/
@@ -173,7 +175,6 @@ asc_compose_reset (AscCompose *compose)
 	AscComposePrivate *priv = GET_PRIVATE (compose);
 	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
 	g_return_if_fail (ASC_IS_COMPOSE (compose));
-
 
 	g_hash_table_remove_all (priv->allowed_cids);
 	g_ptr_array_set_size (priv->units, 0);
@@ -196,7 +197,6 @@ asc_compose_add_unit (AscCompose *compose, AscUnit *unit)
 	AscComposePrivate *priv = GET_PRIVATE (compose);
 	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
 	g_return_if_fail (ASC_IS_COMPOSE (compose));
-
 
 	/* sanity check */
 	for (guint i = 0; i < priv->units->len; i++) {
@@ -260,7 +260,6 @@ asc_compose_set_prefix (AscCompose *compose, const gchar *prefix)
 	AscComposePrivate *priv = GET_PRIVATE (compose);
 	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
 	g_return_if_fail (ASC_IS_COMPOSE (compose));
-
 
 	/* do a bit of sanitizing: "no prefix" means the prefix directory is the root directory */
 	if (prefix == NULL || g_strcmp0 (prefix, "") == 0)
@@ -771,7 +770,6 @@ asc_compose_remove_custom_allowed (AscCompose *compose, const gchar *key_id)
 	AscComposePrivate *priv = GET_PRIVATE (compose);
 	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
 	g_return_if_fail (ASC_IS_COMPOSE (compose));
-
 
 	for (guint i = 0; i < priv->custom_allowed->len; i++) {
 		if (g_strcmp0 (g_ptr_array_index (priv->custom_allowed, i), key_id) == 0) {
@@ -2528,7 +2526,6 @@ asc_compose_run (AscCompose *compose, GCancellable *cancellable, GError **error)
 	gboolean temp_dir_created = FALSE;
 	gboolean results_generated = FALSE;
 	g_return_val_if_fail (ASC_IS_COMPOSE (compose), NULL);
-
 
 	/* ensure icon output dir is set, hint and data output dirs are optional */
 	if (priv->icons_result_dir == NULL &&

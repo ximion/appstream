@@ -128,7 +128,6 @@ if get_option('compose')
          as_test_common_src],
         dependencies: [appstream_compose_dep,
                        gio_dep],
-        c_args: ['-DI_KNOW_THE_APPSTREAM_COMPOSE_API_IS_SUBJECT_TO_CHANGE'],
     )
 
     as_test_compose_env = as_test_env + [
@@ -156,8 +155,7 @@ if get_option('compose')
                        vips_dep],
         include_directories: [root_inc_dir,
                               include_directories('../compose/worker')],
-        c_args: ['-DASC_COMPILATION',
-                 '-DI_KNOW_THE_APPSTREAM_COMPOSE_API_IS_SUBJECT_TO_CHANGE'],
+        c_args: ['-DASC_COMPILATION'],
     )
     test ('as-test_compose-worker',
         as_test_compose_worker_exe,

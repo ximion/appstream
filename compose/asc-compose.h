@@ -48,7 +48,7 @@ struct _AscComposeClass {
 /**
  * AscComposeFlags:
  * @ASC_COMPOSE_FLAG_NONE:			No flags.
- * @ASC_COMPOSE_FLAG_USE_THREADS:		Use threads when possible.
+ * @ASC_COMPOSE_FLAG_USE_THREADS:		Process units in parallel. Ignored if an #AscMedia was set via asc_compose_set_media().
  * @ASC_COMPOSE_FLAG_ALLOW_NET:			Allow network access for downloading extra data.
  * @ASC_COMPOSE_FLAG_VALIDATE:			Validate metadata while processing.
  * @ASC_COMPOSE_FLAG_STORE_SCREENSHOTS:		Whether screenshots should be cached in the media directory.

@@ -281,7 +281,6 @@ asc_hint_format_explanation (AscHint *hint)
 	g_auto(GStrv) parts = NULL;
 	g_return_val_if_fail (ASC_IS_HINT (hint), NULL);
 
-
 	g_assert_cmpint (priv->vars->len % 2, ==, 0);
 	if (priv->explanation_tmpl == NULL)
 		return NULL;

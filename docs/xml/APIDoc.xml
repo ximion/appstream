@@ -3,7 +3,7 @@
 	<title>AppStream API Reference</title>
 
 	<para>
-		A reference of AppStream's public API can be fount on the
+		A reference of AppStream's public API can be found on the
 		<link xlink:href="api/index.html">API reference pages</link>.
 	</para>
 	<para>
@@ -11,7 +11,6 @@
 		It is used by the <command>appstreamcli compose</command> utility as well as
 		<link xlink:href="https://github.com/ximion/appstream-generator">AppStream Generator</link>.
 		You can find its API description on the <link xlink:href="compose-api/index.html">libappstream-compose API reference</link>.
-		Please keep in mind that the compose library interface is still not fully stabilized.
 	</para>
 	<para>
 		If you want to use the PackageKit API, look at
