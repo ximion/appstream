@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2026-08-10 23:32+0200\n"
+"POT-Creation-Date: 2026-08-21 12:34+0200\n"
 "PO-Revision-Date: 2024-05-10 06:59+0000\n"
 "Last-Translator: Scrambled777 <weblate.scrambled777@simplelogin.com>\n"
 "Language-Team: Hindi <https://hosted.weblate.org/projects/appstream/translations/hi/>\n"
@@ -2645,104 +2645,109 @@ msgstr "पाया: %s - अनुमत: %s"
 
 #. TRANSLATORS: ascli flag description for: --verbose
 #. TRANSLATORS: ascompose flag description for: --verbose
-#: tools/appstream-compose.c:198 tools/appstreamcli.c:1458
+#: tools/appstream-compose.c:199 tools/appstreamcli.c:1458
 msgid "Show extra debugging information."
 msgstr "अतिरिक्त डिबगिंग जानकारी दिखाएं।"
 
 #. TRANSLATORS: ascli flag description for: --no-color
 #. TRANSLATORS: ascompose flag description for: --no-color
-#: tools/appstream-compose.c:205 tools/appstreamcli.c:1464
+#: tools/appstream-compose.c:206 tools/appstreamcli.c:1464
 msgid "Don't show colored output."
 msgstr "रंगीन निर्गत न दिखाएं।"
 
 #. TRANSLATORS: ascli flag description for: --version
 #. TRANSLATORS: ascompose flag description for: --version
-#: tools/appstream-compose.c:212 tools/appstreamcli.c:1452
+#: tools/appstream-compose.c:213 tools/appstreamcli.c:1452
 msgid "Show the program version."
 msgstr "प्रोग्राम संस्करण दिखाएं।"
 
 #. TRANSLATORS: ascompose flag description for: --no-net
-#: tools/appstream-compose.c:219
+#: tools/appstream-compose.c:220
 msgid "Do not use the network at all, not even for URL validity checks."
 msgstr "नेटवर्क का उपयोग बिल्कुल न करें, URL मान्यता जांच के लिए भी नहीं।"
 
 #. TRANSLATORS: ascompose flag description for: --print-report
-#: tools/appstream-compose.c:226
+#: tools/appstream-compose.c:227
 msgid "Set mode of the issue report that is printed to the console."
 msgstr "कंसोल पर छपने वाली त्रुटि रिपोर्ट का मोड निर्धारित करें।"
 
 #. TRANSLATORS: ascompose flag description for: --prefix
-#: tools/appstream-compose.c:233
+#: tools/appstream-compose.c:234
 msgid "Override the default prefix (`/usr` by default)."
 msgstr "तयशुदा उपसर्ग को अध्यारोहण करें (`/usr` तयशुदा रूप से)।"
 
 #. TRANSLATORS: ascompose flag description for: --result-root
-#: tools/appstream-compose.c:240
+#: tools/appstream-compose.c:241
 msgid "Set the result output directory."
 msgstr "परिणाम निर्गत निर्देशिका निर्धारित करें।"
 
 #. TRANSLATORS: ascompose flag description for: --data-dir, `catalog metadata` is an AppStream term
-#: tools/appstream-compose.c:247
+#: tools/appstream-compose.c:248
 msgid "Override the catalog metadata output directory."
 msgstr "कैटलॉग मेटाडेटा निर्गत निर्देशिका को अध्यारोहण करें।"
 
 #. TRANSLATORS: ascompose flag description for: --icons-dir
-#: tools/appstream-compose.c:254
+#: tools/appstream-compose.c:255
 msgid "Override the icon output directory."
 msgstr "आइकन निर्गत निर्देशिका को अध्यारोहण करें।"
 
 #. TRANSLATORS: ascompose flag description for: --media-dir
-#: tools/appstream-compose.c:261
+#: tools/appstream-compose.c:262
 msgid "Set the media output directory (for media data to be served by a webserver)."
 msgstr "मीडिया निर्गत निर्देशिका निर्धारित करें (वेबसर्वर द्वारा प्रस्तुत किए जाने वाले मीडिया डेटा के लिए)।"
 
 #. TRANSLATORS: ascompose flag description for: --hints-dir
-#: tools/appstream-compose.c:268
+#: tools/appstream-compose.c:269
 msgid "Set a directory where HTML and text issue reports will be stored."
 msgstr "एक निर्देशिका निर्धारित करें जहां HTML और पाठ समस्या रिपोर्ट संग्रहीत की जाएंगी।"
 
 #. TRANSLATORS: ascompose flag description for: --origin
-#: tools/appstream-compose.c:275
+#: tools/appstream-compose.c:276
 msgid "Set the origin name"
 msgstr "मूल नाम निर्धारित करें"
 
 #. TRANSLATORS: ascompose flag description for: --media-baseurl
-#: tools/appstream-compose.c:282
+#: tools/appstream-compose.c:283
 msgid "Set the URL where the exported media content will be hosted."
 msgstr "वह URL निर्धारित करें जहां निर्यात की गई मीडिया सामग्री होस्ट की जाएगी।"
 
 #. TRANSLATORS: ascompose flag description for: --no-partial-urls
-#: tools/appstream-compose.c:289
+#: tools/appstream-compose.c:290
 msgid "Makes all URLs in output data complete URLs and avoids the use of a shared URL prefix for all metadata."
 msgstr "निर्गत डेटा में सभी URL को पूर्ण URL बनाता है और सभी मेटाडेटा के लिए साझा URL उपसर्ग के उपयोग से बचाता है।"
 
 #. TRANSLATORS: ascompose flag description for: --icon-policy
-#: tools/appstream-compose.c:296
+#: tools/appstream-compose.c:297
 msgid "An icon-policy string to set how icon sizes should be handled (refer to the man page for details)."
 msgstr "यह निर्धारित करने के लिए एक आइकन-पॉलिसी स्ट्रिंग कि आइकन आकार को कैसे प्रबंधित किया जाना चाहिए (विवरण के लिए मैन पृष्ठ देखें)।"
 
+#. TRANSLATORS: ascompose flag description for: --image-format
+#: tools/appstream-compose.c:304
+msgid "The file format that generated icons and screenshots are stored in (`jxl` by default, or `png` for compatibility with older clients)."
+msgstr ""
+
 #. TRANSLATORS: ascompose flag description for: --allow-custom
-#: tools/appstream-compose.c:303
+#: tools/appstream-compose.c:311
 msgid "A comma-separated list of custom keys that should be propagated to the output data."
 msgstr "तदनुकूल कुंजियों की अल्पविराम से अलग की गई सूची जिसे निर्गत डेटा में प्रसारित किया जाना चाहिए।"
 
 #. TRANSLATORS: ascompose flag description for: --components
-#: tools/appstream-compose.c:310
+#: tools/appstream-compose.c:318
 msgid "A comma-separated list of component-IDs to accept."
 msgstr "स्वीकार करने योग्य component-ID की अल्पविराम से अलग की गई सूची।"
 
 #. TRANSLATORS: Error message of appstream-compose
-#: tools/appstream-compose.c:327
+#: tools/appstream-compose.c:335
 msgid "Failed to parse arguments"
 msgstr "तर्कों का विश्लेषण करने में विफल"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: tools/appstream-compose.c:338 tools/appstreamcli.c:1715
+#: tools/appstream-compose.c:346 tools/appstreamcli.c:1715
 #, c-format
 msgid "AppStream version: %s"
 msgstr "AppStream संस्करण: %s"
 
-#: tools/appstream-compose.c:342 tools/appstreamcli.c:1719
+#: tools/appstream-compose.c:350 tools/appstreamcli.c:1719
 #, c-format
 msgid ""
 "AppStream CLI tool version: %s\n"
@@ -2751,7 +2756,7 @@ msgstr ""
 "AppStream CLI टूल संस्करण: %s\n"
 "AppStream लाइब्रेरी संस्करण: %s"
 
-#: tools/appstream-compose.c:364
+#: tools/appstream-compose.c:372
 #, c-format
 msgid ""
 "Invalid value for `--print-report` option: %s\n"
@@ -2766,79 +2771,85 @@ msgstr ""
 "`short` - एक संक्षिप्त रिपोर्ट तैयार करता है\n"
 "`full` - एक विस्तृत रिपोर्ट छापी जाएगी"
 
-#: tools/appstream-compose.c:394
+#: tools/appstream-compose.c:402
 #, c-format
 msgid "Automatically selected '%s' as data output location."
 msgstr "डेटा निर्गत स्थान के रूप में स्वचालित रूप से '%s' का चयन किया गया।"
 
-#: tools/appstream-compose.c:399
+#: tools/appstream-compose.c:407
 msgid "No destination directory set, please provide a data output location!"
 msgstr "कोई गंतव्य निर्देशिका तय नहीं, कृपया डेटा निर्गत स्थान प्रदान करें!"
 
-#: tools/appstream-compose.c:412 tools/appstream-compose.c:414
+#: tools/appstream-compose.c:420 tools/appstream-compose.c:422
 msgid "WARNING"
 msgstr "चेतावनी"
 
-#: tools/appstream-compose.c:446
+#: tools/appstream-compose.c:454
 msgid "Unable to set icon policy"
 msgstr "आइकन नीति तय करने में असमर्थ"
 
+#. TRANSLATORS: The user selected an invalid image format for generated media, %s is the format name they used
+#: tools/appstream-compose.c:464
+#, c-format
+msgid "Invalid image format: %s. Only `jxl` and `png` are supported for generated media.\n"
+msgstr ""
+
 #. TRANSLATORS: Information about as-compose allowlist
-#: tools/appstream-compose.c:473
+#: tools/appstream-compose.c:494
 #, c-format
 msgid "Only accepting components: %s"
 msgstr "केवल घटक स्वीकार कर रहे हैं: %s"
 
 #. TRANSLATORS: Information about as-compose allowlist
-#: tools/appstream-compose.c:476
+#: tools/appstream-compose.c:497
 #, c-format
 msgid "Only accepting component: %s"
 msgstr "केवल घटक स्वीकार कर रहे हैं: %s"
 
 #. TRANSLATORS: Information about as-compose units to be processed
-#: tools/appstream-compose.c:481
+#: tools/appstream-compose.c:502
 msgid "Processing directories:"
 msgstr "निर्देशिकाएं प्रसंस्करण:"
 
 #. TRANSLATORS: Information about as-compose units to be processed
-#: tools/appstream-compose.c:484
+#: tools/appstream-compose.c:505
 msgid "Processing directory:"
 msgstr "निर्देशिका प्रसंस्करण:"
 
 #. TRANSLATORS: Error message
-#: tools/appstream-compose.c:493
+#: tools/appstream-compose.c:514
 msgid "Can not process invalid directory"
 msgstr "अमान्य निर्देशिका पर कार्रवाई नहीं की जा सकती"
 
 #. TRANSLATORS: Information message
-#: tools/appstream-compose.c:505
+#: tools/appstream-compose.c:526
 msgid "Composing metadata..."
 msgstr "मेटाडेटा तैयार किया जा रहा है..।"
 
 #. TRANSLATORS: Error message
-#: tools/appstream-compose.c:510
+#: tools/appstream-compose.c:531
 msgid "Failed to compose AppStream metadata"
 msgstr "AppStream मेटाडेटा तैयार करने में विफल"
 
 #. TRANSLATORS: appstream-compose failed to include all data
-#: tools/appstream-compose.c:516
+#: tools/appstream-compose.c:537
 msgid "Run failed, some data was ignored."
 msgstr "रन विफल, कुछ डेटा को अनदेखा कर दिया गया।"
 
-#: tools/appstream-compose.c:519
+#: tools/appstream-compose.c:540
 msgid "Errors were raised during this compose run:"
 msgstr "निर्माण के दौरान त्रुटियां उत्पन्न हुई:"
 
-#: tools/appstream-compose.c:522
+#: tools/appstream-compose.c:543
 msgid "Refer to the generated issue report data for details on the individual problems."
 msgstr "व्यक्तिगत समस्याओं के विवरण के लिए उत्पन्न समस्या रिपोर्ट डेटा देखें।"
 
-#: tools/appstream-compose.c:526
+#: tools/appstream-compose.c:547
 msgid "Overview of generated hints:"
 msgstr "उत्पन्न संकेतों का अवलोकन:"
 
 #. TRANSLATORS: Information message
-#: tools/appstream-compose.c:528
+#: tools/appstream-compose.c:549
 msgid "Success!"
 msgstr "सफलता!"
 

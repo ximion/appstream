@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2026-08-10 23:32+0200\n"
+"POT-Creation-Date: 2026-08-21 12:34+0200\n"
 "PO-Revision-Date: 2026-08-14 04:51+0000\n"
 "Last-Translator: Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>\n"
 "Language-Team: Romanian <https://hosted.weblate.org/projects/appstream/translations/ro/>\n"
@@ -2634,104 +2634,109 @@ msgstr "S-a găsit %s - Permis: %s"
 
 #. TRANSLATORS: ascli flag description for: --verbose
 #. TRANSLATORS: ascompose flag description for: --verbose
-#: tools/appstream-compose.c:198 tools/appstreamcli.c:1458
+#: tools/appstream-compose.c:199 tools/appstreamcli.c:1458
 msgid "Show extra debugging information."
 msgstr "Afișează informații suplimentare de depanare."
 
 #. TRANSLATORS: ascli flag description for: --no-color
 #. TRANSLATORS: ascompose flag description for: --no-color
-#: tools/appstream-compose.c:205 tools/appstreamcli.c:1464
+#: tools/appstream-compose.c:206 tools/appstreamcli.c:1464
 msgid "Don't show colored output."
 msgstr "Nu afișează ieșirea în culori."
 
 #. TRANSLATORS: ascli flag description for: --version
 #. TRANSLATORS: ascompose flag description for: --version
-#: tools/appstream-compose.c:212 tools/appstreamcli.c:1452
+#: tools/appstream-compose.c:213 tools/appstreamcli.c:1452
 msgid "Show the program version."
 msgstr "Afișează versiunea programului."
 
 #. TRANSLATORS: ascompose flag description for: --no-net
-#: tools/appstream-compose.c:219
+#: tools/appstream-compose.c:220
 msgid "Do not use the network at all, not even for URL validity checks."
 msgstr "Nu utilizează deloc rețeaua, nici măcar pentru verificarea validității adreselor URL."
 
 #. TRANSLATORS: ascompose flag description for: --print-report
-#: tools/appstream-compose.c:226
+#: tools/appstream-compose.c:227
 msgid "Set mode of the issue report that is printed to the console."
 msgstr "Stabilește modul raportului de probleme care este imprimat în consolă."
 
 #. TRANSLATORS: ascompose flag description for: --prefix
-#: tools/appstream-compose.c:233
+#: tools/appstream-compose.c:234
 msgid "Override the default prefix (`/usr` by default)."
 msgstr "Suprascrie prefixul implicit (implicit „/usr”)."
 
 #. TRANSLATORS: ascompose flag description for: --result-root
-#: tools/appstream-compose.c:240
+#: tools/appstream-compose.c:241
 msgid "Set the result output directory."
 msgstr "Stabilește directorul de ieșire a rezultatelor."
 
 #. TRANSLATORS: ascompose flag description for: --data-dir, `catalog metadata` is an AppStream term
-#: tools/appstream-compose.c:247
+#: tools/appstream-compose.c:248
 msgid "Override the catalog metadata output directory."
 msgstr "Suprascrie directorul de ieșire al catalogului de metadate."
 
 #. TRANSLATORS: ascompose flag description for: --icons-dir
-#: tools/appstream-compose.c:254
+#: tools/appstream-compose.c:255
 msgid "Override the icon output directory."
 msgstr "Suprascrie directorul de ieșire al pictogramelor."
 
 #. TRANSLATORS: ascompose flag description for: --media-dir
-#: tools/appstream-compose.c:261
+#: tools/appstream-compose.c:262
 msgid "Set the media output directory (for media data to be served by a webserver)."
 msgstr "Definește directorul de ieșire media (pentru datele media care urmează să fie servite de un servitor web)."
 
 #. TRANSLATORS: ascompose flag description for: --hints-dir
-#: tools/appstream-compose.c:268
+#: tools/appstream-compose.c:269
 msgid "Set a directory where HTML and text issue reports will be stored."
 msgstr "Definește un director în care vor fi stocate rapoartele de probleme HTML și text."
 
 #. TRANSLATORS: ascompose flag description for: --origin
-#: tools/appstream-compose.c:275
+#: tools/appstream-compose.c:276
 msgid "Set the origin name"
 msgstr "Stabilește numele originii"
 
 #. TRANSLATORS: ascompose flag description for: --media-baseurl
-#: tools/appstream-compose.c:282
+#: tools/appstream-compose.c:283
 msgid "Set the URL where the exported media content will be hosted."
 msgstr "Definește adresa URL unde va fi găzduit conținutul media exportat."
 
 #. TRANSLATORS: ascompose flag description for: --no-partial-urls
-#: tools/appstream-compose.c:289
+#: tools/appstream-compose.c:290
 msgid "Makes all URLs in output data complete URLs and avoids the use of a shared URL prefix for all metadata."
 msgstr "Face ca toate adresele URL din datele de ieșire să fie adrese URL complete și evită utilizarea unui prefix de adresă URL comun pentru toate metadatele."
 
 #. TRANSLATORS: ascompose flag description for: --icon-policy
-#: tools/appstream-compose.c:296
+#: tools/appstream-compose.c:297
 msgid "An icon-policy string to set how icon sizes should be handled (refer to the man page for details)."
 msgstr "Un șir de reguli de procesare a pictogramelor „icon-policy” pentru a stabili modul în care ar trebui gestionate dimensiunile pictogramelor (consultați pagina de manual pentru detalii)."
 
+#. TRANSLATORS: ascompose flag description for: --image-format
+#: tools/appstream-compose.c:304
+msgid "The file format that generated icons and screenshots are stored in (`jxl` by default, or `png` for compatibility with older clients)."
+msgstr ""
+
 #. TRANSLATORS: ascompose flag description for: --allow-custom
-#: tools/appstream-compose.c:303
+#: tools/appstream-compose.c:311
 msgid "A comma-separated list of custom keys that should be propagated to the output data."
 msgstr "O listă separată prin virgule de chei personalizate care ar trebui propagate la datele de ieșire."
 
 #. TRANSLATORS: ascompose flag description for: --components
-#: tools/appstream-compose.c:310
+#: tools/appstream-compose.c:318
 msgid "A comma-separated list of component-IDs to accept."
 msgstr "O listă separată prin virgule de ID-uri ale componentelor care urmează să fie acceptate."
 
 #. TRANSLATORS: Error message of appstream-compose
-#: tools/appstream-compose.c:327
+#: tools/appstream-compose.c:335
 msgid "Failed to parse arguments"
 msgstr "Analizarea argumentelor a eșuat"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: tools/appstream-compose.c:338 tools/appstreamcli.c:1715
+#: tools/appstream-compose.c:346 tools/appstreamcli.c:1715
 #, c-format
 msgid "AppStream version: %s"
 msgstr "Versiunea AppStream: %s"
 
-#: tools/appstream-compose.c:342 tools/appstreamcli.c:1719
+#: tools/appstream-compose.c:350 tools/appstreamcli.c:1719
 #, c-format
 msgid ""
 "AppStream CLI tool version: %s\n"
@@ -2740,7 +2745,7 @@ msgstr ""
 "Versiunea instrumentului de linie de comandă AppStream: %s\n"
 "Versiunea bibliotecii AppStream: %s"
 
-#: tools/appstream-compose.c:364
+#: tools/appstream-compose.c:372
 #, c-format
 msgid ""
 "Invalid value for `--print-report` option: %s\n"
@@ -2755,79 +2760,85 @@ msgstr ""
 "„short”    - generează un raport restrâns\n"
 "„full”     - va fi afișat un raport detaliat"
 
-#: tools/appstream-compose.c:394
+#: tools/appstream-compose.c:402
 #, c-format
 msgid "Automatically selected '%s' as data output location."
 msgstr "Selectat automat „%s” ca locație de ieșire a datelor."
 
-#: tools/appstream-compose.c:399
+#: tools/appstream-compose.c:407
 msgid "No destination directory set, please provide a data output location!"
 msgstr "Nu este definit niciun director de destinație, vă rugăm să furnizați o locație de ieșire a datelor!"
 
-#: tools/appstream-compose.c:412 tools/appstream-compose.c:414
+#: tools/appstream-compose.c:420 tools/appstream-compose.c:422
 msgid "WARNING"
 msgstr "AVERTISMENT"
 
-#: tools/appstream-compose.c:446
+#: tools/appstream-compose.c:454
 msgid "Unable to set icon policy"
 msgstr "Nu se poate stabili politica privind pictogramele"
 
+#. TRANSLATORS: The user selected an invalid image format for generated media, %s is the format name they used
+#: tools/appstream-compose.c:464
+#, c-format
+msgid "Invalid image format: %s. Only `jxl` and `png` are supported for generated media.\n"
+msgstr ""
+
 #. TRANSLATORS: Information about as-compose allowlist
-#: tools/appstream-compose.c:473
+#: tools/appstream-compose.c:494
 #, c-format
 msgid "Only accepting components: %s"
 msgstr "Se acceptă numai componentele: %s"
 
 #. TRANSLATORS: Information about as-compose allowlist
-#: tools/appstream-compose.c:476
+#: tools/appstream-compose.c:497
 #, c-format
 msgid "Only accepting component: %s"
 msgstr "Se acceptă numai componenta: %s"
 
 #. TRANSLATORS: Information about as-compose units to be processed
-#: tools/appstream-compose.c:481
+#: tools/appstream-compose.c:502
 msgid "Processing directories:"
 msgstr "Se procesează directoarele:"
 
 #. TRANSLATORS: Information about as-compose units to be processed
-#: tools/appstream-compose.c:484
+#: tools/appstream-compose.c:505
 msgid "Processing directory:"
 msgstr "Se procesează directorul:"
 
 #. TRANSLATORS: Error message
-#: tools/appstream-compose.c:493
+#: tools/appstream-compose.c:514
 msgid "Can not process invalid directory"
 msgstr "Nu se poate procesa directorul nevalid"
 
 #. TRANSLATORS: Information message
-#: tools/appstream-compose.c:505
+#: tools/appstream-compose.c:526
 msgid "Composing metadata..."
 msgstr "Se compun metadatele..."
 
 #. TRANSLATORS: Error message
-#: tools/appstream-compose.c:510
+#: tools/appstream-compose.c:531
 msgid "Failed to compose AppStream metadata"
 msgstr "Compunerea metadatelor AppStream a eșuat"
 
 #. TRANSLATORS: appstream-compose failed to include all data
-#: tools/appstream-compose.c:516
+#: tools/appstream-compose.c:537
 msgid "Run failed, some data was ignored."
 msgstr "Execuția a eșuat, unele date au fost ignorate."
 
-#: tools/appstream-compose.c:519
+#: tools/appstream-compose.c:540
 msgid "Errors were raised during this compose run:"
 msgstr "Au fost înregistrate erori în timpul acestei execuții de compunere:"
 
-#: tools/appstream-compose.c:522
+#: tools/appstream-compose.c:543
 msgid "Refer to the generated issue report data for details on the individual problems."
 msgstr "Consultați datele raportului de probleme generat pentru detalii privind problemele individuale."
 
-#: tools/appstream-compose.c:526
+#: tools/appstream-compose.c:547
 msgid "Overview of generated hints:"
 msgstr "Prezentare generală a indicațiilor generate:"
 
 #. TRANSLATORS: Information message
-#: tools/appstream-compose.c:528
+#: tools/appstream-compose.c:549
 msgid "Success!"
 msgstr "Succes!"
 

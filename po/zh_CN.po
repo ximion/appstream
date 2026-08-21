@@ -53,7 +53,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2026-08-10 23:32+0200\n"
+"POT-Creation-Date: 2026-08-21 12:34+0200\n"
 "PO-Revision-Date: 2026-08-17 00:51+0000\n"
 "Last-Translator: xiezhihai <xiezhihai7321@outlook.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/projects/appstream/translations/zh_Hans/>\n"
@@ -2679,104 +2679,109 @@ msgstr "发现的：%s - 允许的：%s"
 
 #. TRANSLATORS: ascli flag description for: --verbose
 #. TRANSLATORS: ascompose flag description for: --verbose
-#: tools/appstream-compose.c:198 tools/appstreamcli.c:1458
+#: tools/appstream-compose.c:199 tools/appstreamcli.c:1458
 msgid "Show extra debugging information."
 msgstr "显示额外的调试信息。"
 
 #. TRANSLATORS: ascli flag description for: --no-color
 #. TRANSLATORS: ascompose flag description for: --no-color
-#: tools/appstream-compose.c:205 tools/appstreamcli.c:1464
+#: tools/appstream-compose.c:206 tools/appstreamcli.c:1464
 msgid "Don't show colored output."
 msgstr "不要显示彩色输出。"
 
 #. TRANSLATORS: ascli flag description for: --version
 #. TRANSLATORS: ascompose flag description for: --version
-#: tools/appstream-compose.c:212 tools/appstreamcli.c:1452
+#: tools/appstream-compose.c:213 tools/appstreamcli.c:1452
 msgid "Show the program version."
 msgstr "显示程序版本."
 
 #. TRANSLATORS: ascompose flag description for: --no-net
-#: tools/appstream-compose.c:219
+#: tools/appstream-compose.c:220
 msgid "Do not use the network at all, not even for URL validity checks."
 msgstr "根本不使用网络，甚至不要用于 URL 有效性检查。"
 
 #. TRANSLATORS: ascompose flag description for: --print-report
-#: tools/appstream-compose.c:226
+#: tools/appstream-compose.c:227
 msgid "Set mode of the issue report that is printed to the console."
 msgstr "为打印在终端中的问题报告设置模式。"
 
 #. TRANSLATORS: ascompose flag description for: --prefix
-#: tools/appstream-compose.c:233
+#: tools/appstream-compose.c:234
 msgid "Override the default prefix (`/usr` by default)."
 msgstr "覆盖默认前缀（默认为 `/usr`）。"
 
 #. TRANSLATORS: ascompose flag description for: --result-root
-#: tools/appstream-compose.c:240
+#: tools/appstream-compose.c:241
 msgid "Set the result output directory."
 msgstr "设置结果输出目录。"
 
 #. TRANSLATORS: ascompose flag description for: --data-dir, `catalog metadata` is an AppStream term
-#: tools/appstream-compose.c:247
+#: tools/appstream-compose.c:248
 msgid "Override the catalog metadata output directory."
 msgstr "覆盖集合元数据输出目录。"
 
 #. TRANSLATORS: ascompose flag description for: --icons-dir
-#: tools/appstream-compose.c:254
+#: tools/appstream-compose.c:255
 msgid "Override the icon output directory."
 msgstr "覆盖图标输出目录。"
 
 #. TRANSLATORS: ascompose flag description for: --media-dir
-#: tools/appstream-compose.c:261
+#: tools/appstream-compose.c:262
 msgid "Set the media output directory (for media data to be served by a webserver)."
 msgstr "设置媒体输出目录 (用于将由 web 服务器提供的媒体数据)。"
 
 #. TRANSLATORS: ascompose flag description for: --hints-dir
-#: tools/appstream-compose.c:268
+#: tools/appstream-compose.c:269
 msgid "Set a directory where HTML and text issue reports will be stored."
 msgstr "设置 HTML 和纯文本问题报告存放的目录。"
 
 #. TRANSLATORS: ascompose flag description for: --origin
-#: tools/appstream-compose.c:275
+#: tools/appstream-compose.c:276
 msgid "Set the origin name"
 msgstr "设置来源的名称"
 
 #. TRANSLATORS: ascompose flag description for: --media-baseurl
-#: tools/appstream-compose.c:282
+#: tools/appstream-compose.c:283
 msgid "Set the URL where the exported media content will be hosted."
 msgstr "设置托管导出的媒体内容的 URL。"
 
 #. TRANSLATORS: ascompose flag description for: --no-partial-urls
-#: tools/appstream-compose.c:289
+#: tools/appstream-compose.c:290
 msgid "Makes all URLs in output data complete URLs and avoids the use of a shared URL prefix for all metadata."
 msgstr "使输出数据中的所有 URL 完整，并避免所有元数据共用一个 URL 前缀。"
 
 #. TRANSLATORS: ascompose flag description for: --icon-policy
-#: tools/appstream-compose.c:296
+#: tools/appstream-compose.c:297
 msgid "An icon-policy string to set how icon sizes should be handled (refer to the man page for details)."
 msgstr "一个 icon-policy 字符串，设置图标大小的处理方式（参考手册页获取详情）。"
 
+#. TRANSLATORS: ascompose flag description for: --image-format
+#: tools/appstream-compose.c:304
+msgid "The file format that generated icons and screenshots are stored in (`jxl` by default, or `png` for compatibility with older clients)."
+msgstr ""
+
 #. TRANSLATORS: ascompose flag description for: --allow-custom
-#: tools/appstream-compose.c:303
+#: tools/appstream-compose.c:311
 msgid "A comma-separated list of custom keys that should be propagated to the output data."
 msgstr "应被传播到输出数据的自定义键列表，逗号分隔。"
 
 #. TRANSLATORS: ascompose flag description for: --components
-#: tools/appstream-compose.c:310
+#: tools/appstream-compose.c:318
 msgid "A comma-separated list of component-IDs to accept."
 msgstr "接受的组件 ID 列表，逗号分隔。"
 
 #. TRANSLATORS: Error message of appstream-compose
-#: tools/appstream-compose.c:327
+#: tools/appstream-compose.c:335
 msgid "Failed to parse arguments"
 msgstr "解析参数失败"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: tools/appstream-compose.c:338 tools/appstreamcli.c:1715
+#: tools/appstream-compose.c:346 tools/appstreamcli.c:1715
 #, c-format
 msgid "AppStream version: %s"
 msgstr "AppStream 版本：%s"
 
-#: tools/appstream-compose.c:342 tools/appstreamcli.c:1719
+#: tools/appstream-compose.c:350 tools/appstreamcli.c:1719
 #, c-format
 msgid ""
 "AppStream CLI tool version: %s\n"
@@ -2785,7 +2790,7 @@ msgstr ""
 "AppStream CLI 工具版本：%s\n"
 "AppStream 库版本：%s"
 
-#: tools/appstream-compose.c:364
+#: tools/appstream-compose.c:372
 #, c-format
 msgid ""
 "Invalid value for `--print-report` option: %s\n"
@@ -2800,79 +2805,85 @@ msgstr ""
 "`short` - 生成缩略报告\n"
 "`full` - 打印详细报告"
 
-#: tools/appstream-compose.c:394
+#: tools/appstream-compose.c:402
 #, c-format
 msgid "Automatically selected '%s' as data output location."
 msgstr "已自动选择“%s”作为数据输出位置。"
 
-#: tools/appstream-compose.c:399
+#: tools/appstream-compose.c:407
 msgid "No destination directory set, please provide a data output location!"
 msgstr "未设置目标目录，请提供数据输出位置！"
 
-#: tools/appstream-compose.c:412 tools/appstream-compose.c:414
+#: tools/appstream-compose.c:420 tools/appstream-compose.c:422
 msgid "WARNING"
 msgstr "警告"
 
-#: tools/appstream-compose.c:446
+#: tools/appstream-compose.c:454
 msgid "Unable to set icon policy"
 msgstr "无法设置图标策略"
 
+#. TRANSLATORS: The user selected an invalid image format for generated media, %s is the format name they used
+#: tools/appstream-compose.c:464
+#, c-format
+msgid "Invalid image format: %s. Only `jxl` and `png` are supported for generated media.\n"
+msgstr ""
+
 #. TRANSLATORS: Information about as-compose allowlist
-#: tools/appstream-compose.c:473
+#: tools/appstream-compose.c:494
 #, c-format
 msgid "Only accepting components: %s"
 msgstr "仅接受组件：%s"
 
 #. TRANSLATORS: Information about as-compose allowlist
-#: tools/appstream-compose.c:476
+#: tools/appstream-compose.c:497
 #, c-format
 msgid "Only accepting component: %s"
 msgstr "仅接受组件：%s"
 
 #. TRANSLATORS: Information about as-compose units to be processed
-#: tools/appstream-compose.c:481
+#: tools/appstream-compose.c:502
 msgid "Processing directories:"
 msgstr "处理目录："
 
 #. TRANSLATORS: Information about as-compose units to be processed
-#: tools/appstream-compose.c:484
+#: tools/appstream-compose.c:505
 msgid "Processing directory:"
 msgstr "处理目录："
 
 #. TRANSLATORS: Error message
-#: tools/appstream-compose.c:493
+#: tools/appstream-compose.c:514
 msgid "Can not process invalid directory"
 msgstr "无法处理无效目录"
 
 #. TRANSLATORS: Information message
-#: tools/appstream-compose.c:505
+#: tools/appstream-compose.c:526
 msgid "Composing metadata..."
 msgstr "正在整合元数据…"
 
 #. TRANSLATORS: Error message
-#: tools/appstream-compose.c:510
+#: tools/appstream-compose.c:531
 msgid "Failed to compose AppStream metadata"
 msgstr "未能编写 AppStream 元数据"
 
 #. TRANSLATORS: appstream-compose failed to include all data
-#: tools/appstream-compose.c:516
+#: tools/appstream-compose.c:537
 msgid "Run failed, some data was ignored."
 msgstr "运行失败，一些数据已被忽略。"
 
-#: tools/appstream-compose.c:519
+#: tools/appstream-compose.c:540
 msgid "Errors were raised during this compose run:"
 msgstr "在该整合运行期间发生错误："
 
-#: tools/appstream-compose.c:522
+#: tools/appstream-compose.c:543
 msgid "Refer to the generated issue report data for details on the individual problems."
 msgstr "请参阅生成的问题报告数据获取有关单独问题的详情。"
 
-#: tools/appstream-compose.c:526
+#: tools/appstream-compose.c:547
 msgid "Overview of generated hints:"
 msgstr "已生成提示的概览："
 
 #. TRANSLATORS: Information message
-#: tools/appstream-compose.c:528
+#: tools/appstream-compose.c:549
 msgid "Success!"
 msgstr "成功！"
 
