@@ -182,6 +182,8 @@ asc_icon_policy_set_policy (AscIconPolicy *ipolicy,
 	AscIconPolicyPrivate *priv = GET_PRIVATE (ipolicy);
 	AscIconPolicyEntry *entry = NULL;
 
+	g_return_if_fail (ASC_IS_ICON_POLICY (ipolicy));
+
 	if (icon_scale < 1) {
 		g_warning ("An icon scale of 0 is invalid, resetting to 1.");
 		icon_scale = 1;
@@ -300,6 +302,8 @@ asc_icon_policy_to_string (AscIconPolicy *ipolicy)
 	AscIconPolicyPrivate *priv = GET_PRIVATE (ipolicy);
 	GString *result = g_string_new ("");
 
+	g_return_val_if_fail (ASC_IS_ICON_POLICY (ipolicy), NULL);
+
 	for (guint i = 0; i < priv->entries->len; i++) {
 		AscIconPolicyEntry *e = g_ptr_array_index (priv->entries, i);
 		if (e->scale > 1)
@@ -341,6 +345,8 @@ asc_icon_policy_from_string (AscIconPolicy *ipolicy, const gchar *serialized_pol
 	g_auto(GStrv) policy_blocks = NULL;
 	gboolean success = TRUE;
 	gboolean have_64x64_cached = FALSE;
+	g_return_val_if_fail (ASC_IS_ICON_POLICY (ipolicy), FALSE);
+
 	g_return_val_if_fail (serialized_policy != NULL, FALSE);
 
 	policy_blocks = g_strsplit (serialized_policy, ",", -1);

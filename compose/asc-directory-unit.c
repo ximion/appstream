@@ -638,6 +638,8 @@ const gchar *
 asc_directory_unit_get_root (AscDirectoryUnit *dirunit)
 {
 	AscDirectoryUnitPrivate *priv = GET_PRIVATE (dirunit);
+	g_return_val_if_fail (ASC_IS_DIRECTORY_UNIT (dirunit), NULL);
+
 	return priv->root_dir;
 }
 
@@ -646,11 +648,10 @@ asc_directory_unit_get_root (AscDirectoryUnit *dirunit)
  * @dirunit: an #AscDirectoryUnit instance.
  * @root_dir: Absolute directory path
  *
- * Sets the root directory path for this unit.
- *
- * Since: 0.14.5
+ * Sets the root directory path for this unit. Only ever called at construction
+ * time - changing the root of a unit that may already be open is not supported.
  **/
-void
+static void
 asc_directory_unit_set_root (AscDirectoryUnit *dirunit, const gchar *root_dir)
 {
 	AscDirectoryUnitPrivate *priv = GET_PRIVATE (dirunit);

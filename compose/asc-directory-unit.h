@@ -44,6 +44,5 @@ struct _AscDirectoryUnitClass {
 AscDirectoryUnit *asc_directory_unit_new (const gchar *root_dir);
 
 const gchar	 *asc_directory_unit_get_root (AscDirectoryUnit *dirunit);
-void		  asc_directory_unit_set_root (AscDirectoryUnit *dirunit, const gchar *root_dir);
 
 G_END_DECLS

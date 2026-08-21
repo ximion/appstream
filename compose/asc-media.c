@@ -873,6 +873,8 @@ guint
 asc_media_get_request_timeout (AscMedia *media)
 {
 	AscMediaPrivate *priv = GET_PRIVATE (media);
+	g_return_val_if_fail (ASC_IS_MEDIA (media), 0);
+
 	return priv->timeout_secs;
 }
 
@@ -890,6 +892,8 @@ void
 asc_media_set_request_timeout (AscMedia *media, guint seconds)
 {
 	AscMediaPrivate *priv = GET_PRIVATE (media);
+	g_return_if_fail (ASC_IS_MEDIA (media));
+
 	priv->timeout_secs = seconds;
 	if (priv->socket != NULL)
 		g_socket_set_timeout (priv->socket, priv->timeout_secs);
@@ -908,6 +912,8 @@ const gchar *
 asc_media_get_worker_path (AscMedia *media)
 {
 	AscMediaPrivate *priv = GET_PRIVATE (media);
+	g_return_val_if_fail (ASC_IS_MEDIA (media), NULL);
+
 	return priv->worker_path;
 }
 
@@ -924,6 +930,8 @@ void
 asc_media_set_worker_path (AscMedia *media, const gchar *path)
 {
 	AscMediaPrivate *priv = GET_PRIVATE (media);
+	g_return_if_fail (ASC_IS_MEDIA (media));
+
 	if (path == NULL)
 		path = asc_globals_get_mediaworker_binary ();
 	as_assign_string_safe (priv->worker_path, path);
@@ -942,6 +950,8 @@ guint32
 asc_media_get_memory_limit (AscMedia *media)
 {
 	AscMediaPrivate *priv = GET_PRIVATE (media);
+	g_return_val_if_fail (ASC_IS_MEDIA (media), 0);
+
 	return priv->memory_limit_mb;
 }
 
@@ -959,6 +969,8 @@ void
 asc_media_set_memory_limit (AscMedia *media, guint32 limit_mib)
 {
 	AscMediaPrivate *priv = GET_PRIVATE (media);
+	g_return_if_fail (ASC_IS_MEDIA (media));
+
 	priv->memory_limit_mb = limit_mib;
 }
 
@@ -1117,6 +1129,8 @@ asc_media_shutdown_worker (AscMedia *media, gboolean force)
 void
 asc_media_stop (AscMedia *media)
 {
+	g_return_if_fail (ASC_IS_MEDIA (media));
+
 	asc_media_shutdown_worker (media, FALSE);
 }
 
@@ -1950,6 +1964,8 @@ asc_media_render_font_card (AscMedia *media,
 			    GPtrArray *targets,
 			    GError **error)
 {
+	g_return_val_if_fail (ASC_IS_MEDIA (media), FALSE);
+
 	return asc_media_render_font (media,
 				      ASC_MEDIA_OP_RENDER_FONT_CARD,
 				      font_data,
@@ -1998,6 +2014,8 @@ asc_media_render_font_icon (AscMedia *media,
 			    GPtrArray *targets,
 			    GError **error)
 {
+	g_return_val_if_fail (ASC_IS_MEDIA (media), FALSE);
+
 	return asc_media_render_font (media,
 				      ASC_MEDIA_OP_RENDER_FONT_ICON,
 				      font_data,

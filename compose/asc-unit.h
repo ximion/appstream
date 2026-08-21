@@ -54,7 +54,7 @@ AsBundleKind asc_unit_get_bundle_kind (AscUnit *unit);
 void	     asc_unit_set_bundle_kind (AscUnit *unit, AsBundleKind kind);
 
 const gchar *asc_unit_get_bundle_id (AscUnit *unit);
-const gchar *asc_unit_get_bundle_id_safe (AscUnit *unit);
+const gchar *asc_unit_get_bundle_id_fs_safe (AscUnit *unit);
 void	     asc_unit_set_bundle_id (AscUnit *unit, const gchar *id);
 
 GPtrArray   *asc_unit_get_contents (AscUnit *unit);

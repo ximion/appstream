@@ -295,7 +295,7 @@ asw_optimize_png (const gchar *fname, GError **error)
 	if (optipng_path == NULL) {
 		g_set_error (error,
 			     ASC_MEDIA_ERROR,
-			     ASC_MEDIA_ERROR_NOT_FOUND,
+			     ASC_MEDIA_ERROR_FAILED,
 			     "optipng not found in $PATH");
 		return FALSE;
 	}

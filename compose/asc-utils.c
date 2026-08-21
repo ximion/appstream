@@ -114,6 +114,8 @@ asc_compute_content_checksum_for_data (const gchar *data, gsize length)
 	blake3_hasher hasher;
 	uint8_t out[BLAKE3_OUT_LEN];
 
+	g_return_val_if_fail (data != NULL || length == 0, NULL);
+
 	blake3_hasher_init (&hasher);
 	blake3_hasher_update (&hasher, data, length);
 

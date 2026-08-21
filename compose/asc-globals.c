@@ -49,12 +49,18 @@
 #define ASC_MEDIAWORKER_EXE LIBDIR "/ascompose/asc-mediaworker"
 #endif
 
-#define ASC_TYPE_GLOBALS (asc_globals_get_type ())
-G_DECLARE_DERIVABLE_TYPE (AscGlobals, asc_globals, ASC, GLOBALS, GObject)
+/* AscGlobals is an implementation detail: it must not contribute any symbol to
+ * the ABI of this library, so keep its type declaration hidden. */
+AS_BEGIN_PRIVATE_DECLS
 
-struct _AscGlobalsClass {
-	GObjectClass parent_class;
+#define ASC_TYPE_GLOBALS (asc_globals_get_type ())
+G_DECLARE_FINAL_TYPE (AscGlobals, asc_globals, ASC, GLOBALS, GObject)
+
+struct _AscGlobals {
+	GObject parent_instance;
 };
+
+AS_END_PRIVATE_DECLS
 
 typedef struct {
 	gboolean use_optipng;
@@ -307,7 +313,7 @@ asc_globals_set_use_optipng (gboolean enabled)
 {
 	AscGlobalsPrivate *priv = asc_globals_get_priv ();
 	if (enabled && priv->optipng_bin == NULL) {
-		g_critical ("Refusing to enable optipng: not found in $PATH");
+		g_warning ("Refusing to enable optipng: not found in $PATH");
 		priv->use_optipng = FALSE;
 		return;
 	}
@@ -469,11 +475,11 @@ asc_globals_create_hint_tag_table (void)
  * @tag: the tag-ID to add
  * @severity: the tag severity as #AsIssueSeverity
  * @explanation: the tag explanatory message
- * @overrideExisting: whether an existing tag should be replaced
+ * @override_existing: whether an existing tag should be replaced
  *
  * Register a new hint tag. If a previous tag with the given name
  * already existed, the existing tag will not be replaced unless
- * @overrideExisting is set to %TRUE.
+ * @override_existing is set to %TRUE.
  * Please be careful when overriding tags! Tag severities can not
  * be lowered by overriding a tag.
  *
@@ -485,7 +491,7 @@ gboolean
 asc_globals_add_hint_tag (const gchar *tag,
 			  AsIssueSeverity severity,
 			  const gchar *explanation,
-			  gboolean overrideExisting)
+			  gboolean override_existing)
 {
 	AscGlobalsPrivate *priv = asc_globals_get_priv ();
 	AscHintTag *htag;
@@ -498,7 +504,7 @@ asc_globals_add_hint_tag (const gchar *tag,
 
 	e_htag = g_hash_table_lookup (priv->hint_tags, tag);
 	if (e_htag != NULL) {
-		if (overrideExisting) {
+		if (override_existing) {
 			/* make sure we don't permit lowering severities */
 			if (severity > e_htag->severity)
 				severity = e_htag->severity;
@@ -533,7 +539,7 @@ asc_globals_get_hint_tag_details (const gchar *tag)
 }
 
 /**
- * asc_globals_get_hint_tags:
+ * asc_globals_fetch_hint_tags:
  *
  * Retrieve all hint tags that we know.
  *
@@ -542,7 +548,7 @@ asc_globals_get_hint_tag_details (const gchar *tag)
  * Since: 0.14.0
  */
 gchar **
-asc_globals_get_hint_tags (void)
+asc_globals_fetch_hint_tags (void)
 {
 	AscGlobalsPrivate *priv = asc_globals_get_priv ();
 	GHashTableIter iter;

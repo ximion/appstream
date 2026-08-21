@@ -276,7 +276,7 @@ asc_render_font_icon (AscResult *cres,
 		custom_icon_text = as_component_get_custom_value (cpt, "FontIconText");
 
 		icon_name = g_strdup_printf ("%s_%s.%s",
-					     asc_unit_get_bundle_id_safe (unit),
+					     asc_unit_get_bundle_id_fs_safe (unit),
 					     entry->safe_id,
 					     asc_image_format_to_string (img_format));
 		icon_full_path = g_build_filename (icon_dir, icon_name, NULL);

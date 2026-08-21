@@ -34,7 +34,6 @@ G_BEGIN_DECLS
  * @ASC_MEDIA_ERROR_DEAD_WORKER:	The media worker process crashed or could not be spawned.
  * @ASC_MEDIA_ERROR_TIMEOUT:		A media operation took too long and was aborted.
  * @ASC_MEDIA_ERROR_PROTOCOL:		Communication with the media worker was corrupted.
- * @ASC_MEDIA_ERROR_NOT_FOUND:		A required component or data was not found.
  * @ASC_MEDIA_ERROR_UNSUPPORTED:	The requested operation or image type was not supported.
  *
  * A media processing error.
@@ -46,7 +45,6 @@ typedef enum {
 	ASC_MEDIA_ERROR_DEAD_WORKER,
 	ASC_MEDIA_ERROR_TIMEOUT,
 	ASC_MEDIA_ERROR_PROTOCOL,
-	ASC_MEDIA_ERROR_NOT_FOUND,
 	ASC_MEDIA_ERROR_UNSUPPORTED,
 	/*< private >*/
 	ASC_MEDIA_ERROR_LAST
@@ -112,6 +110,8 @@ typedef enum {
  * All of these formats can be read, but renditions are only ever written as
  * %ASC_IMAGE_FORMAT_PNG or %ASC_IMAGE_FORMAT_JXL - the other values are for
  * classifying input data.
+ *
+ * Since: 0.14.0
  **/
 typedef enum {
 	ASC_IMAGE_FORMAT_UNKNOWN,
@@ -199,9 +199,6 @@ void	     asc_media_set_request_timeout (AscMedia *media, guint seconds);
 
 guint32	     asc_media_get_memory_limit (AscMedia *media);
 void	     asc_media_set_memory_limit (AscMedia *media, guint32 limit_mib);
-
-const gchar *asc_media_get_worker_path (AscMedia *media);
-void	     asc_media_set_worker_path (AscMedia *media, const gchar *path);
 
 gboolean     asc_media_ensure_worker (AscMedia *media, GCancellable *cancellable, GError **error);
 void	     asc_media_stop (AscMedia *media);

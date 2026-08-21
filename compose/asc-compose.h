@@ -117,7 +117,7 @@ typedef void (*AscCheckMetadataEarlyFn) (AscResult *cres, AscUnit *unit, gpointe
  * The return value must contain a list of strings with the locale name in even indices,
  * and the text translated to the preceding locale in the following odd indices.
  *
- * Returns: (not nullable) (transfer full): A new #GPtrArray containing the translation mapping.
+ * Returns: (not nullable) (transfer full) (element-type utf8): A new #GPtrArray containing the translation mapping.
  *
  * Since: 0.14.2
  */

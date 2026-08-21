@@ -65,7 +65,9 @@ typedef enum {
 	ASC_ICON_STATE_IGNORED,
 	ASC_ICON_STATE_CACHED_REMOTE,
 	ASC_ICON_STATE_CACHED_ONLY,
-	ASC_ICON_STATE_REMOTE_ONLY
+	ASC_ICON_STATE_REMOTE_ONLY,
+	/*< private >*/
+	ASC_ICON_STATE_LAST
 } AscIconState;
 
 const gchar   *asc_icon_state_to_string (AscIconState istate);

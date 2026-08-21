@@ -40,7 +40,6 @@ struct _AscHintClass {
 	void (*_as_reserved4) (void);
 };
 
-AscHint	       *asc_hint_new (void);
 AscHint	       *asc_hint_new_for_tag (const gchar *tag, GError **error);
 
 const gchar    *asc_hint_get_tag (AscHint *hint);

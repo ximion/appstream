@@ -84,6 +84,8 @@ AsBundleKind
 asc_unit_get_bundle_kind (AscUnit *unit)
 {
 	AscUnitPrivate *priv = GET_PRIVATE (unit);
+	g_return_val_if_fail (ASC_IS_UNIT (unit), AS_BUNDLE_KIND_UNKNOWN);
+
 	return priv->bundle_kind;
 }
 
@@ -99,6 +101,8 @@ void
 asc_unit_set_bundle_kind (AscUnit *unit, AsBundleKind kind)
 {
 	AscUnitPrivate *priv = GET_PRIVATE (unit);
+	g_return_if_fail (ASC_IS_UNIT (unit));
+
 	priv->bundle_kind = kind;
 }
 
@@ -115,22 +119,30 @@ const gchar *
 asc_unit_get_bundle_id (AscUnit *unit)
 {
 	AscUnitPrivate *priv = GET_PRIVATE (unit);
+	g_return_val_if_fail (ASC_IS_UNIT (unit), NULL);
+
 	return priv->bundle_id;
 }
 
 /**
- * asc_unit_get_bundle_id_safe:
+ * asc_unit_get_bundle_id_fs_safe:
  * @unit: an #AscUnit instance.
  *
  * Gets the ID name of the bundle, normalized to be safe to use
- * in filenames. This may *not* be the same name as set via asc_unit_get_bundle_id()
+ * in filenames. This may *not* be the same name as set via
+ * asc_unit_set_bundle_id().
+ *
+ * Returns: (transfer none) (nullable): The sanitized bundle ID, or %NULL if
+ *    no bundle ID was set.
  *
  * Since: 0.15.1
  **/
 const gchar *
-asc_unit_get_bundle_id_safe (AscUnit *unit)
+asc_unit_get_bundle_id_fs_safe (AscUnit *unit)
 {
 	AscUnitPrivate *priv = GET_PRIVATE (unit);
+	g_return_val_if_fail (ASC_IS_UNIT (unit), NULL);
+
 	return priv->bundle_id_safe;
 }
 
@@ -148,6 +160,8 @@ asc_unit_set_bundle_id (AscUnit *unit, const gchar *id)
 {
 	AscUnitPrivate *priv = GET_PRIVATE (unit);
 	GString *tmp;
+	g_return_if_fail (ASC_IS_UNIT (unit));
+
 	as_assign_string_safe (priv->bundle_id, id);
 
 	tmp = g_string_new (priv->bundle_id);
@@ -183,6 +197,8 @@ GPtrArray *
 asc_unit_get_contents (AscUnit *unit)
 {
 	AscUnitPrivate *priv = GET_PRIVATE (unit);
+	g_return_val_if_fail (ASC_IS_UNIT (unit), NULL);
+
 	return priv->contents;
 }
 
@@ -199,6 +215,9 @@ void
 asc_unit_set_contents (AscUnit *unit, GPtrArray *contents)
 {
 	AscUnitPrivate *priv = GET_PRIVATE (unit);
+	g_return_if_fail (ASC_IS_UNIT (unit));
+
+	g_return_if_fail (contents != NULL);
 	if (priv->contents == contents)
 		return;
 	g_ptr_array_unref (priv->contents);
@@ -219,6 +238,8 @@ GPtrArray *
 asc_unit_get_relevant_paths (AscUnit *unit)
 {
 	AscUnitPrivate *priv = GET_PRIVATE (unit);
+	g_return_val_if_fail (ASC_IS_UNIT (unit), NULL);
+
 	return priv->relevant_paths;
 }
 
@@ -237,6 +258,8 @@ void
 asc_unit_add_relevant_path (AscUnit *unit, const gchar *path)
 {
 	AscUnitPrivate *priv = GET_PRIVATE (unit);
+
+	g_return_if_fail (ASC_IS_UNIT (unit));
 
 	/* duplicate check */
 	for (guint i = 0; i < priv->relevant_paths->len; i++) {
@@ -352,11 +375,11 @@ GBytes *
 asc_unit_read_data (AscUnit *unit, const gchar *filename, GError **error)
 {
 	AscUnitClass *klass;
-	g_return_val_if_fail (ASC_IS_UNIT (unit), FALSE);
-	g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
+	g_return_val_if_fail (ASC_IS_UNIT (unit), NULL);
+	g_return_val_if_fail (error == NULL || *error == NULL, NULL);
 
 	klass = ASC_UNIT_GET_CLASS (unit);
-	g_return_val_if_fail (klass->read_data != NULL, FALSE);
+	g_return_val_if_fail (klass->read_data != NULL, NULL);
 	return klass->read_data (unit, filename, error);
 }
 

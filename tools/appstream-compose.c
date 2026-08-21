@@ -90,7 +90,7 @@ composecli_print_hints_report (GPtrArray *results, const gchar *title, AscReport
 		g_autofree const gchar **issue_cids = NULL;
 		AscResult *result = ASC_RESULT (g_ptr_array_index (results, i));
 
-		issue_cids = asc_result_get_component_ids_with_hints (result);
+		issue_cids = asc_result_fetch_component_ids_with_hints (result);
 		for (guint j = 0; issue_cids[j] != NULL; j++) {
 			gboolean entry_added = FALSE;
 			gsize start_len = 0;

@@ -172,6 +172,8 @@ asc_compose_reset (AscCompose *compose)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
 	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
+	g_return_if_fail (ASC_IS_COMPOSE (compose));
+
 
 	g_hash_table_remove_all (priv->allowed_cids);
 	g_ptr_array_set_size (priv->units, 0);
@@ -193,6 +195,8 @@ asc_compose_add_unit (AscCompose *compose, AscUnit *unit)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
 	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
+	g_return_if_fail (ASC_IS_COMPOSE (compose));
+
 
 	/* sanity check */
 	for (guint i = 0; i < priv->units->len; i++) {
@@ -219,6 +223,8 @@ asc_compose_add_allowed_cid (AscCompose *compose, const gchar *component_id)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
 	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
+	g_return_if_fail (ASC_IS_COMPOSE (compose));
+
 	g_hash_table_add (priv->allowed_cids, g_strdup (component_id));
 }
 
@@ -234,6 +240,8 @@ const gchar *
 asc_compose_get_prefix (AscCompose *compose)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
+	g_return_val_if_fail (ASC_IS_COMPOSE (compose), NULL);
+
 	return priv->prefix;
 }
 
@@ -251,6 +259,8 @@ asc_compose_set_prefix (AscCompose *compose, const gchar *prefix)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
 	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
+	g_return_if_fail (ASC_IS_COMPOSE (compose));
+
 
 	/* do a bit of sanitizing: "no prefix" means the prefix directory is the root directory */
 	if (prefix == NULL || g_strcmp0 (prefix, "") == 0)
@@ -271,6 +281,8 @@ const gchar *
 asc_compose_get_origin (AscCompose *compose)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
+	g_return_val_if_fail (ASC_IS_COMPOSE (compose), NULL);
+
 	return priv->origin;
 }
 
@@ -289,6 +301,8 @@ asc_compose_set_origin (AscCompose *compose, const gchar *origin)
 	AscComposePrivate *priv = GET_PRIVATE (compose);
 	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
 	g_autofree gchar *tmp = NULL;
+
+	g_return_if_fail (ASC_IS_COMPOSE (compose));
 
 	tmp = as_path_segment_sanitize (origin);
 	if (tmp == NULL) {
@@ -316,6 +330,8 @@ AsFormatKind
 asc_compose_get_format (AscCompose *compose)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
+	g_return_val_if_fail (ASC_IS_COMPOSE (compose), AS_FORMAT_KIND_UNKNOWN);
+
 	return priv->format;
 }
 
@@ -332,6 +348,8 @@ void
 asc_compose_set_format (AscCompose *compose, AsFormatKind kind)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
+	g_return_if_fail (ASC_IS_COMPOSE (compose));
+
 	priv->format = kind;
 }
 
@@ -349,6 +367,8 @@ AscImageFormat
 asc_compose_get_image_format (AscCompose *compose)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
+	g_return_val_if_fail (ASC_IS_COMPOSE (compose), ASC_IMAGE_FORMAT_UNKNOWN);
+
 	return priv->image_format;
 }
 
@@ -370,6 +390,8 @@ void
 asc_compose_set_image_format (AscCompose *compose, AscImageFormat format)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
+	g_return_if_fail (ASC_IS_COMPOSE (compose));
+
 	g_return_if_fail (format == ASC_IMAGE_FORMAT_PNG || format == ASC_IMAGE_FORMAT_JXL);
 	priv->image_format = format;
 }
@@ -387,6 +409,8 @@ const gchar *
 asc_compose_get_media_baseurl (AscCompose *compose)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
+	g_return_val_if_fail (ASC_IS_COMPOSE (compose), NULL);
+
 	return priv->media_baseurl;
 }
 
@@ -404,6 +428,8 @@ void
 asc_compose_set_media_baseurl (AscCompose *compose, const gchar *url)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
+	g_return_if_fail (ASC_IS_COMPOSE (compose));
+
 	as_assign_string_safe (priv->media_baseurl, url);
 }
 
@@ -419,6 +445,8 @@ AscComposeFlags
 asc_compose_get_flags (AscCompose *compose)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
+	g_return_val_if_fail (ASC_IS_COMPOSE (compose), ASC_COMPOSE_FLAG_NONE);
+
 	return priv->flags;
 }
 
@@ -436,6 +464,8 @@ void
 asc_compose_set_flags (AscCompose *compose, AscComposeFlags flags)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
+	g_return_if_fail (ASC_IS_COMPOSE (compose));
+
 	priv->flags = flags;
 }
 
@@ -452,6 +482,8 @@ void
 asc_compose_add_flags (AscCompose *compose, AscComposeFlags flags)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
+	g_return_if_fail (ASC_IS_COMPOSE (compose));
+
 	as_flags_add (priv->flags, flags);
 }
 
@@ -468,6 +500,8 @@ void
 asc_compose_remove_flags (AscCompose *compose, AscComposeFlags flags)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
+	g_return_if_fail (ASC_IS_COMPOSE (compose));
+
 	as_flags_remove (priv->flags, flags);
 }
 
@@ -486,6 +520,8 @@ AscIconPolicy *
 asc_compose_get_icon_policy (AscCompose *compose)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
+	g_return_val_if_fail (ASC_IS_COMPOSE (compose), NULL);
+
 	return priv->icon_policy;
 }
 
@@ -502,10 +538,11 @@ void
 asc_compose_set_icon_policy (AscCompose *compose, AscIconPolicy *policy)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
+	g_return_if_fail (ASC_IS_COMPOSE (compose));
+
 	g_return_if_fail (policy != NULL);
 
-	g_object_unref (priv->icon_policy);
-	priv->icon_policy = g_object_ref (policy);
+	g_set_object (&priv->icon_policy, policy);
 }
 
 /**
@@ -529,6 +566,8 @@ void
 asc_compose_set_media (AscCompose *compose, AscMedia *media)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
+	g_return_if_fail (ASC_IS_COMPOSE (compose));
+
 	g_set_object (&priv->media, media);
 }
 
@@ -544,6 +583,8 @@ const gchar *
 asc_compose_get_cainfo (AscCompose *compose)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
+	g_return_val_if_fail (ASC_IS_COMPOSE (compose), NULL);
+
 	return priv->cainfo;
 }
 
@@ -562,6 +603,8 @@ asc_compose_set_cainfo (AscCompose *compose, const gchar *cainfo)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
 	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
+	g_return_if_fail (ASC_IS_COMPOSE (compose));
+
 	as_assign_string_safe (priv->cainfo, cainfo);
 }
 
@@ -577,6 +620,8 @@ const gchar *
 asc_compose_get_data_result_dir (AscCompose *compose)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
+	g_return_val_if_fail (ASC_IS_COMPOSE (compose), NULL);
+
 	return priv->data_result_dir;
 }
 
@@ -595,6 +640,8 @@ asc_compose_set_data_result_dir (AscCompose *compose, const gchar *dir)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
 	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
+	g_return_if_fail (ASC_IS_COMPOSE (compose));
+
 	as_assign_string_safe (priv->data_result_dir, dir);
 }
 
@@ -610,6 +657,8 @@ const gchar *
 asc_compose_get_icons_result_dir (AscCompose *compose)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
+	g_return_val_if_fail (ASC_IS_COMPOSE (compose), NULL);
+
 	return priv->icons_result_dir;
 }
 
@@ -628,6 +677,8 @@ asc_compose_set_icons_result_dir (AscCompose *compose, const gchar *dir)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
 	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
+	g_return_if_fail (ASC_IS_COMPOSE (compose));
+
 	as_assign_string_safe (priv->icons_result_dir, dir);
 }
 
@@ -643,6 +694,8 @@ const gchar *
 asc_compose_get_media_result_dir (AscCompose *compose)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
+	g_return_val_if_fail (ASC_IS_COMPOSE (compose), NULL);
+
 	return priv->media_result_dir;
 }
 
@@ -661,6 +714,8 @@ asc_compose_set_media_result_dir (AscCompose *compose, const gchar *dir)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
 	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
+	g_return_if_fail (ASC_IS_COMPOSE (compose));
+
 	as_assign_string_safe (priv->media_result_dir, dir);
 }
 
@@ -676,6 +731,8 @@ const gchar *
 asc_compose_get_hints_result_dir (AscCompose *compose)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
+	g_return_val_if_fail (ASC_IS_COMPOSE (compose), NULL);
+
 	return priv->hints_result_dir;
 }
 
@@ -694,6 +751,8 @@ asc_compose_set_hints_result_dir (AscCompose *compose, const gchar *dir)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
 	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
+	g_return_if_fail (ASC_IS_COMPOSE (compose));
+
 	as_assign_string_safe (priv->hints_result_dir, dir);
 }
 
@@ -711,6 +770,8 @@ asc_compose_remove_custom_allowed (AscCompose *compose, const gchar *key_id)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
 	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
+	g_return_if_fail (ASC_IS_COMPOSE (compose));
+
 
 	for (guint i = 0; i < priv->custom_allowed->len; i++) {
 		if (g_strcmp0 (g_ptr_array_index (priv->custom_allowed, i), key_id) == 0) {
@@ -734,6 +795,8 @@ asc_compose_add_custom_allowed (AscCompose *compose, const gchar *key_id)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
 	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
+	g_return_if_fail (ASC_IS_COMPOSE (compose));
+
 	g_ptr_array_add (priv->custom_allowed, g_strdup (key_id));
 }
 
@@ -751,6 +814,8 @@ gssize
 asc_compose_get_max_screenshot_size (AscCompose *compose)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
+	g_return_val_if_fail (ASC_IS_COMPOSE (compose), -1);
+
 	return priv->max_scr_size_bytes;
 }
 
@@ -769,15 +834,17 @@ void
 asc_compose_set_max_screenshot_size (AscCompose *compose, gssize size_bytes)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
+	g_return_if_fail (ASC_IS_COMPOSE (compose));
+
 	priv->max_scr_size_bytes = size_bytes;
 }
 
 /**
  * asc_compose_set_check_metadata_early_func:
  * @compose: an #AscCompose instance.
- * @func: (scope notified) (nullable): the #AscCheckMetadataEarlyFn function to be called
+ * @func: (scope notified) (nullable) (closure user_data) (destroy udata_free_func): the #AscCheckMetadataEarlyFn function to be called
  * @user_data: user data for @func
- * @udata_free_func: (destroy user_data) (nullable): function to free @user_data
+ * @udata_free_func: (nullable): function to free @user_data
  *
  * Set an custom callback to be run when most of the metadata has been loaded,
  * but no expensive operations (like downloads or icon rendering) have been done yet.
@@ -798,6 +865,8 @@ asc_compose_set_check_metadata_early_func (AscCompose *compose,
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
 
+	g_return_if_fail (ASC_IS_COMPOSE (compose));
+
 	if (priv->check_md_early_fn_udata_free != NULL)
 		priv->check_md_early_fn_udata_free (priv->check_md_early_fn_udata);
 
@@ -809,9 +878,9 @@ asc_compose_set_check_metadata_early_func (AscCompose *compose,
 /**
  * asc_compose_set_desktop_entry_l10n_func:
  * @compose: an #AscCompose instance.
- * @func: (scope notified) (nullable): the #AscTranslateDesktopTextFn function to be called
+ * @func: (scope notified) (nullable) (closure user_data) (destroy udata_free_func): the #AscTranslateDesktopTextFn function to be called
  * @user_data: user data for @func
- * @udata_free_func: (destroy user_data) (nullable): function to free @user_data
+ * @udata_free_func: (nullable): function to free @user_data
  *
  * Set a custom desktop-entry field localization functions to be run for specialized
  * desktop-entry localization schemes such as used in Ubuntu.
@@ -830,6 +899,8 @@ asc_compose_set_desktop_entry_l10n_func (AscCompose *compose,
 					 GDestroyNotify udata_free_func)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
+
+	g_return_if_fail (ASC_IS_COMPOSE (compose));
 
 	if (priv->de_l10n_fn_udata_free != NULL)
 		priv->de_l10n_fn_udata_free (priv->de_l10n_fn_udata);
@@ -853,6 +924,8 @@ AscUnit *
 asc_compose_get_locale_unit (AscCompose *compose)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
+	g_return_val_if_fail (ASC_IS_COMPOSE (compose), NULL);
+
 	return priv->locale_unit;
 }
 
@@ -875,6 +948,8 @@ void
 asc_compose_set_locale_unit (AscCompose *compose, AscUnit *locale_unit)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
+	g_return_if_fail (ASC_IS_COMPOSE (compose));
+
 	if (priv->locale_unit == locale_unit)
 		return;
 	if (priv->locale_unit != NULL)
@@ -896,6 +971,8 @@ GPtrArray *
 asc_compose_get_results (AscCompose *compose)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
+	g_return_val_if_fail (ASC_IS_COMPOSE (compose), NULL);
+
 	return priv->results;
 }
 
@@ -914,6 +991,8 @@ asc_compose_fetch_components (AscCompose *compose)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
 	GPtrArray *cpts_result = g_ptr_array_new_with_free_func (g_object_unref);
+
+	g_return_val_if_fail (ASC_IS_COMPOSE (compose), NULL);
 
 	for (guint i = 0; i < priv->results->len; i++) {
 		g_autoptr(GPtrArray) cpts = NULL;
@@ -941,6 +1020,8 @@ gboolean
 asc_compose_has_errors (AscCompose *compose)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
+
+	g_return_val_if_fail (ASC_IS_COMPOSE (compose), FALSE);
 
 	for (guint i = 0; i < priv->results->len; i++) {
 		g_autoptr(GPtrArray) hints = NULL;
@@ -1973,7 +2054,7 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 	/* clean up superfluous hints in case we were filtering the results, as some rejected
 	 * components may have generated errors while we were inspecting them */
 	if (filter_cpts) {
-		g_autofree const gchar **cids = asc_result_get_component_ids_with_hints (
+		g_autofree const gchar **cids = asc_result_fetch_component_ids_with_hints (
 		    ctask->result);
 		for (guint i = 0; cids[i] != NULL; i++) {
 			if (!g_hash_table_contains (priv->allowed_cids, cids[i])) {
@@ -2044,7 +2125,7 @@ asc_compose_export_hints_data_yaml (AscCompose *compose, GError **error)
 	event = fy_emit_event_create (emitter, FYET_DOCUMENT_START, FALSE, NULL, NULL);
 	yr = fy_emit_event (emitter, event);
 	g_assert (yr == 0);
-	all_hint_tags = asc_globals_get_hint_tags ();
+	all_hint_tags = asc_globals_fetch_hint_tags ();
 
 	as_yaml_sequence_start (emitter);
 	for (guint i = 0; all_hint_tags[i] != NULL; i++) {
@@ -2083,7 +2164,7 @@ asc_compose_export_hints_data_yaml (AscCompose *compose, GError **error)
 		g_autofree const gchar **hints_cids = NULL;
 		AscResult *result = ASC_RESULT (g_ptr_array_index (priv->results, i));
 
-		hints_cids = asc_result_get_component_ids_with_hints (result);
+		hints_cids = asc_result_fetch_component_ids_with_hints (result);
 		if (hints_cids == NULL)
 			continue;
 
@@ -2221,7 +2302,7 @@ asc_compose_export_hints_data_html (AscCompose *compose, GError **error)
 		g_autofree gchar *bundle_hstr = NULL;
 		AscResult *result = ASC_RESULT (g_ptr_array_index (priv->results, i));
 
-		hints_cids = asc_result_get_component_ids_with_hints (result);
+		hints_cids = asc_result_fetch_component_ids_with_hints (result);
 		if (hints_cids == NULL)
 			continue;
 
@@ -2363,6 +2444,8 @@ asc_compose_finalize_results (AscCompose *compose)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
 
+	g_return_if_fail (ASC_IS_COMPOSE (compose));
+
 	for (guint i = 0; i < priv->results->len; i++) {
 		AscResult *cres = ASC_RESULT (g_ptr_array_index (priv->results, i));
 		asc_compose_finalize_components (compose, cres);
@@ -2382,6 +2465,8 @@ asc_compose_finalize_results (AscCompose *compose)
 void
 asc_compose_finalize_result (AscCompose *compose, AscResult *result)
 {
+	g_return_if_fail (ASC_IS_COMPOSE (compose));
+
 	asc_compose_finalize_components (compose, result);
 }
 
@@ -2442,6 +2527,8 @@ asc_compose_run (AscCompose *compose, GCancellable *cancellable, GError **error)
 	g_autoptr(GPtrArray) tasks = NULL;
 	gboolean temp_dir_created = FALSE;
 	gboolean results_generated = FALSE;
+	g_return_val_if_fail (ASC_IS_COMPOSE (compose), NULL);
+
 
 	/* ensure icon output dir is set, hint and data output dirs are optional */
 	if (priv->icons_result_dir == NULL &&

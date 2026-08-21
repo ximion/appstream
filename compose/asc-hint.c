@@ -82,6 +82,8 @@ const gchar *
 asc_hint_get_tag (AscHint *hint)
 {
 	AscHintPrivate *priv = GET_PRIVATE (hint);
+	g_return_val_if_fail (ASC_IS_HINT (hint), NULL);
+
 	return priv->tag;
 }
 
@@ -97,6 +99,8 @@ void
 asc_hint_set_tag (AscHint *hint, const gchar *tag)
 {
 	AscHintPrivate *priv = GET_PRIVATE (hint);
+	g_return_if_fail (ASC_IS_HINT (hint));
+
 	g_free (priv->tag);
 	priv->tag = g_strdup (tag);
 }
@@ -113,6 +117,8 @@ AsIssueSeverity
 asc_hint_get_severity (AscHint *hint)
 {
 	AscHintPrivate *priv = GET_PRIVATE (hint);
+	g_return_val_if_fail (ASC_IS_HINT (hint), AS_ISSUE_SEVERITY_UNKNOWN);
+
 	return priv->severity;
 }
 
@@ -128,6 +134,8 @@ void
 asc_hint_set_severity (AscHint *hint, AsIssueSeverity severity)
 {
 	AscHintPrivate *priv = GET_PRIVATE (hint);
+	g_return_if_fail (ASC_IS_HINT (hint));
+
 	priv->severity = severity;
 }
 
@@ -143,6 +151,8 @@ const gchar *
 asc_hint_get_explanation_template (AscHint *hint)
 {
 	AscHintPrivate *priv = GET_PRIVATE (hint);
+	g_return_val_if_fail (ASC_IS_HINT (hint), NULL);
+
 	return priv->explanation_tmpl;
 }
 
@@ -158,6 +168,8 @@ void
 asc_hint_set_explanation_template (AscHint *hint, const gchar *explanation_tmpl)
 {
 	AscHintPrivate *priv = GET_PRIVATE (hint);
+	g_return_if_fail (ASC_IS_HINT (hint));
+
 	as_ref_string_assign_safe (&priv->explanation_tmpl, explanation_tmpl);
 }
 
@@ -173,6 +185,8 @@ gboolean
 asc_hint_is_error (AscHint *hint)
 {
 	AscHintPrivate *priv = GET_PRIVATE (hint);
+	g_return_val_if_fail (ASC_IS_HINT (hint), FALSE);
+
 	return priv->severity == AS_ISSUE_SEVERITY_ERROR;
 }
 
@@ -191,6 +205,8 @@ gboolean
 asc_hint_is_valid (AscHint *hint)
 {
 	AscHintPrivate *priv = GET_PRIVATE (hint);
+	g_return_val_if_fail (ASC_IS_HINT (hint), FALSE);
+
 	return (priv->severity != AS_ISSUE_SEVERITY_UNKNOWN) && !as_is_empty (priv->tag);
 }
 
@@ -208,6 +224,8 @@ void
 asc_hint_add_explanation_var (AscHint *hint, const gchar *var_name, const gchar *text)
 {
 	AscHintPrivate *priv = GET_PRIVATE (hint);
+	g_return_if_fail (ASC_IS_HINT (hint));
+
 	g_assert_cmpint (priv->vars->len % 2, ==, 0);
 
 	/* check if we can replace an existing value */
@@ -239,6 +257,8 @@ GPtrArray *
 asc_hint_get_explanation_vars_list (AscHint *hint)
 {
 	AscHintPrivate *priv = GET_PRIVATE (hint);
+	g_return_val_if_fail (ASC_IS_HINT (hint), NULL);
+
 	g_assert_cmpint (priv->vars->len % 2, ==, 0);
 	return priv->vars;
 }
@@ -259,6 +279,8 @@ asc_hint_format_explanation (AscHint *hint)
 {
 	AscHintPrivate *priv = GET_PRIVATE (hint);
 	g_auto(GStrv) parts = NULL;
+	g_return_val_if_fail (ASC_IS_HINT (hint), NULL);
+
 
 	g_assert_cmpint (priv->vars->len % 2, ==, 0);
 	if (priv->explanation_tmpl == NULL)
@@ -301,11 +323,11 @@ asc_hint_format_explanation (AscHint *hint)
 /**
  * asc_hint_new:
  *
- * Creates a new #AscHint.
+ * Creates a new, empty #AscHint.
  *
- * Since: 0.13.0
+ * Returns: (transfer full): The new #AscHint.
  **/
-AscHint *
+static AscHint *
 asc_hint_new (void)
 {
 	AscHint *hint;

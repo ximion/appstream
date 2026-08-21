@@ -190,7 +190,7 @@ test_compose_issue_tag_sanity (void)
 
 	tag_map = g_hash_table_new_full (g_str_hash, g_str_equal, NULL, NULL);
 
-	all_hint_tags = asc_globals_get_hint_tags ();
+	all_hint_tags = asc_globals_fetch_hint_tags ();
 	for (guint i = 0; all_hint_tags[i] != NULL; i++) {
 		gboolean r = g_hash_table_add (tag_map, all_hint_tags[i]);
 		if (!r) {
@@ -801,7 +801,7 @@ static void
 test_compose_optipng_not_found (Fixture *fixture, gconstpointer user_data)
 {
 	g_test_expect_message (G_LOG_DOMAIN,
-			       G_LOG_LEVEL_CRITICAL,
+			       G_LOG_LEVEL_WARNING,
 			       "*Refusing to enable optipng: not found in $PATH");
 	asc_globals_set_use_optipng (TRUE);
 	g_assert_false (asc_globals_get_use_optipng ());
