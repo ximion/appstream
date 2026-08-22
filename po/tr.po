@@ -31,7 +31,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-08-21 12:34+0200\n"
-"PO-Revision-Date: 2026-08-11 13:51+0000\n"
+"PO-Revision-Date: 2026-08-22 19:51+0000\n"
 "Last-Translator: Oğuz Ersen <oguz@ersen.moe>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/appstream/translations/tr/>\n"
 "Language: tr\n"
@@ -2735,7 +2735,7 @@ msgstr "Simge boyutlarının nasıl ele alınacağını ayarlamak için bir simg
 #. TRANSLATORS: ascompose flag description for: --image-format
 #: tools/appstream-compose.c:304
 msgid "The file format that generated icons and screenshots are stored in (`jxl` by default, or `png` for compatibility with older clients)."
-msgstr ""
+msgstr "Simgelerin ve ekran görüntülerinin oluşturulduğu dosya biçimi (öntanımlı olarak `jxl`, eski istemcilerle uyumluluk için `png`)."
 
 #. TRANSLATORS: ascompose flag description for: --allow-custom
 #: tools/appstream-compose.c:311
@@ -2803,7 +2803,7 @@ msgstr "Simge ilkesi ayarlanamıyor"
 #: tools/appstream-compose.c:464
 #, c-format
 msgid "Invalid image format: %s. Only `jxl` and `png` are supported for generated media.\n"
-msgstr ""
+msgstr "Geçersiz resim biçimi: %s. Oluşturulan ortam dosyaları için yalnızca `jxl` ve `png` biçimleri desteklenir.\n"
 
 #. TRANSLATORS: Information about as-compose allowlist
 #: tools/appstream-compose.c:494
