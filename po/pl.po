@@ -22,7 +22,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-08-21 12:34+0200\n"
-"PO-Revision-Date: 2026-08-11 13:51+0000\n"
+"PO-Revision-Date: 2026-08-22 06:51+0000\n"
 "Last-Translator: Matthaiks <kitynska@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/appstream/translations/pl/>\n"
 "Language: pl\n"
@@ -2726,7 +2726,7 @@ msgstr "Ciąg zasad dotyczących ikon do ustawiania sposobu obsługi rozmiarów 
 #. TRANSLATORS: ascompose flag description for: --image-format
 #: tools/appstream-compose.c:304
 msgid "The file format that generated icons and screenshots are stored in (`jxl` by default, or `png` for compatibility with older clients)."
-msgstr ""
+msgstr "Format pliku, w którym zapisywane są wygenerowane ikony i zrzuty ekranu (domyślnie „jxl” lub „png” dla zapewnienia zgodności ze starszymi klientami)."
 
 #. TRANSLATORS: ascompose flag description for: --allow-custom
 #: tools/appstream-compose.c:311
@@ -2794,7 +2794,7 @@ msgstr "Nie można ustawić zasad dotyczących ikon"
 #: tools/appstream-compose.c:464
 #, c-format
 msgid "Invalid image format: %s. Only `jxl` and `png` are supported for generated media.\n"
-msgstr ""
+msgstr "Nieprawidłowy format obrazu: %s. W przypadku generowanych multimediów obsługiwane są tylko formaty „jxl” i „png”.\n"
 
 #. TRANSLATORS: Information about as-compose allowlist
 #: tools/appstream-compose.c:494
