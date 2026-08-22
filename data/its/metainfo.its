@@ -2,50 +2,38 @@
 <!--
   Copyright (C) 2015-2024 Matthias Klumpp <matthias@tenstral.net>
   Copyright (C) 2019 Takao Fujiwara <takao.fujiwara1@gmail.com>
+  Copyright (c) 2026 Florian Leander Singer <sp1rit@disroot.org>
 
   SPDX-License-Identifier: FSFAP
 -->
 <its:rules xmlns:its="http://www.w3.org/2005/11/its"
            version="2.0">
 
-  <its:translateRule selector="/component" translate="no"/>
-  <its:translateRule selector="/component/name |
-                               /component/summary |
-                               /component/description |
-                               /component/developer_name |
-                               /component/developer/name |
-                               /component/name_variant_suffix |
-                               /component/keywords/keyword |
-                               /component/screenshots/screenshot/caption |
-                               /component/releases/release/description |
-                               /component/agreement/agreement_section/name |
-                               /component/agreement/agreement_section/description"
+  <its:translateRule selector="/*[local-name() = 'component']" translate="no"/>
+  <its:translateRule selector="/*[local-name() = 'component']/*[local-name() = 'name' or
+                                                                local-name() = 'developer_name' or
+                                                                local-name() = 'name_variant_suffix'] |
+                               /*[local-name() = 'component']/*[local-name() = 'developer']/*[local-name() = 'name'] |
+                               /*[local-name() = 'component']/*[local-name() = 'keywords']/*[local-name() = 'keyword'] |
+                               /*[local-name() = 'component']/*[local-name() = 'releases']/*[local-name() = 'release']/*[local-name() = 'description'] |
+                               /*[local-name() = 'component']/*[local-name() = 'agreement']/*[local-name() = 'agreement_section']/*[local-name() = 'name' or
+                                                                                                                                    local-name() = 'description']"
                      translate="yes"/>
 
-  <its:withinTextRule withinText="yes" selector="/component//description//em   |
-                                                 /component//description//code"/>
+  <its:withinTextRule withinText="yes" selector="/*[local-name() = 'component']//*[local-name() = 'description']//*[local-name() = 'em' or
+                                                                                                                    local-name() = 'code']"/>
 
-  <its:translateRule selector="/component/name[@translate = 'no']"
+  <its:translateRule selector="/*[local-name() = 'component']//*[@translate = 'no']"
                      translate="no"/>
-  <its:translateRule selector="/component/developer_name[@translate = 'no']"
-                     translate="no"/>
-  <its:translateRule selector="/component/developer/name[@translate = 'no']"
-                     translate="no"/>
-  <its:translateRule selector="/component/name_variant_suffix[@translate = 'no']"
-                     translate="no"/>
-  <its:translateRule selector="/component/keywords/keyword[@translate = 'no']"
-                     translate="no"/>
-  <its:translateRule selector="/component/releases/release/description[@translate = 'no']"
-                     translate="no"/>
-  <its:translateRule selector="/component/agreement/agreement_section/name[@translate = 'no'] |
-                               /component/agreement/agreement_section/description[@translate = 'no']"
-                     translate="no"/>
+  <!-- Force translation of summary, description and screenshot captions, regardless of their translate attribute -->
+  <its:translateRule selector="/*[local-name() = 'component']/*[local-name() = 'summary' or
+                                                                local-name() = 'description'] |
+                               /*[local-name() = 'component']/*[local-name() = 'screenshots']/*[local-name() = 'screenshot']/*[local-name() = 'caption']"
+                     translate="yes"/>
 
   <!-- Release metadata -->
-  <its:translateRule selector="/releases" translate="no"/>
-  <its:translateRule selector="/releases/release/description"
+  <its:translateRule selector="/*[local-name() = 'releases']" translate="no"/>
+  <its:translateRule selector="/*[local-name() = 'releases']/*[local-name() = 'release']/*[local-name() = 'description' and not(@translate = 'no')]"
                      translate="yes"/>
-  <its:translateRule selector="/releases/release/description[@translate = 'no']"
-                     translate="no"/>
 
 </its:rules>
