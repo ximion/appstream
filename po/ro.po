@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-08-21 12:34+0200\n"
-"PO-Revision-Date: 2026-08-14 04:51+0000\n"
+"PO-Revision-Date: 2026-08-22 19:51+0000\n"
 "Last-Translator: Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>\n"
 "Language-Team: Romanian <https://hosted.weblate.org/projects/appstream/translations/ro/>\n"
 "Language: ro\n"
@@ -2713,7 +2713,7 @@ msgstr "Un șir de reguli de procesare a pictogramelor „icon-policy” pentru 
 #. TRANSLATORS: ascompose flag description for: --image-format
 #: tools/appstream-compose.c:304
 msgid "The file format that generated icons and screenshots are stored in (`jxl` by default, or `png` for compatibility with older clients)."
-msgstr ""
+msgstr "Formatul de fișier în care sunt stocate pictogramele și capturile de ecran generate (implicit „jxl” sau „png” pentru compatibilitate cu clienții mai vechi)."
 
 #. TRANSLATORS: ascompose flag description for: --allow-custom
 #: tools/appstream-compose.c:311
@@ -2781,7 +2781,7 @@ msgstr "Nu se poate stabili politica privind pictogramele"
 #: tools/appstream-compose.c:464
 #, c-format
 msgid "Invalid image format: %s. Only `jxl` and `png` are supported for generated media.\n"
-msgstr ""
+msgstr "Format de imagine nevalid: %s. Pentru fișierele media generate sunt acceptate doar formatele „jxl” și „png”.\n"
 
 #. TRANSLATORS: Information about as-compose allowlist
 #: tools/appstream-compose.c:494
