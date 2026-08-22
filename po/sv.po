@@ -29,7 +29,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-08-21 12:34+0200\n"
-"PO-Revision-Date: 2026-08-11 13:51+0000\n"
+"PO-Revision-Date: 2026-08-22 06:51+0000\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/appstream/translations/sv/>\n"
 "Language: sv\n"
@@ -2733,7 +2733,7 @@ msgstr "En ikonpolicysträng för att ställa in hur ikonstorlekar ska hanterar 
 #. TRANSLATORS: ascompose flag description for: --image-format
 #: tools/appstream-compose.c:304
 msgid "The file format that generated icons and screenshots are stored in (`jxl` by default, or `png` for compatibility with older clients)."
-msgstr ""
+msgstr "Filformaten som genererade ikoner och skärmbilder lagras i ( `jxl` som standard, eller `png` för kompatibilitet med äldre klienter)."
 
 #. TRANSLATORS: ascompose flag description for: --allow-custom
 #: tools/appstream-compose.c:311
@@ -2801,7 +2801,7 @@ msgstr "Kunde inte ställa in ikonpolicy"
 #: tools/appstream-compose.c:464
 #, c-format
 msgid "Invalid image format: %s. Only `jxl` and `png` are supported for generated media.\n"
-msgstr ""
+msgstr "Ogiltigt filformat: %s. Endast `jxl` och `png` stöds för genererade media.\n"
 
 #. TRANSLATORS: Information about as-compose allowlist
 #: tools/appstream-compose.c:494
