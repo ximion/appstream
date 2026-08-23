@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-08-21 12:34+0200\n"
 "PO-Revision-Date: 2026-08-23 18:44+0000\n"
-"Last-Translator: BISHOP KROS <bishopkros29@gmail.com>\n"
+"Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
 "Language-Team: Kazakh <https://hosted.weblate.org/projects/appstream/translations/kk/>\n"
 "Language: kk\n"
 "MIME-Version: 1.0\n"
@@ -1660,13 +1660,12 @@ msgid "This description paragraph contains invalid markup. Currently, only <em/>
 msgstr "Бұл сипаттама параграфында жарамсыз белгілеулер бар. Қазіргі уақытта тек <em/> және <code/> тегтеріне рұқсат етіледі."
 
 #: src/as-validator-issue-tag.h:75
-#, fuzzy
 msgid "Elements of description markup must not have any attributes set, with the exception of a language property on paragraphs and list items in MetaInfo files. Any other attribute is not permitted and will be removed when the metadata is read."
-msgstr "Сипаттау белгі элементтерінде ешқандай атрибут болмауы қажет, Металинфо файлының тізіміндегі абзацпен элементтерге қолданылатын тіл атрибутын қоспағанда.Басқа кез келген атрибуттарға рұқсат етілмейді және Метадеректер оқылған кезде жойылып кетеді"
+msgstr "Сипаттама белгілеуінің элементтерінде ешқандай атрибуттар орнатылмауы тиіс, бұған тек MetaInfo файлдарындағы абзацтар мен тізім элементтеріндегі тіл қасиеті ғана кірмейді. Кез келген басқа атрибутқа рұқсат етілмейді және метадеректерді оқу кезінде ол өшіріледі."
 
 #: src/as-validator-issue-tag.h:81
 msgid "The markup in this description is nested too deeply. Excessively nested markup will be flattened to plain text when the metadata is read."
-msgstr ""
+msgstr "Бұл сипаттамадағы белгілеу тым терең кірістірілген. Метадеректерді оқу кезінде шамадан тыс кірістірілген белгілеу жай мәтінге дейін тегістеледі."
 
 #: src/as-validator-issue-tag.h:87
 msgid "Enumerations must only have list items (<li/>) as children."
@@ -2014,11 +2013,11 @@ msgstr "`pkgname` тегі бірнеше рет кездеседі. Бір ко
 
 #: src/as-validator-issue-tag.h:527
 msgid "The package name contains characters that are not permitted here. A package name must start with an alphanumeric character and may only contain alphanumeric characters as well as `+`, `-`, `.`, `_` and `:`."
-msgstr ""
+msgstr "Десте атауында бұл жерде рұқсат етілмеген таңбалар бар. Десте атауы әріптік-сандық таңбадан басталуы керек және тек әріптік-сандық таңбалардан, сондай-ақ `+`, `-`, `.`, `_` және `:` таңбаларынан ғана тұруы мүмкін."
 
 #: src/as-validator-issue-tag.h:533
 msgid "The bundle ID contains characters that are not permitted here. It must start with an alphanumeric character and may only contain alphanumeric characters as well as `+`, `-`, `.`, `_`, `:` and `/`."
-msgstr ""
+msgstr "Bundle ID атауында бұл жерде рұқсат етілмеген таңбалар бар. Оның атауы әріптік-сандық таңбадан басталуы керек және тек әріптік-сандық таңбалардан, сондай-ақ `+`, `-`, `.`, `_` , `:`  және `/` таңбаларынан ғана тұруы мүмкін."
 
 #: src/as-validator-issue-tag.h:539
 msgid "The component name should (likely) not end with a dot (`.`)."
@@ -2713,7 +2712,7 @@ msgstr "Таңбаша өлшемдерін қалай өңдеу керекті
 #. TRANSLATORS: ascompose flag description for: --image-format
 #: tools/appstream-compose.c:304
 msgid "The file format that generated icons and screenshots are stored in (`jxl` by default, or `png` for compatibility with older clients)."
-msgstr ""
+msgstr "Жасалған таңбашалар мен скриншоттар сақталатын файл пішімі (әдепкі бойынша `jxl`, немесе ескі клиенттермен үйлесімділік үшін `png`)."
 
 #. TRANSLATORS: ascompose flag description for: --allow-custom
 #: tools/appstream-compose.c:311
@@ -2781,7 +2780,7 @@ msgstr "Таңбаша саясатын орнату мүмкін емес"
 #: tools/appstream-compose.c:464
 #, c-format
 msgid "Invalid image format: %s. Only `jxl` and `png` are supported for generated media.\n"
-msgstr ""
+msgstr "Жарамсыз сурет пішімі: %s. Жасалған медиа үшін тек `jxl` және `png` пішімдеріне қолдау көрсетіледі.\n"
 
 #. TRANSLATORS: Information about as-compose allowlist
 #: tools/appstream-compose.c:494
@@ -3716,7 +3715,7 @@ msgstr "Пікір сәтті жіберілді. Рақмет!"
 #: tools/ascli-actions-pkgmgr.c:92
 #, c-format
 msgid "Refusing to run the package manager: The component metadata contains an invalid package name: %s"
-msgstr ""
+msgstr "Дестелер менеджерін іске қосудан бас тартылды: компонент метадеректерінде жарамсыз пакет атауы бар: %s"
 
 #: tools/ascli-actions-pkgmgr.c:107
 msgid "No suitable package manager tool found. Please make sure that e.g. \"pkgcli\" (part of PackageKit) is available."
@@ -3731,7 +3730,7 @@ msgstr "Десте менеджерін іске қосу мүмкін емес:
 #: tools/ascli-actions-pkgmgr.c:144
 #, c-format
 msgid "Refusing to run Flatpak: The component metadata contains an invalid bundle ID: %s"
-msgstr ""
+msgstr "Flatpak іске қосудан бас тартылды: компонент метадеректерінде жарамсыз bundle ID бар: %s"
 
 #: tools/ascli-actions-pkgmgr.c:151
 msgid "Flatpak was not found! Please install it to continue."
