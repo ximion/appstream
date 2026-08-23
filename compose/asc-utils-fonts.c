@@ -448,7 +448,7 @@ process_font_data_for_component (AscResult *cres,
 	g_autofree gchar *cpt_screenshots_path = NULL;
 	g_autoptr(GList) cpt_languages = NULL;
 	g_autoptr(GPtrArray) extra_langs_array = NULL;
-	g_autofree const gchar **extra_langs = NULL;
+	const gchar **extra_langs = NULL; /* borrowed from extra_langs_array */
 	const gchar *preferred_lang = NULL;
 	gboolean has_icon = FALSE;
 
