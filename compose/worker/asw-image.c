@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2016-2024 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2016-2026 Matthias Klumpp <matthias@tenstral.net>
  * Copyright (C) 2014-2016 Richard Hughes <richard@hughsie.com>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
@@ -90,6 +90,22 @@ G_DEFINE_TYPE_WITH_PRIVATE (AswImage, asw_image, G_TYPE_OBJECT)
  * vector graphics are text, so they compress very well, but a legitimate icon
  * will never come anywhere close to this */
 #define ASW_IMAGE_MAX_GUNZIP_SIZE_BYTES (64 * 1024 * 1024)
+
+/* The SVG specification, librsvg, GdkPixbuf and every web browser convert physical units
+ * (pt, mm, in) at 96 dots per inch, while libvips asks librsvg for 72. A drawing whose size
+ * is given in physical units and that has no viewBox is laid out in a viewport that is only
+ * 3/4 of its intended size that way, and anything reaching beyond that is simply cut off.
+ * So we ask for the resolution everyone else assumes. */
+#define ASW_SVG_DPI	  96
+#define ASW_SVG_LOAD_OPTS "dpi=" G_STRINGIFY (ASW_SVG_DPI)
+
+/* libvips applies the DPI as a plain multiplier on top of the size librsvg reports, so a load
+ * that is supposed to yield the native size of a drawing has to cancel that factor out again.
+ * We only do that where we actually want the native size: when rasterizing at a requested
+ * size, libvips scales the drawing to that size anyway, and passing our own scale along would
+ * interfere with the one it calculates. */
+#define ASW_SVG_NATIVE_SCALE	 0.75 /* = 72.0 / ASW_SVG_DPI */
+#define ASW_SVG_LOAD_OPTS_NATIVE ASW_SVG_LOAD_OPTS ",scale=" G_STRINGIFY (ASW_SVG_NATIVE_SCALE)
 
 /**
  * asw_image_format_from_vips_loader:
@@ -784,6 +800,8 @@ asw_image_new_from_data (const void *data,
 					   (size_t) len,
 					   &vimg,
 					   tmp_width,
+					   "option_string",
+					   ASW_SVG_LOAD_OPTS,
 					   "height",
 					   tmp_height,
 					   "size",
@@ -799,7 +817,9 @@ asw_image_new_from_data (const void *data,
 	} else {
 		vimg = vips_image_new_from_buffer (data,
 						   (size_t) len,
-						   "", /* option string */
+						   format == ASC_IMAGE_FORMAT_SVG
+						       ? ASW_SVG_LOAD_OPTS_NATIVE
+						       : "", /* option string */
 						   "fail_on",
 						   VIPS_FAIL_ON_ERROR,
 						   NULL);
@@ -839,13 +859,13 @@ asw_image_load_filename (AswImage *image,
 {
 	g_autoptr(VipsImage) vimg_src = NULL;
 	const gchar *loader_name = NULL;
-	gboolean is_svg = FALSE;
+	AscImageFormat format;
 
 	g_return_val_if_fail (ASW_IS_IMAGE (image), FALSE);
 
-	is_svg = g_str_has_suffix (filename, ".svg") || g_str_has_suffix (filename, ".svgz");
-
-	/* only read the formats we actually want to support */
+	/* only read the formats we actually want to support. We go by what the loader made of
+	 * the file rather than by its name, so we never hand SVG options to a loader that has
+	 * no idea what to do with them */
 	loader_name = vips_foreign_find_load (filename);
 	if (loader_name == NULL) {
 		vips_error_clear ();
@@ -855,7 +875,8 @@ asw_image_load_filename (AswImage *image,
 				     "Image format was not recognized");
 		return FALSE;
 	}
-	if (asw_image_format_from_vips_loader (loader_name) == ASC_IMAGE_FORMAT_UNKNOWN) {
+	format = asw_image_format_from_vips_loader (loader_name);
+	if (format == ASC_IMAGE_FORMAT_UNKNOWN) {
 		g_set_error (error,
 			     ASC_MEDIA_ERROR,
 			     ASC_MEDIA_ERROR_UNSUPPORTED,
@@ -866,23 +887,40 @@ asw_image_load_filename (AswImage *image,
 
 	/* open the file at its native size, but rasterize vector graphics at the
 	 * resolution they were asked for */
-	if (is_svg && (render_width > 0 || render_height > 0)) {
+	if (format == ASC_IMAGE_FORMAT_SVG && (render_width > 0 || render_height > 0)) {
 		gint tmp_width = render_width > 0 ? render_width : render_height;
 		gint tmp_height = render_height > 0 ? render_height : render_width;
+		g_autoptr(VipsSource) source = vips_source_new_from_file (filename);
+		if (source == NULL)
+			return asw_vips_error ("Unable to read image", error);
 
-		if (vips_thumbnail (filename,
-				    &vimg_src,
-				    tmp_width,
-				    "height",
-				    tmp_height,
-				    "size",
-				    VIPS_SIZE_BOTH,
-				    "no_rotate",
-				    TRUE,
-				    "fail_on",
-				    VIPS_FAIL_ON_ERROR,
-				    NULL) != 0)
+		if (vips_thumbnail_source (source,
+					   &vimg_src,
+					   tmp_width,
+					   "option_string",
+					   ASW_SVG_LOAD_OPTS,
+					   "height",
+					   tmp_height,
+					   "size",
+					   VIPS_SIZE_BOTH,
+					   "no_rotate",
+					   TRUE,
+					   "fail_on",
+					   VIPS_FAIL_ON_ERROR,
+					   NULL) != 0)
 			return asw_vips_error ("Unable to render SVG image", error);
+	} else if (format == ASC_IMAGE_FORMAT_SVG) {
+		/* extra arguments are handed on to the loader that libvips selected */
+		vimg_src = vips_image_new_from_file (filename,
+						     "dpi",
+						     (gdouble) ASW_SVG_DPI,
+						     "scale",
+						     (gdouble) ASW_SVG_NATIVE_SCALE,
+						     "fail_on",
+						     VIPS_FAIL_ON_ERROR,
+						     NULL);
+		if (vimg_src == NULL)
+			return asw_vips_error ("Unable to load image", error);
 	} else {
 		vimg_src = vips_image_new_from_file (filename, "fail_on", VIPS_FAIL_ON_ERROR, NULL);
 		if (vimg_src == NULL)

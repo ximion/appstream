@@ -340,6 +340,87 @@ test_image_transform (void)
 }
 
 /**
+ * asx_assert_pixel_is_marker:
+ *
+ * Check that the pixel at the given position is the red marker of the test drawing.
+ */
+static void
+asx_assert_pixel_is_marker (AswImage *image, gint x, gint y)
+{
+	g_autofree double *point = NULL;
+	int point_len = 0;
+
+	if (vips_getpoint (asw_image_get_vips (image), &point, &point_len, x, y, NULL) != 0)
+		g_error ("Unable to read pixel at %d/%d: %s", x, y, vips_error_buffer ());
+
+	g_assert_cmpint (point_len, >=, 3);
+	g_assert_cmpfloat (point[0], >, 200);
+	g_assert_cmpfloat (point[1], <, 60);
+	g_assert_cmpfloat (point[2], <, 60);
+}
+
+/**
+ * test_image_physical_size:
+ *
+ * Vector graphics sized in physical units, without a viewBox, have to be laid out at the
+ * 96dpi the SVG specification prescribes - at 72dpi their viewport is only 3/4 as large
+ * and everything reaching beyond it is cut away.
+ */
+static void
+test_image_physical_size (void)
+{
+	/* This drawing is 96x96 points, which makes it 128x128 pixels large. The marker in
+	 * its lower right corner sits outside of a viewport that was set up at 72dpi, so it
+	 * only shows up in a rendering that contains the whole drawing. */
+	const gchar *svg_data =
+	    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+	    "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"96pt\" height=\"96pt\">\n"
+	    "  <rect x=\"0\" y=\"0\" width=\"128\" height=\"128\" fill=\"#0000ff\" />\n"
+	    "  <rect x=\"100\" y=\"100\" width=\"28\" height=\"28\" fill=\"#ff0000\" />\n"
+	    "</svg>\n";
+
+	g_autofree gchar *svg_fname = NULL;
+	g_autoptr(AswImage) image = NULL;
+	g_autoptr(GError) error = NULL;
+
+	svg_fname = asx_build_workdir_path ("asw-physical-size.svg");
+	g_file_set_contents (svg_fname, svg_data, -1, &error);
+	g_assert_no_error (error);
+
+	/* loaded at its native size, this is the size the drawing actually has */
+	image = asw_image_new_from_file (svg_fname, -1, -1, &error);
+	g_assert_no_error (error);
+	g_assert_nonnull (image);
+	g_assert_cmpint (asw_image_get_width (image), ==, 128);
+	g_assert_cmpint (asw_image_get_height (image), ==, 128);
+	g_clear_object (&image);
+
+	/* the same, read from memory */
+	image = asw_image_new_from_data (svg_data, (gssize) strlen (svg_data), -1, -1, &error);
+	g_assert_no_error (error);
+	g_assert_nonnull (image);
+	g_assert_cmpint (asw_image_get_width (image), ==, 128);
+	g_assert_cmpint (asw_image_get_height (image), ==, 128);
+	g_clear_object (&image);
+
+	/* rasterized at half its size, the marker has to be in there as well */
+	image = asw_image_new_from_file (svg_fname, 64, 64, &error);
+	g_assert_no_error (error);
+	g_assert_nonnull (image);
+	g_assert_cmpint (asw_image_get_width (image), ==, 64);
+	g_assert_cmpint (asw_image_get_height (image), ==, 64);
+
+	asx_assert_pixel_is_marker (image, 60, 60);
+	g_clear_object (&image);
+
+	/* ... and the same when the data is rasterized straight from memory */
+	image = asw_image_new_from_data (svg_data, (gssize) strlen (svg_data), 64, 64, &error);
+	g_assert_no_error (error);
+	g_assert_nonnull (image);
+	asx_assert_pixel_is_marker (image, 60, 60);
+}
+
+/**
  * test_canvas:
  *
  * Test canvas.
@@ -545,6 +626,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/AppStream/ComposeWorker/FontInfo", test_read_fontinfo);
 	g_test_add_func ("/AppStream/ComposeWorker/FontFromFd", test_font_from_fd);
 	g_test_add_func ("/AppStream/ComposeWorker/Image", test_image_transform);
+	g_test_add_func ("/AppStream/ComposeWorker/ImagePhysicalSize", test_image_physical_size);
 	g_test_add_func ("/AppStream/ComposeWorker/Canvas", test_canvas);
 	g_test_add_func ("/AppStream/ComposeWorker/FontCard", test_render_font_card);
 	g_test_add_func ("/AppStream/ComposeWorker/FontRenderFiles", test_render_font_files);
