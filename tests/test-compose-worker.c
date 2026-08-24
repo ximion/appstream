@@ -359,6 +359,13 @@ asx_assert_pixel_is_marker (AswImage *image, gint x, gint y)
 	g_assert_cmpfloat (point[2], <, 60);
 }
 
+/* libvips only lays vector graphics out at the DPI it is given since 8.17.2. Older versions
+ * lay every drawing out at 72dpi and merely zoom the result, so the resolution we ask for and
+ * the scale that cancels it out annul each other there, and drawings keep being cut off at
+ * their 72dpi viewport - which no option of the loader can do anything about. */
+#define ASX_SVG_LAYOUT_USES_DPI \
+	(VIPS_MAJOR_VERSION * 10000 + VIPS_MINOR_VERSION * 100 + VIPS_MICRO_VERSION >= 81702)
+
 /**
  * test_image_physical_size:
  *
@@ -382,6 +389,11 @@ test_image_physical_size (void)
 	g_autofree gchar *svg_fname = NULL;
 	g_autoptr(AswImage) image = NULL;
 	g_autoptr(GError) error = NULL;
+
+	if (!ASX_SVG_LAYOUT_USES_DPI) {
+		g_test_skip ("libvips " VIPS_VERSION " lays vector graphics out at 72dpi");
+		return;
+	}
 
 	svg_fname = asx_build_workdir_path ("asw-physical-size.svg");
 	g_file_set_contents (svg_fname, svg_data, -1, &error);
