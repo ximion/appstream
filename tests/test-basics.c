@@ -293,6 +293,28 @@ test_simplemarkup (void)
 		       " • List item, emphasized\n"
 		       " • Item with a bit of code\n\n"
 		       "Last paragraph.") == 0);
+	g_free (str);
+
+	/* unlike the plain-text conversion, Markdown retains the inline markup */
+	str = as_markup_convert (
+	    "<p>Paragraph using all allowed markup, "
+	    "like an <em>emphasis</em> or <code>some code</code>.</p>"
+	    "<p>An asterisk * on its own needs no escaping, a 2*3 one does.</p>"
+	    "<ul>"
+	    "<li>List item, <em>emphasized</em></li>"
+	    "<li>Item with <code>a bit of code</code></li>"
+	    "</ul>"
+	    "<p>Last paragraph.</p>",
+	    AS_MARKUP_KIND_MARKDOWN,
+	    &error);
+	g_assert_no_error (error);
+	g_assert_true (g_strcmp0 (str,
+				  "Paragraph using all allowed markup, like an *emphasis* or "
+				  "`some code`.\n\n"
+				  "An asterisk * on its own needs no escaping, a 2\\*3 one does.\n"
+				  " * List item, *emphasized*\n"
+				  " * Item with `a bit of code`\n\n"
+				  "Last paragraph.") == 0);
 }
 
 /**

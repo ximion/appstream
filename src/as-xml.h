@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2012-2024 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2026 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -69,6 +69,7 @@ void	    as_xml_parse_metainfo_description_node (AsContext  *ctx,
 
 gchar	   *as_xml_dump_description_para_content (xmlNode *node);
 gchar	   *as_xml_dump_description_children (xmlNode *node);
+gchar	   *as_xml_desc_to_inline_md (xmlNode *node);
 
 gchar	   *as_xml_sanitize_description (const gchar *markup,
 					 gssize	      len);

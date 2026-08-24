@@ -266,7 +266,9 @@ as_markup_convert (const gchar *markup, AsMarkupKind to_kind, GError **error)
 
 		if (g_strcmp0 ((gchar *) iter->name, "p") == 0) {
 			g_autofree gchar *clean_text = NULL;
-			g_autofree gchar *text_content = as_xml_get_node_value_raw (iter);
+			g_autofree gchar *text_content = (to_kind == AS_MARKUP_KIND_MARKDOWN)
+							     ? as_xml_desc_to_inline_md (iter)
+							     : as_xml_get_node_value_raw (iter);
 
 			/* Apparently the element is empty, which is odd. But we better add it instead
 			 * of completely ignoring it. */
@@ -309,8 +311,10 @@ as_markup_convert (const gchar *markup, AsMarkupKind to_kind, GError **error)
 				if (g_strcmp0 ((gchar *) iter2->name, "li") == 0) {
 					g_auto(GStrv) spl = NULL;
 					g_autofree gchar *clean_item = NULL;
-					g_autofree gchar *item_content = as_xml_get_node_value_raw (
-					    iter2);
+					g_autofree gchar
+					    *item_content = (to_kind == AS_MARKUP_KIND_MARKDOWN)
+								? as_xml_desc_to_inline_md (iter2)
+								: as_xml_get_node_value_raw (iter2);
 					entry_no++;
 
 					/* Apparently the item text is empty, which is odd.

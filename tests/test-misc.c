@@ -69,6 +69,7 @@ test_readwrite_yaml_news (void)
 					     "Description:\n"
 					     "- Improved A & X\n"
 					     "- Fixed B\n"
+					     "- Fixed the *frobnicator* in `libfoo`\n"
 					     "Resolved:\n"
 					     "- name: bz#12345\n"
 					     "  url: https://example.com/bugzilla/12345\n"
@@ -80,7 +81,7 @@ test_readwrite_yaml_news (void)
 					     "Description: |-\n"
 					     "  A freeform description text.\n"
 					     "  \n"
-					     "  Second paragraph. XML <> YAML\n"
+					     "  Second paragraph with *emphasis*. XML <> YAML\n"
 					     "   * List item 1\n"
 					     "   * List item 2\n"
 					     "     Line two of list item.\n"
@@ -101,6 +102,7 @@ test_readwrite_yaml_news (void)
 	    "        <ul>\n"
 	    "          <li>Improved A &amp; X</li>\n"
 	    "          <li>Fixed B</li>\n"
+	    "          <li>Fixed the <em>frobnicator</em> in <code>libfoo</code></li>\n"
 	    "        </ul>\n"
 	    "      </description>\n"
 	    "      <url>https://example.com/releases/1.2</url>\n"
@@ -113,7 +115,7 @@ test_readwrite_yaml_news (void)
 	    "    <release type=\"stable\" version=\"1.1\" date=\"2019-04-12T00:00:00Z\">\n"
 	    "      <description>\n"
 	    "        <p>A freeform description text.</p>\n"
-	    "        <p>Second paragraph. XML &lt;&gt; YAML</p>\n"
+	    "        <p>Second paragraph with <em>emphasis</em>. XML &lt;&gt; YAML</p>\n"
 	    "        <ul>\n"
 	    "          <li>List item 1</li>\n"
 	    "          <li>List item 2 Line two of list item.</li>\n"
@@ -139,6 +141,7 @@ test_readwrite_yaml_news (void)
 	    "        <ul>\n"
 	    "          <li>Improved A &amp; X</li>\n"
 	    "          <li>Fixed B</li>\n"
+	    "          <li>Fixed the <em>frobnicator</em> in <code>libfoo</code></li>\n"
 	    "        </ul>\n"
 	    "      </description>\n"
 	    "      <url>https://example.com/releases/1.2</url>\n"
@@ -151,7 +154,7 @@ test_readwrite_yaml_news (void)
 	    "    <release type=\"stable\" version=\"1.1\" date=\"2019-04-12T00:00:00Z\">\n"
 	    "      <description translate=\"no\">\n"
 	    "        <p>A freeform description text.</p>\n"
-	    "        <p>Second paragraph. XML &lt;&gt; YAML</p>\n"
+	    "        <p>Second paragraph with <em>emphasis</em>. XML &lt;&gt; YAML</p>\n"
 	    "        <ul>\n"
 	    "          <li>List item 1</li>\n"
 	    "          <li>List item 2 Line two of list item.</li>\n"
@@ -218,6 +221,90 @@ test_readwrite_yaml_news (void)
 	g_assert_nonnull (tmp);
 	g_assert_true (as_test_compare_lines (tmp, expected_xml_releases_data_notranslate));
 	g_free (tmp);
+}
+
+/**
+ * test_news_inline_markup:
+ *
+ * Test the inline Markdown subset that NEWS descriptions support, and that
+ * everything which is not a balanced delimiter is left alone.
+ */
+static void
+test_news_inline_markup (void)
+{
+	static const gchar *yaml_news_data =
+	    "---\n"
+	    "Version: \"1.0\"\n"
+	    "Date: 2026-01-01\n"
+	    "Description:\n"
+	    "- Simple *emphasis* and `code`\n"
+	    "- \"Bold is not supported: **bold**\"\n"
+	    "- \"An escaped \\\\*star\\\\* and a backslash \\\\\\\\ stay literal\"\n"
+	    "- \"Unbalanced * and ` are literal\"\n"
+	    "- \"Arithmetic 2 * 3 * 4 is untouched\"\n"
+	    "- \"A star touching only the left side is literal: foo* bar\"\n"
+	    "- \"Asterisks in `inline * code` do not emphasize\"\n"
+	    "- Nesting *emphasis with `code` inside* works\n"
+	    "- \"Escaping still applies: <b> & co in *emphasis*\"\n";
+
+	static const gchar *expected_xml_releases_data =
+	    "  <releases>\n"
+	    "    <release type=\"stable\" version=\"1.0\" date=\"2026-01-01T00:00:00Z\">\n"
+	    "      <description>\n"
+	    "        <ul>\n"
+	    "          <li>Simple <em>emphasis</em> and <code>code</code></li>\n"
+	    "          <li>Bold is not supported: **bold**</li>\n"
+	    "          <li>An escaped *star* and a backslash \\ stay literal</li>\n"
+	    "          <li>Unbalanced * and ` are literal</li>\n"
+	    "          <li>Arithmetic 2 * 3 * 4 is untouched</li>\n"
+	    "          <li>A star touching only the left side is literal: foo* bar</li>\n"
+	    "          <li>Asterisks in <code>inline * code</code> do not emphasize</li>\n"
+	    "          <li>Nesting <em>emphasis with <code>code</code> inside</em> works</li>\n"
+	    "          <li>Escaping still applies: &lt;b&gt; &amp; co in <em>emphasis</em></li>\n"
+	    "        </ul>\n"
+	    "      </description>\n"
+	    "    </release>\n"
+	    "  </releases>";
+
+	g_autoptr(GPtrArray) releases = NULL;
+	g_autoptr(GError) error = NULL;
+	g_autofree gchar *xml = NULL;
+	g_autofree gchar *news_out = NULL;
+	g_autoptr(GPtrArray) releases2 = NULL;
+	g_autofree gchar *xml2 = NULL;
+	gboolean ret;
+
+	releases = as_news_to_releases_from_data (yaml_news_data,
+						  AS_NEWS_FORMAT_KIND_YAML,
+						  -1,
+						  -1,
+						  &error);
+	g_assert_no_error (error);
+	g_assert_nonnull (releases);
+
+	xml = as_releases_to_metainfo_xml_chunk (releases, &error);
+	g_assert_no_error (error);
+	g_assert_nonnull (xml);
+	g_assert_true (as_test_compare_lines (xml, expected_xml_releases_data));
+
+	/* writing the releases back out and reading them in again must yield
+	 * exactly the same markup, so no emphasis or literal character is lost */
+	ret = as_releases_to_news_data (releases, AS_NEWS_FORMAT_KIND_YAML, &news_out, &error);
+	g_assert_no_error (error);
+	g_assert_true (ret);
+
+	releases2 = as_news_to_releases_from_data (news_out,
+						   AS_NEWS_FORMAT_KIND_YAML,
+						   -1,
+						   -1,
+						   &error);
+	g_assert_no_error (error);
+	g_assert_nonnull (releases2);
+
+	xml2 = as_releases_to_metainfo_xml_chunk (releases2, &error);
+	g_assert_no_error (error);
+	g_assert_nonnull (xml2);
+	g_assert_true (as_test_compare_lines (xml2, expected_xml_releases_data));
 }
 
 /**
@@ -294,6 +381,7 @@ test_readwrite_text_news (void)
 	    "\n"
 	    "Features:\n"
 	    " * Alpha\n"
+	    " * Made the *frobnicator* configurable via `--frob`\n"
 	    "\n"
 	    " * Beta\n"
 	    " * Even in bullet points you may\n"
@@ -347,6 +435,8 @@ test_readwrite_text_news (void)
 	    "        <p>This release adds the following features:</p>\n"
 	    "        <ul>\n"
 	    "          <li>Alpha</li>\n"
+	    "          <li>Made the <em>frobnicator</em> configurable via "
+	    "<code>--frob</code></li>\n"
 	    "          <li>Beta</li>\n"
 	    "          <li>Even in bullet points you may use multiple lines.</li>\n"
 	    "          <li>Issues may be referenced with Markdown #12345</li>\n"
@@ -409,6 +499,7 @@ test_readwrite_text_news (void)
 	    "\n"
 	    "This release adds the following features:\n"
 	    " * Alpha\n"
+	    " * Made the *frobnicator* configurable via `--frob`\n"
 	    " * Beta\n"
 	    " * Even in bullet points you may use multiple lines.\n"
 	    " * Issues may be referenced with Markdown #12345\n"
@@ -854,6 +945,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/AppStream/Misc/YAMLNews", test_readwrite_yaml_news);
 	g_test_add_func ("/AppStream/Misc/YAMLNewsFreeformLists", test_yaml_news_freeform_lists);
 	g_test_add_func ("/AppStream/Misc/TextNews", test_readwrite_text_news);
+	g_test_add_func ("/AppStream/Misc/NewsInlineMarkup", test_news_inline_markup);
 	g_test_add_func ("/AppStream/Misc/StripLocaleEncoding", test_locale_strip_encoding);
 	g_test_add_func ("/AppStream/Misc/RelationSatisfyCheck", test_relation_satisfy_check);
 	g_test_add_func ("/AppStream/Misc/SysCompatScores", test_syscompat_scores);

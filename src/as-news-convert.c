@@ -132,6 +132,194 @@ as_releases_to_metainfo_xml_chunk (GPtrArray *releases, GError **error)
 }
 
 /**
+ * as_news_inline_find_code_end:
+ *
+ * Find the closing backtick of a code span starting at @start (which points
+ * just past the opening backtick). Returns %NULL if the span is not closed
+ * before the end of the line.
+ */
+static const gchar *
+as_news_inline_find_code_end (const gchar *start)
+{
+	for (const gchar *c = start; c[0] != '\0'; c++) {
+		if (c[0] == '\n')
+			return NULL;
+		if (c[0] == '`')
+			return c;
+	}
+	return NULL;
+}
+
+/**
+ * as_news_inline_find_em_end:
+ *
+ * Find the closing asterisk of an emphasis span starting at @start (which points
+ * just past the opening asterisk). A closing delimiter is a single asterisk
+ * preceded by a non-whitespace character. Code spans are skipped over, so that
+ * an asterisk within inline code does not terminate the emphasis.
+ * Returns %NULL if no valid closing delimiter exists on this line.
+ */
+static const gchar *
+as_news_inline_find_em_end (const gchar *start)
+{
+	for (const gchar *c = start; c[0] != '\0'; c++) {
+		if (c[0] == '\n')
+			return NULL;
+
+		/* skip escaped characters */
+		if (c[0] == '\\' && c[1] != '\0') {
+			c++;
+			continue;
+		}
+
+		/* skip over a complete code span */
+		if (c[0] == '`') {
+			const gchar *code_end = as_news_inline_find_code_end (c + 1);
+			if (code_end != NULL) {
+				c = code_end;
+				continue;
+			}
+		}
+
+		if (c[0] != '*')
+			continue;
+
+		/* a run of two or more asterisks never delimits */
+		if (c[1] == '*') {
+			while (c[1] == '*')
+				c++;
+			continue;
+		}
+
+		/* the closing delimiter must not be preceded by whitespace, and must
+		 * not be the opening delimiter itself */
+		if (c == start || g_ascii_isspace (*(c - 1)))
+			continue;
+
+		return c;
+	}
+	return NULL;
+}
+
+/**
+ * as_news_escape_markup_inline_len:
+ *
+ * Escape @text for use in AppStream description markup, converting the small
+ * subset of inline Markdown that AppStream has tags for: `*emphasis*` becomes
+ * <em/> and `` `code` `` becomes <code/>. A backslash escapes the next
+ * character, and any delimiter that is unbalanced (or a run of two or more
+ * asterisks, since AppStream has no "strong" markup) is emitted literally.
+ * Spans never cross a line break, so unterminated markup can not straddle a
+ * paragraph or list-item boundary.
+ *
+ * Returns: (transfer full): escaped markup.
+ */
+static gchar *
+as_news_escape_markup_inline_len (const gchar *text, gssize text_len)
+{
+	GString *result = NULL;
+	const gchar *pending = NULL;
+	g_autofree gchar *buffer = NULL;
+	const gchar *c;
+
+	if (text == NULL)
+		return NULL;
+
+	if (text_len >= 0) {
+		buffer = g_strndup (text, (gsize) text_len);
+		text = buffer;
+	}
+
+	result = g_string_sized_new (strlen (text) + 16);
+	pending = text;
+
+/* flush all unprocessed text before @end as escaped character data */
+#define AS_NEWS_FLUSH_PENDING(end)                                                            \
+	G_STMT_START                                                                          \
+	{                                                                                     \
+		if ((end) > pending) {                                                        \
+			g_autofree gchar *flush_esc = g_markup_escape_text (pending,          \
+									    (end) - pending); \
+			g_string_append (result, flush_esc);                                  \
+		}                                                                             \
+	}                                                                                     \
+	G_STMT_END
+
+	for (c = text; c[0] != '\0'; c++) {
+		if (c[0] == '\\' && (c[1] == '*' || c[1] == '`' || c[1] == '\\')) {
+			/* a backslash escape yields the literal character */
+			AS_NEWS_FLUSH_PENDING (c);
+			g_string_append_c (result, c[1]);
+			c++;
+			pending = c + 1;
+			continue;
+		}
+
+		if (c[0] == '`') {
+			const gchar *code_end = as_news_inline_find_code_end (c + 1);
+			g_autofree gchar *esc = NULL;
+
+			if (code_end == NULL)
+				continue; /* unterminated - emit literally */
+
+			AS_NEWS_FLUSH_PENDING (c);
+			/* the content of a code span is taken verbatim */
+			esc = g_markup_escape_text (c + 1, code_end - (c + 1));
+			g_string_append_printf (result, "<code>%s</code>", esc);
+			c = code_end;
+			pending = c + 1;
+			continue;
+		}
+
+		if (c[0] == '*') {
+			const gchar *em_end;
+			g_autofree gchar *inner = NULL;
+
+			/* a run of two or more asterisks never delimits */
+			if (c[1] == '*') {
+				while (c[1] == '*')
+					c++;
+				continue;
+			}
+			/* an opening delimiter must be followed by non-whitespace */
+			if (c[1] == '\0' || g_ascii_isspace (c[1]))
+				continue;
+
+			em_end = as_news_inline_find_em_end (c + 1);
+			if (em_end == NULL)
+				continue; /* unterminated - emit literally */
+
+			AS_NEWS_FLUSH_PENDING (c);
+			inner = as_news_escape_markup_inline_len (c + 1, em_end - (c + 1));
+			g_string_append_printf (result, "<em>%s</em>", inner);
+			c = em_end;
+			pending = c + 1;
+			continue;
+		}
+	}
+
+	AS_NEWS_FLUSH_PENDING (c);
+
+#undef AS_NEWS_FLUSH_PENDING
+
+	return g_string_free (result, FALSE);
+}
+
+/**
+ * as_news_escape_markup_inline:
+ *
+ * Convenience wrapper around %as_news_escape_markup_inline_len for NUL-terminated
+ * strings.
+ *
+ * Returns: (transfer full): escaped markup.
+ */
+static gchar *
+as_news_escape_markup_inline (const gchar *text)
+{
+	return as_news_escape_markup_inline_len (text, -1);
+}
+
+/**
  * as_news_yaml_to_release:
  */
 static GPtrArray *
@@ -205,9 +393,9 @@ as_news_yaml_to_releases (const gchar *yaml_data, gint limit, GError **error)
 				if (fy_node_is_sequence (nval)) {
 					g_string_append (dsc, "<ul>");
 					AS_YAML_SEQUENCE_FOREACH (dn, nval) {
-						g_autofree gchar *escaped = g_markup_escape_text (
-						    fy_node_get_scalar0 (dn),
-						    -1);
+						g_autofree gchar
+						    *escaped = as_news_escape_markup_inline (
+							fy_node_get_scalar0 (dn));
 						g_string_append_printf (dsc,
 									"<li>%s</li>",
 									escaped);
@@ -224,9 +412,8 @@ as_news_yaml_to_releases (const gchar *yaml_data, gint limit, GError **error)
 						g_auto(GStrv) lines = NULL;
 						gboolean in_listing = FALSE;
 						gboolean in_paragraph = FALSE;
-						g_autofree gchar *escaped = g_markup_escape_text (
-						    paras[i],
-						    -1);
+						g_autofree gchar *escaped =
+						    as_news_escape_markup_inline (paras[i]);
 
 						lines = g_strsplit (escaped, "\n", -1);
 						for (guint j = 0; lines[j] != NULL; j++) {
@@ -529,7 +716,7 @@ as_news_releases_to_yaml (GPtrArray *releases, gchar **yaml_data)
 							if (g_strcmp0 ((gchar *) iter2->name,
 								       "li") == 0) {
 								g_autofree gchar *content =
-								    as_xml_get_node_value_raw (
+								    as_xml_desc_to_inline_md (
 									iter2);
 								as_yaml_emit_scalar (
 								    emitter,
@@ -677,7 +864,7 @@ as_news_text_add_markup (GString *desc, const gchar *tag, const gchar *line)
 	if (line == NULL) {
 		g_string_append_printf (desc, "<%s>\n", tag);
 	} else {
-		g_autofree gchar *escaped = g_markup_escape_text (line, -1);
+		g_autofree gchar *escaped = as_news_escape_markup_inline (line);
 		g_string_append_printf (desc, "<%s>%s</%s>\n", tag, escaped, tag);
 	}
 }
@@ -1079,13 +1266,36 @@ as_news_text_to_list_markup (GString *desc, gchar **lines, AsRelease *rel, GErro
 	return TRUE;
 }
 
+/**
+ * as_news_text_has_list_items:
+ *
+ * Check whether @txt contains any line that starts with a list bullet marker.
+ * A plain substring search for "* " would also match the closing delimiter of
+ * an inline emphasis span, so we explicitly test for a line prefix here.
+ */
+static gboolean
+as_news_text_has_list_items (const gchar *txt)
+{
+	g_auto(GStrv) lines = g_strsplit (txt, "\n", -1);
+
+	for (guint i = 0; lines[i] != NULL; i++) {
+		const gchar *line = lines[i];
+		while (g_ascii_isspace (line[0]))
+			line++;
+		if (g_str_has_prefix (line, "* ") || g_str_has_prefix (line, "- "))
+			return TRUE;
+	}
+
+	return FALSE;
+}
+
 static gboolean
 as_news_text_to_para_markup (GString *desc, const gchar *txt, AsRelease *rel, GError **error)
 {
 	g_auto(GStrv) lines = NULL;
 	gboolean para_generated = FALSE;
 
-	if (g_strstr_len (txt, -1, "* ") != NULL || g_strstr_len (txt, -1, "- ") != NULL) {
+	if (as_news_text_has_list_items (txt)) {
 		/* enumerations to paragraphs */
 		lines = g_strsplit (txt, "\n", -1);
 		for (guint i = 1; lines[i] != NULL; i++) {
@@ -1299,8 +1509,7 @@ as_news_text_to_releases (const gchar *data, gint limit, GError **error)
 		case AS_NEWS_SECTION_KIND_CONTRIBUTORS:
 			as_news_text_add_markup (desc, "p", "With contributions from:");
 
-			if (g_strstr_len (section, -1, "* ") != NULL ||
-			    g_strstr_len (section, -1, "- ") != NULL) {
+			if (as_news_text_has_list_items (section)) {
 				lines = g_strsplit (section, "\n", -1);
 				if (!as_news_text_to_list_markup (desc, lines + 1, rel, error))
 					return FALSE;
@@ -1312,8 +1521,7 @@ as_news_text_to_releases (const gchar *data, gint limit, GError **error)
 		case AS_NEWS_SECTION_KIND_TRANSLATORS:
 			as_news_text_add_markup (desc, "p", "Updated localization by:");
 
-			if (g_strstr_len (section, -1, "* ") != NULL ||
-			    g_strstr_len (section, -1, "- ") != NULL) {
+			if (as_news_text_has_list_items (section)) {
 				lines = g_strsplit (section, "\n", -1);
 				if (!as_news_text_to_list_markup (desc, lines + 1, rel, error))
 					return FALSE;

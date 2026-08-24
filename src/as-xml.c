@@ -575,6 +575,95 @@ as_xml_desc_markup_is_valid (const gchar *markup, gssize len)
 }
 
 /**
+ * as_xml_desc_append_inline_md_text:
+ *
+ * Append literal text to @str, backslash-escaping any character that would
+ * otherwise be read back as an inline Markdown delimiter. An asterisk only
+ * needs escaping if it is adjacent to a non-whitespace character, as isolated
+ * asterisks can not delimit an emphasis span.
+ */
+static void
+as_xml_desc_append_inline_md_text (GString *str, const gchar *text)
+{
+	for (const gchar *c = text; c[0] != '\0'; c++) {
+		if (c[0] == '`') {
+			g_string_append (str, "\\`");
+		} else if (c[0] == '*') {
+			gboolean after_word = (c != text) && !g_ascii_isspace (*(c - 1));
+			gboolean before_word = (c[1] != '\0') && !g_ascii_isspace (c[1]);
+			if (after_word || before_word)
+				g_string_append_c (str, '\\');
+			g_string_append_c (str, '*');
+		} else if (c[0] == '\\' && (c[1] == '*' || c[1] == '`' || c[1] == '\\')) {
+			g_string_append (str, "\\\\");
+		} else {
+			g_string_append_c (str, c[0]);
+		}
+	}
+}
+
+/**
+ * as_xml_desc_append_inline_md_node:
+ *
+ * Serialize the children of @node as inline Markdown, mapping the inline tags
+ * AppStream permits onto their Markdown equivalents. Any other element is
+ * flattened to its text content, mirroring as_xml_desc_append_inline_content().
+ */
+static void
+as_xml_desc_append_inline_md_node (GString *str, xmlNode *node, guint depth)
+{
+	if (depth >= AS_DESCRIPTION_MARKUP_MAX_DEPTH)
+		return;
+
+	for (xmlNode *iter = node->children; iter != NULL; iter = iter->next) {
+		if ((iter->type == XML_TEXT_NODE) || (iter->type == XML_CDATA_SECTION_NODE)) {
+			if (iter->content != NULL)
+				as_xml_desc_append_inline_md_text (str,
+								   (const gchar *) iter->content);
+			continue;
+		}
+		if (iter->type != XML_ELEMENT_NODE)
+			continue;
+
+		if (as_str_equal0 (iter->name, "em")) {
+			g_string_append_c (str, '*');
+			as_xml_desc_append_inline_md_node (str, iter, depth + 1);
+			g_string_append_c (str, '*');
+		} else if (as_str_equal0 (iter->name, "code")) {
+			/* the content of a code span is literal, so it is emitted verbatim */
+			g_autofree gchar *content = as_xml_get_node_value_raw (iter);
+			g_string_append_printf (str, "`%s`", (content == NULL) ? "" : content);
+		} else {
+			/* flatten invalid markup to its text content */
+			as_xml_desc_append_inline_md_node (str, iter, depth + 1);
+		}
+	}
+}
+
+/**
+ * as_xml_desc_to_inline_md:
+ * @node: the XML node whose children should be serialized.
+ *
+ * Convert the inline content of a description block element (a paragraph or
+ * list item) into Markdown, preserving the <em/> and <code/> tags that
+ * AppStream permits as `*emphasis*` and `` `code` ``.
+ *
+ * Returns: (transfer full): a newly allocated string.
+ */
+gchar *
+as_xml_desc_to_inline_md (xmlNode *node)
+{
+	GString *str;
+
+	if (node == NULL)
+		return NULL;
+
+	str = g_string_new ("");
+	as_xml_desc_append_inline_md_node (str, node, 0);
+	return g_string_free (str, FALSE);
+}
+
+/**
  * as_xml_sanitize_description:
  * @markup: the XML description markup to sanitize.
  * @len: Length of @markup, or -1 if length is unknown and @markup is NULL-terminated.
