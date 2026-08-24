@@ -770,7 +770,8 @@ as_component_get_url (AsComponent *cpt, AsUrlKind url_kind)
  * @url_kind: the URL kind, e.g. %AS_URL_KIND_HOMEPAGE
  * @url: the full URL.
  *
- * Adds some URL data to the component.
+ * Adds some URL data to the component. Passing %NULL or an empty string as @url
+ * removes any URL that was set for @url_kind before.
  *
  * Since: 0.6.2
  **/
@@ -778,6 +779,13 @@ void
 as_component_add_url (AsComponent *cpt, AsUrlKind url_kind, const gchar *url)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
+
+	/* an empty URL is no URL at all, and we must never emit one */
+	if (as_is_empty (url)) {
+		g_hash_table_remove (priv->urls, GINT_TO_POINTER (url_kind));
+		return;
+	}
+
 	g_hash_table_insert (priv->urls, GINT_TO_POINTER (url_kind), g_strdup (url));
 }
 
