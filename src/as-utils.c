@@ -732,6 +732,51 @@ as_utils_find_files (const gchar *dir, gboolean recursive, GError **error)
 }
 
 /**
+ * as_xml_file_get_root_name:
+ * @fname: name of the XML file to inspect.
+ * @error: a #GError or %NULL.
+ *
+ * Read the name of the root element of an XML document, so callers can tell
+ * what kind of data a file contains without parsing it as a specific type.
+ *
+ * Returns: (transfer full): the name of the root node, or %NULL on error.
+ */
+gchar *
+as_xml_file_get_root_name (const gchar *fname, GError **error)
+{
+	g_autofree gchar *data = NULL;
+	gsize data_len;
+	xmlDoc *doc;
+	xmlNode *root;
+	gchar *result = NULL;
+
+	g_return_val_if_fail (fname != NULL, NULL);
+
+	if (!g_file_get_contents (fname, &data, &data_len, error))
+		return NULL;
+
+	doc = as_xml_parse_document (data, data_len, FALSE, error);
+	if (doc == NULL)
+		return NULL;
+
+	root = xmlDocGetRootElement (doc);
+	if (root == NULL) {
+		g_set_error (error,
+			     AS_METADATA_ERROR,
+			     AS_METADATA_ERROR_FAILED,
+			     "XML file '%s' contains no data.",
+			     fname);
+		xmlFreeDoc (doc);
+		return NULL;
+	}
+
+	result = g_strdup ((const gchar *) root->name);
+	xmlFreeDoc (doc);
+
+	return result;
+}
+
+/**
  * as_utils_is_root:
  */
 gboolean

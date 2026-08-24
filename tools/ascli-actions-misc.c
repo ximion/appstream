@@ -335,6 +335,69 @@ ascli_make_desktop_entry_file (const gchar *mi_fname, const gchar *de_fname, con
 }
 
 /**
+ * ascli_file_is_release_data:
+ *
+ * Check whether the XML file @fname contains standalone release metadata,
+ * that is whether its root node is a `releases` element.
+ * If the file does not exist yet, we fall back to checking its name for the
+ * `.releases.xml` suffix that the specification mandates for these files.
+ */
+static gboolean
+ascli_file_is_release_data (const gchar *fname, gboolean *exists, GError **error)
+{
+	g_autofree gchar *root_name = NULL;
+
+	if (!g_file_test (fname, G_FILE_TEST_EXISTS)) {
+		*exists = FALSE;
+		return g_str_has_suffix (fname, ".releases.xml") ||
+		       g_str_has_suffix (fname, ".releases.xml.in");
+	}
+
+	*exists = TRUE;
+	root_name = as_xml_file_get_root_name (fname, error);
+	if (root_name == NULL)
+		return FALSE;
+
+	return g_strcmp0 (root_name, "releases") == 0;
+}
+
+/**
+ * ascli_releases_to_release_data:
+ *
+ * Write @releases as a standalone release metadata document, either to
+ * @out_fname or, if that is "-", to stdout.
+ */
+static gint
+ascli_releases_to_release_data (GPtrArray *releases, const gchar *out_fname)
+{
+	g_autoptr(AsMetadata) metad = as_metadata_new ();
+	g_autoptr(AsReleaseList) rel_list = as_release_list_new ();
+	g_autoptr(GError) error = NULL;
+	g_autofree gchar *xml_data = NULL;
+
+	for (guint i = 0; i < releases->len; ++i)
+		as_release_list_add (rel_list, AS_RELEASE (g_ptr_array_index (releases, i)));
+
+	xml_data = as_metadata_releases_to_data (metad, rel_list, &error);
+	if (error != NULL) {
+		g_printerr ("%s\n", error->message);
+		return 1;
+	}
+
+	if (g_strcmp0 (out_fname, "-") == 0) {
+		g_print ("%s", xml_data);
+		return 0;
+	}
+
+	if (!g_file_set_contents (out_fname, xml_data, -1, &error)) {
+		g_printerr ("%s\n", error->message);
+		return 1;
+	}
+
+	return 0;
+}
+
+/**
  * ascli_news_to_metainfo:
  *
  * Convert NEWS data to a metainfo file.
@@ -353,6 +416,8 @@ ascli_news_to_metainfo (const gchar *news_fname,
 	g_autoptr(GFile) infile = NULL;
 	AsComponent *cpt = NULL;
 	AsReleaseList *cpt_releases = NULL;
+	gboolean is_release_data;
+	gboolean mi_exists;
 
 	if (news_fname == NULL) {
 		ascli_print_stderr (_("You need to specify a NEWS file as input."));
@@ -363,11 +428,8 @@ ascli_news_to_metainfo (const gchar *news_fname,
 		return 3;
 	}
 	if (out_fname == NULL) {
-		if (g_strcmp0 (mi_fname, "-") != 0) {
-			ascli_print_stdout (
-			    _("No output filename specified, modifying metainfo file directly."));
+		if (g_strcmp0 (mi_fname, "-") != 0)
 			out_fname = mi_fname;
-		}
 	}
 
 	releases = as_news_to_releases_from_filename (news_fname,
@@ -397,12 +459,27 @@ ascli_news_to_metainfo (const gchar *news_fname,
 		return 0;
 	}
 
-	infile = g_file_new_for_path (mi_fname);
-	if (!g_file_query_exists (infile, NULL)) {
+	is_release_data = ascli_file_is_release_data (mi_fname, &mi_exists, &error);
+	if (error != NULL) {
+		g_printerr ("%s\n", error->message);
+		return 1;
+	}
+	if (!mi_exists && !is_release_data) {
 		ascli_print_stderr (_("Metainfo file '%s' does not exist."), mi_fname);
 		return 4;
 	}
 
+	/* release metadata files only ever contain the releases that we are about to
+	 * write, so we can generate them from scratch. Writing them in place is the
+	 * normal way of using them, so we do not comment on it. */
+	if (is_release_data)
+		return ascli_releases_to_release_data (releases, out_fname);
+
+	if (out_fname == mi_fname)
+		ascli_print_stdout (
+		    _("No output filename specified, modifying metainfo file directly."));
+
+	infile = g_file_new_for_path (mi_fname);
 	metad = as_metadata_new ();
 	as_metadata_set_locale (metad, "ALL");
 
@@ -456,8 +533,10 @@ ascli_metainfo_to_news (const gchar *mi_fname, const gchar *news_fname, const gc
 	g_autoptr(AsMetadata) metad = NULL;
 	g_autoptr(GFile) infile = NULL;
 	g_autoptr(GError) error = NULL;
-	AsComponent *cpt = NULL;
+	AsReleaseList *rel_list = NULL;
 	AsNewsFormatKind format_kind;
+	gboolean is_release_data;
+	gboolean mi_exists;
 
 	if (mi_fname == NULL) {
 		ascli_print_stderr (_("You need to specify a metainfo file as input."));
@@ -469,23 +548,60 @@ ascli_metainfo_to_news (const gchar *mi_fname, const gchar *news_fname, const gc
 		return 3;
 	}
 
-	infile = g_file_new_for_path (mi_fname);
-	if (!g_file_query_exists (infile, NULL)) {
-		ascli_print_stderr (_("Metainfo file '%s' does not exist."), mi_fname);
-		return 4;
-	}
-
-	/* read the metainfo file */
-	metad = as_metadata_new ();
-	as_metadata_set_locale (metad, "ALL");
-
-	as_metadata_parse_file (metad, infile, AS_FORMAT_KIND_XML, &error);
+	is_release_data = ascli_file_is_release_data (mi_fname, &mi_exists, &error);
 	if (error != NULL) {
 		g_printerr ("%s\n", error->message);
 		return 1;
 	}
-	cpt = as_metadata_get_component (metad);
-	as_component_set_context_locale (cpt, "C");
+	if (!mi_exists) {
+		ascli_print_stderr (_("Metainfo file '%s' does not exist."), mi_fname);
+		return 4;
+	}
+
+	infile = g_file_new_for_path (mi_fname);
+	metad = as_metadata_new ();
+
+	if (is_release_data) {
+		/* we only ever write the untranslated strings */
+		as_metadata_set_locale (metad, "C");
+
+		as_metadata_parse_releases_file (metad, infile, &error);
+		if (error != NULL) {
+			g_printerr ("%s\n", error->message);
+			return 1;
+		}
+		rel_list = as_metadata_get_release_list (metad);
+		if (rel_list == NULL) {
+			ascli_print_stderr (_("Release metadata file '%s' contains no data."),
+					      mi_fname);
+			return 1;
+		}
+	} else {
+		AsComponent *cpt = NULL;
+
+		as_metadata_set_locale (metad, "ALL");
+		as_metadata_parse_file (metad, infile, AS_FORMAT_KIND_XML, &error);
+		if (error != NULL) {
+			g_printerr ("%s\n", error->message);
+			return 1;
+		}
+		cpt = as_metadata_get_component (metad);
+		if (cpt == NULL) {
+			ascli_print_stderr (_("Metainfo file '%s' contains no component."),
+					      mi_fname);
+			return 1;
+		}
+		as_component_set_context_locale (cpt, "C");
+
+		rel_list = as_component_get_releases_plain (cpt);
+		if (as_release_list_get_kind (rel_list) == AS_RELEASE_LIST_KIND_EXTERNAL) {
+			ascli_print_stderr (
+			    _("The metainfo file '%s' references external release data.\n"
+				      "Run this command on the release metadata file instead."),
+			      mi_fname);
+			return 4;
+		}
+	}
 
 	format_kind = as_news_format_kind_from_string (format_str);
 	if (g_strcmp0 (news_fname, "-") == 0) {
@@ -497,11 +613,10 @@ ascli_metainfo_to_news (const gchar *mi_fname, const gchar *news_fname, const gc
 			return 3;
 		}
 
-		as_releases_to_news_data (
-		    as_release_list_get_entries (as_component_get_releases_plain (cpt)),
-		    format_kind,
-		    &news_data,
-		    &error);
+		as_releases_to_news_data (as_release_list_get_entries (rel_list),
+					  format_kind,
+					  &news_data,
+					  &error);
 		if (error != NULL) {
 			g_printerr ("%s\n", error->message);
 			return 1;
@@ -510,11 +625,10 @@ ascli_metainfo_to_news (const gchar *mi_fname, const gchar *news_fname, const gc
 		g_print ("%s\n", news_data);
 		return 0;
 	} else {
-		as_releases_to_news_file (
-		    as_release_list_get_entries (as_component_get_releases_plain (cpt)),
-		    news_fname,
-		    format_kind,
-		    &error);
+		as_releases_to_news_file (as_release_list_get_entries (rel_list),
+					  news_fname,
+					  format_kind,
+					  &error);
 		if (error != NULL) {
 			g_printerr ("%s\n", error->message);
 			return 1;

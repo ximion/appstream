@@ -57,6 +57,10 @@ AS_INTERNAL_VISIBLE
 gboolean as_utils_delete_dir_recursive (const gchar *dirname);
 
 AS_INTERNAL_VISIBLE
+gchar *as_xml_file_get_root_name (const gchar *fname,
+				  GError     **error);
+
+AS_INTERNAL_VISIBLE
 GPtrArray *as_utils_find_files_matching (const gchar *dir,
 					 const gchar *pattern,
 					 gboolean     recursive,
