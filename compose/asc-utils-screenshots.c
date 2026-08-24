@@ -49,6 +49,13 @@ static const struct {
 	{ 0,    0   }
 };
 
+/* The minimum size reduction a thumbnail rendition has to achieve relative to its
+ * source image in order to be worth generating at all. A screenshot scaled down by
+ * just a few percent is of no use to clients, and resampling destroys the crisp
+ * edges and repeated glyphs that make UI screenshots compress so well - so a barely
+ * scaled-down thumbnail can easily end up *larger* than the source image itself. */
+#define MIN_THUMBNAIL_SIZE_REDUCTION 1.2
+
 static AscVideoInfo *
 asc_video_info_new (void)
 {
@@ -601,6 +608,10 @@ asc_process_screenshot_images_lang (AscResult *cres,
 				thumb_width = floor (source_scr_width * scale);
 				thumb_height = target_height;
 			}
+
+			/* skip renditions that would be (almost) as large as the source image */
+			if (scale > 1.0 / MIN_THUMBNAIL_SIZE_REDUCTION)
+				continue;
 
 			/* create thumbnail storage name */
 			if (g_strcmp0 (locale, "C") == 0)
