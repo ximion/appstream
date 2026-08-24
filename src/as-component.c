@@ -4457,7 +4457,9 @@ as_component_xml_parse_languages_node (AsComponent *cpt, xmlNode *node)
 			continue;
 
 		if (g_strcmp0 ((gchar *) iter->name, "lang") == 0) {
-			guint64 percentage = 0;
+			/* a language without an explicit completion value is assumed
+			 * to be fully translated */
+			guint64 percentage = 100;
 			g_autofree gchar *locale = NULL;
 			g_autofree gchar *prop = NULL;
 
@@ -5637,10 +5639,15 @@ as_component_yaml_parse_languages (AsComponent *cpt, struct fy_node *node)
 			}
 		}
 
-		if ((locale != NULL) && (percentage_str != NULL))
-			as_component_add_language (cpt,
-						   locale,
-						   g_ascii_strtoll (percentage_str, NULL, 10));
+		if (locale == NULL)
+			continue;
+
+		/* a language without an explicit completion value is assumed
+		 * to be fully translated */
+		as_component_add_language (
+		    cpt,
+		    locale,
+		    percentage_str == NULL ? 100 : g_ascii_strtoll (percentage_str, NULL, 10));
 	}
 }
 

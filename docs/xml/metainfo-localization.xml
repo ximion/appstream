@@ -96,7 +96,8 @@
 						The tag is allowed to only occur once per component, and contains multiple <code>&lt;lang/&gt;</code> child nodes, which have
 						a <link xlink:href="https://www.gnu.org/software/gettext/manual/html_node/Language-Codes.html">language code</link> as value.
 						Each <code>&lt;lang/&gt;</code> node may have a <literal>percentage</literal> property, which describes the percentage value to which
-						a component has been translated.
+						a component has been translated. If the property is absent, the component is assumed to be fully translated into
+						the respective language.
 					</para>
 					<para>
 						Tag example:

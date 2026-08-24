@@ -485,8 +485,15 @@ asc_read_translation_status (AscResult *cres,
 			as_component_add_language (cpt, e->locale, (gint) e->percentage);
 		}
 
-		if (!have_results)
-			asc_result_add_hint_simple (cres, cpt, "translations-not-found");
+		if (!have_results) {
+			g_autoptr(GList) cpt_languages = as_component_get_languages (cpt);
+
+			/* a component may ship its own language data in its MetaInfo file
+			 * instead of having it generated from translation files, in which
+			 * case there is nothing for us to complain about */
+			if (cpt_languages == NULL)
+				asc_result_add_hint_simple (cres, cpt, "translations-not-found");
+		}
 
 		/* Add a fake entry for the source locale. Do so after checking
 		 * !have_results since the source locale is always guaranteed

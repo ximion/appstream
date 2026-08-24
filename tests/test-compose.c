@@ -1073,6 +1073,7 @@ test_compose_locale_stats (void)
 	g_autoptr(AsComponent) cpt = NULL;
 	g_autoptr(AsTranslation) tr = NULL;
 	g_autoptr(AscDirectoryUnit) dirunit = asc_directory_unit_new (datadir);
+	GPtrArray *hints = NULL;
 
 	/* open sample data directory unit */
 	ret = asc_unit_open (ASC_UNIT (dirunit), &error);
@@ -1137,6 +1138,28 @@ test_compose_locale_stats (void)
 	asx_assert_no_hints_in_result (cres);
 	g_assert_cmpint (as_component_get_language (cpt, "fr"), ==, 100);
 	g_assert_cmpint (as_component_get_language (cpt, "de"), ==, 100);
+
+	/* a component that carries its own language data needs no translation files */
+	as_component_clear_languages (cpt);
+	as_translation_set_kind (tr, AS_TRANSLATION_KIND_GETTEXT);
+	as_translation_set_id (tr, "nonexistent-app");
+	as_component_add_translation (cpt, tr);
+	as_component_add_language (cpt, "de", 100);
+
+	asc_read_translation_status (cres, ASC_UNIT (dirunit), "/usr", 25);
+	asx_assert_no_hints_in_result (cres);
+	g_assert_cmpint (as_component_get_language (cpt, "de"), ==, 100);
+
+	/* ... but if we have no language data at all, we complain */
+	as_component_clear_languages (cpt);
+	as_component_add_translation (cpt, tr);
+
+	asc_read_translation_status (cres, ASC_UNIT (dirunit), "/usr", 25);
+	hints = asc_result_get_hints (cres, "org.freedesktop.appstream.dummy");
+	g_assert_cmpint (hints->len, ==, 1);
+	g_assert_cmpstr (asc_hint_get_tag (ASC_HINT (g_ptr_array_index (hints, 0))),
+			 ==,
+			 "translations-not-found");
 }
 
 static void

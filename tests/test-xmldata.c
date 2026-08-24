@@ -876,6 +876,7 @@ test_xml_read_languages (void)
 					 "  <languages>\n"
 					 "    <lang percentage=\"48\">de_DE</lang>\n"
 					 "    <lang percentage=\"100\">en_GB</lang>\n"
+					 "    <lang>fr_FR</lang>\n"
 					 "  </languages>\n"
 					 "</component>\n";
 
@@ -885,6 +886,9 @@ test_xml_read_languages (void)
 	g_assert_cmpint (as_component_get_language (cpt, "de_DE"), ==, 48);
 	g_assert_cmpint (as_component_get_language (cpt, "en_GB"), ==, 100);
 	g_assert_cmpint (as_component_get_language (cpt, "invalid_C"), ==, -1);
+
+	/* a language without a completion value is fully translated */
+	g_assert_cmpint (as_component_get_language (cpt, "fr_FR"), ==, 100);
 }
 
 /**

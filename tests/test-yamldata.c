@@ -524,7 +524,8 @@ test_yaml_read_languages (void)
 					  "  - locale: de_DE\n"
 					  "    percentage: 48\n"
 					  "  - locale: en_GB\n"
-					  "    percentage: 100\n";
+					  "    percentage: 100\n"
+					  "  - locale: fr_FR\n";
 
 	cpt = as_yaml_test_read_data (yamldata_languages, NULL);
 	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.Test");
@@ -532,6 +533,9 @@ test_yaml_read_languages (void)
 	g_assert_cmpint (as_component_get_language (cpt, "de_DE"), ==, 48);
 	g_assert_cmpint (as_component_get_language (cpt, "en_GB"), ==, 100);
 	g_assert_cmpint (as_component_get_language (cpt, "invalid_C"), ==, -1);
+
+	/* a language without a completion value is fully translated */
+	g_assert_cmpint (as_component_get_language (cpt, "fr_FR"), ==, 100);
 }
 
 /**
