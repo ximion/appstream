@@ -194,6 +194,10 @@ as_news_yaml_to_releases (const gchar *yaml_data, gint limit, GError **error)
 				    fy_node_get_scalar0 (nval));
 				if (rkind != AS_RELEASE_KIND_UNKNOWN)
 					as_release_set_kind (rel, rkind);
+			} else if (as_str_equal0 (key, "URL") || as_str_equal0 (key, "Url")) {
+				const gchar *url = fy_node_get_scalar0 (nval);
+				if (!as_is_empty (url))
+					as_release_set_url (rel, AS_RELEASE_URL_KIND_DETAILS, url);
 			} else if ((g_strcmp0 (key, "Description") == 0) ||
 				   (g_strcmp0 (key, "Notes") == 0)) {
 				g_autoptr(GString) dsc = g_string_new ("");
@@ -473,6 +477,10 @@ as_news_releases_to_yaml (GPtrArray *releases, gchar **yaml_data)
 		as_yaml_emit_entry (emitter, "Date", as_release_get_date (rel));
 		if (rkind != AS_RELEASE_KIND_STABLE)
 			as_yaml_emit_entry (emitter, "Type", as_release_kind_to_string (rkind));
+
+		as_yaml_emit_entry (emitter,
+				    "URL",
+				    as_release_get_url (rel, AS_RELEASE_URL_KIND_DETAILS));
 
 		if (desc_markup != NULL) {
 			if (g_strstr_len (desc_markup, -1, "<p>") != NULL) {
