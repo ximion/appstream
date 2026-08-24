@@ -800,7 +800,7 @@ test_read_desktop_entry_simple (void)
 						 "Name[de_DE]=FööBär\n"
 						 "Comment=A foo-ish bar.\n"
 						 "Keywords=Hobbes;Bentham;Locke;\n"
-						 "Keywords[de_DE]=Heidegger;Kant;Hegel;\n";
+						 "Keywords[de_DE]=Heidegger; Kant;  Hegel ; \n";
 
 	gboolean ret;
 	g_autoptr(AsMetadata) metad = NULL;

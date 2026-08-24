@@ -1584,6 +1584,27 @@ as_component_get_keywords_table (AsComponent *cpt)
 }
 
 /**
+ * as_sanitize_keywords:
+ *
+ * Strip surrounding whitespace off all keywords and drop the ones that are
+ * empty afterwards.
+ */
+static void
+as_sanitize_keywords (GPtrArray *keywords)
+{
+	for (guint i = 0; i < keywords->len;) {
+		gchar *keyword = g_ptr_array_index (keywords, i);
+		if (keyword != NULL)
+			g_strstrip (keyword);
+		if (as_is_empty (keyword)) {
+			g_ptr_array_remove_index (keywords, i);
+			continue;
+		}
+		i++;
+	}
+}
+
+/**
  * as_component_set_keywords:
  * @cpt: a #AsComponent instance.
  * @new_keywords: (element-type utf8): Array of keywords
@@ -1591,6 +1612,7 @@ as_component_get_keywords_table (AsComponent *cpt)
  * @deep_copy: Set to %TRUE if the keywords array should be copied, %FALSE to set by reference.
  *
  * Set keywords for this component, replacing all existing ones for the selected locale.
+ * Surrounding whitespace is stripped off the new keywords, and empty ones are dropped.
  */
 void
 as_component_set_keywords (AsComponent *cpt,
@@ -1606,7 +1628,7 @@ as_component_set_keywords (AsComponent *cpt,
 		locale = as_component_get_active_locale (cpt);
 
 	if (deep_copy) {
-		keywords = g_ptr_array_new_with_free_func (g_free);
+		keywords = g_ptr_array_new_full (new_keywords->len, g_free);
 		for (guint i = 0; i < new_keywords->len; ++i) {
 			const gchar *value = g_ptr_array_index (new_keywords, i);
 			if (!as_is_empty (value))
@@ -1615,6 +1637,7 @@ as_component_set_keywords (AsComponent *cpt,
 	} else {
 		keywords = g_ptr_array_ref (new_keywords);
 	}
+	as_sanitize_keywords (keywords);
 
 	g_hash_table_insert (priv->keywords,
 			     g_ref_string_new_intern (locale),
@@ -1628,16 +1651,20 @@ as_component_set_keywords (AsComponent *cpt,
  * @keyword: The new keyword to add.
  * @locale: (nullable): BCP47 locale of the values, or %NULL to use current locale.
  *
- * Add a new keyword to the keywords list for the given locale. This function does not
- * check for duplicate keywords.
+ * Add a new keyword to the keywords list for the given locale. Surrounding whitespace
+ * is stripped off the keyword. This function does not check for duplicate keywords.
  */
 void
 as_component_add_keyword (AsComponent *cpt, const gchar *keyword, const gchar *locale)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	GPtrArray *keywords = NULL;
+	g_autofree gchar *keyword_copy = NULL;
 
 	if (as_is_empty (keyword))
+		return;
+	keyword_copy = g_strstrip (g_strdup (keyword));
+	if (as_is_empty (keyword_copy))
 		return;
 
 	/* if no locale was specified, we assume the default locale */
@@ -1650,7 +1677,7 @@ as_component_add_keyword (AsComponent *cpt, const gchar *keyword, const gchar *l
 		g_hash_table_insert (priv->keywords, g_ref_string_new_intern (locale), keywords);
 	}
 
-	g_ptr_array_add (keywords, g_strdup (keyword));
+	g_ptr_array_add (keywords, g_steal_pointer (&keyword_copy));
 }
 
 /**
