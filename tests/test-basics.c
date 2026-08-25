@@ -315,6 +315,48 @@ test_simplemarkup (void)
 				  " * List item, *emphasized*\n"
 				  " * Item with `a bit of code`\n\n"
 				  "Last paragraph.") == 0);
+	g_free (str);
+
+	/* section headings are rendered as a bare line in text, and as an ATX
+	 * heading in Markdown */
+	str = as_markup_convert ("<p>Intro paragraph.</p>"
+				 "<heading>Advanced features</heading>"
+				 "<p>Some text about them.</p>"
+				 "<ul><li>Item A</li><li>Item B</li></ul>"
+				 "<heading>Heading with <em>flattened</em> markup</heading>"
+				 "<p>Last paragraph.</p>",
+				 AS_MARKUP_KIND_TEXT,
+				 &error);
+	g_assert_no_error (error);
+	g_assert_cmpstr (str,
+			 ==,
+			 "Intro paragraph.\n\n"
+			 "Advanced features\n\n"
+			 "Some text about them.\n"
+			 " • Item A\n"
+			 " • Item B\n\n"
+			 "Heading with flattened markup\n\n"
+			 "Last paragraph.");
+	g_free (str);
+
+	str = as_markup_convert ("<p>Intro paragraph.</p>"
+				 "<heading>Advanced features</heading>"
+				 "<p>Some text about them.</p>"
+				 "<ul><li>Item A</li><li>Item B</li></ul>"
+				 "<heading>Heading with <em>flattened</em> markup</heading>"
+				 "<p>Last paragraph.</p>",
+				 AS_MARKUP_KIND_MARKDOWN,
+				 &error);
+	g_assert_no_error (error);
+	g_assert_cmpstr (str,
+			 ==,
+			 "Intro paragraph.\n\n"
+			 "### Advanced features\n\n"
+			 "Some text about them.\n"
+			 " * Item A\n"
+			 " * Item B\n\n"
+			 "### Heading with flattened markup\n\n"
+			 "Last paragraph.");
 }
 
 /**

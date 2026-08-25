@@ -264,7 +264,7 @@ as_markup_convert (const gchar *markup, AsMarkupKind to_kind, GError **error)
 		if (iter->type != XML_ELEMENT_NODE)
 			continue;
 
-		if (g_strcmp0 ((gchar *) iter->name, "p") == 0) {
+		if (as_str_equal0 (iter->name, "p")) {
 			g_autofree gchar *clean_text = NULL;
 			g_autofree gchar *text_content = (to_kind == AS_MARKUP_KIND_MARKDOWN)
 							     ? as_xml_desc_to_inline_md (iter)
@@ -290,10 +290,31 @@ as_markup_convert (const gchar *markup, AsMarkupKind to_kind, GError **error)
 			} else {
 				g_string_append_printf (str, "%s\n", clean_text);
 			}
-		} else if ((g_strcmp0 ((gchar *) iter->name, "ul") == 0) ||
-			   (g_strcmp0 ((gchar *) iter->name, "ol") == 0)) {
+		} else if (as_str_equal0 (iter->name, "heading")) {
+			g_autofree gchar *clean_text = NULL;
+			/* a heading is plain text in every markup flavor */
+			g_autofree gchar *text_content = as_xml_get_node_value_raw (iter);
+
+			if (text_content == NULL)
+				text_content = g_strdup ("");
+
+			/* remove extra whitespaces and linebreaks */
+			clean_text = as_sanitize_text_spaces (text_content);
+
+			if (str->len > 0)
+				g_string_append (str, "\n");
+
+			/* a heading is never wrapped: in Markdown it has to stay on one line,
+			 * and in plain text it is short enough to not need it */
+			if (to_kind == AS_MARKUP_KIND_MARKDOWN)
+				g_string_append_printf (str, "### %s\n", clean_text);
+			else
+				g_string_append_printf (str, "%s\n", clean_text);
+
+		} else if ((as_str_equal0 (iter->name, "ul")) ||
+			   (as_str_equal0 (iter->name, "ol"))) {
 			g_autofree gchar *item_c = NULL;
-			gboolean is_ordered_list = g_strcmp0 ((gchar *) iter->name, "ol") == 0;
+			gboolean is_ordered_list = as_str_equal0 (iter->name, "ol");
 			guint entry_no = 0;
 
 			/* set item style for unordered lists */
@@ -308,7 +329,7 @@ as_markup_convert (const gchar *markup, AsMarkupKind to_kind, GError **error)
 			for (iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
 				if (iter2->type != XML_ELEMENT_NODE)
 					continue;
-				if (g_strcmp0 ((gchar *) iter2->name, "li") == 0) {
+				if (as_str_equal0 (iter2->name, "li")) {
 					g_auto(GStrv) spl = NULL;
 					g_autofree gchar *clean_item = NULL;
 					g_autofree gchar

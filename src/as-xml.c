@@ -243,6 +243,8 @@ as_xml_desc_is_block_tag (const gchar *name, gssize len)
 	case 2:
 		return (memcmp (name, "ul", 2) == 0) || (memcmp (name, "ol", 2) == 0) ||
 		       (memcmp (name, "li", 2) == 0);
+	case 7:
+		return memcmp (name, "heading", 7) == 0;
 	default:
 		return FALSE;
 	}
@@ -306,6 +308,17 @@ as_xml_desc_append_block_node (GString *str, xmlNode *node)
 		return;
 	}
 
+	if (as_str_equal0 (node_name, "heading")) {
+		/* a section heading is plain text, so any markup it may contain is
+		 * flattened to its text content */
+		g_autofree gchar *text = as_xml_get_node_value_raw (node);
+		g_string_append (str, "<heading>");
+		if (text != NULL)
+			as_xml_append_escaped (str, text);
+		g_string_append (str, "</heading>");
+		return;
+	}
+
 	if (as_str_equal0 (node_name, "ul") || as_str_equal0 (node_name, "ol")) {
 		g_string_append_printf (str, "<%s>", node_name);
 		for (xmlNode *iter = node->children; iter != NULL; iter = iter->next) {
@@ -344,6 +357,36 @@ as_xml_dump_description_para_content (xmlNode *node)
 
 	str = g_string_new ("");
 	as_xml_desc_append_inline_content (str, node, 1);
+	if (str->len == 0)
+		return NULL;
+
+	return g_string_free (g_steal_pointer (&str), FALSE);
+}
+
+/**
+ * as_xml_dump_description_heading_content:
+ *
+ * Dump the text content of a description section heading, without its enclosing
+ * tag. Headings are plain text, so any markup they contain is flattened.
+ *
+ * Returns: The escaped text, or %NULL if the node had no usable content.
+ */
+static gchar *
+as_xml_dump_description_heading_content (xmlNode *node)
+{
+	g_autoptr(GString) str = NULL;
+	g_autofree gchar *text = NULL;
+
+	/* ignore node if it is a space */
+	if (G_UNLIKELY (node->type != XML_ELEMENT_NODE))
+		return NULL;
+
+	text = as_xml_get_node_value_raw (node);
+	if (text == NULL)
+		return NULL;
+
+	str = g_string_new ("");
+	as_xml_append_escaped (str, text);
 	if (str->len == 0)
 		return NULL;
 
@@ -409,6 +452,15 @@ as_xml_desc_tree_is_valid (xmlNode *root)
 		if (as_str_equal0 (node_name, "p")) {
 			if (!as_xml_desc_inline_content_is_valid (iter, 1))
 				return FALSE;
+			continue;
+		}
+
+		if (as_str_equal0 (node_name, "heading")) {
+			/* headings are plain text: anything else is rewritten on output */
+			for (xmlNode *iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
+				if (iter2->type != XML_TEXT_NODE)
+					return FALSE;
+			}
 			continue;
 		}
 
@@ -503,6 +555,7 @@ as_xml_desc_markup_is_valid (const gchar *markup, gssize len)
 {
 	const gchar *end;
 	guint inline_depth = 0;
+	gboolean in_heading = FALSE;
 
 	if (len < 0)
 		len = (gssize) strlen (markup);
@@ -558,6 +611,9 @@ as_xml_desc_markup_is_valid (const gchar *markup, gssize len)
 		/* keep track of how deeply the inline markup is nested, so we never
 		 * pass through markup that the parser would have flattened */
 		if (as_xml_desc_is_inline_tag (name_start, name_len)) {
+			/* headings are plain text and permit no inline markup at all */
+			if (in_heading)
+				return FALSE;
 			if (is_end_tag) {
 				if (inline_depth > 0)
 					inline_depth--;
@@ -568,6 +624,8 @@ as_xml_desc_markup_is_valid (const gchar *markup, gssize len)
 		} else {
 			/* a block-level element starts a new inline markup context */
 			inline_depth = 0;
+			in_heading = !is_end_tag && (name_len == 7) &&
+				     (memcmp (name_start, "heading", 7) == 0);
 		}
 	}
 
@@ -899,7 +957,8 @@ as_xml_markup_parse_helper_export_node (AsXMLMarkupParseHelper *helper,
 					xmlNode *parent,
 					gboolean localized)
 {
-	if ((helper->tag_id == AS_TAG_P) || (helper->tag_id == AS_TAG_LI)) {
+	if ((helper->tag_id == AS_TAG_P) || (helper->tag_id == AS_TAG_LI) ||
+	    (helper->tag_id == AS_TAG_HEADING)) {
 		/* add node and subnodes */
 		xmlNode *cn = xmlAddChild (parent, xmlCopyNode (helper->node, TRUE));
 		if (helper->localized && localized) {
@@ -970,7 +1029,7 @@ as_xml_parse_metainfo_description_node (AsContext *ctx, xmlNode *node, GHashTabl
 			continue;
 		tag_id = as_xml_tag_from_string (node_name);
 
-		if (tag_id == AS_TAG_P) {
+		if ((tag_id == AS_TAG_P) || (tag_id == AS_TAG_HEADING)) {
 			g_autofree gchar *lang = NULL;
 			g_autofree gchar *content = NULL;
 
@@ -987,9 +1046,15 @@ as_xml_parse_metainfo_description_node (AsContext *ctx, xmlNode *node, GHashTabl
 						     phelper);
 			}
 
-			content = as_xml_dump_description_para_content (iter);
+			content = (tag_id == AS_TAG_HEADING)
+				      ? as_xml_dump_description_heading_content (iter)
+				      : as_xml_dump_description_para_content (iter);
 			if (content != NULL) {
-				g_string_append_printf (phelper->data, "<p>%s</p>\n", content);
+				g_string_append_printf (phelper->data,
+							"<%s>%s</%s>\n",
+							node_name,
+							content,
+							node_name);
 				phelper->elem_count += 1;
 			}
 

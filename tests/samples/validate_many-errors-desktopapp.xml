@@ -16,6 +16,12 @@ to contain a lot of issues for the validator to catch -->
       Have some <b>invalid</b> markup as well as some <code>valid</code> one.
     </p>
     <p>Attributes like <em id="x">this</em> as well as <em><em><em><em>deep nesting</em></em></em></em> are invalid too.</p>
+    <heading>This section heading is far too long to work as a label for the section that follows it</heading>
+    <heading>
+      Short heading that is merely
+      wrapped and indented in the XML
+    </heading>
+    <heading>No <em>markup</em> allowed here</heading>
   </description>
 
   <url type="homepage">not a link</url>

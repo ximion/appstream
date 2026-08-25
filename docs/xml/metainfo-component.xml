@@ -244,6 +244,18 @@
 			</listitem>
 			<listitem>
 			<para>
+				Section heading (<literal>heading</literal>), to divide a longer description into sections. It is comparable to a
+				<literal>h3</literal> element in HTML, and is rendered as a heading for the content that follows it.
+				A heading is a short label and should not be longer than 80 characters - use a paragraph for longer text.
+				Headings are plain text and must not contain any markup, not even <literal>em</literal> or <literal>code</literal>.
+			</para>
+			<para>
+				This element requires AppStream 1.2 or later. Older implementations will ignore it and not display its text at all,
+				so a description must still make sense without its headings.
+			</para>
+			</listitem>
+			<listitem>
+			<para>
 				Within paragraphs and list items, emphasis (<literal>em</literal>) and inline code (<literal>code</literal>) text styles are supported.
 				The emphasis is commonly rendered in italic, while inline code is shown in a monospaced font.
 			</para>
@@ -254,12 +266,12 @@
 		</itemizedlist>
 		<para>
 			In MetaInfo files, this tag should be translated by-paragraph. For enumerations, items are translated individually as well, and not the
-			whole enumeration block. This means that in a translated file, only <literal>&lt;p/&gt;</literal> and <literal>&lt;li/&gt;</literal>
-			elements may carry an <literal>xml:lang</literal> property.
+			whole enumeration block. This means that in a translated file, only <literal>&lt;p/&gt;</literal>, <literal>&lt;heading/&gt;</literal>
+			and <literal>&lt;li/&gt;</literal> elements may carry an <literal>xml:lang</literal> property.
 		</para>
 		<para>
-			All text must be in paragraphs or list item elements - text that contained directly in a <literal>description</literal> element is not
-			permitted.
+			All text must be in paragraphs, section headings or list item elements - text that contained directly in a <literal>description</literal>
+			element is not permitted.
 		</para>
 		</listitem>
 		</varlistentry>

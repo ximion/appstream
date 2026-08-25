@@ -241,44 +241,52 @@ test_validator_manyerrors_desktopapp (void)
 		    18, AS_ISSUE_SEVERITY_ERROR,
 		 },
 		{
+		    "description-heading-too-long", "This section heading is far too long to work as a label for the section that "
+		    "follows it", 19,
+		    AS_ISSUE_SEVERITY_WARNING, },
+		{
+		    "description-heading-markup-invalid", "em",
+		    24, AS_ISSUE_SEVERITY_ERROR,
+		 },
+		{
 		    "web-url-expected", "not a link",
-		    21, AS_ISSUE_SEVERITY_ERROR,
+		    27, AS_ISSUE_SEVERITY_ERROR,
 		 },
 		{
 		    "url-not-secure", "http://www.example.org/insecure-url",
-		    22, AS_ISSUE_SEVERITY_INFO,
+		    28, AS_ISSUE_SEVERITY_INFO,
 		 },
 		{
 		    "url-redefined", "homepage",
-		    23, AS_ISSUE_SEVERITY_WARNING,
+		    29, AS_ISSUE_SEVERITY_WARNING,
 		 },
 		{
 		    "release-urgency-invalid", "superduperhigh",
-		    28, AS_ISSUE_SEVERITY_WARNING,
+		    34, AS_ISSUE_SEVERITY_WARNING,
 		 },
 		{
 		    "web-url-expected", "not an URL",
-		    33, AS_ISSUE_SEVERITY_ERROR,
+		    39, AS_ISSUE_SEVERITY_ERROR,
 		 },
 		{
 		    "release-issue-is-cve-but-no-cve-id", "hmm...",
-		    35, AS_ISSUE_SEVERITY_WARNING,
-		 },
-		{
-		    "release-issue-is-gcve-but-no-gcve-id", "nope",
-		    36, AS_ISSUE_SEVERITY_WARNING,
-		 },
-		{
-		    "artifact-invalid-platform-triplet", "OS/Kernel invalid: lunix",
 		    41, AS_ISSUE_SEVERITY_WARNING,
 		 },
 		{
+		    "release-issue-is-gcve-but-no-gcve-id", "nope",
+		    42, AS_ISSUE_SEVERITY_WARNING,
+		 },
+		{
+		    "artifact-invalid-platform-triplet", "OS/Kernel invalid: lunix",
+		    47, AS_ISSUE_SEVERITY_WARNING,
+		 },
+		{
 		    "artifact-filename-not-basename", "/root/file.dat",
-		    47, AS_ISSUE_SEVERITY_ERROR,
+		    53, AS_ISSUE_SEVERITY_ERROR,
 		 },
 		{
 		    "release-type-invalid", "unstable",
-		    51, AS_ISSUE_SEVERITY_WARNING,
+		    57, AS_ISSUE_SEVERITY_WARNING,
 		 },
 
 		{ NULL, NULL, 0, AS_ISSUE_SEVERITY_UNKNOWN }

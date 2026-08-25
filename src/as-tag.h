@@ -79,6 +79,7 @@ AS_BEGIN_PRIVATE_DECLS
  * @AS_TAG_LI:				Description markup `li`
  * @AS_TAG_OL:				Description markup `ol`
  * @AS_TAG_UL:				Description markup `ul`
+ * @AS_TAG_HEADING:			Description markup `heading`
  *
  * The tag type.
  **/
@@ -130,6 +131,7 @@ typedef enum {
 	AS_TAG_LI,
 	AS_TAG_UL,
 	AS_TAG_OL,
+	AS_TAG_HEADING,
 
 	AS_TAG_INTERNAL_SCOPE,
 	AS_TAG_INTERNAL_ORIGIN,

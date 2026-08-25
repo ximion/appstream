@@ -310,6 +310,7 @@ test_appstream_write_description (void)
 	    "  <summary>Just a unittest.</summary>\n"
 	    "  <description>\n"
 	    "    <p>First paragraph</p>\n"
+	    "    <heading>A section</heading>\n"
 	    "    <ol>\n"
 	    "      <li>One</li>\n"
 	    "      <li>Two</li>\n"
@@ -339,6 +340,8 @@ test_appstream_write_description (void)
 	    "  <description>\n"
 	    "    <p>First paragraph</p>\n"
 	    "    <p xml:lang=\"de\">Erster paragraph</p>\n"
+	    "    <heading>A section</heading>\n"
+	    "    <heading xml:lang=\"de\">Ein Abschnitt</heading>\n"
 	    "    <ol>\n"
 	    "      <li>One</li>\n"
 	    "      <li xml:lang=\"de\">Eins</li>\n"
@@ -375,6 +378,7 @@ test_appstream_write_description (void)
 	    "    <summary xml:lang=\"de\">Nur ein Unittest.</summary>\n"
 	    "    <description>\n"
 	    "      <p>First paragraph</p>\n"
+	    "      <heading>A section</heading>\n"
 	    "      <ol>\n"
 	    "        <li>One</li>\n"
 	    "        <li>Two</li>\n"
@@ -389,6 +393,7 @@ test_appstream_write_description (void)
 	    "    </description>\n"
 	    "    <description xml:lang=\"de\">\n"
 	    "      <p>Erster paragraph</p>\n"
+	    "      <heading>Ein Abschnitt</heading>\n"
 	    "      <ol>\n"
 	    "        <li>Eins</li>\n"
 	    "        <li>Zwei</li>\n"
@@ -420,7 +425,8 @@ test_appstream_write_description (void)
 	as_component_set_summary (cpt, "Just a unittest.", "C");
 	as_component_set_description (
 	    cpt,
-	    "<p>First paragraph</p>\n<ol><li>One</li><li>Two</li><li>Three is &gt; 2 &amp; "
+	    "<p>First paragraph</p>\n<heading>A section</heading>\n"
+	    "<ol><li>One</li><li>Two</li><li>Three is &gt; 2 &amp; "
 	    "1</li></ol>\n<p>Paragraph2</p><ul><li>First</li><li>Second</li></ul><p>Paragraph3 "
 	    "&amp; the last one</p>",
 	    NULL);
@@ -459,7 +465,8 @@ test_appstream_write_description (void)
 	as_component_set_summary (cpt, "Nur ein Unittest.", "de");
 	as_component_set_description (
 	    cpt,
-	    "<p>Erster paragraph</p>\n<ol><li>Eins</li><li>Zwei</li><li>Drei</li></ol><p>Zweiter "
+	    "<p>Erster paragraph</p>\n<heading>Ein Abschnitt</heading>\n"
+	    "<ol><li>Eins</li><li>Zwei</li><li>Drei</li></ol><p>Zweiter "
 	    "Paragraph</p><ul><li>Erstens</li><li>Zweitens</li></ul><p>Paragraph3</p>",
 	    "de");
 
@@ -606,6 +613,9 @@ test_appstream_read_description_sanitize (void)
 	    "      <li><a href=\"http://example.org\">link</a> text</li>\n"
 	    "      <script>alert(3)</script>\n"
 	    "    </ul>\n"
+	    /* a heading is block-level and may not be nested in other markup */
+	    "    <p>Text with a <heading>heading</heading> in it</p>\n"
+	    "    <ul><li>Item with a <heading>heading</heading></li></ul>\n"
 	    /* an invalid block-level element */
 	    "    <script>alert(4)</script>\n"
 	    "  </description>\n"
@@ -636,6 +646,10 @@ test_appstream_read_description_sanitize (void)
 					      "<ul>\n"
 					      "  <li><em>alert(2)</em></li>\n"
 					      "  <li>link text</li>\n"
+					      "</ul>\n"
+					      "<p>Text with a heading in it</p>\n"
+					      "<ul>\n"
+					      "  <li>Item with a heading</li>\n"
 					      "</ul>\n"));
 
 	/* the sanitized markup must survive a write/read cycle unmodified */
@@ -720,6 +734,7 @@ test_appstream_read_description (void)
 	    "      <li>Some <code>code</code> item</li>\n"
 	    "      <li>...</li>\n"
 	    "    </ul>\n"
+	    "    <heading>Why <em>you</em> want it</heading>\n"
 	    "    <p>I dare you to find an easier, faster, more beautiful task manager for "
 	    "elementary OS.</p>\n"
 	    "  </description>\n"
@@ -751,6 +766,7 @@ test_appstream_read_description (void)
 	    "  <li>Some <code>code</code> item</li>\n"
 	    "  <li>...</li>\n"
 	    "</ul>\n"
+	    "<heading>Why you want it</heading>\n"
 	    "<p>I dare you to find an easier, faster, more beautiful task manager for elementary "
 	    "OS.</p>\n"));
 

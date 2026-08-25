@@ -61,7 +61,7 @@ static AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 
 	{ "description-markup-invalid",
 	  AS_ISSUE_SEVERITY_ERROR,
-	  N_("AppStream descriptions support only a limited set of tags to format text: Paragraphs (<p/>) and lists (<ul/>, <ol/>). "
+	  N_("AppStream descriptions support only a limited set of tags to format text: Paragraphs (<p/>), section headings (<heading/>) and lists (<ul/>, <ol/>). "
 	     "This description markup contains an invalid XML tag that would not be rendered correctly in applications supporting the metainfo specification.")
 	},
 
@@ -91,6 +91,21 @@ static AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	  AS_ISSUE_SEVERITY_ERROR,
 	  N_("The enumeration must not be translated as a whole. "
 	     "In MetaInfo files, translate individual items (<li/> elements) instead.")
+	},
+
+	{ "description-heading-markup-invalid",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("Section headings (`description/heading`) are plain text and must not contain any markup, not even <em/> or <code/>. "
+	     "The markup will be removed when the metadata is read.")
+	},
+
+	{ "description-heading-too-long",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  /* TRANSLATORS: Please do not translate AppStream tag and property names (in backticks). */
+	  N_("This section heading (`description/heading`) is very long and will likely not be displayed properly everywhere. "
+	     "A heading should be a short label for the section that follows it, and be <= 80 characters long. "
+	     "Use a paragraph (<p/>) for longer text.")
 	},
 
 	{ "description-first-para-too-short",

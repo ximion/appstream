@@ -1046,6 +1046,31 @@ as_validator_check_description_paragraph (AsValidator *validator, xmlNode *node,
 }
 
 /**
+ * as_validator_check_description_heading:
+ *
+ * Check the contents of a description section heading. A heading is plain text
+ * and permits no markup whatsoever.
+ **/
+static void
+as_validator_check_description_heading (AsValidator *validator, xmlNode *node)
+{
+	/* the heading itself may only be localized */
+	as_validator_check_description_markup_props (validator, node, TRUE);
+
+	for (xmlNode *iter = node->children; iter != NULL; iter = iter->next) {
+		/* discard spaces */
+		if (iter->type != XML_ELEMENT_NODE)
+			continue;
+
+		as_validator_add_issue (validator,
+					iter,
+					"description-heading-markup-invalid",
+					"%s",
+					(const gchar *) iter->name);
+	}
+}
+
+/**
  * as_validator_check_description_enumeration:
  **/
 static void
@@ -1177,6 +1202,45 @@ as_validator_check_description_tag (AsValidator *validator,
 
 			/* validate common stuff */
 			as_validator_check_description_paragraph (validator, iter, 0);
+		} else if (g_strcmp0 (node_name, "heading") == 0) {
+			g_autofree gchar *h_raw = as_xml_get_node_value (iter);
+			g_autofree gchar *h_content = as_sanitize_text_spaces (h_raw);
+
+			if (mode == AS_FORMAT_STYLE_CATALOG) {
+				as_validator_check_nolocalized (
+				    validator,
+				    iter,
+				    "catalog-localized-description-section",
+				    "description/heading");
+			}
+
+			/* in metainfo mode, we need to check every node for localization,
+			 * otherwise we just honor the is_localized var */
+			if (mode == AS_FORMAT_STYLE_METAINFO) {
+				g_autofree gchar *lang = as_xml_get_prop_value (iter, "lang");
+				is_localized = lang != NULL;
+			}
+
+			/* a heading is a label for the section that follows it, so it should
+			 * be short enough to be displayed as one */
+			if (!is_localized && !as_is_empty (h_content) &&
+			    g_utf8_strlen (h_content, -1) > 80)
+				as_validator_add_issue (validator,
+							iter,
+							"description-heading-too-long",
+							"%s",
+							h_content);
+
+			/* validate spelling */
+			if (!is_localized &&
+			    !as_validator_first_word_capitalized (validator, h_content, TRUE))
+				as_validator_add_issue (validator,
+							node,
+							"description-first-word-not-capitalized",
+							NULL);
+
+			/* validate common stuff */
+			as_validator_check_description_heading (validator, iter);
 		} else if (g_strcmp0 (node_name, "ul") == 0) {
 			as_validator_check_description_enumeration (validator, mode, iter);
 
@@ -2672,7 +2736,8 @@ as_validator_check_release (AsValidator *validator, xmlNode *node, AsFormatStyle
 
 		/* checks if the description is put outside a description tag */
 		if (as_str_equal0 (node_name, "p") || as_str_equal0 (node_name, "ol") ||
-		    as_str_equal0 (node_name, "ul") || as_str_equal0 (node_name, "li")) {
+		    as_str_equal0 (node_name, "ul") || as_str_equal0 (node_name, "li") ||
+		    as_str_equal0 (node_name, "heading")) {
 			as_validator_add_issue (validator,
 						node,
 						"release-description-outside-tag",

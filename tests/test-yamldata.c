@@ -613,6 +613,10 @@ test_yaml_read_description_sanitize (void)
 	    "    <em>inline at block level</em>\n"
 	    /* unknown block-level elements are dropped with their content */
 	    "    <table><tr>X</tr></table>\n"
+	    /* headings are valid block markup and kept, with their inline markup */
+	    "    <heading>A <em>section</em></heading>\n"
+	    /* ... but they may not be nested in other markup */
+	    "    <p>A <heading>heading</heading> in a paragraph</p>\n"
 	    "Releases:\n"
 	    "- version: \"1.0\"\n"
 	    "  description:\n"
@@ -627,7 +631,9 @@ test_yaml_read_description_sanitize (void)
 					      "<p>Tom &amp; Jerry &lt;3</p>\n"
 					      "<p><em><em><em>deep</em></em></em></p>\n"
 					      "<ul><li>Item bold</li></ul>\n"
-					      "<ul></ul>"));
+					      "<ul></ul>\n"
+					      "<heading>A section</heading>\n"
+					      "<p>A heading in a paragraph</p>"));
 
 	releases = as_component_get_releases_plain (cpt);
 	g_assert_cmpint (as_release_list_len (releases), ==, 1);
