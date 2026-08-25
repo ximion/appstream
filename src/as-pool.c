@@ -127,6 +127,8 @@ typedef struct {
 } AsLocationEntry;
 
 typedef struct {
+	gatomicrefcount ref_count;
+
 	AsPool *owner;
 	AsComponentScope scope;
 	AsFormatStyle format_style;
@@ -171,6 +173,7 @@ as_location_group_new (AsPool *owner,
 {
 	AsLocationGroup *lgroup;
 	lgroup = g_new0 (AsLocationGroup, 1);
+	g_atomic_ref_count_init (&lgroup->ref_count);
 
 	lgroup->owner = owner;
 	lgroup->scope = scope;
@@ -199,9 +202,19 @@ as_location_group_new (AsPool *owner,
 	return lgroup;
 }
 
-static void
-as_location_group_free (AsLocationGroup *lgroup)
+static AsLocationGroup *
+as_location_group_ref (AsLocationGroup *lgroup)
 {
+	g_atomic_ref_count_inc (&lgroup->ref_count);
+	return lgroup;
+}
+
+static void
+as_location_group_unref (AsLocationGroup *lgroup)
+{
+	if (!g_atomic_ref_count_dec (&lgroup->ref_count))
+		return;
+
 	g_object_unref (lgroup->monitor);
 	g_ptr_array_unref (lgroup->locations);
 	g_ptr_array_unref (lgroup->icon_dirs);
@@ -237,7 +250,7 @@ as_location_group_add_dir (AsLocationGroup *lgroup,
 	return entry;
 }
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (AsLocationGroup, as_location_group_free)
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (AsLocationGroup, as_location_group_unref)
 
 /**
  * AsComponentRegistry:
@@ -392,14 +405,14 @@ as_pool_init (AsPool *pool)
 	priv->std_data_locations = g_hash_table_new_full (g_str_hash,
 							  g_str_equal,
 							  g_free,
-							  (GDestroyNotify) as_location_group_free);
+							  (GDestroyNotify) as_location_group_unref);
 
 	/* user-defined catalog metadata locations */
 	priv->extra_data_locations = g_hash_table_new_full (
 	    g_str_hash,
 	    g_str_equal,
 	    g_free,
-	    (GDestroyNotify) as_location_group_free);
+	    (GDestroyNotify) as_location_group_unref);
 
 	/* set the current architecture */
 	priv->current_arch = as_get_current_arch ();
@@ -411,7 +424,10 @@ as_pool_init (AsPool *pool)
 	priv->cache = as_cache_new ();
 
 	/* set callback to refine components after deserialization */
-	as_cache_set_refine_func (priv->cache, as_pool_cache_refine_component_cb);
+	as_cache_set_refine_func (priv->cache,
+				  as_pool_cache_refine_component_cb,
+				  (GBoxedCopyFunc) as_location_group_ref,
+				  (GDestroyNotify) as_location_group_unref);
 
 	/* set default pool flags */
 	priv->flags = AS_POOL_FLAG_LOAD_OS_CATALOG | AS_POOL_FLAG_LOAD_OS_METAINFO |
@@ -1875,7 +1891,9 @@ as_pool_process_pending_reload_cb (gpointer user_data)
 	g_debug ("Auto-reload of cache for %s due to source data changes.", lgroup->cache_key);
 
 	task = g_task_new (lgroup->owner, NULL, NULL, NULL);
-	g_task_set_task_data (task, lgroup, NULL);
+	g_task_set_task_data (task,
+			      as_location_group_ref (lgroup),
+			      (GDestroyNotify) as_location_group_unref);
 	g_task_run_in_thread (task, as_pool_section_reload_thread);
 
 	return FALSE;
@@ -1894,7 +1912,11 @@ as_pool_trigger_reload_pending (AsPool *pool, AsLocationGroup *lgroup, guint tim
 		g_source_remove (priv->pending_id);
 	else
 		g_debug ("Reload for %s pending in ~%i ms", lgroup->cache_key, timeout_ms);
-	priv->pending_id = g_timeout_add (timeout_ms, as_pool_process_pending_reload_cb, lgroup);
+	priv->pending_id = g_timeout_add_full (G_PRIORITY_DEFAULT,
+					       timeout_ms,
+					       as_pool_process_pending_reload_cb,
+					       as_location_group_ref (lgroup),
+					       (GDestroyNotify) as_location_group_unref);
 }
 
 /**

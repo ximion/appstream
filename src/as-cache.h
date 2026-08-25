@@ -150,7 +150,9 @@ gboolean	as_cache_add_masking_components (AsCache   *cache,
 						 GError	  **error);
 
 void		as_cache_set_refine_func (AsCache	     *cache,
-					  AsCacheDataRefineFn func);
+					  AsCacheDataRefineFn func,
+					  GBoxedCopyFunc      udata_ref_func,
+					  GDestroyNotify      udata_unref_func);
 
 gboolean	as_cache_is_empty (AsCache *cache);
 guint		as_cache_get_component_count (AsCache *cache);

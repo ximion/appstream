@@ -56,6 +56,8 @@ typedef struct {
 	GHashTable *masked;
 
 	AsCacheDataRefineFn cpt_refine_func;
+	GBoxedCopyFunc refine_udata_ref_func;
+	GDestroyNotify refine_udata_unref_func;
 	gboolean prefer_os_metainfo;
 	gboolean auto_resolve_addons;
 
@@ -78,6 +80,7 @@ typedef struct {
 	gchar *fname;
 
 	gpointer refine_func_udata;
+	GDestroyNotify refine_func_udata_unref;
 } AsCacheSection;
 
 static AsCacheSection *
@@ -93,11 +96,34 @@ as_cache_section_new (const gchar *key)
 static void
 as_cache_section_free (AsCacheSection *csec)
 {
+	if (csec->refine_func_udata_unref != NULL)
+		csec->refine_func_udata_unref (csec->refine_func_udata);
 	g_free (csec->key);
 	g_free (csec->fname);
 	if (csec->silo != NULL)
 		g_object_unref (csec->silo);
 	g_free (csec);
+}
+
+/**
+ * as_cache_section_set_refine_udata:
+ *
+ * Set user data passed to the refinery function for this section, taking
+ * a reference to it if we know how to, so it can not vanish while the
+ * section that uses it is still alive.
+ */
+static void
+as_cache_section_set_refine_udata (AsCache *cache, AsCacheSection *csec, gpointer udata)
+{
+	AsCachePrivate *priv = GET_PRIVATE (cache);
+
+	if (udata != NULL && priv->refine_udata_ref_func != NULL) {
+		csec->refine_func_udata = priv->refine_udata_ref_func (udata);
+		csec->refine_func_udata_unref = priv->refine_udata_unref_func;
+	} else {
+		csec->refine_func_udata = udata;
+		csec->refine_func_udata_unref = NULL;
+	}
 }
 
 static gint
@@ -926,7 +952,7 @@ as_cache_set_contents_internal (AsCache *cache,
 						      AS_CACHE_SCOPE_WRITABLE,
 						      scope,
 						      section_key);
-	csec->refine_func_udata = refine_user_data;
+	as_cache_section_set_refine_udata (cache, csec, refine_user_data);
 
 	csec->silo = as_cache_components_to_internal_xb (cache,
 							 cpts,
@@ -1169,7 +1195,7 @@ as_cache_load_section_internal (AsCache *cache,
 	csec->scope = scope;
 	csec->format_style = source_format_style;
 	csec->fname = g_strdup (xb_fname);
-	csec->refine_func_udata = refine_user_data;
+	as_cache_section_set_refine_udata (cache, csec, refine_user_data);
 
 	csec->silo = xb_silo_new ();
 	file = g_file_new_for_path (csec->fname);
@@ -1388,14 +1414,24 @@ as_cache_add_masking_components (AsCache *cache, GPtrArray *cpts, GError **error
 /**
  * as_cache_set_refine_func:
  * @cache: An instance of #AsCache.
+ * @func: the function to call, or %NULL
+ * @udata_ref_func: function to reference the user data passed to @func, or %NULL
+ * @udata_unref_func: function to release a reference on the user data, or %NULL
  *
  * Set function to be called on a component after it was deserialized.
+ * Any user data given for the refinery function is referenced for as long as
+ * the cache section that uses it exists, if reference functions are set.
  */
 void
-as_cache_set_refine_func (AsCache *cache, AsCacheDataRefineFn func)
+as_cache_set_refine_func (AsCache *cache,
+			  AsCacheDataRefineFn func,
+			  GBoxedCopyFunc udata_ref_func,
+			  GDestroyNotify udata_unref_func)
 {
 	AsCachePrivate *priv = GET_PRIVATE (cache);
 	priv->cpt_refine_func = func;
+	priv->refine_udata_ref_func = udata_ref_func;
+	priv->refine_udata_unref_func = udata_unref_func;
 }
 
 typedef struct {
