@@ -54,6 +54,10 @@ as_strequal_casefold (const gchar *a, const gchar *b)
 	return g_strcmp0 (str1, str2) == 0;
 }
 
+static void
+as_desktop_entry_add_issue (GPtrArray *issues, const gchar *tag, const gchar *format, ...)
+    G_GNUC_PRINTF (3, 4);
+
 /**
  * as_desktop_entry_add_issue:
  */
@@ -153,7 +157,10 @@ as_add_filtered_categories (gchar **cats, AsComponent *cpt, GPtrArray *issues)
 		if (as_utils_is_category_name (cat))
 			as_component_add_category (cpt, cat);
 		else
-			as_desktop_entry_add_issue (issues, "desktop-entry-category-invalid", cat);
+			as_desktop_entry_add_issue (issues,
+						    "desktop-entry-category-invalid",
+						    "%s",
+						    cat);
 	}
 }
 
@@ -171,7 +178,7 @@ as_get_desktop_entry_value (GKeyFile *df, GPtrArray *issues, const gchar *key)
 
 	str = g_key_file_get_string (df, DESKTOP_GROUP, key, &error);
 	if (error != NULL)
-		as_desktop_entry_add_issue (issues, "desktop-entry-bad-data", error->message);
+		as_desktop_entry_add_issue (issues, "desktop-entry-bad-data", "%s", error->message);
 	if (str == NULL)
 		return NULL;
 
@@ -194,7 +201,7 @@ as_get_desktop_entry_value (GKeyFile *df, GPtrArray *issues, const gchar *key)
 	}
 
 	if (has_invalid_chars)
-		as_desktop_entry_add_issue (issues, "desktop-entry-value-invalid-chars", key);
+		as_desktop_entry_add_issue (issues, "desktop-entry-value-invalid-chars", "%s", key);
 	return g_string_free (sane_str, FALSE);
 }
 

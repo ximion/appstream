@@ -46,11 +46,11 @@ void	     ascli_print_key_value (const gchar *key,
 void	     ascli_print_separator (void);
 
 void	     ascli_print_stdout (const gchar *format,
-				 ...);
+				 ...) G_GNUC_PRINTF (1, 2);
 void	     ascli_print_stderr (const gchar *format,
-				 ...);
+				 ...) G_GNUC_PRINTF (1, 2);
 void	     ascli_print_highlight (const gchar *format,
-				    ...);
+				    ...) G_GNUC_PRINTF (1, 2);
 
 const gchar *ascli_get_char_success (void);
 const gchar *ascli_get_char_failure (void);
