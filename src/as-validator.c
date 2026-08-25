@@ -1344,8 +1344,11 @@ as_validator_validate_component_id (AsValidator *validator, xmlNode *idnode, AsC
 	g_auto(GStrv) cid_parts = NULL;
 	guint cid_parts_n;
 	gboolean hyphen_found = FALSE;
+	const gchar *cid_end;
 	g_autofree gchar *cid = as_xml_get_node_value_raw (idnode);
 	g_return_if_fail (cid != NULL);
+
+	cid_end = cid + strlen (cid);
 
 	if (cid[0] != '\0' && g_ascii_ispunct (cid[0]))
 		as_validator_add_issue (validator, idnode, "cid-punctuation-prefix", "%s", cid);
@@ -1394,12 +1397,15 @@ as_validator_validate_component_id (AsValidator *validator, xmlNode *idnode, AsC
 	}
 
 	/* validate characters in AppStream ID */
-	for (guint i = 0; cid[i] != '\0'; i++) {
+	for (const gchar *ch = cid; ch < cid_end;) {
+		const gchar *next = g_utf8_next_char (ch);
+		/* guard against malformed UTF-8 making us run past the end of the string */
+		if (next > cid_end)
+			next = cid_end;
+
 		/* check if we have a printable, alphanumeric ASCII character or a dot, hyphen or underscore */
-		if ((!g_ascii_isalnum (cid[i])) && (cid[i] != '.') && (cid[i] != '-') &&
-		    (cid[i] != '_')) {
-			g_autofree gchar *c = NULL;
-			c = g_utf8_substring (cid, i, i + 1);
+		if ((!g_ascii_isalnum (*ch)) && (*ch != '.') && (*ch != '-') && (*ch != '_')) {
+			g_autofree gchar *c = g_strndup (ch, next - ch);
 			as_validator_add_issue (validator,
 						idnode,
 						"cid-invalid-character",
@@ -1408,12 +1414,14 @@ as_validator_validate_component_id (AsValidator *validator, xmlNode *idnode, AsC
 						c);
 		}
 
-		if (g_ascii_isalpha (cid[i]) && g_ascii_isupper (cid[i]))
+		if (g_ascii_isupper (*ch))
 			as_validator_add_issue (validator,
 						idnode,
 						"cid-contains-uppercase-letter",
 						"%s",
 						cid);
+
+		ch = next;
 	}
 
 	/* check if any segment starts with a number */

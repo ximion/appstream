@@ -567,6 +567,91 @@ test_validator_extern_ids (void)
 	}
 }
 
+/**
+ * _astest_sort_hints_cb:
+ */
+static gint
+_astest_sort_hints_cb (gconstpointer a, gconstpointer b)
+{
+	return g_strcmp0 (*((const gchar **) a), *((const gchar **) b));
+}
+
+/**
+ * _astest_issue_hints_for_tag:
+ *
+ * Return all hints emitted for the given issue tag as one sorted, semicolon-separated
+ * string, so they can easily be compared against an expected value.
+ */
+static gchar *
+_astest_issue_hints_for_tag (GList *issues, const gchar *tag)
+{
+	g_autoptr(GPtrArray) hints = g_ptr_array_new_with_free_func (g_free);
+
+	for (GList *l = issues; l != NULL; l = l->next) {
+		AsValidatorIssue *issue = AS_VALIDATOR_ISSUE (l->data);
+		if (g_strcmp0 (as_validator_issue_get_tag (issue), tag) != 0)
+			continue;
+		g_ptr_array_add (hints, g_strdup (as_validator_issue_get_hint (issue)));
+	}
+
+	g_ptr_array_sort (hints, _astest_sort_hints_cb);
+	g_ptr_array_add (hints, NULL);
+	return g_strjoinv (";", (gchar **) hints->pdata);
+}
+
+/**
+ * test_validator_cid_chars:
+ *
+ * Test that invalid characters in a component-ID are flagged, and that multi-byte
+ * UTF-8 characters are reported as whole characters instead of being sliced apart
+ * or making us read past the end of the ID string.
+ */
+static void
+test_validator_cid_chars (void)
+{
+	const gchar *XML_TMPL = "<component>\n"
+				"  <id>%s</id>\n"
+				"  <name>Test</name>\n"
+				"  <summary>Just a unittest.</summary>\n"
+				"  <description>\n"
+				"    <p>First paragraph</p>\n"
+				"  </description>\n"
+				"</component>\n";
+
+	const struct {
+		const gchar *cid;
+		const gchar *expected_hints;
+	} test_cases[] = {
+		/* a well-formed ID must not be flagged */
+		{ "org.example.Test",     ""			 },
+		/* plain ASCII offenders are reported as-is */
+		{ "org.example.Te st",    "org.example.Te st: ' '" },
+		/* a multi-byte character must be reported as one whole character, not per byte */
+		{ "org.example.Tä",	    "org.example.Tä: 'ä'"	  },
+		/* an ID made up almost entirely of multi-byte characters: its byte length far
+		 * exceeds its character count, which used to make us read past the end of the
+		 * heap allocation holding the ID */
+		{ "日本語.日本語.日本語",
+		  "日本語.日本語.日本語: '日';"
+		  "日本語.日本語.日本語: '本';"
+		  "日本語.日本語.日本語: '語'"		       },
+	};
+
+	for (guint i = 0; i < G_N_ELEMENTS (test_cases); i++) {
+		g_autoptr(AsValidator) validator = as_validator_new ();
+		g_autoptr(GList) issues = NULL;
+		g_autofree gchar *sample_xml = NULL;
+		g_autofree gchar *hints = NULL;
+
+		sample_xml = g_strdup_printf (XML_TMPL, test_cases[i].cid);
+		as_validator_validate_data (validator, sample_xml);
+		issues = as_validator_get_issues (validator);
+
+		hints = _astest_issue_hints_for_tag (issues, "cid-invalid-character");
+		g_assert_cmpstr (hints, ==, test_cases[i].expected_hints);
+	}
+}
+
 int
 main (int argc, char **argv)
 {
@@ -596,6 +681,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/AppStream/Validate/Overrides", test_validator_overrides);
 	g_test_add_func ("/AppStream/Validate/IconFormat", test_validator_icon_format);
 	g_test_add_func ("/AppStream/Validate/ExternIds", test_validator_extern_ids);
+	g_test_add_func ("/AppStream/Validate/ComponentIdChars", test_validator_cid_chars);
 
 	ret = g_test_run ();
 	g_free (datadir);
