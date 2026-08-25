@@ -1574,6 +1574,8 @@ asc_media_make_tmp_name (void)
 	return g_strdup_printf (".asc-tmp-%08x", g_random_int ());
 }
 
+#ifdef O_TMPFILE
+
 /**
  * asc_media_use_tmpfile:
  *
@@ -1599,6 +1601,8 @@ asc_media_use_tmpfile (void)
 
 	return have_proc_fd;
 }
+
+#endif
 
 /**
  * asc_media_out_slot_new:
