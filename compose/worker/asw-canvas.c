@@ -29,7 +29,9 @@
 
 #include <cairo.h>
 #include <cairo-ft.h>
+#include <errno.h>
 #include <math.h>
+#include <unistd.h>
 
 #include "as-utils-private.h"
 #include "asw-font-private.h"
@@ -838,20 +840,46 @@ out:
 }
 
 /**
- * asw_canvas_save_png:
+ * asw_canvas_png_write_cb:
+ *
+ * Cairo write callback that funnels the encoded PNG into a file descriptor.
+ */
+static cairo_status_t
+asw_canvas_png_write_cb (void *closure, const unsigned char *data, unsigned int length)
+{
+	gint fd = GPOINTER_TO_INT (closure);
+
+	while (length > 0) {
+		ssize_t written = write (fd, data, length);
+		if (written < 0) {
+			if (errno == EINTR)
+				continue;
+			return CAIRO_STATUS_WRITE_ERROR;
+		}
+		data += written;
+		length -= (unsigned int) written;
+	}
+
+	return CAIRO_STATUS_SUCCESS;
+}
+
+/**
+ * asw_canvas_save_png_fd:
  * @canvas: an #AswCanvas instance.
- * @fname: Filename to save to.
+ * @fd: Writable file descriptor to encode the canvas into.
  * @error: A #GError or %NULL
  *
- * Save canvas to PNG file.
+ * Save canvas as PNG to a file descriptor, which stays owned by the caller.
  **/
 gboolean
-asw_canvas_save_png (AswCanvas *canvas, const gchar *fname, GError **error)
+asw_canvas_save_png_fd (AswCanvas *canvas, gint fd, GError **error)
 {
 	AswCanvasPrivate *priv = GET_PRIVATE (canvas);
 	cairo_status_t status;
 
-	status = cairo_surface_write_to_png (priv->srf, fname);
+	status = cairo_surface_write_to_png_stream (priv->srf,
+						    asw_canvas_png_write_cb,
+						    GINT_TO_POINTER (fd));
 	if (status != CAIRO_STATUS_SUCCESS) {
 		g_set_error (error,
 			     ASW_CANVAS_ERROR,
@@ -861,7 +889,7 @@ asw_canvas_save_png (AswCanvas *canvas, const gchar *fname, GError **error)
 		return FALSE;
 	}
 
-	return asw_optimize_png (fname, error);
+	return TRUE;
 }
 
 /**

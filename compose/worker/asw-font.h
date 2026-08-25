@@ -78,21 +78,21 @@ const gchar *asw_font_get_sample_icon_text (AswFont *font);
 void	     asw_font_set_sample_icon_text (AswFont	*font,
 					    const gchar *text);
 
-gboolean     asw_font_render_card_to_file (AswFont	 *font,
-					   const gchar	 *fname,
-					   AscImageFormat format,
-					   gint		  width,
-					   gint		  height,
-					   const gchar	 *info_label,
-					   gint		 *actual_width,
-					   gint		 *actual_height,
-					   GError	**error);
-gboolean     asw_font_render_icon_to_file (AswFont	 *font,
-					   const gchar	 *fname,
-					   AscImageFormat format,
-					   gint		  size,
-					   gint		 *actual_width,
-					   gint		 *actual_height,
-					   GError	**error);
+gboolean     asw_font_render_card_to_fd (AswFont       *font,
+					 gint		fd,
+					 AscImageFormat format,
+					 gint		width,
+					 gint		height,
+					 const gchar   *info_label,
+					 gint	       *actual_width,
+					 gint	       *actual_height,
+					 GError	      **error);
+gboolean     asw_font_render_icon_to_fd (AswFont       *font,
+					 gint		fd,
+					 AscImageFormat format,
+					 gint		size,
+					 gint	       *actual_width,
+					 gint	       *actual_height,
+					 GError	      **error);
 
 G_END_DECLS

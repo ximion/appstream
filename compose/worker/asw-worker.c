@@ -23,8 +23,8 @@
  * @short_description: Request dispatcher of the AppStream media worker.
  *
  * The worker receives high-level media operations from libappstream-compose
- * via a socket, with all input data passed as sealed memfds and all rendered
- * output written through a per-request directory file descriptor.
+ * via a socket, with all input data passed as sealed memfds and every rendered
+ * result written into a writable file descriptor that the client opened for us.
  */
 
 #include "config.h"
@@ -53,7 +53,6 @@ struct _AswWorker {
 
 typedef struct {
 	GSocket *socket;
-	gint root_fd;
 } AswWorkerPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AswWorker, asw_worker, G_TYPE_OBJECT)
@@ -67,8 +66,6 @@ asw_worker_finalize (GObject *object)
 
 	if (priv->socket != NULL)
 		g_object_unref (priv->socket);
-	if (priv->root_fd >= 0)
-		close (priv->root_fd);
 
 	G_OBJECT_CLASS (asw_worker_parent_class)->finalize (object);
 }
@@ -76,8 +73,6 @@ asw_worker_finalize (GObject *object)
 static void
 asw_worker_init (AswWorker *worker)
 {
-	AswWorkerPrivate *priv = GET_PRIVATE (worker);
-	priv->root_fd = -1;
 }
 
 static void
@@ -104,18 +99,6 @@ asw_worker_new_for_fd (gint socket_fd, GError **error)
 	if (priv->socket == NULL)
 		return NULL;
 	g_socket_set_blocking (priv->socket, TRUE);
-
-	/* we temporarily change into the output directory while writing results,
-	 * so we need somewhere neutral to return to afterwards */
-	priv->root_fd = open ("/", O_RDONLY | O_DIRECTORY | O_CLOEXEC);
-	if (priv->root_fd < 0) {
-		g_set_error (error,
-			     ASC_MEDIA_ERROR,
-			     ASC_MEDIA_ERROR_FAILED,
-			     "Unable to open the root directory: %s",
-			     g_strerror (errno));
-		return NULL;
-	}
 
 	return g_steal_pointer (&worker);
 }
@@ -158,26 +141,6 @@ asw_worker_send_hello (AswWorker *worker, GError **error)
 				      ASC_MEDIA_STATUS_OK,
 				      g_variant_builder_end (&pb),
 				      error);
-}
-
-/**
- * asw_worker_validate_entry_name:
- *
- * Ensure a result filename received from the client is a plain filename
- * and can not be used to escape the output directory.
- */
-static gboolean
-asw_worker_validate_entry_name (const gchar *name, GError **error)
-{
-	if (!as_path_segment_verify (name)) {
-		g_set_error (error,
-			     ASC_MEDIA_ERROR,
-			     ASC_MEDIA_ERROR_PROTOCOL,
-			     "Received an invalid result file name: %s",
-			     name ? name : "(null)");
-		return FALSE;
-	}
-	return TRUE;
 }
 
 /**
@@ -266,36 +229,38 @@ asw_worker_get_readonly_file_fd (GVariant *params,
 }
 
 /**
- * asw_worker_get_dir_fd:
+ * asw_worker_get_output_fd:
  *
- * Retrieve the output directory fd referenced in the request parameters.
- * Returns a duplicated fd owned by the caller, or -1 on error.
+ * Retrieve the writable output fd of a single result entry.
+ * The client opens these for us, so we only ever write into a file it has
+ * already picked out.
+ *
+ * Returns: a duplicated fd owned by the caller, or -1 on error.
  */
 static gint
-asw_worker_get_dir_fd (GVariant *params, GUnixFDList *fds, const gchar *key, GError **error)
+asw_worker_get_output_fd (GVariant *entry, GUnixFDList *fds, GError **error)
 {
-	gint32 handle = -1;
-	gint fd;
 	struct stat st;
-
-	if (!g_variant_lookup (params, key, "h", &handle) || fds == NULL) {
-		g_set_error (error,
-			     ASC_MEDIA_ERROR,
-			     ASC_MEDIA_ERROR_PROTOCOL,
-			     "Request was missing required directory fd '%s'.",
-			     key);
-		return -1;
-	}
-
-	fd = g_unix_fd_list_get (fds, handle, error);
+	gint flags;
+	gint fd = asw_worker_lookup_fd (entry, fds, "fd", error);
 	if (fd < 0)
 		return -1;
 
-	if (fstat (fd, &st) != 0 || !S_ISDIR (st.st_mode)) {
+	if (fstat (fd, &st) != 0 || !S_ISREG (st.st_mode)) {
 		g_set_error_literal (error,
 				     ASC_MEDIA_ERROR,
 				     ASC_MEDIA_ERROR_PROTOCOL,
-				     "Received output fd is not a directory.");
+				     "Received output fd is not a regular file.");
+		close (fd);
+		return -1;
+	}
+
+	flags = fcntl (fd, F_GETFL);
+	if (flags < 0 || ((flags & O_ACCMODE) != O_WRONLY && (flags & O_ACCMODE) != O_RDWR)) {
+		g_set_error_literal (error,
+				     ASC_MEDIA_ERROR,
+				     ASC_MEDIA_ERROR_PROTOCOL,
+				     "Received output fd is not writable.");
 		close (fd);
 		return -1;
 	}
@@ -311,20 +276,15 @@ asw_worker_get_dir_fd (GVariant *params, GUnixFDList *fds, const gchar *key, GEr
 static GVariant *
 asw_worker_handle_setup (AswWorker *worker, GVariant *params, GUnixFDList *fds, GError **error)
 {
-	gboolean use_optipng = FALSE;
-	const gchar *optipng_path = NULL;
 	const gchar *ffprobe_path = NULL;
 	guint32 memory_limit_mb = 0;
 
-	g_variant_lookup (params, "use-optipng", "b", &use_optipng);
-	g_variant_lookup (params, "optipng-path", "&s", &optipng_path);
 	g_variant_lookup (params, "ffprobe-path", "&s", &ffprobe_path);
 	g_variant_lookup (params, "memory-limit-mb", "u", &memory_limit_mb);
 
-	asc_globals_set_optipng_binary (as_is_empty (optipng_path) ? NULL : optipng_path);
+	/* ffprobe is the only helper we still run ourselves: PNG size optimization
+	 * happens in the client, which owns the resulting files */
 	asc_globals_set_ffprobe_binary (as_is_empty (ffprobe_path) ? NULL : ffprobe_path);
-	if (!as_is_empty (optipng_path))
-		asc_globals_set_use_optipng (use_optipng);
 
 	if (memory_limit_mb > 0) {
 		struct rlimit limit;
@@ -408,53 +368,10 @@ asw_worker_load_font (AswWorker *worker, GVariant *params, GUnixFDList *fds, GEr
 }
 
 /**
- * asw_worker_enter_dir_fd:
- *
- * Make the received output directory our working directory, so result files
- * can be written using their plain (validated) names as relative paths.
- *
- * We must never resolve a path in the client's namespace ourselves, so the
- * output location is only ever reachable through the passed directory fd.
- * Changing directory - rather than constructing paths - is what allows the
- * image encoders, Cairo and the optipng subprocess to write into it without
- * any of them needing to know about the fd.
- *
- * NOTE: The working directory is process-global state. This is safe because
- * the worker handles exactly one request at a time, and nothing else in it
- * may ever rely on relative paths.
- */
-static gboolean
-asw_worker_enter_dir_fd (AswWorker *worker, gint dir_fd, GError **error)
-{
-	if (fchdir (dir_fd) != 0) {
-		g_set_error (error,
-			     ASC_MEDIA_ERROR,
-			     ASC_MEDIA_ERROR_FAILED,
-			     "Unable to enter the output directory: %s",
-			     g_strerror (errno));
-		return FALSE;
-	}
-	return TRUE;
-}
-
-/**
- * asw_worker_leave_dir:
- *
- * Return to our neutral working directory, so we do not keep the client's
- * output directory pinned after a request has been handled.
- */
-static void
-asw_worker_leave_dir (AswWorker *worker)
-{
-	AswWorkerPrivate *priv = GET_PRIVATE (worker);
-	if (fchdir (priv->root_fd) != 0)
-		g_warning ("Unable to leave the output directory: %s", g_strerror (errno));
-}
-
-/**
  * asw_worker_handle_process_image:
  *
- * Load an image and write a set of renditions of it to the output directory.
+ * Load an image and write a set of renditions of it into the output
+ * descriptors the client provided.
  */
 static GVariant *
 asw_worker_handle_process_image (AswWorker *worker,
@@ -473,7 +390,6 @@ asw_worker_handle_process_image (AswWorker *worker,
 	gint load_height = 0;
 	gint src_width, src_height;
 	gint image_fd = -1;
-	gint dir_fd = -1;
 
 	image_fd = asw_worker_get_data_fd (params, fds, "image-fd", error);
 	if (image_fd < 0)
@@ -487,28 +403,14 @@ asw_worker_handle_process_image (AswWorker *worker,
 	g_variant_lookup (params, "load-height", "i", &load_height);
 
 	targets = g_variant_lookup_value (params, "targets", G_VARIANT_TYPE ("aa{sv}"));
-	if (targets != NULL && g_variant_n_children (targets) > 0) {
-		dir_fd = asw_worker_get_dir_fd (params, fds, "dir-fd", error);
-		if (dir_fd < 0)
-			return NULL;
-		if (!asw_worker_enter_dir_fd (worker, dir_fd, error)) {
-			close (dir_fd);
-			return NULL;
-		}
-	}
 
 	image = asw_image_new_from_data (g_bytes_get_data (img_bytes, NULL),
 					 g_bytes_get_size (img_bytes),
 					 load_width,
 					 load_height,
 					 error);
-	if (image == NULL) {
-		if (dir_fd >= 0) {
-			asw_worker_leave_dir (worker);
-			close (dir_fd);
-		}
+	if (image == NULL)
 		return NULL;
-	}
 	src_width = asw_image_get_width (image);
 	src_height = asw_image_get_height (image);
 
@@ -519,7 +421,7 @@ asw_worker_handle_process_image (AswWorker *worker,
 		g_autoptr(GVariant) target = target_dict;
 		g_autoptr(GError) tmp_error = NULL;
 		GVariantBuilder rb;
-		const gchar *name = NULL;
+		guint32 format = ASC_IMAGE_FORMAT_UNKNOWN;
 		gint width = 0;
 		gint height = 0;
 		guint32 scale_mode = ASC_IMAGE_SCALE_MODE_NONE;
@@ -533,8 +435,9 @@ asw_worker_handle_process_image (AswWorker *worker,
 		gint result_height = 0;
 		gboolean skipped = FALSE;
 		gboolean saved = FALSE;
+		gint out_fd = -1;
 
-		g_variant_lookup (target, "name", "&s", &name);
+		g_variant_lookup (target, "format", "u", &format);
 		g_variant_lookup (target, "width", "i", &width);
 		g_variant_lookup (target, "height", "i", &height);
 		g_variant_lookup (target, "scale-mode", "u", &scale_mode);
@@ -544,15 +447,6 @@ asw_worker_handle_process_image (AswWorker *worker,
 		g_variant_lookup (target, "max-src-size", "(ii)", &max_src_width, &max_src_height);
 
 		g_variant_builder_init (&rb, G_VARIANT_TYPE ("a{sv}"));
-
-		if (!asw_worker_validate_entry_name (name, &tmp_error)) {
-			g_variant_builder_add (&rb,
-					       "{sv}",
-					       "error",
-					       g_variant_new_string (tmp_error->message));
-			g_variant_builder_add_value (&results_builder, g_variant_builder_end (&rb));
-			continue;
-		}
 
 		/* check the skip-conditions for this rendition */
 		if (min_src_width > 0 && src_width < min_src_width)
@@ -575,26 +469,37 @@ asw_worker_handle_process_image (AswWorker *worker,
 			continue;
 		}
 
-		/* our working directory is the output directory, so the validated
-		 * entry name is all we need to address the result file */
+		/* the client handed us an already-open descriptor for this rendition */
+		out_fd = asw_worker_get_output_fd (target, fds, &tmp_error);
+		if (out_fd < 0) {
+			g_variant_builder_add (&rb,
+					       "{sv}",
+					       "error",
+					       g_variant_new_string (tmp_error->message));
+			g_variant_builder_add_value (&results_builder, g_variant_builder_end (&rb));
+			continue;
+		}
+
 		switch ((AscImageScaleMode) scale_mode) {
 		case ASC_IMAGE_SCALE_MODE_NONE:
-			saved = asw_image_save_filename (image,
-							 name,
-							 0,
-							 0,
-							 (AscImageSaveFlags) save_flags,
-							 &tmp_error);
+			saved = asw_image_save_fd (image,
+						   out_fd,
+						   (AscImageFormat) format,
+						   0,
+						   0,
+						   (AscImageSaveFlags) save_flags,
+						   &tmp_error);
 			result_width = src_width;
 			result_height = src_height;
 			break;
 		case ASC_IMAGE_SCALE_MODE_PAD:
-			saved = asw_image_save_filename (image,
-							 name,
-							 width,
-							 height,
-							 (AscImageSaveFlags) save_flags,
-							 &tmp_error);
+			saved = asw_image_save_fd (image,
+						   out_fd,
+						   (AscImageFormat) format,
+						   width,
+						   height,
+						   (AscImageSaveFlags) save_flags,
+						   &tmp_error);
 			result_width = width;
 			result_height = height;
 			break;
@@ -638,12 +543,13 @@ asw_worker_handle_process_image (AswWorker *worker,
 				asw_image_scale_to_width (scaled_img, width);
 			else
 				asw_image_scale_to_height (scaled_img, height);
-			saved = asw_image_save_filename (scaled_img,
-							 name,
-							 0,
-							 0,
-							 (AscImageSaveFlags) save_flags,
-							 &tmp_error);
+			saved = asw_image_save_fd (scaled_img,
+						   out_fd,
+						   (AscImageFormat) format,
+						   0,
+						   0,
+						   (AscImageSaveFlags) save_flags,
+						   &tmp_error);
 			result_width = asw_image_get_width (scaled_img);
 			result_height = asw_image_get_height (scaled_img);
 			break;
@@ -656,6 +562,8 @@ asw_worker_handle_process_image (AswWorker *worker,
 				     scale_mode);
 			break;
 		}
+
+		close (out_fd);
 
 		if (!saved) {
 			g_variant_builder_add (&rb,
@@ -673,11 +581,6 @@ asw_worker_handle_process_image (AswWorker *worker,
 					       g_variant_new_int32 (result_height));
 		}
 		g_variant_builder_add_value (&results_builder, g_variant_builder_end (&rb));
-	}
-
-	if (dir_fd >= 0) {
-		asw_worker_leave_dir (worker);
-		close (dir_fd);
 	}
 
 	g_variant_builder_init (&pb, G_VARIANT_TYPE ("a{sv}"));
@@ -768,7 +671,8 @@ asw_worker_handle_font_info (AswWorker *worker, GVariant *params, GUnixFDList *f
 /**
  * asw_worker_handle_render_font:
  *
- * Render font specimen cards or font icons into the output directory.
+ * Render font specimen cards or font icons into the output descriptors
+ * the client provided.
  */
 static GVariant *
 asw_worker_handle_render_font (AswWorker *worker,
@@ -784,7 +688,6 @@ asw_worker_handle_render_font (AswWorker *worker,
 	GVariantBuilder pb;
 	GVariantBuilder results_builder;
 	const gchar *info_label = NULL;
-	gint dir_fd = -1;
 
 	entries = g_variant_lookup_value (params, "entries", G_VARIANT_TYPE ("aa{sv}"));
 	if (entries == NULL || g_variant_n_children (entries) == 0) {
@@ -799,14 +702,6 @@ asw_worker_handle_render_font (AswWorker *worker,
 	if (font == NULL)
 		return NULL;
 
-	dir_fd = asw_worker_get_dir_fd (params, fds, "dir-fd", error);
-	if (dir_fd < 0)
-		return NULL;
-	if (!asw_worker_enter_dir_fd (worker, dir_fd, error)) {
-		close (dir_fd);
-		return NULL;
-	}
-
 	g_variant_lookup (params, "info-label", "&s", &info_label);
 	if (as_is_empty (info_label))
 		info_label = NULL;
@@ -817,18 +712,23 @@ asw_worker_handle_render_font (AswWorker *worker,
 		g_autoptr(GVariant) entry = entry_dict;
 		g_autoptr(GError) tmp_error = NULL;
 		GVariantBuilder rb;
-		const gchar *name = NULL;
-		AscImageFormat format;
+		guint32 format = ASC_IMAGE_FORMAT_UNKNOWN;
 		gint width = 0;
 		gint height = 0;
 		gint actual_width = 0;
 		gint actual_height = 0;
 		gboolean rendered = FALSE;
+		gint out_fd = -1;
 
-		g_variant_lookup (entry, "name", "&s", &name);
+		g_variant_lookup (entry, "format", "u", &format);
+		g_variant_lookup (entry, "width", "i", &width);
+		g_variant_lookup (entry, "height", "i", &height);
 
 		g_variant_builder_init (&rb, G_VARIANT_TYPE ("a{sv}"));
-		if (!asw_worker_validate_entry_name (name, &tmp_error)) {
+
+		/* the client handed us an already-open descriptor for this entry */
+		out_fd = asw_worker_get_output_fd (entry, fds, &tmp_error);
+		if (out_fd < 0) {
 			g_variant_builder_add (&rb,
 					       "{sv}",
 					       "error",
@@ -837,42 +737,27 @@ asw_worker_handle_render_font (AswWorker *worker,
 			continue;
 		}
 
-		/* the requested output format is implied by the target filename */
-		format = asc_image_format_from_filename (name);
-		if (format == ASC_IMAGE_FORMAT_UNKNOWN) {
-			g_autofree gchar *msg = g_strdup_printf (
-			    "Unable to determine the image format to render '%s' as.",
-			    name);
-			g_variant_builder_add (&rb, "{sv}", "error", g_variant_new_string (msg));
-			g_variant_builder_add_value (&results_builder, g_variant_builder_end (&rb));
-			continue;
-		}
-
-		g_variant_lookup (entry, "width", "i", &width);
-		g_variant_lookup (entry, "height", "i", &height);
-
-		/* our working directory is the output directory, so the validated
-		 * entry name is all we need to address the result file */
 		if (render_icon) {
 			/* font icons are always square, so the width is our canvas size */
-			rendered = asw_font_render_icon_to_file (font,
-								 name,
-								 format,
-								 width,
-								 &actual_width,
-								 &actual_height,
-								 &tmp_error);
+			rendered = asw_font_render_icon_to_fd (font,
+							       out_fd,
+							       (AscImageFormat) format,
+							       width,
+							       &actual_width,
+							       &actual_height,
+							       &tmp_error);
 		} else {
-			rendered = asw_font_render_card_to_file (font,
-								 name,
-								 format,
-								 width,
-								 height,
-								 info_label,
-								 &actual_width,
-								 &actual_height,
-								 &tmp_error);
+			rendered = asw_font_render_card_to_fd (font,
+							       out_fd,
+							       (AscImageFormat) format,
+							       width,
+							       height,
+							       info_label,
+							       &actual_width,
+							       &actual_height,
+							       &tmp_error);
 		}
+		close (out_fd);
 
 		if (!rendered) {
 			g_variant_builder_add (&rb,
@@ -891,8 +776,6 @@ asw_worker_handle_render_font (AswWorker *worker,
 		}
 		g_variant_builder_add_value (&results_builder, g_variant_builder_end (&rb));
 	}
-	asw_worker_leave_dir (worker);
-	close (dir_fd);
 
 	g_variant_builder_init (&pb, G_VARIANT_TYPE ("a{sv}"));
 	g_variant_builder_add (&pb, "{sv}", "results", g_variant_builder_end (&results_builder));

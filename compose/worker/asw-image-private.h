@@ -32,9 +32,6 @@ gboolean   asw_image_backend_init (const gchar *argv0,
 				   GError     **error);
 void	   asw_image_backend_shutdown (void);
 
-gboolean   asw_optimize_png (const gchar *fname,
-			     GError	**error);
-
 VipsImage *asw_image_save_vips (AswImage	 *image,
 				gint		  width,
 				gint		  height,

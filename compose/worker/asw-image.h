@@ -49,12 +49,13 @@ gboolean    asw_image_load_filename (AswImage	 *image,
 				     gint	  render_height,
 				     GError	**error);
 
-gboolean    asw_image_save_filename (AswImage	      *image,
-				     const gchar      *filename,
-				     gint	       width,
-				     gint	       height,
-				     AscImageSaveFlags flags,
-				     GError	     **error);
+gboolean    asw_image_save_fd (AswImage		*image,
+			       gint		 fd,
+			       AscImageFormat	 format,
+			       gint		 width,
+			       gint		 height,
+			       AscImageSaveFlags flags,
+			       GError	       **error);
 
 gint	    asw_image_get_width (AswImage *image);
 gint	    asw_image_get_height (AswImage *image);
@@ -68,10 +69,10 @@ void	    asw_image_scale_to_width (AswImage *image,
 void	    asw_image_scale_to_height (AswImage *image,
 				       gint	 new_height);
 
-gboolean    asw_canvas_save_to_file (AswCanvas	   *canvas,
-				     const gchar   *filename,
-				     AscImageFormat format,
-				     gboolean	    lossless,
-				     GError	  **error);
+gboolean    asw_canvas_save_to_fd (AswCanvas	 *canvas,
+				   gint		  fd,
+				   AscImageFormat format,
+				   gboolean	  lossless,
+				   GError	**error);
 
 G_END_DECLS

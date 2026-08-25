@@ -29,13 +29,18 @@
 AS_BEGIN_PRIVATE_DECLS
 
 /* protocol revision */
-#define ASC_MEDIA_PROTOCOL_VERSION 1
+#define ASC_MEDIA_PROTOCOL_VERSION 2
 
 /* file descriptor number the worker inherits its communication socket on */
 #define ASC_MEDIA_SOCKET_FD 3
 
 /* maximum size of an in-band protocol message - bulk data is passed via memfd */
 #define ASC_MEDIA_MAX_MSG_SIZE (128 * 1024)
+
+/* maximum number of result files one request may ask for. The kernel accepts at
+ * most SCM_MAX_FD (253) descriptors per message and we need a few for the input
+ * data, so we stay well below that and fail with a clear error instead. */
+#define ASC_MEDIA_MAX_OUT_SLOTS 200
 
 /* GVariant type strings for the message envelopes */
 #define ASC_MEDIA_REQUEST_VTYPE	 "(uua{sv})"

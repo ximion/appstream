@@ -928,9 +928,9 @@ asw_font_set_sample_icon_text (AswFont *font, const gchar *text)
 }
 
 /**
- * asw_font_render_card_to_file:
+ * asw_font_render_card_to_fd:
  * @font: an #AswFont instance.
- * @fname: Filename of the resulting image.
+ * @fd: Writable file descriptor to encode the resulting image into.
  * @format: Format of the resulting image, e.g. %ASC_IMAGE_FORMAT_JXL
  * @width: Requested card width.
  * @height: Requested card height.
@@ -946,15 +946,15 @@ asw_font_set_sample_icon_text (AswFont *font, const gchar *text)
  * Returns: %TRUE on success.
  **/
 gboolean
-asw_font_render_card_to_file (AswFont *font,
-			      const gchar *fname,
-			      AscImageFormat format,
-			      gint width,
-			      gint height,
-			      const gchar *info_label,
-			      gint *actual_width,
-			      gint *actual_height,
-			      GError **error)
+asw_font_render_card_to_fd (AswFont *font,
+			    gint fd,
+			    AscImageFormat format,
+			    gint width,
+			    gint height,
+			    const gchar *info_label,
+			    gint *actual_width,
+			    gint *actual_height,
+			    GError **error)
 {
 	const gchar *bg_letter = NULL;
 	g_autoptr(AswCanvas) cv = NULL;
@@ -975,7 +975,7 @@ asw_font_render_card_to_file (AswFont *font,
 		return FALSE;
 
 	/* specimen cards use lossy encoding (they are used like screenshots) */
-	if (!asw_canvas_save_to_file (cv, fname, format, FALSE /* lossy */, error))
+	if (!asw_canvas_save_to_fd (cv, fd, format, FALSE /* lossy */, error))
 		return FALSE;
 
 	if (actual_width != NULL)
@@ -986,9 +986,9 @@ asw_font_render_card_to_file (AswFont *font,
 }
 
 /**
- * asw_font_render_icon_to_file:
+ * asw_font_render_icon_to_fd:
  * @font: an #AswFont instance.
- * @fname: Filename of the resulting image.
+ * @fd: Writable file descriptor to encode the resulting image into.
  * @format: Format of the resulting image, e.g. %ASC_IMAGE_FORMAT_JXL
  * @size: Icon canvas size in pixels (width and height).
  * @actual_width: (out) (optional): Actual width of the rendered icon.
@@ -1002,13 +1002,13 @@ asw_font_render_card_to_file (AswFont *font,
  * Returns: %TRUE on success.
  **/
 gboolean
-asw_font_render_icon_to_file (AswFont *font,
-			      const gchar *fname,
-			      AscImageFormat format,
-			      gint size,
-			      gint *actual_width,
-			      gint *actual_height,
-			      GError **error)
+asw_font_render_icon_to_fd (AswFont *font,
+			    gint fd,
+			    AscImageFormat format,
+			    gint size,
+			    gint *actual_width,
+			    gint *actual_height,
+			    GError **error)
 {
 	AswCanvasShape bg_shape;
 	gint shape_border_width;
@@ -1056,7 +1056,7 @@ asw_font_render_icon_to_file (AswFont *font,
 		return FALSE;
 
 	/* save losslessly as an icon */
-	if (!asw_canvas_save_to_file (cv, fname, format, TRUE /* lossless */, error))
+	if (!asw_canvas_save_to_fd (cv, fd, format, TRUE /* lossless */, error))
 		return FALSE;
 
 	if (actual_width != NULL)

@@ -30,9 +30,15 @@
  * The actual media processing is performed by a separate worker process,
  * so parsing of untrusted media data is isolated.
  * Input data is passed to the worker exclusively via sealed memory file
- * descriptors, and the worker writes its results through a directory file
- * descriptor provided per request, so it requires no ambient filesystem
- * access and can be sandboxed.
+ * descriptors, and every result is written into a descriptor that we opened
+ * for it beforehand, so the worker never resolves a filesystem path and needs
+ * no write access of its own at all - it can be sandboxed tightly.
+ *
+ * We can not know in advance which renditions the worker will actually
+ * produce, as it decides that from the source image it alone has parsed. So we
+ * hand it one throwaway output file per candidate rendition and only give the
+ * ones it used their final name afterwards, which also makes publishing a
+ * result atomic.
  *
  * An #AscMedia instance manages the lifecycle of exactly one worker process,
  * which is spawned lazily on first use and respawned (up to a limit) in case
@@ -40,6 +46,8 @@
  * processing media must use its own #AscMedia instance.
  */
 
+/* for O_TMPFILE */
+#define _GNU_SOURCE
 #include "config.h"
 #include "asc-media.h"
 #include "asc-media-private.h"
@@ -47,7 +55,9 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <gio/gunixfdlist.h>
+#include <stdio.h>
 #include <sys/socket.h>
+#include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
 
@@ -1146,21 +1156,12 @@ asc_media_worker_setup (AscMedia *media, GCancellable *cancellable, GError **err
 	AscMediaPrivate *priv = GET_PRIVATE (media);
 	g_autoptr(GVariant) payload = NULL;
 	GVariantBuilder pb;
-	const gchar *optipng_path = asc_globals_get_optipng_binary ();
 	const gchar *ffprobe_path = asc_globals_get_ffprobe_binary ();
 	guint32 rid = 0;
 	guint32 status = 0;
 	gboolean eof = FALSE;
 
 	g_variant_builder_init (&pb, G_VARIANT_TYPE ("a{sv}"));
-	g_variant_builder_add (&pb,
-			       "{sv}",
-			       "use-optipng",
-			       g_variant_new_boolean (asc_globals_get_use_optipng ()));
-	g_variant_builder_add (&pb,
-			       "{sv}",
-			       "optipng-path",
-			       g_variant_new_string (optipng_path ? optipng_path : ""));
 	g_variant_builder_add (&pb,
 			       "{sv}",
 			       "ffprobe-path",
@@ -1187,11 +1188,20 @@ asc_media_worker_setup (AscMedia *media, GCancellable *cancellable, GError **err
 					     cancellable,
 					     error))
 		return FALSE;
-	if (rid != priv->last_request_id || status != ASC_MEDIA_STATUS_OK) {
+	if (rid != priv->last_request_id) {
 		g_set_error_literal (error,
 				     ASC_MEDIA_ERROR,
 				     ASC_MEDIA_ERROR_PROTOCOL,
-				     "Worker rejected its setup request.");
+				     "Worker replied to the wrong setup request.");
+		return FALSE;
+	}
+	if (status != ASC_MEDIA_STATUS_OK) {
+		g_autoptr(GError) worker_error = asc_media_ipc_error_from_payload (payload);
+		g_set_error (error,
+			     ASC_MEDIA_ERROR,
+			     ASC_MEDIA_ERROR_PROTOCOL,
+			     "Worker rejected its setup request: %s",
+			     worker_error->message);
 		return FALSE;
 	}
 
@@ -1492,7 +1502,7 @@ asc_media_fdlist_append (GUnixFDList *fds, gint fd, GError **error)
 /**
  * asc_media_open_out_dir:
  *
- * Open an output directory to pass its fd to the worker.
+ * Open an output directory, creating it if needed.
  */
 static gint
 asc_media_open_out_dir (const gchar *out_dir, GError **error)
@@ -1523,6 +1533,306 @@ asc_media_open_out_dir (const gchar *out_dir, GError **error)
 }
 
 /**
+ * AscMediaOutSlot:
+ *
+ * One pre-opened output file that the media worker may write a rendition into.
+ *
+ * The worker only ever receives @fd: it can neither pick a location nor create
+ * a file of its own. Once it has told us which slots it actually used, we give
+ * those their final name and drop the rest.
+ */
+typedef struct {
+	gint fd;		/* writable descriptor handed to the worker */
+	gchar *tmp_name;	/* temporary entry in the output directory, or %NULL */
+	AscImageTarget *target; /* the rendition this slot belongs to */
+} AscMediaOutSlot;
+
+/**
+ * asc_media_out_slot_free:
+ */
+static void
+asc_media_out_slot_free (AscMediaOutSlot *slot)
+{
+	if (slot == NULL)
+		return;
+	if (slot->fd >= 0)
+		close (slot->fd);
+	g_free (slot->tmp_name);
+	g_free (slot);
+}
+
+/**
+ * asc_media_make_tmp_name:
+ *
+ * Build a name for a temporary entry in an output directory. The leading dot
+ * keeps these out of the way and makes a collision with a rendition name
+ * impossible, as %as_path_segment_verify rejects names that start with one.
+ */
+static gchar *
+asc_media_make_tmp_name (void)
+{
+	return g_strdup_printf (".asc-tmp-%08x", g_random_int ());
+}
+
+/**
+ * asc_media_use_tmpfile:
+ *
+ * Check whether output slots can be unnamed O_TMPFILE inodes.
+ *
+ * Giving such an inode a name requires /proc, which is not necessarily mounted
+ * inside a build chroot, so probe for it once and fall back to named temporary
+ * files where it is missing.
+ */
+static gboolean
+asc_media_use_tmpfile (void)
+{
+	static gsize initialized = 0;
+	static gboolean have_proc_fd = FALSE;
+
+	if (g_once_init_enter (&initialized)) {
+		gboolean found = g_file_test ("/proc/self/fd", G_FILE_TEST_IS_DIR);
+		if (!found)
+			g_debug ("No /proc available, using named temporary media files.");
+		have_proc_fd = found;
+		g_once_init_leave (&initialized, 1);
+	}
+
+	return have_proc_fd;
+}
+
+/**
+ * asc_media_out_slot_new:
+ * @dir_fd: Descriptor of the directory the rendition will end up in.
+ * @target: The rendition this slot is for.
+ * @error: A #GError or %NULL
+ *
+ * Create an output slot for a single rendition.
+ *
+ * We prefer an unnamed O_TMPFILE inode: it never appears in the directory and
+ * simply ceases to exist if we never link it into place, so a crash can not
+ * litter the output tree. Filesystems without support for it - and platforms
+ * that lack the flag entirely, such as FreeBSD - get a hidden temporary file
+ * that we rename or unlink once the worker is done.
+ *
+ * Returns: (transfer full): a new #AscMediaOutSlot, or %NULL on error.
+ */
+static AscMediaOutSlot *
+asc_media_out_slot_new (gint dir_fd, AscImageTarget *target, GError **error)
+{
+	AscMediaOutSlot *slot;
+	g_autofree gchar *tmp_name = NULL;
+	gint fd = -1;
+	gint saved_errno = 0;
+
+#ifdef O_TMPFILE
+	if (asc_media_use_tmpfile ()) {
+		fd = openat (dir_fd, ".", O_TMPFILE | O_WRONLY | O_CLOEXEC, 0644);
+		saved_errno = errno;
+		/* EOPNOTSUPP/EISDIR/EINVAL all mean "this filesystem can not do
+		 * O_TMPFILE". Glibc folds O_DIRECTORY into O_TMPFILE, so a filesystem
+		 * without support cheerfully opens the directory itself instead and we
+		 * end up seeing EISDIR. */
+		if (fd < 0 && saved_errno != EOPNOTSUPP && saved_errno != ENOTSUP &&
+		    saved_errno != EISDIR && saved_errno != EINVAL) {
+			g_set_error (error,
+				     ASC_MEDIA_ERROR,
+				     ASC_MEDIA_ERROR_FAILED,
+				     "Unable to create an output file for '%s': %s",
+				     target->name,
+				     g_strerror (saved_errno));
+			return NULL;
+		}
+	}
+#endif
+
+	if (fd < 0) {
+		/* fall back to a named temporary file that we rename into place */
+		for (guint i = 0; i < 100; i++) {
+			g_autofree gchar *candidate = asc_media_make_tmp_name ();
+
+			fd = openat (dir_fd,
+				     candidate,
+				     O_CREAT | O_EXCL | O_WRONLY | O_CLOEXEC,
+				     0644);
+			saved_errno = errno;
+			if (fd >= 0) {
+				tmp_name = g_steal_pointer (&candidate);
+				break;
+			}
+			if (saved_errno != EEXIST)
+				break;
+		}
+		if (fd < 0) {
+			g_set_error (error,
+				     ASC_MEDIA_ERROR,
+				     ASC_MEDIA_ERROR_FAILED,
+				     "Unable to create a temporary output file for '%s': %s",
+				     target->name,
+				     g_strerror (saved_errno));
+			return NULL;
+		}
+	}
+
+	slot = g_new0 (AscMediaOutSlot, 1);
+	slot->fd = fd;
+	slot->tmp_name = g_steal_pointer (&tmp_name);
+	slot->target = target;
+
+	return slot;
+}
+
+/**
+ * asc_media_out_slot_commit:
+ *
+ * Publish the contents of a slot under the final name of its rendition,
+ * replacing any previous file of that name atomically.
+ */
+static gboolean
+asc_media_out_slot_commit (AscMediaOutSlot *slot, gint dir_fd, GError **error)
+{
+	g_autofree gchar *link_name = NULL;
+
+	if (slot->tmp_name == NULL) {
+#ifdef O_TMPFILE
+		g_autofree gchar *proc_path = g_strdup_printf ("/proc/self/fd/%i", slot->fd);
+
+		/* Linking an unnamed inode with AT_EMPTY_PATH requires
+		 * CAP_DAC_READ_SEARCH, so we go through /proc instead, which is the
+		 * documented way to give an O_TMPFILE inode a name. We link it under a
+		 * temporary name first, so that the final rename is atomic. */
+		link_name = asc_media_make_tmp_name ();
+		if (linkat (AT_FDCWD, proc_path, dir_fd, link_name, AT_SYMLINK_FOLLOW) != 0) {
+			g_set_error (error,
+				     ASC_MEDIA_ERROR,
+				     ASC_MEDIA_ERROR_FAILED,
+				     "Unable to store the rendition '%s': %s",
+				     slot->target->name,
+				     g_strerror (errno));
+			return FALSE;
+		}
+#else
+		g_set_error_literal (error,
+				     ASC_MEDIA_ERROR,
+				     ASC_MEDIA_ERROR_FAILED,
+				     "Output slot was neither named nor an unnamed inode.");
+		return FALSE;
+#endif
+	} else {
+		link_name = g_steal_pointer (&slot->tmp_name);
+	}
+
+	if (renameat (dir_fd, link_name, dir_fd, slot->target->name) != 0) {
+		g_set_error (error,
+			     ASC_MEDIA_ERROR,
+			     ASC_MEDIA_ERROR_FAILED,
+			     "Unable to store the rendition '%s': %s",
+			     slot->target->name,
+			     g_strerror (errno));
+		unlinkat (dir_fd, link_name, 0);
+		return FALSE;
+	}
+
+	return TRUE;
+}
+
+/**
+ * asc_media_out_slot_discard:
+ *
+ * Throw away a slot the worker did not use. An unnamed inode disappears on its
+ * own once we close the descriptor, a named one has to be removed.
+ */
+static void
+asc_media_out_slot_discard (AscMediaOutSlot *slot, gint dir_fd)
+{
+	if (slot->tmp_name == NULL)
+		return;
+	if (unlinkat (dir_fd, slot->tmp_name, 0) != 0)
+		g_debug ("Unable to remove temporary media file '%s': %s",
+			 slot->tmp_name,
+			 g_strerror (errno));
+	g_clear_pointer (&slot->tmp_name, g_free);
+}
+
+/**
+ * asc_media_out_slots_discard_all:
+ *
+ * Drop every slot that was not published yet. Committing a slot clears its
+ * temporary name, so this is a no-op for the ones we already stored and can be
+ * run unconditionally on the way out.
+ */
+static void
+asc_media_out_slots_discard_all (GPtrArray *slots, gint dir_fd)
+{
+	if (slots == NULL || dir_fd < 0)
+		return;
+	for (guint i = 0; i < slots->len; i++)
+		asc_media_out_slot_discard (g_ptr_array_index (slots, i), dir_fd);
+}
+
+/**
+ * asc_media_optimize_png:
+ *
+ * Shrink a finished PNG rendition with optipng, if that is enabled and the
+ * binary was found.
+ *
+ * NOTE: This only handles trusted data we received from the sandboxed worker,
+ * so we can run it outside of the sandbox.
+ */
+static gboolean
+asc_media_optimize_png (const gchar *fname, GError **error)
+{
+	const gchar *optipng_path;
+	const gchar *argv[3] = { NULL, NULL, NULL };
+	g_autofree gchar *opng_stdout = NULL;
+	g_autofree gchar *opng_stderr = NULL;
+	g_autoptr(GError) tmp_error = NULL;
+	gint exit_status = 0;
+
+	if (!asc_globals_get_use_optipng ())
+		return TRUE;
+
+	optipng_path = asc_globals_get_optipng_binary ();
+	if (optipng_path == NULL) {
+		g_set_error_literal (error,
+				     ASC_MEDIA_ERROR,
+				     ASC_MEDIA_ERROR_FAILED,
+				     "optipng not found in $PATH");
+		return FALSE;
+	}
+
+	argv[0] = optipng_path;
+	argv[1] = fname;
+
+	/* NOTE: Maybe add an option to run optipng with stronger optimization? (>= -o4) */
+	if (!g_spawn_sync (NULL, /* working directory */
+			   (gchar **) argv,
+			   NULL, /* envp */
+			   G_SPAWN_LEAVE_DESCRIPTORS_OPEN,
+			   NULL, /* child setup */
+			   NULL, /* user data */
+			   &opng_stdout,
+			   &opng_stderr,
+			   &exit_status,
+			   &tmp_error)) {
+		g_propagate_prefixed_error (error,
+					    g_steal_pointer (&tmp_error),
+					    "Failed to spawn optipng.");
+		return FALSE;
+	}
+
+	if (exit_status != 0) {
+		/* FIXME: Maybe emit this as proper error, instead of just logging it? */
+		g_warning ("Optipng on '%s' failed with error code %i: %s%s",
+			   fname,
+			   exit_status,
+			   opng_stderr ? opng_stderr : "",
+			   opng_stdout ? opng_stdout : "");
+	}
+
+	return TRUE;
+}
+
+/**
  * asc_media_lookup_dup_nonempty:
  *
  * Fetch a string from a vardict, returning %NULL instead of
@@ -1540,13 +1850,20 @@ asc_media_lookup_dup_nonempty (GVariant *dict, const gchar *key)
 }
 
 /**
- * asc_media_apply_target_results:
+ * asc_media_apply_slot_results:
  *
- * Transfer the per-rendition results from a response payload
- * into the caller's target structures.
+ * Transfer the per-rendition results from a response payload into the caller's
+ * target structures, and publish the output slots the worker actually wrote to.
+ *
+ * A rendition that the worker skipped or failed on is not an error: its slot is
+ * simply thrown away and the outcome recorded in the target.
  */
 static gboolean
-asc_media_apply_target_results (GVariant *payload, GPtrArray *targets, GError **error)
+asc_media_apply_slot_results (GVariant *payload,
+			      GPtrArray *slots,
+			      gint dir_fd,
+			      const gchar *out_dir,
+			      GError **error)
 {
 	g_autoptr(GVariant) results = NULL;
 	GVariantIter results_iter;
@@ -1554,7 +1871,7 @@ asc_media_apply_target_results (GVariant *payload, GPtrArray *targets, GError **
 	guint i = 0;
 
 	results = g_variant_lookup_value (payload, "results", G_VARIANT_TYPE ("aa{sv}"));
-	if (results == NULL || g_variant_n_children (results) != targets->len) {
+	if (results == NULL || g_variant_n_children (results) != slots->len) {
 		g_set_error_literal (error,
 				     ASC_MEDIA_ERROR,
 				     ASC_MEDIA_ERROR_PROTOCOL,
@@ -1565,18 +1882,108 @@ asc_media_apply_target_results (GVariant *payload, GPtrArray *targets, GError **
 	g_variant_iter_init (&results_iter, results);
 	while (g_variant_iter_next (&results_iter, "@a{sv}", &result_dict)) {
 		g_autoptr(GVariant) result = result_dict;
-		AscImageTarget *target = g_ptr_array_index (targets, i++);
-
-		target->skipped = FALSE;
-		target->result_width = 0;
-		target->result_height = 0;
-		g_free (g_steal_pointer (&target->error_msg));
+		g_autoptr(GError) tmp_error = NULL;
+		AscMediaOutSlot *slot = g_ptr_array_index (slots, i++);
+		AscImageTarget *target = slot->target;
 
 		g_variant_lookup (result, "skipped", "b", &target->skipped);
 		g_variant_lookup (result, "width", "i", &target->result_width);
 		g_variant_lookup (result, "height", "i", &target->result_height);
 		target->error_msg = asc_media_lookup_dup_nonempty (result, "error");
+
+		if (target->skipped || target->error_msg != NULL) {
+			asc_media_out_slot_discard (slot, dir_fd);
+			continue;
+		}
+
+		if (!asc_media_out_slot_commit (slot, dir_fd, &tmp_error)) {
+			target->error_msg = g_strdup (tmp_error->message);
+			continue;
+		}
+
+		/* optipng only ever applies to PNG images */
+		if (asc_image_format_from_filename (target->name) == ASC_IMAGE_FORMAT_PNG &&
+		    as_flags_contains (target->save_flags, ASC_IMAGE_SAVE_FLAG_OPTIMIZE)) {
+			g_autofree gchar *fname = NULL;
+
+			fname = g_build_filename (out_dir, target->name, NULL);
+			if (!asc_media_optimize_png (fname, &tmp_error))
+				target->error_msg = g_strdup (tmp_error->message);
+		}
 	}
+
+	return TRUE;
+}
+
+/**
+ * asc_media_prepare_target:
+ *
+ * Validate a rendition target and reset its result fields, returning the image
+ * format it should be encoded in.
+ *
+ * Returns: the target format, or %ASC_IMAGE_FORMAT_UNKNOWN if it is unusable.
+ */
+static AscImageFormat
+asc_media_prepare_target (AscImageTarget *target)
+{
+	AscImageFormat format;
+
+	target->skipped = FALSE;
+	target->result_width = 0;
+	target->result_height = 0;
+	g_clear_pointer (&target->error_msg, g_free);
+
+	if (!as_path_segment_verify (target->name)) {
+		target->error_msg = g_strdup_printf ("Invalid rendition file name: %s",
+						     target->name ? target->name : "(null)");
+		return ASC_IMAGE_FORMAT_UNKNOWN;
+	}
+
+	format = asc_image_format_from_filename (target->name);
+	if (format == ASC_IMAGE_FORMAT_UNKNOWN)
+		target->error_msg = g_strdup_printf (
+		    "Unable to determine the image format to save '%s' as.",
+		    target->name);
+
+	return format;
+}
+
+/**
+ * asc_media_add_out_slot:
+ *
+ * Create an output slot for @target and reference its descriptor from the
+ * entry currently being built.
+ */
+static gboolean
+asc_media_add_out_slot (GVariantBuilder *eb,
+			GUnixFDList *fds,
+			GPtrArray *slots,
+			gint dir_fd,
+			AscImageTarget *target,
+			GError **error)
+{
+	AscMediaOutSlot *slot;
+	gint handle;
+
+	if (slots->len >= ASC_MEDIA_MAX_OUT_SLOTS) {
+		g_set_error (error,
+			     ASC_MEDIA_ERROR,
+			     ASC_MEDIA_ERROR_FAILED,
+			     "A single media request can not produce more than %i files.",
+			     ASC_MEDIA_MAX_OUT_SLOTS);
+		return FALSE;
+	}
+
+	slot = asc_media_out_slot_new (dir_fd, target, error);
+	if (slot == NULL)
+		return FALSE;
+	g_ptr_array_add (slots, slot);
+
+	/* the list duplicates the descriptor, the slot keeps owning ours */
+	handle = g_unix_fd_list_append (fds, slot->fd, error);
+	if (handle < 0)
+		return FALSE;
+	g_variant_builder_add (eb, "{sv}", "fd", g_variant_new_handle (handle));
 
 	return TRUE;
 }
@@ -1618,8 +2025,11 @@ asc_media_process_image (AscMedia *media,
 	g_autoptr(GUnixFDList) fds = g_unix_fd_list_new ();
 	g_autoptr(GVariant) payload = NULL;
 	g_auto(GVariantBuilder) pb = G_VARIANT_BUILDER_INIT (G_VARIANT_TYPE ("a{sv}"));
+	g_autoptr(GPtrArray) slots = NULL;
+	gint dir_fd = -1;
 	gint fd, handle;
 	gboolean have_targets = targets != NULL && targets->len > 0;
+	gboolean ret = FALSE;
 
 	g_return_val_if_fail (ASC_IS_MEDIA (media), FALSE);
 	g_return_val_if_fail (source != NULL, FALSE);
@@ -1645,27 +2055,35 @@ asc_media_process_image (AscMedia *media,
 			       "load-height",
 			       g_variant_new_int32 (source->render_height));
 
+	slots = g_ptr_array_new_with_free_func ((GDestroyNotify) asc_media_out_slot_free);
 	if (have_targets) {
 		GVariantBuilder targets_builder;
 
-		fd = asc_media_open_out_dir (out_dir, error);
-		if (fd < 0)
+		dir_fd = asc_media_open_out_dir (out_dir, error);
+		if (dir_fd < 0)
 			return FALSE;
-		handle = asc_media_fdlist_append (fds, fd, error);
-		if (handle < 0)
-			return FALSE;
-		g_variant_builder_add (&pb, "{sv}", "dir-fd", g_variant_new_handle (handle));
 
 		g_variant_builder_init (&targets_builder, G_VARIANT_TYPE ("aa{sv}"));
 		for (guint i = 0; i < targets->len; i++) {
 			AscImageTarget *target = g_ptr_array_index (targets, i);
+			AscImageFormat format = asc_media_prepare_target (target);
 			GVariantBuilder tb;
 
+			/* targets we can not name a file for are reported right away and
+			 * never reach the worker */
+			if (format == ASC_IMAGE_FORMAT_UNKNOWN)
+				continue;
+
 			g_variant_builder_init (&tb, G_VARIANT_TYPE ("a{sv}"));
+			if (!asc_media_add_out_slot (&tb, fds, slots, dir_fd, target, error)) {
+				g_variant_builder_clear (&tb);
+				g_variant_builder_clear (&targets_builder);
+				goto out;
+			}
 			g_variant_builder_add (&tb,
 					       "{sv}",
-					       "name",
-					       g_variant_new_string (target->name));
+					       "format",
+					       g_variant_new_uint32 (format));
 			g_variant_builder_add (&tb,
 					       "{sv}",
 					       "width",
@@ -1711,16 +2129,20 @@ asc_media_process_image (AscMedia *media,
 				  cancellable,
 				  error);
 	if (payload == NULL)
-		return FALSE;
+		goto out;
 
 	source->width = 0;
 	source->height = 0;
 	g_variant_lookup (payload, "src-width", "i", &source->width);
 	g_variant_lookup (payload, "src-height", "i", &source->height);
 
-	if (have_targets)
-		return asc_media_apply_target_results (payload, targets, error);
-	return TRUE;
+	ret = asc_media_apply_slot_results (payload, slots, dir_fd, out_dir, error);
+
+out:
+	asc_media_out_slots_discard_all (slots, dir_fd);
+	if (dir_fd >= 0)
+		close (dir_fd);
+	return ret;
 }
 
 /**
@@ -1869,8 +2291,10 @@ asc_media_render_font (AscMedia *media,
 	g_autoptr(GUnixFDList) fds = g_unix_fd_list_new ();
 	g_autoptr(GVariant) payload = NULL;
 	g_auto(GVariantBuilder) pb = G_VARIANT_BUILDER_INIT (G_VARIANT_TYPE ("a{sv}"));
+	g_autoptr(GPtrArray) slots = NULL;
 	GVariantBuilder entries_builder;
-	gint fd, handle;
+	gint dir_fd = -1;
+	gboolean ret = FALSE;
 
 	g_return_val_if_fail (ASC_IS_MEDIA (media), FALSE);
 	g_return_val_if_fail (font_data != NULL, FALSE);
@@ -1889,30 +2313,46 @@ asc_media_render_font (AscMedia *media,
 					error))
 		return FALSE;
 
-	fd = asc_media_open_out_dir (out_dir, error);
-	if (fd < 0)
-		return FALSE;
-	handle = asc_media_fdlist_append (fds, fd, error);
-	if (handle < 0)
-		return FALSE;
-	g_variant_builder_add (&pb, "{sv}", "dir-fd", g_variant_new_handle (handle));
-
 	if (!as_is_empty (info_label))
 		g_variant_builder_add (&pb,
 				       "{sv}",
 				       "info-label",
 				       g_variant_new_string (info_label));
 
+	dir_fd = asc_media_open_out_dir (out_dir, error);
+	if (dir_fd < 0)
+		return FALSE;
+
+	slots = g_ptr_array_new_with_free_func ((GDestroyNotify) asc_media_out_slot_free);
 	g_variant_builder_init (&entries_builder, G_VARIANT_TYPE ("aa{sv}"));
 	for (guint i = 0; i < targets->len; i++) {
 		AscImageTarget *target = g_ptr_array_index (targets, i);
+		AscImageFormat format = asc_media_prepare_target (target);
 		GVariantBuilder eb;
 
+		/* entries we can not name a file for are reported right away and
+		 * never reach the worker */
+		if (format == ASC_IMAGE_FORMAT_UNKNOWN)
+			continue;
+
 		g_variant_builder_init (&eb, G_VARIANT_TYPE ("a{sv}"));
-		g_variant_builder_add (&eb, "{sv}", "name", g_variant_new_string (target->name));
+		if (!asc_media_add_out_slot (&eb, fds, slots, dir_fd, target, error)) {
+			g_variant_builder_clear (&eb);
+			g_variant_builder_clear (&entries_builder);
+			goto out;
+		}
+		g_variant_builder_add (&eb, "{sv}", "format", g_variant_new_uint32 (format));
 		g_variant_builder_add (&eb, "{sv}", "width", g_variant_new_int32 (target->width));
 		g_variant_builder_add (&eb, "{sv}", "height", g_variant_new_int32 (target->height));
 		g_variant_builder_add_value (&entries_builder, g_variant_builder_end (&eb));
+	}
+
+	if (slots->len == 0) {
+		/* nothing usable was requested, all targets carry their error already */
+		g_variant_builder_clear (&entries_builder);
+		g_variant_builder_clear (&pb);
+		ret = TRUE;
+		goto out;
 	}
 	g_variant_builder_add (&pb, "{sv}", "entries", g_variant_builder_end (&entries_builder));
 
@@ -1923,9 +2363,15 @@ asc_media_render_font (AscMedia *media,
 				  NULL, /* cancellable */
 				  error);
 	if (payload == NULL)
-		return FALSE;
+		goto out;
 
-	return asc_media_apply_target_results (payload, targets, error);
+	ret = asc_media_apply_slot_results (payload, slots, dir_fd, out_dir, error);
+
+out:
+	asc_media_out_slots_discard_all (slots, dir_fd);
+	if (dir_fd >= 0)
+		close (dir_fd);
+	return ret;
 }
 
 /**

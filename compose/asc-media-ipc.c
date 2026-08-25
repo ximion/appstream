@@ -24,8 +24,8 @@
  *
  * Messages are GVariants sent as single datagrams over a SOCK_SEQPACKET Unix
  * socket pair. Bulk data (images, fonts, videos) is passed exclusively via
- * sealed memfds attached with SCM_RIGHTS; rendered results are written by the
- * worker through a directory file descriptor provided by the client.
+ * sealed memfds attached with SCM_RIGHTS; each rendered result is written into
+ * a writable file descriptor that the client attached to the request.
  */
 
 #define _GNU_SOURCE

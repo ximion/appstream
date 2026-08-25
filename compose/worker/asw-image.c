@@ -286,69 +286,6 @@ asw_image_new (void)
 }
 
 /**
- * asw_optimize_png:
- * @fname: Filename of the PNG image to optimize.
- * @error: A #GError or %NULL
- *
- * Optimizes a PNG graphic for size with optipng, if its binary
- * is available and this feature is enabled.
- **/
-gboolean
-asw_optimize_png (const gchar *fname, GError **error)
-{
-	gint exit_status;
-	gboolean r;
-	const gchar *optipng_path;
-	g_autofree gchar *opng_stdout = NULL;
-	g_autofree gchar *opng_stderr = NULL;
-	g_autofree const gchar **argv = NULL;
-	GError *tmp_error = NULL;
-
-	if (!asc_globals_get_use_optipng ())
-		return TRUE;
-
-	optipng_path = asc_globals_get_optipng_binary ();
-	if (optipng_path == NULL) {
-		g_set_error (error,
-			     ASC_MEDIA_ERROR,
-			     ASC_MEDIA_ERROR_FAILED,
-			     "optipng not found in $PATH");
-		return FALSE;
-	}
-
-	argv = g_new0 (const gchar *, 2 + 1);
-	argv[0] = optipng_path;
-	argv[1] = fname;
-
-	/* NOTE: Maybe add an option to run optipng with stronger optimization? (>= -o4) */
-	r = g_spawn_sync (NULL, /* working directory */
-			  (gchar **) argv,
-			  NULL, /* envp */
-			  G_SPAWN_LEAVE_DESCRIPTORS_OPEN,
-			  NULL, /* child setup */
-			  NULL, /* user data */
-			  &opng_stdout,
-			  &opng_stderr,
-			  &exit_status,
-			  &tmp_error);
-	if (!r) {
-		g_propagate_prefixed_error (error, tmp_error, "Failed to spawn optipng.");
-		return FALSE;
-	}
-
-	if (exit_status != 0) {
-		/* FIXME: Maybe emit this as proper error, instead of just logging it? */
-		g_warning ("Optipng on '%s' failed with error code %i: %s%s",
-			   fname,
-			   exit_status,
-			   opng_stderr ? opng_stderr : "",
-			   opng_stdout ? opng_stdout : "");
-	}
-
-	return TRUE;
-}
-
-/**
  * asw_image_supported_format_names:
  *
  * Get a set of image format names we can currently read
@@ -1070,63 +1007,71 @@ asw_image_scale_to_height (AswImage *image, gint new_height)
  * GPS coordinates and similar) from an upstream image into catalog media.
  */
 static gboolean
-asw_image_save_vips_to_file (VipsImage *vimg,
-			     const gchar *fname,
-			     AscImageFormat format,
-			     const AswImageSaverOptions *opts,
-			     GError **error)
+asw_image_save_vips_to_fd (VipsImage *vimg,
+			   gint fd,
+			   AscImageFormat format,
+			   const AswImageSaverOptions *opts,
+			   GError **error)
 {
+	g_autoptr(VipsTarget) target = NULL;
+
 	if (opts == NULL)
 		opts = &asw_default_saver_options;
+
+	/* libvips duplicates the descriptor internally, so the caller keeps
+	 * ownership of @fd and we must not close it here */
+	target = vips_target_new_to_descriptor (fd);
+	if (target == NULL)
+		return asw_vips_error ("Unable to prepare the image output target", error);
 
 	switch (format) {
 	case ASC_IMAGE_FORMAT_PNG:
 		if (opts->png_palette) {
-			if (vips_pngsave (vimg,
-					  fname,
-					  "compression",
-					  opts->png_compression,
-					  "palette",
-					  TRUE,
-					  "effort",
-					  opts->png_effort,
-					  "strip",
-					  TRUE,
-					  NULL) != 0)
+			if (vips_pngsave_target (vimg,
+						 target,
+						 "compression",
+						 opts->png_compression,
+						 "palette",
+						 TRUE,
+						 "effort",
+						 opts->png_effort,
+						 "strip",
+						 TRUE,
+						 NULL) != 0)
 				return asw_vips_error ("Unable to save PNG image", error);
 		} else {
-			if (vips_pngsave (vimg,
-					  fname,
-					  "compression",
-					  opts->png_compression,
-					  "strip",
-					  TRUE,
-					  NULL) != 0)
+			if (vips_pngsave_target (vimg,
+						 target,
+						 "compression",
+						 opts->png_compression,
+						 "strip",
+						 TRUE,
+						 NULL) != 0)
 				return asw_vips_error ("Unable to save PNG image", error);
 		}
 		return TRUE;
 	case ASC_IMAGE_FORMAT_JXL:
 		if (opts->jxl_lossless) {
-			if (vips_jxlsave (vimg,
-					  fname,
-					  "lossless",
-					  TRUE,
-					  "effort",
-					  opts->jxl_effort,
-					  "strip",
-					  TRUE,
-					  NULL) != 0)
+			if (vips_jxlsave_target (vimg,
+						 target,
+						 "lossless",
+						 TRUE,
+						 "effort",
+						 opts->jxl_effort,
+						 "strip",
+						 TRUE,
+						 NULL) != 0)
 				return asw_vips_error ("Unable to save JPEG-XL image", error);
 		} else {
-			if (vips_jxlsave (vimg,
-					  fname,
-					  "Q",
-					  opts->jxl_quality,
-					  "effort",
-					  opts->jxl_effort,
-					  "strip",
-					  TRUE,
-					  NULL) != 0)
+			if (vips_jxlsave_target (vimg,
+						 target,
+						 "Q",
+						 opts->jxl_quality,
+						 "effort",
+						 opts->jxl_effort,
+						 "strip",
+						 TRUE,
+						 NULL) != 0)
 				return asw_vips_error ("Unable to save JPEG-XL image", error);
 		}
 		return TRUE;
@@ -1142,40 +1087,41 @@ asw_image_save_vips_to_file (VipsImage *vimg,
 }
 
 /**
- * asw_canvas_save_to_file:
+ * asw_canvas_save_to_fd:
  * @canvas: The canvas to store.
- * @filename: Filename to write to.
+ * @fd: Writable file descriptor to encode the canvas into.
  * @format: Target image format, e.g. %ASC_IMAGE_FORMAT_PNG
  * @lossless: %TRUE to encode without any loss of detail.
  * @error: A #GError or %NULL
  *
- * Saves a rendered canvas to a file in a specific format.
+ * Saves a rendered canvas to a file descriptor in a specific format.
+ * The descriptor stays owned by the caller.
  *
  * Returns: %TRUE for success
  **/
 gboolean
-asw_canvas_save_to_file (AswCanvas *canvas,
-			 const gchar *filename,
-			 AscImageFormat format,
-			 gboolean lossless,
-			 GError **error)
+asw_canvas_save_to_fd (AswCanvas *canvas,
+		       gint fd,
+		       AscImageFormat format,
+		       gboolean lossless,
+		       GError **error)
 {
 	g_autoptr(VipsImage) vimg = NULL;
 
 	if (format == ASC_IMAGE_FORMAT_PNG) {
 		/* we can just save that PNG directly */
-		return asw_canvas_save_png (canvas, filename, error);
+		return asw_canvas_save_png_fd (canvas, fd, error);
 	}
 
 	vimg = asw_canvas_to_vips (canvas, error);
 	if (vimg == NULL)
 		return FALSE;
-	return asw_image_save_vips_to_file (vimg,
-					    filename,
-					    format,
-					    lossless ? &asw_lossless_saver_options
-						     : &asw_default_saver_options,
-					    error);
+	return asw_image_save_vips_to_fd (vimg,
+					  fd,
+					  format,
+					  lossless ? &asw_lossless_saver_options
+						   : &asw_default_saver_options,
+					  error);
 }
 
 /**
@@ -1246,55 +1192,42 @@ asw_image_save_vips (AswImage *image,
 }
 
 /**
- * asw_image_save_filename:
+ * asw_image_save_fd:
  * @image: a #AswImage instance.
- * @filename: filename to write to
+ * @fd: Writable file descriptor to encode the image into.
+ * @format: Target image format, only %ASC_IMAGE_FORMAT_PNG and
+ *          %ASC_IMAGE_FORMAT_JXL are permitted.
  * @width: target width, or 0 for default
  * @height: target height, or 0 for default
  * @flags: some #AscImageSaveFlags values, e.g. %ASC_IMAGE_SAVE_FLAG_SHARPEN
  * @error: A #GError or %NULL.
  *
- * Saves the image to a file. The image format is determined by the
- * extension of @filename, and only PNG and JPEG-XL are permitted.
+ * Saves the image to a file descriptor, which stays owned by the caller.
+ *
+ * PNG size optimization (%ASC_IMAGE_SAVE_FLAG_OPTIMIZE) is not performed
+ * here: it runs in the client process, which owns the resulting file.
  *
  * Returns: %TRUE for success
  **/
 gboolean
-asw_image_save_filename (AswImage *image,
-			 const gchar *filename,
-			 gint width,
-			 gint height,
-			 AscImageSaveFlags flags,
-			 GError **error)
+asw_image_save_fd (AswImage *image,
+		   gint fd,
+		   AscImageFormat format,
+		   gint width,
+		   gint height,
+		   AscImageSaveFlags flags,
+		   GError **error)
 {
 	g_autoptr(VipsImage) vimg = NULL;
-	AscImageFormat format = asc_image_format_from_filename (filename);
 
-	if (format == ASC_IMAGE_FORMAT_UNKNOWN) {
-		g_set_error (error,
-			     ASC_MEDIA_ERROR,
-			     ASC_MEDIA_ERROR_UNSUPPORTED,
-			     "Unable to determine the image format to save '%s' as.",
-			     filename);
-		return FALSE;
-	}
-
-	/* save source file */
 	vimg = asw_image_save_vips (image, width, height, flags, error);
 	if (vimg == NULL)
 		return FALSE;
-	if (!asw_image_save_vips_to_file (vimg,
-					  filename,
+	return asw_image_save_vips_to_fd (vimg,
+					  fd,
 					  format,
 					  as_flags_contains (flags, ASC_IMAGE_SAVE_FLAG_LOSSLESS)
 					      ? &asw_lossless_saver_options
 					      : &asw_default_saver_options,
-					  error))
-		return FALSE;
-
-	/* optipng only ever applies to PNG images */
-	if (format != ASC_IMAGE_FORMAT_PNG ||
-	    !as_flags_contains (flags, ASC_IMAGE_SAVE_FLAG_OPTIMIZE))
-		return TRUE;
-	return asw_optimize_png (filename, error);
+					  error);
 }
