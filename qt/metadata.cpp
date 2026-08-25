@@ -62,7 +62,7 @@ public:
 static_assert(static_cast<int>(AppStream::Metadata::FormatKindDesktopEntry) + 1
                   == AS_FORMAT_KIND_LAST,
               "Metadata::FormatKind is out of sync with AsFormatKind");
-static_assert(static_cast<int>(AppStream::Metadata::FormatVersionV10) + 1 == AS_FORMAT_VERSION_LAST,
+static_assert(static_cast<int>(AppStream::Metadata::FormatVersionV12) + 1 == AS_FORMAT_VERSION_LAST,
               "Metadata::FormatVersion is out of sync with AsFormatVersion");
 static_assert(static_cast<int>(AppStream::Metadata::FormatStyleCatalog) + 1 == AS_FORMAT_STYLE_LAST,
               "Metadata::FormatStyle is out of sync with AsFormatStyle");

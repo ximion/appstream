@@ -367,7 +367,7 @@ test_appstream_write_description (void)
 	    "</component>\n";
 
 	const gchar *EXPECTED_XML_DISTRO =
-	    "<components version=\"1.0\">\n"
+	    "<components version=\"1.2\">\n"
 	    "  <component>\n"
 	    "    <id>org.example.Test</id>\n"
 	    "    <name>Test</name>\n"
@@ -612,7 +612,7 @@ test_appstream_read_description_sanitize (void)
 	    "</component>\n";
 	/* the same in catalog XML, where the description is dumped verbatim */
 	const gchar *xmldata_desc_catalog =
-	    "<components version=\"1.0\">\n"
+	    "<components version=\"1.2\">\n"
 	    "  <component>\n"
 	    "    <id>org.example.DescSanitizeCatalog</id>\n"
 	    "    <description>\n"
@@ -1001,7 +1001,7 @@ test_xml_write_suggests (void)
 					   "    <id>org.example.Awesome</id>\n"
 					   "  </suggests>\n"
 					   "</component>\n";
-	const gchar *expected_sug_xml_coll = "<components version=\"1.0\">\n"
+	const gchar *expected_sug_xml_coll = "<components version=\"1.2\">\n"
 					     "  <component>\n"
 					     "    <id>org.example.SuggestsTest</id>\n"
 					     "    <suggests type=\"upstream\">\n"
@@ -1301,7 +1301,7 @@ test_appstream_write_metainfo_to_catalog (void)
 	    "</component>\n";
 
 	const gchar *EXPECTED_XML_COLL =
-	    "<components version=\"1.0\">\n"
+	    "<components version=\"1.2\">\n"
 	    "  <component>\n"
 	    "    <id>org.example.Test</id>\n"
 	    "    <name>Test</name>\n"

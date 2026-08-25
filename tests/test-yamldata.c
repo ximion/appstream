@@ -67,7 +67,7 @@ as_yaml_test_read_data (const gchar *data, GError **error)
 
 	data_full = g_strdup_printf ("---\n"
 				     "File: DEP-11\n"
-				     "Version: \"1.0\"\n"
+				     "Version: \"1.2\"\n"
 				     "---\n%s",
 				     data);
 
@@ -108,7 +108,7 @@ as_yaml_test_compare_yaml (const gchar *result, const gchar *expected)
 	g_autofree gchar *expected_full = NULL;
 	expected_full = g_strdup_printf ("---\n"
 					 "File: DEP-11\n"
-					 "Version: \"1.0\"\n"
+					 "Version: \"1.2\"\n"
 					 "---\n%s",
 					 expected);
 	return as_test_compare_lines (result, expected_full);

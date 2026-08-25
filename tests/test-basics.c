@@ -374,7 +374,7 @@ test_component (void)
 	g_assert_cmpstr (str2,
 			 ==,
 			 "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
-			 "<components version=\"1.0\">\n"
+			 "<components version=\"1.2\">\n"
 			 "  <component type=\"desktop-application\">\n"
 			 "    <id>org.example.test.desktop</id>\n"
 			 "    <name>Test</name>\n"

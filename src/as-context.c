@@ -77,6 +77,8 @@ as_format_version_to_string (AsFormatVersion version)
 {
 	if (version == AS_FORMAT_VERSION_V1_0)
 		return "1.0";
+	if (version == AS_FORMAT_VERSION_V1_2)
+		return "1.2";
 	return "x.xx";
 }
 
@@ -96,6 +98,8 @@ as_format_version_from_string (const gchar *version_str)
 {
 	if (g_strcmp0 (version_str, "1.0") == 0)
 		return AS_FORMAT_VERSION_V1_0;
+	if (g_strcmp0 (version_str, "1.2") == 0)
+		return AS_FORMAT_VERSION_V1_2;
 	return AS_FORMAT_VERSION_UNKNOWN;
 }
 

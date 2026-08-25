@@ -56,6 +56,7 @@ public:
     enum FormatVersion {
         FormatVersionUnknown,
         FormatVersionV10,
+        FormatVersionV12
     };
     Q_ENUM(FormatVersion)
 

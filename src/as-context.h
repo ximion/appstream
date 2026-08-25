@@ -47,17 +47,19 @@ struct _AsContextClass {
  * AsFormatVersion:
  * @AS_FORMAT_VERSION_UNKNOWN:	Unknown format version
  * @AS_FORMAT_VERSION_V1_0:	1.0
+ * @AS_FORMAT_VERSION_V1_2:	1.2
  *
  * Format version / API level of the AppStream metadata.
  **/
 typedef enum {
 	AS_FORMAT_VERSION_UNKNOWN,
 	AS_FORMAT_VERSION_V1_0,
+	AS_FORMAT_VERSION_V1_2,
 	/*< private >*/
 	AS_FORMAT_VERSION_LAST
 } AsFormatVersion;
 
-#define AS_FORMAT_VERSION_LATEST AS_FORMAT_VERSION_V1_0
+#define AS_FORMAT_VERSION_LATEST AS_FORMAT_VERSION_V1_2
 
 const gchar    *as_format_version_to_string (AsFormatVersion version);
 AsFormatVersion as_format_version_from_string (const gchar *version_str);
