@@ -384,7 +384,11 @@ test_news_headings (void)
 					     "\n"
 					     "Deprecations:\n"
 					     "\n"
-					     "The old interface is gone for good.\n";
+					     "The old interface is gone for good.\n"
+					     "\n"
+					     "Notes:\n"
+					     "\n"
+					     "\\### This paragraph only looks like a heading.\n";
 
 	static const gchar *expected_xml_releases_data =
 	    "  <releases>\n"
@@ -400,6 +404,8 @@ test_news_headings (void)
 	    "        </ul>\n"
 	    "        <heading>Deprecations</heading>\n"
 	    "        <p>The old interface is gone for good.</p>\n"
+	    "        <heading>Notes</heading>\n"
+	    "        <p>### This paragraph only looks like a heading.</p>\n"
 	    "      </description>\n"
 	    "    </release>\n"
 	    "  </releases>";
@@ -445,6 +451,57 @@ test_news_headings (void)
 		g_assert_nonnull (xml2);
 		g_assert_true (as_test_compare_lines (xml2, expected_xml_releases_data));
 	}
+}
+
+/**
+ * test_news_yaml_multiline_paragraph:
+ *
+ * A paragraph in a YAML block scalar may span multiple lines: they all belong to
+ * the same paragraph, as paragraphs are separated by empty lines.
+ */
+static void
+test_news_yaml_multiline_paragraph (void)
+{
+	static const gchar *yaml_news_data = "---\n"
+					     "Version: \"1.0\"\n"
+					     "Date: 2026-01-01\n"
+					     "Description: |-\n"
+					     "  A paragraph that is\n"
+					     "  written on two lines.\n"
+					     "\n"
+					     "   * An enumeration entry\n"
+					     "  A line that ends the enumeration again.\n";
+
+	static const gchar *expected_xml_releases_data =
+	    "  <releases>\n"
+	    "    <release type=\"stable\" version=\"1.0\" date=\"2026-01-01T00:00:00Z\">\n"
+	    "      <description>\n"
+	    "        <p>A paragraph that is\n"
+	    "written on two lines.</p>\n"
+	    "        <ul>\n"
+	    "          <li>An enumeration entry</li>\n"
+	    "        </ul>\n"
+	    "        <p>A line that ends the enumeration again.</p>\n"
+	    "      </description>\n"
+	    "    </release>\n"
+	    "  </releases>";
+
+	g_autoptr(GPtrArray) releases = NULL;
+	g_autoptr(GError) error = NULL;
+	g_autofree gchar *xml = NULL;
+
+	releases = as_news_to_releases_from_data (yaml_news_data,
+						  AS_NEWS_FORMAT_KIND_YAML,
+						  -1,
+						  -1,
+						  &error);
+	g_assert_no_error (error);
+	g_assert_nonnull (releases);
+
+	xml = as_releases_to_metainfo_xml_chunk (releases, &error);
+	g_assert_no_error (error);
+	g_assert_nonnull (xml);
+	g_assert_true (as_test_compare_lines (xml, expected_xml_releases_data));
 }
 
 /**
@@ -1117,6 +1174,8 @@ main (int argc, char **argv)
 	g_test_add_func ("/AppStream/Misc/TextNews", test_readwrite_text_news);
 	g_test_add_func ("/AppStream/Misc/NewsInlineMarkup", test_news_inline_markup);
 	g_test_add_func ("/AppStream/Misc/NewsHeadings", test_news_headings);
+	g_test_add_func ("/AppStream/Misc/NewsYAMLMultilineParagraph",
+			 test_news_yaml_multiline_paragraph);
 	g_test_add_func ("/AppStream/Misc/NewsYAMLHeadingsNoParagraph",
 			 test_news_yaml_headings_no_paragraph);
 	g_test_add_func ("/AppStream/Misc/StripLocaleEncoding", test_locale_strip_encoding);

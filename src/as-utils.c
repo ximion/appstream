@@ -206,6 +206,29 @@ as_sanitize_text_spaces (const gchar *text)
 }
 
 /**
+ * as_markup_block_clean_text:
+ *
+ * Return the text content of a description block element, with runs of
+ * whitespace and line breaks collapsed. Inline markup is converted to Markdown
+ * if @inline_md is set, and flattened to its text content otherwise.
+ *
+ * Returns: (transfer full): the text content, never %NULL.
+ */
+static gchar *
+as_markup_block_clean_text (xmlNode *node, gboolean inline_md)
+{
+	g_autofree gchar *text_content = inline_md ? as_xml_desc_to_inline_md (node)
+						   : as_xml_get_node_value_raw (node);
+
+	/* Apparently the element is empty, which is odd. But we better add it instead
+	 * of completely ignoring it. */
+	if (text_content == NULL)
+		text_content = g_strdup ("");
+
+	return as_sanitize_text_spaces (text_content);
+}
+
+/**
  * as_markup_convert:
  * @markup: the XML markup to transform.
  * @to_kind: The markup style to convert into.
@@ -265,18 +288,9 @@ as_markup_convert (const gchar *markup, AsMarkupKind to_kind, GError **error)
 			continue;
 
 		if (as_str_equal0 (iter->name, "p")) {
-			g_autofree gchar *clean_text = NULL;
-			g_autofree gchar *text_content = (to_kind == AS_MARKUP_KIND_MARKDOWN)
-							     ? as_xml_desc_to_inline_md (iter)
-							     : as_xml_get_node_value_raw (iter);
-
-			/* Apparently the element is empty, which is odd. But we better add it instead
-			 * of completely ignoring it. */
-			if (text_content == NULL)
-				text_content = g_strdup ("");
-
-			/* remove extra whitespaces and linebreaks */
-			clean_text = as_sanitize_text_spaces (text_content);
+			g_autofree gchar *clean_text = as_markup_block_clean_text (
+			    iter,
+			    to_kind == AS_MARKUP_KIND_MARKDOWN);
 
 			if (str->len > 0)
 				g_string_append (str, "\n");
@@ -291,15 +305,8 @@ as_markup_convert (const gchar *markup, AsMarkupKind to_kind, GError **error)
 				g_string_append_printf (str, "%s\n", clean_text);
 			}
 		} else if (as_str_equal0 (iter->name, "heading")) {
-			g_autofree gchar *clean_text = NULL;
 			/* a heading is plain text in every markup flavor */
-			g_autofree gchar *text_content = as_xml_get_node_value_raw (iter);
-
-			if (text_content == NULL)
-				text_content = g_strdup ("");
-
-			/* remove extra whitespaces and linebreaks */
-			clean_text = as_sanitize_text_spaces (text_content);
+			g_autofree gchar *clean_text = as_markup_block_clean_text (iter, FALSE);
 
 			if (str->len > 0)
 				g_string_append (str, "\n");
@@ -310,7 +317,6 @@ as_markup_convert (const gchar *markup, AsMarkupKind to_kind, GError **error)
 				g_string_append_printf (str, "### %s\n", clean_text);
 			else
 				g_string_append_printf (str, "%s\n", clean_text);
-
 		} else if ((as_str_equal0 (iter->name, "ul")) ||
 			   (as_str_equal0 (iter->name, "ol"))) {
 			g_autofree gchar *item_c = NULL;
@@ -331,20 +337,10 @@ as_markup_convert (const gchar *markup, AsMarkupKind to_kind, GError **error)
 					continue;
 				if (as_str_equal0 (iter2->name, "li")) {
 					g_auto(GStrv) spl = NULL;
-					g_autofree gchar *clean_item = NULL;
-					g_autofree gchar
-					    *item_content = (to_kind == AS_MARKUP_KIND_MARKDOWN)
-								? as_xml_desc_to_inline_md (iter2)
-								: as_xml_get_node_value_raw (iter2);
+					g_autofree gchar *clean_item = as_markup_block_clean_text (
+					    iter2,
+					    to_kind == AS_MARKUP_KIND_MARKDOWN);
 					entry_no++;
-
-					/* Apparently the item text is empty, which is odd.
-					 * Let's add an empty entry, instead of ignoring it entirely. */
-					if (item_content == NULL)
-						item_content = g_strdup ("");
-
-					/* remove extra whitespaces and linebreaks */
-					clean_item = as_sanitize_text_spaces (item_content);
 
 					/* set item number for ordered list */
 					if (is_ordered_list) {

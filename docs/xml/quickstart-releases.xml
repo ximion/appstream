@@ -557,16 +557,18 @@ metainfo_with_relinfo = custom_target('gen-metainfo-rel',
 		<para>
 			The output format is guessed from the file name using the same rules as above. Use
 			<option>--format=<replaceable>yaml|text|markdown</replaceable></option> to select it explicitly; the
-			<literal>markdown</literal> format differs from <literal>text</literal> only in the character used to underline the
-			version headers. Passing <literal>-</literal> as the output file writes to standard output, in which case
+			<literal>markdown</literal> format differs from <literal>text</literal> in the character used to underline the
+			version headers, and in writing section headings as <literal>### Heading</literal> instead of
+			<literal>Heading:</literal>. Passing <literal>-</literal> as the output file writes to standard output, in which case
 			<option>--format</option> is required.
 		</para>
 		<note>
 			<para>
-				Converting to YAML and back is lossless, so a YAML file can be regenerated at any time. Converting to text is not:
-				the text output contains no section headings, so reading it back in produces plain paragraphs instead of the
-				<literal>Features:</literal> and <literal>Bugfixes:</literal> structure that was originally there. Pick one of the
-				two representations as the place where you maintain your release notes, and generate the other one from it.
+				Converting to YAML and back is lossless, so a YAML file can be regenerated at any time. The text and Markdown
+				formats keep section headings and enumerations as well, but they are a lossier target: a heading that already
+				ends in a colon loses it, as a trailing colon is what marks a heading in a <filename>NEWS</filename> file, and
+				an ordered list (<code>&lt;ol/&gt;</code>) is not read back as a list. Pick one of the representations as the
+				place where you maintain your release notes, and generate the others from it.
 			</para>
 		</note>
 	</section>

@@ -291,6 +291,34 @@ as_xml_desc_append_inline_content (GString *str, xmlNode *node, guint depth)
 }
 
 /**
+ * as_xml_dump_description_heading_content:
+ *
+ * Dump the text content of a description section heading, without its enclosing
+ * tag. Headings are plain text, so any markup they contain is flattened.
+ *
+ * Returns: The escaped text, or %NULL if the node had no usable content.
+ */
+static gchar *
+as_xml_dump_description_heading_content (xmlNode *node)
+{
+	g_autoptr(GString) str = NULL;
+	g_autofree gchar *text = NULL;
+
+	/* ignore node if it is a space */
+	if (G_UNLIKELY (node->type != XML_ELEMENT_NODE))
+		return NULL;
+
+	text = as_xml_get_node_value_raw (node);
+	if (as_is_empty (text))
+		return NULL;
+
+	str = g_string_sized_new (strlen (text) + 8);
+	as_xml_append_escaped (str, text);
+
+	return g_string_free (g_steal_pointer (&str), FALSE);
+}
+
+/**
  * as_xml_desc_append_block_node:
  *
  * Serialize a description block element (paragraph or enumeration) and its
@@ -311,11 +339,10 @@ as_xml_desc_append_block_node (GString *str, xmlNode *node)
 	if (as_str_equal0 (node_name, "heading")) {
 		/* a section heading is plain text, so any markup it may contain is
 		 * flattened to its text content */
-		g_autofree gchar *text = as_xml_get_node_value_raw (node);
-		g_string_append (str, "<heading>");
-		if (text != NULL)
-			as_xml_append_escaped (str, text);
-		g_string_append (str, "</heading>");
+		g_autofree gchar *content = as_xml_dump_description_heading_content (node);
+		g_string_append_printf (str,
+					"<heading>%s</heading>",
+					(content == NULL) ? "" : content);
 		return;
 	}
 
@@ -357,36 +384,6 @@ as_xml_dump_description_para_content (xmlNode *node)
 
 	str = g_string_new ("");
 	as_xml_desc_append_inline_content (str, node, 1);
-	if (str->len == 0)
-		return NULL;
-
-	return g_string_free (g_steal_pointer (&str), FALSE);
-}
-
-/**
- * as_xml_dump_description_heading_content:
- *
- * Dump the text content of a description section heading, without its enclosing
- * tag. Headings are plain text, so any markup they contain is flattened.
- *
- * Returns: The escaped text, or %NULL if the node had no usable content.
- */
-static gchar *
-as_xml_dump_description_heading_content (xmlNode *node)
-{
-	g_autoptr(GString) str = NULL;
-	g_autofree gchar *text = NULL;
-
-	/* ignore node if it is a space */
-	if (G_UNLIKELY (node->type != XML_ELEMENT_NODE))
-		return NULL;
-
-	text = as_xml_get_node_value_raw (node);
-	if (text == NULL)
-		return NULL;
-
-	str = g_string_new ("");
-	as_xml_append_escaped (str, text);
 	if (str->len == 0)
 		return NULL;
 
@@ -636,9 +633,9 @@ as_xml_desc_markup_is_valid (const gchar *markup, gssize len)
  * as_xml_desc_append_inline_md_text:
  *
  * Append literal text to @str, backslash-escaping any character that would
- * otherwise be read back as an inline Markdown delimiter. An asterisk only
- * needs escaping if it is adjacent to a non-whitespace character, as isolated
- * asterisks can not delimit an emphasis span.
+ * otherwise be read back as Markdown. An asterisk only needs escaping if it is
+ * adjacent to a non-whitespace character, as isolated asterisks can not delimit
+ * an emphasis span, and a hash only if it could start a heading.
  */
 static void
 as_xml_desc_append_inline_md_text (GString *str, const gchar *text)
@@ -652,7 +649,20 @@ as_xml_desc_append_inline_md_text (GString *str, const gchar *text)
 			if (after_word || before_word)
 				g_string_append_c (str, '\\');
 			g_string_append_c (str, '*');
-		} else if (c[0] == '\\' && (c[1] == '*' || c[1] == '`' || c[1] == '\\')) {
+		} else if (c[0] == '#') {
+			/* A hash introduces a heading when a run of them starts a line
+			 * and is followed by a space. Escaping it wherever it could be
+			 * read that way keeps ordinary text out of the heading syntax,
+			 * no matter where the line ends up being broken. */
+			const gchar *run = c;
+			gboolean at_line_start = (c == text) || g_ascii_isspace (*(c - 1));
+			while (run[0] == '#')
+				run++;
+			if (at_line_start && (run[0] == ' ' || run[0] == '\t'))
+				g_string_append_c (str, '\\');
+			g_string_append_c (str, '#');
+		} else if (c[0] == '\\' &&
+			   (c[1] == '*' || c[1] == '`' || c[1] == '#' || c[1] == '\\')) {
 			g_string_append (str, "\\\\");
 		} else {
 			g_string_append_c (str, c[0]);

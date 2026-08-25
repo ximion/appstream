@@ -1046,6 +1046,37 @@ as_validator_check_description_paragraph (AsValidator *validator, xmlNode *node,
 }
 
 /**
+ * as_validator_check_description_block_l10n:
+ *
+ * Check the localization of a description block element, and return whether its
+ * content is a translation - which is not checked for style, as we can not do
+ * that for every language.
+ **/
+static gboolean
+as_validator_check_description_block_l10n (AsValidator *validator,
+					   xmlNode *node,
+					   AsFormatStyle mode,
+					   const gchar *tag_path,
+					   gboolean is_localized)
+{
+	if (mode == AS_FORMAT_STYLE_CATALOG)
+		as_validator_check_nolocalized (validator,
+						node,
+						"catalog-localized-description-section",
+						"%s",
+						tag_path);
+
+	/* in metainfo mode, we need to check every node for localization,
+	 * otherwise we just honor the value we were given */
+	if (mode == AS_FORMAT_STYLE_METAINFO) {
+		g_autofree gchar *lang = as_xml_get_prop_value (node, "lang");
+		return lang != NULL;
+	}
+
+	return is_localized;
+}
+
+/**
  * as_validator_check_description_heading:
  *
  * Check the contents of a description section heading. A heading is plain text
@@ -1162,13 +1193,6 @@ as_validator_check_description_tag (AsValidator *validator,
 		if (g_strcmp0 (node_name, "p") == 0) {
 			g_autofree gchar *p_content = as_xml_get_node_value (iter);
 
-			if (mode == AS_FORMAT_STYLE_CATALOG) {
-				as_validator_check_nolocalized (
-				    validator,
-				    iter,
-				    "catalog-localized-description-section",
-				    "description/p");
-			}
 			if (main_description) {
 				if (node_content != NULL)
 					g_strstrip (node_content);
@@ -1183,12 +1207,11 @@ as_validator_check_description_tag (AsValidator *validator,
 			}
 			first_paragraph = FALSE;
 
-			/* in metainfo mode, we need to check every node for localization,
-			 * otherwise we just honor the is_localized var */
-			if (mode == AS_FORMAT_STYLE_METAINFO) {
-				g_autofree gchar *lang = as_xml_get_prop_value (iter, "lang");
-				is_localized = lang != NULL;
-			}
+			is_localized = as_validator_check_description_block_l10n (validator,
+										  iter,
+										  mode,
+										  "description/p",
+										  is_localized);
 
 			/* validate spelling */
 			if (!is_localized &&
@@ -1206,20 +1229,12 @@ as_validator_check_description_tag (AsValidator *validator,
 			g_autofree gchar *h_raw = as_xml_get_node_value (iter);
 			g_autofree gchar *h_content = as_sanitize_text_spaces (h_raw);
 
-			if (mode == AS_FORMAT_STYLE_CATALOG) {
-				as_validator_check_nolocalized (
-				    validator,
-				    iter,
-				    "catalog-localized-description-section",
-				    "description/heading");
-			}
-
-			/* in metainfo mode, we need to check every node for localization,
-			 * otherwise we just honor the is_localized var */
-			if (mode == AS_FORMAT_STYLE_METAINFO) {
-				g_autofree gchar *lang = as_xml_get_prop_value (iter, "lang");
-				is_localized = lang != NULL;
-			}
+			is_localized = as_validator_check_description_block_l10n (
+			    validator,
+			    iter,
+			    mode,
+			    "description/heading",
+			    is_localized);
 
 			/* a heading is a label for the section that follows it, so it should
 			 * be short enough to be displayed as one */

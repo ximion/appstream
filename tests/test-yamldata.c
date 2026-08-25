@@ -613,7 +613,8 @@ test_yaml_read_description_sanitize (void)
 	    "    <em>inline at block level</em>\n"
 	    /* unknown block-level elements are dropped with their content */
 	    "    <table><tr>X</tr></table>\n"
-	    /* headings are valid block markup and kept, with their inline markup */
+	    /* headings are valid block markup and kept, but they are plain text, so
+	       any inline markup in them is flattened */
 	    "    <heading>A <em>section</em></heading>\n"
 	    /* ... but they may not be nested in other markup */
 	    "    <p>A <heading>heading</heading> in a paragraph</p>\n"
