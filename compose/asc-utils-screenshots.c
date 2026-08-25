@@ -56,6 +56,23 @@ static const struct {
  * scaled-down thumbnail can easily end up *larger* than the source image itself. */
 #define MIN_THUMBNAIL_SIZE_REDUCTION 1.2
 
+/**
+ * asc_locale_to_fname_part:
+ *
+ * Locale names are read verbatim from the (untrusted) metadata and may contain
+ * anything, including path separators. Convert one into a fragment that is safe
+ * to use as part of a filename, so crafted metadata can never make us write
+ * media files outside of their export directory.
+ *
+ * Returns: (transfer full): a sanitized locale name.
+ */
+static gchar *
+asc_locale_to_fname_part (const gchar *locale)
+{
+	gchar *res = as_path_segment_sanitize (locale);
+	return (res == NULL) ? g_strdup ("unknown") : res;
+}
+
 static AscVideoInfo *
 asc_video_info_new (void)
 {
@@ -224,6 +241,7 @@ asc_process_screenshot_videos (AscResult *cres,
 	for (guint i = 0; i < vids->len; i++) {
 		const gchar *orig_vid_url = NULL;
 		const gchar *video_locale = NULL;
+		g_autofree gchar *locale_fname = NULL;
 		g_autofree gchar *scr_vid_name = NULL;
 		g_autofree gchar *scr_vid_path = NULL;
 		g_autofree gchar *scr_vid_url = NULL;
@@ -238,6 +256,7 @@ asc_process_screenshot_videos (AscResult *cres,
 			continue;
 
 		video_locale = as_video_get_locale (vid);
+		locale_fname = asc_locale_to_fname_part (video_locale);
 		fname_from_url = asc_filename_from_url (orig_vid_url);
 
 		if (g_strcmp0 (video_locale, "C") == 0)
@@ -247,7 +266,7 @@ asc_process_screenshot_videos (AscResult *cres,
 							scr_no,
 							i,
 							fname_from_url,
-							video_locale);
+							locale_fname);
 		scr_vid_path = g_build_filename (scr_export_dir, scr_vid_name, NULL);
 		scr_vid_url = g_build_filename (scr_base_url, scr_vid_name, NULL);
 
@@ -401,11 +420,16 @@ asc_process_screenshot_images_lang (AscResult *cres,
 	gint source_scr_height;
 	guint source_scr_scale;
 	gboolean thumbnails_generated = FALSE;
+	g_autofree gchar *locale_fname = NULL;
 	g_autoptr(GError) error = NULL;
 
 	orig_img_url = as_image_get_url (orig_img);
 	if (orig_img_url == NULL)
 		return FALSE;
+
+	/* the unmodified locale name is what we emit in the resulting metadata,
+	 * but we may only use a sanitized version of it in file names */
+	locale_fname = asc_locale_to_fname_part (locale);
 
 	/* if size is zero, we can't store any screenshots */
 	if (max_size_bytes == 0)
@@ -525,7 +549,7 @@ asc_process_screenshot_images_lang (AscResult *cres,
 		else
 			src_img_name = g_strdup_printf ("image-%i_%s_orig.%s",
 							scr_no,
-							locale,
+							locale_fname,
 							asc_image_format_to_string (img_format));
 		src_img_url = g_build_filename (scr_base_url, src_img_name, NULL);
 
@@ -629,7 +653,7 @@ asc_process_screenshot_images_lang (AscResult *cres,
 				    thumb_width,
 				    thumb_height,
 				    1,
-				    locale,
+				    locale_fname,
 				    asc_image_format_to_string (img_format));
 
 			target = asc_image_target_new (thumb_img_name,
