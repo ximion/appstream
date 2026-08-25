@@ -320,6 +320,36 @@ as_news_escape_markup_inline (const gchar *text)
 }
 
 /**
+ * as_news_md_heading_text:
+ *
+ * Return the text of the Markdown heading @line, or %NULL if @line is not one.
+ * Only the `#` form is recognized: free-form description text is
+ * Markdown-flavored, so a line that merely ends in a colon is prose.
+ *
+ * Returns: (transfer full): the heading text, or %NULL.
+ */
+static gchar *
+as_news_md_heading_text (const gchar *line)
+{
+	const gchar *c = line;
+	g_autofree gchar *text = NULL;
+
+	if (c == NULL || c[0] != '#')
+		return NULL;
+	while (c[0] == '#')
+		c++;
+	if (c[0] != ' ' && c[0] != '\t')
+		return NULL;
+
+	text = g_strdup (c);
+	g_strstrip (text);
+	if (as_is_empty (text))
+		return NULL;
+
+	return g_steal_pointer (&text);
+}
+
+/**
  * as_news_yaml_to_release:
  */
 static GPtrArray *
@@ -412,16 +442,56 @@ as_news_yaml_to_releases (const gchar *yaml_data, gint limit, GError **error)
 						g_auto(GStrv) lines = NULL;
 						gboolean in_listing = FALSE;
 						gboolean in_paragraph = FALSE;
-						g_autofree gchar *escaped =
-						    as_news_escape_markup_inline (paras[i]);
 
-						lines = g_strsplit (escaped, "\n", -1);
+						lines = g_strsplit (paras[i], "\n", -1);
 						for (guint j = 0; lines[j] != NULL; j++) {
-							const gchar *line = lines[j];
+							g_autofree gchar *heading = NULL;
+							g_autofree gchar *escaped = NULL;
+							const gchar *line;
 
 							/* empty lines carry no markup of their own */
-							if (line[0] == '\0')
+							if (lines[j][0] == '\0')
 								continue;
+
+							/* A heading is plain text, so it is escaped
+							 * verbatim, while any other line has its
+							 * inline Markdown converted. A span never
+							 * crosses a line break, so escaping line by
+							 * line gives the same result as escaping
+							 * the whole paragraph at once. */
+							heading = as_news_md_heading_text (
+							    lines[j]);
+							if (heading == NULL)
+								escaped =
+								    as_news_escape_markup_inline (
+									lines[j]);
+							else
+								escaped = g_markup_escape_text (
+								    heading,
+								    -1);
+							line = escaped;
+
+							if (heading != NULL) {
+								if (in_paragraph) {
+									g_string_truncate (
+									    dsc,
+									    dsc->len - 1);
+									g_string_append (dsc,
+											 "</p>\n");
+									in_paragraph = FALSE;
+								}
+								if (in_listing) {
+									g_string_append (dsc,
+											 "</li>\n</"
+											 "ul>\n");
+									in_listing = FALSE;
+								}
+								g_string_append_printf (
+								    dsc,
+								    "<heading>%s</heading>\n",
+								    line);
+								continue;
+							}
 
 							if (line[0] == ' ' &&
 							    (line[1] == '-' || line[1] == '*')) {
@@ -670,8 +740,10 @@ as_news_releases_to_yaml (GPtrArray *releases, gchar **yaml_data)
 				    as_release_get_url (rel, AS_RELEASE_URL_KIND_DETAILS));
 
 		if (desc_markup != NULL) {
-			if (g_strstr_len (desc_markup, -1, "<p>") != NULL) {
-				/* we have paragraphs - just convert the markup to a simple text */
+			if (g_strstr_len (desc_markup, -1, "<p>") != NULL ||
+			    g_strstr_len (desc_markup, -1, "<heading>") != NULL) {
+				/* we have paragraphs or headings, which a plain item listing
+				 * can not express - convert the markup to a simple text */
 				g_autofree gchar *md = NULL;
 				md = as_markup_convert (desc_markup, AS_MARKUP_KIND_MARKDOWN, NULL);
 				if (md != NULL)
@@ -799,18 +871,155 @@ typedef enum {
 	AS_NEWS_SECTION_KIND_DOCUMENTATION,
 	AS_NEWS_SECTION_KIND_CONTRIBUTORS,
 	AS_NEWS_SECTION_KIND_TRANSLATORS,
+	AS_NEWS_SECTION_KIND_GENERIC,
 	AS_NEWS_SECTION_KIND_LAST
 } AsNewsSectionKind;
 
-static AsNewsSectionKind
-as_news_text_guess_section (const gchar *lines)
+/**
+ * as_news_text_line_is_bullet:
+ *
+ * Check whether @line starts an enumeration entry.
+ */
+static gboolean
+as_news_text_line_is_bullet (const gchar *line)
 {
-	if (g_strstr_len (lines, -1, "~~~~") != NULL)
-		return AS_NEWS_SECTION_KIND_HEADER;
-	if (g_strstr_len (lines, -1, "----") != NULL)
-		return AS_NEWS_SECTION_KIND_HEADER;
-	if (g_strstr_len (lines, -1, "====") != NULL)
-		return AS_NEWS_SECTION_KIND_HEADER;
+	if (line == NULL)
+		return FALSE;
+	while (g_ascii_isspace (line[0]))
+		line++;
+	return g_str_has_prefix (line, "* ") || g_str_has_prefix (line, "- ");
+}
+
+/**
+ * as_news_text_section_title:
+ *
+ * Extract the section heading text from the first line of @section: an optional
+ * run of Markdown `#` characters, the heading text, and an optional trailing
+ * colon. Returns %NULL if the first line can not be a heading.
+ *
+ * Returns: (transfer full): the heading text, or %NULL.
+ */
+static gchar *
+as_news_text_section_title (const gchar *section)
+{
+	const gchar *line_end;
+	gboolean is_atx = FALSE;
+	g_autofree gchar *title = NULL;
+
+	if (section == NULL || as_news_text_line_is_bullet (section))
+		return NULL;
+
+	line_end = g_strstr_len (section, -1, "\n");
+	title = (line_end == NULL) ? g_strdup (section)
+				   : g_strndup (section, (gsize) (line_end - section));
+
+	/* drop a Markdown heading marker. A hash that is not one - "#nothing" has no
+	 * space after it - is ordinary text, and the line may still be a classic
+	 * section header. */
+	if (title[0] == '#') {
+		gchar *md_title = as_news_md_heading_text (title);
+		if (md_title != NULL) {
+			g_free (title);
+			title = md_title;
+			is_atx = TRUE;
+		}
+	}
+
+	g_strstrip (title);
+
+	/* a classic NEWS section header ends in a colon, a Markdown one needs none */
+	if (g_str_has_suffix (title, ":")) {
+		title[strlen (title) - 1] = '\0';
+		g_strchomp (title);
+	} else if (!is_atx) {
+		return NULL;
+	}
+
+	if (as_is_empty (title))
+		return NULL;
+
+	return g_steal_pointer (&title);
+}
+
+/**
+ * as_news_text_body_after_first_line:
+ *
+ * Return the content of @section that follows its first line, or %NULL if the
+ * first line is all there is. A block may end in a line break, so a remainder
+ * that is only whitespace counts as no content at all.
+ */
+static const gchar *
+as_news_text_body_after_first_line (const gchar *section)
+{
+	const gchar *line_end;
+
+	if (section == NULL)
+		return NULL;
+
+	line_end = g_strstr_len (section, -1, "\n");
+	if (line_end == NULL)
+		return NULL;
+
+	for (const gchar *c = line_end + 1; c[0] != '\0'; c++) {
+		if (!g_ascii_isspace (c[0]))
+			return line_end + 1;
+	}
+
+	return NULL;
+}
+
+/**
+ * as_news_text_is_generic_heading:
+ *
+ * Check whether the first line of @section is a section heading that is not one
+ * of the names we know: it must be a line of its own ending in a colon, and it
+ * must be followed either by an enumeration or by an empty line. A Markdown ATX
+ * heading is unambiguous and needs no colon.
+ * Anything else is prose, not a heading.
+ */
+static gboolean
+as_news_text_is_generic_heading (const gchar *section)
+{
+	const gchar *line_end;
+	const gchar *body;
+	g_autofree gchar *first_line = NULL;
+
+	if (section == NULL || as_news_text_line_is_bullet (section))
+		return FALSE;
+
+	line_end = g_strstr_len (section, -1, "\n");
+	first_line = (line_end == NULL) ? g_strdup (section)
+					: g_strndup (section, (gsize) (line_end - section));
+	g_strchomp (first_line);
+
+	/* a Markdown heading is recognized on its own, and needs no colon. A hash
+	 * that is not a heading marker is ordinary text, and the line may still be a
+	 * classic section header. */
+	if (first_line[0] == '#') {
+		g_autofree gchar *md_title = as_news_md_heading_text (first_line);
+		if (md_title != NULL)
+			return TRUE;
+	}
+
+	if (!g_str_has_suffix (first_line, ":"))
+		return FALSE;
+
+	/* the heading is all there is to this block, so an empty line follows it */
+	body = as_news_text_body_after_first_line (section);
+	if (body == NULL)
+		return TRUE;
+
+	return as_news_text_line_is_bullet (body);
+}
+
+/**
+ * as_news_text_guess_section_by_name:
+ *
+ * Match a block against the section header names we recognize.
+ */
+static AsNewsSectionKind
+as_news_text_guess_section_by_name (const gchar *lines)
+{
 	if (g_strstr_len (lines, -1, "Bugfix:\n") != NULL)
 		return AS_NEWS_SECTION_KIND_BUGFIX;
 	if (g_strstr_len (lines, -1, "Bugfixes:\n") != NULL)
@@ -854,6 +1063,40 @@ as_news_text_guess_section (const gchar *lines)
 	return AS_NEWS_SECTION_KIND_UNKNOWN;
 }
 
+static AsNewsSectionKind
+as_news_text_guess_section (const gchar *lines)
+{
+	AsNewsSectionKind kind;
+
+	if (g_strstr_len (lines, -1, "~~~~") != NULL)
+		return AS_NEWS_SECTION_KIND_HEADER;
+	if (g_strstr_len (lines, -1, "----") != NULL)
+		return AS_NEWS_SECTION_KIND_HEADER;
+	if (g_strstr_len (lines, -1, "====") != NULL)
+		return AS_NEWS_SECTION_KIND_HEADER;
+
+	kind = as_news_text_guess_section_by_name (lines);
+	if (kind != AS_NEWS_SECTION_KIND_UNKNOWN)
+		return kind;
+
+	/* a Markdown section heading carries no colon, so match it by its text */
+	if (lines != NULL && lines[0] == '#') {
+		g_autofree gchar *title = as_news_text_section_title (lines);
+		if (title != NULL) {
+			g_autofree gchar *probe = g_strconcat (title, ":\n", NULL);
+			kind = as_news_text_guess_section_by_name (probe);
+			if (kind != AS_NEWS_SECTION_KIND_UNKNOWN)
+				return kind;
+		}
+	}
+
+	/* a section heading that is not one of the names we know */
+	if (as_news_text_is_generic_heading (lines))
+		return AS_NEWS_SECTION_KIND_GENERIC;
+
+	return AS_NEWS_SECTION_KIND_UNKNOWN;
+}
+
 static void
 as_news_text_add_markup (GString *desc, const gchar *tag, const gchar *line)
 {
@@ -867,6 +1110,25 @@ as_news_text_add_markup (GString *desc, const gchar *tag, const gchar *line)
 		g_autofree gchar *escaped = as_news_escape_markup_inline (line);
 		g_string_append_printf (desc, "<%s>%s</%s>\n", tag, escaped, tag);
 	}
+}
+
+/**
+ * as_news_text_add_heading:
+ *
+ * Add a section heading to @desc. A heading is plain text, so its content is
+ * escaped verbatim and none of the inline Markdown that NEWS descriptions
+ * support is interpreted in it.
+ */
+static void
+as_news_text_add_heading (GString *desc, const gchar *title)
+{
+	g_autofree gchar *escaped = NULL;
+
+	if (as_is_empty (title))
+		return;
+
+	escaped = g_markup_escape_text (title, -1);
+	g_string_append_printf (desc, "<heading>%s</heading>\n", escaped);
 }
 
 static gboolean
@@ -1270,8 +1532,6 @@ as_news_text_to_list_markup (GString *desc, gchar **lines, AsRelease *rel, GErro
  * as_news_text_has_list_items:
  *
  * Check whether @txt contains any line that starts with a list bullet marker.
- * A plain substring search for "* " would also match the closing delimiter of
- * an inline emphasis span, so we explicitly test for a line prefix here.
  */
 static gboolean
 as_news_text_has_list_items (const gchar *txt)
@@ -1279,10 +1539,7 @@ as_news_text_has_list_items (const gchar *txt)
 	g_auto(GStrv) lines = g_strsplit (txt, "\n", -1);
 
 	for (guint i = 0; lines[i] != NULL; i++) {
-		const gchar *line = lines[i];
-		while (g_ascii_isspace (line[0]))
-			line++;
-		if (g_str_has_prefix (line, "* ") || g_str_has_prefix (line, "- "))
+		if (as_news_text_line_is_bullet (lines[i]))
 			return TRUE;
 	}
 
@@ -1346,6 +1603,42 @@ as_news_text_to_para_markup (GString *desc, const gchar *txt, AsRelease *rel, GE
 	return TRUE;
 }
 
+typedef struct {
+	AsNewsSectionKind kind;
+	gchar *title; /* section heading text, or NULL if this section has no heading */
+	gchar *text;
+} AsNewsSection;
+
+static void
+as_news_section_free (AsNewsSection *sec)
+{
+	g_free (sec->title);
+	g_free (sec->text);
+	g_slice_free (AsNewsSection, sec);
+}
+
+/**
+ * as_news_section_new:
+ *
+ * Create a section record for @text. The section heading is only recorded for
+ * sections that render one: the version header is turned into release metadata,
+ * a "Resolved Issues" block becomes structured issue data, and the body of a
+ * translations block is dropped, so a heading would introduce nothing there.
+ */
+static AsNewsSection *
+as_news_section_new (AsNewsSectionKind kind, const gchar *text)
+{
+	AsNewsSection *sec = g_slice_new0 (AsNewsSection);
+
+	sec->kind = kind;
+	sec->text = g_strdup (text);
+	if (kind != AS_NEWS_SECTION_KIND_HEADER && kind != AS_NEWS_SECTION_KIND_ISSUES &&
+	    kind != AS_NEWS_SECTION_KIND_TRANSLATION)
+		sec->title = as_news_text_section_title (text);
+
+	return sec;
+}
+
 /**
  * as_news_text_to_releases:
  */
@@ -1383,7 +1676,7 @@ as_news_text_to_releases (const gchar *data, gint limit, GError **error)
 	 * that no content is lost. */
 	desc = g_string_new ("");
 	split = g_strsplit (data_str->str, "\n\n", -1);
-	sections = g_ptr_array_new_with_free_func (g_free);
+	sections = g_ptr_array_new_with_free_func ((GDestroyNotify) as_news_section_free);
 	prev_kind = AS_NEWS_SECTION_KIND_UNKNOWN;
 	for (guint i = 0; split[i] != NULL; i++) {
 		AsNewsSectionKind kind;
@@ -1396,23 +1689,28 @@ as_news_text_to_releases (const gchar *data, gint limit, GError **error)
 		if (kind == AS_NEWS_SECTION_KIND_UNKNOWN && sections->len > 0 &&
 		    prev_kind != AS_NEWS_SECTION_KIND_HEADER) {
 			/* continuation of the preceding section */
-			guint last = sections->len - 1;
-			gchar *prev = g_ptr_array_index (sections, last);
-			sections->pdata[last] = g_strconcat (prev, "\n\n", split[i], NULL);
-			g_free (prev);
+			AsNewsSection *prev = g_ptr_array_index (sections, sections->len - 1);
+			gchar *merged = g_strconcat (prev->text, "\n\n", split[i], NULL);
+			g_free (prev->text);
+			prev->text = merged;
 		} else if (kind == AS_NEWS_SECTION_KIND_UNKNOWN) {
-			/* freeform prose with no section of its own: treat it as notes */
-			g_ptr_array_add (sections, g_strconcat ("Notes:\n", split[i], NULL));
+			/* freeform prose with no section of its own: treat it as notes.
+			 * That header is ours and not the author's, so it yields no heading. */
+			g_autofree gchar *text = g_strconcat ("Notes:\n", split[i], NULL);
+			AsNewsSection *sec = as_news_section_new (AS_NEWS_SECTION_KIND_NOTES, text);
+			g_clear_pointer (&sec->title, g_free);
+			g_ptr_array_add (sections, sec);
 			prev_kind = AS_NEWS_SECTION_KIND_NOTES;
 		} else {
-			g_ptr_array_add (sections, g_strdup (split[i]));
+			g_ptr_array_add (sections, as_news_section_new (kind, split[i]));
 			prev_kind = kind;
 		}
 	}
 
 	for (guint i = 0; i < sections->len; i++) {
-		const gchar *section = g_ptr_array_index (sections, i);
-		AsNewsSectionKind section_kind = as_news_text_guess_section (section);
+		AsNewsSection *sec = g_ptr_array_index (sections, i);
+		const gchar *section = sec->text;
+		AsNewsSectionKind section_kind = sec->kind;
 		g_auto(GStrv) lines = NULL;
 
 		/* content sections are attached to the current release, so anything
@@ -1420,6 +1718,9 @@ as_news_text_to_releases (const gchar *data, gint limit, GError **error)
 		 * This also guarantees that @rel is non-NULL for all content below. */
 		if (section_kind != AS_NEWS_SECTION_KIND_HEADER && rel == NULL)
 			continue;
+
+		/* the section header line is a heading for everything that follows it */
+		as_news_text_add_heading (desc, sec->title);
 
 		switch (section_kind) {
 		case AS_NEWS_SECTION_KIND_HEADER: {
@@ -1445,89 +1746,39 @@ as_news_text_to_releases (const gchar *data, gint limit, GError **error)
 			break;
 		}
 		case AS_NEWS_SECTION_KIND_BUGFIX:
+		case AS_NEWS_SECTION_KIND_FEATURES:
+		case AS_NEWS_SECTION_KIND_MISC:
+		case AS_NEWS_SECTION_KIND_DOCUMENTATION:
 			lines = g_strsplit (section, "\n", -1);
-			if (g_strv_length (lines) == 2) {
-				as_news_text_add_markup (desc,
-							 "p",
-							 "This release fixes the following bug:");
-			} else {
-				as_news_text_add_markup (desc,
-							 "p",
-							 "This release fixes the following bugs:");
-			}
 			if (!as_news_text_to_list_markup (desc, lines + 1, rel, error))
-				return FALSE;
+				return NULL;
 			break;
 		case AS_NEWS_SECTION_KIND_NOTES:
 			if (!as_news_text_to_para_markup (desc, section, rel, error))
-				return FALSE;
-			break;
-		case AS_NEWS_SECTION_KIND_FEATURES:
-			lines = g_strsplit (section, "\n", -1);
-			if (g_strv_length (lines) == 2) {
-				as_news_text_add_markup (
-				    desc,
-				    "p",
-				    "This release adds the following feature:");
-			} else {
-				as_news_text_add_markup (
-				    desc,
-				    "p",
-				    "This release adds the following features:");
-			}
-			if (!as_news_text_to_list_markup (desc, lines + 1, rel, error))
-				return FALSE;
-			break;
-		case AS_NEWS_SECTION_KIND_MISC:
-			lines = g_strsplit (section, "\n", -1);
-			if (g_strv_length (lines) == 2) {
-				as_news_text_add_markup (
-				    desc,
-				    "p",
-				    "This release includes the following change:");
-			} else {
-				as_news_text_add_markup (
-				    desc,
-				    "p",
-				    "This release includes the following changes:");
-			}
-			if (!as_news_text_to_list_markup (desc, lines + 1, rel, error))
-				return FALSE;
+				return NULL;
 			break;
 		case AS_NEWS_SECTION_KIND_ISSUES:
 			as_news_text_parse_issues_section (section, desc, rel);
 			break;
-		case AS_NEWS_SECTION_KIND_DOCUMENTATION:
-			lines = g_strsplit (section, "\n", -1);
-			as_news_text_add_markup (desc, "p", "This release updates documentation:");
-			if (!as_news_text_to_list_markup (desc, lines + 1, rel, error))
-				return FALSE;
-			break;
 		case AS_NEWS_SECTION_KIND_TRANSLATION:
+			/* the body of this section is a translator listing which we do not
+			 * want in the release description, so this stays a sentence rather
+			 * than becoming a heading with nothing under it */
 			as_news_text_add_markup (desc, "p", "This release updates translations.");
 			break;
 		case AS_NEWS_SECTION_KIND_CONTRIBUTORS:
-			as_news_text_add_markup (desc, "p", "With contributions from:");
-
-			if (as_news_text_has_list_items (section)) {
-				lines = g_strsplit (section, "\n", -1);
-				if (!as_news_text_to_list_markup (desc, lines + 1, rel, error))
-					return FALSE;
-			} else {
-				if (!as_news_text_to_para_markup (desc, section, rel, error))
-					return FALSE;
-			}
-			break;
 		case AS_NEWS_SECTION_KIND_TRANSLATORS:
-			as_news_text_add_markup (desc, "p", "Updated localization by:");
-
+		case AS_NEWS_SECTION_KIND_GENERIC:
+			/* a heading that nothing follows has no body to render */
+			if (as_news_text_body_after_first_line (section) == NULL)
+				break;
 			if (as_news_text_has_list_items (section)) {
 				lines = g_strsplit (section, "\n", -1);
 				if (!as_news_text_to_list_markup (desc, lines + 1, rel, error))
-					return FALSE;
+					return NULL;
 			} else {
 				if (!as_news_text_to_para_markup (desc, section, rel, error))
-					return FALSE;
+					return NULL;
 			}
 			break;
 		default:
@@ -1536,7 +1787,7 @@ as_news_text_to_releases (const gchar *data, gint limit, GError **error)
 				     AS_METADATA_ERROR_FAILED,
 				     "Failed to detect section '%s'",
 				     section);
-			return FALSE;
+			return NULL;
 		}
 
 		if (limit_reached)
@@ -1550,6 +1801,41 @@ as_news_text_to_releases (const gchar *data, gint limit, GError **error)
 	}
 
 	return g_steal_pointer (&releases);
+}
+
+/**
+ * as_news_md_headings_to_text:
+ *
+ * Rewrite the Markdown section headings of @md in classic NEWS style, so that
+ * `### Features` becomes `Features:`. That is the syntax the text reader
+ * recognizes as a section header, which keeps a NEWS file unchanged when it is
+ * converted to metainfo data and back.
+ *
+ * Returns: (transfer full): the adjusted text.
+ */
+static gchar *
+as_news_md_headings_to_text (const gchar *md)
+{
+	g_auto(GStrv) lines = NULL;
+	g_autoptr(GString) str = NULL;
+
+	if (md == NULL)
+		return NULL;
+
+	str = g_string_sized_new (strlen (md) + 1);
+	lines = g_strsplit (md, "\n", -1);
+	for (guint i = 0; lines[i] != NULL; i++) {
+		if (i > 0)
+			g_string_append_c (str, '\n');
+		/* as_markup_convert() emits an ATX heading for a <heading/> and for
+		 * nothing else, always with exactly three hashes */
+		if (g_str_has_prefix (lines[i], "### "))
+			g_string_append_printf (str, "%s:", lines[i] + 4);
+		else
+			g_string_append (str, lines[i]);
+	}
+
+	return g_string_free (g_steal_pointer (&str), FALSE);
 }
 
 /**
@@ -1597,6 +1883,11 @@ as_news_releases_to_text (GPtrArray *releases, gchar **md_data, AsNewsFormatKind
 			md = as_markup_convert (tmp, AS_MARKUP_KIND_MARKDOWN, NULL);
 			if (md == NULL)
 				return FALSE;
+			if (kind != AS_NEWS_FORMAT_KIND_MARKDOWN) {
+				g_autofree gchar *text = as_news_md_headings_to_text (md);
+				g_free (md);
+				md = g_steal_pointer (&text);
+			}
 			g_string_append_printf (str, "%s\n", md);
 		}
 

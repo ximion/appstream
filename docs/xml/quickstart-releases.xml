@@ -210,7 +210,9 @@ Description: |-
 				<emphasis>Free-form text</emphasis> is written as a YAML block scalar and may mix paragraphs and enumerations.
 				Paragraphs are separated by blank lines. A line that starts with a space followed by <literal>*</literal> or
 				<literal>-</literal> is an enumeration entry, and a longer entry can be wrapped by indenting the continuation
-				line so that it lines up with the text of the entry.
+				line so that it lines up with the text of the entry. A line written as a Markdown heading, such as
+				<literal>### Under the hood</literal>, becomes a section <code>&lt;heading/&gt;</code>; a line that merely ends in a
+				colon stays a paragraph, as in the example below.
 			</para>
 			<programlisting language="YAML">
 <![CDATA[Description: |-
@@ -270,6 +272,9 @@ Bugfixes:
  * The CPU no longer overheats when you hold down the spacebar
  * Fixed the rendering of `--verbose` output, see [#1234](https://example.com/bugs/1234)
 
+Under the hood:
+ * The renderer no longer keeps a global state
+
 Resolved Issues:
  * CVE-2026-0001
 
@@ -295,15 +300,22 @@ Features:
 			<literal>Documentation:</literal>, <literal>Specification:</literal>, <literal>Resolved Issues:</literal>,
 			<literal>Resolved:</literal>, <literal>Translations:</literal>, <literal>Translation:</literal>,
 			<literal>Contributors:</literal>, <literal>With contributions from:</literal>, <literal>Thanks to:</literal> and
-			<literal>Translators:</literal>. They are matched case-sensitively. A block without a recognized heading directly
-			after the version header is turned into plain paragraphs, and any other unrecognized block is appended to the block
-			before it, so no content is ever dropped.
+			<literal>Translators:</literal>. They are matched case-sensitively, and may equally be written as a Markdown
+			heading such as <literal>### Features</literal>, in which case the colon can be left out.
+		</para>
+		<para>
+			A block header that is none of these names is recognized as a section heading of its own if it looks like one: it has
+			to be a line by itself, it has to end with a colon, and it has to be followed either by an enumeration or by an empty
+			line. Everything else stays prose - a paragraph that happens to end in a colon is not turned into a heading. A block
+			without a recognized heading directly after the version header is turned into plain paragraphs, and any other
+			unrecognized block is appended to the block before it, so no content is ever dropped.
 		</para>
 		<para>
 			Within a block, lines starting with a <literal>*</literal> or <literal>-</literal> bullet are enumeration entries,
-			and a line indented by three spaces continues the entry above it. The converter writes a short introductory sentence
-			for each block, so the <literal>Features:</literal> block above becomes a paragraph reading <quote>This release adds
-			the following features:</quote> followed by the enumeration.
+			and a line indented by three spaces continues the entry above it. The header line itself becomes a
+			<code>&lt;heading/&gt;</code> for everything that follows it, so the <literal>Features:</literal> block above becomes
+			<code>&lt;heading&gt;Features&lt;/heading&gt;</code> followed by the enumeration. Since a heading needs AppStream 1.2,
+			see <xref linkend="tag-description"/> for how older implementations treat it.
 		</para>
 
 		<section xml:id="qsr-relinfo-news-development">
@@ -371,7 +383,9 @@ Features:
 		<note>
 			<para>
 				<option>metainfo-to-news</option> writes these markers back out again, so emphasis and code spans survive a
-				conversion in either direction.
+				conversion in either direction. The same holds for section headings, which are written as
+				<literal>Heading:</literal> in a text <filename>NEWS</filename> file and as <literal>### Heading</literal> in
+				Markdown and YAML output.
 			</para>
 		</note>
 	</section>

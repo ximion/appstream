@@ -86,6 +86,8 @@ test_readwrite_yaml_news (void)
 					     "   * List item 2\n"
 					     "     Line two of list item.\n"
 					     "  \n"
+					     "  ### Under the hood\n"
+					     "  \n"
 					     "  Third paragraph.\n"
 					     "---\n"
 					     "Version: \"1.0\"\n"
@@ -120,6 +122,7 @@ test_readwrite_yaml_news (void)
 	    "          <li>List item 1</li>\n"
 	    "          <li>List item 2 Line two of list item.</li>\n"
 	    "        </ul>\n"
+	    "        <heading>Under the hood</heading>\n"
 	    "        <p>Third paragraph.</p>\n"
 	    "      </description>\n"
 	    "    </release>\n"
@@ -159,6 +162,7 @@ test_readwrite_yaml_news (void)
 	    "          <li>List item 1</li>\n"
 	    "          <li>List item 2 Line two of list item.</li>\n"
 	    "        </ul>\n"
+	    "        <heading>Under the hood</heading>\n"
 	    "        <p>Third paragraph.</p>\n"
 	    "      </description>\n"
 	    "    </release>\n"
@@ -360,6 +364,139 @@ test_yaml_news_freeform_lists (void)
 }
 
 /**
+ * test_news_headings:
+ *
+ * Test that the section headers of a NEWS file are read as description headings,
+ * and that they survive a conversion in either direction in every format.
+ */
+static void
+test_news_headings (void)
+{
+	static const gchar *text_news_data = "Version 1.0.0\n"
+					     "~~~~~~~~~~~~~\n"
+					     "Released: 2026-01-01\n"
+					     "\n"
+					     "Features:\n"
+					     " * Something new\n"
+					     "\n"
+					     "Under the hood:\n"
+					     " * Rewrote the parser\n"
+					     "\n"
+					     "Deprecations:\n"
+					     "\n"
+					     "The old interface is gone for good.\n";
+
+	static const gchar *expected_xml_releases_data =
+	    "  <releases>\n"
+	    "    <release type=\"stable\" version=\"1.0.0\" date=\"2026-01-01T00:00:00Z\">\n"
+	    "      <description>\n"
+	    "        <heading>Features</heading>\n"
+	    "        <ul>\n"
+	    "          <li>Something new</li>\n"
+	    "        </ul>\n"
+	    "        <heading>Under the hood</heading>\n"
+	    "        <ul>\n"
+	    "          <li>Rewrote the parser</li>\n"
+	    "        </ul>\n"
+	    "        <heading>Deprecations</heading>\n"
+	    "        <p>The old interface is gone for good.</p>\n"
+	    "      </description>\n"
+	    "    </release>\n"
+	    "  </releases>";
+
+	const AsNewsFormatKind kinds[] = { AS_NEWS_FORMAT_KIND_TEXT,
+					   AS_NEWS_FORMAT_KIND_MARKDOWN,
+					   AS_NEWS_FORMAT_KIND_YAML };
+	g_autoptr(GPtrArray) releases = NULL;
+	g_autoptr(GError) error = NULL;
+	g_autofree gchar *xml = NULL;
+
+	releases = as_news_to_releases_from_data (text_news_data,
+						  AS_NEWS_FORMAT_KIND_TEXT,
+						  -1,
+						  -1,
+						  &error);
+	g_assert_no_error (error);
+	g_assert_nonnull (releases);
+
+	xml = as_releases_to_metainfo_xml_chunk (releases, &error);
+	g_assert_no_error (error);
+	g_assert_nonnull (xml);
+	g_assert_true (as_test_compare_lines (xml, expected_xml_releases_data));
+
+	/* whichever format the releases are written out in, reading them back in
+	 * has to yield exactly the same markup again */
+	for (guint i = 0; i < G_N_ELEMENTS (kinds); i++) {
+		g_autofree gchar *news_out = NULL;
+		g_autoptr(GPtrArray) releases2 = NULL;
+		g_autofree gchar *xml2 = NULL;
+		gboolean ret;
+
+		ret = as_releases_to_news_data (releases, kinds[i], &news_out, &error);
+		g_assert_no_error (error);
+		g_assert_true (ret);
+
+		releases2 = as_news_to_releases_from_data (news_out, kinds[i], -1, -1, &error);
+		g_assert_no_error (error);
+		g_assert_nonnull (releases2);
+
+		xml2 = as_releases_to_metainfo_xml_chunk (releases2, &error);
+		g_assert_no_error (error);
+		g_assert_nonnull (xml2);
+		g_assert_true (as_test_compare_lines (xml2, expected_xml_releases_data));
+	}
+}
+
+/**
+ * test_news_yaml_headings_no_paragraph:
+ *
+ * A description made up of headings and enumerations contains no paragraph, but a
+ * plain YAML item listing can not express its headings, so it has to be written
+ * as free-form text regardless.
+ */
+static void
+test_news_yaml_headings_no_paragraph (void)
+{
+	static const gchar *text_news_data = "Version 1.0.0\n"
+					     "~~~~~~~~~~~~~\n"
+					     "Released: 2026-01-01\n"
+					     "\n"
+					     "Features:\n"
+					     " * Something new\n"
+					     "\n"
+					     "Bugfixes:\n"
+					     " * Fixed a thing\n";
+
+	static const gchar *expected_yaml_news_data = "---\n"
+						      "Version: \"1.0.0\"\n"
+						      "Date: 2026-01-01\n"
+						      "Description: |-\n"
+						      "  ### Features\n"
+						      "   * Something new\n"
+						      "  \n"
+						      "  ### Bugfixes\n"
+						      "   * Fixed a thing\n";
+
+	g_autoptr(GPtrArray) releases = NULL;
+	g_autoptr(GError) error = NULL;
+	g_autofree gchar *yaml = NULL;
+	gboolean ret;
+
+	releases = as_news_to_releases_from_data (text_news_data,
+						  AS_NEWS_FORMAT_KIND_TEXT,
+						  -1,
+						  -1,
+						  &error);
+	g_assert_no_error (error);
+	g_assert_nonnull (releases);
+
+	ret = as_releases_to_news_data (releases, AS_NEWS_FORMAT_KIND_YAML, &yaml, &error);
+	g_assert_no_error (error);
+	g_assert_true (ret);
+	g_assert_true (as_test_compare_lines (yaml, expected_yaml_news_data));
+}
+
+/**
  * test_readwrite_text_news:
  *
  * Read & write text NEWS file.
@@ -398,6 +535,9 @@ test_readwrite_text_news (void)
 	    "  * Gamma\n"
 	    " * Delta\n"
 	    "\n"
+	    "Under the hood:\n"
+	    " * Rewrote the parser\n"
+	    "\n"
 	    "Version 0.12.7\n"
 	    "~~~~~~~~~~~~~~\n"
 	    "Released: 2019-07-06\n"
@@ -422,17 +562,25 @@ test_readwrite_text_news (void)
 	    "\n"
 	    "This is a freeform intro paragraph describing the release.\n"
 	    "\n"
-	    "It continues with a second paragraph after a blank line.\n";
+	    "It continues with a second paragraph after a blank line.\n"
+	    "\n"
+	    "Deprecations:\n"
+	    "\n"
+	    "The old command line interface is gone for good.\n"
+	    "\n"
+	    "Not a heading:\n"
+	    "this line is not a listing and does not follow an empty line.\n";
 	static const gchar *expected_xml_releases_data =
 	    "  <releases>\n"
 	    "    <release type=\"stable\" version=\"0.12.8\" date=\"2019-08-16T00:00:00Z\">\n"
 	    "      <description>\n"
+	    "        <heading>Notes</heading>\n"
 	    "        <p>This release changes the output of appstreamcli</p>\n"
 	    "        <p>It is very important that multiple lines are supported in notes, which we "
 	    "now "
 	    "do!</p>\n"
 	    "        <p>Enjoy using the new release!</p>\n"
-	    "        <p>This release adds the following features:</p>\n"
+	    "        <heading>Features</heading>\n"
 	    "        <ul>\n"
 	    "          <li>Alpha</li>\n"
 	    "          <li>Made the <em>frobnicator</em> configurable via "
@@ -444,11 +592,15 @@ test_readwrite_text_news (void)
 	    "          <li>Bare GCVE references like GCVE-1-2026-1234 are detected as well</li>\n"
 	    "          <li>Lowercase cve-2026-9999 references are normalized</li>\n"
 	    "        </ul>\n"
-	    "        <p>This release fixes the following bugs:</p>\n"
+	    "        <heading>Bugfixes</heading>\n"
 	    "        <ul>\n"
 	    "          <li>Restore compatibility with GLib &lt; 2.58</li>\n"
 	    "          <li>Gamma</li>\n"
 	    "          <li>Delta</li>\n"
+	    "        </ul>\n"
+	    "        <heading>Under the hood</heading>\n"
+	    "        <ul>\n"
+	    "          <li>Rewrote the parser</li>\n"
 	    "        </ul>\n"
 	    "      </description>\n"
 	    "      <issues>\n"
@@ -461,8 +613,9 @@ test_readwrite_text_news (void)
 	    "    </release>\n"
 	    "    <release type=\"stable\" version=\"0.12.7\" date=\"2019-07-06T00:00:00Z\">\n"
 	    "      <description>\n"
+	    "        <heading>Notes</heading>\n"
 	    "        <p>A maintenance release.</p>\n"
-	    "        <p>This release fixes the following bugs:</p>\n"
+	    "        <heading>Bugfixes</heading>\n"
 	    "        <ul>\n"
 	    "          <li>Fixed a crash, see issue#42</li>\n"
 	    "          <li>Consult the manual for details</li>\n"
@@ -482,6 +635,10 @@ test_readwrite_text_news (void)
 	    "      <description>\n"
 	    "        <p>This is a freeform intro paragraph describing the release.</p>\n"
 	    "        <p>It continues with a second paragraph after a blank line.</p>\n"
+	    "        <heading>Deprecations</heading>\n"
+	    "        <p>The old command line interface is gone for good.</p>\n"
+	    "        <p>Not a heading:\n"
+	    "this line is not a listing and does not follow an empty line.</p>\n"
 	    "      </description>\n"
 	    "    </release>\n"
 	    "  </releases>";
@@ -491,13 +648,15 @@ test_readwrite_text_news (void)
 	    "~~~~~~~~~~~~~~\n"
 	    "Released: 2019-08-16\n"
 	    "\n"
+	    "Notes:\n"
+	    "\n"
 	    "This release changes the output of appstreamcli\n"
 	    "\n"
 	    "It is very important that multiple lines are supported in notes, which we now do!\n"
 	    "\n"
 	    "Enjoy using the new release!\n"
 	    "\n"
-	    "This release adds the following features:\n"
+	    "Features:\n"
 	    " * Alpha\n"
 	    " * Made the *frobnicator* configurable via `--frob`\n"
 	    " * Beta\n"
@@ -507,10 +666,13 @@ test_readwrite_text_news (void)
 	    " * Bare GCVE references like GCVE-1-2026-1234 are detected as well\n"
 	    " * Lowercase cve-2026-9999 references are normalized\n"
 	    "\n"
-	    "This release fixes the following bugs:\n"
+	    "Bugfixes:\n"
 	    " * Restore compatibility with GLib < 2.58\n"
 	    " * Gamma\n"
 	    " * Delta\n"
+	    "\n"
+	    "Under the hood:\n"
+	    " * Rewrote the parser\n"
 	    "\n"
 	    "Resolved Issues:\n"
 	    " * #12345: https://example.com/bugzilla/12345\n"
@@ -522,9 +684,11 @@ test_readwrite_text_news (void)
 	    "~~~~~~~~~~~~~~\n"
 	    "Released: 2019-07-06\n"
 	    "\n"
+	    "Notes:\n"
+	    "\n"
 	    "A maintenance release.\n"
 	    "\n"
-	    "This release fixes the following bugs:\n"
+	    "Bugfixes:\n"
 	    " * Fixed a crash, see issue#42\n"
 	    " * Consult the manual for details\n"
 	    " * Hardened against CVE-2020-0001, also reported as CVE-2020-0001\n"
@@ -541,7 +705,13 @@ test_readwrite_text_news (void)
 	    "\n"
 	    "This is a freeform intro paragraph describing the release.\n"
 	    "\n"
-	    "It continues with a second paragraph after a blank line.\n";
+	    "It continues with a second paragraph after a blank line.\n"
+	    "\n"
+	    "Deprecations:\n"
+	    "\n"
+	    "The old command line interface is gone for good.\n"
+	    "\n"
+	    "Not a heading: this line is not a listing and does not follow an empty line.\n";
 
 	g_autoptr(GPtrArray) releases = NULL;
 	g_autoptr(GError) error = NULL;
@@ -946,6 +1116,9 @@ main (int argc, char **argv)
 	g_test_add_func ("/AppStream/Misc/YAMLNewsFreeformLists", test_yaml_news_freeform_lists);
 	g_test_add_func ("/AppStream/Misc/TextNews", test_readwrite_text_news);
 	g_test_add_func ("/AppStream/Misc/NewsInlineMarkup", test_news_inline_markup);
+	g_test_add_func ("/AppStream/Misc/NewsHeadings", test_news_headings);
+	g_test_add_func ("/AppStream/Misc/NewsYAMLHeadingsNoParagraph",
+			 test_news_yaml_headings_no_paragraph);
 	g_test_add_func ("/AppStream/Misc/StripLocaleEncoding", test_locale_strip_encoding);
 	g_test_add_func ("/AppStream/Misc/RelationSatisfyCheck", test_relation_satisfy_check);
 	g_test_add_func ("/AppStream/Misc/SysCompatScores", test_syscompat_scores);
