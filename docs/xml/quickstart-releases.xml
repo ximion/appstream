@@ -1,0 +1,559 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.2" xml:id="sect-Quickstart-Releases">
+	<title>Maintaining release information</title>
+
+	<section xml:id="qsr-relinfo-introduction">
+		<title>Introduction</title>
+		<para>
+			Every Metainfo file should describe the releases the software has made. Release descriptions are shown to users in
+			software centers, they tell bundling systems like Flatpak which versions exist, they are translatable like the rest of
+			the metadata, and they can carry machine-readable information such as resolved security issues or download artifacts.
+		</para>
+		<para>
+			The downside is that all of this has to be written as XML, in addition to the release notes a project usually keeps
+			anyway. To avoid maintaining the same information twice, <command>appstreamcli</command> can generate the
+			<literal>releases</literal> block of a metainfo file from a project's release notes, and can also go the other way and
+			produce release notes from an existing metainfo file.
+		</para>
+		<para>
+			This document describes those two commands and the two file formats they accept. It does not describe the resulting
+			XML itself - see <xref linkend="sect-Metadata-Releases"/> for the specification of the <literal>releases</literal> tag.
+		</para>
+		<para>
+			Two input formats are supported for conversion into Release/Metainfo XML:
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					A <emphasis>YAML release-notes file</emphasis>, described in <xref linkend="qsr-relinfo-yaml"/>. This format was
+					designed for this purpose, it maps directly onto the AppStream release data and is parsed deterministically.
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					A plain-text <filename>NEWS</filename> file, described in <xref linkend="qsr-relinfo-news"/>. Since the
+					<filename>NEWS</filename> format is not standardized in any way, the converter applies a set of heuristics to it.
+					Use this if you already maintain such a file and do not want to change it.
+				</para>
+			</listitem>
+		</itemizedlist>
+	</section>
+
+	<section xml:id="qsr-relinfo-yaml">
+		<title>Release notes in YAML</title>
+
+		<para>
+			A YAML release-notes file is a stream of YAML documents, one per release, separated by <literal>---</literal>.
+			Releases are written newest first. A typical file, conventionally named <filename>NEWS.yaml</filename>, looks like this:
+		</para>
+		<programlisting language="YAML">
+<![CDATA[---
+Version: "1.2.0"
+Date: 2024-05-14
+Type: development
+URL: https://example.com/myapp/releases/1.2.0
+Description:
+- Added a *dark mode* setting
+- The CPU no longer overheats when you hold down the spacebar
+- Fixed the rendering of `--verbose` output
+Resolved:
+- name: bug#1234
+  url: https://example.com/bugs/1234
+- cve: CVE-2026-0001
+
+---
+Version: "1.1.0"
+Date: 2024-01-10
+Description: |-
+  This release is all about the new rendering engine.
+
+  The engine was rewritten from scratch:
+   * it is now roughly twice as fast
+   * it finally supports fractional scaling, which
+     a lot of you have been asking for
+
+  Everything else is unchanged.]]></programlisting>
+
+		<para>
+			The root of every document must be a mapping. A document without a <literal>Version</literal> key is skipped, and keys
+			that are not listed below are ignored, so you can keep additional data in the file for your own tooling.
+		</para>
+
+		<section xml:id="qsr-relinfo-yaml-keys">
+			<title>Recognized keys</title>
+
+			<variablelist>
+				<varlistentry>
+					<term><literal>Version</literal></term>
+					<listitem>
+						<para>
+							The version number of the release. This key is required.
+						</para>
+						<para>
+							Always quote the value. Without quotes, YAML will read <literal>1.2</literal> as a floating-point number
+							and a version like <literal>1.20</literal> would lose its trailing zero.
+						</para>
+					</listitem>
+				</varlistentry>
+
+				<varlistentry>
+					<term><literal>Date</literal></term>
+					<listitem>
+						<para>
+							The release date, either as <literal>YYYY-MM-DD</literal> or as a complete ISO 8601 timestamp.
+						</para>
+					</listitem>
+				</varlistentry>
+
+				<varlistentry>
+					<term><literal>Type</literal></term>
+					<listitem>
+						<para>
+							The kind of release: <literal>stable</literal>, <literal>development</literal> or <literal>snapshot</literal>.
+							If this key is absent, <literal>stable</literal> is assumed.
+						</para>
+					</listitem>
+				</varlistentry>
+
+				<varlistentry>
+					<term><literal>URL</literal></term>
+					<listitem>
+						<para>
+							A link to more detailed release notes for this release, for example an announcement blog post. It becomes the
+							release's <code>details</code> URL. For compatibility, the spelling <literal>Url</literal> is accepted as well.
+						</para>
+					</listitem>
+				</varlistentry>
+
+				<varlistentry>
+					<term><literal>Description</literal></term>
+					<listitem>
+						<para>
+							The user-visible description of the release, either as a list of entries or as free-form text.
+							See <xref linkend="qsr-relinfo-yaml-description"/>. The key may also be spelled <literal>Notes</literal>.
+						</para>
+					</listitem>
+				</varlistentry>
+
+				<varlistentry>
+					<term><literal>Resolved</literal></term>
+					<listitem>
+						<para>
+							A list of issues that this release resolves, each one a mapping. The key may also be spelled
+							<literal>Issues</literal>. Recognized keys of an entry are:
+						</para>
+						<variablelist>
+							<varlistentry>
+								<term><literal>name</literal></term>
+								<listitem>
+									<para>The issue identifier, for example a bug number. <literal>id</literal> is accepted as an alias.</para>
+								</listitem>
+							</varlistentry>
+							<varlistentry>
+								<term><literal>cve</literal></term>
+								<listitem>
+									<para>A CVE identifier. Using this key sets the issue identifier and marks the issue as a CVE at the same time.</para>
+								</listitem>
+							</varlistentry>
+							<varlistentry>
+								<term><literal>gcve</literal></term>
+								<listitem>
+									<para>A GCVE identifier, handled like <literal>cve</literal>.</para>
+								</listitem>
+							</varlistentry>
+							<varlistentry>
+								<term><literal>url</literal></term>
+								<listitem>
+									<para>
+										A link to the issue. This is not needed for CVE and GCVE entries, as a link into the respective
+										vulnerability database is generated automatically.
+									</para>
+								</listitem>
+							</varlistentry>
+							<varlistentry>
+								<term><literal>type</literal></term>
+								<listitem>
+									<para>The issue type, if it was not already implied by using the <literal>cve</literal> or <literal>gcve</literal> key.</para>
+								</listitem>
+							</varlistentry>
+						</variablelist>
+					</listitem>
+				</varlistentry>
+			</variablelist>
+		</section>
+
+		<section xml:id="qsr-relinfo-yaml-description">
+			<title>Writing the description</title>
+
+			<para>
+				A description is written either as a YAML list or as a block of free-form text.
+			</para>
+			<para>
+				A <emphasis>list</emphasis> is the simplest form and becomes a single enumeration. This description:
+			</para>
+			<programlisting language="YAML">
+<![CDATA[Description:
+- Added a *dark mode* setting
+- The CPU no longer overheats when you hold down the spacebar]]></programlisting>
+			<para>
+				results in this markup:
+			</para>
+			<programlisting language="XML">
+<![CDATA[<description>
+  <ul>
+    <li>Added a <em>dark mode</em> setting</li>
+    <li>The CPU no longer overheats when you hold down the spacebar</li>
+  </ul>
+</description>]]></programlisting>
+
+			<para>
+				<emphasis>Free-form text</emphasis> is written as a YAML block scalar and may mix paragraphs and enumerations.
+				Paragraphs are separated by blank lines. A line that starts with a space followed by <literal>*</literal> or
+				<literal>-</literal> is an enumeration entry, and a longer entry can be wrapped by indenting the continuation
+				line so that it lines up with the text of the entry.
+			</para>
+			<programlisting language="YAML">
+<![CDATA[Description: |-
+  This release is all about the new rendering engine.
+
+  The engine was rewritten from scratch:
+   * it is now roughly twice as fast
+   * it finally supports fractional scaling, which
+     a lot of you have been asking for
+
+  Everything else is unchanged.]]></programlisting>
+			<para>
+				This results in:
+			</para>
+			<programlisting language="XML">
+<![CDATA[<description>
+  <p>This release is all about the new rendering engine.</p>
+  <p>The engine was rewritten from scratch:</p>
+  <ul>
+    <li>it is now roughly twice as fast</li>
+    <li>it finally supports fractional scaling, which a lot of you have been asking for</li>
+  </ul>
+  <p>Everything else is unchanged.</p>
+</description>]]></programlisting>
+			<note>
+				<para>
+					The indentation shown above is what the block scalar looks like in the file. YAML strips the common indentation
+					of a block scalar before the text is converted, so the bullets end up with exactly one leading space and their
+					continuation lines with three, which is what the converter expects. If you indent your file differently, keep
+					the bullets one space further in than the surrounding paragraphs, and their continuation lines aligned with the
+					entry text.
+				</para>
+			</note>
+		</section>
+	</section>
+
+	<section xml:id="qsr-relinfo-news">
+		<title>Release notes in a NEWS file</title>
+
+		<para>
+			Many projects already keep a <filename>NEWS</filename> file listing the user-visible changes of each release.
+			<command>appstreamcli</command> can read a common subset of the styles found in the wild:
+		</para>
+		<programlisting>
+<![CDATA[Version 1.2.0
+-------------
+Released: 2024-05-14
+
+This release is all about the new rendering engine.
+
+Features:
+ * Added a *dark mode* setting
+ * The renderer now supports fractional scaling, which
+   a lot of you have been asking for
+
+Bugfixes:
+ * The CPU no longer overheats when you hold down the spacebar
+ * Fixed the rendering of `--verbose` output, see [#1234](https://example.com/bugs/1234)
+
+Resolved Issues:
+ * CVE-2026-0001
+
+Version 1.1.0
+-------------
+Released: 2024-01-10
+
+Features:
+ * Now plays a "zap" sound on every character input]]></programlisting>
+
+		<para>
+			A new release starts with a header block: a line beginning with <literal>Version</literal>, a space and the version number, followed by an
+			underline of at least four <literal>~</literal>, <literal>-</literal> or <literal>=</literal> characters. The header
+			must contain a <literal>Released:</literal> line with a date in <literal>YYYY-MM-DD</literal> form; conversion
+			fails if it is missing. Anything before the first version header is ignored, so a title or preamble at the top of the
+			file does no harm.
+		</para>
+		<para>
+			The rest of a release is made up of blocks separated by blank lines. A block that starts with one of the recognized
+			headings is converted accordingly; the headings are <literal>Bugfix:</literal>, <literal>Bugfixes:</literal>,
+			<literal>Bug fixes:</literal>, <literal>Features:</literal>, <literal>Removed features:</literal>,
+			<literal>Notes:</literal>, <literal>Note:</literal>, <literal>Misc:</literal>, <literal>Miscellaneous:</literal>,
+			<literal>Documentation:</literal>, <literal>Specification:</literal>, <literal>Resolved Issues:</literal>,
+			<literal>Resolved:</literal>, <literal>Translations:</literal>, <literal>Translation:</literal>,
+			<literal>Contributors:</literal>, <literal>With contributions from:</literal>, <literal>Thanks to:</literal> and
+			<literal>Translators:</literal>. They are matched case-sensitively. A block without a recognized heading directly
+			after the version header is turned into plain paragraphs, and any other unrecognized block is appended to the block
+			before it, so no content is ever dropped.
+		</para>
+		<para>
+			Within a block, lines starting with a <literal>*</literal> or <literal>-</literal> bullet are enumeration entries,
+			and a line indented by three spaces continues the entry above it. The converter writes a short introductory sentence
+			for each block, so the <literal>Features:</literal> block above becomes a paragraph reading <quote>This release adds
+			the following features:</quote> followed by the enumeration.
+		</para>
+
+		<section xml:id="qsr-relinfo-news-development">
+			<title>Marking a release as unreleased</title>
+			<para>
+				Unlike the YAML format, a <filename>NEWS</filename> file has no place to record the type of a release. There is
+				however a convention for the release that is still being worked on: write the day of the date as
+				<literal>xx</literal>, <literal>XX</literal> or <literal>??</literal>.
+			</para>
+			<programlisting>
+<![CDATA[Version 1.3.0
+-------------
+Released: 2024-08-xx
+
+Features:
+ * Still being worked on]]></programlisting>
+			<para>
+				Such a release is marked as a development release and dated with the day the conversion is run:
+			</para>
+			<programlisting language="XML">
+<![CDATA[<release type="development" version="1.3.0" date="2026-08-24T18:42:28Z">]]></programlisting>
+			<para>
+				Replacing the placeholder with the real day right before tagging then turns it into a regular stable release.
+			</para>
+		</section>
+	</section>
+
+	<section xml:id="qsr-relinfo-markup">
+		<title>Markup in descriptions</title>
+
+		<para>
+			AppStream descriptions permit only two inline tags, <code>&lt;em/&gt;</code> and <code>&lt;code/&gt;</code>.
+			Both input formats therefore understand the small subset of Markdown that corresponds to them:
+		</para>
+		<variablelist>
+			<varlistentry>
+				<term><literal>*emphasis*</literal></term>
+				<listitem>
+					<para>becomes <code>&lt;em&gt;emphasis&lt;/em&gt;</code>.</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><literal>`code`</literal></term>
+				<listitem>
+					<para>
+						becomes <code>&lt;code&gt;code&lt;/code&gt;</code>. The content of a code span is used literally, so an asterisk
+						inside one does not start emphasis.
+					</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><literal>\*</literal>, <literal>\`</literal>, <literal>\\</literal></term>
+				<listitem>
+					<para>produce a literal <literal>*</literal>, <literal>`</literal> or <literal>\</literal>.</para>
+				</listitem>
+			</varlistentry>
+		</variablelist>
+		<para>
+			Everything else is written out as it is. In particular there is no <quote>strong</quote> markup in AppStream, so
+			<literal>**bold**</literal> stays literal, and a delimiter is only treated as such when it directly touches the text it
+			marks up: <literal>2 * 3 * 4</literal> and <literal>foo* bar</literal> are left alone, and an unmatched
+			<literal>*</literal> or <literal>`</literal> is kept as written. A span never continues past the end of a line, so an
+			enumeration entry can never accidentally emphasize the entry after it.
+		</para>
+		<note>
+			<para>
+				<option>metainfo-to-news</option> writes these markers back out again, so emphasis and code spans survive a
+				conversion in either direction.
+			</para>
+		</note>
+	</section>
+
+	<section xml:id="qsr-relinfo-issues">
+		<title>Referencing issues</title>
+
+		<para>
+			Release entries can list the issues a release resolves, which is particularly useful for security fixes.
+			See <xref linkend="tag-release-issues"/> for what the generated data looks like.
+		</para>
+		<para>
+			In a YAML file, issues are listed explicitly using the <literal>Resolved</literal> key described above.
+			In a <filename>NEWS</filename> file, they are picked up from the text:
+		</para>
+		<itemizedlist>
+			<listitem>
+				<para>
+					A Markdown link whose text looks like an issue reference - it starts with <literal>#</literal> or
+					<literal>issue#</literal>, or is a CVE or GCVE identifier - is registered as an issue with that link.
+					Since links are not valid in AppStream descriptions, only the link text remains in the description itself, so
+					<literal>[#1234](https://example.com/bugs/1234)</literal> is rendered as <literal>#1234</literal>.
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					CVE and GCVE identifiers mentioned anywhere in the text are registered as issues as well, and are kept in the
+					description. Identifiers are recognized regardless of case and normalized to their canonical spelling.
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					A <literal>Resolved Issues:</literal> block lists issues instead of description text. Its entries take the form
+					<literal>ID</literal> or <literal>ID: URL</literal>. Entries that do not look like an issue reference are kept as
+					ordinary enumeration entries so that nothing is lost.
+				</para>
+			</listitem>
+		</itemizedlist>
+		<para>
+			An issue is only recorded once even if it is mentioned several times, and links pointing at the CVE or GCVE databases
+			are dropped, because such a link can be derived from the identifier anyway.
+		</para>
+	</section>
+
+	<section xml:id="qsr-relinfo-generate">
+		<title>Generating the metainfo file</title>
+
+		<para>
+			To see what your release notes will be converted into, pass <literal>-</literal> as the metainfo file. Only the
+			resulting release entries are printed, which makes this a quick way to check the result:
+		</para>
+		<screen>$ <command>appstreamcli</command> news-to-metainfo ./NEWS.yml -</screen>
+		<para>
+			To produce a complete metainfo file, pass the metainfo file to insert the releases into. A metainfo file has to
+			exist already -  if you do not have one yet, create it as described in <xref linkend="sect-Quickstart-DesktopApps"/> or with the
+			<link xlink:href="https://www.freedesktop.org/software/appstream/metainfocreator/#/">MetaInfo Creator</link>. A third
+			argument names the file to write to; <literal>-</literal> writes the complete metainfo XML to standard output.
+		</para>
+		<screen>$ <command>appstreamcli</command> news-to-metainfo ./NEWS.yml ./org.example.myapp.metainfo.xml -</screen>
+		<para>
+			If the third argument is omitted, the metainfo file is modified in place. Note that in either case the release entries
+			generated from the release notes <emphasis>replace</emphasis> the releases already present in the metainfo file, rather
+			than being added to them.
+		</para>
+		<para>
+			The input format is guessed from the file name: <filename>.yml</filename> and <filename>.yaml</filename> are read as
+			YAML, <filename>.md</filename> as Markdown, and <filename>NEWS</filename>, <filename>news</filename> or
+			<filename>.txt</filename> as text. Any other name is read as YAML. Use
+			<option>--format=<replaceable>yaml|text|markdown</replaceable></option> if that guess is wrong. The
+			<literal>text</literal> and <literal>markdown</literal> formats are read identically and differ only when writing.
+		</para>
+		<para>
+			Two options control how much data ends up in the metainfo file:
+		</para>
+		<variablelist>
+			<varlistentry>
+				<term><option>--limit</option></term>
+				<listitem>
+					<para>
+						Only convert the given number of releases, newest first. Without it, a project with a long history would carry
+						its complete changelog in every installed metainfo file.
+					</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><option>--translatable-count</option></term>
+				<listitem>
+					<para>
+						Only mark the descriptions of the given number of releases as translatable; the older ones are written with
+						<code>translate="no"</code> and will not show up for translation. This keeps your translation template from
+						growing without bound while still translating the releases people actually read.
+					</para>
+				</listitem>
+			</varlistentry>
+		</variablelist>
+
+		<section xml:id="qsr-relinfo-generate-relfile">
+			<title>Separate release metadata files</title>
+			<para>
+				Release information does not have to live inside the metainfo file. It can also be kept in a file of its own,
+				with <literal>releases</literal> as its root element, which the metainfo file then points at with an empty
+				<code>&lt;releases type="external"/&gt;</code> tag. This keeps a long release history out of the metainfo file
+				and lets the release notes be updated on their own. See <xref linkend="spec-releases-location"/> for where such
+				a file has to be installed.
+			</para>
+			<para>
+				Both commands accept these files wherever they accept a metainfo file. Which kind of file they are dealing with is
+				decided by its root element, so the name an existing file carries in your source tree does not matter.
+			</para>
+			<para>
+				Unlike a metainfo file, a release metadata file is also created if it does not exist yet, since it holds nothing
+				besides the releases that are about to be written. A file that is not there has no root element to look at, so
+				this works only for names ending in <filename>.releases.xml</filename> (or <filename>.releases.xml.in</filename>,
+				for files that still have to be translated) - which is what the file has to be called anyway:
+			</para>
+			<screen>$ <command>appstreamcli</command> news-to-metainfo ./NEWS.yml ./org.example.myapp.releases.xml</screen>
+			<para>
+				The metainfo file itself then only carries the reference:
+			</para>
+			<programlisting language="XML">
+<![CDATA[<component type="desktop-application">
+  <id>org.example.myapp</id>
+  ...
+  <releases type="external"/>
+</component>]]></programlisting>
+			<note>
+				<para>
+					When a metainfo file uses external release data, running <option>metainfo-to-news</option> on it will not
+					write an empty NEWS file, but tell you to run the command on the release metadata file instead.
+				</para>
+			</note>
+		</section>
+
+		<section xml:id="qsr-relinfo-generate-meson">
+			<title>Integrating with Meson</title>
+			<para>
+				The conversion is best run as part of the build, so that the release notes remain the only place where release
+				information is maintained:
+			</para>
+			<programlisting language="Meson"><![CDATA[ascli_exe = find_program('appstreamcli')
+
+metainfo_with_relinfo = custom_target('gen-metainfo-rel',
+    input : ['NEWS.yml', 'org.example.myapp.metainfo.xml'],
+    output : ['org.example.myapp.metainfo.xml'],
+    command : [ascli_exe, 'news-to-metainfo', '--limit=6', '--translatable-count=4',
+               '@INPUT0@', '@INPUT1@', '@OUTPUT@']
+)]]></programlisting>
+			<para>
+				The generated file is the one that should be installed, translated and validated. If you translate your metainfo
+				file with Itstool as described in <xref linkend="sect-Quickstart-Translation"/>, use the output of this target as
+				the input of the <code>itstool_join</code> step, and extract the translatable strings from it as well, so that the
+				release descriptions are picked up.
+			</para>
+		</section>
+	</section>
+
+	<section xml:id="qsr-relinfo-reverse">
+		<title>Going the other way</title>
+
+		<para>
+			If you maintain the release information in the metainfo file itself, or receive it from some other tool, the
+			conversion can be reversed to produce release notes from it:
+		</para>
+		<screen>$ <command>appstreamcli</command> metainfo-to-news ./org.example.myapp.metainfo.xml ./NEWS.yaml</screen>
+		<para>
+			A separate release metadata file, as described in <xref linkend="qsr-relinfo-generate-relfile"/>, can be used as
+			input in exactly the same way.
+		</para>
+		<para>
+			The output format is guessed from the file name using the same rules as above. Use
+			<option>--format=<replaceable>yaml|text|markdown</replaceable></option> to select it explicitly; the
+			<literal>markdown</literal> format differs from <literal>text</literal> only in the character used to underline the
+			version headers. Passing <literal>-</literal> as the output file writes to standard output, in which case
+			<option>--format</option> is required.
+		</para>
+		<note>
+			<para>
+				Converting to YAML and back is lossless, so a YAML file can be regenerated at any time. Converting to text is not:
+				the text output contains no section headings, so reading it back in produces plain paragraphs instead of the
+				<literal>Features:</literal> and <literal>Bugfixes:</literal> structure that was originally there. Pick one of the
+				two representations as the place where you maintain your release notes, and generate the other one from it.
+			</para>
+		</note>
+	</section>
+</section>

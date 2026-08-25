@@ -316,14 +316,27 @@
 						This command converts a NEWS file as used by many open source projects into the XML used by AppStream. Since NEWS files are free text,
 						a lot of heuristics will be applied to get reasonable results. The converter can also read a YAML version of the AppStream release
 						description and convert it to XML as well.
-						If the metainfo file <replaceable>MI_FILE</replaceable> already exists, it will be augmented with the new release entries, otherwise the release entries
-						will be written without any wrapping component.
+						The metainfo file <replaceable>MI_FILE</replaceable> must exist, and any release entries it already contains will be replaced with the
+						ones generated from <replaceable>NEWS_FILE</replaceable>. If <replaceable>MI_FILE</replaceable> is set to "<code>-</code>", no metainfo
+						file is read and only the generated release entries are written to stdout, without any wrapping component.
 						If <replaceable>[OUT_FILE]</replaceable> is specified, instead of acting on <replaceable>MI_FILE</replaceable> the changed data will
-						be written to the particular file. If any of the output filenames is set to "<code>-</code>", the output will instead be written to stdout.
+						be written to the particular file. If it is set to "<code>-</code>", the output will instead be written to stdout.
 					</para>
 					<para>
-						The <option>--format</option> option can be used to enforce reading the input file in a specific format ("text" or "yaml") in case the format autodetection fails.
+						Instead of a metainfo file, <replaceable>MI_FILE</replaceable> may also be a release metadata file, that is an XML file with
+						<code>releases</code> as its root element as used for external release information. An existing file is recognized by its root
+						element, so the name it carries does not matter.
+						Since such a file contains nothing but the release entries that are about to be written, it is also created if it does not exist
+						yet. This only applies to files named <filename>*.releases.xml</filename>, the names mandated by the specification; any other
+                        nonexistent file is an error.
+					</para>
+					<para>
+						The <option>--format</option> option can be used to enforce reading the input file in a specific format ("text", "markdown" or "yaml")
+						in case the format autodetection fails.
 						The <option>--limit</option> option is used to limit the amount of release entries written (the newest entries will always be first).
+						The <option>--translatable-count</option> option limits the number of release descriptions that are marked as translatable, again
+						counted from the newest entry. Descriptions of any older release will be marked with <code>translate="no"</code>, so they do not end
+						up in the translation template.
 					</para>
 				</listitem>
 			</varlistentry>
@@ -333,12 +346,18 @@
 				<listitem>
 					<para>
 						This command reverses the <option>news-to-metainfo</option> command and writes a NEWS file as text or YAML using the XML
-						contained in a metainfo file. If <replaceable>NEWS_FILE</replaceable> is set to "<code>-</code>", the resulting data
-						will be written to stdout instead of to a file.
+						contained in a metainfo file or in a release metadata file. If <replaceable>NEWS_FILE</replaceable> is set to "<code>-</code>",
+						the resulting data will be written to stdout instead of to a file.
 					</para>
 					<para>
-						The <option>--format</option> option can be used to explicitly specify the output format ("yaml" or "text"). If it is not set,
-						<command>appstreamcli</command> will guess which format is most suitable.
+						If <replaceable>MI_FILE</replaceable> is a metainfo file that keeps its release information in an external file
+						(<code>&lt;releases type="external"/&gt;</code>), this command will fail and ask for the release metadata file to be
+						passed instead, as the referenced data is not part of the metainfo file itself.
+					</para>
+					<para>
+						The <option>--format</option> option can be used to explicitly specify the output format ("yaml", "text" or "markdown"). If it is not set,
+						<command>appstreamcli</command> will guess which format is most suitable based on the name of <replaceable>NEWS_FILE</replaceable>;
+						it is therefore required when writing to stdout.
 					</para>
 				</listitem>
 			</varlistentry>

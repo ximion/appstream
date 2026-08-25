@@ -124,6 +124,7 @@ as_doc_src = [
     'xml/quickstart-addons.xml',
     'xml/quickstart-desktopapps.xml',
     'xml/quickstart-packaging.xml',
+    'xml/quickstart-releases.xml',
     'xml/quickstart-translation.xml',
     'xml/Validation.xml',
 ]
