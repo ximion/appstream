@@ -39,10 +39,68 @@
 
 #define ASCLI_BIN_NAME "appstreamcli"
 
+typedef struct _AsCliCommand AsCliCommand;
+
+/**
+ * AsCliCommandFunc:
+ * @cmd: the #AsCliCommand that is being run
+ * @argc: argument count, with the subcommand name as first argument
+ * @argv: argument vector, with the subcommand name as first argument
+ *
+ * Handler for an appstreamcli subcommand.
+ */
+typedef gint (*AsCliCommandFunc) (AsCliCommand *cmd, gint argc, gchar **argv);
+
+/**
+ * AsCliCommand:
+ *
+ * A subcommand of appstreamcli.
+ */
+struct _AsCliCommand {
+	gchar *name;
+	gchar *alias;
+	gchar *arguments;
+	gchar *summary;
+	guint block_id;
+	AsCliCommandFunc func;
+};
+
 /* global options which affect all commands */
 static gboolean optn_show_version = FALSE;
 static gboolean optn_verbose_mode = FALSE;
 static gboolean optn_no_color = FALSE;
+static gboolean optn_enable_profiling = FALSE;
+
+/**
+ * Global options which are valid for all subcommands.
+ */
+const GOptionEntry ascli_global_options[] = {
+	{ "version",
+	  0, 0,
+	  G_OPTION_ARG_NONE, &optn_show_version,
+	  /* TRANSLATORS: ascli flag description for: --version */
+	  N_ ("Show the program version."),
+	  NULL },
+	{ "verbose",
+	  0, 0,
+	  G_OPTION_ARG_NONE, &optn_verbose_mode,
+	  /* TRANSLATORS: ascli flag description for: --verbose */
+	  N_ ("Show extra debugging information."),
+	  NULL },
+	{ "no-color",
+	  0, 0,
+	  G_OPTION_ARG_NONE, &optn_no_color,
+	  /* TRANSLATORS: ascli flag description for: --no-color */
+	  N_ ("Don\'t show colored output."),
+	  NULL },
+	{ "profile",
+	  0, 0,
+	  G_OPTION_ARG_NONE, &optn_enable_profiling,
+	  /* TRANSLATORS: ascli flag description for: --profile */
+	  N_ ("Enable profiling"),
+	  NULL },
+	{ NULL }
+};
 
 /*** COMMAND OPTIONS ***/
 
@@ -204,10 +262,88 @@ const GOptionEntry validate_options[] = {
 /*** HELPER METHODS ***/
 
 /**
+ * ascli_command_free:
+ */
+static void
+ascli_command_free (AsCliCommand *cmd)
+{
+	g_free (cmd->name);
+	g_free (cmd->alias);
+	g_free (cmd->arguments);
+	g_free (cmd->summary);
+	g_free (cmd);
+}
+
+/**
+ * ascli_add_cmd:
+ *
+ * Register a new subcommand.
+ */
+static void
+ascli_add_cmd (GPtrArray *commands,
+	       guint block_id,
+	       const gchar *name,
+	       const gchar *alias,
+	       const gchar *arguments,
+	       const gchar *summary,
+	       AsCliCommandFunc func)
+{
+	AsCliCommand *cmd;
+
+	g_return_if_fail (name != NULL);
+	g_return_if_fail (summary != NULL);
+	g_return_if_fail (func != NULL);
+
+	cmd = g_new0 (AsCliCommand, 1);
+	cmd->block_id = block_id;
+	cmd->name = g_strdup (name);
+	if (alias != NULL) {
+		g_autofree gchar *tmp = NULL;
+		/* TRANSLATORS: this is a (usually shorter) command alias, shown after the command summary text */
+		tmp = g_strdup_printf (_("(Alias: '%s')"), alias);
+		cmd->summary = g_strconcat (summary, " ", tmp, NULL);
+		cmd->alias = g_strdup (alias);
+	} else {
+		cmd->summary = g_strdup (summary);
+	}
+	if (arguments == NULL)
+		cmd->arguments = g_strdup ("");
+	else
+		cmd->arguments = g_strdup (arguments);
+	cmd->func = func;
+	g_ptr_array_add (commands, cmd);
+}
+
+/**
+ * ascli_find_command:
+ *
+ * Find a registered subcommand by its name or alias.
+ *
+ * Returns: (transfer none): the #AsCliCommand, or %NULL if it was not found.
+ */
+static AsCliCommand *
+ascli_find_command (GPtrArray *commands, const gchar *name)
+{
+	if (name == NULL)
+		return NULL;
+
+	for (guint i = 0; i < commands->len; i++) {
+		AsCliCommand *cmd = g_ptr_array_index (commands, i);
+
+		if (g_strcmp0 (cmd->name, name) == 0)
+			return cmd;
+		if (cmd->alias != NULL && g_strcmp0 (cmd->alias, name) == 0)
+			return cmd;
+	}
+
+	return NULL;
+}
+
+/**
  * as_client_get_summary_for:
  **/
 static gchar *
-as_client_get_summary_for (const gchar *command)
+as_client_get_summary_for (AsCliCommand *cmd)
 {
 	GString *string;
 	string = g_string_new ("");
@@ -216,7 +352,8 @@ as_client_get_summary_for (const gchar *command)
 	g_string_append_printf (string, "%s\n", _("AppStream command-line interface"));
 
 	g_string_append (string, " ");
-	g_string_append_printf (string, _("'%s' command"), command);
+	g_string_append_printf (string, _("'%s' command"), cmd->name);
+	g_string_append_printf (string, "\n %s", cmd->summary);
 
 	return g_string_free (string, FALSE);
 }
@@ -227,18 +364,24 @@ as_client_get_summary_for (const gchar *command)
  * Create a new option context for an ascli subcommand.
  */
 static GOptionContext *
-as_client_new_subcommand_option_context (const gchar *command, const GOptionEntry *entries)
+as_client_new_subcommand_option_context (AsCliCommand *cmd, const GOptionEntry *entries)
 {
 	GOptionContext *opt_context = NULL;
 	g_autofree gchar *summary = NULL;
+	g_autofree gchar *parameter_str = NULL;
 
-	opt_context = g_option_context_new ("- AppStream CLI.");
+	if (as_is_empty (cmd->arguments))
+		parameter_str = g_strdup (cmd->name);
+	else
+		parameter_str = g_strconcat (cmd->name, " ", cmd->arguments, NULL);
+
+	opt_context = g_option_context_new (parameter_str);
 	g_option_context_set_help_enabled (opt_context, TRUE);
 	if (entries != NULL)
 		g_option_context_add_main_entries (opt_context, entries, NULL);
 
 	/* set the summary text */
-	summary = as_client_get_summary_for (command);
+	summary = as_client_get_summary_for (cmd);
 	g_option_context_set_summary (opt_context, summary);
 
 	return opt_context;
@@ -272,11 +415,11 @@ as_client_print_help_hint (const gchar *subcommand, const gchar *unknown_option)
  *
  * Parse the options, print errors.
  */
-static int
+static gint
 as_client_option_context_parse (GOptionContext *opt_context,
-				const gchar *subcommand,
-				int *argc,
-				char ***argv)
+				AsCliCommand *cmd,
+				gint *argc,
+				gchar ***argv)
 {
 	g_autoptr(GError) error = NULL;
 
@@ -287,7 +430,7 @@ as_client_option_context_parse (GOptionContext *opt_context,
 		g_print ("%s", msg);
 		g_free (msg);
 
-		as_client_print_help_hint (subcommand, NULL);
+		as_client_print_help_hint (cmd == NULL ? NULL : cmd->name, NULL);
 		return 1;
 	}
 
@@ -301,8 +444,8 @@ as_client_option_context_parse (GOptionContext *opt_context,
  *
  * Refresh the AppStream caches.
  */
-static int
-as_client_run_refresh_cache (const gchar *command, char **argv, int argc)
+static gint
+as_client_run_refresh_cache (AsCliCommand *cmd, gint argc, gchar **argv)
 {
 	g_autoptr(GOptionContext) opt_context = NULL;
 	gint ret;
@@ -326,10 +469,10 @@ as_client_run_refresh_cache (const gchar *command, char **argv, int argc)
 		    { NULL }
 	     };
 
-	opt_context = as_client_new_subcommand_option_context (command, refresh_options);
+	opt_context = as_client_new_subcommand_option_context (cmd, refresh_options);
 	g_option_context_add_main_entries (opt_context, data_catalog_options, NULL);
 
-	ret = as_client_option_context_parse (opt_context, command, &argc, &argv);
+	ret = as_client_option_context_parse (opt_context, cmd, &argc, &argv);
 	if (ret != 0)
 		return ret;
 
@@ -351,23 +494,23 @@ as_client_run_refresh_cache (const gchar *command, char **argv, int argc)
  *
  * Search for AppStream metadata.
  */
-static int
-as_client_run_search (const gchar *command, char **argv, int argc)
+static gint
+as_client_run_search (AsCliCommand *cmd, gint argc, gchar **argv)
 {
 	g_autoptr(GOptionContext) opt_context = NULL;
 	g_autoptr(GString) search = NULL;
 	gint ret;
 
-	opt_context = as_client_new_subcommand_option_context (command, find_options);
+	opt_context = as_client_new_subcommand_option_context (cmd, find_options);
 	g_option_context_add_main_entries (opt_context, data_catalog_options, NULL);
 
-	ret = as_client_option_context_parse (opt_context, command, &argc, &argv);
+	ret = as_client_option_context_parse (opt_context, cmd, &argc, &argv);
 	if (ret != 0)
 		return ret;
 
 	search = g_string_new ("");
-	if (argc > 2) {
-		for (gint i = 2; i < argc; i++) {
+	if (argc > 1) {
+		for (gint i = 1; i < argc; i++) {
 			g_string_append (search, argv[i]);
 			g_string_append_c (search, ' ');
 		}
@@ -387,22 +530,22 @@ as_client_run_search (const gchar *command, char **argv, int argc)
  *
  * Get components by its ID.
  */
-static int
-as_client_run_get (const gchar *command, char **argv, int argc)
+static gint
+as_client_run_get (AsCliCommand *cmd, gint argc, gchar **argv)
 {
 	g_autoptr(GOptionContext) opt_context = NULL;
 	gint ret;
 	const gchar *value = NULL;
 
-	opt_context = as_client_new_subcommand_option_context (command, find_options);
+	opt_context = as_client_new_subcommand_option_context (cmd, find_options);
 	g_option_context_add_main_entries (opt_context, data_catalog_options, NULL);
 
-	ret = as_client_option_context_parse (opt_context, command, &argc, &argv);
+	ret = as_client_option_context_parse (opt_context, cmd, &argc, &argv);
 	if (ret != 0)
 		return ret;
 
-	if (argc > 2)
-		value = argv[2];
+	if (argc > 1)
+		value = argv[1];
 
 	return ascli_get_component (optn_cachepath, value, optn_details, optn_no_cache);
 }
@@ -412,23 +555,23 @@ as_client_run_get (const gchar *command, char **argv, int argc)
  *
  * Dump the raw component metadata to the console.
  */
-static int
-as_client_run_dump (const gchar *command, char **argv, int argc)
+static gint
+as_client_run_dump (AsCliCommand *cmd, gint argc, gchar **argv)
 {
 	g_autoptr(GOptionContext) opt_context = NULL;
 	gint ret;
 	const gchar *value = NULL;
 	AsFormatKind mformat;
 
-	opt_context = as_client_new_subcommand_option_context (command, data_catalog_options);
+	opt_context = as_client_new_subcommand_option_context (cmd, data_catalog_options);
 	g_option_context_add_main_entries (opt_context, format_options, NULL);
 
-	ret = as_client_option_context_parse (opt_context, command, &argc, &argv);
+	ret = as_client_option_context_parse (opt_context, cmd, &argc, &argv);
 	if (ret != 0)
 		return ret;
 
-	if (argc > 2)
-		value = argv[2];
+	if (argc > 1)
+		value = argv[1];
 
 	mformat = as_format_kind_from_string (optn_format);
 	return ascli_dump_component (optn_cachepath, value, mformat, optn_no_cache);
@@ -439,25 +582,25 @@ as_client_run_dump (const gchar *command, char **argv, int argc)
  *
  * Find components that provide a certain item.
  */
-static int
-as_client_run_what_provides (const gchar *command, char **argv, int argc)
+static gint
+as_client_run_what_provides (AsCliCommand *cmd, gint argc, gchar **argv)
 {
 	g_autoptr(GOptionContext) opt_context = NULL;
 	gint ret;
 	const gchar *vtype = NULL;
 	const gchar *vvalue = NULL;
 
-	opt_context = as_client_new_subcommand_option_context (command, find_options);
+	opt_context = as_client_new_subcommand_option_context (cmd, find_options);
 	g_option_context_add_main_entries (opt_context, data_catalog_options, NULL);
 
-	ret = as_client_option_context_parse (opt_context, command, &argc, &argv);
+	ret = as_client_option_context_parse (opt_context, cmd, &argc, &argv);
 	if (ret != 0)
 		return ret;
 
+	if (argc > 1)
+		vtype = argv[1];
 	if (argc > 2)
-		vtype = argv[2];
-	if (argc > 3)
-		vvalue = argv[3];
+		vvalue = argv[2];
 
 	return ascli_what_provides (optn_cachepath, vtype, vvalue, optn_details);
 }
@@ -467,24 +610,24 @@ as_client_run_what_provides (const gchar *command, char **argv, int argc)
  *
  * Find components that are in the listed categories.
  */
-static int
-as_client_run_list_categories (const gchar *command, char **argv, int argc)
+static gint
+as_client_run_list_categories (AsCliCommand *cmd, gint argc, gchar **argv)
 {
 	g_autoptr(GOptionContext) opt_context = NULL;
 	gint ret;
 	g_auto(GStrv) categories = NULL;
 
-	opt_context = as_client_new_subcommand_option_context (command, find_options);
+	opt_context = as_client_new_subcommand_option_context (cmd, find_options);
 	g_option_context_add_main_entries (opt_context, data_catalog_options, NULL);
 
-	ret = as_client_option_context_parse (opt_context, command, &argc, &argv);
+	ret = as_client_option_context_parse (opt_context, cmd, &argc, &argv);
 	if (ret != 0)
 		return ret;
 
-	if (argc > 2) {
-		categories = g_new0 (gchar *, argc - 1);
-		for (gint i = 0; i < (argc - 2); i++)
-			categories[i] = g_strdup (argv[i + 2]);
+	if (argc > 1) {
+		categories = g_new0 (gchar *, argc);
+		for (gint i = 0; i < (argc - 1); i++)
+			categories[i] = g_strdup (argv[i + 1]);
 	}
 
 	return ascli_list_categories (optn_cachepath, categories, optn_details, optn_no_cache);
@@ -495,28 +638,28 @@ as_client_run_list_categories (const gchar *command, char **argv, int argc)
  *
  * Validate single metadata files.
  */
-static int
-as_client_run_validate (const gchar *command, char **argv, int argc)
+static gint
+as_client_run_validate (AsCliCommand *cmd, gint argc, gchar **argv)
 {
 	g_autoptr(GOptionContext) opt_context = NULL;
 	gint ret;
 
-	opt_context = as_client_new_subcommand_option_context (command, validate_options);
-	ret = as_client_option_context_parse (opt_context, command, &argc, &argv);
+	opt_context = as_client_new_subcommand_option_context (cmd, validate_options);
+	ret = as_client_option_context_parse (opt_context, cmd, &argc, &argv);
 	if (ret != 0)
 		return ret;
 
 	if (optn_format == NULL) {
-		return ascli_validate_files (&argv[2],
-					     argc - 2,
+		return ascli_validate_files (&argv[1],
+					     argc - 1,
 					     optn_pedantic,
 					     optn_explain,
 					     optn_validate_strict,
 					     !optn_no_net,
 					     optn_issue_overrides);
 	} else {
-		return ascli_validate_files_format (&argv[2],
-						    argc - 2,
+		return ascli_validate_files_format (&argv[1],
+						    argc - 1,
 						    optn_format,
 						    optn_validate_strict,
 						    !optn_no_net,
@@ -530,20 +673,20 @@ as_client_run_validate (const gchar *command, char **argv, int argc)
  * Validate an installed filesystem tree for correct AppStream metadata
  * and .desktop files.
  */
-static int
-as_client_run_validate_tree (const gchar *command, char **argv, int argc)
+static gint
+as_client_run_validate_tree (AsCliCommand *cmd, gint argc, gchar **argv)
 {
 	g_autoptr(GOptionContext) opt_context = NULL;
 	gint ret;
 	const gchar *value = NULL;
 
-	opt_context = as_client_new_subcommand_option_context (command, validate_options);
-	ret = as_client_option_context_parse (opt_context, command, &argc, &argv);
+	opt_context = as_client_new_subcommand_option_context (cmd, validate_options);
+	ret = as_client_option_context_parse (opt_context, cmd, &argc, &argv);
 	if (ret != 0)
 		return ret;
 
-	if (argc > 2)
-		value = argv[2];
+	if (argc > 1)
+		value = argv[1];
 
 	if (optn_format == NULL) {
 		return ascli_validate_tree (value,
@@ -566,24 +709,24 @@ as_client_run_validate_tree (const gchar *command, char **argv, int argc)
  *
  * Print license information.
  */
-static int
-as_client_run_check_license (const gchar *command, char **argv, int argc)
+static gint
+as_client_run_check_license (AsCliCommand *cmd, gint argc, gchar **argv)
 {
 	g_autoptr(GOptionContext) opt_context = NULL;
 	gint ret;
 
-	opt_context = as_client_new_subcommand_option_context (command, NULL);
-	ret = as_client_option_context_parse (opt_context, command, &argc, &argv);
+	opt_context = as_client_new_subcommand_option_context (cmd, NULL);
+	ret = as_client_option_context_parse (opt_context, cmd, &argc, &argv);
 	if (ret != 0)
 		return ret;
 
-	if (argc != 3) {
+	if (argc != 2) {
 		ascli_print_stderr (
 		    /* TRANSLATORS: ascli check-license is missing its parameter */
 		    _("No license, license expression or license exception string was provided."));
 		return 4;
 	}
-	return ascli_check_license (argv[2]);
+	return ascli_check_license (argv[1]);
 }
 
 /**
@@ -591,22 +734,22 @@ as_client_run_check_license (const gchar *command, char **argv, int argc)
  *
  * Test if a component has its relations satisfied on the current system.
  */
-static int
-as_client_run_is_satisfied (const gchar *command, char **argv, int argc)
+static gint
+as_client_run_is_satisfied (AsCliCommand *cmd, gint argc, gchar **argv)
 {
 	g_autoptr(GOptionContext) opt_context = NULL;
 	gint ret;
 	const gchar *fname_or_cid = NULL;
 
-	opt_context = as_client_new_subcommand_option_context (command, find_options);
+	opt_context = as_client_new_subcommand_option_context (cmd, find_options);
 	g_option_context_add_main_entries (opt_context, data_catalog_options, NULL);
 
-	ret = as_client_option_context_parse (opt_context, command, &argc, &argv);
+	ret = as_client_option_context_parse (opt_context, cmd, &argc, &argv);
 	if (ret != 0)
 		return ret;
 
-	if (argc > 2)
-		fname_or_cid = argv[2];
+	if (argc > 1)
+		fname_or_cid = argv[1];
 
 	return ascli_check_is_satisfied (fname_or_cid, optn_cachepath, optn_no_cache);
 }
@@ -616,8 +759,8 @@ as_client_run_is_satisfied (const gchar *command, char **argv, int argc)
  *
  * Check component against a variety of system types.
  */
-static int
-as_client_run_check_syscompat (const gchar *command, char **argv, int argc)
+static gint
+as_client_run_check_syscompat (AsCliCommand *cmd, gint argc, gchar **argv)
 {
 	g_autoptr(GOptionContext) opt_context = NULL;
 	gint ret;
@@ -634,15 +777,15 @@ as_client_run_check_syscompat (const gchar *command, char **argv, int argc)
 		{ NULL }
 	};
 
-	opt_context = as_client_new_subcommand_option_context (command, check_syscompat_options);
+	opt_context = as_client_new_subcommand_option_context (cmd, check_syscompat_options);
 	g_option_context_add_main_entries (opt_context, data_catalog_options, NULL);
 
-	ret = as_client_option_context_parse (opt_context, command, &argc, &argv);
+	ret = as_client_option_context_parse (opt_context, cmd, &argc, &argv);
 	if (ret != 0)
 		return ret;
 
-	if (argc > 2)
-		fname_or_cid = argv[2];
+	if (argc > 1)
+		fname_or_cid = argv[1];
 
 	return ascli_check_syscompat (fname_or_cid, optn_cachepath, optn_no_cache, optn_sc_details);
 }
@@ -652,8 +795,8 @@ as_client_run_check_syscompat (const gchar *command, char **argv, int argc)
  *
  * Place a metadata file in the right directory.
  */
-static int
-as_client_run_put (const gchar *command, char **argv, int argc)
+static gint
+as_client_run_put (AsCliCommand *cmd, gint argc, gchar **argv)
 {
 	g_autoptr(GOptionContext) opt_context = NULL;
 	const gchar *fname = NULL;
@@ -677,15 +820,15 @@ as_client_run_put (const gchar *command, char **argv, int argc)
 		{ NULL }
 	};
 
-	opt_context = as_client_new_subcommand_option_context (command, put_file_options);
-	ret = as_client_option_context_parse (opt_context, command, &argc, &argv);
+	opt_context = as_client_new_subcommand_option_context (cmd, put_file_options);
+	ret = as_client_option_context_parse (opt_context, cmd, &argc, &argv);
 	if (ret != 0)
 		return ret;
 
-	if (argc > 2)
-		fname = argv[2];
-	if (argc > 3) {
-		as_client_print_help_hint (command, argv[3]);
+	if (argc > 1)
+		fname = argv[1];
+	if (argc > 2) {
+		as_client_print_help_hint (cmd->name, argv[2]);
 		return 1;
 	}
 
@@ -718,23 +861,23 @@ const GOptionEntry pkgmanage_options[] = {
  *
  * Install a component by its ID.
  */
-static int
-as_client_run_install (const gchar *command, char **argv, int argc)
+static gint
+as_client_run_install (AsCliCommand *cmd, gint argc, gchar **argv)
 {
 	g_autoptr(GOptionContext) opt_context = NULL;
 	const gchar *value = NULL;
 	AsBundleKind bundle_kind;
 	gint ret;
 
-	opt_context = as_client_new_subcommand_option_context (command, pkgmanage_options);
-	ret = as_client_option_context_parse (opt_context, command, &argc, &argv);
+	opt_context = as_client_new_subcommand_option_context (cmd, pkgmanage_options);
+	ret = as_client_option_context_parse (opt_context, cmd, &argc, &argv);
 	if (ret != 0)
 		return ret;
 
-	if (argc > 2)
-		value = argv[2];
-	if (argc > 3) {
-		as_client_print_help_hint (command, argv[3]);
+	if (argc > 1)
+		value = argv[1];
+	if (argc > 2) {
+		as_client_print_help_hint (cmd->name, argv[2]);
 		return 1;
 	}
 
@@ -753,23 +896,23 @@ as_client_run_install (const gchar *command, char **argv, int argc)
  *
  * Uninstall a component by its ID.
  */
-static int
-as_client_run_remove (const gchar *command, char **argv, int argc)
+static gint
+as_client_run_remove (AsCliCommand *cmd, gint argc, gchar **argv)
 {
 	g_autoptr(GOptionContext) opt_context = NULL;
 	const gchar *value = NULL;
 	AsBundleKind bundle_kind;
 	gint ret;
 
-	opt_context = as_client_new_subcommand_option_context (command, pkgmanage_options);
-	ret = as_client_option_context_parse (opt_context, command, &argc, &argv);
+	opt_context = as_client_new_subcommand_option_context (cmd, pkgmanage_options);
+	ret = as_client_option_context_parse (opt_context, cmd, &argc, &argv);
 	if (ret != 0)
 		return ret;
 
-	if (argc > 2)
-		value = argv[2];
-	if (argc > 3) {
-		as_client_print_help_hint (command, argv[3]);
+	if (argc > 1)
+		value = argv[1];
+	if (argc > 2) {
+		as_client_print_help_hint (cmd->name, argv[2]);
 		return 1;
 	}
 
@@ -788,11 +931,19 @@ as_client_run_remove (const gchar *command, char **argv, int argc)
  *
  * Show diagnostic information.
  */
-static int
-as_client_run_status (const gchar *command, char **argv, int argc)
+static gint
+as_client_run_status (AsCliCommand *cmd, gint argc, gchar **argv)
 {
-	if (argc > 2) {
-		as_client_print_help_hint (command, argv[3]);
+	g_autoptr(GOptionContext) opt_context = NULL;
+	gint ret;
+
+	opt_context = as_client_new_subcommand_option_context (cmd, NULL);
+	ret = as_client_option_context_parse (opt_context, cmd, &argc, &argv);
+	if (ret != 0)
+		return ret;
+
+	if (argc > 1) {
+		as_client_print_help_hint (cmd->name, argv[1]);
 		return 1;
 	}
 
@@ -804,21 +955,21 @@ as_client_run_status (const gchar *command, char **argv, int argc)
  *
  * Show information about the current operating system and device.
  */
-static int
-as_client_run_sysinfo (const gchar *command, char **argv, int argc)
+static gint
+as_client_run_sysinfo (AsCliCommand *cmd, gint argc, gchar **argv)
 {
 	g_autoptr(GOptionContext) opt_context = NULL;
 	gint ret;
 
-	opt_context = as_client_new_subcommand_option_context (command, find_options);
+	opt_context = as_client_new_subcommand_option_context (cmd, find_options);
 	g_option_context_add_main_entries (opt_context, data_catalog_options, NULL);
 
-	ret = as_client_option_context_parse (opt_context, command, &argc, &argv);
+	ret = as_client_option_context_parse (opt_context, cmd, &argc, &argv);
 	if (ret != 0)
 		return ret;
 
-	if (argc > 2) {
-		as_client_print_help_hint (command, argv[3]);
+	if (argc > 1) {
+		as_client_print_help_hint (cmd->name, argv[1]);
 		return 1;
 	}
 
@@ -830,22 +981,22 @@ as_client_run_sysinfo (const gchar *command, char **argv, int argc)
  *
  * Fetch and display user reviews for a software component.
  */
-static int
-as_client_run_list_reviews (const gchar *command, char **argv, int argc)
+static gint
+as_client_run_list_reviews (AsCliCommand *cmd, gint argc, gchar **argv)
 {
 	g_autoptr(GOptionContext) opt_context = NULL;
 	const gchar *cpt_id = NULL;
 	gint ret;
 
-	opt_context = as_client_new_subcommand_option_context (command, reviews_options);
-	ret = as_client_option_context_parse (opt_context, command, &argc, &argv);
+	opt_context = as_client_new_subcommand_option_context (cmd, reviews_options);
+	ret = as_client_option_context_parse (opt_context, cmd, &argc, &argv);
 	if (ret != 0)
 		return ret;
 
-	if (argc > 2)
-		cpt_id = argv[2];
-	if (argc > 3) {
-		as_client_print_help_hint (command, argv[3]);
+	if (argc > 1)
+		cpt_id = argv[1];
+	if (argc > 2) {
+		as_client_print_help_hint (cmd->name, argv[2]);
 		return 1;
 	}
 
@@ -861,22 +1012,22 @@ as_client_run_list_reviews (const gchar *command, char **argv, int argc)
  *
  * Interactively compose and submit a review for a software component.
  */
-static int
-as_client_run_submit_review (const gchar *command, char **argv, int argc)
+static gint
+as_client_run_submit_review (AsCliCommand *cmd, gint argc, gchar **argv)
 {
 	g_autoptr(GOptionContext) opt_context = NULL;
 	const gchar *cpt_id = NULL;
 	gint ret;
 
-	opt_context = as_client_new_subcommand_option_context (command, reviews_options);
-	ret = as_client_option_context_parse (opt_context, command, &argc, &argv);
+	opt_context = as_client_new_subcommand_option_context (cmd, reviews_options);
+	ret = as_client_option_context_parse (opt_context, cmd, &argc, &argv);
 	if (ret != 0)
 		return ret;
 
-	if (argc > 2)
-		cpt_id = argv[2];
-	if (argc > 3) {
-		as_client_print_help_hint (command, argv[3]);
+	if (argc > 1)
+		cpt_id = argv[1];
+	if (argc > 2) {
+		as_client_print_help_hint (cmd->name, argv[2]);
 		return 1;
 	}
 
@@ -888,8 +1039,8 @@ as_client_run_submit_review (const gchar *command, char **argv, int argc)
  *
  * Convert metadata.
  */
-static int
-as_client_run_convert (const gchar *command, char **argv, int argc)
+static gint
+as_client_run_convert (AsCliCommand *cmd, gint argc, gchar **argv)
 {
 	g_autoptr(GOptionContext) opt_context = NULL;
 	gint ret;
@@ -897,15 +1048,15 @@ as_client_run_convert (const gchar *command, char **argv, int argc)
 	const gchar *fname2 = NULL;
 	AsFormatKind mformat;
 
-	opt_context = as_client_new_subcommand_option_context (command, format_options);
-	ret = as_client_option_context_parse (opt_context, command, &argc, &argv);
+	opt_context = as_client_new_subcommand_option_context (cmd, format_options);
+	ret = as_client_option_context_parse (opt_context, cmd, &argc, &argv);
 	if (ret != 0)
 		return ret;
 
+	if (argc > 1)
+		fname1 = argv[1];
 	if (argc > 2)
-		fname1 = argv[2];
-	if (argc > 3)
-		fname2 = argv[3];
+		fname2 = argv[2];
 
 	mformat = as_format_kind_from_string (optn_format);
 	return ascli_convert_data (fname1, fname2, mformat);
@@ -916,25 +1067,25 @@ as_client_run_convert (const gchar *command, char **argv, int argc)
  *
  * Compare versions using AppStream's version comparison algorithm.
  */
-static int
-as_client_run_compare_versions (const gchar *command, char **argv, int argc)
+static gint
+as_client_run_compare_versions (AsCliCommand *cmd, gint argc, gchar **argv)
 {
 	g_autoptr(GOptionContext) opt_context = NULL;
 	gint ret;
 
-	opt_context = as_client_new_subcommand_option_context (command, format_options);
-	ret = as_client_option_context_parse (opt_context, command, &argc, &argv);
+	opt_context = as_client_new_subcommand_option_context (cmd, format_options);
+	ret = as_client_option_context_parse (opt_context, cmd, &argc, &argv);
 	if (ret != 0)
 		return ret;
 
-	if (argc < 4) {
+	if (argc < 3) {
 		ascli_print_stderr (_("You need to provide at least two version numbers to compare as parameters."));
 		return 2;
 	}
 
-	if (argc == 4) {
-		const gchar *ver1 = argv[2];
-		const gchar *ver2 = argv[3];
+	if (argc == 3) {
+		const gchar *ver1 = argv[1];
+		const gchar *ver2 = argv[2];
 		gint comp_res = as_vercmp_simple (ver1, ver2);
 
 		if (comp_res == 0)
@@ -945,13 +1096,13 @@ as_client_run_compare_versions (const gchar *command, char **argv, int argc)
 			g_print ("%s << %s\n", ver1, ver2);
 
 		return 0;
-	} else if (argc == 5) {
+	} else if (argc == 4) {
 		AsRelationCompare compare;
 		gint rc;
 		gboolean res;
-		const gchar *ver1 = argv[2];
-		const gchar *comp_str = argv[3];
-		const gchar *ver2 = argv[4];
+		const gchar *ver1 = argv[1];
+		const gchar *comp_str = argv[2];
+		const gchar *ver2 = argv[3];
 
 		compare = as_relation_compare_from_string (comp_str);
 		if (compare == AS_RELATION_COMPARE_UNKNOWN) {
@@ -1008,8 +1159,8 @@ as_client_run_compare_versions (const gchar *command, char **argv, int argc)
  *
  * Convert metadata.
  */
-static int
-as_client_run_new_template (const gchar *command, char **argv, int argc)
+static gint
+as_client_run_new_template (AsCliCommand *cmd, gint argc, gchar **argv)
 {
 	g_autoptr(GOptionContext) opt_context = NULL;
 	g_autoptr(GString) desc_str = NULL;
@@ -1041,17 +1192,17 @@ as_client_run_new_template (const gchar *command, char **argv, int argc)
 	for (i = 1; i < AS_COMPONENT_KIND_LAST; i++)
 		g_string_append_printf (desc_str, " • %s\n", as_component_kind_to_string (i));
 
-	opt_context = as_client_new_subcommand_option_context (command, newtemplate_options);
+	opt_context = as_client_new_subcommand_option_context (cmd, newtemplate_options);
 	g_option_context_set_description (opt_context, desc_str->str);
 
-	ret = as_client_option_context_parse (opt_context, command, &argc, &argv);
+	ret = as_client_option_context_parse (opt_context, cmd, &argc, &argv);
 	if (ret != 0)
 		return ret;
 
+	if (argc > 1)
+		cpt_kind_str = argv[1];
 	if (argc > 2)
-		cpt_kind_str = argv[2];
-	if (argc > 3)
-		out_fname = argv[3];
+		out_fname = argv[2];
 
 	return ascli_create_metainfo_template (out_fname, cpt_kind_str, optn_desktop_file);
 }
@@ -1061,8 +1212,8 @@ as_client_run_new_template (const gchar *command, char **argv, int argc)
  *
  * Create desktop-entry file from metainfo file.
  */
-static int
-as_client_run_make_desktop_file (const gchar *command, char **argv, int argc)
+static gint
+as_client_run_make_desktop_file (AsCliCommand *cmd, gint argc, gchar **argv)
 {
 	g_autoptr(GOptionContext) opt_context = NULL;
 	const gchar *optn_exec_command = NULL;
@@ -1080,15 +1231,15 @@ as_client_run_make_desktop_file (const gchar *command, char **argv, int argc)
 		{ NULL }
 	};
 
-	opt_context = as_client_new_subcommand_option_context (command, make_desktop_file_options);
-	ret = as_client_option_context_parse (opt_context, command, &argc, &argv);
+	opt_context = as_client_new_subcommand_option_context (cmd, make_desktop_file_options);
+	ret = as_client_option_context_parse (opt_context, cmd, &argc, &argv);
 	if (ret != 0)
 		return ret;
 
+	if (argc > 1)
+		mi_fname = argv[1];
 	if (argc > 2)
-		mi_fname = argv[2];
-	if (argc > 3)
-		de_fname = argv[3];
+		de_fname = argv[2];
 
 	return ascli_make_desktop_entry_file (mi_fname, de_fname, optn_exec_command);
 }
@@ -1098,8 +1249,8 @@ as_client_run_make_desktop_file (const gchar *command, char **argv, int argc)
  *
  * Convert NEWS file to metainfo data.
  */
-static int
-as_client_run_news_to_metainfo (const gchar *command, char **argv, int argc)
+static gint
+as_client_run_news_to_metainfo (AsCliCommand *cmd, gint argc, gchar **argv)
 {
 	g_autoptr(GOptionContext) opt_context = NULL;
 	const gchar *optn_format_text = NULL;
@@ -1135,17 +1286,17 @@ as_client_run_news_to_metainfo (const gchar *command, char **argv, int argc)
 		{ NULL }
 	};
 
-	opt_context = as_client_new_subcommand_option_context (command, news_to_metainfo_options);
-	ret = as_client_option_context_parse (opt_context, command, &argc, &argv);
+	opt_context = as_client_new_subcommand_option_context (cmd, news_to_metainfo_options);
+	ret = as_client_option_context_parse (opt_context, cmd, &argc, &argv);
 	if (ret != 0)
 		return ret;
 
+	if (argc > 1)
+		news_fname = argv[1];
 	if (argc > 2)
-		news_fname = argv[2];
+		mi_fname = argv[2];
 	if (argc > 3)
-		mi_fname = argv[3];
-	if (argc > 4)
-		out_fname = argv[4];
+		out_fname = argv[3];
 
 	return ascli_news_to_metainfo (news_fname,
 				       mi_fname,
@@ -1160,8 +1311,8 @@ as_client_run_news_to_metainfo (const gchar *command, char **argv, int argc)
  *
  * Convert metainfo data to NEWS file.
  */
-static int
-as_client_run_metainfo_to_news (const gchar *command, char **argv, int argc)
+static gint
+as_client_run_metainfo_to_news (AsCliCommand *cmd, gint argc, gchar **argv)
 {
 	g_autoptr(GOptionContext) opt_context = NULL;
 	const gchar *optn_format_text = NULL;
@@ -1179,15 +1330,15 @@ as_client_run_metainfo_to_news (const gchar *command, char **argv, int argc)
 		{ NULL }
 	};
 
-	opt_context = as_client_new_subcommand_option_context (command, metainfo_to_news_options);
-	ret = as_client_option_context_parse (opt_context, command, &argc, &argv);
+	opt_context = as_client_new_subcommand_option_context (cmd, metainfo_to_news_options);
+	ret = as_client_option_context_parse (opt_context, cmd, &argc, &argv);
 	if (ret != 0)
 		return ret;
 
+	if (argc > 1)
+		mi_fname = argv[1];
 	if (argc > 2)
-		mi_fname = argv[2];
-	if (argc > 3)
-		news_fname = argv[3];
+		news_fname = argv[2];
 
 	return ascli_metainfo_to_news (mi_fname, news_fname, optn_format_text);
 }
@@ -1207,8 +1358,8 @@ as_client_check_compose_available (void)
  * Delegate the "compose" command to the appstream-compose binary,
  * if it is available.
  */
-static int
-as_client_run_compose (const gchar *command, char **argv, int argc)
+static gint
+as_client_run_compose (AsCliCommand *cmd, gint argc, gchar **argv)
 {
 	const gchar *ascompose_exe = LIBEXECDIR "/appstreamcli-compose";
 	g_autofree const gchar **asc_argv = NULL;
@@ -1228,15 +1379,10 @@ as_client_run_compose (const gchar *command, char **argv, int argc)
 		return 4;
 	}
 
-	asc_argv = g_new0 (const gchar *, argc + 2);
+	asc_argv = g_new0 (const gchar *, argc + 1);
 	asc_argv[0] = ascompose_exe;
-	if (argc < 2) {
-		/* TRANSLATORS: Unexpected number of parameters on the command-line */
-		ascli_print_stderr (_("Invalid number of parameters"));
-		return 5;
-	}
-	for (gint i = 2; i < argc; i++)
-		asc_argv[i - 1] = argv[i];
+	for (gint i = 1; i < argc; i++)
+		asc_argv[i] = argv[i];
 
 #ifdef G_OS_WIN32
 	if (!g_spawn_sync (ascompose_exe,
@@ -1269,68 +1415,6 @@ as_client_run_compose (const gchar *command, char **argv, int argc)
 #endif
 }
 
-typedef gboolean (*AsCliCommandCb) (const gchar *command, gchar **argv, gint argc);
-
-typedef struct {
-	gchar *name;
-	gchar *alias;
-	gchar *arguments;
-	gchar *summary;
-	guint block_id;
-	AsCliCommandCb callback;
-} AsCliCommandItem;
-
-/**
- * ascli_command_item_free:
- */
-static void
-ascli_command_item_free (AsCliCommandItem *item)
-{
-	g_free (item->name);
-	g_free (item->alias);
-	g_free (item->arguments);
-	g_free (item->summary);
-	g_free (item);
-}
-
-/**
- * ascli_add_cmd:
- */
-static void
-ascli_add_cmd (GPtrArray *commands,
-	       guint block_id,
-	       const gchar *name,
-	       const gchar *alias,
-	       const gchar *arguments,
-	       const gchar *summary,
-	       AsCliCommandCb callback)
-{
-	AsCliCommandItem *item;
-
-	g_return_if_fail (name != NULL);
-	g_return_if_fail (summary != NULL);
-	g_return_if_fail (callback != NULL);
-
-	item = g_new0 (AsCliCommandItem, 1);
-	item->block_id = block_id;
-	item->name = g_strdup (name);
-	if (alias != NULL) {
-		g_autofree gchar *tmp = NULL;
-		/* TRANSLATORS: this is a (usually shorter) command alias, shown after the command summary text */
-		tmp = g_strdup_printf (_("(Alias: '%s')"), alias);
-		item->summary = g_strconcat (summary, " ", tmp, NULL);
-		item->alias = g_strdup (alias);
-	} else {
-		item->summary = g_strdup (summary);
-	}
-	if (arguments == NULL)
-		item->arguments = g_strdup ("");
-	else
-		item->arguments = g_strdup (arguments);
-	item->callback = callback;
-	g_ptr_array_add (commands, item);
-}
-
 /**
  * as_client_get_help_summary:
  **/
@@ -1354,14 +1438,14 @@ as_client_get_help_summary (GPtrArray *commands)
 	for (guint i = 0; i < commands->len; i++) {
 		guint nlen;
 		guint *elen_p;
-		AsCliCommandItem *item = (AsCliCommandItem *) g_ptr_array_index (commands, i);
+		AsCliCommand *cmd = g_ptr_array_index (commands, i);
 
-		while (blocks_maxlen->len < (item->block_id + 1)) {
+		while (blocks_maxlen->len < (cmd->block_id + 1)) {
 			guint min_len = 26;
 			g_array_append_val (blocks_maxlen, min_len);
 		}
-		nlen = strlen (item->name) + strlen (item->arguments);
-		elen_p = &g_array_index (blocks_maxlen, guint, item->block_id);
+		nlen = strlen (cmd->name) + strlen (cmd->arguments);
+		elen_p = &g_array_index (blocks_maxlen, guint, cmd->block_id);
 		if (nlen > *elen_p)
 			*elen_p = nlen;
 	}
@@ -1371,28 +1455,28 @@ as_client_get_help_summary (GPtrArray *commands)
 		guint block_maxlen;
 		guint synopsis_len;
 		g_autofree gchar *summary_wrap = NULL;
-		AsCliCommandItem *item = (AsCliCommandItem *) g_ptr_array_index (commands, i);
+		AsCliCommand *cmd = g_ptr_array_index (commands, i);
 
 		/* don't display compose help if ascompose binary was not found */
-		if (!compose_available && g_strcmp0 (item->name, "compose") == 0)
+		if (!compose_available && g_strcmp0 (cmd->name, "compose") == 0)
 			continue;
 
-		if (item->block_id != current_block_id) {
-			current_block_id = item->block_id;
+		if (cmd->block_id != current_block_id) {
+			current_block_id = cmd->block_id;
 			g_string_append (string, "\n");
 		}
 
-		block_maxlen = g_array_index (blocks_maxlen, guint, item->block_id);
-		term_len = strlen (item->name) + strlen (item->arguments);
+		block_maxlen = g_array_index (blocks_maxlen, guint, cmd->block_id);
+		term_len = strlen (cmd->name) + strlen (cmd->arguments);
 
 		g_string_append_printf (string,
 					"  %s %s%*s",
-					item->name,
-					item->arguments,
+					cmd->name,
+					cmd->arguments,
 					(block_maxlen - term_len) + 1,
 					"");
 		synopsis_len = block_maxlen + 3 + 1;
-		summary_wrap = ascli_format_long_output (item->summary,
+		summary_wrap = ascli_format_long_output (cmd->summary,
 							 synopsis_len + 72,
 							 synopsis_len + 2);
 		g_strstrip (summary_wrap);
@@ -1407,75 +1491,36 @@ as_client_get_help_summary (GPtrArray *commands)
 }
 
 /**
- * ascli_run_command:
+ * ascli_dispatch_command:
  *
- * Run a subcommand with the given parameters.
+ * Run the subcommand selected by the command-line arguments.
  */
 static gint
-ascli_run_command (GPtrArray *commands, const gchar *command, char **argv, int argc)
+ascli_dispatch_command (GPtrArray *commands, gint argc, gchar **argv)
 {
-	for (guint i = 0; i < commands->len; i++) {
-		AsCliCommandItem *item = (AsCliCommandItem *) g_ptr_array_index (commands, i);
+	AsCliCommand *cmd = ascli_find_command (commands, argv[1]);
 
-		if (g_strcmp0 (command, item->name) == 0)
-			return item->callback (item->name, argv, argc);
-		if ((item->alias != NULL) && (g_strcmp0 (command, item->alias) == 0))
-			return item->callback (item->name, argv, argc);
+	if (cmd == NULL) {
+		ascli_print_stderr (
+		    /* TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated. */
+		    _("Command '%s' is unknown. Run '%s --help' for a list of available commands."),
+		      argv[1],
+		      ASCLI_BIN_NAME);
+		return 1;
 	}
 
-	ascli_print_stderr (
-	    /* TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated. */
-	    _("Command '%s' is unknown. Run '%s --help' for a list of available commands."),
-	      command,
-	      argv[0]);
-	return 1;
+	/* let the subcommand see its own name as first argument, just like main() does */
+	return cmd->func (cmd, argc - 1, argv + 1);
 }
 
 /**
- * as_client_run:
+ * as_client_register_commands:
+ *
+ * Register all subcommands that appstreamcli supports.
  */
-static int
-as_client_run (char **argv, int argc)
+static void
+as_client_register_commands (GPtrArray *commands)
 {
-	g_autoptr(GOptionContext) opt_context = NULL;
-	g_autoptr(GPtrArray) commands = NULL;
-	g_autoptr(AsProfile) profile = NULL;
-	AsProfileTask *ptask;
-	gboolean enable_profiling = FALSE;
-	gint retval = 0;
-	const gchar *command = NULL;
-
-	const GOptionEntry client_options[] = {
-		{ "version",
-		  0, 0,
-		  G_OPTION_ARG_NONE, &optn_show_version,
-		  /* TRANSLATORS: ascli flag description for: --version */
-		  _("Show the program version."), NULL },
-		  { "verbose",
-		    (gchar) 0,
-		    0, G_OPTION_ARG_NONE,
-		    &optn_verbose_mode,
-		    /* TRANSLATORS: ascli flag description for: --verbose */
-		    _("Show extra debugging information."), NULL },
-		    { "no-color",
-		      (gchar) 0,
-		      0, G_OPTION_ARG_NONE,
-		      &optn_no_color,
-		      /* TRANSLATORS: ascli flag description for: --no-color */
-		      _("Don\'t show colored output."), NULL },
-		      { "profile",
-			'\0', 0,
-			G_OPTION_ARG_NONE, &enable_profiling,
-			/* TRANSLATORS: ascli flag description for: --profile */
-			_("Enable profiling"), NULL },
-			{ NULL }
-	 };
-
-	opt_context = g_option_context_new ("- AppStream CLI.");
-	g_option_context_add_main_entries (opt_context, client_options, NULL);
-
-	/* register all available subcommands */
-	commands = g_ptr_array_new_with_free_func ((GDestroyNotify) ascli_command_item_free);
 	ascli_add_cmd (commands,
 		       0,
 		       "search",
@@ -1681,29 +1726,63 @@ as_client_run (char **argv, int argc)
 			       _("Compose and submit an online review for a software component."),
 				 as_client_run_submit_review);
 	}
+}
+
+/**
+ * as_client_wants_subcommand_help:
+ *
+ * Check whether help was requested for a subcommand, rather than for
+ * appstreamcli itself. Help belongs to a subcommand if it was requested
+ * after the subcommand name was given.
+ */
+static gboolean
+as_client_wants_subcommand_help (gint argc, gchar **argv)
+{
+	gboolean have_command = FALSE;
+
+	for (gint i = 1; i < argc; i++) {
+		if (!g_str_has_prefix (argv[i], "-")) {
+			/* subcommands are never prefixed with "-" */
+			have_command = TRUE;
+			continue;
+		}
+		if (have_command &&
+		    (g_strcmp0 (argv[i], "--help") == 0 || g_strcmp0 (argv[i], "-h") == 0))
+			return TRUE;
+	}
+
+	return FALSE;
+}
+
+/**
+ * as_client_run:
+ */
+static gint
+as_client_run (gint argc, gchar **argv)
+{
+	g_autoptr(GOptionContext) opt_context = NULL;
+	g_autoptr(GPtrArray) commands = NULL;
+	g_autoptr(AsProfile) profile = NULL;
+	AsProfileTask *ptask;
+	gboolean show_global_help;
+	gint retval = 0;
+
+	/* register all available subcommands */
+	commands = g_ptr_array_new_with_free_func ((GDestroyNotify) ascli_command_free);
+	as_client_register_commands (commands);
+
+	opt_context = g_option_context_new ("COMMAND");
+	g_option_context_add_main_entries (opt_context, ascli_global_options, NULL);
 
 	/* we handle the unknown options later in the individual subcommands */
 	g_option_context_set_ignore_unknown_options (opt_context, TRUE);
 
-	if (argc < 2) {
-		/* TRANSLATORS: ascli has been run without command. */
-		g_printerr ("%s\n", _("You need to specify a command."));
-		ascli_print_stderr (
-		    _("Run '%s --help' to see a full list of available command line options."),
-		      argv[0]);
-		return 1;
-	}
-	command = argv[1];
-
-	/* only attempt to show global help if we don't have a subcommand as first parameter (subcommands are never prefixed with "-") */
-	if (g_str_has_prefix (command, "-")) {
-		/* set the summary text */
-		g_autofree gchar *summary = NULL;
-		summary = as_client_get_help_summary (commands);
+	/* a subcommand handles its own --help, we only display the global help here */
+	show_global_help = !as_client_wants_subcommand_help (argc, argv);
+	g_option_context_set_help_enabled (opt_context, show_global_help);
+	if (show_global_help) {
+		g_autofree gchar *summary = as_client_get_help_summary (commands);
 		g_option_context_set_summary (opt_context, summary);
-		g_option_context_set_help_enabled (opt_context, TRUE);
-	} else {
-		g_option_context_set_help_enabled (opt_context, FALSE);
 	}
 
 	retval = as_client_option_context_parse (opt_context, NULL, &argc, &argv);
@@ -1722,6 +1801,15 @@ as_client_run (char **argv, int argc)
 			      as_version_string ());
 		}
 		return 0;
+	}
+
+	if (argc < 2) {
+		/* TRANSLATORS: ascli has been run without command. */
+		g_printerr ("%s\n", _("You need to specify a command."));
+		ascli_print_stderr (
+		    _("Run '%s --help' to see a full list of available command line options."),
+		      ASCLI_BIN_NAME);
+		return 1;
 	}
 
 	/* just a hack, we might need proper message handling later */
@@ -1761,12 +1849,12 @@ as_client_run (char **argv, int argc)
 	profile = as_profile_new ();
 
 	/* run subcommand */
-	ptask = as_profile_start (profile, "%s: %s", argv[0], command);
-	retval = ascli_run_command (commands, command, argv, argc);
+	ptask = as_profile_start (profile, "%s: %s", ASCLI_BIN_NAME, argv[1]);
+	retval = ascli_dispatch_command (commands, argc, argv);
 	as_profile_task_free (ptask);
 
 	/* profile */
-	if (enable_profiling)
+	if (optn_enable_profiling)
 		as_profile_dump (profile);
 
 	return retval;
@@ -1784,7 +1872,7 @@ main (int argc, char **argv)
 	textdomain (GETTEXT_PACKAGE);
 
 	/* run the application */
-	code = as_client_run (argv, argc);
+	code = as_client_run (argc, argv);
 
 	return code;
 }
