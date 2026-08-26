@@ -600,6 +600,38 @@ test_compose_hints (void)
 	    ==,
 	    "This is an explanation for the compose testsuite which contains 3 placeholders, "
 	    "including one {odd} one and one left {{invalid}} intentionally.");
+	g_clear_pointer (&tmp, g_free);
+
+	/* markup in the explanation template is ours and must survive, while the values we
+	 * fill it with come from metadata and must never be able to inject markup */
+	asc_hint_set_explanation_template (
+	    hint,
+	    "The component <code>{{cid}}</code> is bad.<br/>See "
+	    "<a href=\"https://example.com/docs\">the docs</a>, or "
+	    "<a href=\"https://example.org\">https://example.org</a>, and use "
+	    "<em>valid</em> &lt;id/&gt; values (A &amp; B).");
+	asc_hint_add_explanation_var (hint, "cid", "<script>alert('pwn')</script> & \"friends\"");
+
+	/* the default output is markup, so the values have to be escaped in it */
+	tmp = asc_hint_format_explanation (hint);
+	g_assert_cmpstr (tmp,
+			 ==,
+			 "The component <code>&lt;script&gt;alert(&apos;pwn&apos;)&lt;/script&gt; "
+			 "&amp; &quot;friends&quot;</code> is bad.<br/>See "
+			 "<a href=\"https://example.com/docs\">the docs</a>, or "
+			 "<a href=\"https://example.org\">https://example.org</a>, and use "
+			 "<em>valid</em> &lt;id/&gt; values (A &amp; B).");
+	g_clear_pointer (&tmp, g_free);
+
+	/* the plain-text version resolves the markup of the template, and inserts the
+	 * values just as they are */
+	tmp = asc_hint_format_explanation_plain (hint);
+	g_assert_cmpstr (tmp,
+			 ==,
+			 "The component `<script>alert('pwn')</script> & \"friends\"` is bad.\n"
+			 "See the docs (https://example.com/docs), or https://example.org, "
+			 "and use valid <id/> values (A & B).");
+	g_clear_pointer (&tmp, g_free);
 }
 
 /**

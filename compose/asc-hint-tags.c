@@ -100,7 +100,7 @@ AscHintTagStatic asc_hint_tag_list[] =  {
 	  "The MetaInfo file does not seem to be licensed under a permissive license that is in the allowed set for AppStream metadata. "
 	  "Valid permissive licenses include FSFAP, CC0-1.0 or MIT. "
 	  "Using one of the vetted permissive licenses is required to allow distributors to include the metadata in mixed data collections "
-	  "without the risk of license violations due to mixing incompatible licenses."
+	  "without the risk of license violations due to mixing incompatible licenses. "
 	  "We only support a limited set of licenses that went through legal review. Refer to "
 	  "<a href=\"https://www.freedesktop.org/software/appstream/docs/chap-Metadata.html#tag-metadata_license\">the specification documentation</a> "
 	  "for information on how to make '{{license}}' a valid expression, or consider replacing the license with one of the recognized licenses directly."
@@ -108,7 +108,7 @@ AscHintTagStatic asc_hint_tag_list[] =  {
 
 	{ "metainfo-unknown-type",
 	  AS_ISSUE_SEVERITY_ERROR,
-	  "The component has an unknown type. Please make sure this component type is mentioned in the specification, and that the"
+	  "The component has an unknown type. Please make sure this component type is mentioned in the specification, and that the "
 	  "<code>type=</code> property of the component root-node in the MetaInfo XML file does not contain a spelling mistake."
 	},
 
@@ -169,7 +169,7 @@ AscHintTagStatic asc_hint_tag_list[] =  {
 	  AS_ISSUE_SEVERITY_ERROR,
 	  "The icon <em>{{icon_fname}}</em> was not found in the archive. This issue can have multiple reasons, "
 	  "like the icon being in a wrong directory or not being available in a suitable size (at least 64x64px). "
-	  "To make the icon easier to find, place it in <code>/usr/share/icons/hicolor/&lt;size&gt;/apps</code> and ensure the <code>Icon=</code> value"
+	  "To make the icon easier to find, place it in <code>/usr/share/icons/hicolor/&lt;size&gt;/apps</code> and ensure the <code>Icon=</code> value "
 	  "of the desktop-entry file is set correctly."
 	},
 
