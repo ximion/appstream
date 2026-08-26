@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2026-08-21 12:34+0200\n"
+"POT-Creation-Date: 2026-08-26 10:24+0200\n"
 "PO-Revision-Date: 2024-05-10 06:59+0000\n"
 "Last-Translator: Scrambled777 <weblate.scrambled777@simplelogin.com>\n"
 "Language-Team: Hindi <https://hosted.weblate.org/projects/appstream/translations/hi/>\n"
@@ -35,7 +35,7 @@ msgstr "AppStream एक मेटाडेटा विनिर्देश �
 msgid "The <em>appstreamcli</em> command-line tool allows to read, write, and transform AppStream XML or YAML metadata as well as to validate it for compliance with the specification. It also provides easy access to the system metadata pool, for example to query for software that provides a specific Mediatype handler or for installing software by its component identifier."
 msgstr "<em>appstreamcli</em> कमांड-लाइन टूल AppStream XML या YAML मेटाडेटा को पढ़ने, लिखने और बदलने के साथ-साथ विनिर्देश के अनुपालन के लिए इसे मान्य करने की अनुमति देता है। यह सिस्टम मेटाडेटा पूल तक आसान पहुंच भी प्रदान करता है, उदाहरण के लिए सॉफ्टवेयर के लिए क्वेरी करना जो एक विशिष्ट Mediatype संचालक प्रदान करता है या इसके घटक पहचानकर्ता द्वारा सॉफ्टवेयर स्थापित करना।"
 
-#: src/as-cache.c:906
+#: src/as-cache.c:932
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "कैशे स्थान '%s' लिखने योग्य नहीं है।"
@@ -1089,25 +1089,25 @@ msgstr "Microsoft Windows"
 msgid "app;application;package;program;programme;suite;tool"
 msgstr "ऐप;अनुप्रयोग;पैकेज;प्रोग्राम;सूट;टूल"
 
-#: src/as-pool.c:1193
+#: src/as-pool.c:1209
 msgid "Metadata files have errors:"
 msgstr "मेटाडेटा फाइलों में त्रुटियां हैं:"
 
-#: src/as-pool.c:2480
+#: src/as-pool.c:2502
 msgid "Group"
 msgstr "समूह"
 
-#: src/as-pool.c:2535
+#: src/as-pool.c:2557
 msgid "Iconsets"
 msgstr "चिह्नसमूह"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
-#: src/as-pool.c:2583
+#: src/as-pool.c:2605
 msgid "Data from locally installed software"
 msgstr "स्थानीय रूप से स्थापित सॉफ्टवेयर से डेटा"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
-#: src/as-pool.c:2586
+#: src/as-pool.c:2608
 msgid "Software catalog data"
 msgstr "सॉफ्टवेयर कैटलॉग डेटा"
 
@@ -1151,7 +1151,7 @@ msgstr "रनटाइम फर्मवेयर"
 msgid "Flashed Firmware"
 msgstr "फ्लैश किया गया फर्मवेयर"
 
-#: src/as-provided.c:158 tools/ascli-actions-misc.c:843
+#: src/as-provided.c:158 tools/ascli-actions-misc.c:957
 msgid "Component"
 msgstr "घटक"
 
@@ -1659,7 +1659,9 @@ msgid "This element (paragraph, list, etc.) of a <description/> tag must not be 
 msgstr "<description/> टैग के इस तत्व (अनुच्छेद, सूची, आदि) को कैटलॉग मेटाडेटा में व्यक्तिगत रूप से स्थानीयकृत नहीं किया जाना चाहिए। इसके बजाय पूरे <description/> टैग को स्थानीयकृत करें। AppStream मेटाडेटा सूचीपत्र उत्पादक (उदा. `appstream-generator`) डेटा संकलित करते समय पहले से ही सही काम करेगा।"
 
 #: src/as-validator-issue-tag.h:64
-msgid "AppStream descriptions support only a limited set of tags to format text: Paragraphs (<p/>) and lists (<ul/>, <ol/>). This description markup contains an invalid XML tag that would not be rendered correctly in applications supporting the metainfo specification."
+#, fuzzy
+#| msgid "AppStream descriptions support only a limited set of tags to format text: Paragraphs (<p/>) and lists (<ul/>, <ol/>). This description markup contains an invalid XML tag that would not be rendered correctly in applications supporting the metainfo specification."
+msgid "AppStream descriptions support only a limited set of tags to format text: Paragraphs (<p/>), section headings (<heading/>) and lists (<ul/>, <ol/>). This description markup contains an invalid XML tag that would not be rendered correctly in applications supporting the metainfo specification."
 msgstr "AppStream विवरण पाठ को प्रारूपित करने के लिए टैग के केवल सीमित सेट का समर्थन करते हैं: अनुच्छेद (<p/>) और सूचियां (<ul/>, <ol/>)। इस विवरण मार्कअप में एक अमान्य XML टैग है जो metainfo विनिर्देश का समर्थन करने वाले अनुप्रयोगों में सही ढंग से प्रस्तुत नहीं किया जाएगा।"
 
 #: src/as-validator-issue-tag.h:70
@@ -1682,47 +1684,57 @@ msgstr "गणना में केवल उप-तत्व के रूप
 msgid "The enumeration must not be translated as a whole. In MetaInfo files, translate individual items (<li/> elements) instead."
 msgstr "गणना का संपूर्ण अनुवाद नहीं किया जाना चाहिए। MetaInfo फाइलों में, इसके बजाय अलग-अलग वस्तुओं (<li/> तत्व) का अनुवाद करें।"
 
-#: src/as-validator-issue-tag.h:98
+#. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
+#: src/as-validator-issue-tag.h:99
+msgid "Section headings (`description/heading`) are plain text and must not contain any markup, not even <em/> or <code/>. The markup will be removed when the metadata is read."
+msgstr ""
+
+#. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
+#: src/as-validator-issue-tag.h:106
+msgid "This section heading (`description/heading`) is very long and will likely not be displayed properly everywhere. A heading should be a short label for the section that follows it, and be <= 80 characters long. Use a paragraph (<p/>) for longer text."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:113
 msgid "The first `description/p` paragraph of this component might be too short (< 80 characters). Please consider starting with a longer paragraph to improve how the description looks like in software centers and to provide more detailed information on this component immediately in the first paragraph."
 msgstr "इस घटक का पहला `description/p` अनुच्छेद बहुत छोटा हो सकता है (<80 अक्षर)। सॉफ्टवेयर केंद्रों में विवरण कैसा दिखता है इसे बेहतर बनाने के लिए और पहले अनुच्छेद में तुरंत इस घटक पर अधिक विस्तृत जानकारी प्रदान करने के लिए कृपया एक लंबे अनुच्छेद से शुरुआत करने पर विचार करें।"
 
-#: src/as-validator-issue-tag.h:105
+#: src/as-validator-issue-tag.h:120
 msgid "The description line does not start with a capitalized word, project name or number."
 msgstr "विवरण पंक्ति बड़े अक्षर, परियोजना नाम या संख्या से शुरू नहीं होती है।"
 
-#: src/as-validator-issue-tag.h:110
+#: src/as-validator-issue-tag.h:125
 msgid "The description contains a web URL in plain text. This is not allowed, please use the <url/> tag instead to share links."
 msgstr "विवरण में सादे पाठ में एक वेब URL शामिल है। इसकी अनुमति नहीं है, कृपया लिंक साझा करने के लिए <url/> टैग का उपयोग करें।"
 
-#: src/as-validator-issue-tag.h:115
+#: src/as-validator-issue-tag.h:130
 msgid "The description element does not contain any valid content (paragraphs, enumerations, etc.)."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:120
+#: src/as-validator-issue-tag.h:135
 msgid "The description element contains raw text that is not in any paragraph or other permitted tag. This is not allowed and the additional text may be ignored by parsers or raise errors."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:126
+#: src/as-validator-issue-tag.h:141
 msgid "This tag is not translatable."
 msgstr "यह टैग अनुवाद योग्य नहीं है।"
 
-#: src/as-validator-issue-tag.h:131
+#: src/as-validator-issue-tag.h:146
 msgid "This tag must only appear once in this context. Having multiple tags of this kind is not valid."
 msgstr "इस संदर्भ में यह टैग केवल एक बार प्रदर्शित होना चाहिए। इस प्रकार के अनेक टैग रखना मान्य नहीं है।"
 
-#: src/as-validator-issue-tag.h:136
+#: src/as-validator-issue-tag.h:151
 msgid "The mentioned tag is empty, which is highly likely not intended as it should have content."
 msgstr "उल्लिखित टैग खाली है, जिसकी अत्यधिक संभावना है क्योंकि इसमें सामग्री होनी चाहिए।"
 
-#: src/as-validator-issue-tag.h:141
+#: src/as-validator-issue-tag.h:156
 msgid "The mentioned tag has text content, even though it must not contain text."
 msgstr "उल्लिखित टैग में पाठ सामग्री है, भले ही इसमें पाठ नहीं होना चाहिए।"
 
-#: src/as-validator-issue-tag.h:146
+#: src/as-validator-issue-tag.h:161
 msgid "The component ID is required to follow a reverse domain-name scheme for its name. See the AppStream specification for details."
 msgstr "घटक ID को अपने नाम के लिए रिवर्स डोमेन-नाम योजना का पालन करना आवश्यक है। विवरण के लिए AppStream विनिर्देश देखें।"
 
-#: src/as-validator-issue-tag.h:151
+#: src/as-validator-issue-tag.h:166
 msgid ""
 "The component ID is not a reverse domain-name. Please update the ID to avoid future issues and be compatible with all AppStream implementations.\n"
 "You may also consider to update the name of the accompanying .desktop file to follow the latest version of the Desktop-Entry specification and use a rDNS name for it as well. In any case, do not forget to mention the new desktop-entry in a <launchable/> tag for this component to keep the application launchable from software centers and the .desktop file data associated with the metainfo data."
@@ -1730,875 +1742,875 @@ msgstr ""
 "घटक ID कोई रिवर्स डोमेन-नाम नहीं है। कृपया भविष्य की समस्याओं से बचने और सभी AppStream कार्यान्वयन के साथ संगत होने के लिए ID को अद्यतन करें।\n"
 "आप डेस्कटॉप-प्रविष्टि विनिर्देश के नवीनतम संस्करण का पालन करने के लिए साथ वाली .desktop फाइल के नाम को अद्यतन करने पर भी विचार कर सकते हैं और इसके लिए rDNS नाम का भी उपयोग कर सकते हैं। किसी भी स्थिति में, इस घटक के लिए <launchable/> टैग में नई डेस्कटॉप-प्रविष्टि का उल्लेख करना न भूलें ताकि अनुप्रयोग को सॉफ्टवेयर केंद्रों से लॉन्च किया जा सके और metainfo डेटा से जुड़े .desktop फाइल डेटा को बनाए रखा जा सके।"
 
-#: src/as-validator-issue-tag.h:159
+#: src/as-validator-issue-tag.h:174
 msgid "The component ID might not follow the reverse domain-name schema (the TLD used by it is not known to the validator)."
 msgstr "घटक ID रिवर्स डोमेन-नाम स्कीमा का पालन नहीं कर सकती है (इसके द्वारा उपयोग किया जाने वाला TLD सत्यापनकर्ता को ज्ञात नहीं है)।"
 
-#: src/as-validator-issue-tag.h:164
+#: src/as-validator-issue-tag.h:179
 msgid "The component ID contains an invalid character. Only ASCII characters, dots and numbers are permitted."
 msgstr "घटक ID में एक अमान्य वर्ण है। केवल ASCII वर्ण, बिंदु और संख्याओं की अनुमति है।"
 
-#: src/as-validator-issue-tag.h:169
+#: src/as-validator-issue-tag.h:184
 msgid "The component ID starts with punctuation. This is not allowed."
 msgstr "घटक ID विराम चिह्न से प्रारंभ होती है। इसकी अनुमति नहीं है।"
 
-#: src/as-validator-issue-tag.h:174
+#: src/as-validator-issue-tag.h:189
 msgid "The component ID contains a hyphen/minus in its domain part. Using a hyphen is strongly discouraged to improve interoperability with other tools such as D-Bus. A good option is to replace any hyphens with underscores (`_`). Hyphens are only allowed in the last segment of a component ID."
 msgstr "घटक ID में इसके डोमेन भाग में एक हाइफ़न/माइनस होता है। D-Bus जैसे अन्य उपकरणों के साथ अंतरसंचालनीयता में सुधार के लिए हाइफ़न का उपयोग करने की दृढ़ता से अनुशंसा नहीं की जाती है। एक अच्छा विकल्प किसी भी हाइफ़न को अंडरस्कोर (`_`) से बदलना है। हाइफ़न की अनुमति केवल घटक ID के अंतिम खंड में है।"
 
-#: src/as-validator-issue-tag.h:180
+#: src/as-validator-issue-tag.h:195
 msgid "The component ID contains a segment starting with a number. Starting a segment of the reverse-DNS ID with a number is strongly discouraged, to keep interoperability with other tools such as D-Bus. Ideally, prefix these segments with an underscore."
 msgstr "घटक ID में एक संख्या से शुरू होने वाला एक खंड होता है। D-Bus जैसे अन्य टूल के साथ अंतरसंचालनीयता बनाए रखने के लिए, किसी नंबर के साथ reverse-DNS ID के एक खंड को शुरू करने को दृढ़ता से हतोत्साहित किया जाता है। आदर्श रूप से, इन खंडों के पहले अंडरस्कोर लगाएं।"
 
-#: src/as-validator-issue-tag.h:186
+#: src/as-validator-issue-tag.h:201
 msgid "The component ID should only contain lowercase characters."
 msgstr "घटक ID में केवल छोटे अक्षर होने चाहिए।"
 
-#: src/as-validator-issue-tag.h:191
+#: src/as-validator-issue-tag.h:206
 msgid "The domain part of the rDNS component ID (first two parts) must only contain lowercase characters."
 msgstr "rDNS घटक ID (पहले दो भाग) के डोमेन भाग में केवल छोटे अक्षर होने चाहिए।"
 
-#: src/as-validator-issue-tag.h:196
+#: src/as-validator-issue-tag.h:211
 msgid "The component is part of the Freedesktop project, but its ID does not start with fd.o's reverse-DNS name (\"org.freedesktop\")."
 msgstr "घटक Freedesktop परियोजना का हिस्सा है, लेकिन इसकी ID fd.o के reverse-DNS नाम (\"org.freedesktop\") से शुरू नहीं होती है।"
 
-#: src/as-validator-issue-tag.h:201
+#: src/as-validator-issue-tag.h:216
 msgid "The component is part of the KDE project, but its ID does not start with KDE's reverse-DNS name (\"org.kde\")."
 msgstr "घटक KDE परियोजना का हिस्सा है, लेकिन इसकी ID KDE के reverse-DNS नाम (\"org.kde\") से शुरू नहीं होती है।"
 
-#: src/as-validator-issue-tag.h:206
+#: src/as-validator-issue-tag.h:221
 msgid "The component is part of the GNOME project, but its ID does not start with GNOME's reverse-DNS name (\"org.gnome\")."
 msgstr "घटक GNOME परियोजना का हिस्सा है, लेकिन इसकी ID GNOME के reverse-DNS नाम (\"org.gnome\") से शुरू नहीं होती है।"
 
-#: src/as-validator-issue-tag.h:211
+#: src/as-validator-issue-tag.h:226
 msgid "The SPDX license expression is invalid and could not be parsed."
 msgstr "SPDX लाइसेंस अभिव्यक्ति अमान्य है और विश्लेषण नहीं किया जा सका।"
 
-#: src/as-validator-issue-tag.h:216
+#: src/as-validator-issue-tag.h:231
 msgid "The license ID was not found in the SPDX database. Please check that the license ID is written in an SPDX-conformant way and is a valid free software license."
 msgstr "SPDX डेटाबेस में लाइसेंस ID नहीं मिली। कृपया जांचें कि लाइसेंस ID SPDX-अनुरूप तरीके से लिखी गई है और एक मान्य मुफ्त सॉफ्टवेयर लाइसेंस है।"
 
-#: src/as-validator-issue-tag.h:222
+#: src/as-validator-issue-tag.h:237
 msgid "The metadata itself seems to be licensed under a complex collection of licenses. Please license the data under a simple permissive license, like FSFAP, MIT or CC0-1.0 to allow distributors to include it in mixed data collections without the risk of license violations due to mutually incompatible licenses."
 msgstr "ऐसा प्रतीत होता है कि मेटाडेटा स्वयं लाइसेंसों के एक जटिल संग्रह के अंतर्गत लाइसेंसीकृत है। कृपया डेटा को FSFAP, MIT या CC0-1.0 जैसे सरल अनुमेय लाइसेंस के तहत लाइसेंस दें, ताकि वितरकों को पारस्परिक रूप से असंगत लाइसेंस के कारण लाइसेंस उल्लंघन के जोखिम के बिना इसे मिश्रित डेटा संग्रह में शामिल करने की अनुमति मिल सके।"
 
-#: src/as-validator-issue-tag.h:228
+#: src/as-validator-issue-tag.h:243
 msgid "The metadata itself does not seem to be licensed under a permissive license. Please license the data under a permissive license, like FSFAP, CC0-1.0 or 0BSD to allow distributors to include it in mixed data collections without the risk of license violations due to mutually incompatible licenses."
 msgstr "ऐसा प्रतीत होता है कि मेटाडेटा स्वयं किसी अनुज्ञेय लाइसेंस के अंतर्गत लाइसेंसीकृत नहीं है। कृपया डेटा को FSFAP, CC0-1.0 या 0BSD जैसे अनुमेय लाइसेंस के तहत लाइसेंस दें, ताकि वितरकों को पारस्परिक रूप से असंगत लाइसेंस के कारण लाइसेंस उल्लंघन के जोखिम के बिना इसे मिश्रित डेटा संग्रह में शामिल करने की अनुमति मिल सके।"
 
-#: src/as-validator-issue-tag.h:234
+#: src/as-validator-issue-tag.h:249
 msgid "The update-contact does not appear to be a valid email address (escaping of `@` is only allowed as `_at_` or `_AT_`)."
 msgstr "अद्यतन-संपर्क एक मान्य ईमेल पता प्रतीत नहीं होता है (`@` से बचने की अनुमति केवल `_at_` या `_AT_` के रूप में है)।"
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
-#: src/as-validator-issue-tag.h:240
+#: src/as-validator-issue-tag.h:255
 msgid "The `environment` property is set to an unrecognized graphical environment/style combination."
 msgstr "`environment` प्रॉपर्टी एक अपरिचित चित्रात्मक वातावरण/शैली संयोजन पर निर्धारित है।"
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
-#: src/as-validator-issue-tag.h:246
+#: src/as-validator-issue-tag.h:261
 msgid "The `width` property must be a positive integer."
 msgstr "`width` प्रॉपर्टी एक धनात्मक पूर्णांक होना चाहिए।"
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
-#: src/as-validator-issue-tag.h:252
+#: src/as-validator-issue-tag.h:267
 msgid "The `height` property must be a positive integer."
 msgstr "`height` प्रॉपर्टी एक धनात्मक पूर्णांक होना चाहिए।"
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
-#: src/as-validator-issue-tag.h:258
+#: src/as-validator-issue-tag.h:273
 msgid "The `scale` property must be a positive integer."
 msgstr "`scale` प्रॉपर्टी एक धनात्मक पूर्णांक होना चाहिए।"
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
-#: src/as-validator-issue-tag.h:264
+#: src/as-validator-issue-tag.h:279
 msgid "The image type must be either `source` or `thumbnail`."
 msgstr "छवि प्रकार या तो `source` या `thumbnail` होना चाहिए।"
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
-#: src/as-validator-issue-tag.h:270
+#: src/as-validator-issue-tag.h:285
 msgid "The `width` property must be present if the image type is `thumbnail`."
 msgstr "यदि छवि प्रकार `thumbnail` है तो `width` प्रॉपर्टी मौजूद होना चाहिए।"
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
-#: src/as-validator-issue-tag.h:276
+#: src/as-validator-issue-tag.h:291
 msgid "The `height` property must be present if the image type is `thumbnail`."
 msgstr "यदि छवि प्रकार `thumbnail` है तो `height` प्रॉपर्टी मौजूद होना चाहिए।"
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
-#: src/as-validator-issue-tag.h:282
+#: src/as-validator-issue-tag.h:297
 msgid "There can only be one `source` image per screenshot and language."
 msgstr "प्रति स्क्रीनशॉट और भाषा में केवल एक `source` छवि हो सकती है।"
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
-#: src/as-validator-issue-tag.h:288
+#: src/as-validator-issue-tag.h:303
 msgid "A screenshot must have at least one untranslated image of type `source`."
 msgstr "एक स्क्रीनशॉट में `source` प्रकार की कम से कम एक अअनुवादित छवि होनी चाहिए।"
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
-#: src/as-validator-issue-tag.h:294
+#: src/as-validator-issue-tag.h:309
 msgid "A screenshot must have at least one untranslated image of type `source`, which could not be found. Instead, a tag with an `en` locale (`xml:lang=en`) was found, which is likely intended to be the translatable image. Please remove the XML localization attribute in this case."
 msgstr "स्क्रीनशॉट में `source` प्रकार की कम से कम एक अअनुवादित छवि होनी चाहिए, जो नहीं मिल सकी। इसके बजाय, `en` लोकेल (`xml:lang=en`) वाला एक टैग मिला, जिसका संभवतः अनुवाद योग्य छवि होने का इरादा है। कृपया इस मामले में XML स्थानीयकरण विशेषता हटा दें।"
 
-#: src/as-validator-issue-tag.h:301
+#: src/as-validator-issue-tag.h:316
 msgid "Unable to reach the screenshot image on its remote location - does the image exist?"
 msgstr "रिमोट स्थान पर स्क्रीनशॉट छवि तक पहुंचने में असमर्थ - क्या छवि मौजूद है?"
 
-#: src/as-validator-issue-tag.h:306
+#: src/as-validator-issue-tag.h:321
 msgid "Unable to reach the screenshot video on its remote location - does the video file exist?"
 msgstr "स्क्रीनशॉट वीडियो को उसके रिमोट स्थान पर पहुंचने में असमर्थ - क्या वीडियो फाइल मौजूद है?"
 
-#: src/as-validator-issue-tag.h:311
+#: src/as-validator-issue-tag.h:326
 msgid "Consider using a secure (HTTPS) URL to reference this screenshot image or video."
 msgstr "इस स्क्रीनशॉट छवि या वीडियो को संदर्भित करने के लिए एक सुरक्षित (HTTPS) URL का उपयोग करने पर विचार करें।"
 
-#: src/as-validator-issue-tag.h:316
+#: src/as-validator-issue-tag.h:331
 msgid "A screenshot must have at least one image that has a scaling factor of 1."
 msgstr "एक स्क्रीनशॉट में कम से कम एक छवि होनी चाहिए जिसका मापन कारक 1 हो।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:322
+#: src/as-validator-issue-tag.h:337
 msgid "A screenshot must contain at least one image or video in order to be useful. Please add an <image/> to it."
 msgstr "उपयोगी होने के लिए स्क्रीनशॉट में कम से कम एक छवि या वीडियो होना चाहिए। कृपया इसमें एक <image/> जोड़ें।"
 
-#: src/as-validator-issue-tag.h:327
+#: src/as-validator-issue-tag.h:342
 msgid "A screenshot must contain either images or videos, but not both at the same time. Please use this screenshot exclusively for either static images or for videos."
 msgstr "स्क्रीनशॉट में या तो चित्र या वीडियो होने चाहिए, लेकिन एक ही समय में दोनों नहीं। कृपया इस स्क्रीनशॉट का उपयोग विशेष रूप से स्थिर छवियों या वीडियो के लिए करें।"
 
-#: src/as-validator-issue-tag.h:333
+#: src/as-validator-issue-tag.h:348
 msgid "The screenshot does not have a caption text. Consider adding one."
 msgstr "स्क्रीनशॉट में अनुशीर्षक पाठ नहीं है। एक जोड़ने पर विचार करें।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:339
+#: src/as-validator-issue-tag.h:354
 msgid "The screenshot video does not specify which video codec was used in a `codec` property."
 msgstr "स्क्रीनशॉट वीडियो यह निर्दिष्ट नहीं करता है कि `codec` प्रॉपर्टी में किस वीडियो कोडेक का उपयोग किया गया था।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:345
+#: src/as-validator-issue-tag.h:360
 msgid "The screenshot video does not specify which container format was used in a `container` property."
 msgstr "स्क्रीनशॉट वीडियो यह निर्दिष्ट नहीं करता है कि `container` प्रॉपर्टी में किस कंटेनर प्रारूप का उपयोग किया गया था।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:351
+#: src/as-validator-issue-tag.h:366
 msgid "The selected video codec is not supported by AppStream and software centers may not be able to play the video. Only the AV1 and VP9 codecs are currently supported, using `av1` and `vp9` as values for the `codec` property."
 msgstr "चयनित वीडियो कोडेक AppStream द्वारा समर्थित नहीं है और सॉफ्टवेयर केंद्र वीडियो चलाने में सक्षम नहीं हो सकते हैं। वर्तमान में केवल AV1 और VP9 कोडेक्स समर्थित हैं, जो `codec` प्रॉपर्टी के मान के रूप में `av1` और `vp9` का उपयोग करते हैं।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:358
+#: src/as-validator-issue-tag.h:373
 msgid "The selected video container format is not supported by AppStream and software centers may not be able to play the video. Only the WebM and Matroska video containers are currently supported, using `webm` and `mkv` as values for the `container` property."
 msgstr "चयनित वीडियो कंटेनर प्रारूप AppStream द्वारा समर्थित नहीं है और सॉफ्टवेयर केंद्र वीडियो चलाने में सक्षम नहीं हो सकते हैं। वर्तमान में केवल WebM और Matroska वीडियो कंटेनर समर्थित हैं, जो `container` प्रॉपर्टी के लिए मान के रूप में `webm` और `mkv` का उपयोग करते हैं।"
 
-#: src/as-validator-issue-tag.h:364
+#: src/as-validator-issue-tag.h:379
 msgid "For videos, only the WebM and Matroska (.mkv) container formats are currently supported. The file extension of the referenced video does not belong to either of these formats."
 msgstr "वीडियो के लिए, वर्तमान में केवल WebM और Matroska (.mkv) कंटेनर प्रारूप समर्थित हैं। संदर्भित वीडियो का फाइल विस्तार इनमें से किसी भी प्रारूप से संबंधित नहीं है।"
 
-#: src/as-validator-issue-tag.h:370
+#: src/as-validator-issue-tag.h:385
 msgid "The default screenshot of a software component must not be a video. Use a static image as default screenshot and set the video as a secondary screenshot."
 msgstr "सॉफ्टवेयर घटक का तयशुदा स्क्रीनशॉट वीडियो नहीं होना चाहिए। तयशुदा स्क्रीनशॉट के रूप में एक स्थिर छवि का उपयोग करें और वीडियो को द्वितीयक स्क्रीनशॉट के रूप में निर्धारित करें।"
 
-#: src/as-validator-issue-tag.h:375
+#: src/as-validator-issue-tag.h:390
 msgid "No screenshot is marked as default."
 msgstr "किसी भी स्क्रीनशॉट को तयशुदा के रूप में चिह्नित नहीं किया गया है।"
 
-#: src/as-validator-issue-tag.h:380
+#: src/as-validator-issue-tag.h:395
 msgid "Found an unknown tag in a requires/recommends group. This is likely an error, because a component relation of this type is unknown."
 msgstr "आवश्यकता/अनुशंसा समूह में एक अज्ञात टैग मिला। यह संभवतः एक त्रुटि है, क्योंकि इस प्रकार का एक घटक संबंध अज्ञात है।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:386
+#: src/as-validator-issue-tag.h:401
 msgid "A `requires` or `recommends` item requires a value to denote a valid relation."
 msgstr "किसी `requires` या `recommends` वस्तु के लिए एक मान्य संबंध को दर्शाने के लिए एक मान की आवश्यकता होती है।"
 
 #. TRANSLATORS: `version` is an AppStream XML property. Please do not translate it.
-#: src/as-validator-issue-tag.h:392
+#: src/as-validator-issue-tag.h:407
 msgid "Found `version` property on required/recommended item of a type that should not have or require a version."
 msgstr "ऐसे प्रकार के आवश्यक/अनुशंसित वस्तु पर `version` प्रॉपर्टी मिली जिसका कोई संस्करण नहीं होना चाहिए या इसकी आवश्यकता नहीं होनी चाहिए।"
 
 #. TRANSLATORS: `version` and `compare` are AppStream XML properties. Please do not translate them.
-#: src/as-validator-issue-tag.h:398
+#: src/as-validator-issue-tag.h:413
 msgid "Found `version` property on this required/recommended item, but not `compare` property. It is recommended to explicitly define a comparison operation."
 msgstr "इस आवश्यक/अनुशंसित वस्तु पर `version` प्रॉपर्टी मिली, लेकिन `compare` प्रॉपर्टी नहीं। तुलना अभियान को स्पष्ट रूप से परिभाषित करने की अनुशंसा की जाती है।"
 
 #. TRANSLATORS: `eq/ne/lt/gt/le/ge` are AppStream XML values. Please do not translate them.
-#: src/as-validator-issue-tag.h:404
+#: src/as-validator-issue-tag.h:419
 msgid "Invalid comparison operation on relation item. Only one of `eq/ne/lt/gt/le/ge` is permitted."
 msgstr "संबंध वस्तु पर अमान्य तुलना अभियान। `eq/ne/lt/gt/le/ge` में से केवल एक की अनुमति है।"
 
-#: src/as-validator-issue-tag.h:409
+#: src/as-validator-issue-tag.h:424
 msgid "The relation item has a comparison operation set, but does not support any comparisons."
 msgstr "संबंध वस्तु में एक तुलना अभियान निर्धारित है, लेकिन यह किसी भी तुलना का समर्थन नहीं करता है।"
 
-#: src/as-validator-issue-tag.h:414
+#: src/as-validator-issue-tag.h:429
 msgid "This relation item has already been defined once for this or a different relation type. Please do not redefine relations."
 msgstr "इस संबंध वस्तु को इस या किसी भिन्न संबंध प्रकार के लिए पहले ही एक बार परिभाषित किया जा चुका है। कृपया रिश्तों को दोबारा परिभाषित न करें।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:420
+#: src/as-validator-issue-tag.h:435
 msgid "Found a memory size relation in a `requires` tag. This means users will not be able to even install the component without having enough RAM. This is usually not intended and you want to use `memory` in the `recommends` tag instead."
 msgstr "`requires` टैग में एक मेमोरी आकार संबंध मिला। इसका मतलब है कि उपयोक्ता पर्याप्त RAM के बिना घटक को स्थापित भी नहीं कर पाएंगे। आमतौर पर इसका इरादा नहीं है और आप इसके बजाय `recommends` टैग में `memory` का उपयोग करना चाहते हैं।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:427
+#: src/as-validator-issue-tag.h:442
 msgid "Found a user input control relation in a `requires` tag. This means users will not be able to even install the component without having the defined input control available on the system. This is usually not intended and you want to use `control` in the `recommends` tag instead."
 msgstr "`requires` टैग में एक उपयोक्ता आगत नियंत्रण संबंध मिला। इसका मतलब यह है कि उपयोक्ता सिस्टम पर परिभाषित आगत नियंत्रण उपलब्ध हुए बिना घटक को स्थापित भी नहीं कर पाएंगे। आमतौर पर इसका इरादा नहीं है और आप इसके बजाय `recommends` टैग में `control` का उपयोग करना चाहते हैं।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:434
+#: src/as-validator-issue-tag.h:449
 msgid "This `control` item defines an unknown input method and is invalid. Check the specification for a list of permitted values."
 msgstr "यह `control` वस्तु एक अज्ञात आगत पद्धति को परिभाषित करता है और अमान्य है। अनुमत मानों की सूची के लिए विनिर्देश की जांच करें।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:440
+#: src/as-validator-issue-tag.h:455
 msgid "This `display_length` item contains an invalid display length. Its value must be a positive integer value denoting logical pixels. Please refer to the AppStream specification for more information on this tag."
 msgstr "इस `display_length` वस्तु में अमान्य डिस्प्ले लंबाई है। इसका मान तार्किक पिक्सल को दर्शाने वाला एक धनात्मक पूर्णांक मान होना चाहिए। कृपया इस टैग पर अधिक जानकारी के लिए AppStream विनिर्देश देखें।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:447
+#: src/as-validator-issue-tag.h:462
 msgid "This `side` property of this `display_length` item contains an invalid value. It must either be `shortest` or `longest`, or unset to imply `shortest` to make the item value refer to either the shortest or longest side of the display."
 msgstr "इस `display_length` वस्तु की `side` प्रॉपर्टी में एक अमान्य मान है। यह या तो `shortestटा` या `longest` होना चाहिए, या वस्तु मान को डिस्प्ले के सबसे छोटे या सबसे लंबे पक्ष को संदर्भित करने के लिए `shortest` इंगित करने के लिए अनसेट होना चाहिए।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:454
+#: src/as-validator-issue-tag.h:469
 msgid "This `hardware` item contains an invalid value. It should be a Computer Hardware ID (CHID) UUID without braces."
 msgstr "इस `hardware` वस्तु में अमान्य मान है। यह ब्रेसिज़ के बिना एक कंप्यूटर हार्डवेयर ID (CHID) UUID होना चाहिए।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:460
+#: src/as-validator-issue-tag.h:475
 msgid "A `memory` item must only contain a non-zero integer value, depicting a system memory size in mebibyte (MiB)"
 msgstr "एक `memory` वस्तु में केवल एक गैर-शून्य पूर्णांक मान होना चाहिए, जो मेबिबाइट (MiB) में सिस्टम मेमोरी आकार को दर्शाता है"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:466
+#: src/as-validator-issue-tag.h:481
 msgid "The set tag value is not valid for an `internet` relation."
 msgstr "निर्धारित टैग मान `internet` संबंध के लिए मान्य नहीं है।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:472
+#: src/as-validator-issue-tag.h:487
 msgid "The `bandwidth_mbitps` property is not allowed when using `offline-only` as value."
 msgstr "मान के रूप में `offline-only` का उपयोग करते समय `bandwidth_mbitps` प्रॉपर्टी की अनुमति नहीं है।"
 
-#: src/as-validator-issue-tag.h:477
+#: src/as-validator-issue-tag.h:492
 msgid "The value of this property must be a positive integer value, describing the minimum required bandwidth in mbit/s."
 msgstr "इस प्रॉपर्टी का मान एक सकारात्मक पूर्णांक मान होना चाहिए, जो एमबीटी/एस में न्यूनतम आवश्यक बैंडविड्थ का वर्णन करता हो।"
 
-#: src/as-validator-issue-tag.h:482
+#: src/as-validator-issue-tag.h:497
 msgid "The set component type is not a recognized, valid AppStream component type."
 msgstr "निर्धारित घटक प्रकार एक मान्यता प्राप्त, मान्य AppStream घटक प्रकार नहीं है।"
 
-#: src/as-validator-issue-tag.h:487
+#: src/as-validator-issue-tag.h:502
 msgid "The component has a priority value set. This is not allowed in metainfo files."
 msgstr "घटक का प्राथमिकता मान निर्धारित है। Metainfo फाइलों में इसकी अनुमति नहीं है।"
 
-#: src/as-validator-issue-tag.h:492
+#: src/as-validator-issue-tag.h:507
 msgid "The component has a `merge` method defined. This is not allowed in metainfo files."
 msgstr "घटक में एक `merge` विधि परिभाषित है। Metainfo फाइलों में इसकी अनुमति नहीं है।"
 
-#: src/as-validator-issue-tag.h:497
+#: src/as-validator-issue-tag.h:512
 msgid "The component is missing an ID (<id/> tag)."
 msgstr "घटक में एक ID (<id/> टैग) गुम है।"
 
-#: src/as-validator-issue-tag.h:502
+#: src/as-validator-issue-tag.h:517
 msgid "The component is missing a name (<name/> tag)."
 msgstr "घटक में एक नाम नहीं है (<name/> टैग)।"
 
-#: src/as-validator-issue-tag.h:507
+#: src/as-validator-issue-tag.h:522
 msgid "The name of this component is excessively long and can likely not be displayed properly in most layouts."
 msgstr "इस घटक का नाम अत्यधिक लंबा है और संभवतः अधिकांश अभिन्यास में ठीक से प्रदर्शित नहीं किया जा सकता है।"
 
-#: src/as-validator-issue-tag.h:512
+#: src/as-validator-issue-tag.h:527
 msgid "The component is missing a summary (<summary/> tag)."
 msgstr "घटक में सारांश (<summary/> टैग) गुम है।"
 
-#: src/as-validator-issue-tag.h:517
+#: src/as-validator-issue-tag.h:532
 msgid "The <id/> tag still contains a `type` property, probably from an old conversion to the recent metainfo format."
 msgstr "<id/> टैग में अभी भी एक `type` प्रॉपर्टी शामिल है, संभवतः पुराने रूपांतरण से हाल के metainfo प्रारूप में।"
 
-#: src/as-validator-issue-tag.h:522
+#: src/as-validator-issue-tag.h:537
 msgid "The `pkgname` tag appears multiple times. You should evaluate creating a metapackage containing the metainfo and .desktop files in order to avoid defining multiple package names per component."
 msgstr "`pkgname` टैग कई बार दिखाई देता है। प्रति घटक एकाधिक पैकेज नामों को परिभाषित करने से बचने के लिए आपको metainfo और .desktop फाइलों वाला एक मेटापैकेज बनाने का मूल्यांकन करना चाहिए।"
 
-#: src/as-validator-issue-tag.h:527
+#: src/as-validator-issue-tag.h:542
 msgid "The package name contains characters that are not permitted here. A package name must start with an alphanumeric character and may only contain alphanumeric characters as well as `+`, `-`, `.`, `_` and `:`."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:533
+#: src/as-validator-issue-tag.h:548
 msgid "The bundle ID contains characters that are not permitted here. It must start with an alphanumeric character and may only contain alphanumeric characters as well as `+`, `-`, `.`, `_`, `:` and `/`."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:539
+#: src/as-validator-issue-tag.h:554
 msgid "The component name should (likely) not end with a dot (`.`)."
 msgstr "घटक का नाम (संभवतः) एक बिंदु (`.`) के साथ समाप्त नहीं होना चाहिए।"
 
-#: src/as-validator-issue-tag.h:544
+#: src/as-validator-issue-tag.h:559
 msgid "The component summary should not end with a dot (`.`)."
 msgstr "घटक सारांश एक बिंदु (`.`) के साथ समाप्त नहीं होना चाहिए।"
 
-#: src/as-validator-issue-tag.h:549
+#: src/as-validator-issue-tag.h:564
 msgid "The component summary must not contain tabs or linebreaks."
 msgstr "घटक सारांश में टैब या लाइनब्रेक नहीं होना चाहिए।"
 
-#: src/as-validator-issue-tag.h:554
+#: src/as-validator-issue-tag.h:569
 msgid "The summary must not contain any URL. Use the `<url/>` tags for links."
 msgstr "सारांश में कोई URL नहीं होना चाहिए। लिंक के लिए `<url/>` टैग का उपयोग करें।"
 
-#: src/as-validator-issue-tag.h:559
+#: src/as-validator-issue-tag.h:574
 msgid "The summary text does not start with a capitalized word, project name or number."
 msgstr "सारांश पाठ किसी बड़े अक्षर, परियोजना नाम या संख्या से शुरू नहीं होता है।"
 
-#: src/as-validator-issue-tag.h:564
+#: src/as-validator-issue-tag.h:579
 #, fuzzy
 msgid "The summary text is very long, and will likely not be displayed properly everywhere. It should be <= 90 characters."
 msgstr "सारांश पाठ बहुत लंबा है, और संभवतः हर जगह ठीक से प्रदर्शित नहीं किया जाएगा।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:570
+#: src/as-validator-issue-tag.h:585
 msgid "Icons of type `stock` or `cached` must not contain an URL, a full or an relative path to the icon. Only file basenames or stock names are allowed."
 msgstr "`stock` या `cached` प्रकार के आइकन में कोई URL, पूर्ण या आइकन से संबंधित पथ नहीं होना चाहिए। केवल फाइल बेसनाम या स्टॉक नाम की अनुमति है।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:577
+#: src/as-validator-issue-tag.h:592
 msgid "Icons of type `remote` must contain an URL to the referenced icon."
 msgstr "`remote` प्रकार के आइकन में संदर्भित आइकन का एक URL होना चाहिए।"
 
-#: src/as-validator-issue-tag.h:582
+#: src/as-validator-issue-tag.h:597
 msgid "Unable to reach remote icon at the given web location - does it exist?"
 msgstr "दिए गए वेब स्थान पर रिमोट आइकन तक पहुंचने में असमर्थ - क्या यह मौजूद है?"
 
-#: src/as-validator-issue-tag.h:587
+#: src/as-validator-issue-tag.h:602
 msgid "Consider using a secure (HTTPS) URL for the remote icon link."
 msgstr "रिमोट आइकन लिंक के लिए एक सुरक्षित (HTTPS) URL का उपयोग करने पर विचार करें।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:593
+#: src/as-validator-issue-tag.h:608
 msgid "Metainfo files may only contain icons of type `stock` or `remote`, the set type is not allowed."
 msgstr "Metainfo फाइलों में केवल `stock` या `remote` प्रकार के आइकन हो सकते हैं, निर्धारित प्रकार की अनुमति नहीं है।"
 
 #. TRANSLATORS: Please do not translate names in backticks.
-#: src/as-validator-issue-tag.h:599
+#: src/as-validator-issue-tag.h:614
 msgid "This icon uses an unsupported file format. Icons should be PNG, JPEG-XL (`.jxl`) or vector graphics (`.svg`/`.svgz`) images."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:606
+#: src/as-validator-issue-tag.h:621
 msgid "Invalid `type` property for this `url` tag. URLs of this type are not known in the AppStream specification."
 msgstr "इस `url` टैग के लिए अमान्य `type` प्रॉपर्टी। इस प्रकार के URL AppStream विनिर्देश में ज्ञात नहीं हैं।"
 
-#: src/as-validator-issue-tag.h:611
+#: src/as-validator-issue-tag.h:626
 msgid "Unable to reach remote location that this URL references - does it exist?"
 msgstr "इस URL द्वारा संदर्भित रिमोट स्थान तक पहुंचने में असमर्थ - क्या यह मौजूद है?"
 
-#: src/as-validator-issue-tag.h:616
+#: src/as-validator-issue-tag.h:631
 msgid "Consider using a secure (HTTPS) URL for this web link."
 msgstr "इस वेब लिंक के लिए एक सुरक्षित (HTTPS) URL का उपयोग करने पर विचार करें।"
 
-#: src/as-validator-issue-tag.h:621
+#: src/as-validator-issue-tag.h:636
 msgid "A web URL was expected for this value."
 msgstr "इस मान के लिए एक वेब URL अपेक्षित था।"
 
-#: src/as-validator-issue-tag.h:626
+#: src/as-validator-issue-tag.h:641
 msgid "This web link uses the FTP protocol. Consider switching to HTTP(S) instead."
 msgstr "यह वेब लिंक FTP प्रोटोकॉल का उपयोग करता है। इसके बजाय HTTP(S) पर बदलने पर विचार करें।"
 
-#: src/as-validator-issue-tag.h:631
+#: src/as-validator-issue-tag.h:646
 msgid "An URL of this type has already been defined."
 msgstr "इस प्रकार का एक URL पहले ही परिभाषित किया जा चुका है।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:637
+#: src/as-validator-issue-tag.h:652
 msgid "This component is missing an `url` element of type `homepage` to link to the project's homepage."
 msgstr "इस घटक में परियोजना के मुखपृष्ठ से लिंक करने के लिए `homepage` प्रकार का `url` तत्व गायब है।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:643
+#: src/as-validator-issue-tag.h:658
 msgid "The toplevel `developer_name` element is deprecated. Please use the `name` element in a `developer` block instead."
 msgstr "शीर्षस्तरीय `developer_name` तत्व अप्रचलित है। कृपया इसके बजाय `developer` ब्लॉक में `name` तत्व का उपयोग करें।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:650
+#: src/as-validator-issue-tag.h:665
 msgid "This component contains no `developer` element with information about its author."
 msgstr "इस घटक में इसके लेखक के बारे में जानकारी वाला कोई `developer` तत्व नहीं है।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:656
+#: src/as-validator-issue-tag.h:671
 msgid "The `developer` element is missing an `id` property, containing a unique string ID for the developer. Consider adding a unique ID."
 msgstr "`developer` तत्व में `id` प्रॉपर्टी नहीं है, जिसमें डेवलपर के लिए एक अद्वितीय स्ट्रिंग ID है। एक अद्वितीय ID जोड़ने पर विचार करें।"
 
-#: src/as-validator-issue-tag.h:662
+#: src/as-validator-issue-tag.h:677
 msgid "The developer-ID is invalid. It should be an rDNS string identifying the developer, or a Fediverse handle. It must also only contain lowercase ASCII letters, numbers and punctuation."
 msgstr "developer-ID अमान्य है। यह डेवलपर की पहचान करने वाली एक rDNS स्ट्रिंग या Fediverse हैंडल होनी चाहिए। इसमें केवल छोटे ASCII अक्षर, संख्याएं और विराम चिह्न होने चाहिए।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:669
+#: src/as-validator-issue-tag.h:684
 msgid "The `developer` block does not have a `name` element with a human-readable project author name."
 msgstr "`developer` ब्लॉक में मानव-पठनीय परियोजना लेखक नाम वाला `name` तत्व नहीं है।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:675
+#: src/as-validator-issue-tag.h:690
 msgid "The `name` child of a `developer` block must not contain a hyperlink."
 msgstr "`developer` ब्लॉक के `name` उप-तत्व में हाइपरलिंक नहीं होना चाहिए।"
 
-#: src/as-validator-issue-tag.h:680
+#: src/as-validator-issue-tag.h:695
 msgid "The set value is not an identifier for a desktop environment as registered with Freedesktop.org."
 msgstr "जैसा कि Freedesktop.org पर पंजीकृत है, निर्धारित मान डेस्कटॉप वातावरण के लिए पहचानकर्ता नहीं है।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:686
+#: src/as-validator-issue-tag.h:701
 msgid "This `launchable` tag has an unknown type and can not be used."
 msgstr "इस `launchable` टैग का प्रकार अज्ञात है और इसका उपयोग नहीं किया जा सकता।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:692
+#: src/as-validator-issue-tag.h:707
 msgid "This `bundle` tag has an unknown type and can not be used."
 msgstr "इस `bundle` टैग का प्रकार अज्ञात है और इसका उपयोग नहीं किया जा सकता।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:698
+#: src/as-validator-issue-tag.h:713
 msgid "The `update_contact` tag should not be included in catalog AppStream XML."
 msgstr "`update_contact` टैग को कैटलॉग AppStream XML में शामिल नहीं किया जाना चाहिए।"
 
-#: src/as-validator-issue-tag.h:703
+#: src/as-validator-issue-tag.h:718
 msgid "This tag is a GNOME-specific extension to AppStream and not part of the official specification. Do not expect it to work in all implementations and in all software centers."
 msgstr "यह टैग AppStream के लिए एक GNOME-विशिष्ट विस्तार है और आधिकारिक विनिर्देश का हिस्सा नहीं है। यह अपेक्षा न करें कि यह सभी कार्यान्वयनों और सभी सॉफ्टवेयर केंद्रों में काम करेगा।"
 
-#: src/as-validator-issue-tag.h:709
+#: src/as-validator-issue-tag.h:724
 msgid "Found invalid tag. Non-standard tags should be prefixed with `x-`. AppStream also provides the <custom/> tag to add arbitrary custom data to metainfo files. This tag is read by AppStream libraries and may be useful instead of defining new custom toplevel or `x-`-prefixed tags if you just want to add custom data to a metainfo file."
 msgstr "अमान्य टैग मिला। गैर-मानक टैग के पहले `x-` लगाया जाना चाहिए। AppStream metainfo फाइलों में मनमाना तदनुकूल डेटा जोड़ने के लिए <custom/> टैग भी प्रदान करता है। यह टैग AppStream लिब्ररियों द्वारा पढ़ा जाता है और यदि आप केवल metainfo फाइल में तदनुकूल डेटा जोड़ना चाहते हैं तो नए तदनुकूल शीर्षस्तर या `x-`-prefixed टैग को परिभाषित करने के बजाय उपयोगी हो सकता है।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:717
+#: src/as-validator-issue-tag.h:732
 msgid "The essential tag `metadata_license` is missing. A license for the metadata itself always has to be defined."
 msgstr "आवश्यक टैग `metadata_license` गायब है। मेटाडेटा के लिए लाइसेंस को हमेशा परिभाषित करना पड़ता है।"
 
-#: src/as-validator-issue-tag.h:722
+#: src/as-validator-issue-tag.h:737
 msgid "The component is missing a long description. Components of this type must have a long description."
 msgstr "घटक में एक लंबा विवरण गुम है। इस प्रकार के घटकों का एक लंबा विवरण होना चाहिए।"
 
-#: src/as-validator-issue-tag.h:727
+#: src/as-validator-issue-tag.h:742
 msgid "It would be useful to add a long description to this font to present it better to users."
 msgstr "उपयोक्ताओं के सामने इसे बेहतर ढंग से प्रस्तुत करने के लिए इस फॉन्ट में एक लंबा विवरण जोड़ना उपयोगी होगा।"
 
-#: src/as-validator-issue-tag.h:732
+#: src/as-validator-issue-tag.h:747
 msgid "It is recommended to add a long description to this component to present it better to users."
 msgstr "उपयोक्ताओं के सामने इसे बेहतर ढंग से प्रस्तुत करने के लिए इस घटक में एक लंबा विवरण जोड़ने की अनुशंसा की जाती है।"
 
-#: src/as-validator-issue-tag.h:737
+#: src/as-validator-issue-tag.h:752
 msgid "This generic component is missing a long description. It may be useful to add one."
 msgstr "इस सामान्य घटक में एक लंबा विवरण गायब है। एक को जोड़ना उपयोगी हो सकता है।"
 
-#: src/as-validator-issue-tag.h:742
+#: src/as-validator-issue-tag.h:757
 msgid "The component is missing an untranslated long description, but has a translated one for the English locale. You need to provide a locale-less description in English as translation template."
 msgstr ""
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:749
+#: src/as-validator-issue-tag.h:764
 msgid "This `desktop-application` component is missing a `desktop-id` launchable tag. This means that this application can not be launched and has no association with its desktop-entry file. It also means no icon data or category information from the desktop-entry file will be available, which will result in this application being ignored entirely."
 msgstr "इस `desktop-application` घटक में `desktop-id` लॉन्च करने योग्य टैग गुम है। इसका मतलब यह है कि यह अनुप्रयोग लॉन्च नहीं किया जा सकता है और इसका डेस्कटॉप-प्रविष्टि फाइल से कोई संबंध नहीं है। इसका मतलब यह भी है कि डेस्कटॉप-प्रविष्टि फाइल से कोई आइकन डेटा या श्रेणी की जानकारी उपलब्ध नहीं होगी, जिसके परिणामस्वरूप इस अनुप्रयोग को पूरी तरह से अनदेखा कर दिया जाएगा।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:758
+#: src/as-validator-issue-tag.h:773
 msgid "This `desktop-application` component has no `desktop-id` launchable tag, however it contains all the necessary information to display the application. The omission of the launchable entry means that this application can not be launched directly from installers or software centers. If this is intended, this information can be ignored, otherwise it is strongly recommended to add a launchable tag as well."
 msgstr "इस `desktop-application` घटक में कोई `desktop-id` लॉन्च करने योग्य टैग नहीं है, हालांकि इसमें अनुप्रयोग को प्रदर्शित करने के लिए सभी आवश्यक जानकारी शामिल है। लॉन्च करने योग्य प्रविष्टि के छूटने का मतलब है कि यह अनुप्रयोग सीधे स्थापनकर्ता या सॉफ्टवेयर केंद्रों से लॉन्च नहीं किया जा सकता है। यदि यह इरादा है, तो इस जानकारी को अनदेखा किया जा सकता है, अन्यथा एक लॉन्च करने योग्य टैग भी जोड़ने की दृढ़ता से अनुशंसा की जाती है।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:768
+#: src/as-validator-issue-tag.h:783
 msgid "Type `console-application` component, but no information about binaries in $PATH was provided via a `provides/binary` tag."
 msgstr "`console-application` घटक टाइप करें, लेकिन `provides/binary` टैग के माध्यम से $PATH में बाइनरीओं के बारे में कोई जानकारी प्रदान नहीं की गई थी।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:774
+#: src/as-validator-issue-tag.h:789
 msgid "This `web-application` component is missing a `launchable` tag of type `url`."
 msgstr "इस `web-application` घटक में `url` प्रकार का `launchable` टैग गुम है।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:780
+#: src/as-validator-issue-tag.h:795
 msgid "This `web-application` component is missing a `icon` tag to specify a valid icon."
 msgstr "इस `web-application` घटक में मान्य आइकन निर्दिष्ट करने के लिए `icon` टैग गुम है।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:786
+#: src/as-validator-issue-tag.h:801
 msgid "This `web-application` component is missing categorizations. A `categories` block is likely missing."
 msgstr "इस `web-application` घटक में वर्गीकरण अनुपलब्ध है। एक `categories` ब्लॉक संभवतः गायब है।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:792
+#: src/as-validator-issue-tag.h:807
 msgid "Type `font` component, but no font information was provided via a `provides/font` tag."
 msgstr "`font` घटक टाइप करें, लेकिन `provides/font` टैग के माध्यम से कोई फॉन्ट जानकारी प्रदान नहीं की गई थी।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:798
+#: src/as-validator-issue-tag.h:813
 msgid "Type `driver` component, but no modalias information was provided via a `provides/modalias` tag."
 msgstr "`driver` घटक टाइप करें, लेकिन `provides/modalias` टैग के माध्यम से कोई modalias जानकारी प्रदान नहीं की गई थी।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:804
+#: src/as-validator-issue-tag.h:819
 msgid "An `extends` tag is specified, but the component is not of type `addon`, `localization` or `repository`."
 msgstr "एक `extends` टैग निर्दिष्ट है, लेकिन घटक `addon`, `localization` या `repository` प्रकार का नहीं है।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:810
+#: src/as-validator-issue-tag.h:825
 msgid "The component is an addon, but no `extends` tag was specified."
 msgstr "घटक एक ऐडऑन है, लेकिन कोई `extends` टैग निर्दिष्ट नहीं किया गया था।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:816
+#: src/as-validator-issue-tag.h:831
 msgid "This `localization` component is missing an `extends` tag, to specify the components it adds localization to."
 msgstr "इस `localization` घटक में उन घटकों को निर्दिष्ट करने के लिए `extends` टैग गायब है, जिनमें यह स्थानीयकरण जोड़ता है।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:822
+#: src/as-validator-issue-tag.h:837
 msgid "This `localization` component does not define any languages this localization is for."
 msgstr "यह `localization` घटक किसी भी भाषा को परिभाषित नहीं करता है जिसके लिए यह स्थानीयकरण है।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:828
+#: src/as-validator-issue-tag.h:843
 msgid "This `service` component is missing a `launchable` tag of type `service`."
 msgstr "इस `service` घटक में `service` प्रकार का `launchable` टैग गुम है।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:834
+#: src/as-validator-issue-tag.h:849
 msgid "Suggestions of any type other than `upstream` are not allowed in metainfo files."
 msgstr "Metainfo फाइलों में `upstream` के अलावा किसी भी प्रकार के सुझाव की अनुमति नहीं है।"
 
-#: src/as-validator-issue-tag.h:839
+#: src/as-validator-issue-tag.h:854
 msgid "The category name is not valid. Refer to the XDG Menu Specification for a list of valid category names."
 msgstr "श्रेणी का नाम मान्य नहीं है। मान्य श्रेणी नामों की सूची के लिए XDG मेनू विशिष्टता देखें।"
 
-#: src/as-validator-issue-tag.h:844
+#: src/as-validator-issue-tag.h:859
 msgid "All categories for this component have been ignored, either because they were invalid or because they are of low quality (e.g. custom 'X-' prefixed or toolkit ones like 'GTK' or 'Qt'). Please fix your category names, or add more categories."
 msgstr "इस घटक की सभी श्रेणियों को नजरअंदाज कर दिया गया है, या तो क्योंकि वे अमान्य थीं या क्योंकि वे निम्न गुणवत्ता की थीं (उदाहरण के लिए तदनुकूल 'X-' उपसर्ग या 'GTK' या 'Qt' जैसे टूलकिट)। कृपया अपनी श्रेणी के नाम ठीक करें, या अधिक श्रेणियां जोड़ें।"
 
-#: src/as-validator-issue-tag.h:850
+#: src/as-validator-issue-tag.h:865
 msgid "This component is in no valid categories, even though it should be. Please check its metainfo file and desktop-entry file."
 msgstr "यह घटक किसी मान्य श्रेणी में नहीं है, जबकि ऐसा होना चाहिए। कृपया इसकी metainfo फाइल और डेस्कटॉप-प्रविष्टि फाइल की जांच करें।"
 
-#: src/as-validator-issue-tag.h:855
+#: src/as-validator-issue-tag.h:870
 msgid "The screenshot caption is too long (should be <= 100 characters)"
 msgstr "स्क्रीनशॉट अनुशीर्षक बहुत लंबा है (<= 100 अक्षर होना चाहिए)"
 
-#: src/as-validator-issue-tag.h:860
+#: src/as-validator-issue-tag.h:875
 msgid "Unable to read file."
 msgstr "फाइल पढ़ने में असमर्थ।"
 
-#: src/as-validator-issue-tag.h:865
+#: src/as-validator-issue-tag.h:880
 msgid "The XML of this file is malformed."
 msgstr "इस फाइल का XML विकृत है।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:871
+#: src/as-validator-issue-tag.h:886
 msgid "Invalid tag found in catalog metadata. Only `component` tags are permitted."
 msgstr "कैटलॉग मेटाडेटा में अमान्य टैग मिला। केवल `component` टैग की अनुमति है।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:877
+#: src/as-validator-issue-tag.h:892
 msgid "The metainfo file uses an ancient version of the AppStream specification, which can not be validated. Please migrate it to version 0.6 (or higher). Modern files use the `component` root tag and include many other differences, so check for changes carefully when modernizing the data."
 msgstr "Metainfo फाइल AppStream विनिर्देश के एक प्राचीन संस्करण का उपयोग करती है, जिसे मान्य नहीं किया जा सकता है। कृपया इसे संस्करण 0.6 (या उच्चतर) पर स्थानांतरित करें। आधुनिक फाइलें `component` रूट टैग का उपयोग करती हैं और इसमें कई अन्य अंतर शामिल होते हैं, इसलिए डेटा का आधुनिकीकरण करते समय परिवर्तनों की सावधानीपूर्वक जांच करें।"
 
-#: src/as-validator-issue-tag.h:883
+#: src/as-validator-issue-tag.h:898
 msgid "This XML document has an unknown root tag. Maybe this file is not a metainfo document?"
 msgstr "इस XML दस्तावेज़ में एक अज्ञात रूट टैग है। शायद यह फाइल metainfo दस्तावेज़ नहीं है?"
 
-#: src/as-validator-issue-tag.h:888
+#: src/as-validator-issue-tag.h:903
 msgid "The metainfo filename does not match the component ID."
 msgstr "Metainfo फाइल नाम घटक ID से मेल नहीं खाता है।"
 
-#: src/as-validator-issue-tag.h:893
+#: src/as-validator-issue-tag.h:908
 msgid "Unable to load the desktop-entry file associated with this component."
 msgstr "इस घटक से संबद्ध डेस्कटॉप-प्रविष्टि फाइल लोड करने में असमर्थ।"
 
-#: src/as-validator-issue-tag.h:898
+#: src/as-validator-issue-tag.h:913
 msgid "This component metadata refers to a non-existing .desktop file."
 msgstr "यह घटक मेटाडेटा एक गैर-मौजूदा .desktop फाइल को संदर्भित करता है।"
 
-#: src/as-validator-issue-tag.h:903
+#: src/as-validator-issue-tag.h:918
 msgid "A category defined in the desktop-entry file is not valid. Refer to the XDG Menu Specification for a list of valid categories."
 msgstr "डेस्कटॉप-प्रविष्टि फाइल में परिभाषित श्रेणी मान्य नहीं है। मान्य श्रेणियों की सूची के लिए XDG मेनू विशिष्टता देखें।"
 
-#: src/as-validator-issue-tag.h:908
+#: src/as-validator-issue-tag.h:923
 msgid "Error while reading some data from the desktop-entry file."
 msgstr "डेस्कटॉप-प्रविष्टि फाइल से कुछ डेटा पढ़ते समय त्रुटि।"
 
-#: src/as-validator-issue-tag.h:913
+#: src/as-validator-issue-tag.h:928
 msgid "The value of this desktop-entry field contains invalid or non-printable UTF-8 characters, which can not be displayed properly."
 msgstr "इस डेस्कटॉप-प्रविष्टि फ़ील्ड के मान में अमान्य या गैर-मुद्रण योग्य UTF-8 वर्ण हैं, जिन्हें ठीक से प्रदर्शित नहीं किया जा सकता है।"
 
-#: src/as-validator-issue-tag.h:918
+#: src/as-validator-issue-tag.h:933
 msgid "This desktop-entry field value is quoted, which is likely unintentional."
 msgstr "यह डेस्कटॉप-प्रविष्टि फ़ील्ड मान उद्धृत किया गया है, जो संभवतः अनजाने में है।"
 
-#: src/as-validator-issue-tag.h:923
+#: src/as-validator-issue-tag.h:938
 msgid "This desktop-entry file has the 'Hidden' property set. This is wrong for vendor-installed .desktop files, and nullifies all effects this .desktop file has (including MIME associations), which most certainly is not intentional."
 msgstr "इस डेस्कटॉप-प्रविष्टि फाइल में 'Hidden' प्रॉपर्टी निर्धारित है। यह विक्रेता द्वारा स्थापित .desktop फाइलों के लिए गलत है, और इस .desktop फाइल (MIME मैपिंग सहित) के सभी प्रभावों को समाप्त कर देता है, जो निश्चित रूप से जानबूझकर नहीं है।"
 
-#: src/as-validator-issue-tag.h:929
+#: src/as-validator-issue-tag.h:944
 msgid "This desktop-entry file has the 'OnlyShowIn' property set with an empty value. This might not be intended, as this will hide the application from all desktops. If you do want to hide the application from all desktops, using 'NoDisplay=true' is more explicit."
 msgstr "इस डेस्कटॉप-प्रविष्टि फाइल में 'OnlyShowIn' प्रॉपर्टी एक खाली मान के साथ सेट है। शायद इसका इरादा नहीं था, क्योंकि यह अनुप्रयोग को सभी डेस्कटॉप से छिपा देगा। यदि आप अनुप्रयोग को सभी डेस्कटॉप से छिपाना चाहते हैं, तो 'NoDisplay=true' का उपयोग करना अधिक स्पष्ट है।"
 
-#: src/as-validator-issue-tag.h:935
+#: src/as-validator-issue-tag.h:950
 msgid "No AppStream metadata was found in this directory or directory tree."
 msgstr "इस निर्देशिका या निर्देशिका ट्री में कोई AppStream मेटाडेटा नहीं मिला।"
 
 #. pedantic because not everything which has metadata is an application
-#: src/as-validator-issue-tag.h:940
+#: src/as-validator-issue-tag.h:955
 msgid "No XDG applications directory found."
 msgstr "कोई XDG अनुप्रयोग निर्देशिका नहीं मिली।"
 
-#: src/as-validator-issue-tag.h:945
+#: src/as-validator-issue-tag.h:960
 msgid "The metainfo file is stored in a legacy path. Please place it in `/usr/share/metainfo/`."
 msgstr "Metainfo फाइल एक लीगेसी पथ में संग्रहीत है। कृपया इसे `/usr/share/metainfo/` में रखें।"
 
-#: src/as-validator-issue-tag.h:950
+#: src/as-validator-issue-tag.h:965
 msgid "The metainfo file specifies multiple components. This is not allowed."
 msgstr "Metainfo फाइल कई घटकों को निर्दिष्ट करती है। इसकी अनुमति नहीं है।"
 
-#: src/as-validator-issue-tag.h:955
+#: src/as-validator-issue-tag.h:970
 msgid "The releases are not sorted in a latest to oldest version order. This is required as some tools will assume that the latest version is always at the top. Sorting releases also increases overall readability of the metainfo file."
 msgstr "रिलीज़ को नवीनतम से सबसे पुराने संस्करण के क्रम में क्रमबद्ध नहीं किया गया है। यह आवश्यक है क्योंकि कुछ उपकरण यह मान लेंगे कि नवीनतम संस्करण हमेशा शीर्ष पर होता है। रिलीज़ की छंटाई करने से metainfo फाइल की समग्र पठनीयता भी बढ़ जाती है।"
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
-#: src/as-validator-issue-tag.h:963
+#: src/as-validator-issue-tag.h:978
 msgid "The type of the releases block is invalid. It needs to either `embedded` (the default) or `external`."
 msgstr "रिलीज़ ब्लॉक का प्रकार अमान्य है। इसे या तो `embedded` (तयशुदा) या `external` की आवश्यकता है।"
 
-#: src/as-validator-issue-tag.h:968
+#: src/as-validator-issue-tag.h:983
 msgid "The URL to an external release metadata file is insecure. This is not allowed, please use HTTPS URLs only."
 msgstr "बाहरी रिलीज़ मेटाडेटा फाइल का URL असुरक्षित है। इसकी अनुमति नहीं है, कृपया केवल HTTPS URL का उपयोग करें।"
 
-#: src/as-validator-issue-tag.h:973
+#: src/as-validator-issue-tag.h:988
 msgid "Failed to download release metadata."
 msgstr "रिलीज़ मेटाडेटा डाउनलोड करने में विफल।"
 
-#: src/as-validator-issue-tag.h:978
+#: src/as-validator-issue-tag.h:993
 msgid "A local release metadata file was not found. It is strongly recommended to validate this metadata together with the main MetaInfo file."
 msgstr "स्थानीय रिलीज़ मेटाडेटा फाइल नहीं मिली। इस मेटाडेटा को मुख्य MetaInfo फाइल के साथ सत्यापित करने की पुरजोर अनुशंसा की जाती है।"
 
-#: src/as-validator-issue-tag.h:984
+#: src/as-validator-issue-tag.h:999
 msgid "The value set as release urgency is not a known urgency value."
 msgstr "रिलीज़ अत्यावश्यकता के रूप में निर्धारित किया गया मान कोई ज्ञात अत्यावश्यक मान नहीं है।"
 
-#: src/as-validator-issue-tag.h:989
+#: src/as-validator-issue-tag.h:1004
 msgid "The value set as release type is invalid."
 msgstr "रिलीज़ प्रकार के रूप में निर्धारित किया गया मान अमान्य है।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:995
+#: src/as-validator-issue-tag.h:1010
 msgid "The release is missing the `version` property."
 msgstr "रिलीज़ में `version` प्रॉपर्टी मौजूद नहीं है।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1001
+#: src/as-validator-issue-tag.h:1016
 #, fuzzy
 msgid "The release entry is missing either the `date` (preferred) or the `timestamp` property."
 msgstr "रिलीज़ में या तो `date` (पसंदीदा) या `timestamp` प्रॉपर्टी गायब है।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1007
+#: src/as-validator-issue-tag.h:1022
 msgid "The release entry is missing the `date` property. Ensure to add it before publishing the snapshot release."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:1012
+#: src/as-validator-issue-tag.h:1027
 msgid "The release timestamp is invalid."
 msgstr "रिलीज़ समय-चिह्न अमान्य है।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1018
+#: src/as-validator-issue-tag.h:1033
 msgid "The release description must be put inside a `description` tag"
 msgstr "रिलीज़ विवरण को `description` टैग के अंदर रखा जाना चाहिए"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1024
+#: src/as-validator-issue-tag.h:1039
 msgid "The value set as artifact type is invalid. Must be either `source` or `binary`."
 msgstr "आर्टिफैक्ट प्रकार के रूप में निर्धारित किया गया मान अमान्य है। या तो `source` या `binary` होना चाहिए।"
 
-#: src/as-validator-issue-tag.h:1029
+#: src/as-validator-issue-tag.h:1044
 msgid "The value set as artifact bundle type is invalid."
 msgstr "आर्टिफैक्ट बंडल प्रकार के रूप में निर्धारित किया गया मान अमान्य है।"
 
-#: src/as-validator-issue-tag.h:1034
+#: src/as-validator-issue-tag.h:1049
 msgid "The platform triplet for this release is invalid. It must be in the form of `architecture-oskernel-osenv` - refer to the AppStream documentation or information on normalized GNU triplets for more information and valid fields."
 msgstr "इस रिलीज़ के लिए प्लेटफॉर्म ट्रिपलेट अमान्य है। यह `architecture-oskernel-osenv` के रूप में होना चाहिए - अधिक जानकारी और मान्य फ़ील्ड के लिए AppStream दस्तावेज़ या सामान्यीकृत GNU ट्रिपलेट्स पर जानकारी देखें।"
 
-#: src/as-validator-issue-tag.h:1041
+#: src/as-validator-issue-tag.h:1056
 msgid "The selected checksumming algorithm is unsupported or unknown."
 msgstr "चयनित चेकसमिंग कलन-विधि असमर्थित या अज्ञात है।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1047
+#: src/as-validator-issue-tag.h:1062
 msgid "The size type is unknown. Must be `download` or `installed`."
 msgstr "आकार प्रकार अज्ञात है। `download` या `installed` होना चाहिए।"
 
-#: src/as-validator-issue-tag.h:1052
+#: src/as-validator-issue-tag.h:1067
 msgid "The artifact filename must be a file basename, not a (relative or absolute) path."
 msgstr "आर्टिफैक्ट फाइल नाम एक फाइल बेसनाम होना चाहिए, न कि (सापेक्ष या पूर्ण) पथ।"
 
-#: src/as-validator-issue-tag.h:1057
+#: src/as-validator-issue-tag.h:1072
 msgid "The value set as release issue type is invalid."
 msgstr "रिलीज़ समस्या प्रकार के रूप में निर्धारित किया गया मान अमान्य है।"
 
-#: src/as-validator-issue-tag.h:1062
+#: src/as-validator-issue-tag.h:1077
 msgid "The issue is tagged at security vulnerability with a CVE number, but its value does not look like a valid CVE identifier."
 msgstr "समस्या को CVE नंबर के साथ सुरक्षा भेद्यता पर टैग किया गया है, लेकिन इसका मान मान्य CVE पहचानकर्ता जैसा नहीं दिखता है।"
 
-#: src/as-validator-issue-tag.h:1067
+#: src/as-validator-issue-tag.h:1082
 #, fuzzy
 #| msgid "The issue is tagged at security vulnerability with a CVE number, but its value does not look like a valid CVE identifier."
 msgid "The issue is tagged as security vulnerability with a GCVE identifier, but its value does not follow the `GCVE-<GNA-ID>-<YEAR>-<UNIQUE-ID>` scheme of the Global CVE Allocation System."
 msgstr "समस्या को CVE नंबर के साथ सुरक्षा भेद्यता पर टैग किया गया है, लेकिन इसका मान मान्य CVE पहचानकर्ता जैसा नहीं दिखता है।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1074
+#: src/as-validator-issue-tag.h:1089
 msgid "This component is missing information about releases. Consider adding a `releases` tag to describe releases and their changes."
 msgstr "इस घटक में रिलीज़ के बारे में जानकारी अनुपलब्ध है। रिलीज़ और उनके परिवर्तनों का वर्णन करने के लिए `releases` टैग जोड़ने पर विचार करें।"
 
-#: src/as-validator-issue-tag.h:1079
+#: src/as-validator-issue-tag.h:1094
 msgid "The AppStream specification requires a complete, ISO 8601 date string with at least day-granularity to denote dates. Please ensure the date string is valid."
 msgstr "AppStream विनिर्देशन को तारीखों को दर्शाने के लिए कम से कम day-granularity के साथ एक पूर्ण, ISO 8601 दिनांक स्ट्रिंग की आवश्यकता होती है। कृपया सुनिश्चित करें कि दिनांक स्ट्रिंग मान्य है।"
 
-#: src/as-validator-issue-tag.h:1085
+#: src/as-validator-issue-tag.h:1100
 msgid "This component extends, provides, requires or recommends itself, which is certainly not intended and may confuse users or machines dealing with this metadata."
 msgstr "यह घटक स्वयं का विस्तार, आपूर्ति, आवश्यकता या अनुशंसा करता है, जिसका निश्चित रूप से इरादा नहीं है और इस मेटाडेटा से निपटने वाले उपयोक्ताओं या मशीनों को भ्रमित कर सकता है।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1092
+#: src/as-validator-issue-tag.h:1107
 msgid "Licenses for `runtime` components are usually too complex to reflect them in a simple SPDX expression. Consider using a `LicenseRef` and a web URL as value for this component's `project_license`. E.g. `LicenseRef-free=https://example.com/licenses.html`"
 msgstr "`runtime` घटकों के लिए लाइसेंस आमतौर पर इतने जटिल होते हैं कि उन्हें एक साधारण SPDX अभिव्यक्ति में प्रतिबिंबित नहीं किया जा सकता। इस घटक के `project_license` के मान के रूप में `LicenseRef` और एक वेब URL का उपयोग करने पर विचार करें। जैसे `LicenseRef-free=https://example.com/licenses.html`"
 
-#: src/as-validator-issue-tag.h:1098
+#: src/as-validator-issue-tag.h:1113
 #, fuzzy
 msgid "Since a `runtime` component consists of multiple other software components, their component-IDs may be listed in a `<provides/>` section for this runtime."
 msgstr "चूँकि एक `runtime` घटक कई अन्य सॉफ्टवेयर घटकों से बना होता है, इसलिए उनके component-ID को इस रनटाइम के लिए `<provides/>` अनुभाग में सूचीबद्ध किया जा सकता है।"
 
-#: src/as-validator-issue-tag.h:1103
+#: src/as-validator-issue-tag.h:1118
 msgid "The type of the item that the component provides is not known to AppStream."
 msgstr "घटक द्वारा प्रदान किए जाने वाले वस्तु का प्रकार AppStream को ज्ञात नहीं है।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1109
+#: src/as-validator-issue-tag.h:1124
 msgid "The toplevel `mimetypes` tag is deprecated. Please use `mediatype` tags in a `provides` block instead to indicate that your software provides a media handler for the given types."
 msgstr "शीर्षस्तरीय `mimetypes` टैग अप्रचलित है। कृपया यह इंगित करने के लिए कि आपका सॉफ्टवेयर दिए गए प्रकारों के लिए एक मीडिया हैंडलर प्रदान करता है, इसके बजाय `provides` ब्लॉक में `mediatype` टैग का उपयोग करें।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1116
+#: src/as-validator-issue-tag.h:1131
 msgid "This component has no `content_rating` tag to provide age rating information. You can generate the tag data online by answering a few questions at https://hughsie.github.io/oars/"
 msgstr "आयु रेटिंग की जानकारी प्रदान करने के लिए इस घटक में कोई `content_rating` टैग नहीं है। आप https://hughsie.github.io/oars/ पर कुछ सवालों के जवाब देकर टैग डेटा ऑनलाइन उत्पन्न कर सकते हैं"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1123
+#: src/as-validator-issue-tag.h:1138
 msgid "The `type` attribute of this `content_rating` element is missing or empty."
 msgstr "इस `content_rating` तत्व की `type` विशेषता गायब या खाली है।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1129
+#: src/as-validator-issue-tag.h:1144
 msgid "The `type` attribute of the `content_rating` element has an invalid value."
 msgstr "`content_rating` तत्व की `type` विशेषता का मान अमान्य है।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1135
+#: src/as-validator-issue-tag.h:1150
 msgid "The `content_rating` tag can only contain `content_attribute` children."
 msgstr "`content_rating` टैग में केवल `content_attribute` के उप-तत्व शामिल हो सकते हैं।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1141
+#: src/as-validator-issue-tag.h:1156
 msgid "The `id` attribute of the `content_attribute` element is missing or empty."
 msgstr "`content_attribute` तत्व की `id` विशेषता गुम या खाली है।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1147
+#: src/as-validator-issue-tag.h:1162
 msgid "The `id` attribute of the `content_attribute` element has an invalid value."
 msgstr "`content_attribute` तत्व की `id` विशेषता का मान अमान्य है।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1153
+#: src/as-validator-issue-tag.h:1168
 msgid "The `content_attribute` tag needs a value."
 msgstr "`content_attribute` टैग को एक मान की आवश्यकता है।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1159
+#: src/as-validator-issue-tag.h:1174
 msgid "The `content_attribute` tag value is unknown."
 msgstr "`content_attribute` टैग मान अज्ञात है।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1165
+#: src/as-validator-issue-tag.h:1180
 msgid "The `content_attribute` tag value is invalid for the given id."
 msgstr "`content_attribute` टैग मान दी गई id के लिए अमान्य है।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1171
+#: src/as-validator-issue-tag.h:1186
 msgid "A `content_attribute` tag with this ID has already been defined."
 msgstr "इस ID के साथ एक `content_attribute` टैग पहले ही परिभाषित किया जा चुका है।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1177
+#: src/as-validator-issue-tag.h:1192
 msgid "This `tag` is missing a `namespace` attribute."
 msgstr "इस `tag` में `namespace` विशेषता गुम है।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1183
+#: src/as-validator-issue-tag.h:1198
 msgid "This tag or its namespace contains invalid characters. Only lower-cased ASCII letters, numbers, dots, hyphens and underscores are permitted."
 msgstr "इस टैग या इसके नामस्थान में अमान्य वर्ण हैं। केवल छोटे अक्षर वाले ASCII अक्षर, संख्याएं, बिंदु, हाइफ़न और अंडरस्कोर की अनुमति है।"
 
-#: src/as-validator-issue-tag.h:1188
+#: src/as-validator-issue-tag.h:1203
 msgid "The type of this color is not valid."
 msgstr "इस रंग का प्रकार मान्य नहीं है।"
 
-#: src/as-validator-issue-tag.h:1193
+#: src/as-validator-issue-tag.h:1208
 msgid "The value of this color scheme preference is not valid."
 msgstr "इस रंग योजना प्राथमिकता का मान मान्य नहीं है।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1199
+#: src/as-validator-issue-tag.h:1214
 msgid "The name of the color scheme property is wrong. It should be `scheme_preference`."
 msgstr "रंग योजना प्रॉपर्टी का नाम ग़लत है। यह `scheme_preference` होना चाहिए।"
 
-#: src/as-validator-issue-tag.h:1204
+#: src/as-validator-issue-tag.h:1219
 msgid "This color is not a valid HTML color code."
 msgstr "यह रंग मान्य HTML रंग कोड नहीं है।"
 
-#: src/as-validator-issue-tag.h:1209
+#: src/as-validator-issue-tag.h:1224
 msgid "A color for this type/scheme combination was already set. Colors must be unique per type/scheme."
 msgstr "इस प्रकार/योजना संयोजन के लिए एक रंग पहले से ही निर्धारित किया गया था। रंग प्रत्येक प्रकार/योजना के अनुसार अद्वितीय होने चाहिए।"
 
-#: src/as-validator-issue-tag.h:1214
+#: src/as-validator-issue-tag.h:1229
 msgid "The given DOI (Digital Object Identifier) for this reference item is not valid."
 msgstr "इस संदर्भ वस्तु के लिए दिया गया DOI (डिजिटल ऑब्जेक्ट आइडेंटिफायर) मान्य नहीं है।"
 
-#: src/as-validator-issue-tag.h:1219
+#: src/as-validator-issue-tag.h:1234
 msgid "The value for this citation reference item must be an URL to a CFF (Citation File Format) file."
 msgstr "इस उद्धरण संदर्भ वस्तु का मान CFF (उद्धरण फाइल प्रारूप) फाइल का URL होना चाहिए।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1225
+#: src/as-validator-issue-tag.h:1240
 msgid "This registry reference item is missing the `name` property to denote the name of the registry it is about."
 msgstr "इस रजिस्ट्री संदर्भ वस्तु में उस रजिस्ट्री के नाम को दर्शाने के लिए `name` प्रॉपर्टी मौजूद नहीं है जिसके बारे में बात की जा रही है।"
 
-#: src/as-validator-issue-tag.h:1230
+#: src/as-validator-issue-tag.h:1245
 msgid "The registry for this reference item is unknown. This may be due to a typing error, or the registry needs to be registered with AppStream."
 msgstr "इस संदर्भ वस्तु की रजिस्ट्री अज्ञात है। यह टाइपिंग त्रुटि के कारण हो सकता है, या रजिस्ट्री को AppStream के साथ पंजीकृत करने की आवश्यकता है।"
 
-#: src/as-validator-issue-tag.h:1236
+#: src/as-validator-issue-tag.h:1251
 msgid "The reference item is missing a value."
 msgstr "संदर्भ वस्तु में कोई मान गुम है।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1242
+#: src/as-validator-issue-tag.h:1257
 msgid "The `custom` tag can only contain `value` children."
 msgstr "`custom` टैग में केवल `value` उप-तत्व शामिल हो सकते हैं।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1248
+#: src/as-validator-issue-tag.h:1263
 msgid "This `custom` tag value is missing a `key` attribute."
 msgstr "इस `custom` टैग मान में `key` विशेषता गुम है।"
 
-#: src/as-validator-issue-tag.h:1253
+#: src/as-validator-issue-tag.h:1268
 msgid "A key can only be used once."
 msgstr "एक कुंजी का उपयोग केवल एक बार किया जा सकता है।"
 
-#: src/as-validator-issue-tag.h:1258
+#: src/as-validator-issue-tag.h:1273
 msgid "This custom value is empty."
 msgstr "यह तदनुकूल मान रिक्त है।"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1264
+#: src/as-validator-issue-tag.h:1279
 msgid "A `keywords` tag must not be localized in metainfo files (upstream metadata). Localize the individual keyword entries instead."
 msgstr "Metainfo फाइलों (अपस्ट्रीम मेटाडेटा) में `keywords` टैग को स्थानीयकृत नहीं किया जाना चाहिए। इसके बजाय व्यक्तिगत कीवर्ड प्रविष्टियों को स्थानीयकृत करें।"
 
@@ -2636,118 +2648,119 @@ msgstr "टैग '%s' की गंभीरता को उस स्तर �
 
 #. TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
 #. TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted names.
-#: src/as-validator.c:897 src/as-validator.c:1573 src/as-validator.c:1749
-#: src/as-validator.c:1970 src/as-validator.c:2635 src/as-validator.c:2657
-#: src/as-validator.c:2781 src/as-validator.c:3104
+#: src/as-validator.c:897 src/as-validator.c:1660 src/as-validator.c:1836
+#: src/as-validator.c:2057 src/as-validator.c:2722 src/as-validator.c:2744
+#: src/as-validator.c:2869 src/as-validator.c:3192
 #, c-format
 msgid "Found: %s - Allowed: %s"
 msgstr "पाया: %s - अनुमत: %s"
 
 #. TRANSLATORS: ascli flag description for: --verbose
 #. TRANSLATORS: ascompose flag description for: --verbose
-#: tools/appstream-compose.c:199 tools/appstreamcli.c:1458
+#: tools/appstream-compose.c:187 tools/appstreamcli.c:88
 msgid "Show extra debugging information."
 msgstr "अतिरिक्त डिबगिंग जानकारी दिखाएं।"
 
 #. TRANSLATORS: ascli flag description for: --no-color
 #. TRANSLATORS: ascompose flag description for: --no-color
-#: tools/appstream-compose.c:206 tools/appstreamcli.c:1464
+#: tools/appstream-compose.c:194 tools/appstreamcli.c:94
 msgid "Don't show colored output."
 msgstr "रंगीन निर्गत न दिखाएं।"
 
 #. TRANSLATORS: ascli flag description for: --version
 #. TRANSLATORS: ascompose flag description for: --version
-#: tools/appstream-compose.c:213 tools/appstreamcli.c:1452
+#: tools/appstream-compose.c:201 tools/appstreamcli.c:82
 msgid "Show the program version."
 msgstr "प्रोग्राम संस्करण दिखाएं।"
 
 #. TRANSLATORS: ascompose flag description for: --no-net
-#: tools/appstream-compose.c:220
+#: tools/appstream-compose.c:208
 msgid "Do not use the network at all, not even for URL validity checks."
 msgstr "नेटवर्क का उपयोग बिल्कुल न करें, URL मान्यता जांच के लिए भी नहीं।"
 
 #. TRANSLATORS: ascompose flag description for: --print-report
-#: tools/appstream-compose.c:227
+#: tools/appstream-compose.c:215
 msgid "Set mode of the issue report that is printed to the console."
 msgstr "कंसोल पर छपने वाली त्रुटि रिपोर्ट का मोड निर्धारित करें।"
 
 #. TRANSLATORS: ascompose flag description for: --prefix
-#: tools/appstream-compose.c:234
+#: tools/appstream-compose.c:222
 msgid "Override the default prefix (`/usr` by default)."
 msgstr "तयशुदा उपसर्ग को अध्यारोहण करें (`/usr` तयशुदा रूप से)।"
 
 #. TRANSLATORS: ascompose flag description for: --result-root
-#: tools/appstream-compose.c:241
+#: tools/appstream-compose.c:229
 msgid "Set the result output directory."
 msgstr "परिणाम निर्गत निर्देशिका निर्धारित करें।"
 
 #. TRANSLATORS: ascompose flag description for: --data-dir, `catalog metadata` is an AppStream term
-#: tools/appstream-compose.c:248
+#: tools/appstream-compose.c:236
 msgid "Override the catalog metadata output directory."
 msgstr "कैटलॉग मेटाडेटा निर्गत निर्देशिका को अध्यारोहण करें।"
 
 #. TRANSLATORS: ascompose flag description for: --icons-dir
-#: tools/appstream-compose.c:255
+#: tools/appstream-compose.c:243
 msgid "Override the icon output directory."
 msgstr "आइकन निर्गत निर्देशिका को अध्यारोहण करें।"
 
 #. TRANSLATORS: ascompose flag description for: --media-dir
-#: tools/appstream-compose.c:262
+#: tools/appstream-compose.c:250
 msgid "Set the media output directory (for media data to be served by a webserver)."
 msgstr "मीडिया निर्गत निर्देशिका निर्धारित करें (वेबसर्वर द्वारा प्रस्तुत किए जाने वाले मीडिया डेटा के लिए)।"
 
 #. TRANSLATORS: ascompose flag description for: --hints-dir
-#: tools/appstream-compose.c:269
+#: tools/appstream-compose.c:257
 msgid "Set a directory where HTML and text issue reports will be stored."
 msgstr "एक निर्देशिका निर्धारित करें जहां HTML और पाठ समस्या रिपोर्ट संग्रहीत की जाएंगी।"
 
 #. TRANSLATORS: ascompose flag description for: --origin
-#: tools/appstream-compose.c:276
+#: tools/appstream-compose.c:264
 msgid "Set the origin name"
 msgstr "मूल नाम निर्धारित करें"
 
 #. TRANSLATORS: ascompose flag description for: --media-baseurl
-#: tools/appstream-compose.c:283
+#: tools/appstream-compose.c:271
 msgid "Set the URL where the exported media content will be hosted."
 msgstr "वह URL निर्धारित करें जहां निर्यात की गई मीडिया सामग्री होस्ट की जाएगी।"
 
 #. TRANSLATORS: ascompose flag description for: --no-partial-urls
-#: tools/appstream-compose.c:290
+#: tools/appstream-compose.c:278
 msgid "Makes all URLs in output data complete URLs and avoids the use of a shared URL prefix for all metadata."
 msgstr "निर्गत डेटा में सभी URL को पूर्ण URL बनाता है और सभी मेटाडेटा के लिए साझा URL उपसर्ग के उपयोग से बचाता है।"
 
 #. TRANSLATORS: ascompose flag description for: --icon-policy
-#: tools/appstream-compose.c:297
+#: tools/appstream-compose.c:285
 msgid "An icon-policy string to set how icon sizes should be handled (refer to the man page for details)."
 msgstr "यह निर्धारित करने के लिए एक आइकन-पॉलिसी स्ट्रिंग कि आइकन आकार को कैसे प्रबंधित किया जाना चाहिए (विवरण के लिए मैन पृष्ठ देखें)।"
 
 #. TRANSLATORS: ascompose flag description for: --image-format
-#: tools/appstream-compose.c:304
+#: tools/appstream-compose.c:292
 msgid "The file format that generated icons and screenshots are stored in (`jxl` by default, or `png` for compatibility with older clients)."
 msgstr ""
 
 #. TRANSLATORS: ascompose flag description for: --allow-custom
-#: tools/appstream-compose.c:311
+#: tools/appstream-compose.c:299
 msgid "A comma-separated list of custom keys that should be propagated to the output data."
 msgstr "तदनुकूल कुंजियों की अल्पविराम से अलग की गई सूची जिसे निर्गत डेटा में प्रसारित किया जाना चाहिए।"
 
 #. TRANSLATORS: ascompose flag description for: --components
-#: tools/appstream-compose.c:318
+#: tools/appstream-compose.c:306
 msgid "A comma-separated list of component-IDs to accept."
 msgstr "स्वीकार करने योग्य component-ID की अल्पविराम से अलग की गई सूची।"
 
 #. TRANSLATORS: Error message of appstream-compose
-#: tools/appstream-compose.c:335
+#: tools/appstream-compose.c:323
 msgid "Failed to parse arguments"
 msgstr "तर्कों का विश्लेषण करने में विफल"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: tools/appstream-compose.c:346 tools/appstreamcli.c:1715
+#: tools/appstream-compose.c:334 tools/appstreamcli.c:1795
 #, c-format
 msgid "AppStream version: %s"
 msgstr "AppStream संस्करण: %s"
 
-#: tools/appstream-compose.c:350 tools/appstreamcli.c:1719
+#. TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ.
+#: tools/appstream-compose.c:338 tools/appstreamcli.c:1799
 #, c-format
 msgid ""
 "AppStream CLI tool version: %s\n"
@@ -2756,7 +2769,8 @@ msgstr ""
 "AppStream CLI टूल संस्करण: %s\n"
 "AppStream लाइब्रेरी संस्करण: %s"
 
-#: tools/appstream-compose.c:372
+#. TRANSLATORS: invalid value for the --print-report CLI option
+#: tools/appstream-compose.c:360
 #, c-format
 msgid ""
 "Invalid value for `--print-report` option: %s\n"
@@ -2771,469 +2785,480 @@ msgstr ""
 "`short` - एक संक्षिप्त रिपोर्ट तैयार करता है\n"
 "`full` - एक विस्तृत रिपोर्ट छापी जाएगी"
 
-#: tools/appstream-compose.c:402
+#: tools/appstream-compose.c:390
 #, c-format
 msgid "Automatically selected '%s' as data output location."
 msgstr "डेटा निर्गत स्थान के रूप में स्वचालित रूप से '%s' का चयन किया गया।"
 
-#: tools/appstream-compose.c:407
+#. TRANSLATORS: We don't have a destination directory for compose
+#: tools/appstream-compose.c:396
 msgid "No destination directory set, please provide a data output location!"
 msgstr "कोई गंतव्य निर्देशिका तय नहीं, कृपया डेटा निर्गत स्थान प्रदान करें!"
 
-#: tools/appstream-compose.c:420 tools/appstream-compose.c:422
+#. TRANSLATORS: Information message of appstream-compose
+#: tools/appstream-compose.c:404
+#, c-format
+msgid "Metadata origin not set, using '%s'"
+msgstr ""
+
+#: tools/appstream-compose.c:409 tools/appstream-compose.c:411
 msgid "WARNING"
 msgstr "चेतावनी"
 
-#: tools/appstream-compose.c:454
+#: tools/appstream-compose.c:443
 msgid "Unable to set icon policy"
 msgstr "आइकन नीति तय करने में असमर्थ"
 
 #. TRANSLATORS: The user selected an invalid image format for generated media, %s is the format name they used
-#: tools/appstream-compose.c:464
+#: tools/appstream-compose.c:453
 #, c-format
 msgid "Invalid image format: %s. Only `jxl` and `png` are supported for generated media.\n"
 msgstr ""
 
 #. TRANSLATORS: Information about as-compose allowlist
-#: tools/appstream-compose.c:494
+#: tools/appstream-compose.c:483
 #, c-format
 msgid "Only accepting components: %s"
 msgstr "केवल घटक स्वीकार कर रहे हैं: %s"
 
 #. TRANSLATORS: Information about as-compose allowlist
-#: tools/appstream-compose.c:497
+#: tools/appstream-compose.c:486
 #, c-format
 msgid "Only accepting component: %s"
 msgstr "केवल घटक स्वीकार कर रहे हैं: %s"
 
 #. TRANSLATORS: Information about as-compose units to be processed
-#: tools/appstream-compose.c:502
+#: tools/appstream-compose.c:491
 msgid "Processing directories:"
 msgstr "निर्देशिकाएं प्रसंस्करण:"
 
 #. TRANSLATORS: Information about as-compose units to be processed
-#: tools/appstream-compose.c:505
+#: tools/appstream-compose.c:494
 msgid "Processing directory:"
 msgstr "निर्देशिका प्रसंस्करण:"
 
 #. TRANSLATORS: Error message
-#: tools/appstream-compose.c:514
+#: tools/appstream-compose.c:503
 msgid "Can not process invalid directory"
 msgstr "अमान्य निर्देशिका पर कार्रवाई नहीं की जा सकती"
 
 #. TRANSLATORS: Information message
-#: tools/appstream-compose.c:526
+#: tools/appstream-compose.c:515
 msgid "Composing metadata..."
 msgstr "मेटाडेटा तैयार किया जा रहा है..।"
 
 #. TRANSLATORS: Error message
-#: tools/appstream-compose.c:531
+#: tools/appstream-compose.c:520
 msgid "Failed to compose AppStream metadata"
 msgstr "AppStream मेटाडेटा तैयार करने में विफल"
 
 #. TRANSLATORS: appstream-compose failed to include all data
-#: tools/appstream-compose.c:537
+#: tools/appstream-compose.c:526
 msgid "Run failed, some data was ignored."
 msgstr "रन विफल, कुछ डेटा को अनदेखा कर दिया गया।"
 
-#: tools/appstream-compose.c:540
+#. TRANSLATORS: information message of appstream-compose
+#: tools/appstream-compose.c:530
 msgid "Errors were raised during this compose run:"
 msgstr "निर्माण के दौरान त्रुटियां उत्पन्न हुई:"
 
-#: tools/appstream-compose.c:543
+#: tools/appstream-compose.c:532
 msgid "Refer to the generated issue report data for details on the individual problems."
 msgstr "व्यक्तिगत समस्याओं के विवरण के लिए उत्पन्न समस्या रिपोर्ट डेटा देखें।"
 
-#: tools/appstream-compose.c:547
+#: tools/appstream-compose.c:536
 msgid "Overview of generated hints:"
 msgstr "उत्पन्न संकेतों का अवलोकन:"
 
 #. TRANSLATORS: Information message
-#: tools/appstream-compose.c:549
+#: tools/appstream-compose.c:538
 msgid "Success!"
 msgstr "सफलता!"
 
+#. TRANSLATORS: ascli flag description for: --profile
+#: tools/appstreamcli.c:100
+msgid "Enable profiling"
+msgstr "प्रोफाइलिंग सक्षम करें"
+
 #. TRANSLATORS: ascli flag description for: --cachepath
-#: tools/appstreamcli.c:63
+#: tools/appstreamcli.c:121
 msgid "Manually selected location of AppStream cache."
 msgstr "AppStream कैशे का मैन्युअल रूप से चयनित स्थान।"
 
 #. TRANSLATORS: ascli flag description for: --datapath
-#: tools/appstreamcli.c:69
+#: tools/appstreamcli.c:127
 msgid "Manually selected location of AppStream metadata to scan."
 msgstr "स्कैन करने के लिए AppStream मेटाडेटा का मैन्युअल रूप से चयनित स्थान।"
 
 #. TRANSLATORS: ascli flag description for: --no-cache
-#: tools/appstreamcli.c:75
+#: tools/appstreamcli.c:133
 msgid "Ignore cache age and build a fresh cache before performing the query."
 msgstr "कैशे की आयु पर ध्यान न दें और क्वेरी निष्पादित करने से पहले एक नया कैशे बनाएं।"
 
 #. TRANSLATORS: ascli flag description for: --format
-#: tools/appstreamcli.c:91
+#: tools/appstreamcli.c:149
 msgid "Default metadata format (valid values are 'xml' and 'yaml')."
 msgstr "तयशुदा मेटाडेटा प्रारूप (मान्य मान 'xml' और 'yaml' हैं)।"
 
 #. TRANSLATORS: ascli flag description for: --details
-#: tools/appstreamcli.c:107
+#: tools/appstreamcli.c:165
 msgid "Print detailed output about found components."
 msgstr "मिले घटकों के बारे में विस्तृत निर्गत छापें।"
 
 #. TRANSLATORS: ascli flag description for: --server (used by the "list-reviews" command)
-#: tools/appstreamcli.c:126
+#: tools/appstreamcli.c:184
 msgid "URL of the ODRS-compatible reviews server to use."
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --start (used by the "list-reviews" command)
-#: tools/appstreamcli.c:132
+#: tools/appstreamcli.c:190
 msgid "Index of the first review to fetch, to page through all reviews."
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --limit (used by the "list-reviews" command)
-#: tools/appstreamcli.c:138
+#: tools/appstreamcli.c:196
 msgid "Maximum number of reviews to fetch."
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --locale (used by the "list-reviews" and "submit-review" commands)
-#: tools/appstreamcli.c:144
+#: tools/appstreamcli.c:202
 msgid "Locale to prefer for reviews, instead of the current system locale."
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --pedantic (used by the "validate" command)
-#: tools/appstreamcli.c:165
+#: tools/appstreamcli.c:223
 msgid "Also show pedantic hints."
 msgstr "पांडित्यपूर्ण संकेत भी दिखाएं।"
 
 #. TRANSLATORS: ascli flag description for: --explain (used by the "validate" command)
-#: tools/appstreamcli.c:172
+#: tools/appstreamcli.c:230
 msgid "Print detailed explanation for found issues."
 msgstr "पाए गए मुद्दों के लिए विस्तृत विवरण छापें।"
 
 #. TRANSLATORS: ascli flag description for: --no-net (used by the "validate" command)
-#: tools/appstreamcli.c:179
+#: tools/appstreamcli.c:237
 msgid "Do not use network access."
 msgstr "नेटवर्क पहुंच का उपयोग न करें।"
 
 #. TRANSLATORS: ascli flag description for: --strict (used by the "validate" command)
-#: tools/appstreamcli.c:186
+#: tools/appstreamcli.c:244
 msgid "Fail validation if any issue is emitted that is not of pedantic severity."
 msgstr "यदि कोई समस्या उत्पन्न होती है जो पांडित्यपूर्ण गंभीरता की नहीं है तो सत्यापन विफल हो जाता है।"
 
 #. TRANSLATORS: ascli flag description for: --format  when validating XML files
-#: tools/appstreamcli.c:192
+#: tools/appstreamcli.c:250
 msgid "Format of the generated report (valid values are 'text' and 'yaml')."
 msgstr "उत्पन्न रिपोर्ट का प्रारूप (मान्य मान 'text' और 'yaml' हैं)।"
 
 #. TRANSLATORS: ascli flag description for: --override  when validating XML files
-#: tools/appstreamcli.c:198
+#: tools/appstreamcli.c:256
 msgid "Override the severities of selected issue tags."
 msgstr "चयनित समस्या टैग की गंभीरता का अध्यारोहण करें।"
 
+#. TRANSLATORS: this is a (usually shorter) command alias, shown after the command summary text
+#: tools/appstreamcli.c:303
+#, c-format
+msgid "(Alias: '%s')"
+msgstr "(उर्फ: '%s')"
+
 #. TRANSLATORS: This is the header to the --help menu for subcommands
-#: tools/appstreamcli.c:216 tools/appstreamcli.c:1347
+#. TRANSLATORS: This is the header to the --help menu
+#: tools/appstreamcli.c:352 tools/appstreamcli.c:1432
 msgid "AppStream command-line interface"
 msgstr "AppStream कमांड-लाइन इंटरफ़ेस"
 
-#: tools/appstreamcli.c:219
+#: tools/appstreamcli.c:355
 #, c-format
 msgid "'%s' command"
 msgstr "'%s' कमांड"
 
 #. TRANSLATORS: An unknown option was passed to appstreamcli.
-#: tools/appstreamcli.c:255
+#: tools/appstreamcli.c:398
 #, c-format
 msgid "Option '%s' is unknown."
 msgstr "विकल्प '%s' अज्ञात है।"
 
-#: tools/appstreamcli.c:260 tools/appstreamcli.c:1691
+#: tools/appstreamcli.c:403 tools/appstreamcli.c:1810
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr "उपलब्ध कमांड लाइन विकल्पों की पूरी सूची देखने के लिए '%s --help' चलाएं।"
 
-#: tools/appstreamcli.c:264
+#: tools/appstreamcli.c:407
 #, c-format
 msgid "Run '%s --help' to see a list of available commands and options, and '%s %s --help' to see a list of options specific for this subcommand."
 msgstr "उपलब्ध आदेशों और विकल्पों की सूची देखने के लिए '%s --help' चलाएं, और इस उपकमांड के लिए विशिष्ट विकल्पों की सूची देखने के लिए '%s %s --help' चलाएं।"
 
 #. TRANSLATORS: ascli flag description for: --force
-#: tools/appstreamcli.c:319
+#: tools/appstreamcli.c:462
 msgid "Enforce a cache refresh."
 msgstr "कैशे रिफ्रेश लागू करें।"
 
 #. TRANSLATORS: ascli flag description for: --source in a refresh action. Don't translate strings in backticks: `name`
-#: tools/appstreamcli.c:325
+#: tools/appstreamcli.c:468
 msgid "Limit cache refresh to data from a specific source, e.g. `os` or `flatpak`. May be specified multiple times."
 msgstr "कैशे रीफ़्रेश को किसी विशिष्ट स्रोत से प्राप्त डेटा तक सीमित करें, उदा. `os` या `flatpak`। कई बार निर्दिष्ट किया जा सकता है।"
 
-#: tools/appstreamcli.c:583
+#. TRANSLATORS: ascli check-license is missing its parameter
+#: tools/appstreamcli.c:726
 msgid "No license, license expression or license exception string was provided."
 msgstr "कोई लाइसेंस, लाइसेंस अभिव्यक्ति या लाइसेंस अपवाद स्ट्रिंग प्रदान नहीं की गई थी।"
 
 #. TRANSLATORS: ascli flag description for: --details (part of the "check-syscompat" subcommand)
-#: tools/appstreamcli.c:632
+#: tools/appstreamcli.c:775
 msgid "Print more detailed output on why incompatibilities exist."
 msgstr "असंगतताएं क्यों मौजूद हैं, इस पर अधिक विस्तृत निर्गत छापें।"
 
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
-#: tools/appstreamcli.c:669
+#: tools/appstreamcli.c:812
 msgid "Set the data origin for the installed metadata catalog file."
 msgstr "स्थापित मेटाडेटा कैटलॉग फाइल के लिए डेटा मूल तय करें।"
 
 #. TRANSLATORS: ascli flag description for: --user (part of the "put" subcommand)
-#: tools/appstreamcli.c:675
+#: tools/appstreamcli.c:818
 msgid "Install the file for the current user, instead of globally."
 msgstr "वैश्विक स्तर के बजाय वर्तमान उपयोक्ता के लिए फाइल स्थापित करें।"
 
 #. TRANSLATORS: ascli flag description for: --bundle-type (part of the "remove" and "install" subcommands)
-#: tools/appstreamcli.c:703
+#: tools/appstreamcli.c:846
 msgid "Limit the command to use only components from the given bundling system (`flatpak` or `package`)."
 msgstr "कमांड को केवल दिए गए बंडलिंग सिस्टम (`flatpak` या `package`) से घटकों का उपयोग करने तक सीमित करें।"
 
 #. TRANSLATORS: ascli flag description for: --first (part of the "remove" and "install" subcommands)
-#: tools/appstreamcli.c:710
+#: tools/appstreamcli.c:853
 msgid "Do not ask for which software component should be used and always choose the first entry."
 msgstr "यह न पूछें कि किस सॉफ्टवेयर घटक का उपयोग किया जाना चाहिए और हमेशा पहली प्रविष्टि चुनें।"
 
 #. TRANSLATORS: ascli install currently only supports two values for --bundle-type.
-#: tools/appstreamcli.c:744 tools/appstreamcli.c:779
+#: tools/appstreamcli.c:887 tools/appstreamcli.c:922
 msgid "No valid bundle kind was specified. Only `package` and `flatpak` are currently recognized."
 msgstr "कोई मान्य बंडल प्रकार निर्दिष्ट नहीं किया गया था। वर्तमान में केवल `package` और `flatpak` को मान्यता दी गई है।"
 
-#: tools/appstreamcli.c:931
+#: tools/appstreamcli.c:1082
 msgid "You need to provide at least two version numbers to compare as parameters."
 msgstr "पैरामीटर के रूप में तुलना करने के लिए आपको कम से कम दो संस्करण संख्याएं प्रदान करनी होंगी।"
 
 #. * TRANSLATORS: The user tried to compare version numbers, but the comparison operator (greater-then, equal, etc.) was invalid.
-#: tools/appstreamcli.c:960
+#: tools/appstreamcli.c:1111
 #, c-format
 msgid "Unknown compare relation '%s'. Valid values are:"
 msgstr "अज्ञात तुलना संबंध '%s'। मान्य मान हैं:"
 
-#: tools/appstreamcli.c:1001
+#: tools/appstreamcli.c:1152
 msgid "Too many parameters: Need two version numbers or version numbers and a comparison operator."
 msgstr "बहुत सारे पैरामीटर: दो संस्करण संख्या या संस्करण संख्या और एक तुलना संकारक की आवश्यकता है।"
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
-#: tools/appstreamcli.c:1027
+#: tools/appstreamcli.c:1178
 msgid "Use the given .desktop file to fill in the basic values of the metainfo file."
 msgstr "Metainfo फाइल के मूल मानों को भरने के लिए दी गई .desktop फाइल का उपयोग करें।"
 
-#: tools/appstreamcli.c:1035
+#. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
+#: tools/appstreamcli.c:1186
 msgid "This command takes optional TYPE and FILE positional arguments, FILE being a file to write to (or \"-\" for standard output)."
 msgstr "यह कमांड वैकल्पिक TYPE और FILE स्थितीय तर्क लेता है, FILE लिखने के लिए एक फाइल है (या मानक निर्गत के लिए \"-\")।"
 
-#: tools/appstreamcli.c:1039
+#. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
+#: tools/appstreamcli.c:1191
 #, c-format
 msgid "The TYPE must be a valid component-type, such as: %s"
 msgstr "TYPE एक मान्य घटक-प्रकार होना चाहिए, जैसे: %s"
 
 #. TRANSLATORS: ascli flag description for: --exec (part of the make-desktop-file subcommand)
-#: tools/appstreamcli.c:1077
+#: tools/appstreamcli.c:1229
 msgid "Use the specified line for the 'Exec=' key of the desktop-entry file."
 msgstr "डेस्कटॉप-प्रविष्टि फाइल की 'Exec=' कुंजी के लिए निर्दिष्ट पंक्ति का उपयोग करें।"
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
-#: tools/appstreamcli.c:1117
+#: tools/appstreamcli.c:1269
 msgid "Assume the input file is in the selected format ('yaml', 'text' or 'markdown')."
 msgstr "मान लें कि आगत फाइल चयनित प्रारूप ('yaml', 'text' या 'markdown') में है।"
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
-#: tools/appstreamcli.c:1124
+#: tools/appstreamcli.c:1276
 msgid "Limit the number of release entries that end up in the metainfo file (<= 0 for unlimited)."
 msgstr "Metainfo फाइल में समाप्त होने वाली रिलीज़ प्रविष्टियों की संख्या सीमित करें (असीमित के लिए <= 0)।"
 
 #. TRANSLATORS: ascli flag description for: --translatable-count as part of the news-to-metainfo command
-#: tools/appstreamcli.c:1131
+#: tools/appstreamcli.c:1283
 msgid "Set the number of releases that should have descriptions marked for translation (latest releases are translated first, -1 for unlimited)."
 msgstr "उन रिलीज़ों की संख्या निर्धारित करें जिनमें अनुवाद के लिए विवरण चिह्नित होने चाहिए (नवीनतम रिलीज़ों का अनुवाद पहले किया जाता है, असीमित के लिए -1)।"
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
-#: tools/appstreamcli.c:1176
+#: tools/appstreamcli.c:1328
 msgid "Generate the output in the selected format ('yaml', 'text' or 'markdown')."
 msgstr "चयनित प्रारूप ('yaml', 'text' या 'markdown') में निर्गत उत्पन्न करें।"
 
-#: tools/appstreamcli.c:1221
+#. TRANSLATORS: appstreamcli-compose was not found
+#: tools/appstreamcli.c:1373
 #, c-format
 msgid "AppStream Compose binary '%s' was not found! Can not continue."
 msgstr "AppStream Compose बाइनरी '%s' नहीं मिला! जारी नहीं रख सकते।"
 
-#: tools/appstreamcli.c:1225
+#. TRANSLATORS: appstreamcli-compose was not found - info text
+#: tools/appstreamcli.c:1377
 #, c-format
 msgid "You may be able to install the AppStream Compose addon via: `%s`"
 msgstr "आप AppStream Compose ऐडऑन को इसके माध्यम से स्थापित करने में सक्षम हो सकते हैं: `%s`"
 
-#. TRANSLATORS: Unexpected number of parameters on the command-line
-#: tools/appstreamcli.c:1234
-msgid "Invalid number of parameters"
-msgstr "पैरामीटरों की अमान्य संख्या"
-
 #. TRANSLATORS: "Compose" is a command of appstreamcli to build metadata catalogs.
-#: tools/appstreamcli.c:1252
+#: tools/appstreamcli.c:1399
 #, c-format
 msgid "Compose operation failed to execute: %s"
 msgstr "Compose अभियान निष्पादित करने में विफल: %s"
 
-#: tools/appstreamcli.c:1262
+#: tools/appstreamcli.c:1409
 #, c-format
 msgid "Compose failed: %s"
 msgstr "Compose विफल: %s"
 
-#. TRANSLATORS: this is a (usually shorter) command alias, shown after the command summary text
-#: tools/appstreamcli.c:1319
-#, c-format
-msgid "(Alias: '%s')"
-msgstr "(उर्फ: '%s')"
-
 #. these are commands we can use with appstreamcli
-#: tools/appstreamcli.c:1349
+#: tools/appstreamcli.c:1434
 msgid "Subcommands:"
 msgstr "उपकमांड:"
 
-#: tools/appstreamcli.c:1403
+#: tools/appstreamcli.c:1488
 msgid "You can find information about subcommand-specific options by passing \"--help\" to the subcommand."
 msgstr "आप उपकमांड पर \"--help\" पास करके उपकमांड-विशिष्ट विकल्पों के बारे में जानकारी प्राप्त कर सकते हैं।"
 
-#: tools/appstreamcli.c:1427
+#. TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated.
+#: tools/appstreamcli.c:1506
 #, c-format
 msgid "Command '%s' is unknown. Run '%s --help' for a list of available commands."
 msgstr "कमांड '%s' अज्ञात है। उपलब्ध आदेशों की सूची के लिए '%s --help' चलाएं।"
 
-#. TRANSLATORS: ascli flag description for: --profile
-#: tools/appstreamcli.c:1469
-msgid "Enable profiling"
-msgstr "प्रोफाइलिंग सक्षम करें"
-
 #. TRANSLATORS: `appstreamcli search` command description.
-#: tools/appstreamcli.c:1484
+#: tools/appstreamcli.c:1530
 msgid "Search the component database."
 msgstr "घटक डेटाबेस खोजें।"
 
 #. TRANSLATORS: `appstreamcli get` command description.
-#: tools/appstreamcli.c:1491
+#: tools/appstreamcli.c:1537
 msgid "Get information about a component by its ID."
 msgstr "किसी घटक के बारे में उसकी ID द्वारा जानकारी प्राप्त करें।"
 
 #. TRANSLATORS: `appstreamcli what-provides` command description.
-#: tools/appstreamcli.c:1498
+#: tools/appstreamcli.c:1544
 msgid "Get components which provide the given item. Needs an item type (e.g. lib, bin, python3, …) and item value as parameter."
 msgstr "ऐसे घटक प्राप्त करें जो दी गई वस्तु प्रदान करते हैं। पैरामीटर के रूप में एक वस्तु प्रकार (जैसे lib, bin, Python3,…) और वस्तु मान की आवश्यकता है।"
 
 #. TRANSLATORS: `appstreamcli list-categories` command description.
-#: tools/appstreamcli.c:1506
+#: tools/appstreamcli.c:1552
 msgid "List components that are part of the specified categories."
 msgstr "उन घटकों की सूची बनाएं जो निर्दिष्ट श्रेणियों का हिस्सा हैं।"
 
 #. TRANSLATORS: `appstreamcli dump` command description.
-#: tools/appstreamcli.c:1515
+#: tools/appstreamcli.c:1561
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "ID से मेल खाने वाले घटक के लिए रॉ XML मेटाडेटा डंप करें।"
 
 #. TRANSLATORS: `appstreamcli refresh-cache` command description.
-#: tools/appstreamcli.c:1523
+#: tools/appstreamcli.c:1569
 msgid "Rebuild the component metadata cache."
 msgstr "घटक मेटाडेटा कैशे का पुनर्निर्माण करें।"
 
 #. TRANSLATORS: `appstreamcli validate` command description.
-#: tools/appstreamcli.c:1531
+#: tools/appstreamcli.c:1577
 msgid "Validate AppStream XML files for issues."
 msgstr "समस्याओं के लिए AppStream XML फाइलों को मान्य करें।"
 
 #. TRANSLATORS: `appstreamcli validate-tree` command description.
-#: tools/appstreamcli.c:1538
+#: tools/appstreamcli.c:1584
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr "मान्य मेटाडेटा के लिए किसी अनुप्रयोग के स्थापित फाइल-ट्री को मान्य करें।"
 
 #. TRANSLATORS: `appstreamcli `check-license` command description.
-#: tools/appstreamcli.c:1546
+#: tools/appstreamcli.c:1592
 msgid "Check license string for validity and print details about it."
 msgstr "मान्यता के लिए लाइसेंस स्ट्रिंग की जांच करें और इसके बारे में विवरण छापें।"
 
 #. TRANSLATORS: `appstreamcli `check-license` command description.
-#: tools/appstreamcli.c:1554
+#: tools/appstreamcli.c:1600
 msgid "Check if requirements of a component (via its ID or MetaInfo file) are satisfied on this system."
 msgstr "जांचें कि क्या इस सिस्टम पर किसी घटक की आवश्यकताएं (इसकी ID या MetaInfo फाइल के माध्यम से) संतुष्ट हैं।"
 
 #. TRANSLATORS: `appstreamcli `check-syscompat` command description.
-#: tools/appstreamcli.c:1562
+#: tools/appstreamcli.c:1608
 msgid "Check compatibility of a component (via its ID or MetaInfo file) with common system and chassis types."
 msgstr "सामान्य सिस्टम और चेसिस प्रकारों के साथ किसी घटक की संगतता (इसकी ID या MetaInfo फाइल के माध्यम से) की जांच करें।"
 
 #. TRANSLATORS: `appstreamcli install` command description.
-#: tools/appstreamcli.c:1571
+#: tools/appstreamcli.c:1617
 msgid "Install software matching the component-ID."
 msgstr "component-ID से मेल खाने वाला सॉफ्टवेयर स्थापित करें।"
 
 #. TRANSLATORS: `appstreamcli remove` command description.
-#: tools/appstreamcli.c:1578
+#: tools/appstreamcli.c:1624
 msgid "Remove software matching the component-ID."
 msgstr "component-ID से मेल खाने वाले सॉफ्टवेयर को हटा दें।"
 
 #. TRANSLATORS: `appstreamcli status` command description.
-#: tools/appstreamcli.c:1586
+#: tools/appstreamcli.c:1632
 msgid "Display status information about available AppStream metadata."
 msgstr "उपलब्ध AppStream मेटाडेटा के बारे में स्थिति जानकारी प्रदर्शित करें।"
 
 #. TRANSLATORS: `appstreamcli sysinfo` command description.
-#: tools/appstreamcli.c:1594
+#: tools/appstreamcli.c:1640
 msgid "Show information about the current device and used operating system."
 msgstr "वर्तमान उपकरण और प्रयुक्त ऑपरेटिंग सिस्टम के बारे में जानकारी दिखाएं।"
 
 #. TRANSLATORS: `appstreamcli put` command description.
-#: tools/appstreamcli.c:1602
+#: tools/appstreamcli.c:1648
 msgid "Install a metadata file into the right location."
 msgstr "मेटाडेटा फाइल को सही स्थान पर स्थापित करें।"
 
 #. TRANSLATORS: `appstreamcli convert` command description. "Catalog XML" is a term describing a specific type of AppStream XML data.
-#: tools/appstreamcli.c:1610
+#: tools/appstreamcli.c:1656
 msgid "Convert metadata catalog XML to YAML or vice versa."
 msgstr "मेटाडेटा कैटलॉग XML को YAML में बदलें या इसके विपरीत।"
 
 #. TRANSLATORS: `appstreamcli vercmp` command description.
-#: tools/appstreamcli.c:1617
+#: tools/appstreamcli.c:1663
 msgid "Compare two version numbers."
 msgstr "दो संस्करण संख्याओं की तुलना करें।"
 
 #. TRANSLATORS: `appstreamcli new-template` command description.
-#: tools/appstreamcli.c:1626
+#: tools/appstreamcli.c:1672
 msgid "Create a template for a metainfo file (to be filled out by the upstream project)."
 msgstr "metainfo फाइल के लिए एक खाका बनाएं (अपस्ट्रीम परियोजना द्वारा भरा जाएगा)।"
 
 #. TRANSLATORS: `appstreamcli make-desktop-file` command description.
-#: tools/appstreamcli.c:1634
+#: tools/appstreamcli.c:1680
 msgid "Create a desktop-entry file from a metainfo file."
 msgstr "Metainfo फाइल से एक डेस्कटॉप-प्रविष्टि फाइल बनाएं।"
 
 #. TRANSLATORS: `appstreamcli news-to-metainfo` command description.
-#: tools/appstreamcli.c:1642
+#: tools/appstreamcli.c:1688
 msgid "Convert a YAML or text NEWS file into metainfo releases."
 msgstr "YAML या पाठ NEWS फाइल को metainfo रिलीज़ में परिवर्तित करें।"
 
 #. TRANSLATORS: `appstreamcli metainfo-to-news` command description.
-#: tools/appstreamcli.c:1650
+#: tools/appstreamcli.c:1696
 msgid "Write NEWS text or YAML file with information from a metainfo file."
 msgstr "Metainfo फाइल से जानकारी के साथ NEWS पाठ या YAML फाइल लिखें।"
 
 #. TRANSLATORS: `appstreamcli compose` command description.
-#: tools/appstreamcli.c:1658
+#: tools/appstreamcli.c:1704
 msgid "Compose AppStream metadata catalog from directory trees."
 msgstr "निर्देशिका ट्री से AppStream मेटाडेटा कैटलॉग लिखें।"
 
 #. TRANSLATORS: `appstreamcli list-reviews` command description.
-#: tools/appstreamcli.c:1667
+#: tools/appstreamcli.c:1713
 #, fuzzy
 #| msgid "We have information on %i software components."
 msgid "List online user reviews for a software component."
 msgstr "हमारे पास %i सॉफ्टवेयर घटकों की जानकारी है।"
 
 #. TRANSLATORS: `appstreamcli submit-review` command description.
-#: tools/appstreamcli.c:1680
+#: tools/appstreamcli.c:1726
 msgid "Compose and submit an online review for a software component."
 msgstr ""
 
 #. TRANSLATORS: ascli has been run without command.
-#: tools/appstreamcli.c:1689
+#: tools/appstreamcli.c:1808
 msgid "You need to specify a command."
 msgstr "आपको एक आदेश निर्दिष्ट करना होगा।"
 
+#. TRANSLATORS: In ascli: Status information during a "refresh" action.
 #: tools/ascli-actions-mdata.c:49
 msgid "Only refreshing metadata cache specific to the current user."
 msgstr "केवल वर्तमान उपयोक्ता के लिए विशिष्ट मेटाडेटा कैशे को ताज़ा करना।"
@@ -3251,6 +3276,7 @@ msgstr "Flatpak के लिए सॉफ्टवेयर मेटाडे�
 msgid "A metadata source group with the name '%s' does not exist!"
 msgstr "'%s' नाम वाला मेटाडेटा स्रोत समूह मौजूद नहीं है!"
 
+#. TRANSLATORS: In ascli: The requested action needs higher permissions.
 #: tools/ascli-actions-mdata.c:98
 msgid "You might need superuser permissions to perform this action."
 msgstr "इस क्रिया को करने के लिए आपको सुपरयूज़र अनुमतियों की आवश्यकता हो सकती है।"
@@ -3268,7 +3294,7 @@ msgstr "मेटाडेटा कैशे अद्यतन आवश्य
 #. TRANSLATORS: An AppStream component-id is missing in the command-line arguments
 #. TRANSLATORS: ascli was told to find a software component by its ID, but no component-id was specified.
 #: tools/ascli-actions-mdata.c:132 tools/ascli-actions-mdata.c:298
-#: tools/ascli-actions-misc.c:697 tools/ascli-actions-misc.c:784
+#: tools/ascli-actions-misc.c:811 tools/ascli-actions-misc.c:898
 #: tools/ascli-actions-pkgmgr.c:182
 msgid "You need to specify a component-ID."
 msgstr "आपको एक component-ID निर्दिष्ट करने की आवश्यकता है।"
@@ -3298,6 +3324,7 @@ msgstr "खोजे जाने वाले वस्तु का कोई 
 msgid "Invalid type for provided item selected. Valid values are:"
 msgstr "प्रदत्त वस्तु के लिए अमान्य प्रकार चयनित। मान्य मान हैं:"
 
+#. TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results
 #: tools/ascli-actions-mdata.c:230
 #, c-format
 msgid "Could not find component providing '%s::%s'."
@@ -3331,6 +3358,7 @@ msgstr "आपको एक आगत और निर्गत फाइल न
 msgid "Metadata file '%s' does not exist."
 msgstr "मेटाडेटा फाइल '%s' मौजूद नहीं है।"
 
+#. TRANSLATORS: User is trying to convert a file in ascli
 #: tools/ascli-actions-mdata.c:433
 msgid "Unable to convert file: Could not determine output format, please set it explicitly using '--format='."
 msgstr "फाइल परिवर्तित करने में असमर्थ: निर्गत स्वरूप निर्धारित नहीं कर सका, कृपया इसे '--format=' का उपयोग करके स्पष्ट रूप से तय करें।"
@@ -3379,8 +3407,8 @@ msgid "You need to specify a MetaInfo filename or component ID."
 msgstr "आपको MetaInfo फाइल नाम या घटक ID निर्दिष्ट करने की आवश्यकता है।"
 
 #: tools/ascli-actions-mdata.c:714 tools/ascli-actions-mdata.c:838
-#: tools/ascli-actions-misc.c:133 tools/ascli-actions-misc.c:402
-#: tools/ascli-actions-misc.c:474
+#: tools/ascli-actions-misc.c:133 tools/ascli-actions-misc.c:468
+#: tools/ascli-actions-misc.c:557
 #, c-format
 msgid "Metainfo file '%s' does not exist."
 msgstr "Metainfo फाइल '%s' मौजूद नहीं है।"
@@ -3463,7 +3491,7 @@ msgstr "संगत"
 msgid "AppStream Status:"
 msgstr "AppStream स्थिति:"
 
-#: tools/ascli-actions-misc.c:48 tools/ascli-actions-misc.c:568
+#: tools/ascli-actions-misc.c:48 tools/ascli-actions-misc.c:682
 #, c-format
 msgid "Version: %s"
 msgstr "संस्करण: %s"
@@ -3503,7 +3531,7 @@ msgstr "हमारे पास %i सॉफ्टवेयर घटकों
 msgid "Error while loading the metadata pool: %s"
 msgstr "मेटाडेटा पूल लोड करते समय त्रुटि: %s"
 
-#: tools/ascli-actions-misc.c:118 tools/ascli-actions-misc.c:463
+#: tools/ascli-actions-misc.c:118 tools/ascli-actions-misc.c:542
 msgid "You need to specify a metainfo file as input."
 msgstr "आपको आगत के रूप में एक metainfo फाइल निर्दिष्ट करने की आवश्यकता है।"
 
@@ -3539,192 +3567,211 @@ msgstr "Metainfo फाइल में कोई बाइनरी निर�
 msgid "Unable to save desktop entry file: %s"
 msgstr "डेस्कटॉप प्रविष्टि फाइल सहेजने में असमर्थ: %s"
 
-#: tools/ascli-actions-misc.c:358
+#: tools/ascli-actions-misc.c:423
 msgid "You need to specify a NEWS file as input."
 msgstr "आपको आगत के रूप में एक NEWS फाइल निर्दिष्ट करने की आवश्यकता है।"
 
-#: tools/ascli-actions-misc.c:362
+#: tools/ascli-actions-misc.c:427
 msgid "You need to specify a metainfo file to augment, or '-' to print to stdout."
 msgstr "आपको संवर्ध के लिए metainfo फाइल निर्दिष्ट करने की आवश्यकता है, या stdout पर छापने के लिए '-'।"
 
-#: tools/ascli-actions-misc.c:368
+#: tools/ascli-actions-misc.c:480
 msgid "No output filename specified, modifying metainfo file directly."
 msgstr "कोई निर्गत फाइल नाम निर्दिष्ट नहीं है, metainfo फाइल को सीधे संशोधित किया जा रहा है।"
 
-#: tools/ascli-actions-misc.c:468
+#: tools/ascli-actions-misc.c:547
 msgid "You need to specify a NEWS file as output, or '-' to print to stdout."
 msgstr "आपको निर्गत के रूप में एक NEWS फाइल या stdout पर छापने के लिए '-' निर्दिष्ट करने की आवश्यकता है।"
 
-#: tools/ascli-actions-misc.c:496
+#: tools/ascli-actions-misc.c:575
+#, fuzzy, c-format
+#| msgid "The release metadata file '%s' is named incorrectly."
+msgid "Release metadata file '%s' contains no data."
+msgstr "रिलीज़ मेटाडेटा फाइल '%s' का नाम गलत है।"
+
+#: tools/ascli-actions-misc.c:590
+#, fuzzy, c-format
+#| msgid "Metainfo file '%s' does not exist."
+msgid "Metainfo file '%s' contains no component."
+msgstr "Metainfo फाइल '%s' मौजूद नहीं है।"
+
+#: tools/ascli-actions-misc.c:599
+#, c-format
+msgid ""
+"The metainfo file '%s' references external release data.\n"
+"Run this command on the release metadata file instead."
+msgstr ""
+
+#: tools/ascli-actions-misc.c:612
 msgid "You need to specify a NEWS format to write the output in."
 msgstr "निर्गत लिखने के लिए आपको एक NEWS प्रारूप निर्दिष्ट करना होगा।"
 
-#: tools/ascli-actions-misc.c:553
+#: tools/ascli-actions-misc.c:667
 msgid "Operating System Details"
 msgstr "ऑपरेटिंग सिस्टम विवरण"
 
-#: tools/ascli-actions-misc.c:557
+#: tools/ascli-actions-misc.c:671
 #, c-format
 msgid "Unable to find operating system component '%s'!"
 msgstr "ऑपरेटिंग सिस्टम घटक '%s' खोजने में असमर्थ!"
 
-#: tools/ascli-actions-misc.c:564
+#: tools/ascli-actions-misc.c:678
 msgid "ID"
 msgstr "ID"
 
-#: tools/ascli-actions-misc.c:565 tools/ascli-actions-misc.c:592
+#: tools/ascli-actions-misc.c:679 tools/ascli-actions-misc.c:706
 #: tools/ascli-utils.c:304
 msgid "Name"
 msgstr "नाम"
 
-#: tools/ascli-actions-misc.c:566 tools/ascli-actions-misc.c:853
+#: tools/ascli-actions-misc.c:680 tools/ascli-actions-misc.c:967
 #: tools/ascli-utils.c:305
 msgid "Summary"
 msgstr "सारांश"
 
-#: tools/ascli-actions-misc.c:571 tools/ascli-utils.c:309
+#: tools/ascli-actions-misc.c:685 tools/ascli-utils.c:309
 msgid "Homepage"
 msgstr "मुखपृष्ठ"
 
-#: tools/ascli-actions-misc.c:574 tools/ascli-utils.c:330
+#: tools/ascli-actions-misc.c:688 tools/ascli-utils.c:330
 msgid "Developer"
 msgstr "विकासकर्ता"
 
-#: tools/ascli-actions-misc.c:583 tools/ascli-utils.c:344
+#: tools/ascli-actions-misc.c:697 tools/ascli-utils.c:344
 msgid "Description"
 msgstr "विवरण"
 
-#: tools/ascli-actions-misc.c:591
+#: tools/ascli-actions-misc.c:705
 msgid "Kernel"
 msgstr "कर्नेल"
 
-#: tools/ascli-actions-misc.c:593 tools/ascli-actions-misc.c:749
+#: tools/ascli-actions-misc.c:707 tools/ascli-actions-misc.c:863
 msgid "Version"
 msgstr "संस्करण"
 
-#: tools/ascli-actions-misc.c:596
+#: tools/ascli-actions-misc.c:710
 msgid "Hardware"
 msgstr "हार्डवेयर"
 
-#: tools/ascli-actions-misc.c:599
+#: tools/ascli-actions-misc.c:713
 msgid "Physical Memory"
 msgstr "भौतिक मेमोरी"
 
-#: tools/ascli-actions-misc.c:607 tools/ascli-actions-misc.c:612
+#: tools/ascli-actions-misc.c:721 tools/ascli-actions-misc.c:726
 msgid "Largest Display"
 msgstr ""
 
-#: tools/ascli-actions-misc.c:610
+#: tools/ascli-actions-misc.c:724
 msgid "logical px"
 msgstr ""
 
-#: tools/ascli-actions-misc.c:612
+#: tools/ascli-actions-misc.c:726
 #, fuzzy
 #| msgid "Unable to read file."
 msgid "unable to determine"
 msgstr "फाइल पढ़ने में असमर्थ।"
 
-#: tools/ascli-actions-misc.c:616
+#: tools/ascli-actions-misc.c:730
 msgid "Devices with Modaliases"
 msgstr "Modaliases वाले उपकरण"
 
-#: tools/ascli-actions-misc.c:645
+#: tools/ascli-actions-misc.c:759
 msgid "User Input Controls"
 msgstr "उपयोक्ता आगत नियंत्रण"
 
-#: tools/ascli-actions-misc.c:648
+#: tools/ascli-actions-misc.c:762
 msgid "unknown"
 msgstr "अज्ञात"
 
-#: tools/ascli-actions-misc.c:655 tools/ascli-actions-validate.c:700
+#: tools/ascli-actions-misc.c:769 tools/ascli-actions-validate.c:700
 #: tools/ascli-actions-validate.c:706
 msgid "yes"
 msgstr "हां"
 
-#: tools/ascli-actions-misc.c:657 tools/ascli-actions-validate.c:701
+#: tools/ascli-actions-misc.c:771 tools/ascli-actions-validate.c:701
 #: tools/ascli-actions-validate.c:707
 msgid "no"
 msgstr "नहीं"
 
-#: tools/ascli-actions-misc.c:715
+#: tools/ascli-actions-misc.c:829
 msgid "Overall rating"
 msgstr ""
 
-#: tools/ascli-actions-misc.c:728
+#: tools/ascli-actions-misc.c:842
 #, fuzzy, c-format
 #| msgid "Found supported software component '%s'."
 msgid "No reviews found for component '%s'."
 msgstr "समर्थित सॉफ्टवेयर घटक '%s' मिला।"
 
-#: tools/ascli-actions-misc.c:743 tools/ascli-actions-misc.c:844
+#: tools/ascli-actions-misc.c:857 tools/ascli-actions-misc.c:958
 msgid "Author"
 msgstr ""
 
-#: tools/ascli-actions-misc.c:746
+#: tools/ascli-actions-misc.c:860
 msgid "Date"
 msgstr ""
 
-#: tools/ascli-actions-misc.c:796
+#: tools/ascli-actions-misc.c:910
 #, c-format
 msgid "Composing a review for '%s' to be submitted to %s."
 msgstr ""
 
-#: tools/ascli-actions-misc.c:799
+#: tools/ascli-actions-misc.c:913
 msgid "Please only review the software itself, and mind that your review will be publicly visible."
 msgstr ""
 
 #. TRANSLATORS: Prompt when composing a review, %s is a user name
-#: tools/ascli-actions-misc.c:804
+#: tools/ascli-actions-misc.c:918
 #, c-format
 msgid "Your display name (leave empty to use '%s'):"
 msgstr ""
 
 #. TRANSLATORS: Prompt for a star rating when composing a review
-#: tools/ascli-actions-misc.c:811
+#: tools/ascli-actions-misc.c:925
 msgid "Star rating, from 1 (worst) to 5 (best):"
 msgstr ""
 
 #. TRANSLATORS: Prompt when composing a review
-#: tools/ascli-actions-misc.c:818
+#: tools/ascli-actions-misc.c:932
 msgid "Short summary of your review:"
 msgstr ""
 
-#: tools/ascli-actions-misc.c:824
+#: tools/ascli-actions-misc.c:938
 msgid "The summary must not be empty and be no longer than 70 characters."
 msgstr ""
 
 #. TRANSLATORS: Prompt when composing a review
-#: tools/ascli-actions-misc.c:828
+#: tools/ascli-actions-misc.c:942
 msgid "Detailed review text (end with an empty line):"
 msgstr ""
 
-#: tools/ascli-actions-misc.c:830
+#: tools/ascli-actions-misc.c:944
 msgid "The review text must not be empty."
 msgstr ""
 
-#: tools/ascli-actions-misc.c:851
+#: tools/ascli-actions-misc.c:965
 msgid "Rating"
 msgstr ""
 
-#: tools/ascli-actions-misc.c:854
+#: tools/ascli-actions-misc.c:968
 msgid "Review"
 msgstr ""
 
 #. TRANSLATORS: Prompt before publishing a composed review
-#: tools/ascli-actions-misc.c:861
+#: tools/ascli-actions-misc.c:975
 msgid "Publish this review?"
 msgstr ""
 
-#: tools/ascli-actions-misc.c:865
+#: tools/ascli-actions-misc.c:979
 msgid "Review submission cancelled."
 msgstr ""
 
-#: tools/ascli-actions-misc.c:875
+#: tools/ascli-actions-misc.c:989
 #, c-format
 msgid "Review submitted successfully (ID: %s). Thank you!"
 msgstr ""
 
-#: tools/ascli-actions-misc.c:878
+#: tools/ascli-actions-misc.c:992
 msgid "Review submitted successfully. Thank you!"
 msgstr ""
 
@@ -3774,15 +3821,25 @@ msgstr "हटाने के लिए कई उम्मीदवार प�
 msgid "Multiple candidates were found for installation:"
 msgstr "स्थापना के लिए अनेक उम्मीदवार पाए गए:"
 
+#. TRANSLATORS: A list of components is displayed with number prefixes. This is a prompt for the user to select one.
 #: tools/ascli-actions-pkgmgr.c:257
 msgid "Please enter the number of the component to remove:"
 msgstr "कृपया हटाने के लिए घटक की संख्या दर्ज करें:"
 
+#. TRANSLATORS: A list of components is displayed with number prefixes. This is a prompt for the user to select one.
 #: tools/ascli-actions-pkgmgr.c:262
 msgid "Please enter the number of the component to install:"
 msgstr "कृपया स्थापना करने के लिए घटक की संख्या दर्ज करें:"
 
-#: tools/ascli-actions-pkgmgr.c:272
+#. we reached the end of the input stream without ever getting an
+#. * answer, e.g. because stdin was closed or is not a terminal
+#: tools/ascli-actions-pkgmgr.c:267
+#, fuzzy
+#| msgid "No component matching '%s' found."
+msgid "No component was selected."
+msgstr "'%s' से मेल खाता कोई घटक नहीं मिला।"
+
+#: tools/ascli-actions-pkgmgr.c:278
 #, c-format
 msgid "Component '%s' has no installation candidate."
 msgstr "घटक '%s' का कोई संस्थापन उम्मीदवार नहीं है।"
@@ -3963,7 +4020,10 @@ msgstr "इसके लिए अनिवार्य"
 msgid "Provided Items"
 msgstr "उपलब्ध कराई गई वस्तुएं"
 
-#: tools/ascli-utils.c:523
+#: tools/ascli-utils.c:525
 #, c-format
 msgid "Please enter a number from 1 to %i: "
 msgstr "कृपया 1 से %i तक कोई संख्या दर्ज करें: "
+
+#~ msgid "Invalid number of parameters"
+#~ msgstr "पैरामीटरों की अमान्य संख्या"
