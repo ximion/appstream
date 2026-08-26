@@ -261,6 +261,12 @@ ascli_get_component_instrm_candidate (const gchar *identifier,
 			    /* TRANSLATORS: A list of components is displayed with number prefixes. This is a prompt for the user to select one. */
 			    _("Please enter the number of the component to install:"),
 			      as_component_box_len (result_filtered));
+		if (selection == 0) {
+			/* we reached the end of the input stream without ever getting an
+			 * answer, e.g. because stdin was closed or is not a terminal */
+			ascli_print_stderr (_("No component was selected."));
+			return ASCLI_EXIT_CODE_BAD_INPUT;
+		}
 		r_cpt = as_component_box_index (result_filtered, selection - 1);
 	}
 

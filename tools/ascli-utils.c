@@ -494,7 +494,9 @@ ascli_data_pool_new_and_open (const gchar *cachepath, gboolean no_cache, GError 
  *
  * Prompt the user to enter a number and confirm.
  *
- * Return value: a number entered by the user.
+ * Return value: a number between 1 and @maxnum as entered by the user,
+ * or 0 if input has ended before we got an answer. Callers must check for
+ * the latter before using the result as an index.
  **/
 guint
 ascli_prompt_number (const gchar *question, guint maxnum)
