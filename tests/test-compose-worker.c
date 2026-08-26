@@ -761,7 +761,8 @@ test_sandbox_subprocess (void)
 		struct sockaddr_in addr;
 		gint sock = socket (AF_INET, SOCK_STREAM | SOCK_CLOEXEC, 0);
 
-		g_assert_cmpint (sock, >=, 0);
+		if (sock < 0)
+			g_error ("Unable to create test socket: %s", g_strerror (errno));
 		memset (&addr, 0, sizeof (addr));
 		addr.sin_family = AF_INET;
 		addr.sin_port = g_htons (80);

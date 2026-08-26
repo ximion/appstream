@@ -544,7 +544,7 @@ ascli_prompt_line (const gchar *question)
 		g_print ("%s ", question);
 
 	do {
-		char buffer[1024];
+		char buffer[1024] = { 0 };
 
 		if (!fgets (buffer, sizeof (buffer), stdin)) {
 			if (input->len == 0)
