@@ -83,25 +83,52 @@ test_utils (void)
 	gchar *tmp;
 
 	/* global ID */
-	tmp = asc_build_component_global_id ("foobar.desktop", "DEADBEEF");
+	tmp = asc_build_component_global_id ("foobar.desktop", "DEADBEEF", NULL);
 	g_assert_cmpstr (tmp, ==, "f/fo/foobar.desktop/DEADBEEF");
 	g_free (tmp);
 
-	tmp = asc_build_component_global_id ("org.gnome.yelp.desktop", "DEADBEEF");
+	tmp = asc_build_component_global_id ("org.gnome.yelp.desktop", "DEADBEEF", NULL);
 	g_assert_cmpstr (tmp, ==, "org/gnome/yelp.desktop/DEADBEEF");
 	g_free (tmp);
 
-	tmp = asc_build_component_global_id ("noto-cjk.font", "DEADBEEF");
+	tmp = asc_build_component_global_id ("noto-cjk.font", "DEADBEEF", NULL);
 	g_assert_cmpstr (tmp, ==, "n/no/noto-cjk.font/DEADBEEF");
 	g_free (tmp);
 
-	tmp = asc_build_component_global_id ("io.sample.awesomeapp.sdk", "ABAD1DEA");
+	tmp = asc_build_component_global_id ("io.sample.awesomeapp.sdk", "ABAD1DEA", NULL);
 	g_assert_cmpstr (tmp, ==, "io/sample/awesomeapp.sdk/ABAD1DEA");
 	g_free (tmp);
 
-	tmp = asc_build_component_global_id ("io.sample.awesomeapp.sdk", NULL);
+	tmp = asc_build_component_global_id ("io.sample.awesomeapp.sdk", NULL, NULL);
 	g_assert_cmpstr (tmp, ==, "io/sample/awesomeapp.sdk/last");
 	g_free (tmp);
+
+	/* An ID that could escape the media directory must never yield a global ID,
+	 * neither via a path separator nor via relative path segments. */
+	{
+		const gchar *bad_gcids[][2] = {
+			{ "org.example.app/../../../evil", "DEADBEEF"      },
+			{ "org.example.app/evil",	  "DEADBEEF"	     },
+			{ "../../../evil.desktop",	   "DEADBEEF"      },
+			{ "org.example...",		    "DEADBEEF"      },
+			{ "org.example.",		  "DEADBEEF"	     },
+			{ "evil/app",		      "DEADBEEF"	 },
+			{ "ab",				"DEADBEEF"	   },
+			{ "",			      "DEADBEEF"	 },
+			{ "org.example.app",		     "../../../evil" },
+			{ "org.example.app",		     "sub/dir"       },
+			{ "org.example.app",		     ".."		  },
+		};
+
+		for (guint i = 0; i < G_N_ELEMENTS (bad_gcids); i++) {
+			g_autoptr(GError) gcid_error = NULL;
+			g_assert_null (asc_build_component_global_id (bad_gcids[i][0],
+								      bad_gcids[i][1],
+								      &gcid_error));
+			/* every rejection has to explain itself */
+			g_assert_error (gcid_error, ASC_COMPOSE_ERROR, ASC_COMPOSE_ERROR_FAILED);
+		}
+	}
 
 	/* filename from URL */
 	tmp = asc_filename_from_url ("https://example.com/file.txt");
@@ -614,7 +641,8 @@ test_compose_result (void)
 			 ==,
 			 "org/freedesktop/appstream.dummy/9dc221733838ad255d8a34978e062171");
 #endif
-	ret = asc_result_update_component_gcid_with_string (cres, cpt, "<moredata>");
+	ret = asc_result_update_component_gcid_with_string (cres, cpt, "<moredata>", &error);
+	g_assert_no_error (error);
 	g_assert_true (ret);
 #ifdef HAVE_BLAKE3
 	g_assert_cmpstr (asc_result_gcid_for_component (cres, cpt),
@@ -633,8 +661,10 @@ test_compose_result (void)
 	g_assert_false (ret);
 
 	/* component no longer exists after an error, so this should fail now */
-	ret = asc_result_update_component_gcid_with_string (cres, cpt, "<moredata>");
+	ret = asc_result_update_component_gcid_with_string (cres, cpt, "<moredata>", &error);
+	g_assert_error (error, ASC_COMPOSE_ERROR, ASC_COMPOSE_ERROR_FAILED);
 	g_assert_false (ret);
+	g_clear_error (&error);
 
 	g_assert_cmpint (asc_result_components_count (cres), ==, 0);
 	g_assert_cmpint (asc_result_hints_count (cres), ==, 2);
@@ -649,6 +679,33 @@ test_compose_result (void)
 	tmp = asc_hint_format_explanation (ASC_HINT (g_ptr_array_index (hints, 1)));
 	g_assert_cmpstr (tmp, ==, "Dummy error hint for the testsuite. Var1: testvalue-error.");
 	g_free (tmp);
+
+	/* a component-ID which is unsafe to use in a filesystem path must be rejected,
+	 * and the component must not remain in the result set */
+	{
+		const gchar *bad_cid = "org.example.app/../../../evil";
+		g_autoptr(AsComponent) bad_cpt = as_component_new ();
+		g_autoptr(AscResult) bad_res = asc_result_new ();
+		GPtrArray *bad_hints;
+
+		as_component_set_id (bad_cpt, bad_cid);
+		ret = asc_result_add_component_with_string (bad_res, bad_cpt, "<testdata>", &error);
+		g_assert_error (error, ASC_COMPOSE_ERROR, ASC_COMPOSE_ERROR_FAILED);
+		g_assert_false (ret);
+		g_clear_error (&error);
+
+		g_assert_cmpint (asc_result_components_count (bad_res), ==, 0);
+		g_assert_null (asc_result_get_component (bad_res, bad_cid));
+		g_assert_null (asc_result_gcid_for_component (bad_res, bad_cpt));
+
+		/* the rejection has to be reported to whoever wrote the metadata */
+		bad_hints = asc_result_get_hints (bad_res, bad_cid);
+		g_assert_nonnull (bad_hints);
+		g_assert_cmpint (bad_hints->len, ==, 1);
+		g_assert_cmpstr (asc_hint_get_tag (ASC_HINT (g_ptr_array_index (bad_hints, 0))),
+				 ==,
+				 "component-id-invalid");
+	}
 }
 
 /**
@@ -808,6 +865,31 @@ test_compose_desktop_entry (void)
 		g_assert_cmpstr (asc_hint_get_tag (hint), ==, "asv-desktop-entry-bad-data");
 	}
 	g_clear_pointer (&cpt, g_object_unref);
+
+	/* a desktop-entry filename which is not valid UTF-8 yields no component at all,
+	 * as we can not derive a component-ID from it - the issue is reported using a
+	 * sanitized version of the name */
+	g_object_unref (cres);
+	cres = asc_result_new ();
+	cpt = asc_parse_desktop_entry_data (cres,
+					    NULL, /* cpt */
+					    de_bytes,
+					    "foo\xff"
+					    "bar.desktop",
+					    FALSE, /* don't ignore nodisplay */
+					    AS_FORMAT_VERSION_LATEST,
+					    NULL,
+					    NULL);
+	g_assert_null (cpt);
+	g_assert_cmpint (asc_result_components_count (cres), ==, 0);
+
+	g_assert_cmpint (asc_result_hints_count (cres), ==, 1);
+	hints = asc_result_get_hints (cres, "foo_bar.desktop");
+	g_assert_nonnull (hints);
+	g_assert_cmpint (hints->len, ==, 1);
+	g_assert_cmpstr (asc_hint_get_tag (ASC_HINT (g_ptr_array_index (hints, 0))),
+			 ==,
+			 "desktop-file-error");
 }
 
 static void

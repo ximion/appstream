@@ -1911,11 +1911,23 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 						    priv->de_l10n_fn,
 						    priv->de_l10n_fn_udata);
 						if (de_cpt != NULL) {
-							/* update component hash based on new source data */
-							asc_result_update_component_gcid (
-							    ctask->result,
-							    cpt,
-							    de_bytes);
+							g_autoptr(GError) gcid_error = NULL;
+							/* update component hash based on new source data.
+							 * The ID did not change since the component was
+							 * added, so this can not legitimately fail - say
+							 * so loudly rather than silently if it ever does. */
+							if (!asc_result_update_component_gcid (
+								ctask->result,
+								cpt,
+								de_bytes,
+								&gcid_error))
+								asc_result_add_hint (
+								    ctask->result,
+								    cpt,
+								    "internal-error",
+								    "msg",
+								    gcid_error->message,
+								    NULL);
 						}
 					}
 					g_hash_table_remove (de_fname_map, de_basename);

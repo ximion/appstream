@@ -364,6 +364,7 @@ asc_result_fetch_component_ids_with_hints (AscResult *result)
  * @result: an #AscResult instance.
  * @cpt: The #AsComponent to edit.
  * @bytes: (nullable): The data to include in the global component ID, or %NULL
+ * @error: a #GError or %NULL
  *
  * Update the global component ID for the given component.
  *
@@ -372,11 +373,14 @@ asc_result_fetch_component_ids_with_hints (AscResult *result)
  * Since: 0.13.0
  **/
 gboolean
-asc_result_update_component_gcid (AscResult *result, AsComponent *cpt, GBytes *bytes)
+asc_result_update_component_gcid (AscResult *result,
+				  AsComponent *cpt,
+				  GBytes *bytes,
+				  GError **error)
 {
 	AscResultPrivate *priv = GET_PRIVATE (result);
 	g_autofree gchar *gcid = NULL;
-	gchar *hash = NULL;
+	g_autofree gchar *hash = NULL;
 	const gchar *data;
 	gsize data_len;
 	const gchar *old_hash;
@@ -393,14 +397,21 @@ asc_result_update_component_gcid (AscResult *result, AsComponent *cpt, GBytes *b
 	}
 
 	if (as_is_empty (cid)) {
-		gcid = asc_build_component_global_id (cid, NULL);
-		g_hash_table_insert (priv->gcids,
-				     g_ref_string_new_intern (cid),
-				     g_steal_pointer (&gcid));
-		return TRUE;
-	}
-	if (!g_hash_table_contains (priv->cpts, cid))
+		g_set_error_literal (error,
+				     ASC_COMPOSE_ERROR,
+				     ASC_COMPOSE_ERROR_FAILED,
+				     "Can not build a global component-ID for a component "
+				     "with an empty ID.");
 		return FALSE;
+	}
+	if (!g_hash_table_contains (priv->cpts, cid)) {
+		g_set_error (error,
+			     ASC_COMPOSE_ERROR,
+			     ASC_COMPOSE_ERROR_FAILED,
+			     "The component '%s' is not part of this result set.",
+			     cid);
+		return FALSE;
+	}
 
 	old_hash = g_hash_table_lookup (priv->mdata_hashes, cpt);
 	if (old_hash == NULL) {
@@ -417,8 +428,11 @@ asc_result_update_component_gcid (AscResult *result, AsComponent *cpt, GBytes *b
 		hash = asc_compute_content_checksum_for_data (tmp, old_hash_len + data_len);
 	}
 
-	g_hash_table_insert (priv->mdata_hashes, cpt, hash);
-	gcid = asc_build_component_global_id (cid, hash);
+	gcid = asc_build_component_global_id (cid, hash, error);
+	if (gcid == NULL)
+		return FALSE;
+
+	g_hash_table_insert (priv->mdata_hashes, cpt, g_steal_pointer (&hash));
 	g_hash_table_insert (priv->gcids, g_ref_string_new_intern (cid), g_steal_pointer (&gcid));
 
 	return TRUE;
@@ -429,6 +443,7 @@ asc_result_update_component_gcid (AscResult *result, AsComponent *cpt, GBytes *b
  * @result: an #AscResult instance.
  * @cpt: The #AsComponent to edit.
  * @data: (nullable): The data as string to include in the global component ID, or %NULL
+ * @error: a #GError or %NULL
  *
  * Update the global component ID for the given component.
  * This is a convenience method for %asc_result_update_component_gcid
@@ -440,12 +455,13 @@ asc_result_update_component_gcid (AscResult *result, AsComponent *cpt, GBytes *b
 gboolean
 asc_result_update_component_gcid_with_string (AscResult *result,
 					      AsComponent *cpt,
-					      const gchar *data)
+					      const gchar *data,
+					      GError **error)
 {
 	g_autoptr(GBytes) bytes = g_bytes_new_static (data ? data : "", strlen (data ? data : ""));
 	g_return_val_if_fail (ASC_IS_RESULT (result), FALSE);
 
-	return asc_result_update_component_gcid (result, cpt, bytes);
+	return asc_result_update_component_gcid (result, cpt, bytes, error);
 }
 
 /**
@@ -534,6 +550,7 @@ gboolean
 asc_result_add_component (AscResult *result, AsComponent *cpt, GBytes *bytes, GError **error)
 {
 	AscResultPrivate *priv = GET_PRIVATE (result);
+	g_autoptr(GError) tmp_error = NULL;
 	AsComponentKind ckind;
 	const gchar *cid = as_component_get_id (cpt);
 
@@ -565,7 +582,24 @@ asc_result_add_component (AscResult *result, AsComponent *cpt, GBytes *bytes, GE
 	}
 
 	g_hash_table_insert (priv->cpts, g_ref_string_new_intern (cid), g_object_ref (cpt));
-	asc_result_update_component_gcid (result, cpt, bytes);
+
+	/* update & verify the global component-ID */
+	if (!asc_result_update_component_gcid (result, cpt, bytes, &tmp_error)) {
+		asc_result_add_hint (result,
+				     cpt,
+				     "component-id-invalid",
+				     "cid",
+				     cid,
+				     "msg",
+				     tmp_error->message,
+				     NULL);
+		g_propagate_prefixed_error (error,
+					    g_steal_pointer (&tmp_error),
+					    "Can not add component '%s' to results set: ",
+					    cid);
+		return FALSE;
+	}
+
 	return TRUE;
 }
 

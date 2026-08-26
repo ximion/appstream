@@ -27,15 +27,46 @@
 #include "config.h"
 #include "asc-utils.h"
 #include "as-utils-private.h"
+#include "asc-globals.h"
 
 #ifdef HAVE_BLAKE3
 #include <blake3.h>
 #endif
 
 /**
+ * asc_gcid_verify_part:
+ *
+ * Verify one piece of the path we are about to build, and explain which piece it was
+ * if it does not hold up. Every segment is checked individually: the component-ID is
+ * split apart to form the path, so a piece of it may be unusable as a directory name
+ * even when the ID reads fine as a whole.
+ */
+static gboolean
+asc_gcid_verify_part (const gchar *part, const gchar *kind, GError **error)
+{
+	g_autofree gchar *part_printable = NULL;
+
+	if (G_LIKELY (as_path_segment_verify (part)))
+		return TRUE;
+
+	/* one of the things we reject here is invalid UTF-8, so we must not put the
+	 * offending piece into the error message verbatim - the message ends up in issue
+	 * hints and in the generated reports, which have to be valid UTF-8 */
+	part_printable = g_utf8_make_valid (part, -1);
+	g_set_error (error,
+		     ASC_COMPOSE_ERROR,
+		     ASC_COMPOSE_ERROR_FAILED,
+		     "The %s '%s' is invalid.",
+		     kind,
+		     part_printable);
+	return FALSE;
+}
+
+/**
  * asc_build_component_global_id:
  * @component_id: an AppStream component ID.
  * @checksum: a checksum as string generated from the component's combined metadata.
+ * @error: a #GError or %NULL
  *
  * Builds a global component ID from a component-id
  * and a checksum (usually Blake3) generated from the component data.
@@ -45,22 +76,47 @@
  * Its primary usecase is to identify a media directory on the filesystem which is
  * associated with this component.
  *
- * Returns: (transfer full) (nullable): The new global ID, or %NULL if @component_id was empty.
+ * Since the result is used to construct filesystem paths, this function will refuse
+ * to build a global ID unless every segment it is made of - the pieces of the
+ * component-ID as well as @checksum - is safe to use as a directory name. The error
+ * that is set in that case names the offending piece, and is meant to be shown to
+ * whoever wrote the metadata.
+ *
+ * Returns: (transfer full) (nullable): The new global ID, or %NULL on error.
  *
  * Since: 0.13.0
  **/
 gchar *
-asc_build_component_global_id (const gchar *component_id, const gchar *checksum)
+asc_build_component_global_id (const gchar *component_id, const gchar *checksum, GError **error)
 {
 	gboolean rdns_split;
 	g_auto(GStrv) parts = NULL;
 
-	if (as_is_empty (component_id))
+	if (as_is_empty (component_id)) {
+		g_set_error_literal (error,
+				     ASC_COMPOSE_ERROR,
+				     ASC_COMPOSE_ERROR_FAILED,
+				     "The component-ID is empty.");
 		return NULL;
+	}
 	if (as_is_empty (checksum))
 		checksum = "last";
 
-	g_return_val_if_fail (strlen (component_id) > 2, NULL);
+	if (strlen (component_id) <= 2) {
+		g_autofree gchar *cid_printable = g_utf8_make_valid (component_id, -1);
+		g_set_error (error,
+			     ASC_COMPOSE_ERROR,
+			     ASC_COMPOSE_ERROR_FAILED,
+			     "The component-ID '%s' is shorter than three characters.",
+			     cid_printable);
+		return NULL;
+	}
+
+	/* the checksum becomes the last segment of the path we build, so it has to hold up
+	 * as a directory name just like the pieces of the ID do. We check it here, before
+	 * anything is allocated, so a bad one costs us nothing but this scan. */
+	if (!asc_gcid_verify_part (checksum, "checksum", error))
+		return NULL;
 
 	/* check whether we can build the gcid by using the reverse domain name,
 	 * or whether we should use the simple standard splitter. */
@@ -79,6 +135,11 @@ asc_build_component_global_id (const gchar *component_id, const gchar *checksum)
 		tld_part = g_utf8_strdown (parts[0], -1);
 		domain_part = g_utf8_strdown (parts[1], -1);
 
+		if (!asc_gcid_verify_part (tld_part, "top-level domain", error) ||
+		    !asc_gcid_verify_part (domain_part, "domain part", error) ||
+		    !asc_gcid_verify_part (parts[2], "last part of the component-ID", error))
+			return NULL;
+
 		return g_strdup_printf ("%s/%s/%s/%s", tld_part, domain_part, parts[2], checksum);
 	} else {
 		g_autofree gchar *cid_low = NULL;
@@ -87,6 +148,15 @@ asc_build_component_global_id (const gchar *component_id, const gchar *checksum)
 		cid_low = g_utf8_strdown (component_id, -1);
 		pdiv_part = g_utf8_substring (cid_low, 0, 1);
 		sdiv_part = g_utf8_substring (cid_low, 0, 2);
+
+		if (!asc_gcid_verify_part (pdiv_part,
+					   "first character of the component-ID",
+					   error) ||
+		    !asc_gcid_verify_part (sdiv_part,
+					   "first two characters of the component-ID",
+					   error) ||
+		    !asc_gcid_verify_part (cid_low, "component-ID", error))
+			return NULL;
 
 		return g_strdup_printf ("%s/%s/%s/%s", pdiv_part, sdiv_part, cid_low, checksum);
 	}

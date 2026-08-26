@@ -954,6 +954,20 @@ test_read_desktop_entry_simple (void)
 	g_assert_cmpstr ((const gchar *) g_ptr_array_index (entries, 0),
 			 ==,
 			 "org.example.foobar.desktop");
+
+	/* a desktop-entry name which is not valid UTF-8 must be rejected, so it can
+	 * never end up mangled in generated metadata */
+	as_metadata_clear_components (metad);
+	ret = as_metadata_parse_desktop_data (metad,
+					      "foo\xff"
+					      "bar.desktop",
+					      desktop_entry_data,
+					      -1,
+					      &error);
+	g_assert_error (error, AS_METADATA_ERROR, AS_METADATA_ERROR_PARSE);
+	g_assert_false (ret);
+	g_clear_error (&error);
+	g_assert_cmpint (as_component_box_len (as_metadata_get_components (metad)), ==, 0);
 }
 
 /**

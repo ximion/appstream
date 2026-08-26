@@ -74,6 +74,14 @@ AscHintTagStatic asc_hint_tag_list[] =  {
           "The identifier tag is essential for AppStream metadata, and must not be missing."
 	},
 
+	{ "component-id-invalid",
+	  AS_ISSUE_SEVERITY_ERROR,
+	  "The component ID <code>{{cid}}</code> can not be used: {{msg}}<br/>"
+	  "Component IDs are used to build file and directory names for the generated icons and media data, so they must be safe to use in a filesystem path, "
+	  "must not be shorter than three characters, and every dot-separated part of them has to work as a directory name on its own.<br/>"
+	  "Please only use ASCII alphanumeric characters, dots, hyphens and underscores in component IDs, never start an ID with a dot and never place two dots next to each other."
+	},
+
 	{ "metainfo-no-name",
 	  AS_ISSUE_SEVERITY_ERROR,
 	  "Component has no name specified. Ensure that the AppStream MetaInfo file or the .desktop file (if there is any) specify a component name."

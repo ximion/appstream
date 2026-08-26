@@ -281,6 +281,20 @@ as_desktop_entry_parse_data (AsComponent *cpt,
 		return FALSE;
 	}
 
+	/* The desktop-entry filename becomes the component-ID, but POSIX filenames are
+	 * arbitrary byte strings. Invalid UTF-8 would silently be mangled or dropped
+	 * entirely when the ID is serialized later, so we refuse such names right away. */
+	if (!g_utf8_validate (desktop_basename, -1, NULL)) {
+		g_autofree gchar *basename_printable = g_utf8_make_valid (desktop_basename, -1);
+		g_set_error (error,
+			     AS_METADATA_ERROR,
+			     AS_METADATA_ERROR_PARSE,
+			     "Unable to determine component-id for component from "
+			     "desktop-entry data: The name '%s' is not valid UTF-8.",
+			     basename_printable);
+		return FALSE;
+	}
+
 	df = g_key_file_new ();
 	g_key_file_load_from_data (df, data, data_len, G_KEY_FILE_KEEP_TRANSLATIONS, &tmp_error);
 	if (tmp_error != NULL) {

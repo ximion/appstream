@@ -374,6 +374,20 @@ asc_parse_desktop_entry_data (AscResult *cres,
 	gsize data_len;
 	gboolean ret;
 
+	/* the component-ID is derived from the desktop-entry filename, so a name that is not
+	 * valid UTF-8 can not be used at all - not even to report an issue for it */
+	if (!g_utf8_validate (de_basename, -1, NULL)) {
+		g_autofree gchar *de_basename_safe = as_path_segment_sanitize (de_basename);
+		asc_result_add_hint_by_cid (cres,
+					    de_basename_safe,
+					    "desktop-file-error",
+					    "msg",
+					    "The filename of this desktop-entry file is not valid "
+					    "UTF-8, so no component-ID can be derived from it.",
+					    NULL);
+		return NULL;
+	}
+
 	/* NOTE: The cid needs to be the exact desktop-entry name briefly, as as_desktop_entry_parse_data
 	 * uses it to synthesize a Launchable. We can reset it later. */
 	if (cpt != NULL) {
