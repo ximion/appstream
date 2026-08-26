@@ -437,7 +437,7 @@ asw_canvas_draw_font_card (AswCanvas *canvas,
 	/* get our bottom bar sample word, in case none that was long enough
 	 * had previously been found */
 	if (as_is_empty (word_sample)) {
-		if (words != NULL && words[0] != NULL)
+		if (words[0] != NULL)
 			word_sample = words[0];
 		else
 			word_sample = asw_font_get_sample_icon_text (font);
