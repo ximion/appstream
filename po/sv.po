@@ -29,7 +29,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-08-26 10:24+0200\n"
-"PO-Revision-Date: 2026-08-22 06:51+0000\n"
+"PO-Revision-Date: 2026-08-26 20:57+0000\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/appstream/translations/sv/>\n"
 "Language: sv\n"
@@ -1673,10 +1673,8 @@ msgid "This element (paragraph, list, etc.) of a <description/> tag must not be 
 msgstr "Detta element (paragraf, lista o.s.v.) för en <description/>-tagg får inte lokaliseras individuellt i katalogmetadata. Lokalisera hela <description/>-taggen i stället. AppStream-metadatakataloggeneratorn (t.ex. `appstream-generator`) kommer redan göra rätt sak när dessa data kompileras."
 
 #: src/as-validator-issue-tag.h:64
-#, fuzzy
-#| msgid "AppStream descriptions support only a limited set of tags to format text: Paragraphs (<p/>) and lists (<ul/>, <ol/>). This description markup contains an invalid XML tag that would not be rendered correctly in applications supporting the metainfo specification."
 msgid "AppStream descriptions support only a limited set of tags to format text: Paragraphs (<p/>), section headings (<heading/>) and lists (<ul/>, <ol/>). This description markup contains an invalid XML tag that would not be rendered correctly in applications supporting the metainfo specification."
-msgstr "AppStream-beskrivningar stöder bara en begränsad mängd taggar för att formatera text: paragrafer (<p/>) och listor (<ul/>, <ol/>). Denna beskrivnings-markup innehåller en ogiltig XML-tagg som inte skulle renderas korrekt i program som stöder metainfospecifikationen."
+msgstr "AppStream-beskrivningar stöder bara en begränsad mängd taggar för att formatera text: paragrafer (<p/>), avsnittsrubriker (<heading/>) och listor (<ul/>, <ol/>). Denna beskrivnings-markup innehåller en ogiltig XML-tagg som inte skulle renderas korrekt i program som stöder metainfospecifikationen."
 
 #: src/as-validator-issue-tag.h:70
 msgid "This description paragraph contains invalid markup. Currently, only <em/> and <code/> are permitted."
@@ -1701,12 +1699,12 @@ msgstr "Uppräkningen får inte översättas som en helhet. Översätt i ställe
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:99
 msgid "Section headings (`description/heading`) are plain text and must not contain any markup, not even <em/> or <code/>. The markup will be removed when the metadata is read."
-msgstr ""
+msgstr "Avsnittsrubriker (`description/heading`) är klartext och får inte innehålla markup, inte ens <em/> eller <code/>. Markup kommer tas bort när metadata läses."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:106
 msgid "This section heading (`description/heading`) is very long and will likely not be displayed properly everywhere. A heading should be a short label for the section that follows it, and be <= 80 characters long. Use a paragraph (<p/>) for longer text."
-msgstr ""
+msgstr "Avsnittsrubriken (`description/heading`) är väldigt lång och kommer troligen inte visas korrekt överallt . En rubrik ska vara en kort etikett för avsnittet som följer, och vara <= 80 tecken lång. Använd ett stycke (<p/>) för längre text."
 
 #: src/as-validator-issue-tag.h:113
 msgid "The first `description/p` paragraph of this component might be too short (< 80 characters). Please consider starting with a longer paragraph to improve how the description looks like in software centers and to provide more detailed information on this component immediately in the first paragraph."
@@ -2808,7 +2806,7 @@ msgstr "Ingen målkatalog inställd, tillhandahåll en plats för datautmatning!
 #: tools/appstream-compose.c:404
 #, c-format
 msgid "Metadata origin not set, using '%s'"
-msgstr ""
+msgstr "Metadata-ursprung inte inställt, använder ”%s”"
 
 #: tools/appstream-compose.c:409 tools/appstream-compose.c:411
 msgid "WARNING"
@@ -3591,16 +3589,14 @@ msgid "You need to specify a NEWS file as output, or '-' to print to stdout."
 msgstr "Du måste ange en NEWS-fil som utmatning, eller ”-” för att skriva till standard ut."
 
 #: tools/ascli-actions-misc.c:575
-#, fuzzy, c-format
-#| msgid "The release metadata file '%s' is named incorrectly."
+#, c-format
 msgid "Release metadata file '%s' contains no data."
-msgstr "Felaktigt namn på utgåvemetadatafilen ”%s”."
+msgstr "Utgåvemetadatafilen ”%s” innehåller inte några data."
 
 #: tools/ascli-actions-misc.c:590
-#, fuzzy, c-format
-#| msgid "Metainfo file '%s' does not exist."
+#, c-format
 msgid "Metainfo file '%s' contains no component."
-msgstr "Metainfofilen ”%s” finns inte."
+msgstr "Metainfofilen ”%s” innehåller inte någon komponent."
 
 #: tools/ascli-actions-misc.c:599
 #, c-format
@@ -3608,6 +3604,8 @@ msgid ""
 "The metainfo file '%s' references external release data.\n"
 "Run this command on the release metadata file instead."
 msgstr ""
+"Metainfofilen ”%s” hänvisar till externa utgåvedata.\n"
+"Kör detta kommando på utgåvemetadatafilen i stället."
 
 #: tools/ascli-actions-misc.c:612
 msgid "You need to specify a NEWS format to write the output in."
@@ -3837,10 +3835,8 @@ msgstr "Ange numret på den komponent som ska installeras:"
 #. we reached the end of the input stream without ever getting an
 #. * answer, e.g. because stdin was closed or is not a terminal
 #: tools/ascli-actions-pkgmgr.c:267
-#, fuzzy
-#| msgid "No component matching '%s' found."
 msgid "No component was selected."
-msgstr "Hittade ingen komponent matchande ”%s”."
+msgstr "Ingen komponent valdes."
 
 #: tools/ascli-actions-pkgmgr.c:278
 #, c-format
