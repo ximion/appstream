@@ -52,7 +52,25 @@
 /* Landlock ABI levels that introduced the features we use */
 #define ASW_LANDLOCK_ABI_REFER	  2
 #define ASW_LANDLOCK_ABI_TRUNCATE 3
-#define ASW_LANDLOCK_ABI_NET	  4
+#define ASW_LANDLOCK_ABI_NET_TCP  4
+#define ASW_LANDLOCK_ABI_TSYNC	  8
+#define ASW_LANDLOCK_ABI_NET_UDP  10
+
+#ifndef LANDLOCK_RESTRICT_SELF_TSYNC
+#define LANDLOCK_RESTRICT_SELF_TSYNC (1U << 3)
+#endif
+
+/* The presence of LANDLOCK_ACCESS_NET_BIND_TCP tells us whether the ruleset attribute
+ * struct has a handled_access_net member at all, so the UDP bits hang off the same
+ * check rather than getting one of their own. */
+#ifdef LANDLOCK_ACCESS_NET_BIND_TCP
+#ifndef LANDLOCK_ACCESS_NET_BIND_UDP
+#define LANDLOCK_ACCESS_NET_BIND_UDP (1ULL << 2)
+#endif
+#ifndef LANDLOCK_ACCESS_NET_CONNECT_SEND_UDP
+#define LANDLOCK_ACCESS_NET_CONNECT_SEND_UDP (1ULL << 3)
+#endif
+#endif
 
 /**
  * asw_landlock_create_ruleset:
@@ -66,8 +84,9 @@ asw_landlock_create_ruleset (const struct landlock_ruleset_attr *attr, size_t si
 /**
  * asw_landlock_restrict_self:
  *
- * Enter the domain described by @ruleset_fd. Irreversible, and it only affects the
- * calling thread and its future children.
+ * Enter the domain described by @ruleset_fd. Irreversible. Without
+ * %LANDLOCK_RESTRICT_SELF_TSYNC this only affects the calling thread and its future
+ * children, with it every thread of the process.
  */
 static int
 asw_landlock_restrict_self (int ruleset_fd, guint32 flags)
@@ -83,8 +102,8 @@ asw_landlock_restrict_self (int ruleset_fd, guint32 flags)
  *
  * READ_FILE, READ_DIR and EXECUTE are intentionally absent: leaving them unhandled
  * is what keeps module loading, font data and the ffprobe helper working.
- * IOCTL_DEV (ABI 5) and the ABI 6 scope flags are left for a later iteration, as
- * each needs its own round of validation.
+ * IOCTL_DEV (ABI 5), the ABI 6 scope flags and RESOLVE_UNIX (ABI 9) are left for a
+ * later iteration, as each needs its own round of validation.
  */
 static guint64
 asw_landlock_fs_write_mask (guint abi)
@@ -103,24 +122,31 @@ asw_landlock_fs_write_mask (guint abi)
 	return mask;
 }
 
+#ifdef LANDLOCK_ACCESS_NET_BIND_TCP
 /**
- * asw_sandbox_count_threads:
+ * asw_landlock_net_mask:
  *
- * Count the threads of this process, or 0 if we can not tell.
+ * Every network access right that the running kernel knows about.
+ *
+ * No worker code opens a socket at all, but libcurl, GnuTLS and OpenSSL are in our
+ * address space through libappstream, so an exploit in a media parser could. UDP only
+ * became restrictable with ABI 10; below that we can deny TCP alone.
+ *
+ * Landlock covers IP sockets only - UNIX, netlink and raw sockets are untouched by
+ * this, which is why we never describe the result as "network denied".
  */
-static guint
-asw_sandbox_count_threads (void)
+static guint64
+asw_landlock_net_mask (guint abi)
 {
-	g_autoptr(GDir) task_dir = g_dir_open ("/proc/self/task", 0, NULL);
-	guint count = 0;
+	guint64 mask = LANDLOCK_ACCESS_NET_BIND_TCP | LANDLOCK_ACCESS_NET_CONNECT_TCP;
 
-	if (task_dir == NULL)
-		return 0;
-	while (g_dir_read_name (task_dir) != NULL)
-		count++;
+	if (abi >= ASW_LANDLOCK_ABI_NET_UDP)
+		mask |= LANDLOCK_ACCESS_NET_BIND_UDP | LANDLOCK_ACCESS_NET_CONNECT_SEND_UDP;
 
-	return count;
+	return mask;
 }
+#endif
+
 #endif /* HAVE_LANDLOCK */
 
 /**
@@ -166,7 +192,7 @@ asw_sandbox_probe_abi (void)
  * @info: (out): Receives what was actually achieved.
  *
  * Give up every ability this process does not need any more: writing to the
- * filesystem, and (on new enough kernels) using TCP.
+ * filesystem, and (on new enough kernels) using TCP and UDP.
  *
  * This never fails in a way the caller has to handle - a worker that could not
  * sandbox itself still works correctly, it is just not hardened - so the outcome
@@ -190,9 +216,9 @@ asw_sandbox_apply (AswSandboxInfo *info)
 #ifdef HAVE_LANDLOCK
 	{
 		struct landlock_ruleset_attr attr;
-		guint n_threads;
 		int ruleset_fd;
 		int saved_errno;
+		gboolean res;
 
 		/* required to enter a Landlock domain without CAP_SYS_ADMIN, and a good
                  * idea in its own right: it also stops the helpers we spawn from gaining
@@ -210,25 +236,13 @@ asw_sandbox_apply (AswSandboxInfo *info)
 			return;
 		}
 
-		/* A Landlock domain only binds the calling thread and whatever it creates
-		 * afterwards, so entering one from a process that is already multi-threaded
-		 * would leave the other threads unrestricted.
-		 * This is just a safeguard, so we get a warning in case we make that mistake
-		 * in future. */
-		n_threads = asw_sandbox_count_threads ();
-		if (n_threads > 1)
-			g_warning ("The media worker was already running %u threads when it tried "
-				   "to sandbox itself!",
-				   n_threads);
-
 		/* Handle every way of modifying the filesystem, then add no rule at all:
-		 * an empty ruleset denies all of it. The same trick denies TCP outright. */
+		 * an empty ruleset denies all of it. The same trick denies IP networking. */
 		memset (&attr, 0, sizeof (attr));
 		attr.handled_access_fs = asw_landlock_fs_write_mask (info->abi_version);
 #ifdef LANDLOCK_ACCESS_NET_BIND_TCP
-		if (info->abi_version >= ASW_LANDLOCK_ABI_NET)
-			attr.handled_access_net = LANDLOCK_ACCESS_NET_BIND_TCP |
-						  LANDLOCK_ACCESS_NET_CONNECT_TCP;
+		if (info->abi_version >= ASW_LANDLOCK_ABI_NET_TCP)
+			attr.handled_access_net = asw_landlock_net_mask (info->abi_version);
 #endif
 
 		ruleset_fd = asw_landlock_create_ruleset (&attr, sizeof (attr), 0);
@@ -239,8 +253,15 @@ asw_sandbox_apply (AswSandboxInfo *info)
 			return;
 		}
 
-		/* the flags argument must be zero: kernels below ABI 7 reject anything else */
-		if (asw_landlock_restrict_self (ruleset_fd, 0) != 0) {
+		/* From ABI 8 on, TSYNC applies the domain to every thread of the process
+		 * at once and propagates no_new_privs to them, instead of only binding the
+		 * calling thread and whatever it creates afterwards. We are single-threaded
+		 * here anyway, but this removes a whole class of future mistakes. */
+		res = info->abi_version >= ASW_LANDLOCK_ABI_TSYNC &&
+		      asw_landlock_restrict_self (ruleset_fd, LANDLOCK_RESTRICT_SELF_TSYNC) == 0;
+		if (!res && asw_landlock_restrict_self (ruleset_fd, 0) != 0) {
+			/* the flags argument must be zero here: kernels below ABI 7 reject
+			 * anything else */
 			saved_errno = errno;
 			close (ruleset_fd);
 			info->state = ASW_SANDBOX_STATE_FAILED;
@@ -251,7 +272,10 @@ asw_sandbox_apply (AswSandboxInfo *info)
 		close (ruleset_fd);
 
 		info->fs_writes_denied = TRUE;
+#ifdef LANDLOCK_ACCESS_NET_BIND_TCP
 		info->tcp_denied = attr.handled_access_net != 0;
+		info->udp_denied = (attr.handled_access_net & LANDLOCK_ACCESS_NET_BIND_UDP) != 0;
+#endif
 		info->state = info->tcp_denied ? ASW_SANDBOX_STATE_ENFORCED
 					       : ASW_SANDBOX_STATE_PARTIAL;
 
@@ -305,12 +329,18 @@ asw_sandbox_info_describe (const AswSandboxInfo *info)
 	case ASW_SANDBOX_STATE_FAILED:
 		return g_strdup ("unavailable, sandboxing failed");
 	case ASW_SANDBOX_STATE_PARTIAL:
-	case ASW_SANDBOX_STATE_ENFORCED:
-		/* deliberately not "network denied": Landlock only covers TCP here,
-		 * UDP and other socket families are still reachable */
-		return g_strdup_printf ("Landlock ABI %u, filesystem writes%s denied",
-					info->abi_version,
-					info->tcp_denied ? " and TCP" : "");
+	case ASW_SANDBOX_STATE_ENFORCED: {
+		/* deliberately never just "network denied": Landlock only covers IP
+		 * sockets, UNIX, netlink and raw sockets are still reachable */
+		const gchar *denied = "filesystem writes";
+
+		if (info->udp_denied)
+			denied = "filesystem writes, TCP and UDP";
+		else if (info->tcp_denied)
+			denied = "filesystem writes and TCP";
+
+		return g_strdup_printf ("Landlock ABI %u, %s denied", info->abi_version, denied);
+	}
 	case ASW_SANDBOX_STATE_UNSUPPORTED:
 	default:
 		return g_strdup ("unavailable, not sandboxed");

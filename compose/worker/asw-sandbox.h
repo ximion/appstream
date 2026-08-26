@@ -32,11 +32,16 @@ G_BEGIN_DECLS
  *					kernel does not provide it.
  * @ASW_SANDBOX_STATE_DISABLED:		Sandboxing was switched off via the environment.
  * @ASW_SANDBOX_STATE_FAILED:		Landlock is available, but we could not enter a domain.
- * @ASW_SANDBOX_STATE_PARTIAL:		A domain was entered, but the kernel is too old for
- *					every restriction we would like to apply.
- * @ASW_SANDBOX_STATE_ENFORCED:		Everything we want to restrict is restricted.
+ * @ASW_SANDBOX_STATE_PARTIAL:		A domain was entered, but the kernel is too old to
+ *					also deny network access.
+ * @ASW_SANDBOX_STATE_ENFORCED:		Filesystem writes and TCP are denied.
  *
  * How much of its intended self-restriction the worker actually achieved.
+ *
+ * Newer kernels can additionally deny UDP and cover every thread of the process at
+ * once. Those are refinements of an already complete policy rather than a part of it,
+ * so they do not decide between %ASW_SANDBOX_STATE_PARTIAL and
+ * %ASW_SANDBOX_STATE_ENFORCED - check #AswSandboxInfo for what was actually achieved.
  */
 typedef enum {
 	ASW_SANDBOX_STATE_UNSUPPORTED,
@@ -52,6 +57,9 @@ typedef enum {
  * @abi_version: Landlock ABI version of the running kernel, 0 if unavailable.
  * @fs_writes_denied: %TRUE if the worker can no longer write to the filesystem.
  * @tcp_denied: %TRUE if the worker can no longer bind or connect TCP sockets.
+ * @udp_denied: %TRUE if the worker can no longer bind UDP sockets or send datagrams.
+ * @threads_synced: %TRUE if the restrictions apply to every thread of the process,
+ *		    rather than only to the calling thread and its future children.
  *
  * The result of an attempt to sandbox the worker process.
  */
@@ -60,6 +68,7 @@ typedef struct {
 	guint		abi_version;
 	gboolean	fs_writes_denied;
 	gboolean	tcp_denied;
+	gboolean	udp_denied;
 } AswSandboxInfo;
 
 void	     asw_sandbox_apply (AswSandboxInfo *info);

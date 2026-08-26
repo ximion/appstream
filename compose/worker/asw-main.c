@@ -91,8 +91,9 @@ main (int argc, char **argv)
 
 	/* Everything from here on only ever reads: results are encoded into descriptors
 	 * that the client opened for us. Drop the ability to write to the filesystem
-	 * before we go anywhere near untrusted media data. We are still single-threaded
-	 * at this point, which is what makes the restriction cover the whole process. */
+	 * before we go anywhere near untrusted media data. Landlock covers the whole
+	 * process from ABI 8 on, and below that we are still single-threaded here,
+	 * which achieves the same thing. */
 	asw_sandbox_apply (&sandbox);
 
 	if (!asw_worker_send_hello (worker, &sandbox, &error)) {
