@@ -114,9 +114,11 @@ if get_option('static-analysis') and host_machine.system() != 'windows'
     add_project_arguments(['-Wno-error=analyzer-use-of-uninitialized-value'], language : 'c')
   endif
 
-  # g_error has a deliberate infinite loop, so we have to suppress the new warning for now
-  if cc.version().version_compare('>13<15')
-    add_project_arguments(['-Wno-error=analyzer-infinite-loop'], language : 'c')
+  # g_error() ends in a deliberate `for (;;) ;` so GCC knows control does not
+  # return from it. The analyzer flags that as an infinite loop, which it is -
+  # nothing we can fix on our side, unfortunately.
+  if cc.version().version_compare('>13')
+    add_project_arguments(['-Wno-analyzer-infinite-loop'], language : 'c')
   endif
 endif
 
