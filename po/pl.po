@@ -22,7 +22,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-08-26 10:24+0200\n"
-"PO-Revision-Date: 2026-08-22 06:51+0000\n"
+"PO-Revision-Date: 2026-08-26 20:56+0000\n"
 "Last-Translator: Matthaiks <kitynska@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/appstream/translations/pl/>\n"
 "Language: pl\n"
@@ -1666,10 +1666,8 @@ msgid "This element (paragraph, list, etc.) of a <description/> tag must not be 
 msgstr "Ten element (akapit, lista itp.) znacznika <description/> nie może być tłumaczony oddzielnie w metadanych katalogu. Zamiast tego należy tłumaczyć cały znacznik <description/>. Generator katalogu metadanych AppStream (tzn. „appstream-generator”) prawidłowo przetworzy ten element podczas kompilowania danych."
 
 #: src/as-validator-issue-tag.h:64
-#, fuzzy
-#| msgid "AppStream descriptions support only a limited set of tags to format text: Paragraphs (<p/>) and lists (<ul/>, <ol/>). This description markup contains an invalid XML tag that would not be rendered correctly in applications supporting the metainfo specification."
 msgid "AppStream descriptions support only a limited set of tags to format text: Paragraphs (<p/>), section headings (<heading/>) and lists (<ul/>, <ol/>). This description markup contains an invalid XML tag that would not be rendered correctly in applications supporting the metainfo specification."
-msgstr "Opisy AppStream obsługują tylko ograniczony zestaw znaczników do formatowania tekstu: akapity (<p/>) i listy (<ul/>, <ol/>). Ten opis zawiera nieprawidłowy znacznik XML, który nie byłby poprawnie wyświetlany w programach obsługujących specyfikację Metainfo."
+msgstr "Opisy AppStream obsługują tylko ograniczony zestaw znaczników do formatowania tekstu: akapity (<p/>), nagłówki sekcji (<heading/>) i listy (<ul/>, <ol/>). Ten opis zawiera nieprawidłowy znacznik XML, który nie byłby poprawnie wyświetlany w programach obsługujących specyfikację Metainfo."
 
 #: src/as-validator-issue-tag.h:70
 msgid "This description paragraph contains invalid markup. Currently, only <em/> and <code/> are permitted."
@@ -1694,12 +1692,12 @@ msgstr "Wyliczenia nie należy tłumaczyć w całości. Zamiast tego w plikach
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:99
 msgid "Section headings (`description/heading`) are plain text and must not contain any markup, not even <em/> or <code/>. The markup will be removed when the metadata is read."
-msgstr ""
+msgstr "Nagłówki sekcji („description/heading”) są zwykłym tekstem i nie mogą zawierać żadnych znaczników, nawet <em/> ani <code/>. Znaczniki te zostaną usunięte podczas odczytu metadanych."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:106
 msgid "This section heading (`description/heading`) is very long and will likely not be displayed properly everywhere. A heading should be a short label for the section that follows it, and be <= 80 characters long. Use a paragraph (<p/>) for longer text."
-msgstr ""
+msgstr "Ten nagłówek sekcji („description/heading”) jest bardzo długi i prawdopodobnie nie będzie wszędzie wyświetlany poprawnie. Nagłówek powinien być krótką etykietą sekcji, która po nim następuje, i mieć długość <= 80 znaków. W przypadku dłuższego tekstu użyj akapitu (<p/>)."
 
 #: src/as-validator-issue-tag.h:113
 msgid "The first `description/p` paragraph of this component might be too short (< 80 characters). Please consider starting with a longer paragraph to improve how the description looks like in software centers and to provide more detailed information on this component immediately in the first paragraph."
@@ -2801,7 +2799,7 @@ msgstr "Nie ustawiono katalogu docelowego, proszę podać położenie wyjścia d
 #: tools/appstream-compose.c:404
 #, c-format
 msgid "Metadata origin not set, using '%s'"
-msgstr ""
+msgstr "Nie ustawiono źródła metadanych, używanie „%s”"
 
 #: tools/appstream-compose.c:409 tools/appstream-compose.c:411
 msgid "WARNING"
@@ -3584,16 +3582,14 @@ msgid "You need to specify a NEWS file as output, or '-' to print to stdout."
 msgstr "Należy podać plik NEWS jako wyjście lub „-”, aby wyświetlić na standardowym wyjściu."
 
 #: tools/ascli-actions-misc.c:575
-#, fuzzy, c-format
-#| msgid "The release metadata file '%s' is named incorrectly."
+#, c-format
 msgid "Release metadata file '%s' contains no data."
-msgstr "Plik metadanych wydań „%s” ma niepoprawną nazwę."
+msgstr "Plik metadanych wydania „%s” nie zawiera żadnych danych."
 
 #: tools/ascli-actions-misc.c:590
-#, fuzzy, c-format
-#| msgid "Metainfo file '%s' does not exist."
+#, c-format
 msgid "Metainfo file '%s' contains no component."
-msgstr "Plik Metainfo „%s” nie istnieje."
+msgstr "Plik metainfo „%s” nie zawiera żadnego komponentu."
 
 #: tools/ascli-actions-misc.c:599
 #, c-format
@@ -3601,6 +3597,8 @@ msgid ""
 "The metainfo file '%s' references external release data.\n"
 "Run this command on the release metadata file instead."
 msgstr ""
+"Plik metainfo „%s” odwołuje się do zewnętrznych danych wydania.\n"
+"Zamiast tego uruchom to polecenie w pliku metadanych wydania."
 
 #: tools/ascli-actions-misc.c:612
 msgid "You need to specify a NEWS format to write the output in."
@@ -3830,10 +3828,8 @@ msgstr "Proszę podać numer składnika do instalacji:"
 #. we reached the end of the input stream without ever getting an
 #. * answer, e.g. because stdin was closed or is not a terminal
 #: tools/ascli-actions-pkgmgr.c:267
-#, fuzzy
-#| msgid "No component matching '%s' found."
 msgid "No component was selected."
-msgstr "Nie odnaleziono składnika pasującego do „%s”."
+msgstr "Nie wybrano żadnego komponentu."
 
 #: tools/ascli-actions-pkgmgr.c:278
 #, c-format
