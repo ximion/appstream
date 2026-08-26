@@ -357,6 +357,31 @@ test_simplemarkup (void)
 			 " * Item B\n\n"
 			 "### Heading with flattened markup\n\n"
 			 "Last paragraph.");
+	g_free (str);
+
+	/* a list item that holds nothing but whitespace has no words to wrap, so it
+	 * is rendered as a bare marker - we must not read past the empty result of
+	 * as_markup_strsplit_words() when that happens */
+	str = as_markup_convert ("<p>Intro.</p>"
+				 "<ul><li>alpha</li><li> </li><li>gamma</li></ul>",
+				 AS_MARKUP_KIND_TEXT,
+				 &error);
+	g_assert_no_error (error);
+	g_assert_cmpstr (str, ==, "Intro.\n • alpha\n •\n • gamma");
+	g_free (str);
+
+	str = as_markup_convert ("<p>Intro.</p>"
+				 "<ul><li>alpha</li><li> </li><li>gamma</li></ul>",
+				 AS_MARKUP_KIND_MARKDOWN,
+				 &error);
+	g_assert_no_error (error);
+	g_assert_cmpstr (str, ==, "Intro.\n * alpha\n *\n * gamma");
+	g_free (str);
+
+	/* an empty item must not throw off the numbering of an ordered list either */
+	str = as_markup_convert ("<ol><li> </li><li>second</li></ol>", AS_MARKUP_KIND_TEXT, &error);
+	g_assert_no_error (error);
+	g_assert_cmpstr (str, ==, " 1.\n 2. second");
 }
 
 /**

@@ -97,7 +97,10 @@ as_get_resource_safe (void)
  * Splits up a long line into an array of smaller strings, each being no longer
  * than @line_len. Words are not split.
  *
- * Returns: (transfer full): lines, or %NULL in event of an error
+ * Returns: (transfer full): lines, or %NULL in event of an error.
+ * If @text holds no words at all, the result is a zero-length vector that
+ * contains nothing but its %NULL terminator, so callers must not assume
+ * that a non-%NULL result has a first element.
  *
  * Since: 0.14.0
  **/
@@ -350,7 +353,11 @@ as_markup_convert (const gchar *markup, AsMarkupKind to_kind, GError **error)
 
 					/* break to 100 chars, leaving room for the dot/indent */
 					spl = as_markup_strsplit_words (clean_item, 100 - 4);
-					if (spl != NULL) {
+					if (spl == NULL || spl[0] == NULL) {
+						/* the item had no text at all, so we only emit its
+						 * marker - never index into the empty result */
+						g_string_append_printf (str, " %s\n", item_c);
+					} else {
 						g_string_append_printf (str,
 									" %s %s",
 									item_c,
