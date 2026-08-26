@@ -82,6 +82,7 @@ typedef struct {
 
 	GSubprocess *worker_proc;
 	GSocket *socket;
+	gchar *worker_sandbox;
 
 	guint32 last_request_id;
 	guint failure_count;
@@ -826,6 +827,7 @@ asc_font_info_copy (AscFontInfo *info)
 G_DEFINE_BOXED_TYPE (AscFontInfo, asc_font_info, asc_font_info_copy, asc_font_info_free)
 
 static void asc_media_shutdown_worker (AscMedia *media, gboolean force);
+static gchar *asc_media_lookup_dup_nonempty (GVariant *dict, const gchar *key);
 
 static void
 asc_media_finalize (GObject *object)
@@ -836,6 +838,7 @@ asc_media_finalize (GObject *object)
 	asc_media_shutdown_worker (media, FALSE);
 
 	g_free (priv->worker_path);
+	g_free (priv->worker_sandbox);
 
 	G_OBJECT_CLASS (asc_media_parent_class)->finalize (object);
 }
@@ -945,6 +948,23 @@ asc_media_set_worker_path (AscMedia *media, const gchar *path)
 	if (path == NULL)
 		path = asc_globals_get_mediaworker_binary ();
 	as_assign_string_safe (priv->worker_path, path);
+}
+
+/**
+ * asc_media_get_worker_sandbox:
+ * @media: an #AscMedia instance.
+ *
+ * Get the sandboxing level the running media worker reported for itself, as one
+ * of "landlock", "landlock-partial" or "none". %NULL if no worker is running yet.
+ *
+ * This is for diagnostics and the test suite; there is deliberately no way to
+ * demand a particular level yet.
+ */
+const gchar *
+asc_media_get_worker_sandbox (AscMedia *media)
+{
+	AscMediaPrivate *priv = GET_PRIVATE (media);
+	return priv->worker_sandbox;
 }
 
 /**
@@ -1124,6 +1144,7 @@ asc_media_shutdown_worker (AscMedia *media, gboolean force)
 
 	g_clear_object (&priv->socket);
 	g_clear_object (&priv->worker_proc);
+	g_clear_pointer (&priv->worker_sandbox, g_free);
 }
 
 /**
@@ -1220,6 +1241,7 @@ asc_media_spawn_worker (AscMedia *media, GCancellable *cancellable, GError **err
 	g_autoptr(GSubprocessLauncher) launcher = NULL;
 	g_autoptr(GVariant) hello = NULL;
 	g_autoptr(GError) tmp_error = NULL;
+	g_autofree gchar *sandbox_detail = NULL;
 	const gchar *program_version = NULL;
 	guint32 protocol_version = 0;
 	guint32 rid = 0;
@@ -1318,6 +1340,14 @@ asc_media_spawn_worker (AscMedia *media, GCancellable *cancellable, GError **err
 		return FALSE;
 	}
 
+	/* remember how well the worker managed to sandbox itself, purely so that it
+	 * shows up in the log and the test suite can assert on it. The worker warns
+	 * about problems on its own inherited stderr, so we must not warn again. */
+	priv->worker_sandbox = asc_media_lookup_dup_nonempty (hello, "sandbox");
+	if (priv->worker_sandbox == NULL)
+		priv->worker_sandbox = g_strdup ("none");
+	sandbox_detail = asc_media_lookup_dup_nonempty (hello, "sandbox-detail");
+
 	/* configure the new worker */
 	if (!asc_media_worker_setup (media, cancellable, &tmp_error)) {
 		g_set_error (error,
@@ -1329,7 +1359,9 @@ asc_media_spawn_worker (AscMedia *media, GCancellable *cancellable, GError **err
 		return FALSE;
 	}
 
-	g_debug ("Media worker started: %s", priv->worker_path);
+	g_debug ("Media worker started: %s (sandbox: %s)",
+		 priv->worker_path,
+		 sandbox_detail != NULL ? sandbox_detail : priv->worker_sandbox);
 	return TRUE;
 }
 

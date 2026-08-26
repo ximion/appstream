@@ -11,6 +11,7 @@ asw_src = [
     'asw-font.c',
     'asw-image.c',
     'asw-ipc.c',
+    'asw-sandbox.c',
     'asw-video.c',
     'asw-worker.c',
 ]
@@ -22,6 +23,7 @@ asw_headers = [
     'asw-image.h',
     'asw-image-private.h',
     'asw-ipc.h',
+    'asw-sandbox.h',
     'asw-video.h',
     'asw-worker.h',
 ]

@@ -23,14 +23,20 @@
  * used by libappstream-compose is tested via AscMedia in test-compose.c. */
 
 #include <glib.h>
+#include <glib/gstdio.h>
 #include <locale.h>
+#include <errno.h>
 #include <fcntl.h>
+#include <netinet/in.h>
+#include <string.h>
+#include <sys/socket.h>
 #include <unistd.h>
 
 #include "asc-media.h"
 #include "asw-font-private.h"
 #include "asw-image-private.h"
 #include "asw-canvas.h"
+#include "asw-sandbox.h"
 
 #include "as-utils-private.h"
 #include "as-test-utils.h"
@@ -668,6 +674,166 @@ test_render_font_files (void)
 	g_assert_true (g_file_test (jxl_icon_fname, G_FILE_TEST_EXISTS));
 }
 
+/**
+ * test_sandbox_subprocess:
+ *
+ * Enter the sandbox and check that it restricts what we expect it to, and nothing
+ * more. This runs in a subprocess because a Landlock domain can never be left
+ * again - sandboxing the test binary itself would break every test after this one.
+ */
+static void
+test_sandbox_subprocess (void)
+{
+	AswSandboxInfo info;
+	g_autofree gchar *existing_fname = NULL;
+	g_autofree gchar *new_fname = NULL;
+	g_autofree gchar *new_dirname = NULL;
+	g_autofree gchar *link_fname = NULL;
+	gint preopened_fd;
+	gint fd;
+
+	/* a file we own from before the sandbox, standing in for the output
+	 * descriptors that the client hands the real worker */
+	existing_fname = asx_build_workdir_path ("asw-sandbox-preopened.bin");
+	preopened_fd = asx_open_out_fd (existing_fname);
+
+	new_fname = asx_build_workdir_path ("asw-sandbox-must-not-exist.bin");
+	new_dirname = asx_build_workdir_path ("asw-sandbox-must-not-exist.dir");
+	link_fname = asx_build_workdir_path ("asw-sandbox-must-not-exist.link");
+
+	asw_sandbox_apply (&info);
+	g_assert_cmpint (info.abi_version, >, 0);
+	g_assert_true (info.state == ASW_SANDBOX_STATE_ENFORCED ||
+		       info.state == ASW_SANDBOX_STATE_PARTIAL);
+	g_assert_true (info.fs_writes_denied);
+
+	/* creating, modifying and removing anything is gone */
+	g_assert_cmpint (g_open (new_fname, O_CREAT | O_WRONLY, 0644), ==, -1);
+	g_assert_cmpint (errno, ==, EACCES);
+	g_assert_cmpint (g_mkdir (new_dirname, 0755), ==, -1);
+	g_assert_cmpint (g_open (existing_fname, O_WRONLY, 0), ==, -1);
+	g_assert_cmpint (errno, ==, EACCES);
+	g_assert_cmpint (symlink (existing_fname, link_fname), ==, -1);
+	g_assert_cmpint (g_unlink (existing_fname), ==, -1);
+
+	/* ...but reading is untouched, so libvips modules and font data stay loadable */
+	fd = g_open (existing_fname, O_RDONLY, 0);
+	g_assert_cmpint (fd, >=, 0);
+	close (fd);
+	{
+		g_autoptr(GDir) dir = g_dir_open (datadir, 0, NULL);
+		g_assert_nonnull (dir);
+	}
+
+	/* the whole design rests on this one: a descriptor obtained before the
+	 * sandbox went up is still writable afterwards */
+	g_assert_cmpint (write (preopened_fd, "sandboxed", 9), ==, 9);
+	close (preopened_fd);
+
+	/* execute is untouched as well, so ffprobe can still be spawned */
+	{
+		g_autofree gchar *true_path = g_find_program_in_path ("true");
+		if (true_path != NULL) {
+			g_autoptr(GError) error = NULL;
+			const gchar *argv[] = { true_path, NULL };
+			gboolean ret = g_spawn_sync (NULL,
+						     (gchar **) argv,
+						     NULL,
+						     G_SPAWN_DEFAULT,
+						     NULL,
+						     NULL,
+						     NULL,
+						     NULL,
+						     NULL,
+						     &error);
+			g_assert_no_error (error);
+			g_assert_true (ret);
+		}
+	}
+
+	/* truncation is a separate right that only exists from ABI 3 on */
+	if (info.abi_version >= 3)
+		g_assert_cmpint (truncate (existing_fname, 0), ==, -1);
+
+	/* TCP is denied outright from ABI 4 on. Landlock refuses this before any
+	 * connection is attempted, so we do not need anything listening. */
+	if (info.tcp_denied) {
+		struct sockaddr_in addr;
+		gint sock = socket (AF_INET, SOCK_STREAM | SOCK_CLOEXEC, 0);
+
+		g_assert_cmpint (sock, >=, 0);
+		memset (&addr, 0, sizeof (addr));
+		addr.sin_family = AF_INET;
+		addr.sin_port = g_htons (80);
+		addr.sin_addr.s_addr = g_htonl (INADDR_LOOPBACK);
+		g_assert_cmpint (connect (sock, (struct sockaddr *) &addr, sizeof (addr)), ==, -1);
+		g_assert_cmpint (errno, ==, EACCES);
+		close (sock);
+	}
+}
+
+/**
+ * test_sandbox:
+ *
+ * Drive the sandbox subprocess check.
+ */
+static void
+test_sandbox (void)
+{
+	if (asw_sandbox_probe_abi () == 0) {
+		g_test_skip ("Landlock is not available on this kernel.");
+		return;
+	}
+
+	g_test_trap_subprocess ("/AppStream/ComposeWorker/Sandbox/subprocess",
+				0,
+				G_TEST_SUBPROCESS_INHERIT_STDERR);
+	g_test_trap_assert_passed ();
+}
+
+/**
+ * test_sandbox_disabled_subprocess:
+ *
+ * With the escape hatch set, nothing may be restricted at all.
+ */
+static void
+test_sandbox_disabled_subprocess (void)
+{
+	AswSandboxInfo info;
+	g_autofree gchar *fname = NULL;
+	gint fd;
+
+	asw_sandbox_apply (&info);
+	g_assert_cmpint (info.state, ==, ASW_SANDBOX_STATE_DISABLED);
+	g_assert_false (info.fs_writes_denied);
+
+	fname = asx_build_workdir_path ("asw-sandbox-disabled.bin");
+	fd = g_open (fname, O_CREAT | O_WRONLY, 0644);
+	g_assert_cmpint (fd, >=, 0);
+	close (fd);
+}
+
+/**
+ * test_sandbox_disabled:
+ *
+ * Drive the escape-hatch check.
+ */
+static void
+test_sandbox_disabled (void)
+{
+	if (asw_sandbox_probe_abi () == 0) {
+		g_test_skip ("Landlock is not available on this kernel.");
+		return;
+	}
+
+	g_setenv ("ASC_NO_SANDBOX", "1", TRUE);
+	g_test_trap_subprocess ("/AppStream/ComposeWorker/SandboxDisabled/subprocess",
+				0,
+				G_TEST_SUBPROCESS_INHERIT_STDERR);
+	g_unsetenv ("ASC_NO_SANDBOX");
+	g_test_trap_assert_passed ();
+}
+
 int
 main (int argc, char **argv)
 {
@@ -676,13 +842,19 @@ main (int argc, char **argv)
 
 	setlocale (LC_ALL, "");
 
-	if (argc == 0) {
-		g_error ("No test directory specified!");
-		return 1;
+	/* The sandbox tests re-run this binary through g_test_trap_subprocess(), which
+	 * does not pass our own arguments on, so the data location travels to the child
+	 * through the environment instead. */
+	if (g_getenv ("ASX_TEST_DATADIR") != NULL) {
+		datadir = g_strdup (g_getenv ("ASX_TEST_DATADIR"));
+	} else {
+		if (argc <= 1 || argv[1] == NULL) {
+			g_error ("No test directory specified!");
+			return 1;
+		}
+		datadir = g_build_filename (argv[1], "samples", "compose", NULL);
+		g_setenv ("ASX_TEST_DATADIR", datadir, TRUE);
 	}
-
-	g_assert_nonnull (argv[1]);
-	datadir = g_build_filename (argv[1], "samples", "compose", NULL);
 	g_assert_true (g_file_test (datadir, G_FILE_TEST_EXISTS));
 
 	/* location for temporary test data */
@@ -705,6 +877,11 @@ main (int argc, char **argv)
 	g_test_add_func ("/AppStream/ComposeWorker/Canvas", test_canvas);
 	g_test_add_func ("/AppStream/ComposeWorker/FontCard", test_render_font_card);
 	g_test_add_func ("/AppStream/ComposeWorker/FontRenderFiles", test_render_font_files);
+	g_test_add_func ("/AppStream/ComposeWorker/Sandbox", test_sandbox);
+	g_test_add_func ("/AppStream/ComposeWorker/Sandbox/subprocess", test_sandbox_subprocess);
+	g_test_add_func ("/AppStream/ComposeWorker/SandboxDisabled", test_sandbox_disabled);
+	g_test_add_func ("/AppStream/ComposeWorker/SandboxDisabled/subprocess",
+			 test_sandbox_disabled_subprocess);
 
 	ret = g_test_run ();
 	as_utils_delete_dir_recursive (workdir);

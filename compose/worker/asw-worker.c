@@ -44,6 +44,7 @@
 
 #include "asw-font.h"
 #include "asw-image-private.h"
+#include "asw-sandbox.h"
 #include "asw-video.h"
 #include "asw-ipc.h"
 
@@ -110,7 +111,7 @@ asw_worker_new_for_fd (gint socket_fd, GError **error)
  * protocol and program version for verification.
  */
 gboolean
-asw_worker_send_hello (AswWorker *worker, GError **error)
+asw_worker_send_hello (AswWorker *worker, const AswSandboxInfo *sandbox, GError **error)
 {
 	AswWorkerPrivate *priv = GET_PRIVATE (worker);
 	GVariantBuilder pb;
@@ -135,6 +136,21 @@ asw_worker_send_hello (AswWorker *worker, GError **error)
 	while (g_hash_table_iter_next (&ht_iter, &ht_key, NULL))
 		g_variant_builder_add (&fmt_builder, "s", (const gchar *) ht_key);
 	g_variant_builder_add (&pb, "{sv}", "image-formats", g_variant_builder_end (&fmt_builder));
+
+	/* tell the client how well we managed to lock ourselves down */
+	g_variant_builder_add (
+	    &pb,
+	    "{sv}",
+	    "sandbox",
+	    g_variant_new_string (asw_sandbox_state_to_token (
+		sandbox == NULL ? ASW_SANDBOX_STATE_UNSUPPORTED : sandbox->state)));
+	if (sandbox != NULL) {
+		g_autofree gchar *sandbox_desc = asw_sandbox_info_describe (sandbox);
+		g_variant_builder_add (&pb,
+				       "{sv}",
+				       "sandbox-detail",
+				       g_variant_new_string (sandbox_desc));
+	}
 
 	return asw_ipc_send_response (priv->socket,
 				      0, /* hello pseudo request-id */

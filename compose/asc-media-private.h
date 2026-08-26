@@ -30,6 +30,8 @@ const gchar *asc_media_get_worker_path (AscMedia *media);
 AS_INTERNAL_VISIBLE
 void asc_media_set_worker_path (AscMedia    *media,
 				const gchar *path);
+AS_INTERNAL_VISIBLE
+const gchar *asc_media_get_worker_sandbox (AscMedia *media);
 
 /**
  * AscFontInfo:

@@ -329,6 +329,39 @@ test_media_process_image (void)
 }
 
 /**
+ * test_media_worker_sandbox:
+ *
+ * The worker reports how well it managed to lock itself down. Check that this
+ * actually reaches us - the restrictions themselves are verified in the worker's
+ * own test suite, this is about the plumbing.
+ */
+static void
+test_media_worker_sandbox (void)
+{
+	g_autoptr(AscMedia) media = asc_media_new ();
+	g_autoptr(GError) error = NULL;
+	g_autofree gchar *active_lsms = NULL;
+	const gchar *sandbox;
+	gboolean ret;
+
+	ret = asc_media_ensure_worker (media, NULL, &error);
+	g_assert_no_error (error);
+	g_assert_true (ret);
+
+	sandbox = asc_media_get_worker_sandbox (media);
+	g_assert_nonnull (sandbox);
+	g_test_message ("Media worker sandbox: %s", sandbox);
+	g_assert_true (as_str_equal0 (sandbox, "none") || as_str_equal0 (sandbox, "landlock") ||
+		       as_str_equal0 (sandbox, "landlock-partial"));
+
+	/* If this kernel has Landlock in its active LSM list, the worker had no excuse
+	 * not to use it, so "none" would mean the sandbox silently failed to engage. */
+	if (g_file_get_contents ("/sys/kernel/security/lsm", &active_lsms, NULL, NULL) &&
+	    g_strstr_len (active_lsms, -1, "landlock") != NULL)
+		g_assert_true (g_str_has_prefix (sandbox, "landlock"));
+}
+
+/**
  * test_media_font:
  *
  * Read font metadata and render font media via the media worker process.
@@ -1463,6 +1496,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/AppStream/Compose/Utils", test_utils);
 	g_test_add_func ("/AppStream/Compose/IssueTagSanity", test_compose_issue_tag_sanity);
 	g_test_add_func ("/AppStream/Compose/MediaImage", test_media_process_image);
+	g_test_add_func ("/AppStream/Compose/MediaWorkerSandbox", test_media_worker_sandbox);
 	g_test_add_func ("/AppStream/Compose/MediaFont", test_media_font);
 	g_test_add_func ("/AppStream/Compose/MediaWorkerFailure", test_media_worker_failure);
 	g_test_add_func ("/AppStream/Compose/Hints", test_compose_hints);

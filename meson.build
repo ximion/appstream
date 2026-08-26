@@ -70,6 +70,7 @@ conf.set('ASC_MEDIAWORKER_USE_LIBEXEC', get_option('mediaworker-dir') == 'libexe
 conf.set('HAVE_LINUX_OPENAT2_H', cc.has_header('linux/openat2.h'))
 conf.set('HAVE_OPENAT2', cc.has_header_symbol('fcntl.h', 'openat2', args: '-D_GNU_SOURCE'))
 conf.set('HAVE_DLADDR', cc.has_header_symbol('dlfcn.h', 'dladdr', args: '-D_GNU_SOURCE'))
+conf.set('HAVE_LANDLOCK', cc.has_header('linux/landlock.h') and cc.has_header_symbol('sys/syscall.h', 'SYS_landlock_create_ruleset'))
 
 root_inc_dir = include_directories ('.')
 

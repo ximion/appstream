@@ -44,6 +44,7 @@
 
 #include "asc-media-ipc.h"
 #include "asw-image-private.h"
+#include "asw-sandbox.h"
 #include "asw-worker.h"
 
 int
@@ -51,6 +52,7 @@ main (int argc, char **argv)
 {
 	g_autoptr(AswWorker) worker = NULL;
 	g_autoptr(GError) error = NULL;
+	AswSandboxInfo sandbox;
 	int ret;
 
 	if (argc == 2 &&
@@ -87,7 +89,13 @@ main (int argc, char **argv)
 		return 1;
 	}
 
-	if (!asw_worker_send_hello (worker, &error)) {
+	/* Everything from here on only ever reads: results are encoded into descriptors
+	 * that the client opened for us. Drop the ability to write to the filesystem
+	 * before we go anywhere near untrusted media data. We are still single-threaded
+	 * at this point, which is what makes the restriction cover the whole process. */
+	asw_sandbox_apply (&sandbox);
+
+	if (!asw_worker_send_hello (worker, &sandbox, &error)) {
 		fprintf (stderr,
 			 "asc-mediaworker: Unable to greet our parent process: %s\n",
 			 error->message);
