@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2012-2024 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2026 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -782,6 +782,145 @@ test_appstream_read_description (void)
 			 "  <li>...</li>\n"
 			 "</ul>\n"
 			 "<p>Paragraph</p>\n");
+}
+
+/**
+ * test_appstream_read_description_whitespace:
+ *
+ * Test that the redundant whitespace which pretty-printed MetaInfo files carry
+ * inside their description elements is collapsed when the data is read.
+ */
+static void
+test_appstream_read_description_whitespace (void)
+{
+	/* the description markup that both of the documents below must produce,
+	 * modulo the way list items are laid out in each of the two formats */
+	const gchar *desc_body =
+	    "<p>A paragraph that the author wrapped over several lines, with a lot of "
+	    "indentation in front of it.</p>\n"
+	    "<p>Spacing around <em>emphasis</em> and <code>code</code> is kept, a line break "
+	    "<em>inside a span</em> is not, and a space at the end of a span ends up "
+	    "<em>outside</em> of it.</p>\n"
+	    "<p>Tabs and runs of spaces collapse too, and so does the space after an entity "
+	    "like &amp; this one.</p>\n"
+	    "<p>Space space wanna go to space yes please space. Space space. Go to space.</p>\n";
+
+	const gchar *
+	    xmldata_mi = "<component>\n"
+			 "  <id>org.example.DescWhitespaceMI</id>\n"
+			 "  <description>\n"
+			 "    <p>\n"
+			 "      A paragraph that the author wrapped\n"
+			 "      over several lines, with a lot of indentation in front of it.\n"
+			 "    </p>\n"
+			 "    <p>\n"
+			 "      Spacing around <em>emphasis</em> and <code>code</code> is kept,\n"
+			 "      a line break <em>inside\n"
+			 "      a span</em> is not, and a space at the end of a span ends up "
+			 "<em>outside </em>of it.\n"
+			 "    </p>\n"
+			 "    <p>Tabs\tand   runs of spaces collapse too,\n"
+			 "       and so does the space after an entity like &amp;   this one.</p>\n"
+			 "    <p>Space  space wanna go to space  yes please  space. Space     "
+			 "space. Go to space.  </p>\n"
+			 /* a paragraph that holds nothing but whitespace has no content at all */
+			 "    <p>\n      \n    </p>\n"
+			 "    <heading>\n"
+			 "      A heading, also\n"
+			 "      across lines\n"
+			 "    </heading>\n"
+			 "    <ul>\n"
+			 "      <li>\n"
+			 "        A list item,\n"
+			 "        wrapped as well\n"
+			 "      </li>\n"
+			 "      <li>Second item</li>\n"
+			 "    </ul>\n"
+			 "  </description>\n"
+			 "</component>\n";
+
+	/* the same description, but read through the catalog XML path */
+	const gchar *xmldata_catalog =
+	    "<components version=\"1.2\">\n"
+	    "  <component>\n"
+	    "    <id>org.example.DescWhitespaceCatalog</id>\n"
+	    "    <description>\n"
+	    "      <p>\n"
+	    "        A paragraph that the author wrapped\n"
+	    "        over several lines, with a lot of indentation in front of it.\n"
+	    "      </p>\n"
+	    "      <p>\n"
+	    "        Spacing around <em>emphasis</em> and <code>code</code> is kept,\n"
+	    "        a line break <em>inside\n"
+	    "        a span</em> is not, and a space at the end of a span ends up "
+	    "<em>outside </em>of it.\n"
+	    "      </p>\n"
+	    "      <p>Tabs\tand   runs of spaces collapse too,\n"
+	    "         and so does the space after an entity like &amp;   this one.</p>\n"
+	    "    <p>Space  space wanna go to   space  yes please  space. Space     space. Go to "
+	    "space.  "
+	    "</p>\n"
+	    "      <heading>\n"
+	    "        A heading, also\n"
+	    "        across lines\n"
+	    "      </heading>\n"
+	    "      <ul>\n"
+	    "        <li>\n"
+	    "          A list item,\n"
+	    "          wrapped as well\n"
+	    "        </li>\n"
+	    "        <li>Second item</li>\n"
+	    "      </ul>\n"
+	    "    </description>\n"
+	    "  </component>\n"
+	    "</components>\n";
+
+	g_autofree gchar *expected_mi = NULL;
+	g_autofree gchar *expected_catalog = NULL;
+	g_autoptr(AsComponent) cpt = NULL;
+	g_autofree gchar *res_mi = NULL;
+
+	/* the MetaInfo reader indents list items and terminates every block with a newline */
+	expected_mi = g_strconcat (desc_body,
+				   "<heading>A heading, also across lines</heading>\n"
+				   "<ul>\n"
+				   "  <li>A list item, wrapped as well</li>\n"
+				   "  <li>Second item</li>\n"
+				   "</ul>\n",
+				   NULL);
+	/* the catalog reader joins the blocks with a plain newline instead */
+	expected_catalog = g_strconcat (desc_body,
+					"<heading>A heading, also across lines</heading>\n"
+					"<ul><li>A list item, wrapped as well</li>"
+					"<li>Second item</li></ul>",
+					NULL);
+
+	cpt = as_xml_test_read_data (xmldata_mi, AS_FORMAT_STYLE_METAINFO);
+	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.DescWhitespaceMI");
+	g_assert_true (as_test_compare_lines (as_component_get_description (cpt), expected_mi));
+
+	/* writing the component out must not reintroduce the whitespace either */
+	res_mi = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_METAINFO);
+	g_assert_nonnull (g_strstr_len (res_mi, -1, "<li>Second item</li>"));
+	g_assert_null (g_strstr_len (res_mi, -1, "  A paragraph"));
+
+	{
+		g_autoptr(AsMetadata) metad = as_metadata_new ();
+		g_autoptr(GError) error = NULL;
+		AsComponent *cpt_c;
+
+		as_metadata_set_locale (metad, "ALL");
+		as_metadata_set_format_style (metad, AS_FORMAT_STYLE_CATALOG);
+		as_metadata_parse_data (metad, xmldata_catalog, -1, AS_FORMAT_KIND_XML, &error);
+		g_assert_no_error (error);
+
+		cpt_c = as_component_box_index (as_metadata_get_components (metad), 0);
+		g_assert_cmpstr (as_component_get_id (cpt_c),
+				 ==,
+				 "org.example.DescWhitespaceCatalog");
+		g_assert_true (
+		    as_test_compare_lines (as_component_get_description (cpt_c), expected_catalog));
+	}
 }
 
 static const gchar *xmldata_simple = "<component date_eol=\"2022-02-22T00:00:00Z\">\n"
@@ -2638,6 +2777,8 @@ main (int argc, char **argv)
 
 	g_test_add_func ("/XML/Read/Description", test_appstream_read_description);
 	g_test_add_func ("/XML/Read/DescriptionSanitize", test_appstream_read_description_sanitize);
+	g_test_add_func ("/XML/Read/DescriptionWhitespace",
+			 test_appstream_read_description_whitespace);
 	g_test_add_func ("/XML/Write/Description", test_appstream_write_description);
 	g_test_add_func ("/XML/DescriptionL10NCleanup", test_appstream_description_l10n_cleanup);
 

@@ -162,13 +162,78 @@ out:
 }
 
 /**
- * as_xml_append_escaped:
+ * AsDescTextCtx:
+ * @str: The string the block element is assembled in.
+ * @have_text: %TRUE as soon as any real content was written for this block.
+ * @pending_space: %TRUE while a run of whitespace is waiting to be written out.
  *
- * Append text to a string, escaping all characters that must not appear
- * verbatim in XML character data.
+ * State for serializing the text of one description block element. Whitespace in
+ * descriptions is never significant, so we normalize it as we go: a pending space
+ * is only ever written once actual content follows it, which collapses runs of
+ * whitespace to a single space and drops it entirely at the start and the end of
+ * the block.
+ */
+typedef struct {
+	GString *str;
+	gboolean have_text;
+	gboolean pending_space;
+} AsDescTextCtx;
+
+/**
+ * as_desc_text_ctx_init:
+ *
+ * Start a new block element in @str.
+ */
+static inline void
+as_desc_text_ctx_init (AsDescTextCtx *ctx, GString *str)
+{
+	ctx->str = str;
+	ctx->have_text = FALSE;
+	ctx->pending_space = FALSE;
+}
+
+/**
+ * as_xml_desc_flush_space:
+ *
+ * Write out a whitespace run that we held back, if there is one. This does not
+ * count as content itself, so a block that holds nothing but markup and spaces
+ * still ends up empty.
+ */
+static inline void
+as_xml_desc_flush_space (AsDescTextCtx *ctx)
+{
+	if (ctx->pending_space) {
+		g_string_append_c (ctx->str, ' ');
+		ctx->pending_space = FALSE;
+	}
+}
+
+/**
+ * as_xml_desc_append_content:
+ *
+ * Append a chunk of literal content, writing out any whitespace we held back
+ * before it.
+ */
+static inline void
+as_xml_desc_append_content (AsDescTextCtx *ctx, const gchar *data, gssize len)
+{
+	as_xml_desc_flush_space (ctx);
+	if (len < 0)
+		g_string_append (ctx->str, data);
+	else
+		g_string_append_len (ctx->str, data, len);
+	ctx->have_text = TRUE;
+}
+
+/**
+ * as_xml_desc_append_text:
+ *
+ * Append text to the block element currently being assembled, escaping all
+ * characters that must not appear verbatim in XML character data and collapsing
+ * every run of whitespace into a single space.
  */
 static void
-as_xml_append_escaped (GString *str, const gchar *text)
+as_xml_desc_append_text (AsDescTextCtx *ctx, const gchar *text)
 {
 	const gchar *p;
 	const gchar *chunk_start;
@@ -190,21 +255,41 @@ as_xml_append_escaped (GString *str, const gchar *text)
 		case '>':
 			rep = "&gt;";
 			break;
+		case ' ':
+			/* a lone space between two words is already exactly what we want,
+			 * so we leave it in the current chunk and copy it along with the
+			 * surrounding text - only whitespace that actually needs rewriting
+			 * interrupts the copy */
+			if ((p > chunk_start) && (p[1] != '\0') && !g_ascii_isspace (p[1]))
+				continue;
+			rep = NULL;
+			break;
+		case '\t':
+		case '\n':
+		case '\v':
+		case '\f':
 		case '\r':
-			rep = "&#13;";
+			rep = NULL;
 			break;
 		default:
 			continue;
 		}
 
 		if (p > chunk_start)
-			g_string_append_len (str, chunk_start, p - chunk_start);
-		g_string_append (str, rep);
+			as_xml_desc_append_content (ctx, chunk_start, p - chunk_start);
+		if (rep == NULL) {
+			/* hold the whitespace back - if content follows, it becomes a
+			 * single space, otherwise it is dropped */
+			if (ctx->have_text)
+				ctx->pending_space = TRUE;
+		} else {
+			as_xml_desc_append_content (ctx, rep, -1);
+		}
 		chunk_start = p + 1;
 	}
 
 	if (p > chunk_start)
-		g_string_append_len (str, chunk_start, p - chunk_start);
+		as_xml_desc_append_content (ctx, chunk_start, p - chunk_start);
 }
 
 /**
@@ -255,14 +340,14 @@ as_xml_desc_is_block_tag (const gchar *name, gssize len)
  *
  * Serialize the content of a description paragraph or list item, permitting
  * only markup that is valid in AppStream descriptions. Any other element is
- * replaced by its (escaped) text content.
+ * replaced by its (escaped) text content, and redundant whitespace is collapsed.
  */
 static void
-as_xml_desc_append_inline_content (GString *str, xmlNode *node, guint depth)
+as_xml_desc_append_inline_content (AsDescTextCtx *ctx, xmlNode *node, guint depth)
 {
 	for (xmlNode *iter = node->children; iter != NULL; iter = iter->next) {
 		if (iter->type == XML_TEXT_NODE || iter->type == XML_CDATA_SECTION_NODE) {
-			as_xml_append_escaped (str, (const gchar *) iter->content);
+			as_xml_desc_append_text (ctx, (const gchar *) iter->content);
 			continue;
 		}
 
@@ -274,18 +359,23 @@ as_xml_desc_append_inline_content (GString *str, xmlNode *node, guint depth)
 			/* resolve entity references, and refuse to descend any deeper into
 			 * excessively nested markup - in both cases we just take the text */
 			g_autofree gchar *content = as_xml_get_node_value_raw (iter);
-			as_xml_append_escaped (str, content);
+			as_xml_desc_append_text (ctx, content);
 			continue;
 		}
 
 		if (as_xml_desc_is_inline_tag ((const gchar *) iter->name, -1)) {
+			/* a space before the tag belongs outside of it, so we write it out
+			 * first. A space *after* the content stays pending, so it ends up
+			 * behind the closing tag instead of in front of it. */
+			as_xml_desc_flush_space (ctx);
+
 			/* the element is permitted, but none of its attributes ever are */
-			g_string_append_printf (str, "<%s>", (const gchar *) iter->name);
-			as_xml_desc_append_inline_content (str, iter, depth + 1);
-			g_string_append_printf (str, "</%s>", (const gchar *) iter->name);
+			g_string_append_printf (ctx->str, "<%s>", (const gchar *) iter->name);
+			as_xml_desc_append_inline_content (ctx, iter, depth + 1);
+			g_string_append_printf (ctx->str, "</%s>", (const gchar *) iter->name);
 		} else {
 			/* flatten invalid markup to its text content */
-			as_xml_desc_append_inline_content (str, iter, depth + 1);
+			as_xml_desc_append_inline_content (ctx, iter, depth + 1);
 		}
 	}
 }
@@ -294,7 +384,8 @@ as_xml_desc_append_inline_content (GString *str, xmlNode *node, guint depth)
  * as_xml_dump_description_heading_content:
  *
  * Dump the text content of a description section heading, without its enclosing
- * tag. Headings are plain text, so any markup they contain is flattened.
+ * tag. Headings are plain text, so any markup they contain is flattened, and
+ * their whitespace is collapsed just like that of a paragraph.
  *
  * Returns: The escaped text, or %NULL if the node had no usable content.
  */
@@ -303,6 +394,7 @@ as_xml_dump_description_heading_content (xmlNode *node)
 {
 	g_autoptr(GString) str = NULL;
 	g_autofree gchar *text = NULL;
+	AsDescTextCtx ctx;
 
 	/* ignore node if it is a space */
 	if (G_UNLIKELY (node->type != XML_ELEMENT_NODE))
@@ -313,7 +405,10 @@ as_xml_dump_description_heading_content (xmlNode *node)
 		return NULL;
 
 	str = g_string_sized_new (strlen (text) + 8);
-	as_xml_append_escaped (str, text);
+	as_desc_text_ctx_init (&ctx, str);
+	as_xml_desc_append_text (&ctx, text);
+	if (str->len == 0)
+		return NULL;
 
 	return g_string_free (g_steal_pointer (&str), FALSE);
 }
@@ -330,8 +425,20 @@ as_xml_desc_append_block_node (GString *str, xmlNode *node)
 	const gchar *node_name = (const gchar *) node->name;
 
 	if (as_str_equal0 (node_name, "p")) {
+		AsDescTextCtx ctx;
+		gsize block_start = str->len;
+		gsize content_start;
+
+		as_desc_text_ctx_init (&ctx, str);
 		g_string_append (str, "<p>");
-		as_xml_desc_append_inline_content (str, node, 1);
+		content_start = str->len;
+		as_xml_desc_append_inline_content (&ctx, node, 1);
+		/* a paragraph that holds no content at all is dropped entirely, just
+		 * like the MetaInfo reader drops it */
+		if (str->len == content_start) {
+			g_string_truncate (str, block_start);
+			return;
+		}
 		g_string_append (str, "</p>");
 		return;
 	}
@@ -340,23 +447,34 @@ as_xml_desc_append_block_node (GString *str, xmlNode *node)
 		/* a section heading is plain text, so any markup it may contain is
 		 * flattened to its text content */
 		g_autofree gchar *content = as_xml_dump_description_heading_content (node);
-		g_string_append_printf (str,
-					"<heading>%s</heading>",
-					(content == NULL) ? "" : content);
+		if (content == NULL)
+			return;
+		g_string_append_printf (str, "<heading>%s</heading>", content);
 		return;
 	}
 
 	if (as_str_equal0 (node_name, "ul") || as_str_equal0 (node_name, "ol")) {
 		g_string_append_printf (str, "<%s>", node_name);
 		for (xmlNode *iter = node->children; iter != NULL; iter = iter->next) {
+			AsDescTextCtx ctx;
+			gsize item_start, content_start;
+
 			if (iter->type != XML_ELEMENT_NODE)
 				continue;
 			/* only list items are permitted in enumerations */
 			if (!as_str_equal0 ((const gchar *) iter->name, "li"))
 				continue;
 
+			item_start = str->len;
+			as_desc_text_ctx_init (&ctx, str);
 			g_string_append (str, "<li>");
-			as_xml_desc_append_inline_content (str, iter, 1);
+			content_start = str->len;
+			as_xml_desc_append_inline_content (&ctx, iter, 1);
+			if (str->len == content_start) {
+				/* an empty list item carries nothing, so we skip it */
+				g_string_truncate (str, item_start);
+				continue;
+			}
 			g_string_append (str, "</li>");
 		}
 		g_string_append_printf (str, "</%s>", node_name);
@@ -368,8 +486,8 @@ as_xml_desc_append_block_node (GString *str, xmlNode *node)
 /**
  * as_xml_dump_description_para_content:
  *
- * Dump the sanitized content of a description paragraph or list item,
- * without its enclosing tag.
+ * Dump the sanitized content of a description paragraph or list item, without
+ * its enclosing tag. Runs of whitespace are collapsed into a single space.
  *
  * Returns: The markup, or %NULL if the node had no usable content.
  */
@@ -377,13 +495,15 @@ gchar *
 as_xml_dump_description_para_content (xmlNode *node)
 {
 	g_autoptr(GString) str = NULL;
+	AsDescTextCtx ctx;
 
 	/* ignore node if it is a space */
 	if (G_UNLIKELY (node->type != XML_ELEMENT_NODE))
 		return NULL;
 
 	str = g_string_new ("");
-	as_xml_desc_append_inline_content (str, node, 1);
+	as_desc_text_ctx_init (&ctx, str);
+	as_xml_desc_append_inline_content (&ctx, node, 1);
 	if (str->len == 0)
 		return NULL;
 
@@ -1642,6 +1762,10 @@ as_xml_parse_document (const gchar *data, gssize len, gboolean pedantic, GError 
 	if (len < 0)
 		len = strlen (data);
 
+	/* NB: XML_PARSE_NOBLANKS is worth roughly 15% of the time it takes to load a
+	 * catalog, so we keep it even though its heuristic drops the whitespace in
+	 * markup like `<em>a</em> <em>b</em>`, where the space between two inline
+	 * spans is the only text the paragraph has. */
 	parser_options = XML_PARSE_NOBLANKS | XML_PARSE_NONET | XML_PARSE_BIG_LINES;
 	if (pedantic)
 		parser_options |= XML_PARSE_PEDANTIC;

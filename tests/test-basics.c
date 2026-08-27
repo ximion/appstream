@@ -382,6 +382,32 @@ test_simplemarkup (void)
 	str = as_markup_convert ("<ol><li> </li><li>second</li></ol>", AS_MARKUP_KIND_TEXT, &error);
 	g_assert_no_error (error);
 	g_assert_cmpstr (str, ==, " 1.\n 2. second");
+	g_free (str);
+
+	/* A block element that holds nothing but whitespace carries no information,
+	 * so it is dropped rather than written out empty. The <b> makes this markup
+	 * take the sanitizing path instead of being passed through verbatim. */
+	str = as_markup_convert ("<p>  </p>"
+				 "<heading>\n</heading>"
+				 "<ul><li> </li><li>Item</li></ul>"
+				 "<p>Text <b>bold</b></p>",
+				 AS_MARKUP_KIND_XML,
+				 &error);
+	g_assert_no_error (error);
+	g_assert_cmpstr (str, ==, "<ul><li>Item</li></ul>\n<p>Text bold</p>");
+	g_free (str);
+
+	/* &nbsp; is an HTML entity, not an XML one: we have no declaration for it, so
+	 * markup using it can not be parsed and must not be passed through as valid.
+	 * A character reference is the way to write a non-breaking space. */
+	str = as_markup_convert ("<p>a&nbsp;b</p>", AS_MARKUP_KIND_XML, &error);
+	g_assert_no_error (error);
+	g_assert_cmpstr (str, ==, "&lt;p&gt;a&amp;nbsp;b&lt;/p&gt;");
+	g_free (str);
+
+	str = as_markup_convert ("<p>a&#160;b</p>", AS_MARKUP_KIND_XML, &error);
+	g_assert_no_error (error);
+	g_assert_cmpstr (str, ==, "<p>a&#160;b</p>");
 }
 
 /**
