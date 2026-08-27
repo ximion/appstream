@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2016-2024 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2016-2026 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -1648,6 +1648,51 @@ asc_compose_finalize_components (AscCompose *compose, AscResult *cres)
 	}
 }
 
+/**
+ * asc_compose_add_image_format_to_gcids:
+ *
+ * Fold the image format that media is rendered in into the content hash of every component
+ * we have found so far.
+ *
+ * The global component ID is the address of a component's media directory, and the metadata
+ * we generate refers to its icons and screenshots by file names carrying the extension of
+ * the format they were saved in. Two compose runs that differ only in their image format
+ * must therefore not arrive at the same global ID, or whichever of them ran first silently
+ * decides the format for the other one as well.
+ *
+ * JPEG-XL is exempt: components rendered in the default format keep the global IDs they
+ * have always had.
+ */
+static void
+asc_compose_add_image_format_to_gcids (AscCompose *compose, AscResult *cres)
+{
+	AscComposePrivate *priv = GET_PRIVATE (compose);
+	g_autoptr(GPtrArray) cpts = NULL;
+
+	if (priv->image_format == ASC_IMAGE_FORMAT_JXL)
+		return;
+
+	cpts = asc_result_fetch_components (cres);
+	for (guint i = 0; i < cpts->len; i++) {
+		AsComponent *cpt = AS_COMPONENT (g_ptr_array_index (cpts, i));
+		g_autoptr(GError) error = NULL;
+
+		/* the component is part of this result and its ID has not changed since it was
+		 * added, so this can not legitimately fail - say so loudly if it ever does */
+		if (G_UNLIKELY (!asc_result_update_component_gcid_with_string (
+			cres,
+			cpt,
+			asc_image_format_to_string (priv->image_format),
+			&error)))
+			asc_result_add_hint (cres,
+					     cpt,
+					     "internal-error",
+					     "msg",
+					     error->message,
+					     NULL);
+	}
+}
+
 static void
 asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 {
@@ -1980,6 +2025,9 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 				asc_result_add_hint_simple (ctask->result, de_cpt, "no-metainfo");
 		}
 	}
+
+	/* the media type we are about to render is part of the identity of these components */
+	asc_compose_add_image_format_to_gcids (compose, ctask->result);
 
 	/* allow external function to alter the detected components early on before we do expensive processing */
 	if (priv->check_md_early_fn != NULL)

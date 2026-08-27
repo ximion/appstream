@@ -128,6 +128,7 @@ if get_option('compose')
          as_test_common_src],
         dependencies: [appstream_compose_dep,
                        gio_dep],
+        include_directories: [root_inc_dir]
     )
 
     as_test_compose_env = as_test_env + [
