@@ -71,6 +71,8 @@ typedef struct {
 
 	GMutex hint_tags_mutex;
 	GHashTable *hint_tags;
+
+	gint settings_sealed; /* atomic */
 } AscGlobalsPrivate;
 
 G_DEFINE_TYPE_WITH_PRIVATE (AscGlobals, asc_globals, G_TYPE_OBJECT)
@@ -243,9 +245,39 @@ asc_globals_clear (void)
 }
 
 /**
+ * asc_globals_settings_writable:
+ *
+ * Check whether the global settings may still be changed, and complain if they
+ * may not.
+ *
+ * The global settings are shared by every compose run in the process, and the
+ * getters hand out plain pointers into them. Reading one seals them all.
+ *
+ * This is a guard against programmer error, not a synchronization mechanism.
+ * A caller that ignores the contract and writes a setting concurrently with a
+ * compose run that is already reading it deserves the likely crash - they have
+ * been warned ;-)
+ */
+static gboolean
+asc_globals_settings_writable (AscGlobalsPrivate *priv, const gchar *setting_name)
+{
+	if (!g_atomic_int_get (&priv->settings_sealed))
+		return TRUE;
+
+	g_warning ("Refusing to change the global \"%s\" setting: the compose global settings "
+		   "are already in use. They have to be set before anything reads them.",
+		   setting_name);
+	return FALSE;
+}
+
+/**
  * asc_globals_get_tmp_dir:
  *
  * Get temporary directory used by appstream-compose.
+ *
+ * Returns: (transfer none): The temporary directory. Provided the settings were
+ *    configured before they were first read, as they have to be, the returned
+ *    string stays valid until all global state is dropped at process exit.
  *
  * Since: 0.13.0
  **/
@@ -253,29 +285,19 @@ const gchar *
 asc_globals_get_tmp_dir (void)
 {
 	AscGlobalsPrivate *priv = asc_globals_get_priv ();
-	return priv->tmp_dir;
-}
-
-/**
- * asc_globals_get_tmp_dir_create:
- *
- * Get temporary directory used by appstream-compose
- * and try to create it if it does not exist.
- *
- * Since: 0.13.0
- **/
-const gchar *
-asc_globals_get_tmp_dir_create (void)
-{
-	AscGlobalsPrivate *priv = asc_globals_get_priv ();
-	g_mkdir_with_parents (priv->tmp_dir, 0700);
+	g_atomic_int_set (&priv->settings_sealed, TRUE);
 	return priv->tmp_dir;
 }
 
 /**
  * asc_globals_set_tmp_dir:
+ * @path: the new temporary directory.
  *
  * Set temporary directory used by appstream-compose.
+ *
+ * This has to be done before anything reads the global settings, in practice
+ * before the first #AscCompose is created. Once a setting has been read, changing
+ * any global setting is prohibited.
  *
  * Since: 0.13.0
  **/
@@ -283,6 +305,9 @@ void
 asc_globals_set_tmp_dir (const gchar *path)
 {
 	AscGlobalsPrivate *priv = asc_globals_get_priv ();
+	if (!asc_globals_settings_writable (priv, "tmp-dir"))
+		return;
+
 	g_free (priv->tmp_dir);
 	priv->tmp_dir = g_strdup (path);
 }
@@ -292,19 +317,27 @@ asc_globals_set_tmp_dir (const gchar *path)
  *
  * Get whether images should be optimized using optipng.
  *
+ * Returns: %TRUE if optipng should be used.
+ *
  * Since: 0.13.0
  **/
 gboolean
 asc_globals_get_use_optipng (void)
 {
 	AscGlobalsPrivate *priv = asc_globals_get_priv ();
+	g_atomic_int_set (&priv->settings_sealed, TRUE);
 	return priv->use_optipng;
 }
 
 /**
  * asc_globals_set_use_optipng:
+ * @enabled: %TRUE to optimize images with optipng.
  *
  * Set whether images should be optimized using optipng.
+ *
+ * This has to be done before anything reads the global settings, in practice
+ * before the first #AscCompose is created. Once a setting has been read, changing
+ * any global setting is prohibited.
  *
  * Since: 0.13.0
  **/
@@ -312,6 +345,9 @@ void
 asc_globals_set_use_optipng (gboolean enabled)
 {
 	AscGlobalsPrivate *priv = asc_globals_get_priv ();
+	if (!asc_globals_settings_writable (priv, "use-optipng"))
+		return;
+
 	if (enabled && priv->optipng_bin == NULL) {
 		g_warning ("Refusing to enable optipng: not found in $PATH");
 		priv->use_optipng = FALSE;
@@ -325,19 +361,30 @@ asc_globals_set_use_optipng (gboolean enabled)
  *
  * Get path to the "optipng" binary we should use.
  *
+ * Returns: (transfer none) (nullable): The binary path, or %NULL if optipng was
+ *    not found. Provided the settings were configured before they were first
+ *    read, as they have to be, the returned string stays valid until all global
+ *    state is dropped at process exit.
+ *
  * Since: 0.13.0
  **/
 const gchar *
 asc_globals_get_optipng_binary (void)
 {
 	AscGlobalsPrivate *priv = asc_globals_get_priv ();
+	g_atomic_int_set (&priv->settings_sealed, TRUE);
 	return priv->optipng_bin;
 }
 
 /**
  * asc_globals_set_optipng_binary:
+ * @path: (nullable): the "optipng" binary path, or %NULL.
  *
  * Set path to the "optipng" binary we should use.
+ *
+ * This has to be done before anything reads the global settings, in practice
+ * before the first #AscCompose is created. Once a setting has been read, changing
+ * any global setting is prohibited.
  *
  * Since: 0.13.0
  **/
@@ -345,6 +392,9 @@ void
 asc_globals_set_optipng_binary (const gchar *path)
 {
 	AscGlobalsPrivate *priv = asc_globals_get_priv ();
+	if (!asc_globals_settings_writable (priv, "optipng-binary"))
+		return;
+
 	g_free (priv->optipng_bin);
 	priv->optipng_bin = g_strdup (path);
 	if (priv->optipng_bin == NULL)
@@ -356,19 +406,30 @@ asc_globals_set_optipng_binary (const gchar *path)
  *
  * Get path to the "ffprobe" binary we should use.
  *
+ * Returns: (transfer none) (nullable): The binary path, or %NULL if ffprobe was
+ *    not found. Provided the settings were configured before they were first
+ *    read, as they have to be, the returned string stays valid until all global
+ *    state is dropped at process exit.
+ *
  * Since: 0.14.6
  **/
 const gchar *
 asc_globals_get_ffprobe_binary (void)
 {
 	AscGlobalsPrivate *priv = asc_globals_get_priv ();
+	g_atomic_int_set (&priv->settings_sealed, TRUE);
 	return priv->ffprobe_bin;
 }
 
 /**
  * asc_globals_set_ffprobe_binary:
+ * @path: (nullable): the "ffprobe" binary path, or %NULL.
  *
  * Set path to the "ffprobe" binary we should use.
+ *
+ * This has to be done before anything reads the global settings, in practice
+ * before the first #AscCompose is created. Once a setting has been read, changing
+ * any global setting is prohibited.
  *
  * Since: 0.14.6
  **/
@@ -376,6 +437,9 @@ void
 asc_globals_set_ffprobe_binary (const gchar *path)
 {
 	AscGlobalsPrivate *priv = asc_globals_get_priv ();
+	if (!asc_globals_settings_writable (priv, "ffprobe-binary"))
+		return;
+
 	g_free (priv->ffprobe_bin);
 	priv->ffprobe_bin = g_strdup (path);
 }
@@ -390,6 +454,7 @@ const gchar *
 asc_globals_get_mediaworker_binary (void)
 {
 	AscGlobalsPrivate *priv = asc_globals_get_priv ();
+	g_atomic_int_set (&priv->settings_sealed, TRUE);
 	return priv->mediaworker_bin;
 }
 
@@ -403,6 +468,9 @@ void
 asc_globals_set_mediaworker_binary (const gchar *path)
 {
 	AscGlobalsPrivate *priv = asc_globals_get_priv ();
+	if (!asc_globals_settings_writable (priv, "mediaworker-binary"))
+		return;
+
 	g_free (priv->mediaworker_bin);
 	priv->mediaworker_bin = g_strdup (path);
 }

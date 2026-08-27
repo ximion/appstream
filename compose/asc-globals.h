@@ -46,7 +46,6 @@ typedef enum {
 GQuark		asc_compose_error_quark (void);
 
 const gchar    *asc_globals_get_tmp_dir (void);
-const gchar    *asc_globals_get_tmp_dir_create (void);
 void		asc_globals_set_tmp_dir (const gchar *path);
 
 gboolean	asc_globals_get_use_optipng (void);
