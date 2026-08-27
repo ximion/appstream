@@ -439,13 +439,17 @@ struct _AscImageTarget {
 
 /**
  * asc_image_target_new:
- * @name: Filename (without any directory components) the rendition should be stored as.
+ * @name: Filename the rendition should be stored as.
  * @scale_mode: an #AscImageScaleMode
  * @width: Target width (used depending on @scale_mode).
  * @height: Target height (used depending on @scale_mode).
  *
  * Create a new #AscImageTarget. The image format the rendition is stored in
  * is derived from the file extension of @name.
+ *
+ * @name must be a single path segment: it is resolved relative to the output
+ * directory of the media operation, and must not contain any directory
+ * components or refer to a parent directory.
  *
  * Returns: (transfer full): an #AscImageTarget
  *

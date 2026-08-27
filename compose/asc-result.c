@@ -278,9 +278,9 @@ asc_result_fetch_components (AscResult *result)
 	GHashTableIter iter;
 	gpointer value;
 
-	res = g_ptr_array_new_full (g_hash_table_size (priv->cpts), g_object_unref);
-
 	g_return_val_if_fail (ASC_IS_RESULT (result), NULL);
+
+	res = g_ptr_array_new_full (g_hash_table_size (priv->cpts), g_object_unref);
 
 	g_hash_table_iter_init (&iter, priv->cpts);
 	while (g_hash_table_iter_next (&iter, NULL, &value))
@@ -326,9 +326,9 @@ asc_result_fetch_hints_all (AscResult *result)
 	GHashTableIter iter;
 	gpointer value;
 
-	res = g_ptr_array_new_full (g_hash_table_size (priv->hints), g_object_unref);
-
 	g_return_val_if_fail (ASC_IS_RESULT (result), NULL);
+
+	res = g_ptr_array_new_full (g_hash_table_size (priv->hints), g_object_unref);
 
 	g_hash_table_iter_init (&iter, priv->hints);
 	while (g_hash_table_iter_next (&iter, NULL, &value)) {
@@ -524,8 +524,9 @@ asc_result_fetch_component_gcids (AscResult *result)
 	gpointer value;
 	guint i = 0;
 
-	strv = g_new0 (const gchar *, g_hash_table_size (priv->gcids) + 1);
 	g_return_val_if_fail (ASC_IS_RESULT (result), NULL);
+
+	strv = g_new0 (const gchar *, g_hash_table_size (priv->gcids) + 1);
 
 	g_hash_table_iter_init (&iter, priv->gcids);
 	while (g_hash_table_iter_next (&iter, NULL, &value))
@@ -646,9 +647,9 @@ asc_result_remove_component_full (AscResult *result, AsComponent *cpt, gboolean 
 	AscResultPrivate *priv = GET_PRIVATE (result);
 	gboolean ret;
 
-	ret = g_hash_table_remove (priv->cpts, as_component_get_id (cpt));
 	g_return_val_if_fail (ASC_IS_RESULT (result), FALSE);
 
+	ret = g_hash_table_remove (priv->cpts, as_component_get_id (cpt));
 	if (remove_gcid)
 		g_hash_table_remove (priv->gcids, as_component_get_id (cpt));
 	g_hash_table_remove (priv->mdata_hashes, cpt);
@@ -712,9 +713,9 @@ asc_result_has_hint (AscResult *result, AsComponent *cpt, const gchar *tag)
 	GPtrArray *hints;
 	const gchar *cid = as_component_get_id (cpt);
 
-	hints = g_hash_table_lookup (priv->hints, cid);
 	g_return_val_if_fail (ASC_IS_RESULT (result), FALSE);
 
+	hints = g_hash_table_lookup (priv->hints, cid);
 	if (hints == NULL)
 		return FALSE;
 	for (guint i = 0; i < hints->len; i++) {
@@ -743,9 +744,9 @@ asc_result_remove_component_by_id (AscResult *result, const gchar *cid)
 	AscResultPrivate *priv = GET_PRIVATE (result);
 	AsComponent *cpt;
 
-	cpt = g_hash_table_lookup (priv->cpts, cid);
 	g_return_val_if_fail (ASC_IS_RESULT (result), FALSE);
 
+	cpt = g_hash_table_lookup (priv->cpts, cid);
 	if (cpt == NULL)
 		return FALSE;
 	return asc_result_remove_component (result, cpt);
