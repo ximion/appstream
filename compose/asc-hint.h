@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2016-2024 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2016-2026 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -44,16 +44,8 @@ AscHint	       *asc_hint_new_for_tag (const gchar *tag,
 				      GError	 **error);
 
 const gchar    *asc_hint_get_tag (AscHint *hint);
-void		asc_hint_set_tag (AscHint     *hint,
-				  const gchar *tag);
-
 AsIssueSeverity asc_hint_get_severity (AscHint *hint);
-void		asc_hint_set_severity (AscHint	      *hint,
-				       AsIssueSeverity severity);
-
 const gchar    *asc_hint_get_explanation_template (AscHint *hint);
-void		asc_hint_set_explanation_template (AscHint     *hint,
-						   const gchar *explanation_tmpl);
 
 gboolean	asc_hint_is_error (AscHint *hint);
 gboolean	asc_hint_is_valid (AscHint *hint);

@@ -25,6 +25,7 @@
 
 #include "appstream-compose.h"
 #include "asc-globals-private.h"
+#include "asc-hint-private.h"
 #include "asc-utils-metainfo.h"
 #include "asc-utils-l10n.h"
 #include "asc-utils-screenshots.h"

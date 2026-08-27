@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2016-2024 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2016-2026 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -26,6 +26,7 @@
 
 #include "config.h"
 #include "asc-hint.h"
+#include "asc-hint-private.h"
 
 #include "as-utils-private.h"
 #include "asc-globals-private.h"

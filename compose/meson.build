@@ -41,6 +41,7 @@ ascompose_pub_enums = glib.mkenums_simple('asc-enums-types',
 
 ascompose_priv_headers = [
     'asc-globals-private.h',
+    'asc-hint-private.h',
     'asc-hint-tags.h',
     'asc-media-ipc.h',
     'asc-media-private.h',
