@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2016-2024 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2016-2026 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -22,6 +22,9 @@
  * SECTION:asc-unit
  * @short_description: A data source unit (package, bundle, database, ...) for #AscCompose to process
  * @include: appstream-compose.h
+ *
+ * #AscUnit is an abstract base class. See #AscDirectoryUnit
+ * for a unit that reads its data from a directory tree.
  */
 
 #include "config.h"
@@ -38,7 +41,7 @@ typedef struct {
 
 } AscUnitPrivate;
 
-G_DEFINE_TYPE_WITH_PRIVATE (AscUnit, asc_unit, G_TYPE_OBJECT)
+G_DEFINE_ABSTRACT_TYPE_WITH_PRIVATE (AscUnit, asc_unit, G_TYPE_OBJECT)
 #define GET_PRIVATE(o) (asc_unit_get_instance_private (o))
 
 static void
@@ -381,19 +384,4 @@ asc_unit_read_data (AscUnit *unit, const gchar *filename, GError **error)
 	klass = ASC_UNIT_GET_CLASS (unit);
 	g_return_val_if_fail (klass->read_data != NULL, NULL);
 	return klass->read_data (unit, filename, error);
-}
-
-/**
- * asc_unit_new:
- *
- * Creates a new #AscUnit.
- *
- * Since: 0.14.5
- **/
-AscUnit *
-asc_unit_new (void)
-{
-	AscUnit *unit;
-	unit = g_object_new (ASC_TYPE_UNIT, NULL);
-	return ASC_UNIT (unit);
 }

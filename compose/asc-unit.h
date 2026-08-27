@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2016-2024 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2016-2026 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -52,8 +52,6 @@ struct _AscUnitClass {
 	void (*_as_reserved3) (void);
 	void (*_as_reserved4) (void);
 };
-
-AscUnit	    *asc_unit_new (void);
 
 AsBundleKind asc_unit_get_bundle_kind (AscUnit *unit);
 void	     asc_unit_set_bundle_kind (AscUnit	   *unit,
