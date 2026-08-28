@@ -264,10 +264,26 @@ asc_globals_settings_writable (AscGlobalsPrivate *priv, const gchar *setting_nam
 	if (!g_atomic_int_get (&priv->settings_sealed))
 		return TRUE;
 
-	g_warning ("Refusing to change the global \"%s\" setting: the compose global settings "
-		   "are already in use. They have to be set before anything reads them.",
+	g_warning ("Refusing to change the global \"%s\" setting: composing metadata has "
+		   "already started. The global settings have to be set before that.",
 		   setting_name);
 	return FALSE;
+}
+
+/**
+ * asc_globals_seal:
+ *
+ * Seal the global settings, so that any later attempt to change one of them is
+ * refused with a warning.
+ *
+ * This is called when compose work starts, so that the settings can not be
+ * pulled out from underneath an operation that is already reading them.
+ */
+void
+asc_globals_seal (void)
+{
+	AscGlobalsPrivate *priv = asc_globals_get_priv ();
+	g_atomic_int_set (&priv->settings_sealed, TRUE);
 }
 
 /**
@@ -275,9 +291,9 @@ asc_globals_settings_writable (AscGlobalsPrivate *priv, const gchar *setting_nam
  *
  * Get temporary directory used by appstream-compose.
  *
- * Returns: (transfer none): The temporary directory. Provided the settings were
- *    configured before they were first read, as they have to be, the returned
- *    string stays valid until all global state is dropped at process exit.
+ * Returns: (transfer none): The temporary directory. The string is owned by the
+ *    global state and is valid until the setting is changed, which is prohibited
+ *    once composing metadata has started.
  *
  * Since: 0.13.0
  **/
@@ -285,7 +301,6 @@ const gchar *
 asc_globals_get_tmp_dir (void)
 {
 	AscGlobalsPrivate *priv = asc_globals_get_priv ();
-	g_atomic_int_set (&priv->settings_sealed, TRUE);
 	return priv->tmp_dir;
 }
 
@@ -295,9 +310,9 @@ asc_globals_get_tmp_dir (void)
  *
  * Set temporary directory used by appstream-compose.
  *
- * This has to be done before anything reads the global settings, in practice
- * before the first #AscCompose is created. Once a setting has been read, changing
- * any global setting is prohibited.
+ * This has to be done before composing metadata starts, in practice before the
+ * first call to asc_compose_run(). Once work has begun, the global settings are
+ * sealed and changing any of them is prohibited.
  *
  * Since: 0.13.0
  **/
@@ -325,7 +340,6 @@ gboolean
 asc_globals_get_use_optipng (void)
 {
 	AscGlobalsPrivate *priv = asc_globals_get_priv ();
-	g_atomic_int_set (&priv->settings_sealed, TRUE);
 	return priv->use_optipng;
 }
 
@@ -335,9 +349,9 @@ asc_globals_get_use_optipng (void)
  *
  * Set whether images should be optimized using optipng.
  *
- * This has to be done before anything reads the global settings, in practice
- * before the first #AscCompose is created. Once a setting has been read, changing
- * any global setting is prohibited.
+ * This has to be done before composing metadata starts, in practice before the
+ * first call to asc_compose_run(). Once work has begun, the global settings are
+ * sealed and changing any of them is prohibited.
  *
  * Since: 0.13.0
  **/
@@ -362,9 +376,9 @@ asc_globals_set_use_optipng (gboolean enabled)
  * Get path to the "optipng" binary we should use.
  *
  * Returns: (transfer none) (nullable): The binary path, or %NULL if optipng was
- *    not found. Provided the settings were configured before they were first
- *    read, as they have to be, the returned string stays valid until all global
- *    state is dropped at process exit.
+ *    not found. The string is owned by the global state and is valid until the
+ *    setting is changed, which is prohibited once composing metadata has
+ *    started.
  *
  * Since: 0.13.0
  **/
@@ -372,7 +386,6 @@ const gchar *
 asc_globals_get_optipng_binary (void)
 {
 	AscGlobalsPrivate *priv = asc_globals_get_priv ();
-	g_atomic_int_set (&priv->settings_sealed, TRUE);
 	return priv->optipng_bin;
 }
 
@@ -382,9 +395,9 @@ asc_globals_get_optipng_binary (void)
  *
  * Set path to the "optipng" binary we should use.
  *
- * This has to be done before anything reads the global settings, in practice
- * before the first #AscCompose is created. Once a setting has been read, changing
- * any global setting is prohibited.
+ * This has to be done before composing metadata starts, in practice before the
+ * first call to asc_compose_run(). Once work has begun, the global settings are
+ * sealed and changing any of them is prohibited.
  *
  * Since: 0.13.0
  **/
@@ -407,9 +420,9 @@ asc_globals_set_optipng_binary (const gchar *path)
  * Get path to the "ffprobe" binary we should use.
  *
  * Returns: (transfer none) (nullable): The binary path, or %NULL if ffprobe was
- *    not found. Provided the settings were configured before they were first
- *    read, as they have to be, the returned string stays valid until all global
- *    state is dropped at process exit.
+ *    not found. The string is owned by the global state and is valid until the
+ *    setting is changed, which is prohibited once composing metadata has
+ *    started.
  *
  * Since: 0.14.6
  **/
@@ -417,7 +430,6 @@ const gchar *
 asc_globals_get_ffprobe_binary (void)
 {
 	AscGlobalsPrivate *priv = asc_globals_get_priv ();
-	g_atomic_int_set (&priv->settings_sealed, TRUE);
 	return priv->ffprobe_bin;
 }
 
@@ -427,9 +439,9 @@ asc_globals_get_ffprobe_binary (void)
  *
  * Set path to the "ffprobe" binary we should use.
  *
- * This has to be done before anything reads the global settings, in practice
- * before the first #AscCompose is created. Once a setting has been read, changing
- * any global setting is prohibited.
+ * This has to be done before composing metadata starts, in practice before the
+ * first call to asc_compose_run(). Once work has begun, the global settings are
+ * sealed and changing any of them is prohibited.
  *
  * Since: 0.14.6
  **/
@@ -454,7 +466,6 @@ const gchar *
 asc_globals_get_mediaworker_binary (void)
 {
 	AscGlobalsPrivate *priv = asc_globals_get_priv ();
-	g_atomic_int_set (&priv->settings_sealed, TRUE);
 	return priv->mediaworker_bin;
 }
 

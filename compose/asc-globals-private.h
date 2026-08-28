@@ -28,6 +28,8 @@ AS_BEGIN_PRIVATE_DECLS
 AS_INTERNAL_VISIBLE
 void	     asc_globals_clear (void);
 
+void	     asc_globals_seal (void);
+
 AscHintTag  *asc_globals_get_hint_tag_details (const gchar *tag);
 
 const gchar *asc_globals_get_mediaworker_binary (void);

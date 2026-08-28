@@ -1391,6 +1391,10 @@ asc_media_ensure_worker (AscMedia *media, GCancellable *cancellable, GError **er
 
 	g_return_val_if_fail (ASC_IS_MEDIA (media), FALSE);
 
+	/* media processing reads the global settings, so seal them here as well:
+	 * #AscMedia may be used without any #AscCompose around it */
+	asc_globals_seal ();
+
 	if (g_cancellable_set_error_if_cancelled (cancellable, error))
 		return FALSE;
 

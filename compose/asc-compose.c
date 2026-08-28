@@ -2587,6 +2587,10 @@ asc_compose_run (AscCompose *compose, GCancellable *cancellable, GError **error)
 	gboolean results_generated = FALSE;
 	g_return_val_if_fail (ASC_IS_COMPOSE (compose), NULL);
 
+	/* we are about to read the global settings all over the place, so they
+	 * must not be changed anymore from this point on */
+	asc_globals_seal ();
+
 	/* ensure icon output dir is set, hint and data output dirs are optional */
 	if (priv->icons_result_dir == NULL &&
 	    !as_flags_contains (priv->flags, ASC_COMPOSE_FLAG_IGNORE_ICONS)) {
