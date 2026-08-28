@@ -147,7 +147,7 @@ AscHintTagStatic asc_hint_tag_list[] =  {
 	},
 
 	{ "missing-launchable-desktop-file",
-	  AS_ISSUE_SEVERITY_WARNING,
+	  AS_ISSUE_SEVERITY_ERROR,
 	  "The MetaInfo file references a .desktop file with ID '{{desktop_id}}' in its <code>launchable</code> tag, but the file "
 	  "was not found in the same source tree. In order to be able to launch the software once it was installed, please place the "
 	  "MetaInfo file and its .desktop files in the same package."
