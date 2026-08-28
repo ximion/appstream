@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2026-08-26 10:24+0200\n"
+"POT-Creation-Date: 2026-08-28 08:48+0200\n"
 "PO-Revision-Date: 2026-08-23 18:44+0000\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
 "Language-Team: Kazakh <https://hosted.weblate.org/projects/appstream/translations/kk/>\n"
@@ -34,7 +34,7 @@ msgstr "AppStream — бұл бағдарламалық қамтама комп�
 msgid "The <em>appstreamcli</em> command-line tool allows to read, write, and transform AppStream XML or YAML metadata as well as to validate it for compliance with the specification. It also provides easy access to the system metadata pool, for example to query for software that provides a specific Mediatype handler or for installing software by its component identifier."
 msgstr "<em>appstreamcli</em> командалық жол сайманы AppStream XML немесе YAML метадеректерін оқуға, жазуға және түрлендіруге, сондай-ақ олардың спецификацияға сәйкестігін тексеруге мүмкіндік береді. Ол сондай-ақ жүйелік метадеректер пулына оңай қол жеткізуді қамтамасыз етеді, мысалы, белгілі бір Mediatype өңдеушісін ұсынатын бағдарламалық қамтаманы сұрау немесе бағдарламалық қамтаманы оның компонент идентификаторы бойынша орнату үшін."
 
-#: src/as-cache.c:932
+#: src/as-cache.c:935
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "'%s' кэш орнына жазу мүмкін емес."
@@ -1486,152 +1486,152 @@ msgid "GNU Affero General Public License v3.0 or later"
 msgstr "GNU Affero General Public License v3.0 немесе кейінірек"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:295
+#: src/as-spdx-data.h:297
 msgid "GNU Free Documentation License v1.1 only - invariants"
 msgstr "Тек GNU Free Documentation License v1.1 - инварианттармен"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:297
+#: src/as-spdx-data.h:299
 msgid "GNU Free Documentation License v1.1 or later - invariants"
 msgstr "GNU Free Documentation License v1.1 немесе кейінірек - инварианттармен"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:299
+#: src/as-spdx-data.h:301
 msgid "GNU Free Documentation License v1.1 only - no invariants"
 msgstr "Тек GNU Free Documentation License v1.1 - инварианттарсыз"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:301
+#: src/as-spdx-data.h:303
 msgid "GNU Free Documentation License v1.1 or later - no invariants"
 msgstr "GNU Free Documentation License v1.1 немесе кейінірек - инварианттарсыз"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:303
+#: src/as-spdx-data.h:305
 msgid "GNU Free Documentation License v1.1 only"
 msgstr "Тек GNU Free Documentation License v1.1"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:305
+#: src/as-spdx-data.h:307
 msgid "GNU Free Documentation License v1.1 or later"
 msgstr "GNU Free Documentation License v1.1 немесе кейінірек"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:308
+#: src/as-spdx-data.h:310
 msgid "GNU Free Documentation License v1.2 only - invariants"
 msgstr "Тек GNU Free Documentation License v1.2 - инварианттармен"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:310
+#: src/as-spdx-data.h:312
 msgid "GNU Free Documentation License v1.2 or later - invariants"
 msgstr "GNU Free Documentation License v1.2 немесе кейінірек - инварианттармен"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:312
+#: src/as-spdx-data.h:314
 msgid "GNU Free Documentation License v1.2 only - no invariants"
 msgstr "Тек GNU Free Documentation License v1.2 - инварианттарсыз"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:314
+#: src/as-spdx-data.h:316
 msgid "GNU Free Documentation License v1.2 or later - no invariants"
 msgstr "GNU Free Documentation License v1.2 немесе кейінірек - инварианттарсыз"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:316
+#: src/as-spdx-data.h:318
 msgid "GNU Free Documentation License v1.2 only"
 msgstr "Тек GNU Free Documentation License v1.2"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:318
+#: src/as-spdx-data.h:320
 msgid "GNU Free Documentation License v1.2 or later"
 msgstr "GNU Free Documentation License v1.2 немесе кейінірек"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:321
+#: src/as-spdx-data.h:323
 msgid "GNU Free Documentation License v1.3 only - invariants"
 msgstr "Тек GNU Free Documentation License v1.3 - инварианттармен"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:323
+#: src/as-spdx-data.h:325
 msgid "GNU Free Documentation License v1.3 or later - invariants"
 msgstr "GNU Free Documentation License v1.3 немесе кейінірек - инварианттармен"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:325
+#: src/as-spdx-data.h:327
 msgid "GNU Free Documentation License v1.3 only - no invariants"
 msgstr "Тек GNU Free Documentation License v1.3 - инварианттарсыз"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:327
+#: src/as-spdx-data.h:329
 msgid "GNU Free Documentation License v1.3 or later - no invariants"
 msgstr "GNU Free Documentation License v1.3 немесе кейінірек - инварианттарсыз"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:329
+#: src/as-spdx-data.h:331
 msgid "GNU Free Documentation License v1.3 only"
 msgstr "Тек GNU Free Documentation License v1.3"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:331
+#: src/as-spdx-data.h:333
 msgid "GNU Free Documentation License v1.3 or later"
 msgstr "GNU Free Documentation License v1.3 немесе кейінірек"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:335 src/as-spdx-data.h:339
+#: src/as-spdx-data.h:337 src/as-spdx-data.h:341
 msgid "GNU General Public License v1.0 only"
 msgstr "Тек GNU General Public License v1.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:337 src/as-spdx-data.h:341
+#: src/as-spdx-data.h:339 src/as-spdx-data.h:343
 msgid "GNU General Public License v1.0 or later"
 msgstr "GNU General Public License v1.0 немесе кейінірек"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:343 src/as-spdx-data.h:347
+#: src/as-spdx-data.h:345 src/as-spdx-data.h:349
 msgid "GNU General Public License v2.0 only"
 msgstr "Тек GNU General Public License v2.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:345 src/as-spdx-data.h:349
+#: src/as-spdx-data.h:347 src/as-spdx-data.h:351
 msgid "GNU General Public License v2.0 or later"
 msgstr "GNU General Public License v2.0 немесе кейінірек"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:356 src/as-spdx-data.h:360
+#: src/as-spdx-data.h:358 src/as-spdx-data.h:362
 msgid "GNU General Public License v3.0 only"
 msgstr "Тек GNU General Public License v3.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:358 src/as-spdx-data.h:362
+#: src/as-spdx-data.h:360 src/as-spdx-data.h:364
 msgid "GNU General Public License v3.0 or later"
 msgstr "GNU General Public License v3.0 немесе кейінірек"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:434 src/as-spdx-data.h:438
+#: src/as-spdx-data.h:436 src/as-spdx-data.h:440
 msgid "GNU Library General Public License v2 only"
 msgstr "Тек GNU Library General Public License v2"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:436 src/as-spdx-data.h:440
+#: src/as-spdx-data.h:438 src/as-spdx-data.h:442
 msgid "GNU Library General Public License v2 or later"
 msgstr "GNU Library General Public License v2 немесе кейінірек"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:442 src/as-spdx-data.h:446
+#: src/as-spdx-data.h:444 src/as-spdx-data.h:448
 msgid "GNU Lesser General Public License v2.1 only"
 msgstr "Тек GNU Lesser General Public License v2.1"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:444 src/as-spdx-data.h:448
+#: src/as-spdx-data.h:446 src/as-spdx-data.h:450
 msgid "GNU Lesser General Public License v2.1 or later"
 msgstr "GNU Lesser General Public License v2.1 немесе кейінірек"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:450 src/as-spdx-data.h:454
+#: src/as-spdx-data.h:452 src/as-spdx-data.h:456
 msgid "GNU Lesser General Public License v3.0 only"
 msgstr "Тек GNU Lesser General Public License v3.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:452 src/as-spdx-data.h:456
+#: src/as-spdx-data.h:454 src/as-spdx-data.h:458
 msgid "GNU Lesser General Public License v3.0 or later"
 msgstr "GNU Lesser General Public License v3.0 немесе кейінірек"
 
@@ -2636,9 +2636,9 @@ msgstr "'%s' тегінің маңыздылығын тексеруден өту
 
 #. TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
 #. TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted names.
-#: src/as-validator.c:897 src/as-validator.c:1660 src/as-validator.c:1836
-#: src/as-validator.c:2057 src/as-validator.c:2722 src/as-validator.c:2744
-#: src/as-validator.c:2869 src/as-validator.c:3192
+#: src/as-validator.c:897 src/as-validator.c:1673 src/as-validator.c:1849
+#: src/as-validator.c:2070 src/as-validator.c:2735 src/as-validator.c:2757
+#: src/as-validator.c:2882 src/as-validator.c:3205
 #, c-format
 msgid "Found: %s - Allowed: %s"
 msgstr "Табылды: %s - Рұқсат етілген: %s"

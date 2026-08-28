@@ -24,7 +24,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2026-08-26 10:24+0200\n"
+"POT-Creation-Date: 2026-08-28 08:48+0200\n"
 "PO-Revision-Date: 2026-01-18 00:01+0000\n"
 "Last-Translator: Dwi Cahyono <wongciecahyono@gmail.com>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/appstream/translations/id/>\n"
@@ -51,7 +51,7 @@ msgstr "AppStream adalah memungkinkan perangkat lunak memberika informasi tentan
 msgid "The <em>appstreamcli</em> command-line tool allows to read, write, and transform AppStream XML or YAML metadata as well as to validate it for compliance with the specification. It also provides easy access to the system metadata pool, for example to query for software that provides a specific Mediatype handler or for installing software by its component identifier."
 msgstr "<em>appstreamcli </em> memungkinkan pembacaan, penulisan, validasi, dan transformasi metadata XML atau YAML AppStream. Ini memberi akses ke pool metadata sistem untuk misalnya mengkueri perangkat lunak yang menyediakan MIME-type tertentu dan memasangnya dengan identifier komponen perangkat lunaknya."
 
-#: src/as-cache.c:932
+#: src/as-cache.c:935
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "Lokasi singgahan '%s' tidak dapat ditulisi."
@@ -1506,152 +1506,152 @@ msgid "GNU Affero General Public License v3.0 or later"
 msgstr "Lisensi Publik Umum GNU Affero v3.0 atau setelahnya"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:295
+#: src/as-spdx-data.h:297
 msgid "GNU Free Documentation License v1.1 only - invariants"
 msgstr "Hanya GNU Free Documentation License v1.1 - invarian"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:297
+#: src/as-spdx-data.h:299
 msgid "GNU Free Documentation License v1.1 or later - invariants"
 msgstr "Lisensi Dokumentasi Gratis GNU v1.1 atau setelahnya - invarian"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:299
+#: src/as-spdx-data.h:301
 msgid "GNU Free Documentation License v1.1 only - no invariants"
 msgstr "Hanya GNU Free Documentation License v1.1 - tanpa invarian"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:301
+#: src/as-spdx-data.h:303
 msgid "GNU Free Documentation License v1.1 or later - no invariants"
 msgstr "GNU Free Documentation License v1.1 atau setelahnya - tanpa invarian"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:303
+#: src/as-spdx-data.h:305
 msgid "GNU Free Documentation License v1.1 only"
 msgstr "Hanya GNU Free Documentation License v1.1"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:305
+#: src/as-spdx-data.h:307
 msgid "GNU Free Documentation License v1.1 or later"
 msgstr "GNU Free Documentation License v1.1 atau setelahnya"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:308
+#: src/as-spdx-data.h:310
 msgid "GNU Free Documentation License v1.2 only - invariants"
 msgstr "Hanya GNU Free Documentation License v1.2 - invarian"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:310
+#: src/as-spdx-data.h:312
 msgid "GNU Free Documentation License v1.2 or later - invariants"
 msgstr "GNU Free Documentation License v1.2 atau setelahnya - invarian"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:312
+#: src/as-spdx-data.h:314
 msgid "GNU Free Documentation License v1.2 only - no invariants"
 msgstr "GNU Free Documentation License v1.2 only - tanpa invarian"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:314
+#: src/as-spdx-data.h:316
 msgid "GNU Free Documentation License v1.2 or later - no invariants"
 msgstr "GNU Free Documentation License v1.2 or later - tanpa invarian"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:316
+#: src/as-spdx-data.h:318
 msgid "GNU Free Documentation License v1.2 only"
 msgstr "Hanya GNU Free Documentation License v1.2"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:318
+#: src/as-spdx-data.h:320
 msgid "GNU Free Documentation License v1.2 or later"
 msgstr "GNU Free Documentation License v1.2 atau setelahnya"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:321
+#: src/as-spdx-data.h:323
 msgid "GNU Free Documentation License v1.3 only - invariants"
 msgstr "Hanya GNU Free Documentation License v1.3 - invarian"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:323
+#: src/as-spdx-data.h:325
 msgid "GNU Free Documentation License v1.3 or later - invariants"
 msgstr "GNU Free Documentation License v1.3 atau setelahnya - invarian"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:325
+#: src/as-spdx-data.h:327
 msgid "GNU Free Documentation License v1.3 only - no invariants"
 msgstr "Hanya GNU Free Documentation License v1.3 - tanpa invarian"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:327
+#: src/as-spdx-data.h:329
 msgid "GNU Free Documentation License v1.3 or later - no invariants"
 msgstr "Hanya GNU Free Documentation License v1.3 - tanpa invarian"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:329
+#: src/as-spdx-data.h:331
 msgid "GNU Free Documentation License v1.3 only"
 msgstr "Hanya GNU Free Documentation License v1.3"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:331
+#: src/as-spdx-data.h:333
 msgid "GNU Free Documentation License v1.3 or later"
 msgstr "GNU Free Documentation License v1.3 atau setelahnya"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:335 src/as-spdx-data.h:339
+#: src/as-spdx-data.h:337 src/as-spdx-data.h:341
 msgid "GNU General Public License v1.0 only"
 msgstr "Hanya GNU General Public License v1.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:337 src/as-spdx-data.h:341
+#: src/as-spdx-data.h:339 src/as-spdx-data.h:343
 msgid "GNU General Public License v1.0 or later"
 msgstr "GNU General Public License v1.0 atau setelahnya"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:343 src/as-spdx-data.h:347
+#: src/as-spdx-data.h:345 src/as-spdx-data.h:349
 msgid "GNU General Public License v2.0 only"
 msgstr "Hanya GNU General Public License v2.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:345 src/as-spdx-data.h:349
+#: src/as-spdx-data.h:347 src/as-spdx-data.h:351
 msgid "GNU General Public License v2.0 or later"
 msgstr "GNU General Public License v2.0 atau setelahnya"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:356 src/as-spdx-data.h:360
+#: src/as-spdx-data.h:358 src/as-spdx-data.h:362
 msgid "GNU General Public License v3.0 only"
 msgstr "Hanya GNU General Public License v3.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:358 src/as-spdx-data.h:362
+#: src/as-spdx-data.h:360 src/as-spdx-data.h:364
 msgid "GNU General Public License v3.0 or later"
 msgstr "GNU General Public License v3.0 atau setelahnya"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:434 src/as-spdx-data.h:438
+#: src/as-spdx-data.h:436 src/as-spdx-data.h:440
 msgid "GNU Library General Public License v2 only"
 msgstr "Hanya GNU Library General Public License v2"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:436 src/as-spdx-data.h:440
+#: src/as-spdx-data.h:438 src/as-spdx-data.h:442
 msgid "GNU Library General Public License v2 or later"
 msgstr "GNU Library General Public License v2 atau setelahnya"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:442 src/as-spdx-data.h:446
+#: src/as-spdx-data.h:444 src/as-spdx-data.h:448
 msgid "GNU Lesser General Public License v2.1 only"
 msgstr "Hanya GNU Lesser General Public License v2.1"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:444 src/as-spdx-data.h:448
+#: src/as-spdx-data.h:446 src/as-spdx-data.h:450
 msgid "GNU Lesser General Public License v2.1 or later"
 msgstr "GNU Lesser General Public License v2.1 atau setelahnya"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:450 src/as-spdx-data.h:454
+#: src/as-spdx-data.h:452 src/as-spdx-data.h:456
 msgid "GNU Lesser General Public License v3.0 only"
 msgstr "Hanya GNU Lesser General Public License v3.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:452 src/as-spdx-data.h:456
+#: src/as-spdx-data.h:454 src/as-spdx-data.h:458
 msgid "GNU Lesser General Public License v3.0 or later"
 msgstr "GNU Lesser General Public License v3.0 atau setelahnya"
 
@@ -2659,9 +2659,9 @@ msgstr "Tidak diperkenankan untuk menurunkan tingkat keparahan tag '%s' ke salah
 
 #. TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
 #. TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted names.
-#: src/as-validator.c:897 src/as-validator.c:1660 src/as-validator.c:1836
-#: src/as-validator.c:2057 src/as-validator.c:2722 src/as-validator.c:2744
-#: src/as-validator.c:2869 src/as-validator.c:3192
+#: src/as-validator.c:897 src/as-validator.c:1673 src/as-validator.c:1849
+#: src/as-validator.c:2070 src/as-validator.c:2735 src/as-validator.c:2757
+#: src/as-validator.c:2882 src/as-validator.c:3205
 #, c-format
 msgid "Found: %s - Allowed: %s"
 msgstr "Ditemukan: %s - Diizinkan: %s"
