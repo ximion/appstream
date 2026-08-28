@@ -48,6 +48,7 @@ ascompose_priv_headers = [
     'asc-result-private.h',
     'asc-utils-l10n.h',
     'asc-utils-metainfo.h',
+    'asc-utils-private.h',
     'asc-utils-screenshots.h',
     'asc-utils-fonts.h',
 ]

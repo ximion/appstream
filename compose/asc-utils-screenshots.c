@@ -36,6 +36,7 @@
 
 #include "asc-globals.h"
 #include "asc-utils.h"
+#include "asc-utils-private.h"
 #include "asc-media-private.h"
 
 static const struct {

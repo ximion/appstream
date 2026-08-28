@@ -18,22 +18,14 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined(__APPSTREAM_COMPOSE_H) && !defined(ASC_COMPILATION)
-#error "Only <appstream-compose.h> can be included directly."
-#endif
 #pragma once
 
-#include <glib-object.h>
-#include <appstream.h>
+#include "as-macros-private.h"
+#include "asc-utils.h"
 
-G_BEGIN_DECLS
+AS_BEGIN_PRIVATE_DECLS
 
-gchar  *asc_build_component_global_id (const gchar *component_id,
-				       const gchar *checksum,
-				       GError	  **error);
-gchar  *asc_compute_content_checksum_for_data (const gchar *data,
-					       gsize	    length);
+AS_INTERNAL_VISIBLE
+gchar *asc_filename_from_url (const gchar *url);
 
-AsIcon *asc_component_get_source_icon (AsComponent *cpt);
-
-G_END_DECLS
+AS_END_PRIVATE_DECLS

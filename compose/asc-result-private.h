@@ -25,14 +25,14 @@
 
 AS_BEGIN_PRIVATE_DECLS
 
-gboolean      asc_result_update_component_gcid (AscResult   *result,
-						AsComponent *cpt,
-						GBytes	    *bytes,
-						GError	   **error);
+gboolean asc_result_update_component_gcid (AscResult   *result,
+					   AsComponent *cpt,
+					   GBytes      *bytes,
+					   GError     **error);
 AS_INTERNAL_VISIBLE
-gboolean      asc_result_update_component_gcid_with_string (AscResult	*result,
-							    AsComponent *cpt,
-							    const gchar *data,
-							    GError     **error);
+gboolean asc_result_update_component_gcid_with_string (AscResult   *result,
+						       AsComponent *cpt,
+						       const gchar *data,
+						       GError	  **error);
 
 AS_END_PRIVATE_DECLS

@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2016-2024 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2016-2026 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -300,10 +300,11 @@ gchar *
 asc_icon_policy_to_string (AscIconPolicy *ipolicy)
 {
 	AscIconPolicyPrivate *priv = GET_PRIVATE (ipolicy);
-	GString *result = g_string_new ("");
+	GString *result;
 
 	g_return_val_if_fail (ASC_IS_ICON_POLICY (ipolicy), NULL);
 
+	result = g_string_new ("");
 	for (guint i = 0; i < priv->entries->len; i++) {
 		AscIconPolicyEntry *e = g_ptr_array_index (priv->entries, i);
 		if (e->scale > 1)

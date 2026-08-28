@@ -729,17 +729,11 @@ asc_result_has_hint (AscResult *result, AsComponent *cpt, const gchar *tag)
 }
 
 /**
- * asc_result_remove_component_by_id:
- * @result: an #AscResult instance.
- * @cid: a component-ID
+ * asc_result_remove_component_by_id: (skip)
  *
- * Remove a component from the results set.
- *
- * Returns: %TRUE if the component was found and removed.
- *
- * Since: 0.13.0
- **/
-gboolean
+ * Remove a component from the results set, addressing it by its component-ID.
+ */
+static gboolean
 asc_result_remove_component_by_id (AscResult *result, const gchar *cid)
 {
 	AscResultPrivate *priv = GET_PRIVATE (result);

@@ -26,6 +26,7 @@
 
 #include "config.h"
 #include "asc-utils.h"
+#include "asc-utils-private.h"
 #include "as-utils-private.h"
 #include "asc-globals.h"
 

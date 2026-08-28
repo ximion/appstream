@@ -192,7 +192,7 @@ asc_unit_set_bundle_id (AscUnit *unit, const gchar *id)
  *
  * Get a list of all files contained by this unit.
  *
- * Returns: (transfer none) (element-type utf8) : A file listing
+ * Returns: (transfer none) (element-type utf8): A file listing
  *
  * Since: 0.14.5
  **/
@@ -233,7 +233,7 @@ asc_unit_set_contents (AscUnit *unit, GPtrArray *contents)
  *
  * Get a list of paths that are relevant for data processing.
  *
- * Returns: (transfer none) (element-type utf8) : A list of paths
+ * Returns: (transfer none) (element-type utf8): A list of paths
  *
  * Since: 0.14.5
  **/

@@ -173,8 +173,10 @@ void
 asc_compose_reset (AscCompose *compose)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
-	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
+	g_autoptr(GMutexLocker) locker = NULL;
+
 	g_return_if_fail (ASC_IS_COMPOSE (compose));
+	locker = g_mutex_locker_new (&priv->mutex);
 
 	g_hash_table_remove_all (priv->allowed_cids);
 	g_ptr_array_set_size (priv->units, 0);
@@ -195,8 +197,10 @@ void
 asc_compose_add_unit (AscCompose *compose, AscUnit *unit)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
-	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
+	g_autoptr(GMutexLocker) locker = NULL;
+
 	g_return_if_fail (ASC_IS_COMPOSE (compose));
+	locker = g_mutex_locker_new (&priv->mutex);
 
 	/* sanity check */
 	for (guint i = 0; i < priv->units->len; i++) {
@@ -222,8 +226,10 @@ void
 asc_compose_add_allowed_cid (AscCompose *compose, const gchar *component_id)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
-	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
+	g_autoptr(GMutexLocker) locker = NULL;
+
 	g_return_if_fail (ASC_IS_COMPOSE (compose));
+	locker = g_mutex_locker_new (&priv->mutex);
 
 	g_hash_table_add (priv->allowed_cids, g_strdup (component_id));
 }
@@ -258,8 +264,10 @@ void
 asc_compose_set_prefix (AscCompose *compose, const gchar *prefix)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
-	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
+	g_autoptr(GMutexLocker) locker = NULL;
+
 	g_return_if_fail (ASC_IS_COMPOSE (compose));
+	locker = g_mutex_locker_new (&priv->mutex);
 
 	/* do a bit of sanitizing: "no prefix" means the prefix directory is the root directory */
 	if (prefix == NULL || g_strcmp0 (prefix, "") == 0)
@@ -298,10 +306,11 @@ void
 asc_compose_set_origin (AscCompose *compose, const gchar *origin)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
-	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
+	g_autoptr(GMutexLocker) locker = NULL;
 	g_autofree gchar *tmp = NULL;
 
 	g_return_if_fail (ASC_IS_COMPOSE (compose));
+	locker = g_mutex_locker_new (&priv->mutex);
 
 	tmp = as_path_segment_sanitize (origin);
 	if (tmp == NULL) {
@@ -601,8 +610,10 @@ void
 asc_compose_set_cainfo (AscCompose *compose, const gchar *cainfo)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
-	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
+	g_autoptr(GMutexLocker) locker = NULL;
+
 	g_return_if_fail (ASC_IS_COMPOSE (compose));
+	locker = g_mutex_locker_new (&priv->mutex);
 
 	as_assign_string_safe (priv->cainfo, cainfo);
 }
@@ -638,8 +649,10 @@ void
 asc_compose_set_data_result_dir (AscCompose *compose, const gchar *dir)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
-	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
+	g_autoptr(GMutexLocker) locker = NULL;
+
 	g_return_if_fail (ASC_IS_COMPOSE (compose));
+	locker = g_mutex_locker_new (&priv->mutex);
 
 	as_assign_string_safe (priv->data_result_dir, dir);
 }
@@ -675,8 +688,10 @@ void
 asc_compose_set_icons_result_dir (AscCompose *compose, const gchar *dir)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
-	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
+	g_autoptr(GMutexLocker) locker = NULL;
+
 	g_return_if_fail (ASC_IS_COMPOSE (compose));
+	locker = g_mutex_locker_new (&priv->mutex);
 
 	as_assign_string_safe (priv->icons_result_dir, dir);
 }
@@ -712,8 +727,10 @@ void
 asc_compose_set_media_result_dir (AscCompose *compose, const gchar *dir)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
-	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
+	g_autoptr(GMutexLocker) locker = NULL;
+
 	g_return_if_fail (ASC_IS_COMPOSE (compose));
+	locker = g_mutex_locker_new (&priv->mutex);
 
 	as_assign_string_safe (priv->media_result_dir, dir);
 }
@@ -749,8 +766,10 @@ void
 asc_compose_set_hints_result_dir (AscCompose *compose, const gchar *dir)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
-	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
+	g_autoptr(GMutexLocker) locker = NULL;
+
 	g_return_if_fail (ASC_IS_COMPOSE (compose));
+	locker = g_mutex_locker_new (&priv->mutex);
 
 	as_assign_string_safe (priv->hints_result_dir, dir);
 }
@@ -768,8 +787,10 @@ void
 asc_compose_remove_custom_allowed (AscCompose *compose, const gchar *key_id)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
-	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
+	g_autoptr(GMutexLocker) locker = NULL;
+
 	g_return_if_fail (ASC_IS_COMPOSE (compose));
+	locker = g_mutex_locker_new (&priv->mutex);
 
 	for (guint i = 0; i < priv->custom_allowed->len; i++) {
 		if (g_strcmp0 (g_ptr_array_index (priv->custom_allowed, i), key_id) == 0) {
@@ -792,8 +813,10 @@ void
 asc_compose_add_custom_allowed (AscCompose *compose, const gchar *key_id)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
-	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&priv->mutex);
+	g_autoptr(GMutexLocker) locker = NULL;
+
 	g_return_if_fail (ASC_IS_COMPOSE (compose));
+	locker = g_mutex_locker_new (&priv->mutex);
 
 	g_ptr_array_add (priv->custom_allowed, g_strdup (key_id));
 }
@@ -988,9 +1011,11 @@ GPtrArray *
 asc_compose_fetch_components (AscCompose *compose)
 {
 	AscComposePrivate *priv = GET_PRIVATE (compose);
-	GPtrArray *cpts_result = g_ptr_array_new_with_free_func (g_object_unref);
+	GPtrArray *cpts_result;
 
 	g_return_val_if_fail (ASC_IS_COMPOSE (compose), NULL);
+
+	cpts_result = g_ptr_array_new_with_free_func (g_object_unref);
 
 	for (guint i = 0; i < priv->results->len; i++) {
 		g_autoptr(GPtrArray) cpts = NULL;
