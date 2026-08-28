@@ -675,6 +675,72 @@ test_render_font_files (void)
 }
 
 /**
+ * test_render_degenerate:
+ *
+ * A canvas can end up with a degenerate size either because the client asked for
+ * one or because the font we are laying out reported nonsensical metrics. Every
+ * one of those paths must fail with a #GError actually set: the worker reports
+ * failures back to its client by reading the error message, so a bare failure
+ * code with no error attached crashes the worker instead of the request.
+ */
+static void
+test_render_degenerate (void)
+{
+	g_autofree gchar *font_fname = NULL;
+	g_autofree gchar *out_fname = NULL;
+	g_autoptr(AswFont) font = NULL;
+	g_autoptr(AswCanvas) empty_cv = NULL;
+	g_autoptr(AswCanvas) narrow_cv = NULL;
+	g_autoptr(GError) error = NULL;
+	VipsImage *vimg;
+	gint width = -1;
+	gint height = -1;
+	gint out_fd;
+	gboolean ret;
+
+	font_fname = g_build_filename (datadir, "Raleway-Regular.ttf", NULL);
+	font = asw_font_new_from_file (font_fname, &error);
+	g_assert_no_error (error);
+
+	/* an empty canvas can not be converted to an image, but it has to say so */
+	empty_cv = asw_canvas_new (0, 0);
+	vimg = asw_canvas_to_vips (empty_cv, &error);
+	g_assert_null (vimg);
+	g_assert_nonnull (error);
+	g_clear_error (&error);
+
+	/* a canvas with no room for its own border can not hold a font card */
+	narrow_cv = asw_canvas_new (8, 8);
+	ret = asw_canvas_draw_font_card (narrow_cv,
+					 font,
+					 NULL, /* default info label */
+					 NULL, /* default pangram */
+					 NULL, /* default bg letter */
+					 -1,   /* default margin */
+					 &error);
+	g_assert_false (ret);
+	g_assert_nonnull (error);
+	g_clear_error (&error);
+
+	/* the high-level entry point has to reject a zero-sized card as well */
+	out_fname = asx_build_workdir_path ("asw-font-card-degenerate.jxl");
+	out_fd = asx_open_out_fd (out_fname);
+	ret = asw_font_render_card_to_fd (font,
+					  out_fd,
+					  ASC_IMAGE_FORMAT_JXL,
+					  0,
+					  0,
+					  NULL, /* default info label */
+					  &width,
+					  &height,
+					  &error);
+	close (out_fd);
+	g_assert_false (ret);
+	g_assert_nonnull (error);
+	g_clear_error (&error);
+}
+
+/**
  * test_sandbox_subprocess:
  *
  * Enter the sandbox and check that it restricts what we expect it to, and nothing
@@ -878,6 +944,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/AppStream/ComposeWorker/Canvas", test_canvas);
 	g_test_add_func ("/AppStream/ComposeWorker/FontCard", test_render_font_card);
 	g_test_add_func ("/AppStream/ComposeWorker/FontRenderFiles", test_render_font_files);
+	g_test_add_func ("/AppStream/ComposeWorker/RenderDegenerate", test_render_degenerate);
 	g_test_add_func ("/AppStream/ComposeWorker/Sandbox", test_sandbox);
 	g_test_add_func ("/AppStream/ComposeWorker/Sandbox/subprocess", test_sandbox_subprocess);
 	g_test_add_func ("/AppStream/ComposeWorker/SandboxDisabled", test_sandbox_disabled);

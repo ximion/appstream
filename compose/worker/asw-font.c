@@ -959,6 +959,16 @@ asw_font_render_card_to_fd (AswFont *font,
 	const gchar *bg_letter = NULL;
 	g_autoptr(AswCanvas) cv = NULL;
 
+	if (width < 1 || height < 1) {
+		g_set_error (error,
+			     ASW_FONT_ERROR,
+			     ASW_FONT_ERROR_FAILED,
+			     "Can not render a font card of %ix%i pixels.",
+			     width,
+			     height);
+		return FALSE;
+	}
+
 	if (as_str_equal0 (asw_font_get_preferred_language (font), "en"))
 		bg_letter = "a";
 	else

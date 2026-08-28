@@ -160,6 +160,25 @@ asw_worker_send_hello (AswWorker *worker, const AswSandboxInfo *sandbox, GError 
 }
 
 /**
+ * asw_worker_error_message:
+ *
+ * Retrieve a printable message for @error.
+ *
+ * Any function that fails is supposed to set its #GError, but we can not rely
+ * on that: GLib's own precondition checks, for example, bail out with a failure
+ * code while leaving the error location untouched. As we hand these messages
+ * back to the client, a missing #GError must never be able to take the whole
+ * worker down.
+ */
+static const gchar *
+asw_worker_error_message (const GError *error)
+{
+	if (error == NULL || error->message == NULL)
+		return "An unknown error occurred.";
+	return error->message;
+}
+
+/**
  * asw_worker_lookup_fd:
  *
  * Resolve a file descriptor handle referenced in the request parameters.
@@ -175,6 +194,19 @@ asw_worker_lookup_fd (GVariant *params, GUnixFDList *fds, const gchar *key, GErr
 			     ASC_MEDIA_ERROR,
 			     ASC_MEDIA_ERROR_PROTOCOL,
 			     "Request was missing required fd '%s'.",
+			     key);
+		return -1;
+	}
+
+	/* validate the handle ourselves: g_unix_fd_list_get() only guards its upper
+	 * bound with a precondition check (which returns -1 without setting an error)
+	 * and does not reject negative indices at all */
+	if (handle < 0 || handle >= g_unix_fd_list_get_length (fds)) {
+		g_set_error (error,
+			     ASC_MEDIA_ERROR,
+			     ASC_MEDIA_ERROR_PROTOCOL,
+			     "Request referenced nonexistent fd %i for '%s'.",
+			     (gint) handle,
 			     key);
 		return -1;
 	}
@@ -488,10 +520,11 @@ asw_worker_handle_process_image (AswWorker *worker,
 		/* the client handed us an already-open descriptor for this rendition */
 		out_fd = asw_worker_get_output_fd (target, fds, &tmp_error);
 		if (out_fd < 0) {
-			g_variant_builder_add (&rb,
-					       "{sv}",
-					       "error",
-					       g_variant_new_string (tmp_error->message));
+			g_variant_builder_add (
+			    &rb,
+			    "{sv}",
+			    "error",
+			    g_variant_new_string (asw_worker_error_message (tmp_error)));
 			g_variant_builder_add_value (&results_builder, g_variant_builder_end (&rb));
 			continue;
 		}
@@ -582,10 +615,11 @@ asw_worker_handle_process_image (AswWorker *worker,
 		close (out_fd);
 
 		if (!saved) {
-			g_variant_builder_add (&rb,
-					       "{sv}",
-					       "error",
-					       g_variant_new_string (tmp_error->message));
+			g_variant_builder_add (
+			    &rb,
+			    "{sv}",
+			    "error",
+			    g_variant_new_string (asw_worker_error_message (tmp_error)));
 		} else {
 			g_variant_builder_add (&rb,
 					       "{sv}",
@@ -745,10 +779,11 @@ asw_worker_handle_render_font (AswWorker *worker,
 		/* the client handed us an already-open descriptor for this entry */
 		out_fd = asw_worker_get_output_fd (entry, fds, &tmp_error);
 		if (out_fd < 0) {
-			g_variant_builder_add (&rb,
-					       "{sv}",
-					       "error",
-					       g_variant_new_string (tmp_error->message));
+			g_variant_builder_add (
+			    &rb,
+			    "{sv}",
+			    "error",
+			    g_variant_new_string (asw_worker_error_message (tmp_error)));
 			g_variant_builder_add_value (&results_builder, g_variant_builder_end (&rb));
 			continue;
 		}
@@ -776,10 +811,11 @@ asw_worker_handle_render_font (AswWorker *worker,
 		close (out_fd);
 
 		if (!rendered) {
-			g_variant_builder_add (&rb,
-					       "{sv}",
-					       "error",
-					       g_variant_new_string (tmp_error->message));
+			g_variant_builder_add (
+			    &rb,
+			    "{sv}",
+			    "error",
+			    g_variant_new_string (asw_worker_error_message (tmp_error)));
 		} else {
 			g_variant_builder_add (&rb,
 					       "{sv}",
@@ -877,7 +913,7 @@ asw_worker_run (AswWorker *worker)
 				return 0;
 			}
 			g_printerr ("asc-mediaworker: Failed to read request: %s\n",
-				    error->message);
+				    asw_worker_error_message (error));
 			return 2;
 		}
 
@@ -915,7 +951,7 @@ asw_worker_run (AswWorker *worker)
 						    NULL,
 						    &error)) {
 				g_printerr ("asc-mediaworker: Failed to acknowledge shutdown: %s\n",
-					    error->message);
+					    asw_worker_error_message (error));
 				return 2;
 			}
 			return 0;
@@ -937,7 +973,7 @@ asw_worker_run (AswWorker *worker)
 							  op_error,
 							  &error)) {
 				g_printerr ("asc-mediaworker: Failed to send error response: %s\n",
-					    error->message);
+					    asw_worker_error_message (error));
 				return 2;
 			}
 		} else {
@@ -947,7 +983,7 @@ asw_worker_run (AswWorker *worker)
 						    payload,
 						    &error)) {
 				g_printerr ("asc-mediaworker: Failed to send response: %s\n",
-					    error->message);
+					    asw_worker_error_message (error));
 				return 2;
 			}
 		}

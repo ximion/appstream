@@ -52,6 +52,30 @@ typedef struct {
 G_DEFINE_TYPE_WITH_PRIVATE (AswCanvas, asw_canvas, G_TYPE_OBJECT)
 #define GET_PRIVATE(o) (asw_canvas_get_instance_private (o))
 
+/* upper bound for any canvas dimension we are willing to allocate, in pixels */
+#define ASW_CANVAS_MAX_DIMENSION 16384
+
+/**
+ * asw_canvas_line_height:
+ *
+ * Height of one line of text in the currently selected font, in pixels.
+ *
+ * Font metrics are read straight out of the font file, so a broken or malicious
+ * font may well claim a negative ascent or a positive descent and thereby make
+ * a line of text "shrink" the canvas. We only ever use these values to grow a
+ * layout, so anything nonsensical is flattened to zero here.
+ */
+static gint
+asw_canvas_line_height (const cairo_font_extents_t *fe)
+{
+	double height = fe->ascent + fe->descent;
+	if (!isfinite (height) || height <= 0)
+		return 0;
+	if (height > ASW_CANVAS_MAX_DIMENSION)
+		return ASW_CANVAS_MAX_DIMENSION;
+	return (gint) height;
+}
+
 /**
  * asw_canvas_error_quark:
  *
@@ -314,6 +338,18 @@ asw_canvas_draw_font_card (AswCanvas *canvas,
 	if (border_width < 0)
 		border_width = 16;
 
+	/* we need a canvas with room for the border on either side to lay anything out */
+	if (priv->width <= 2 * border_width || priv->height <= 0 ||
+	    priv->width > ASW_CANVAS_MAX_DIMENSION || priv->height > ASW_CANVAS_MAX_DIMENSION) {
+		g_set_error (error,
+			     ASW_CANVAS_ERROR,
+			     ASW_CANVAS_ERROR_DRAWING,
+			     "Canvas size %ix%i is too small or too large for a font card.",
+			     priv->width,
+			     priv->height);
+		return FALSE;
+	}
+
 	cff = cairo_ft_font_face_create_for_ft_face (asw_font_get_ftface (font), FT_LOAD_DEFAULT);
 	status = cairo_font_face_status (cff);
 	if (status != CAIRO_STATUS_SUCCESS) {
@@ -339,8 +375,8 @@ asw_canvas_draw_font_card (AswCanvas *canvas,
 	cairo_set_font_face (priv->cr, cff);
 	cairo_set_font_size (priv->cr, size_name);
 	cairo_font_extents (priv->cr, &fe_name);
-	name_height = fe_name.ascent + fe_name.descent;
-	large_name_baseline = border_width + fe_name.ascent;
+	name_height = asw_canvas_line_height (&fe_name);
+	large_name_baseline = border_width + CLAMP ((gint) fe_name.ascent, 0, name_height);
 	y += name_height;
 
 	/* 2) big translucent background latter (we’ll draw it later at this baseline) */
@@ -351,7 +387,7 @@ asw_canvas_draw_font_card (AswCanvas *canvas,
 		size_infolabel = MAX (10, size_name * 0.40);
 		cairo_set_font_size (priv->cr, size_infolabel);
 		cairo_font_extents (priv->cr, &fe);
-		y += fe.ascent + fe.descent;
+		y += asw_canvas_line_height (&fe);
 	} else {
 		size_infolabel = 0;
 	}
@@ -360,7 +396,7 @@ asw_canvas_draw_font_card (AswCanvas *canvas,
 	size_sample = MAX (10, size_name * 0.35);
 	cairo_set_font_size (priv->cr, size_sample);
 	cairo_font_extents (priv->cr, &fe);
-	line_height = fe.ascent + fe.descent;
+	line_height = asw_canvas_line_height (&fe);
 
 	pangram_lines = g_ptr_array_new_with_free_func (g_free);
 	words = g_strsplit (pangram, " ", -1);
@@ -430,7 +466,10 @@ asw_canvas_draw_font_card (AswCanvas *canvas,
 			g_ptr_array_add (pangram_lines, g_strdup (current->str));
 	}
 
-	y += pangram_lines->len * line_height;
+	/* the amount of wrapped lines depends on the sample text, so this product can
+	 * grow far beyond anything we would ever want to allocate */
+	y += (gint) MIN ((gint64) pangram_lines->len * line_height,
+			 (gint64) ASW_CANVAS_MAX_DIMENSION);
 
 	y += post_pangram_space;
 
@@ -447,19 +486,46 @@ asw_canvas_draw_font_card (AswCanvas *canvas,
 	size_bar = MAX (8, size_name * 0.40);
 	cairo_set_font_size (priv->cr, size_bar);
 	cairo_font_extents (priv->cr, &fe);
-	bar_height = fe.ascent + fe.descent + 2 * bar_padding;
+	bar_height = asw_canvas_line_height (&fe) + 2 * bar_padding;
 	y += bar_height;
 
+	/* Every part of the layout above is bounded, so this can only be out of range
+	 * if the font reported metrics we could not make any sense of. Bail out before
+	 * we hand an impossible size to Cairo. */
+	if (y <= 0 || y > ASW_CANVAS_MAX_DIMENSION) {
+		g_set_error (error,
+			     ASW_CANVAS_ERROR,
+			     ASW_CANVAS_ERROR_FONT,
+			     "Font metrics resulted in an invalid card height of %i pixels.",
+			     y);
+		goto fail;
+	}
+
 	if (priv->height != y) {
-		cairo_surface_t *old;
+		cairo_surface_t *old_srf;
+		cairo_surface_t *new_srf;
 		cairo_t *newcr;
 
-		old = priv->srf;
-		priv->srf = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, priv->width, y);
+		new_srf = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, priv->width, y);
+		status = cairo_surface_status (new_srf);
+		if (status != CAIRO_STATUS_SUCCESS) {
+			cairo_surface_destroy (new_srf);
+			g_set_error (error,
+				     ASW_CANVAS_ERROR,
+				     ASW_CANVAS_ERROR_DRAWING,
+				     "Could not resize canvas to %ix%i: %s",
+				     priv->width,
+				     y,
+				     cairo_status_to_string (status));
+			goto fail;
+		}
+
+		old_srf = priv->srf;
+		priv->srf = new_srf;
 		newcr = cairo_create (priv->srf);
 		cairo_destroy (priv->cr);
 		priv->cr = newcr;
-		cairo_surface_destroy (old);
+		cairo_surface_destroy (old_srf);
 		priv->height = y;
 	}
 
@@ -910,8 +976,18 @@ asw_canvas_to_vips (AswCanvas *canvas, GError **error)
 	int src_stride;
 	g_autofree guchar *rgba = NULL;
 
-	/* sanity check */
-	g_return_val_if_fail (priv->width > 0 && priv->height > 0, NULL);
+	/* The canvas size is derived from request parameters and font metrics, so an
+	 * empty canvas is bad input rather than a programming error: report it as a
+	 * proper failure instead of returning %NULL with the error location unset. */
+	if (priv->width <= 0 || priv->height <= 0) {
+		g_set_error (error,
+			     ASW_CANVAS_ERROR,
+			     ASW_CANVAS_ERROR_DRAWING,
+			     "Refusing to convert a canvas of invalid size %ix%i.",
+			     priv->width,
+			     priv->height);
+		return NULL;
+	}
 
 	cairo_surface_flush (priv->srf);
 	if (cairo_surface_status (priv->srf) != CAIRO_STATUS_SUCCESS) {
