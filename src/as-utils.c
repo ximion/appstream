@@ -590,6 +590,9 @@ as_path_segment_sanitize (const gchar *str)
  *
  * Remove directory and all its children (like rm -r does).
  *
+ * Symbolic links are never followed: a link encountered anywhere in the tree is
+ * removed itself, instead of the directory it points at.
+ *
  * Returns: %TRUE if operation was successful
  */
 gboolean
@@ -600,14 +603,19 @@ as_utils_delete_dir_recursive (const gchar *dirname)
 	GFile *dir;
 	GFileEnumerator *enr;
 	g_autoptr(GFileInfo) info = NULL;
+	GStatBuf sb;
 	g_return_val_if_fail (dirname != NULL, FALSE);
 
-	if (!g_file_test (dirname, G_FILE_TEST_IS_DIR))
+	/* check with lstat, so we never descend into a symlinked directory - not even
+	 * if one was placed at @dirname itself */
+	if (g_lstat (dirname, &sb) != 0)
+		return TRUE;
+	if (!S_ISDIR (sb.st_mode))
 		return TRUE;
 
 	dir = g_file_new_for_path (dirname);
 	enr = g_file_enumerate_children (dir,
-					 "standard::name",
+					 "standard::name,standard::type",
 					 G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,
 					 NULL,
 					 &error);
@@ -623,7 +631,9 @@ as_utils_delete_dir_recursive (const gchar *dirname)
 		g_autofree gchar *path = g_build_filename (dirname,
 							   g_file_info_get_name (info),
 							   NULL);
-		if (g_file_test (path, G_FILE_TEST_IS_DIR))
+		/* we enumerate without following symlinks, so a link pointing at a
+		 * directory is reported as %G_FILE_TYPE_SYMBOLIC_LINK and just unlinked */
+		if (g_file_info_get_file_type (info) == G_FILE_TYPE_DIRECTORY)
 			as_utils_delete_dir_recursive (path);
 		else
 			g_remove (path);
