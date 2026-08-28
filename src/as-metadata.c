@@ -347,7 +347,16 @@ as_metadata_yaml_parse_catalog_doc (AsMetadata *metad,
 		}
 
 		if (header) {
-			/* Parse header document */
+			/* Parse header document. We collect the values first and only apply
+			 * them once the whole header was read, because keys which are absent
+			 * have to reset the respective value: This #AsMetadata instance may
+			 * have been used to parse a different file before, and none of that
+			 * file's header must ever leak into this document. */
+			const gchar *h_origin = NULL;
+			const gchar *h_media_baseurl = NULL;
+			const gchar *h_architecture = NULL;
+			gint h_priority = priv->default_priority;
+
 			while ((fynp = fy_node_mapping_iterate (root, &yiter)) != NULL) {
 				struct fy_node *key_node = fy_node_pair_key (fynp);
 				struct fy_node *value_node = fy_node_pair_value (fynp);
@@ -385,8 +394,7 @@ as_metadata_yaml_parse_catalog_doc (AsMetadata *metad,
 
 				if (g_strcmp0 (key, "Origin") == 0) {
 					if (value != NULL) {
-						as_context_set_origin (context, value);
-						as_metadata_set_origin (metad, value);
+						h_origin = value;
 					} else {
 						ret = FALSE;
 						g_set_error_literal (error,
@@ -397,25 +405,16 @@ as_metadata_yaml_parse_catalog_doc (AsMetadata *metad,
 						break;
 					}
 				} else if (g_strcmp0 (key, "Priority") == 0) {
-					if (value != NULL) {
-						gint priority = (gint) g_ascii_strtoll (value,
-											NULL,
-											10);
-						as_context_set_priority (context, priority);
-					}
+					if (value != NULL)
+						h_priority = (gint) g_ascii_strtoll (value,
+										     NULL,
+										     10);
 				} else if (g_strcmp0 (key, "MediaBaseUrl") == 0) {
-					if (value != NULL &&
-					    !as_flags_contains (
-						priv->parse_flags,
-						AS_PARSE_FLAG_IGNORE_MEDIABASEURL)) {
-						as_context_set_media_baseurl (context, value);
-						as_metadata_set_media_baseurl (metad, value);
-					}
+					if (value != NULL)
+						h_media_baseurl = value;
 				} else if (g_strcmp0 (key, "Architecture") == 0) {
-					if (value != NULL) {
-						as_context_set_architecture (context, value);
-						as_metadata_set_architecture (metad, value);
-					}
+					if (value != NULL)
+						h_architecture = value;
 				}
 			}
 
@@ -423,6 +422,21 @@ as_metadata_yaml_parse_catalog_doc (AsMetadata *metad,
 				fy_document_destroy (ydoc);
 				break;
 			}
+
+			/* apply the header data, resetting everything the header did not set */
+			as_context_set_origin (context, h_origin);
+			as_metadata_set_origin (metad, h_origin);
+
+			if (!as_flags_contains (priv->parse_flags,
+						AS_PARSE_FLAG_IGNORE_MEDIABASEURL)) {
+				as_context_set_media_baseurl (context, h_media_baseurl);
+				as_metadata_set_media_baseurl (metad, h_media_baseurl);
+			}
+
+			as_context_set_architecture (context, h_architecture);
+			as_metadata_set_architecture (metad, h_architecture);
+
+			as_context_set_priority (context, h_priority);
 
 			header = FALSE;
 
