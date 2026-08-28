@@ -581,6 +581,91 @@ test_appstream_description_l10n_cleanup (void)
 }
 
 /**
+ * test_appstream_description_l10n_lists:
+ *
+ * Test that an enumeration only ever shows up in the descriptions of the locales
+ * that actually have an item in it. We used to open and close every enumeration
+ * for every locale we had seen so far, which both left stray empty lists in
+ * translations and made the generated markup grow with the *product* of the
+ * number of locales and the number of enumerations in the document.
+ */
+static void
+test_appstream_description_l10n_lists (void)
+{
+	g_autoptr(GString) xml = NULL;
+	g_autoptr(AsComponent) cpt = NULL;
+	const guint n_locales = 200;
+	const guint n_lists = 200;
+
+	/* an enumeration each for two different locales, plus enumerations with
+	 * nothing usable in them at all */
+	const gchar *DESC_L10N_LISTS_XML = "<component>\n"
+					   "  <id>org.example.Test</id>\n"
+					   "  <description>\n"
+					   "    <p>First</p>\n"
+					   "    <p>Second</p>\n"
+					   "    <p>Third</p>\n"
+					   "    <p xml:lang=\"de\">Erstens</p>\n"
+					   "    <p xml:lang=\"de\">Zweitens</p>\n"
+					   "    <p xml:lang=\"de\">Drittens</p>\n"
+					   "    <ul><li>English only</li></ul>\n"
+					   "    <ul><li xml:lang=\"de\">Nur Deutsch</li></ul>\n"
+					   "    <ul/>\n"
+					   "    <ol><li> </li></ol>\n"
+					   "  </description>\n"
+					   "</component>\n";
+
+	cpt = as_xml_test_read_data (DESC_L10N_LISTS_XML, AS_FORMAT_STYLE_METAINFO);
+
+	as_component_set_context_locale (cpt, "C");
+	g_assert_cmpstr (as_component_get_description (cpt),
+			 ==,
+			 "<p>First</p>\n"
+			 "<p>Second</p>\n"
+			 "<p>Third</p>\n"
+			 "<ul>\n"
+			 "  <li>English only</li>\n"
+			 "</ul>\n");
+	as_component_set_context_locale (cpt, "de");
+	g_assert_cmpstr (as_component_get_description (cpt),
+			 ==,
+			 "<p>Erstens</p>\n"
+			 "<p>Zweitens</p>\n"
+			 "<p>Drittens</p>\n"
+			 "<ul>\n"
+			 "  <li>Nur Deutsch</li>\n"
+			 "</ul>\n");
+
+	/* Now the same thing at scale: a document may name arbitrarily many locales
+	 * and contain arbitrarily many enumerations, and neither of them has anything
+	 * to do with the other. The description of any single locale must stay the
+	 * size of what that locale actually contributed. */
+	xml = g_string_new ("<component>\n  <id>org.example.Test</id>\n  <description>\n");
+	for (guint i = 0; i < n_locales; i++)
+		for (guint j = 0; j < 3; j++)
+			g_string_append_printf (xml, "    <p xml:lang=\"l%u\">Text</p>\n", i);
+	for (guint i = 0; i < n_lists; i++)
+		g_string_append (xml, "    <ul/>\n");
+	g_string_append (xml, "  </description>\n</component>\n");
+
+	g_object_unref (cpt);
+	cpt = as_xml_test_read_data (xml->str, AS_FORMAT_STYLE_METAINFO);
+
+	as_component_set_context_locale (cpt, "l0");
+	g_assert_cmpstr (as_component_get_description (cpt),
+			 ==,
+			 "<p>Text</p>\n"
+			 "<p>Text</p>\n"
+			 "<p>Text</p>\n");
+	as_component_set_context_locale (cpt, "l199");
+	g_assert_cmpstr (as_component_get_description (cpt),
+			 ==,
+			 "<p>Text</p>\n"
+			 "<p>Text</p>\n"
+			 "<p>Text</p>\n");
+}
+
+/**
  * test_appstream_read_description_sanitize:
  *
  * Test that invalid and malicious markup is removed from descriptions
@@ -1480,7 +1565,6 @@ test_appstream_write_metainfo_to_catalog (void)
 	    "      <ol>\n"
 	    "        <li>One</li>\n"
 	    "      </ol>\n"
-	    "      <ul/>\n"
 	    "    </description>\n"
 	    "    <description xml:lang=\"de\">\n"
 	    "      <p>Erster Absatz</p>\n"
@@ -2781,6 +2865,7 @@ main (int argc, char **argv)
 			 test_appstream_read_description_whitespace);
 	g_test_add_func ("/XML/Write/Description", test_appstream_write_description);
 	g_test_add_func ("/XML/DescriptionL10NCleanup", test_appstream_description_l10n_cleanup);
+	g_test_add_func ("/XML/DescriptionL10NLists", test_appstream_description_l10n_lists);
 
 	g_test_add_func ("/XML/Write/MetainfoToCatalog", test_appstream_write_metainfo_to_catalog);
 

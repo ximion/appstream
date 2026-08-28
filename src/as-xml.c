@@ -1107,6 +1107,7 @@ as_xml_markup_parse_helper_export_node (AsXMLMarkupParseHelper *helper,
 
 typedef struct {
 	guint elem_count;
+	gboolean list_open;
 	GString *data;
 } AsXMLMetaInfoDescParseHelper;
 
@@ -1140,11 +1141,16 @@ void
 as_xml_parse_metainfo_description_node (AsContext *ctx, xmlNode *node, GHashTable *l10n_desc)
 {
 	g_autoptr(GHashTable) tmp_desc = NULL;
+	g_autoptr(GPtrArray) open_lists = NULL;
 	GHashTableIter res_iter;
 	gpointer res_value;
 	gpointer res_key;
 	AsXMLMetaInfoDescParseHelper *phelper;
 	guint untranslated_elem_count = 0;
+
+	/* scratch space listing the locales that have an enumeration open, reused for
+	 * every enumeration we encounter (the helpers in here are owned by tmp_desc) */
+	open_lists = g_ptr_array_new ();
 
 	tmp_desc = g_hash_table_new_full (g_str_hash,
 					  g_str_equal,
@@ -1189,18 +1195,7 @@ as_xml_parse_metainfo_description_node (AsContext *ctx, xmlNode *node, GHashTabl
 			}
 
 		} else if ((tag_id == AS_TAG_UL) || (tag_id == AS_TAG_OL)) {
-			GHashTableIter htiter;
-			gpointer hvalue;
-			xmlNode *iter2;
-
-			/* append listing node tag to every locale string */
-			g_hash_table_iter_init (&htiter, tmp_desc);
-			while (g_hash_table_iter_next (&htiter, NULL, &hvalue)) {
-				GString *hstr = ((AsXMLMetaInfoDescParseHelper *) hvalue)->data;
-				g_string_append_printf (hstr, "<%s>\n", node_name);
-			}
-
-			for (iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
+			for (xmlNode *iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
 				g_autofree gchar *lang = NULL;
 				g_autofree gchar *content = NULL;
 				AsTag iter2_tag_id = as_xml_tag_from_string (
@@ -1215,33 +1210,46 @@ as_xml_parse_metainfo_description_node (AsContext *ctx, xmlNode *node, GHashTabl
 				if (lang == NULL)
 					continue;
 
-				/* if the language is new, we add a listing tag first */
+				content = as_xml_dump_description_para_content (iter2);
+				if (content == NULL)
+					continue;
+
 				phelper = g_hash_table_lookup (tmp_desc, lang);
 				if (phelper == NULL) {
 					phelper = as_xml_metainfo_desc_parse_helper_new ();
-					g_string_append_printf (phelper->data, "<%s>\n", node_name);
 					g_hash_table_insert (tmp_desc,
 							     g_ref_string_new_intern (lang),
 							     phelper);
 				}
 
-				content = as_xml_dump_description_para_content (iter2);
-				if (content != NULL) {
-					g_string_append_printf (phelper->data,
-								"  <%s>%s</%s>\n",
-								(gchar *) iter2->name,
-								content,
-								(gchar *) iter2->name);
-					phelper->elem_count += 1;
+				/* Open the enumeration the first time this locale contributes an
+				 * item to it. Doing this lazily - instead of opening and closing
+				 * it for every known locale - is what keeps the amount of data we
+				 * generate proportional to the amount of data we were given: a
+				 * document can otherwise declare many locales and many empty
+				 * enumerations, and have us emit markup for each combination of
+				 * the two. */
+				if (!phelper->list_open) {
+					g_string_append_printf (phelper->data, "<%s>\n", node_name);
+					phelper->list_open = TRUE;
+					g_ptr_array_add (open_lists, phelper);
 				}
+
+				g_string_append_printf (phelper->data,
+							"  <%s>%s</%s>\n",
+							(gchar *) iter2->name,
+							content,
+							(gchar *) iter2->name);
+				phelper->elem_count += 1;
 			}
 
-			/* close listing tags */
-			g_hash_table_iter_init (&htiter, tmp_desc);
-			while (g_hash_table_iter_next (&htiter, NULL, &hvalue)) {
-				GString *hstr = ((AsXMLMetaInfoDescParseHelper *) hvalue)->data;
-				g_string_append_printf (hstr, "</%s>\n", node_name);
+			/* close the enumeration again for every locale that entered it */
+			for (guint i = 0; i < open_lists->len; i++) {
+				phelper = g_ptr_array_index (open_lists, i);
+				g_string_append_printf (phelper->data, "</%s>\n", node_name);
+				phelper->list_open = FALSE;
 			}
+			g_ptr_array_set_size (open_lists, 0);
 		}
 	}
 
