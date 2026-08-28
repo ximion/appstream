@@ -250,9 +250,6 @@ asc_globals_clear (void)
  * Check whether the global settings may still be changed, and complain if they
  * may not.
  *
- * The global settings are shared by every compose run in the process, and the
- * getters hand out plain pointers into them. Reading one seals them all.
- *
  * This is a guard against programmer error, not a synchronization mechanism.
  * A caller that ignores the contract and writes a setting concurrently with a
  * compose run that is already reading it deserves the likely crash - they have
