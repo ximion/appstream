@@ -18,31 +18,21 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#if !defined(__APPSTREAM_COMPOSE_H) && !defined(ASC_COMPILATION)
-#error "Only <appstream-compose.h> can be included directly."
-#endif
 #pragma once
 
-#include <glib-object.h>
-#include "asc-unit.h"
+#include "as-macros-private.h"
+#include "asc-result.h"
 
-G_BEGIN_DECLS
+AS_BEGIN_PRIVATE_DECLS
 
-#define ASC_TYPE_DIRECTORY_UNIT (asc_directory_unit_get_type ())
-G_DECLARE_DERIVABLE_TYPE (AscDirectoryUnit, asc_directory_unit, ASC, DIRECTORY_UNIT, AscUnit)
+gboolean      asc_result_update_component_gcid (AscResult   *result,
+						AsComponent *cpt,
+						GBytes	    *bytes,
+						GError	   **error);
+AS_INTERNAL_VISIBLE
+gboolean      asc_result_update_component_gcid_with_string (AscResult	*result,
+							    AsComponent *cpt,
+							    const gchar *data,
+							    GError     **error);
 
-struct _AscDirectoryUnitClass {
-	AscUnitClass parent_class;
-
-	/*< private >*/
-	void (*_as_reserved1) (void);
-	void (*_as_reserved2) (void);
-	void (*_as_reserved3) (void);
-	void (*_as_reserved4) (void);
-};
-
-AscDirectoryUnit *asc_directory_unit_new (const gchar *root_dir);
-
-const gchar	 *asc_directory_unit_get_root (AscDirectoryUnit *dirunit);
-
-G_END_DECLS
+AS_END_PRIVATE_DECLS

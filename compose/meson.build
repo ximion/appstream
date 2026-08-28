@@ -45,6 +45,7 @@ ascompose_priv_headers = [
     'asc-hint-tags.h',
     'asc-media-ipc.h',
     'asc-media-private.h',
+    'asc-result-private.h',
     'asc-utils-l10n.h',
     'asc-utils-metainfo.h',
     'asc-utils-screenshots.h',

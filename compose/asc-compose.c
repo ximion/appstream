@@ -38,7 +38,7 @@
 #include "asc-globals-private.h"
 #include "asc-utils.h"
 #include "asc-hint.h"
-#include "asc-result.h"
+#include "asc-result-private.h"
 
 #include "asc-utils-metainfo.h"
 #include "asc-utils-l10n.h"
@@ -106,7 +106,7 @@ asc_compose_init (AscCompose *compose)
 	priv->max_scr_size_bytes = -1;
 	priv->flags = ASC_COMPOSE_FLAG_USE_THREADS | ASC_COMPOSE_FLAG_ALLOW_NET |
 		      ASC_COMPOSE_FLAG_VALIDATE | ASC_COMPOSE_FLAG_STORE_SCREENSHOTS |
-		      ASC_COMPOSE_FLAG_ALLOW_SCREENCASTS | ASC_COMPOSE_FLAG_PROCESS_FONTS |
+		      ASC_COMPOSE_FLAG_ALLOW_VIDEOS | ASC_COMPOSE_FLAG_PROCESS_FONTS |
 		      ASC_COMPOSE_FLAG_PROCESS_TRANSLATIONS;
 
 	/* the icon policy will initialize with default settings */
@@ -2089,7 +2089,7 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 				: NULL,
 			    priv->max_scr_size_bytes,
 			    priv->image_format,
-			    as_flags_contains (priv->flags, ASC_COMPOSE_FLAG_ALLOW_SCREENCASTS),
+			    as_flags_contains (priv->flags, ASC_COMPOSE_FLAG_ALLOW_VIDEOS),
 			    as_flags_contains (priv->flags, ASC_COMPOSE_FLAG_STORE_SCREENSHOTS));
 
 		if (as_component_get_kind (cpt) == AS_COMPONENT_KIND_FONT)

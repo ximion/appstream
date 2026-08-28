@@ -64,14 +64,6 @@ GPtrArray    *asc_result_get_hints (AscResult	*result,
 GPtrArray    *asc_result_fetch_hints_all (AscResult *result);
 const gchar **asc_result_fetch_component_ids_with_hints (AscResult *result);
 
-gboolean      asc_result_update_component_gcid (AscResult   *result,
-						AsComponent *cpt,
-						GBytes	    *bytes,
-						GError	   **error);
-gboolean      asc_result_update_component_gcid_with_string (AscResult	*result,
-							    AsComponent *cpt,
-							    const gchar *data,
-							    GError     **error);
 const gchar  *asc_result_gcid_for_cid (AscResult   *result,
 				       const gchar *cid);
 const gchar  *asc_result_gcid_for_component (AscResult	 *result,
