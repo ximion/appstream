@@ -601,6 +601,39 @@ as_yaml_emit_sequence (struct fy_emitter *emitter, const gchar *key, GPtrArray *
 }
 
 /**
+ * AsYamlL10nEmitHelper:
+ * @emitter: The emitter the values are written to.
+ * @key: Name of the mapping that holds the localized values.
+ * @started: %TRUE as soon as the mapping was actually opened.
+ *
+ * State for emitting a mapping of localized values. We only know whether there
+ * is anything to write once we have looked at the individual entries, so the
+ * mapping is opened by the first entry that is actually emitted - an entry that
+ * is dropped entirely must not leave an empty mapping behind.
+ */
+typedef struct {
+	struct fy_emitter *emitter;
+	const gchar *key;
+	gboolean started;
+} AsYamlL10nEmitHelper;
+
+/**
+ * as_yaml_l10n_emit_helper_start:
+ *
+ * Open the mapping for the localized entry, unless that has happened already.
+ */
+static void
+as_yaml_l10n_emit_helper_start (AsYamlL10nEmitHelper *helper)
+{
+	if (helper->started)
+		return;
+
+	as_yaml_emit_scalar (helper->emitter, helper->key);
+	as_yaml_mapping_start (helper->emitter);
+	helper->started = TRUE;
+}
+
+/**
  * as_yaml_emit_localized_entry_with_func:
  */
 static void
@@ -609,26 +642,30 @@ as_yaml_emit_localized_entry_with_func (struct fy_emitter *emitter,
 					GHashTable *ltab,
 					GHFunc tfunc)
 {
+	AsYamlL10nEmitHelper helper = {
+		.emitter = emitter,
+		.key = key,
+		.started = FALSE,
+	};
+
 	if (ltab == NULL)
 		return;
 	if (g_hash_table_size (ltab) == 0)
 		return;
 
-	as_yaml_emit_scalar (emitter, key);
+	/* emit entries, the first one of which opens the mapping */
+	g_hash_table_foreach (ltab, tfunc, &helper);
 
-	/* start mapping for localized entry */
-	as_yaml_mapping_start (emitter);
-	/* emit entries */
-	g_hash_table_foreach (ltab, tfunc, emitter);
-	/* finalize */
-	as_yaml_mapping_end (emitter);
+	/* finalize, unless every entry was dropped */
+	if (helper.started)
+		as_yaml_mapping_end (emitter);
 }
 
 /**
  * as_yaml_emit_lang_hashtable_entries:
  */
 static void
-as_yaml_emit_lang_hashtable_entries (gchar *key, gchar *value, struct fy_emitter *emitter)
+as_yaml_emit_lang_hashtable_entries (gchar *key, gchar *value, AsYamlL10nEmitHelper *helper)
 {
 	if (as_is_empty (value))
 		return;
@@ -637,7 +674,8 @@ as_yaml_emit_lang_hashtable_entries (gchar *key, gchar *value, struct fy_emitter
 	if (as_is_cruft_locale (key))
 		return;
 
-	as_yaml_emit_entry_str (emitter, key, as_strstripnl (value));
+	as_yaml_l10n_emit_helper_start (helper);
+	as_yaml_emit_entry_str (helper->emitter, key, as_strstripnl (value));
 }
 
 /**
@@ -656,9 +694,10 @@ as_yaml_emit_localized_entry (struct fy_emitter *emitter, const gchar *key, GHas
  * as_yaml_emit_lang_hashtable_entries_long:
  */
 static void
-as_yaml_emit_lang_hashtable_entries_long (gchar *key, gchar *value, struct fy_emitter *emitter)
+as_yaml_emit_lang_hashtable_entries_long (gchar *key, gchar *value, AsYamlL10nEmitHelper *helper)
 {
 	g_autofree gchar *formatted = NULL;
+	gssize value_len;
 
 	if (as_is_empty (value))
 		return;
@@ -667,12 +706,27 @@ as_yaml_emit_lang_hashtable_entries_long (gchar *key, gchar *value, struct fy_em
 	if (as_is_cruft_locale (key))
 		return;
 
-	/* These values are description markup, which we lay out before writing it:
-	 * one block element per line, enumeration items indented, and long lines
-	 * broken up. A folded scalar can only express a line break as an empty line
-	 * and rewrites all the other ones, so we write a literal scalar instead. */
-	formatted = as_xml_desc_format_markup (value, 0);
-	as_yaml_emit_long_entry_literal (emitter, key, formatted);
+	value_len = (gssize) strlen (value);
+
+	/* The markup may have been set via the API and never have passed a reader, so
+	 * we ensure that we never write anything that isn't valid description markup.
+	 * We also format the markup and then store it as YAML-literal, to preserve its
+	 * format and prevent accidental issues due to YAML rewrites. */
+	if (G_LIKELY (as_xml_desc_markup_is_valid (value, value_len))) {
+		formatted = as_xml_desc_format_markup (value, value_len, 0);
+	} else {
+		g_autofree gchar *sanitized = NULL;
+		sanitized = as_xml_sanitize_description (value, value_len);
+		formatted = as_xml_desc_format_markup (sanitized, -1, 0);
+	}
+
+	/* nothing of the markup survived sanitization, so this locale has no
+	 * description left for us to write - just like in the XML writer */
+	if (as_is_empty (formatted))
+		return;
+
+	as_yaml_l10n_emit_helper_start (helper);
+	as_yaml_emit_long_entry_literal (helper->emitter, key, formatted);
 }
 
 /**

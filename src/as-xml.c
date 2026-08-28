@@ -731,6 +731,7 @@ as_xml_desc_append_indent (GString *str, guint indent)
 /**
  * as_xml_desc_format_markup:
  * @markup: Sanitized description markup.
+ * @len: Length of @markup, or -1 if it is %NULL-terminated.
  * @indent: Number of spaces the block elements should be indented by.
  *
  * Lay description markup out for output: every block element on a line of its
@@ -741,7 +742,7 @@ as_xml_desc_append_indent (GString *str, guint indent)
  * Returns: (transfer full): the formatted markup, or %NULL if @markup was %NULL.
  */
 gchar *
-as_xml_desc_format_markup (const gchar *markup, guint indent)
+as_xml_desc_format_markup (const gchar *markup, gssize len, guint indent)
 {
 	GString *out;
 	guint list_depth = 0;
@@ -750,8 +751,10 @@ as_xml_desc_format_markup (const gchar *markup, guint indent)
 
 	if (markup == NULL)
 		return NULL;
+	if (len < 0)
+		len = (gssize) strlen (markup);
 
-	out = g_string_sized_new (strlen (markup) + 32);
+	out = g_string_sized_new (len + 32);
 	for (const gchar *p = markup; *p != '\0';) {
 		const gchar *tag_end = NULL;
 		const gchar *run_end;
@@ -880,7 +883,7 @@ as_xml_desc_is_predefined_entity (const gchar *name, gsize len)
  *
  * Returns: %TRUE if the markup can be used verbatim.
  */
-static gboolean
+gboolean
 as_xml_desc_markup_is_valid (const gchar *markup, gssize len)
 {
 	const gchar *end;
@@ -1213,7 +1216,7 @@ as_xml_markup_parse_helper_new (const gchar *markup, guint indent, const gchar *
 	 * part of the tree that we copy into the document. Checking the markup does not
 	 * change it, so doing this first is the same as doing it afterwards - only the
 	 * markup we have to rewrite below needs to be laid out again. */
-	formatted = as_xml_desc_format_markup (markup, indent);
+	formatted = as_xml_desc_format_markup (markup, -1, indent);
 	helper->doc = as_xml_desc_parse_fragment (formatted);
 	if (helper->doc == NULL)
 		goto fail;
@@ -1225,7 +1228,9 @@ as_xml_markup_parse_helper_new (const gchar *markup, guint indent, const gchar *
 	root = xmlDocGetRootElement (helper->doc);
 	if (G_UNLIKELY (root != NULL && !as_xml_desc_tree_is_valid (root))) {
 		g_autofree gchar *safe_markup = as_xml_dump_description_children (root);
-		g_autofree gchar *safe_formatted = as_xml_desc_format_markup (safe_markup, indent);
+		g_autofree gchar *safe_formatted = as_xml_desc_format_markup (safe_markup,
+									      -1,
+									      indent);
 
 		xmlFreeDoc (helper->doc);
 		helper->doc = as_xml_desc_parse_fragment (safe_formatted);

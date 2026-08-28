@@ -69,10 +69,13 @@ void	    as_xml_parse_metainfo_description_node (AsContext  *ctx,
 
 gchar	   *as_xml_dump_description_para_content (xmlNode *node);
 gchar	   *as_xml_desc_format_markup (const gchar *markup,
+				       gssize	    len,
 				       guint	    indent);
 gchar	   *as_xml_dump_description_children (xmlNode *node);
 gchar	   *as_xml_desc_to_inline_md (xmlNode *node);
 
+gboolean    as_xml_desc_markup_is_valid (const gchar *markup,
+					 gssize	      len);
 gchar	   *as_xml_sanitize_description (const gchar *markup,
 					 gssize	      len);
 
