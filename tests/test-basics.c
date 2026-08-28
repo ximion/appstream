@@ -408,7 +408,7 @@ test_simplemarkup (void)
 				 AS_MARKUP_KIND_XML,
 				 &error);
 	g_assert_no_error (error);
-	g_assert_cmpstr (str, ==, "<ul><li>Item</li></ul><p>Text bold</p>");
+	g_assert_cmpstr (str, ==, "<ul>  <li>Item</li></ul><p>Text bold</p>");
 	g_free (str);
 
 	/* &nbsp; is an HTML entity, not an XML one: we have no declaration for it, so

@@ -489,7 +489,7 @@ as_xml_desc_append_block_node (GString *str, xmlNode *node)
 
 			item_start = str->len;
 			as_desc_text_ctx_init (&ctx, str);
-			g_string_append (str, "<li>");
+			g_string_append (str, "  <li>");
 			content_start = str->len;
 			as_xml_desc_append_inline_content (&ctx, iter, 1);
 			if (str->len == content_start) {
@@ -1461,7 +1461,7 @@ as_xml_parse_metainfo_description_node (AsContext *ctx, xmlNode *node, GHashTabl
 				}
 
 				g_string_append_printf (phelper->data,
-							"<%s>%s</%s>",
+							"  <%s>%s</%s>",
 							(gchar *) iter2->name,
 							content,
 							(gchar *) iter2->name);

@@ -538,9 +538,9 @@ test_appstream_description_l10n_cleanup (void)
 	    "<p>Second paragraph</p>"
 	    "<p>Features:</p>"
 	    "<ul>"
-	    "<li>Browse the maps clicking in a map division to see its name, capital and "
+	    "  <li>Browse the maps clicking in a map division to see its name, capital and "
 	    "flag</li>"
-	    "<li>The game tells you a map division name and you have to click on it</li>"
+	    "  <li>The game tells you a map division name and you have to click on it</li>"
 	    "</ul>";
 	g_autoptr(AsComponent) cpt = NULL;
 
@@ -559,7 +559,7 @@ test_appstream_description_l10n_cleanup (void)
 			 "<p>Zweiter Absatz</p>"
 			 "<p>Funktionen:</p>"
 			 "<ul>"
-			 "<li>Landkarte erkunden, indem Sie in der Karte auf ein Land klicken "
+			 "  <li>Landkarte erkunden, indem Sie in der Karte auf ein Land klicken "
 			 "und dessen Name, Hauptstadt und Flagge angezeigt wird</li>"
 			 "</ul>");
 	as_component_set_context_locale (cpt, "ca");
@@ -567,9 +567,9 @@ test_appstream_description_l10n_cleanup (void)
 			 ==,
 			 "<p>Característiques:</p>"
 			 "<ul>"
-			 "<li>Busqueu en els mapes fent clic a sobre d'una zona del mapa per a "
+			 "  <li>Busqueu en els mapes fent clic a sobre d'una zona del mapa per a "
 			 "veure el seu nom, capital i bandera</li>"
-			 "<li>El joc mostra el nom d'una zona en el mapa i heu de fer clic sobre "
+			 "  <li>El joc mostra el nom d'una zona en el mapa i heu de fer clic sobre "
 			 "el lloc on està</li>"
 			 "</ul>");
 
@@ -623,14 +623,14 @@ test_appstream_description_l10n_lists (void)
 			 "<p>First</p>"
 			 "<p>Second</p>"
 			 "<p>Third</p>"
-			 "<ul><li>English only</li></ul>");
+			 "<ul>  <li>English only</li></ul>");
 	as_component_set_context_locale (cpt, "de");
 	g_assert_cmpstr (as_component_get_description (cpt),
 			 ==,
 			 "<p>Erstens</p>"
 			 "<p>Zweitens</p>"
 			 "<p>Drittens</p>"
-			 "<ul><li>Nur Deutsch</li></ul>");
+			 "<ul>  <li>Nur Deutsch</li></ul>");
 
 	/* Now the same thing at scale: a document may name arbitrarily many locales
 	 * and contain arbitrarily many enumerations, and neither of them has anything
@@ -721,9 +721,9 @@ test_appstream_read_description_sanitize (void)
 				   "<p>AB&lt;script&gt;x&lt;/script&gt;CD</p>"
 				   "<p>Fish &amp; chips &lt;3 for 5 &gt; 2</p>"
 				   "<p><em><em><em>deep</em></em></em></p>"
-				   "<ul><li><em>alert(2)</em></li><li>link text</li></ul>"
+				   "<ul>  <li><em>alert(2)</em></li>  <li>link text</li></ul>"
 				   "<p>Text with a heading in it</p>"
-				   "<ul><li>Item with a heading</li></ul>"));
+				   "<ul>  <li>Item with a heading</li></ul>"));
 
 	/* the sanitized markup must survive a write/read cycle unmodified */
 	res_mi = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_METAINFO);
@@ -781,7 +781,7 @@ test_appstream_read_description_sanitize (void)
 		g_assert_true (as_test_compare_lines (as_component_get_description (cpt_c),
 						      "<p><em>alert(1)</em></p>"
 						      "<p>Hello <em>World</em>!</p>"
-						      "<ul><li>Item bold</li></ul>"));
+						      "<ul>  <li>Item bold</li></ul>"));
 	}
 }
 
@@ -834,10 +834,10 @@ test_appstream_read_description (void)
 	    "keep track of the tasks that matter most.</p>"
 	    "<p>This paragraph makes use of <code>code markup</code>.</p>"
 	    "<ul>"
-	    "<li>Blazingly <em>fast</em> and light</li>"
-	    "<li>Remembers your list until you clear completed tasks</li>"
-	    "<li>Some <code>code</code> item</li>"
-	    "<li>...</li>"
+	    "  <li>Blazingly <em>fast</em> and light</li>"
+	    "  <li>Remembers your list until you clear completed tasks</li>"
+	    "  <li>Some <code>code</code> item</li>"
+	    "  <li>...</li>"
 	    "</ul>"
 	    "<heading>Why you want it</heading>"
 	    "<p>I dare you to find an easier, faster, more beautiful task manager for elementary "
@@ -850,9 +850,9 @@ test_appstream_read_description (void)
 	g_assert_cmpstr (as_component_get_description (cpt),
 			 ==,
 			 "<ul>"
-			 "<li>I start with bullet points</li>"
-			 "<li>Yes, this is allowed now</li>"
-			 "<li>...</li>"
+			 "  <li>I start with bullet points</li>"
+			 "  <li>Yes, this is allowed now</li>"
+			 "  <li>...</li>"
 			 "</ul>"
 			 "<p>Paragraph</p>");
 }
@@ -883,9 +883,9 @@ test_appstream_description_line_breaking (void)
 	    "from your favorite subscriptions into a simple interface that makes it easy to "
 	    "organize and browse feeds.</p>"
 	    "<ul>"
-	    "<li>Synchronizes with the Google Reader API (TheOldReader, FreshRSS, FeedHQ, "
+	    "  <li>Synchronizes with the Google Reader API (TheOldReader, FreshRSS, FeedHQ, "
 	    "Miniflux) as well as with Reedah and TinyTinyRSS, and plays podcasts</li>"
-	    "<li>Play Podcasts</li>"
+	    "  <li>Play Podcasts</li>"
 	    "</ul>";
 	g_autofree gchar *xmldata_mi = NULL;
 	g_autofree gchar *xmldata_catalog = NULL;
@@ -980,7 +980,7 @@ test_appstream_read_description_whitespace (void)
 	    "like &amp; this one.</p>"
 	    "<p>Space space wanna go to space yes please space. Space space. Go to space.</p>"
 	    "<heading>A heading, also across lines</heading>"
-	    "<ul><li>A list item, wrapped as well</li><li>Second item</li></ul>";
+	    "<ul>  <li>A list item, wrapped as well</li>  <li>Second item</li></ul>";
 
 	const gchar *
 	    xmldata_mi = "<component>\n"

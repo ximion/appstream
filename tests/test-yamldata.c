@@ -629,7 +629,7 @@ test_yaml_read_description_sanitize (void)
 					      "<p>AB&lt;script&gt;x&lt;/script&gt;CD</p>"
 					      "<p>Tom &amp; Jerry &lt;3</p>"
 					      "<p><em><em><em>deep</em></em></em></p>"
-					      "<ul><li>Item bold</li></ul>"
+					      "<ul>  <li>Item bold</li></ul>"
 					      /* the enumeration that held nothing but a nested
 					         list ends up with no items, so it is dropped */
 					      "<heading>A section</heading>"
