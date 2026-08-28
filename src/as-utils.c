@@ -2468,6 +2468,21 @@ as_ref_string_assign_transfer (GRefString **rstr_ptr, GRefString *new_rstr)
 		*rstr_ptr = new_rstr;
 }
 
+#ifndef G_OS_WIN32
+/**
+ * as_utils_tar_child_setup:
+ *
+ * Run in the forked tar process right before it is executed, to ensure the
+ * umask of our caller can not permit overly generous permissions on any of
+ * the extracted files.
+ */
+static void
+as_utils_tar_child_setup (gpointer user_data)
+{
+	as_reset_umask ();
+}
+#endif
+
 /**
  * as_utils_extract_tarball:
  *
@@ -2480,6 +2495,7 @@ as_utils_extract_tarball (const gchar *filename, const gchar *target_dir, GError
 	g_autoptr(GInputStream) tarz_stream = NULL;
 	g_autoptr(GInputStream) tar_stream = NULL;
 	g_autoptr(GConverter) conv = NULL;
+	g_autoptr(GSubprocessLauncher) launcher = NULL;
 	g_autoptr(GSubprocess) tar_process = NULL;
 	GOutputStream *tar_stdin = NULL;
 	gssize bytes_read;
@@ -2505,15 +2521,29 @@ as_utils_extract_tarball (const gchar *filename, const gchar *target_dir, GError
 		tar_stream = g_object_ref (tarz_stream);
 	}
 
-	/* set up the tar subprocess that will extract the tar data */
-	tar_process = g_subprocess_new (G_SUBPROCESS_FLAGS_STDIN_PIPE |
-					    G_SUBPROCESS_FLAGS_STDERR_PIPE,
-					&tmp_error,
-					"tar",
-					"-x",
-					"-C",
-					target_dir,
-					NULL);
+	/* Set up the tar subprocess that will extract the tar data.
+	 * When running as superuser, tar will by default restore the user/group IDs as
+	 * well as the complete mode of each archive member, including its setuid, setgid
+	 * and sticky bits, so a malicious archive could drop a setuid-root binary on the
+	 * system. We explicitly refuse to restore any of that metadata, as well as any
+	 * extended attributes (which may carry file capabilities) and ACLs, and enforce a
+	 * sane umask on the tar process in case our caller had set a permissive one. */
+	launcher = g_subprocess_launcher_new (G_SUBPROCESS_FLAGS_STDIN_PIPE |
+					      G_SUBPROCESS_FLAGS_STDERR_PIPE);
+#ifndef G_OS_WIN32
+	g_subprocess_launcher_set_child_setup (launcher, as_utils_tar_child_setup, NULL, NULL);
+#endif
+	tar_process = g_subprocess_launcher_spawn (launcher,
+						   &tmp_error,
+						   "tar",
+						   "-x",
+						   "--no-same-owner",
+						   "--no-same-permissions",
+						   "--no-xattrs",
+						   "--no-acls",
+						   "-C",
+						   target_dir,
+						   NULL);
 	if (tar_process == NULL) {
 		g_propagate_prefixed_error (error, tmp_error, "Unable to launch tar process: ");
 		return FALSE;
