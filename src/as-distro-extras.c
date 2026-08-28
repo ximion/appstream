@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2016-2024 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2016-2026 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -57,29 +57,25 @@ static const gchar *const default_icon_sizes[] = { "48x48",   "48x48@2",   "64x6
  * directory_is_empty:
  *
  * Quickly check if a directory is empty.
+ *
+ * A directory that does not exist has no contents, so it counts as empty.
+ * One that we can not read for any other reason does not.
  */
 static gboolean
 directory_is_empty (const gchar *dirname)
 {
-	gint n = 0;
-	const gchar *d;
-	GDir *dir = g_dir_open (dirname, 0, NULL);
+	g_autoptr(GError) error = NULL;
+	g_autoptr(GDir) dir = g_dir_open (dirname, 0, &error);
 
-	if (dir == NULL)
-		return TRUE;
-
-	while ((d = g_dir_read_name (dir)) != NULL) {
-		if (++n > 2)
-			break;
+	if (dir == NULL) {
+		if (g_error_matches (error, G_FILE_ERROR, G_FILE_ERROR_NOENT))
+			return TRUE;
+		g_debug ("Unable to check whether '%s' is empty: %s", dirname, error->message);
+		return FALSE;
 	}
 
-	g_dir_close (dir);
-
-	/* empty directory contains . and .. */
-	if (n <= 2)
-		return TRUE;
-	else
-		return 0;
+	/* any entry at all means the directory is not empty */
+	return g_dir_read_name (dir) == NULL;
 }
 
 /**
