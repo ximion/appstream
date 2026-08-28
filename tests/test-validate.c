@@ -623,18 +623,16 @@ test_validator_cid_chars (void)
 		const gchar *expected_hints;
 	} test_cases[] = {
 		/* a well-formed ID must not be flagged */
-		{ "org.example.Test",     ""			 },
+		{ "org.example.Test",     ""				 },
 		/* plain ASCII offenders are reported as-is */
-		{ "org.example.Te st",    "org.example.Te st: ' '" },
+		{ "org.example.Te st",    "org.example.Te st: ' '"	},
 		/* a multi-byte character must be reported as one whole character, not per byte */
 		{ "org.example.Tä",	    "org.example.Tä: 'ä'"	  },
 		/* an ID made up almost entirely of multi-byte characters: its byte length far
 		 * exceeds its character count, which used to make us read past the end of the
-		 * heap allocation holding the ID */
-		{ "日本語.日本語.日本語",
-		  "日本語.日本語.日本語: '日';"
-		  "日本語.日本語.日本語: '本';"
-		  "日本語.日本語.日本語: '語'"		       },
+		 * heap allocation holding the ID. We stop at the first bad character, so only
+		 * that one is reported. */
+		{ "日本語.日本語.日本語", "日本語.日本語.日本語: '日'" },
 	};
 
 	for (guint i = 0; i < G_N_ELEMENTS (test_cases); i++) {

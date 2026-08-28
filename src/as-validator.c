@@ -1344,6 +1344,8 @@ as_validator_validate_component_id (AsValidator *validator, xmlNode *idnode, AsC
 	g_auto(GStrv) cid_parts = NULL;
 	guint cid_parts_n;
 	gboolean hyphen_found = FALSE;
+	gboolean uppercase_found = FALSE;
+	gboolean number_prefix_found = FALSE;
 	const gchar *cid_end;
 	g_autofree gchar *cid = as_xml_get_node_value_raw (idnode);
 	g_return_if_fail (cid != NULL);
@@ -1396,7 +1398,12 @@ as_validator_validate_component_id (AsValidator *validator, xmlNode *idnode, AsC
 						cid);
 	}
 
-	/* validate characters in AppStream ID */
+	/* Validate characters in the AppStream ID.
+	 * We only ever emit one issue per problem here and stop at the very first invalid
+	 * character: every issue durably retains a copy of the ID, so reporting each bad
+	 * character individually would need memory quadratic in the length of the ID.
+	 * Besides, once we have found one bad character the ID is invalid anyway, and the
+	 * user will have to revisit it in any case. */
 	for (const gchar *ch = cid; ch < cid_end;) {
 		const gchar *next = g_utf8_next_char (ch);
 		/* guard against malformed UTF-8 making us run past the end of the string */
@@ -1412,14 +1419,17 @@ as_validator_validate_component_id (AsValidator *validator, xmlNode *idnode, AsC
 						"%s: '%s'",
 						cid,
 						c);
+			break;
 		}
 
-		if (g_ascii_isupper (*ch))
+		if (!uppercase_found && g_ascii_isupper (*ch)) {
+			uppercase_found = TRUE;
 			as_validator_add_issue (validator,
 						idnode,
 						"cid-contains-uppercase-letter",
 						"%s",
 						cid);
+		}
 
 		ch = next;
 	}
@@ -1428,7 +1438,10 @@ as_validator_validate_component_id (AsValidator *validator, xmlNode *idnode, AsC
 	for (guint i = 0; cid_parts[i] != NULL; i++) {
 		gboolean is_last_segment = cid_parts[i + 1] == NULL;
 
-		if (g_ascii_isdigit (cid_parts[i][0])) {
+		/* like above, we only report the first offending segment, to avoid retaining
+		 * a copy of the ID for each one of them */
+		if (!number_prefix_found && g_ascii_isdigit (cid_parts[i][0])) {
+			number_prefix_found = TRUE;
 			as_validator_add_issue (validator,
 						idnode,
 						"cid-has-number-prefix",
