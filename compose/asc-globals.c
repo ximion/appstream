@@ -310,9 +310,8 @@ asc_globals_get_tmp_dir (void)
  *
  * Set temporary directory used by appstream-compose.
  *
- * This has to be done before composing metadata starts, in practice before the
- * first call to asc_compose_run(). Once work has begun, the global settings are
- * sealed and changing any of them is prohibited.
+ * This has to be done before composing metadata starts. Once work has
+ * begun, changing any global setting is forbidden.
  *
  * Since: 0.13.0
  **/
@@ -349,9 +348,8 @@ asc_globals_get_use_optipng (void)
  *
  * Set whether images should be optimized using optipng.
  *
- * This has to be done before composing metadata starts, in practice before the
- * first call to asc_compose_run(). Once work has begun, the global settings are
- * sealed and changing any of them is prohibited.
+ * This has to be done before composing metadata starts. Once work has
+ * begun, changing any global setting is forbidden.
  *
  * Since: 0.13.0
  **/
@@ -395,9 +393,8 @@ asc_globals_get_optipng_binary (void)
  *
  * Set path to the "optipng" binary we should use.
  *
- * This has to be done before composing metadata starts, in practice before the
- * first call to asc_compose_run(). Once work has begun, the global settings are
- * sealed and changing any of them is prohibited.
+ * This has to be done before composing metadata starts. Once work has
+ * begun, changing any global setting is forbidden.
  *
  * Since: 0.13.0
  **/
@@ -421,8 +418,7 @@ asc_globals_set_optipng_binary (const gchar *path)
  *
  * Returns: (transfer none) (nullable): The binary path, or %NULL if ffprobe was
  *    not found. The string is owned by the global state and is valid until the
- *    setting is changed, which is prohibited once composing metadata has
- *    started.
+ *    setting is changed, which is prohibited once composing metadata has started.
  *
  * Since: 0.14.6
  **/
@@ -439,9 +435,8 @@ asc_globals_get_ffprobe_binary (void)
  *
  * Set path to the "ffprobe" binary we should use.
  *
- * This has to be done before composing metadata starts, in practice before the
- * first call to asc_compose_run(). Once work has begun, the global settings are
- * sealed and changing any of them is prohibited.
+ * This has to be done before composing metadata starts. Once work has
+ * begun, changing any global setting is forbidden.
  *
  * Since: 0.14.6
  **/
