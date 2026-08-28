@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2018-2024 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2018-2026 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -795,8 +795,11 @@ as_cache_component_from_node (AsCache *cache, AsCacheSection *csec, XbNode *node
 	}
 	xmlFreeNode (root);
 
-	/* find addons (if there are any) - ensure addons don't have addons themselves */
-	if (priv->auto_resolve_addons && (as_component_get_kind (cpt) != AS_COMPONENT_KIND_ADDON) &&
+	/* Find addons, if there are any. Components which are extensions themselves never get
+	 * addons resolved: addons must not have addons, and refusing to descend into anything
+	 * that extends another component is also what bounds this recursion. */
+	if (priv->auto_resolve_addons && as_component_get_kind (cpt) != AS_COMPONENT_KIND_ADDON &&
+	    as_component_get_extends (cpt)->len == 0 &&
 	    !as_cache_register_addons_for_component (cache, cpt, error)) {
 		return NULL;
 	}

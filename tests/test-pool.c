@@ -297,6 +297,89 @@ test_cache (void)
 }
 
 /**
+ * test_cache_extends_cycle:
+ *
+ * Test that components extending each other in a cycle do not send us into
+ * infinite recursion when addons are resolved while reading the cache.
+ */
+static void
+test_cache_extends_cycle (void)
+{
+	g_autoptr(AsCache) cache = NULL;
+	g_autoptr(GPtrArray) cpts = NULL;
+	g_autoptr(AsComponentBox) results = NULL;
+	g_autoptr(GError) error = NULL;
+	gboolean ret;
+	g_autofree gchar *mdata_dir = g_build_filename (datadir, "catalog", "xml", NULL);
+	g_autofree gchar *cache_testpath = g_build_filename (cache_dummy_dir, "cyctest", NULL);
+	const gchar *cids[] = { "org.example.CycleA",
+				"org.example.CycleB",
+				"org.example.CycleSelf",
+				"org.example.App",
+				"org.example.App.Addon" };
+
+	cpts = g_ptr_array_new_with_free_func (g_object_unref);
+	for (guint i = 0; i < G_N_ELEMENTS (cids); i++) {
+		AsComponent *cpt = as_component_new ();
+		as_component_set_kind (cpt, AS_COMPONENT_KIND_DESKTOP_APP);
+		as_component_set_id (cpt, cids[i]);
+		as_component_set_name (cpt, cids[i], "C");
+		g_ptr_array_add (cpts, cpt);
+	}
+
+	/* The first two components extend each other, the third one extends itself.
+	 * None of that is valid metadata - the validator rejects it - but we read
+	 * data that nobody has validated, so we must not fall over it. */
+	as_component_add_extends (g_ptr_array_index (cpts, 0), cids[1]);
+	as_component_add_extends (g_ptr_array_index (cpts, 1), cids[0]);
+	as_component_add_extends (g_ptr_array_index (cpts, 2), cids[2]);
+
+	/* the last component is a regular addon of the one before it */
+	as_component_set_kind (g_ptr_array_index (cpts, 4), AS_COMPONENT_KIND_ADDON);
+	as_component_add_extends (g_ptr_array_index (cpts, 4), cids[3]);
+
+	cache = as_cache_new ();
+	as_cache_set_locale (cache, "C");
+	as_cache_set_resolve_addons (cache, TRUE);
+	as_cache_set_locations (cache, cache_testpath, cache_testpath);
+
+	ret = as_cache_set_contents_for_path (cache, cpts, mdata_dir, NULL, &error);
+	g_assert_no_error (error);
+	g_assert_true (ret);
+
+	/* new cache for loading */
+	g_clear_pointer (&cache, g_object_unref);
+	cache = as_cache_new ();
+	as_cache_set_locale (cache, "C");
+	as_cache_set_resolve_addons (cache, TRUE);
+	as_cache_set_locations (cache, cache_testpath, cache_testpath);
+	as_cache_load_section_for_path (cache, mdata_dir, NULL, NULL);
+
+	results = as_cache_get_components_all (cache, &error);
+	g_assert_no_error (error);
+	g_assert_cmpint (as_component_box_len (results), ==, G_N_ELEMENTS (cids));
+
+	for (guint i = 0; i < as_component_box_len (results); i++) {
+		AsComponent *cpt = as_component_box_index (results, i);
+		GPtrArray *addons = as_component_get_addons (cpt);
+
+		if (g_strcmp0 (as_component_get_id (cpt), cids[3]) == 0) {
+			/* the regular addon association must still be resolved */
+			g_assert_cmpint (addons->len, ==, 1);
+			g_assert_cmpstr (as_component_get_id (g_ptr_array_index (addons, 0)),
+					 ==,
+					 cids[4]);
+		} else {
+			/* everything else is an extension itself and gets no addons */
+			g_assert_cmpint (addons->len, ==, 0);
+		}
+	}
+
+	/* cleanup */
+	as_utils_delete_dir_recursive (cache_testpath);
+}
+
+/**
  * test_pool_read:
  *
  * Test reading information from the metadata pool.
@@ -1107,6 +1190,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/AppStream/PoolReadAsync", test_pool_read_async);
 	g_test_add_func ("/AppStream/PoolEmpty", test_pool_empty);
 	g_test_add_func ("/AppStream/Cache", test_cache);
+	g_test_add_func ("/AppStream/CacheExtendsCycle", test_cache_extends_cycle);
 	g_test_add_func ("/AppStream/Merges", test_merge_components);
 #ifdef HAVE_STEMMING
 	g_test_add_func ("/AppStream/Stemming", test_search_stemming);
