@@ -52,7 +52,7 @@ struct _AscComposeClass {
  * @ASC_COMPOSE_FLAG_ALLOW_NET:			Allow network access for downloading extra data.
  * @ASC_COMPOSE_FLAG_VALIDATE:			Validate metadata while processing.
  * @ASC_COMPOSE_FLAG_STORE_SCREENSHOTS:		Whether screenshots should be cached in the media directory.
- * @ASC_COMPOSE_FLAG_ALLOW_VIDEOS:		Handle & store video screenshots
+ * @ASC_COMPOSE_FLAG_ALLOW_VIDEOS:		Handle & store video screenshots (they will be removed without this flag)
  * @ASC_COMPOSE_FLAG_PROCESS_FONTS:		Set if font components should be processed.
  * @ASC_COMPOSE_FLAG_PROCESS_TRANSLATIONS:	Automatically extract component translation status.
  * @ASC_COMPOSE_FLAG_IGNORE_ICONS:		Any icon information is completely ignored. Useful for later manual icon processing.
