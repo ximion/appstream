@@ -4152,14 +4152,11 @@ as_validator_open_xml_document (AsValidator *validator, const gchar *xmldata, gs
 				     TRUE, /* pedantic */
 				     &error);
 	if (doc == NULL) {
-		if (error != NULL) {
-			as_validator_add_issue (validator,
-						NULL,
-						"xml-markup-invalid",
-						"%s",
-						error->message);
-		}
-
+		as_validator_add_issue (validator,
+					NULL,
+					"xml-markup-invalid",
+					"%s",
+					error->message);
 		return NULL;
 	}
 

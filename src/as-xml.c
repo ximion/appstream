@@ -1755,7 +1755,11 @@ as_xml_parse_document (const gchar *data, gssize len, gboolean pedantic, GError 
 	g_autofree gchar *error_msg_str = NULL;
 
 	if (data == NULL) {
-		/* empty document means no components */
+		/* no data at all is not a valid document */
+		g_set_error_literal (error,
+				     AS_METADATA_ERROR,
+				     AS_METADATA_ERROR_PARSE,
+				     "The XML document is empty.");
 		return NULL;
 	}
 
