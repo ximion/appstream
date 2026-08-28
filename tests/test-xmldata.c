@@ -534,14 +534,14 @@ test_appstream_description_l10n_cleanup (void)
 	    "  </description>\n"
 	    "</component>\n";
 	const gchar *ENGLISH_DESC_TEXT =
-	    "<p>First paragraph</p>\n"
-	    "<p>Second paragraph</p>\n"
-	    "<p>Features:</p>\n"
-	    "<ul>\n"
-	    "  <li>Browse the maps clicking in a map division to see its name, capital and "
-	    "flag</li>\n"
-	    "  <li>The game tells you a map division name and you have to click on it</li>\n"
-	    "</ul>\n";
+	    "<p>First paragraph</p>"
+	    "<p>Second paragraph</p>"
+	    "<p>Features:</p>"
+	    "<ul>"
+	    "<li>Browse the maps clicking in a map division to see its name, capital and "
+	    "flag</li>"
+	    "<li>The game tells you a map division name and you have to click on it</li>"
+	    "</ul>";
 	g_autoptr(AsComponent) cpt = NULL;
 
 	cpt = as_xml_test_read_data (DESC_L10N_XML, AS_FORMAT_STYLE_METAINFO);
@@ -555,23 +555,23 @@ test_appstream_description_l10n_cleanup (void)
 	as_component_set_context_locale (cpt, "de");
 	g_assert_cmpstr (as_component_get_description (cpt),
 			 ==,
-			 "<p>Erster Absatz</p>\n"
-			 "<p>Zweiter Absatz</p>\n"
-			 "<p>Funktionen:</p>\n"
-			 "<ul>\n"
-			 "  <li>Landkarte erkunden, indem Sie in der Karte auf ein Land klicken "
-			 "und dessen Name, Hauptstadt und Flagge angezeigt wird</li>\n"
-			 "</ul>\n");
+			 "<p>Erster Absatz</p>"
+			 "<p>Zweiter Absatz</p>"
+			 "<p>Funktionen:</p>"
+			 "<ul>"
+			 "<li>Landkarte erkunden, indem Sie in der Karte auf ein Land klicken "
+			 "und dessen Name, Hauptstadt und Flagge angezeigt wird</li>"
+			 "</ul>");
 	as_component_set_context_locale (cpt, "ca");
 	g_assert_cmpstr (as_component_get_description (cpt),
 			 ==,
-			 "<p>Característiques:</p>\n"
-			 "<ul>\n"
-			 "  <li>Busqueu en els mapes fent clic a sobre d'una zona del mapa per a "
-			 "veure el seu nom, capital i bandera</li>\n"
-			 "  <li>El joc mostra el nom d'una zona en el mapa i heu de fer clic sobre "
-			 "el lloc on està</li>\n"
-			 "</ul>\n");
+			 "<p>Característiques:</p>"
+			 "<ul>"
+			 "<li>Busqueu en els mapes fent clic a sobre d'una zona del mapa per a "
+			 "veure el seu nom, capital i bandera</li>"
+			 "<li>El joc mostra el nom d'una zona en el mapa i heu de fer clic sobre "
+			 "el lloc on està</li>"
+			 "</ul>");
 
 	/* not enough translation for these, we should have fallen back to English */
 	as_component_set_context_locale (cpt, "cs");
@@ -620,21 +620,17 @@ test_appstream_description_l10n_lists (void)
 	as_component_set_context_locale (cpt, "C");
 	g_assert_cmpstr (as_component_get_description (cpt),
 			 ==,
-			 "<p>First</p>\n"
-			 "<p>Second</p>\n"
-			 "<p>Third</p>\n"
-			 "<ul>\n"
-			 "  <li>English only</li>\n"
-			 "</ul>\n");
+			 "<p>First</p>"
+			 "<p>Second</p>"
+			 "<p>Third</p>"
+			 "<ul><li>English only</li></ul>");
 	as_component_set_context_locale (cpt, "de");
 	g_assert_cmpstr (as_component_get_description (cpt),
 			 ==,
-			 "<p>Erstens</p>\n"
-			 "<p>Zweitens</p>\n"
-			 "<p>Drittens</p>\n"
-			 "<ul>\n"
-			 "  <li>Nur Deutsch</li>\n"
-			 "</ul>\n");
+			 "<p>Erstens</p>"
+			 "<p>Zweitens</p>"
+			 "<p>Drittens</p>"
+			 "<ul><li>Nur Deutsch</li></ul>");
 
 	/* Now the same thing at scale: a document may name arbitrarily many locales
 	 * and contain arbitrarily many enumerations, and neither of them has anything
@@ -654,15 +650,11 @@ test_appstream_description_l10n_lists (void)
 	as_component_set_context_locale (cpt, "l0");
 	g_assert_cmpstr (as_component_get_description (cpt),
 			 ==,
-			 "<p>Text</p>\n"
-			 "<p>Text</p>\n"
-			 "<p>Text</p>\n");
+			 "<p>Text</p><p>Text</p><p>Text</p>");
 	as_component_set_context_locale (cpt, "l199");
 	g_assert_cmpstr (as_component_get_description (cpt),
 			 ==,
-			 "<p>Text</p>\n"
-			 "<p>Text</p>\n"
-			 "<p>Text</p>\n");
+			 "<p>Text</p><p>Text</p><p>Text</p>");
 }
 
 /**
@@ -722,20 +714,16 @@ test_appstream_read_description_sanitize (void)
 	cpt = as_xml_test_read_data (xmldata_desc_mi, AS_FORMAT_STYLE_METAINFO);
 	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.DescSanitizeMI");
 
-	g_assert_true (as_test_compare_lines (as_component_get_description (cpt),
-					      "<p><em>alert(1)</em></p>\n"
-					      "<p>Hello <em>World</em> and <code>code</code>!</p>\n"
-					      "<p>AB&lt;script&gt;x&lt;/script&gt;CD</p>\n"
-					      "<p>Fish &amp; chips &lt;3 for 5 &gt; 2</p>\n"
-					      "<p><em><em><em>deep</em></em></em></p>\n"
-					      "<ul>\n"
-					      "  <li><em>alert(2)</em></li>\n"
-					      "  <li>link text</li>\n"
-					      "</ul>\n"
-					      "<p>Text with a heading in it</p>\n"
-					      "<ul>\n"
-					      "  <li>Item with a heading</li>\n"
-					      "</ul>\n"));
+	g_assert_true (
+	    as_test_compare_lines (as_component_get_description (cpt),
+				   "<p><em>alert(1)</em></p>"
+				   "<p>Hello <em>World</em> and <code>code</code>!</p>"
+				   "<p>AB&lt;script&gt;x&lt;/script&gt;CD</p>"
+				   "<p>Fish &amp; chips &lt;3 for 5 &gt; 2</p>"
+				   "<p><em><em><em>deep</em></em></em></p>"
+				   "<ul><li><em>alert(2)</em></li><li>link text</li></ul>"
+				   "<p>Text with a heading in it</p>"
+				   "<ul><li>Item with a heading</li></ul>"));
 
 	/* the sanitized markup must survive a write/read cycle unmodified */
 	res_mi = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_METAINFO);
@@ -791,8 +779,8 @@ test_appstream_read_description_sanitize (void)
 				 ==,
 				 "org.example.DescSanitizeCatalog");
 		g_assert_true (as_test_compare_lines (as_component_get_description (cpt_c),
-						      "<p><em>alert(1)</em></p>\n"
-						      "<p>Hello <em>World</em>!</p>\n"
+						      "<p><em>alert(1)</em></p>"
+						      "<p>Hello <em>World</em>!</p>"
 						      "<ul><li>Item bold</li></ul>"));
 	}
 }
@@ -843,17 +831,17 @@ test_appstream_read_description (void)
 	g_assert_true (as_test_compare_lines (
 	    as_component_get_description (cpt),
 	    "<p>Agenda is a simple, slick, <em>speedy</em> and no-nonsense task manager. Use it to "
-	    "keep track of the tasks that matter most.</p>\n"
-	    "<p>This paragraph makes use of <code>code markup</code>.</p>\n"
-	    "<ul>\n"
-	    "  <li>Blazingly <em>fast</em> and light</li>\n"
-	    "  <li>Remembers your list until you clear completed tasks</li>\n"
-	    "  <li>Some <code>code</code> item</li>\n"
-	    "  <li>...</li>\n"
-	    "</ul>\n"
-	    "<heading>Why you want it</heading>\n"
+	    "keep track of the tasks that matter most.</p>"
+	    "<p>This paragraph makes use of <code>code markup</code>.</p>"
+	    "<ul>"
+	    "<li>Blazingly <em>fast</em> and light</li>"
+	    "<li>Remembers your list until you clear completed tasks</li>"
+	    "<li>Some <code>code</code> item</li>"
+	    "<li>...</li>"
+	    "</ul>"
+	    "<heading>Why you want it</heading>"
 	    "<p>I dare you to find an easier, faster, more beautiful task manager for elementary "
-	    "OS.</p>\n"));
+	    "OS.</p>"));
 
 	g_object_unref (cpt);
 	cpt = as_xml_test_read_data (xmldata_desc_mi2, AS_FORMAT_STYLE_METAINFO);
@@ -861,12 +849,115 @@ test_appstream_read_description (void)
 
 	g_assert_cmpstr (as_component_get_description (cpt),
 			 ==,
-			 "<ul>\n"
-			 "  <li>I start with bullet points</li>\n"
-			 "  <li>Yes, this is allowed now</li>\n"
-			 "  <li>...</li>\n"
-			 "</ul>\n"
-			 "<p>Paragraph</p>\n");
+			 "<ul>"
+			 "<li>I start with bullet points</li>"
+			 "<li>Yes, this is allowed now</li>"
+			 "<li>...</li>"
+			 "</ul>"
+			 "<p>Paragraph</p>");
+}
+
+/**
+ * test_appstream_description_line_breaking:
+ *
+ * Test that reading description markup stores it without any layout, and that
+ * writing it out breaks overly long text up and lines the remainder up with the
+ * markup it belongs to - however deeply that is nested in the document.
+ */
+static void
+test_appstream_description_line_breaking (void)
+{
+	const gchar *desc_body =
+	    "    <p>Liferea is a feed reader/news aggregator that brings together all of the "
+	    "content from your favorite subscriptions into a simple interface that makes it "
+	    "easy to organize and browse feeds.</p>\n"
+	    "    <ul>\n"
+	    "      <li>Synchronizes with the Google Reader API (TheOldReader, FreshRSS, FeedHQ, "
+	    "Miniflux) as well as with Reedah and TinyTinyRSS, and plays podcasts</li>\n"
+	    "      <li>Play Podcasts</li>\n"
+	    "    </ul>\n";
+	/* reading gives us the markup without any layout of its own: how it is broken
+	 * into lines is decided when we write it out */
+	const gchar *expected_desc =
+	    "<p>Liferea is a feed reader/news aggregator that brings together all of the content "
+	    "from your favorite subscriptions into a simple interface that makes it easy to "
+	    "organize and browse feeds.</p>"
+	    "<ul>"
+	    "<li>Synchronizes with the Google Reader API (TheOldReader, FreshRSS, FeedHQ, "
+	    "Miniflux) as well as with Reedah and TinyTinyRSS, and plays podcasts</li>"
+	    "<li>Play Podcasts</li>"
+	    "</ul>";
+	g_autofree gchar *xmldata_mi = NULL;
+	g_autofree gchar *xmldata_catalog = NULL;
+	g_autoptr(AsComponent) cpt_mi = NULL;
+	g_autofree gchar *res_mi = NULL;
+	g_autofree gchar *res_catalog = NULL;
+
+	xmldata_mi = g_strconcat ("<component>\n"
+				  "  <id>org.example.DescWrapMI</id>\n"
+				  "  <description>\n",
+				  desc_body,
+				  "  </description>\n"
+				  "</component>\n",
+				  NULL);
+	xmldata_catalog = g_strconcat ("<components version=\"1.2\">\n"
+				       "  <component>\n"
+				       "    <id>org.example.DescWrapCatalog</id>\n"
+				       "    <description>\n",
+				       desc_body,
+				       "    </description>\n"
+				       "  </component>\n"
+				       "</components>\n",
+				       NULL);
+
+	cpt_mi = as_xml_test_read_data (xmldata_mi, AS_FORMAT_STYLE_METAINFO);
+	g_assert_cmpstr (as_component_get_id (cpt_mi), ==, "org.example.DescWrapMI");
+	g_assert_true (
+	    as_test_compare_lines (as_component_get_description (cpt_mi), expected_desc));
+
+	{
+		g_autoptr(AsMetadata) metad = as_metadata_new ();
+		g_autoptr(GError) error = NULL;
+		AsComponent *cpt_c;
+
+		as_metadata_set_locale (metad, "ALL");
+		as_metadata_set_format_style (metad, AS_FORMAT_STYLE_CATALOG);
+		as_metadata_parse_data (metad, xmldata_catalog, -1, AS_FORMAT_KIND_XML, &error);
+		g_assert_no_error (error);
+
+		/* the catalog reader stores the very same thing */
+		cpt_c = as_component_box_index (as_metadata_get_components (metad), 0);
+		g_assert_cmpstr (as_component_get_id (cpt_c), ==, "org.example.DescWrapCatalog");
+		g_assert_true (
+		    as_test_compare_lines (as_component_get_description (cpt_c), expected_desc));
+	}
+
+	/* MetaInfo XML puts the paragraphs four spaces in and the list items six,
+	 * and the text we break up is lined up underneath either of them */
+	res_mi = as_xml_test_serialize (cpt_mi, AS_FORMAT_STYLE_METAINFO);
+	g_assert_nonnull (g_strstr_len (
+	    res_mi,
+	    -1,
+	    "    <p>Liferea is a feed reader/news aggregator that brings together all of the "
+	    "content from your favorite\n"
+	    "    subscriptions into a simple interface that makes it easy to organize and browse "
+	    "feeds.</p>"));
+	g_assert_nonnull (g_strstr_len (
+	    res_mi,
+	    -1,
+	    "      <li>Synchronizes with the Google Reader API (TheOldReader, FreshRSS, FeedHQ, "
+	    "Miniflux) as well\n"
+	    "      as with Reedah and TinyTinyRSS, and plays podcasts</li>\n"));
+
+	/* catalog XML nests one level deeper, so the very same markup is written
+	 * out two spaces further in */
+	res_catalog = as_xml_test_serialize (cpt_mi, AS_FORMAT_STYLE_CATALOG);
+	g_assert_nonnull (g_strstr_len (
+	    res_catalog,
+	    -1,
+	    "        <li>Synchronizes with the Google Reader API (TheOldReader, FreshRSS, FeedHQ, "
+	    "Miniflux) as well\n"
+	    "        as with Reedah and TinyTinyRSS, and plays podcasts</li>\n"));
 }
 
 /**
@@ -878,17 +969,18 @@ test_appstream_read_description (void)
 static void
 test_appstream_read_description_whitespace (void)
 {
-	/* the description markup that both of the documents below must produce,
-	 * modulo the way list items are laid out in each of the two formats */
-	const gchar *desc_body =
+	/* the canonical markup that both of the documents below must produce */
+	const gchar *expected_desc =
 	    "<p>A paragraph that the author wrapped over several lines, with a lot of "
-	    "indentation in front of it.</p>\n"
+	    "indentation in front of it.</p>"
 	    "<p>Spacing around <em>emphasis</em> and <code>code</code> is kept, a line break "
 	    "<em>inside a span</em> is not, and a space at the end of a span ends up "
-	    "<em>outside</em> of it.</p>\n"
+	    "<em>outside</em> of it.</p>"
 	    "<p>Tabs and runs of spaces collapse too, and so does the space after an entity "
-	    "like &amp; this one.</p>\n"
-	    "<p>Space space wanna go to space yes please space. Space space. Go to space.</p>\n";
+	    "like &amp; this one.</p>"
+	    "<p>Space space wanna go to space yes please space. Space space. Go to space.</p>"
+	    "<heading>A heading, also across lines</heading>"
+	    "<ul><li>A list item, wrapped as well</li><li>Second item</li></ul>";
 
 	const gchar *
 	    xmldata_mi = "<component>\n"
@@ -960,29 +1052,12 @@ test_appstream_read_description_whitespace (void)
 	    "  </component>\n"
 	    "</components>\n";
 
-	g_autofree gchar *expected_mi = NULL;
-	g_autofree gchar *expected_catalog = NULL;
 	g_autoptr(AsComponent) cpt = NULL;
 	g_autofree gchar *res_mi = NULL;
 
-	/* the MetaInfo reader indents list items and terminates every block with a newline */
-	expected_mi = g_strconcat (desc_body,
-				   "<heading>A heading, also across lines</heading>\n"
-				   "<ul>\n"
-				   "  <li>A list item, wrapped as well</li>\n"
-				   "  <li>Second item</li>\n"
-				   "</ul>\n",
-				   NULL);
-	/* the catalog reader joins the blocks with a plain newline instead */
-	expected_catalog = g_strconcat (desc_body,
-					"<heading>A heading, also across lines</heading>\n"
-					"<ul><li>A list item, wrapped as well</li>"
-					"<li>Second item</li></ul>",
-					NULL);
-
 	cpt = as_xml_test_read_data (xmldata_mi, AS_FORMAT_STYLE_METAINFO);
 	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.DescWhitespaceMI");
-	g_assert_true (as_test_compare_lines (as_component_get_description (cpt), expected_mi));
+	g_assert_true (as_test_compare_lines (as_component_get_description (cpt), expected_desc));
 
 	/* writing the component out must not reintroduce the whitespace either */
 	res_mi = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_METAINFO);
@@ -1003,8 +1078,9 @@ test_appstream_read_description_whitespace (void)
 		g_assert_cmpstr (as_component_get_id (cpt_c),
 				 ==,
 				 "org.example.DescWhitespaceCatalog");
+		/* both readers lay the markup out in exactly the same way */
 		g_assert_true (
-		    as_test_compare_lines (as_component_get_description (cpt_c), expected_catalog));
+		    as_test_compare_lines (as_component_get_description (cpt_c), expected_desc));
 	}
 }
 
@@ -2371,10 +2447,10 @@ test_xml_read_releases (void)
 	as_release_set_context (rel, as_component_get_context (cpt));
 	g_assert_cmpstr (as_release_get_description (rel),
 			 ==,
-			 "<p>Eine Beschreibung der Veröffentlichung.</p>\n");
+			 "<p>Eine Beschreibung der Veröffentlichung.</p>");
 
 	as_component_set_context_locale (cpt, "C");
-	g_assert_cmpstr (as_release_get_description (rel), ==, "<p>A release description.</p>\n");
+	g_assert_cmpstr (as_release_get_description (rel), ==, "<p>A release description.</p>");
 
 	g_assert_cmpstr (as_release_get_url (rel, AS_RELEASE_URL_KIND_DETAILS),
 			 ==,
@@ -2863,6 +2939,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/XML/Read/DescriptionSanitize", test_appstream_read_description_sanitize);
 	g_test_add_func ("/XML/Read/DescriptionWhitespace",
 			 test_appstream_read_description_whitespace);
+	g_test_add_func ("/XML/DescriptionLineBreaking", test_appstream_description_line_breaking);
 	g_test_add_func ("/XML/Write/Description", test_appstream_write_description);
 	g_test_add_func ("/XML/DescriptionL10NCleanup", test_appstream_description_l10n_cleanup);
 	g_test_add_func ("/XML/DescriptionL10NLists", test_appstream_description_l10n_lists);

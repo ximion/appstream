@@ -25,6 +25,7 @@
 
 #include "as-utils.h"
 #include "as-utils-private.h"
+#include "as-context-private.h"
 
 /**
  * SECTION:as-xml
@@ -202,10 +203,10 @@ as_desc_text_ctx_init (AsDescTextCtx *ctx, GString *str)
 static inline void
 as_xml_desc_flush_space (AsDescTextCtx *ctx)
 {
-	if (ctx->pending_space) {
-		g_string_append_c (ctx->str, ' ');
-		ctx->pending_space = FALSE;
-	}
+	if (!ctx->pending_space)
+		return;
+	ctx->pending_space = FALSE;
+	g_string_append_c (ctx->str, ' ');
 }
 
 /**
@@ -223,6 +224,21 @@ as_xml_desc_append_content (AsDescTextCtx *ctx, const gchar *data, gssize len)
 	else
 		g_string_append_len (ctx->str, data, len);
 	ctx->have_text = TRUE;
+}
+
+/**
+ * as_xml_desc_append_tag:
+ *
+ * Append the start or end tag of an element.
+ */
+static inline void
+as_xml_desc_append_tag (GString *str, const gchar *name, gboolean closing)
+{
+	g_string_append_c (str, '<');
+	if (closing)
+		g_string_append_c (str, '/');
+	g_string_append (str, name);
+	g_string_append_c (str, '>');
 }
 
 /**
@@ -370,9 +386,9 @@ as_xml_desc_append_inline_content (AsDescTextCtx *ctx, xmlNode *node, guint dept
 			as_xml_desc_flush_space (ctx);
 
 			/* the element is permitted, but none of its attributes ever are */
-			g_string_append_printf (ctx->str, "<%s>", (const gchar *) iter->name);
+			as_xml_desc_append_tag (ctx->str, (const gchar *) iter->name, FALSE);
 			as_xml_desc_append_inline_content (ctx, iter, depth + 1);
-			g_string_append_printf (ctx->str, "</%s>", (const gchar *) iter->name);
+			as_xml_desc_append_tag (ctx->str, (const gchar *) iter->name, TRUE);
 		} else {
 			/* flatten invalid markup to its text content */
 			as_xml_desc_append_inline_content (ctx, iter, depth + 1);
@@ -382,6 +398,7 @@ as_xml_desc_append_inline_content (AsDescTextCtx *ctx, xmlNode *node, guint dept
 
 /**
  * as_xml_dump_description_heading_content:
+ * @node: The heading element.
  *
  * Dump the text content of a description section heading, without its enclosing
  * tag. Headings are plain text, so any markup they contain is flattened, and
@@ -417,7 +434,9 @@ as_xml_dump_description_heading_content (xmlNode *node)
  * as_xml_desc_append_block_node:
  *
  * Serialize a description block element (paragraph or enumeration) and its
- * contents. Invalid block elements are dropped.
+ * contents. The markup is emitted without any layout of its own - how it is
+ * broken into lines is decided when we write it out. Invalid block elements as
+ * well as elements without any content are dropped.
  */
 static void
 as_xml_desc_append_block_node (GString *str, xmlNode *node)
@@ -454,6 +473,9 @@ as_xml_desc_append_block_node (GString *str, xmlNode *node)
 	}
 
 	if (as_str_equal0 (node_name, "ul") || as_str_equal0 (node_name, "ol")) {
+		gsize list_start = str->len;
+		gboolean have_items = FALSE;
+
 		g_string_append_printf (str, "<%s>", node_name);
 		for (xmlNode *iter = node->children; iter != NULL; iter = iter->next) {
 			AsDescTextCtx ctx;
@@ -476,6 +498,14 @@ as_xml_desc_append_block_node (GString *str, xmlNode *node)
 				continue;
 			}
 			g_string_append (str, "</li>");
+			have_items = TRUE;
+		}
+
+		/* an enumeration that ended up with no items at all is dropped, just
+		 * like an empty paragraph is */
+		if (!have_items) {
+			g_string_truncate (str, list_start);
+			return;
 		}
 		g_string_append_printf (str, "</%s>", node_name);
 	}
@@ -485,6 +515,7 @@ as_xml_desc_append_block_node (GString *str, xmlNode *node)
 
 /**
  * as_xml_dump_description_para_content:
+ * @node: The paragraph or list item element.
  *
  * Dump the sanitized content of a description paragraph or list item, without
  * its enclosing tag. Runs of whitespace are collapsed into a single space.
@@ -545,6 +576,30 @@ as_xml_desc_inline_content_is_valid (xmlNode *node, guint depth)
 }
 
 /**
+ * as_xml_desc_node_has_content:
+ *
+ * Check whether an element holds anything that we would write out. Whitespace
+ * on its own is not content, as it is collapsed away, but inline markup is,
+ * because its tags are written even when they enclose nothing.
+ */
+static gboolean
+as_xml_desc_node_has_content (xmlNode *node)
+{
+	for (xmlNode *iter = node->children; iter != NULL; iter = iter->next) {
+		if (iter->type == XML_ELEMENT_NODE)
+			return TRUE;
+		if ((iter->type != XML_TEXT_NODE) || (iter->content == NULL))
+			continue;
+		for (const gchar *c = (const gchar *) iter->content; *c != '\0'; c++) {
+			if (!g_ascii_isspace (*c))
+				return TRUE;
+		}
+	}
+
+	return FALSE;
+}
+
+/**
  * as_xml_desc_tree_is_valid:
  * @root: The node holding the description markup.
  *
@@ -569,6 +624,8 @@ as_xml_desc_tree_is_valid (xmlNode *root)
 		if (as_str_equal0 (node_name, "p")) {
 			if (!as_xml_desc_inline_content_is_valid (iter, 1))
 				return FALSE;
+			if (!as_xml_desc_node_has_content (iter))
+				return FALSE;
 			continue;
 		}
 
@@ -578,10 +635,14 @@ as_xml_desc_tree_is_valid (xmlNode *root)
 				if (iter2->type != XML_TEXT_NODE)
 					return FALSE;
 			}
+			if (!as_xml_desc_node_has_content (iter))
+				return FALSE;
 			continue;
 		}
 
 		if (as_str_equal0 (node_name, "ul") || as_str_equal0 (node_name, "ol")) {
+			gboolean have_items = FALSE;
+
 			for (xmlNode *iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
 				if (iter2->type != XML_ELEMENT_NODE)
 					continue;
@@ -592,7 +653,17 @@ as_xml_desc_tree_is_valid (xmlNode *root)
 					return FALSE;
 				if (!as_xml_desc_inline_content_is_valid (iter2, 1))
 					return FALSE;
+				/* an item without any content is dropped, so it can not
+				 * be what keeps the enumeration alive */
+				if (!as_xml_desc_node_has_content (iter2))
+					return FALSE;
+				have_items = TRUE;
 			}
+
+			/* an enumeration without any items is dropped when we serialize the
+			 * markup, so it is not something we can pass through as-is */
+			if (!have_items)
+				return FALSE;
 			continue;
 		}
 
@@ -615,23 +686,165 @@ as_xml_dump_description_children (xmlNode *node)
 	GString *str = g_string_new ("");
 
 	for (xmlNode *iter = node->children; iter != NULL; iter = iter->next) {
-		gsize prev_len;
-
 		/* discard spaces */
 		if (iter->type != XML_ELEMENT_NODE)
 			continue;
 
-		prev_len = str->len;
-		if (str->len > 0)
-			g_string_append_c (str, '\n');
 		as_xml_desc_append_block_node (str, iter);
-
-		/* drop the separator again in case the node was not valid markup */
-		if (str->len <= prev_len + 1)
-			g_string_truncate (str, prev_len);
 	}
 
 	return g_string_free (str, FALSE);
+}
+
+/**
+ * as_xml_desc_is_enumeration_tag:
+ *
+ * Check whether the given element name is one of the two enumerations, which
+ * bracket their items instead of holding text themselves.
+ */
+static inline gboolean
+as_xml_desc_is_enumeration_tag (const gchar *name, gsize len)
+{
+	return (len == 2) && ((memcmp (name, "ul", 2) == 0) || (memcmp (name, "ol", 2) == 0));
+}
+
+/* libxml2 indents the documents we write by two spaces per level. */
+#define AS_XML_OUTPUT_INDENT_STEP 2
+
+/**
+ * as_xml_desc_append_indent:
+ *
+ * Indent the current line by @indent spaces.
+ */
+static inline void
+as_xml_desc_append_indent (GString *str, guint indent)
+{
+	for (guint i = 0; i < indent; i++)
+		g_string_append_c (str, ' ');
+}
+
+/* The column we aim for when breaking up the text of a description block. We do
+ * not break there, but at the first space that follows, so the lines end up a
+ * little longer than this. */
+#define AS_DESC_WRAP_COLUMN 100
+
+/**
+ * as_xml_desc_format_markup:
+ * @markup: Sanitized description markup.
+ * @indent: Number of spaces the block elements should be indented by.
+ *
+ * Lay description markup out for output: every block element on a line of its
+ * own at @indent, the items of an enumeration one step further in, and text
+ * that runs past the wrap column broken up and lined up underneath the element
+ * it belongs to.
+ *
+ * Returns: (transfer full): the formatted markup, or %NULL if @markup was %NULL.
+ */
+gchar *
+as_xml_desc_format_markup (const gchar *markup, guint indent)
+{
+	GString *out;
+	guint list_depth = 0;
+	gsize column = 0;
+	gboolean pending_space = FALSE;
+
+	if (markup == NULL)
+		return NULL;
+
+	out = g_string_sized_new (strlen (markup) + 32);
+	for (const gchar *p = markup; *p != '\0';) {
+		const gchar *tag_end = NULL;
+		const gchar *run_end;
+		guint line_indent;
+		gboolean starts_line = FALSE;
+		gboolean opens_list = FALSE;
+		gsize chars = 0;
+
+		if (g_ascii_isspace (*p)) {
+			pending_space = TRUE;
+			p++;
+			continue;
+		}
+
+		if (*p == '<')
+			tag_end = strchr (p, '>');
+		if (tag_end != NULL) {
+			gboolean is_end_tag = (p[1] == '/');
+			const gchar *name = p + (is_end_tag ? 2 : 1);
+			gsize name_len = tag_end - name;
+
+			if (as_xml_desc_is_enumeration_tag (name, name_len)) {
+				/* an enumeration brackets its items, which sit one step
+				 * further in than it does */
+				starts_line = TRUE;
+				opens_list = !is_end_tag;
+				if (is_end_tag && (list_depth > 0))
+					list_depth--;
+			} else if (!is_end_tag) {
+				starts_line = as_xml_desc_is_block_tag (name, name_len);
+			}
+		}
+		line_indent = indent + (list_depth * AS_XML_OUTPUT_INDENT_STEP);
+
+		if (starts_line) {
+			pending_space = FALSE;
+			if (out->len > 0)
+				g_string_append_c (out, '\n');
+			as_xml_desc_append_indent (out, line_indent);
+			g_string_append_len (out, p, tag_end - p + 1);
+			column = line_indent + (tag_end - p + 1);
+			if (opens_list)
+				list_depth++;
+			p = tag_end + 1;
+			continue;
+		}
+
+		/* the first line is the only one we can still be at the start of */
+		if (out->len == 0) {
+			as_xml_desc_append_indent (out, line_indent);
+			column = line_indent;
+		}
+
+		/* a space that we held back is only ever written out once we know that
+		 * content follows it, and it is where we break the line */
+		if (pending_space) {
+			pending_space = FALSE;
+			/* comparing against the indentation keeps us from breaking, or
+			 * indenting twice, when nothing is on the line yet */
+			if (column > line_indent) {
+				if (column >= AS_DESC_WRAP_COLUMN) {
+					g_string_append_c (out, '\n');
+					as_xml_desc_append_indent (out, line_indent);
+					column = line_indent;
+				} else {
+					g_string_append_c (out, ' ');
+					column++;
+				}
+			}
+		}
+
+		/* Copy the next word, or the inline or end tag that is glued to it. We
+		 * stop at every tag so that a block element which begins right behind
+		 * one still gets a line of its own. */
+		if (*p == '<') {
+			run_end = (tag_end == NULL) ? p + 1 : tag_end + 1;
+		} else {
+			run_end = p;
+			while ((*run_end != '\0') && (*run_end != '<') &&
+			       !g_ascii_isspace (*run_end))
+				run_end++;
+		}
+		for (const gchar *c = p; c < run_end; c++) {
+			/* continuation bytes do not start a new character */
+			if ((*c & 0xC0) != 0x80)
+				chars++;
+		}
+		g_string_append_len (out, p, run_end - p);
+		column += chars;
+		p = run_end;
+	}
+
+	return g_string_free (out, FALSE);
 }
 
 /**
@@ -778,7 +991,7 @@ as_xml_desc_append_inline_md_text (GString *str, const gchar *text)
 			gboolean at_line_start = (c == text) || g_ascii_isspace (*(c - 1));
 			while (run[0] == '#')
 				run++;
-			if (at_line_start && (run[0] == ' ' || run[0] == '\t'))
+			if (at_line_start && (run[0] == ' ' || run[0] == '\t' || run[0] == '\n'))
 				g_string_append_c (str, '\\');
 			g_string_append_c (str, '#');
 		} else if (c[0] == '\\' &&
@@ -966,23 +1179,42 @@ typedef struct {
 } AsXMLMarkupParseHelper;
 
 /**
+ * as_xml_desc_parse_fragment:
+ *
+ * Parse a description markup fragment, which has no root element of its own.
+ */
+static xmlDoc *
+as_xml_desc_parse_fragment (const gchar *markup)
+{
+	g_autofree gchar *xmldata = g_strconcat ("<root>", markup, "</root>", NULL);
+	return xmlReadMemory (xmldata,
+			      strlen (xmldata),
+			      NULL,
+			      "utf-8",
+			      XML_PARSE_NOBLANKS | XML_PARSE_NONET);
+}
+
+/**
  * as_xml_markup_parse_helper_new: (skip)
+ * @markup: The description markup.
+ * @indent: Number of spaces the block elements will be indented by on output.
+ * @locale: (nullable): The locale the markup is in.
  **/
 static AsXMLMarkupParseHelper *
-as_xml_markup_parse_helper_new (const gchar *markup, const gchar *locale)
+as_xml_markup_parse_helper_new (const gchar *markup, guint indent, const gchar *locale)
 {
-	g_autofree gchar *xmldata = NULL;
+	g_autofree gchar *formatted = NULL;
 	AsXMLMarkupParseHelper *helper = g_slice_new0 (AsXMLMarkupParseHelper);
 	xmlNode *root;
 
 	helper->locale = g_strdup (locale);
 
-	xmldata = g_strconcat ("<root>", markup, "</root>", NULL);
-	helper->doc = xmlReadMemory (xmldata,
-				     strlen (xmldata),
-				     NULL,
-				     "utf-8",
-				     XML_PARSE_NOBLANKS | XML_PARSE_NONET);
+	/* We lay the markup out before parsing it, because the line breaks have to be
+	 * part of the tree that we copy into the document. Checking the markup does not
+	 * change it, so doing this first is the same as doing it afterwards - only the
+	 * markup we have to rewrite below needs to be laid out again. */
+	formatted = as_xml_desc_format_markup (markup, indent);
+	helper->doc = as_xml_desc_parse_fragment (formatted);
 	if (helper->doc == NULL)
 		goto fail;
 
@@ -993,17 +1225,10 @@ as_xml_markup_parse_helper_new (const gchar *markup, const gchar *locale)
 	root = xmlDocGetRootElement (helper->doc);
 	if (G_UNLIKELY (root != NULL && !as_xml_desc_tree_is_valid (root))) {
 		g_autofree gchar *safe_markup = as_xml_dump_description_children (root);
-		g_autofree gchar *safe_xmldata = g_strconcat ("<root>",
-							      safe_markup,
-							      "</root>",
-							      NULL);
+		g_autofree gchar *safe_formatted = as_xml_desc_format_markup (safe_markup, indent);
 
 		xmlFreeDoc (helper->doc);
-		helper->doc = xmlReadMemory (safe_xmldata,
-					     strlen (safe_xmldata),
-					     NULL,
-					     "utf-8",
-					     XML_PARSE_NOBLANKS | XML_PARSE_NONET);
+		helper->doc = as_xml_desc_parse_fragment (safe_formatted);
 		if (helper->doc == NULL)
 			goto fail;
 		root = xmlDocGetRootElement (helper->doc);
@@ -1187,7 +1412,7 @@ as_xml_parse_metainfo_description_node (AsContext *ctx, xmlNode *node, GHashTabl
 				      : as_xml_dump_description_para_content (iter);
 			if (content != NULL) {
 				g_string_append_printf (phelper->data,
-							"<%s>%s</%s>\n",
+							"<%s>%s</%s>",
 							node_name,
 							content,
 							node_name);
@@ -1230,13 +1455,13 @@ as_xml_parse_metainfo_description_node (AsContext *ctx, xmlNode *node, GHashTabl
 				 * enumerations, and have us emit markup for each combination of
 				 * the two. */
 				if (!phelper->list_open) {
-					g_string_append_printf (phelper->data, "<%s>\n", node_name);
+					g_string_append_printf (phelper->data, "<%s>", node_name);
 					phelper->list_open = TRUE;
 					g_ptr_array_add (open_lists, phelper);
 				}
 
 				g_string_append_printf (phelper->data,
-							"  <%s>%s</%s>\n",
+							"<%s>%s</%s>",
 							(gchar *) iter2->name,
 							content,
 							(gchar *) iter2->name);
@@ -1246,7 +1471,7 @@ as_xml_parse_metainfo_description_node (AsContext *ctx, xmlNode *node, GHashTabl
 			/* close the enumeration again for every locale that entered it */
 			for (guint i = 0; i < open_lists->len; i++) {
 				phelper = g_ptr_array_index (open_lists, i);
-				g_string_append_printf (phelper->data, "</%s>\n", node_name);
+				g_string_append_printf (phelper->data, "</%s>", node_name);
 				phelper->list_open = FALSE;
 			}
 			g_ptr_array_set_size (open_lists, 0);
@@ -1283,12 +1508,44 @@ as_xml_parse_metainfo_description_node (AsContext *ctx, xmlNode *node, GHashTabl
 }
 
 /**
+ * as_xml_desc_output_indent:
+ *
+ * Work out the indentation that the description block elements will end up at
+ * once the document is written out, so that text we break across lines can be
+ * lined up underneath them.
+ */
+static guint
+as_xml_desc_output_indent (AsContext *ctx, xmlNode *parent)
+{
+	guint level = 0;
+
+	/* The component node is assembled detached and only added to its document
+	 * afterwards, so walking up from @parent tells us how deep it sits inside
+	 * of that component, counting the component node itself. */
+	for (xmlNode *iter = parent; iter != NULL; iter = iter->parent) {
+		if (iter->type != XML_ELEMENT_NODE)
+			break;
+		level++;
+	}
+
+	/* catalog XML collects all components in a `components` element, which
+	 * pushes every one of them one level further in - MetaInfo files hold a
+	 * single component and have no such element */
+	if ((ctx != NULL) && (as_context_get_style (ctx) == AS_FORMAT_STYLE_CATALOG))
+		level++;
+
+	/* the `description` element sits below @parent, and its blocks below that */
+	return (level + 1) * AS_XML_OUTPUT_INDENT_STEP;
+}
+
+/**
  * as_xml_add_description_catalog_mode_helper:
  *
  * Add the description markup for AppStream catalog XML to the tree.
  */
 static gboolean
-as_xml_add_description_catalog_mode_helper (xmlNode *parent,
+as_xml_add_description_catalog_mode_helper (AsContext *ctx,
+					    xmlNode *parent,
 					    const gchar *description_markup,
 					    const gchar *lang)
 {
@@ -1303,8 +1560,15 @@ as_xml_add_description_catalog_mode_helper (xmlNode *parent,
 	if (as_is_cruft_locale (lang))
 		return FALSE;
 
-	helper = as_xml_markup_parse_helper_new (description_markup, lang);
+	helper = as_xml_markup_parse_helper_new (description_markup,
+						 as_xml_desc_output_indent (ctx, parent),
+						 lang);
 	if (helper == NULL)
+		return FALSE;
+
+	/* nothing of the markup survived sanitization, so there is no description
+	 * left for us to write */
+	if (helper->node == NULL)
 		return FALSE;
 
 	dnode = xmlNewChild (parent, NULL, (xmlChar *) "description", NULL);
@@ -1312,9 +1576,6 @@ as_xml_add_description_catalog_mode_helper (xmlNode *parent,
 		xmlNewProp (dnode, (xmlChar *) "xml:lang", (xmlChar *) lang);
 	}
 	cnode = dnode;
-
-	if (helper->node == NULL)
-		return FALSE;
 
 	do {
 		if ((helper->tag_id == AS_TAG_UL) || (helper->tag_id == AS_TAG_OL)) {
@@ -1364,9 +1625,18 @@ as_xml_add_description_node (AsContext *ctx,
 			if (as_is_cruft_locale (locale))
 				continue;
 
-			helper = as_xml_markup_parse_helper_new (desc_markup, locale);
+			helper = as_xml_markup_parse_helper_new (
+			    desc_markup,
+			    as_xml_desc_output_indent (ctx, root),
+			    locale);
 			if (helper == NULL)
 				continue;
+			/* nothing of the markup survived sanitization, so this locale
+			 * has no description left for us to write */
+			if (helper->node == NULL) {
+				as_xml_markup_parse_helper_free (helper);
+				continue;
+			}
 
 			/* unlocalized entries should always be sorted first */
 			if (helper->localized)
@@ -1447,7 +1717,7 @@ as_xml_add_description_node (AsContext *ctx,
 			if (as_is_cruft_locale (locale))
 				continue;
 
-			as_xml_add_description_catalog_mode_helper (root, desc_markup, locale);
+			as_xml_add_description_catalog_mode_helper (ctx, root, desc_markup, locale);
 		}
 	}
 }
@@ -1461,7 +1731,7 @@ as_xml_add_description_node (AsContext *ctx,
  * Returns: The new xmlNode, or %NULL if no node was appended.
  */
 xmlNode *
-as_xml_add_description_node_raw (xmlNode *root, const gchar *description)
+as_xml_add_description_node_raw (AsContext *ctx, xmlNode *root, const gchar *description)
 {
 	xmlNode *dnode;
 	xmlNode *cnode;
@@ -1470,7 +1740,9 @@ as_xml_add_description_node_raw (xmlNode *root, const gchar *description)
 	if (as_is_empty (description))
 		return NULL;
 
-	helper = as_xml_markup_parse_helper_new (description, NULL);
+	helper = as_xml_markup_parse_helper_new (description,
+						 as_xml_desc_output_indent (ctx, root),
+						 NULL);
 	if (helper == NULL)
 		return NULL;
 

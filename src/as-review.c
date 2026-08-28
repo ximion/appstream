@@ -997,7 +997,7 @@ as_review_to_xml_node (AsReview *review, AsContext *ctx, xmlNode *root)
 	}
 
 	as_xml_add_text_node (n_review, "summary", priv->summary);
-	as_xml_add_description_node_raw (n_review, priv->description);
+	as_xml_add_description_node_raw (ctx, n_review, priv->description);
 
 	as_xml_add_text_node (n_review, "version", priv->version);
 

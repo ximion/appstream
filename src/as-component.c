@@ -1516,7 +1516,8 @@ as_component_set_summary (AsComponent *cpt, const gchar *value, const gchar *loc
  * as_component_get_description:
  * @cpt: a #AsComponent instance.
  *
- * Get the localized long description of this component.
+ * Get the localized long description of this component, as AppStream
+ * description markup.
  *
  * Returns: the description.
  */

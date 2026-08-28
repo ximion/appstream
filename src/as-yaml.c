@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2012-2024 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2026 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -658,6 +658,8 @@ as_yaml_emit_localized_entry (struct fy_emitter *emitter, const gchar *key, GHas
 static void
 as_yaml_emit_lang_hashtable_entries_long (gchar *key, gchar *value, struct fy_emitter *emitter)
 {
+	g_autofree gchar *formatted = NULL;
+
 	if (as_is_empty (value))
 		return;
 
@@ -665,7 +667,12 @@ as_yaml_emit_lang_hashtable_entries_long (gchar *key, gchar *value, struct fy_em
 	if (as_is_cruft_locale (key))
 		return;
 
-	as_yaml_emit_long_entry (emitter, key, as_strstripnl (value));
+	/* These values are description markup, which we lay out before writing it:
+	 * one block element per line, enumeration items indented, and long lines
+	 * broken up. A folded scalar can only express a line break as an empty line
+	 * and rewrites all the other ones, so we write a literal scalar instead. */
+	formatted = as_xml_desc_format_markup (value, 0);
+	as_yaml_emit_long_entry_literal (emitter, key, formatted);
 }
 
 /**

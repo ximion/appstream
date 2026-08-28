@@ -68,6 +68,8 @@ void	    as_xml_parse_metainfo_description_node (AsContext  *ctx,
 						    GHashTable *l10n_desc);
 
 gchar	   *as_xml_dump_description_para_content (xmlNode *node);
+gchar	   *as_xml_desc_format_markup (const gchar *markup,
+				       guint	    indent);
 gchar	   *as_xml_dump_description_children (xmlNode *node);
 gchar	   *as_xml_desc_to_inline_md (xmlNode *node);
 
@@ -78,7 +80,8 @@ void	    as_xml_add_description_node (AsContext  *ctx,
 					 xmlNode    *root,
 					 GHashTable *desc_table,
 					 gboolean    mi_translatable);
-xmlNode	   *as_xml_add_description_node_raw (xmlNode	 *root,
+xmlNode	   *as_xml_add_description_node_raw (AsContext	 *ctx,
+					     xmlNode	 *root,
 					     const gchar *description);
 
 void	    as_xml_add_localized_text_node (xmlNode	*root,

@@ -317,6 +317,20 @@ test_simplemarkup (void)
 				  "Last paragraph.") == 0);
 	g_free (str);
 
+	/* A hash that could be read back as an ATX heading has to be escaped no
+	 * matter where the line it sits on ends up being broken - the description
+	 * markup we are given already carries line breaks of its own. */
+	str = as_markup_convert ("<p>A paragraph that we broke up ourselves, so the hash #\n"
+				 "ends up at the start of a line.</p>",
+				 AS_MARKUP_KIND_MARKDOWN,
+				 &error);
+	g_assert_no_error (error);
+	g_assert_cmpstr (str,
+			 ==,
+			 "A paragraph that we broke up ourselves, so the hash \\# ends up at the "
+			 "start of a line.");
+	g_free (str);
+
 	/* section headings are rendered as a bare line in text, and as an ATX
 	 * heading in Markdown */
 	str = as_markup_convert ("<p>Intro paragraph.</p>"
@@ -394,7 +408,7 @@ test_simplemarkup (void)
 				 AS_MARKUP_KIND_XML,
 				 &error);
 	g_assert_no_error (error);
-	g_assert_cmpstr (str, ==, "<ul><li>Item</li></ul>\n<p>Text bold</p>");
+	g_assert_cmpstr (str, ==, "<ul><li>Item</li></ul><p>Text bold</p>");
 	g_free (str);
 
 	/* &nbsp; is an HTML entity, not an XML one: we have no declaration for it, so
