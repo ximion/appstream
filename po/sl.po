@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-08-28 08:48+0200\n"
-"PO-Revision-Date: 2026-08-13 09:51+0000\n"
+"PO-Revision-Date: 2026-08-28 19:59+0000\n"
 "Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian <https://hosted.weblate.org/projects/appstream/translations/sl/>\n"
 "Language: sl\n"
@@ -1663,10 +1663,8 @@ msgid "This element (paragraph, list, etc.) of a <description/> tag must not be 
 msgstr "Ta element (odstavek, seznam itn.) oznake <description/> ne sme biti preveden posamično v metapodatkih kataloga. Namesto tega prevedite celotno oznako <description/>. Generator kataloga metapodatkov AppStream (npr. »appstream-generator«) bo že naredil pravo stvar pri prevajanju podatkov."
 
 #: src/as-validator-issue-tag.h:64
-#, fuzzy
-#| msgid "AppStream descriptions support only a limited set of tags to format text: Paragraphs (<p/>) and lists (<ul/>, <ol/>). This description markup contains an invalid XML tag that would not be rendered correctly in applications supporting the metainfo specification."
 msgid "AppStream descriptions support only a limited set of tags to format text: Paragraphs (<p/>), section headings (<heading/>) and lists (<ul/>, <ol/>). This description markup contains an invalid XML tag that would not be rendered correctly in applications supporting the metainfo specification."
-msgstr "Opisi AppStream podpirajo le omejen nabor oznak za oblikovanje besedila: odstavke (<p/>) in sezname (<ul/>, <ol/>). Ta oznaka opisa vsebuje neveljavno oznako XML, ki ne bi bila pravilno upodobljena v programih, ki podpirajo specifikacijo metapodatkov."
+msgstr "Opisi AppStream podpirajo le omejen nabor oznak za oblikovanje besedila: odstavke (<p/>), naslove odsekov (<heading/>) in sezname (<ul/>, <ol/>). Ta oznaka opisa vsebuje neveljavno oznako XML, ki ne bi bila pravilno upodobljena v programih, ki podpirajo specifikacijo metapodatkov."
 
 #: src/as-validator-issue-tag.h:70
 msgid "This description paragraph contains invalid markup. Currently, only <em/> and <code/> are permitted."
@@ -1691,12 +1689,12 @@ msgstr "Oštevilčenja samega se ne sme prevajati. V datotekah MetaInfo prevedit
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:99
 msgid "Section headings (`description/heading`) are plain text and must not contain any markup, not even <em/> or <code/>. The markup will be removed when the metadata is read."
-msgstr ""
+msgstr "Naslovi odsekov (`description/heading`) so navadno besedilo in ne smejo vsebovati nobenih oblikovalnih oznak, niti <em/> in <code/>. Oznake bodo odstranjene, ko se preberejo metapodatki."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:106
 msgid "This section heading (`description/heading`) is very long and will likely not be displayed properly everywhere. A heading should be a short label for the section that follows it, and be <= 80 characters long. Use a paragraph (<p/>) for longer text."
-msgstr ""
+msgstr "Ta naslov odseka (`description/heading`) je zelo dolg in najverjetneje povsod ne bo prikazan pravilno. Naslov mora biti kratek napis za odsek, ki mu sledi, in mora biti krajši od 80 znakov. Za daljše besedilo uporabite odstavek (<p/>)."
 
 #: src/as-validator-issue-tag.h:113
 msgid "The first `description/p` paragraph of this component might be too short (< 80 characters). Please consider starting with a longer paragraph to improve how the description looks like in software centers and to provide more detailed information on this component immediately in the first paragraph."
@@ -2735,7 +2733,7 @@ msgstr "Niz icon-policy (pravila za ikone) za nastavitev načina ravnanja z veli
 #. TRANSLATORS: ascompose flag description for: --image-format
 #: tools/appstream-compose.c:292
 msgid "The file format that generated icons and screenshots are stored in (`jxl` by default, or `png` for compatibility with older clients)."
-msgstr ""
+msgstr "Vrsta datoteke, v kateri so shranjene tvorjene ikone in zaslonske slike (`jxl` je privzeta, `png` pa se uporablja zavoljo združljivosti s starejšimi odjemalci)."
 
 #. TRANSLATORS: ascompose flag description for: --allow-custom
 #: tools/appstream-compose.c:299
@@ -2798,7 +2796,7 @@ msgstr "Ciljna mapa ni nastavljena, prosimo, navedite mesto izhoda podatkov!"
 #: tools/appstream-compose.c:404
 #, c-format
 msgid "Metadata origin not set, using '%s'"
-msgstr ""
+msgstr "Izvor metapodatkov ni nastavljen, uporabljeno bo '%s'"
 
 #: tools/appstream-compose.c:409 tools/appstream-compose.c:411
 msgid "WARNING"
@@ -2812,7 +2810,7 @@ msgstr "Pravil o ikonah ni mogoče nastaviti"
 #: tools/appstream-compose.c:453
 #, c-format
 msgid "Invalid image format: %s. Only `jxl` and `png` are supported for generated media.\n"
-msgstr ""
+msgstr "Neveljavna vrsta datoteke slike: %s. Samo `jxl` in `png` sta podprti za tvorjene medijske vsebine.\n"
 
 #. TRANSLATORS: Information about as-compose allowlist
 #: tools/appstream-compose.c:483
@@ -3581,16 +3579,14 @@ msgid "You need to specify a NEWS file as output, or '-' to print to stdout."
 msgstr "Kot izhod morate določiti datoteko NEWS ali »-» za tiskanje na stdout."
 
 #: tools/ascli-actions-misc.c:575
-#, fuzzy, c-format
-#| msgid "The release metadata file '%s' is named incorrectly."
+#, c-format
 msgid "Release metadata file '%s' contains no data."
-msgstr "Datoteka z metapodatki izdaje »%s« je napačno poimenovana."
+msgstr "Datoteka z metapodatki izdaje »%s« ne vsebuje podatkov."
 
 #: tools/ascli-actions-misc.c:590
-#, fuzzy, c-format
-#| msgid "Metainfo file '%s' does not exist."
+#, c-format
 msgid "Metainfo file '%s' contains no component."
-msgstr "Datoteka metainfo »%s« ne obstaja."
+msgstr "Datoteka metainfo »%s« ne vsebuje nobene komponente."
 
 #: tools/ascli-actions-misc.c:599
 #, c-format
@@ -3598,6 +3594,8 @@ msgid ""
 "The metainfo file '%s' references external release data.\n"
 "Run this command on the release metadata file instead."
 msgstr ""
+"Datoteka metapodatkov '%s' se sklicuje na zunanje podatke o izdaji.\n"
+"Namesto tega ta ukaz izvršite nad datoteko metapodatkov o izdaji."
 
 #: tools/ascli-actions-misc.c:612
 msgid "You need to specify a NEWS format to write the output in."
@@ -3827,10 +3825,8 @@ msgstr "Vnesite številko komponente, ki jo želite namestiti:"
 #. we reached the end of the input stream without ever getting an
 #. * answer, e.g. because stdin was closed or is not a terminal
 #: tools/ascli-actions-pkgmgr.c:267
-#, fuzzy
-#| msgid "No component matching '%s' found."
 msgid "No component was selected."
-msgstr "Komponente, ki se ujema z »%s«, ni mogoče najti."
+msgstr "Nobena komponenta ni izbrana."
 
 #: tools/ascli-actions-pkgmgr.c:278
 #, c-format
