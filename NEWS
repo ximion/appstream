@@ -1,3 +1,93 @@
+Version 1.2.0
+~~~~~~~~~~~~~
+Released: 2026-08-28
+
+Notes:
+ * This release marks the libappstream-compose API as stable.
+
+ * This release introduces a new, lightly sandboxed (on Linux) media worker for appstream-compose
+   and switches to VIPS for image processing. Please report any issues you may find! The sandbox
+   can be disabled by setting `ASC_NO_SANDBOX=1` in the environment.
+   The image formats XPM, TIFF and BMP will no longer be read by Compose, and will be rejected
+   unconditionally.
+
+ * This release introduces <heading>My headline!</heading> markup for AppStream descriptions.
+   Older versions will remove this markup, so only use it if your target clients have a recent
+   version of AppStream.
+
+Features:
+ * compose: Create AscMedia for isolated out-of-process media handling using asc-mediaworker
+ * compose: Process images, fonts & videos via the media worker
+ * Generalize path segment validation, use it in the compose media worker
+ * compose: Switch from using GdkPixbuf to VIPS for image processing
+ * compose: Harmonize supported formats, don't read XPM/TIFF/BMP
+ * compose: Make JPEG-XL the default image output format
+ * compose: Implement basic support for FreeBSD
+ * compose: Rely on VIPS for SVG support, drop our dedicated librsvg path
+ * compose: Make image-targets and image batch-processing public API
+ * compose: Expose the source-icon convention and a hint-tag lookup as public API
+ * compose: Drop unstable-API marker
+ * compose: Don't create image thumbnails that aren't a substantially smaller
+ * compose: Only transfer pre-opened fds and no more directory fd to the worker
+ * compose: Implement a basic sandbox for the mediaworker using Landlock
+ * compose: Use RESTRICT_SELF_TSYNC and block UDP access on newer Landlock
+ * compose: Mix the output image format type into the GCID
+ * compose: Make AscUnit a proper abstract class
+ * compose: Improve API documentation
+ * Always sanitize whitespaces in keywords and drop empty ones
+ * Assume a language element without percentage means full translation
+ * news-to-metainfo: Support a details URL in the YAML variant
+ * news-convert: Support inline Markdown in news text
+ * news-convert: Support headers in XML<->YAML/NEWS/Markdown conversions
+ * ascli: news-convert: Support standalone release XML as source/target
+ * Whitespace-sanitize all description markup we read
+ * Output descriptions as literals in YAML and wrap markup ourselves
+
+Specification:
+ * docs: Document the appstreamcli news file conversion helper
+ * Implement support for headings in description markup
+
+Bugfixes:
+ * meson: Set _POSIX_C_SOURCE on Linux only
+ * compose: Fix a race where units were deleting each other's icon directories
+ * compose: Fix documentation and introspection annotation issues
+ * compose: Drop dead public API, make some API private
+ * compose: Sharpen with libvips instead of a hand-rolled unsharp mask
+ * compose: Only read AVIF from HEIF containers, never HEIC
+ * compose: Fix double-free crash when processing fonts
+ * compose: Guard against bad locale in path names
+ * compose: Ensure component-IDs are safe to use in filesystem paths
+ * compose: Escape values for HTML reports, and create proper plain-text if needed
+ * compose: Make missing-launchable-desktop-file an error
+ * Fix a few translator hints that weren't picked up properly
+ * Don't accept empty strings as URLs
+ * its: Fix description inline markup translation for release data
+ * validator: Fix improper use of variadic arguments
+ * validator: Properly validate component-IDs with random UTF-8 characters
+ * validator: Abort ID validation after the first invalid character
+ * pool: Resolve crash if data locations are changed on a loaded pool
+ * Fix wrong string comparison when detecting arm64 machines
+ * ascli: Resolve crash when selection is cancelled in install/remove
+ * Fix another crash when converting invalid description markup to Markdown
+ * apt: Treat icon tarballs as hostile, instead of trusted
+ * apt: Fix empty-directory check nuking the icon cache on every refresh
+ * utils: Ensure we never ever follow symlinks when recursively deleting caches
+ * xml: Only emit description enumerations for locales that are in them
+ * cache: Never infinite-recurse when resolving addons for a component
+ * yaml: Don't leave old header data around when parsing multiple YAML catalogs
+
+Miscellaneous:
+ * ci: fedora: Disable cisco-openh264 repo, it's currently broken on rawhide
+ * compose: Stop leaking private symbols out of the shared library
+ * compose: Make hint tag/severity/explanation setters private API
+ * compose: Seal the global settings explicitly on start
+ * news-convert: Refactor conversion code for better readability
+ * ascli: Refactor subcommand dispatch
+ * meson: Disable analyzer-infinite-loop more broadly for static analysis
+
+Contributors:
+ Matthias Klumpp
+
 Version 1.1.6
 ~~~~~~~~~~~~~
 Released: 2026-08-12
