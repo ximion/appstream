@@ -18,6 +18,7 @@
 # John Vandenberg <jayvdb@gmail.com>, 2021.
 # Dewi Novita W P <Dnwp127@users.noreply.hosted.weblate.org>, 2024.
 # Dwi Cahyono <wongciecahyono@gmail.com>, 2026.
+# Arif Budiman <arifpedia@gmail.com>, 2026.
 #
 # Translators:
 msgid ""
@@ -25,15 +26,15 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-08-28 08:48+0200\n"
-"PO-Revision-Date: 2026-01-18 00:01+0000\n"
-"Last-Translator: Dwi Cahyono <wongciecahyono@gmail.com>\n"
+"PO-Revision-Date: 2026-08-29 20:51+0000\n"
+"Last-Translator: Arif Budiman <arifpedia@gmail.com>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/appstream/translations/id/>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.15.2\n"
+"X-Generator: Weblate 2026.9.dev0\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1464,19 +1465,17 @@ msgstr "Pemeriksaan pemenuhan untuk butir relasi jenis '%s' belum diimplementasi
 #: src/as-reviews-client.c:976 src/as-reviews-client.c:1069
 #, c-format
 msgid "The reviews server rejected the request: %s"
-msgstr ""
+msgstr "Server ulasan menolak permintaan: %s"
 
 #. TRANSLATORS: We failed to communicate with the ODRS review server, %s is an error message
 #: src/as-reviews-client.c:983
 #, c-format
 msgid "Unable to communicate with the reviews server: %s"
-msgstr ""
+msgstr "Tidak dapat berkomunikasi dengan server ulasan: %s"
 
 #: src/as-reviews-client.c:1070
-#, fuzzy
-#| msgid "Unknown"
 msgid "Unknown reason"
-msgstr "Tidak dikenal"
+msgstr "Alasan tidak diketahui"
 
 #. TRANSLATORS: We failed to fetch a software rating from the ODRS review server
 #: src/as-reviews-client.c:1247
@@ -1669,7 +1668,7 @@ msgstr "Sebuah tag <description/> tidak boleh dilokalkan dalam berkas metainfo (
 
 #: src/as-validator-issue-tag.h:58
 msgid "This element (paragraph, list, etc.) of a <description/> tag must not be localized individually in catalog metadata. Localize the whole <description/> tag instead. The AppStream metadata catalog generator (e.g. `appstream-generator`) will already do the right thing when compiling the data."
-msgstr "Elemen (paragraf, daftar, dll.) dari suatu tag <description/> ini tidak boleh dilokalkan secara individual dalam metadata koleksi. Lokalkan keseluruhan tag <description/> sebagai gantinya. Generator metadata koleksi AppStream (mis. `appstream-generator`) sudah akan melakukan hal yang benar ketika mengkompilasi data."
+msgstr "Elemen ini (paragraf, daftar, dll.) dari tag <description/> tidak boleh dilokalkan secara individual dalam metadata katalog. Lokalkan seluruh tag <description/> sebagai gantinya. Generator katalog metadata AppStream (mis. `appstream-generator`) sudah akan melakukan hal yang benar saat mengompilasi data."
 
 #: src/as-validator-issue-tag.h:64
 #, fuzzy
@@ -1683,11 +1682,11 @@ msgstr "Paragraf deskripsi ini berisi markup yang tidak valid. Saat ini, hanya <
 
 #: src/as-validator-issue-tag.h:75
 msgid "Elements of description markup must not have any attributes set, with the exception of a language property on paragraphs and list items in MetaInfo files. Any other attribute is not permitted and will be removed when the metadata is read."
-msgstr ""
+msgstr "Elemen markup deskripsi tidak boleh memiliki atribut apa pun, kecuali properti bahasa pada paragraf dan item daftar dalam file MetaInfo. Atribut lain apa pun tidak diizinkan dan akan dihapus saat metadata dibaca."
 
 #: src/as-validator-issue-tag.h:81
 msgid "The markup in this description is nested too deeply. Excessively nested markup will be flattened to plain text when the metadata is read."
-msgstr ""
+msgstr "Markup dalam deskripsi ini terlalu dalam bersarangnya. Markup yang terlalu bersarang akan diratakan menjadi teks biasa saat metadata dibaca."
 
 #: src/as-validator-issue-tag.h:87
 msgid "Enumerations must only have list items (<li/>) as children."
@@ -1700,12 +1699,12 @@ msgstr "Enumerasi tidak boleh diterjemahkan secara keseluruhan. Dalam berkas Met
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:99
 msgid "Section headings (`description/heading`) are plain text and must not contain any markup, not even <em/> or <code/>. The markup will be removed when the metadata is read."
-msgstr ""
+msgstr "Judul bagian (`description/heading`) adalah teks biasa dan tidak boleh berisi markup apa pun, bahkan <em/> atau <code/>. Markup akan dihapus saat metadata dibaca."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:106
 msgid "This section heading (`description/heading`) is very long and will likely not be displayed properly everywhere. A heading should be a short label for the section that follows it, and be <= 80 characters long. Use a paragraph (<p/>) for longer text."
-msgstr ""
+msgstr "Judul bagian ini (`description/heading`) sangat panjang dan kemungkinan tidak akan ditampilkan dengan benar di semua tempat. Judul harus berupa label singkat untuk bagian yang mengikutinya, dan panjangnya <= 80 karakter. Gunakan paragraf (<p/>) untuk teks yang lebih panjang."
 
 #: src/as-validator-issue-tag.h:113
 msgid "The first `description/p` paragraph of this component might be too short (< 80 characters). Please consider starting with a longer paragraph to improve how the description looks like in software centers and to provide more detailed information on this component immediately in the first paragraph."
@@ -2045,11 +2044,11 @@ msgstr "Tag `pkgname` muncul beberapa kali. Anda harus mengevaluasi membuat meta
 
 #: src/as-validator-issue-tag.h:542
 msgid "The package name contains characters that are not permitted here. A package name must start with an alphanumeric character and may only contain alphanumeric characters as well as `+`, `-`, `.`, `_` and `:`."
-msgstr ""
+msgstr "Nama paket berisi karakter yang tidak diizinkan di sini. Nama paket harus dimulai dengan karakter alfanumerik dan hanya boleh berisi karakter alfanumerik serta `+`, `-`, `.`, `_`, dan `:`."
 
 #: src/as-validator-issue-tag.h:548
 msgid "The bundle ID contains characters that are not permitted here. It must start with an alphanumeric character and may only contain alphanumeric characters as well as `+`, `-`, `.`, `_`, `:` and `/`."
-msgstr ""
+msgstr "ID bundle berisi karakter yang tidak diizinkan di sini. ID harus dimulai dengan karakter alfanumerik dan hanya boleh berisi karakter alfanumerik serta `+`, `-`, `.`, `_`, `:`, dan `/`."
 
 #: src/as-validator-issue-tag.h:554
 msgid "The component name should (likely) not end with a dot (`.`)."
@@ -2101,7 +2100,7 @@ msgstr "Berkas metainfo hanya dapat berisi ikon bertipe `stock` atau `remote`, t
 #. TRANSLATORS: Please do not translate names in backticks.
 #: src/as-validator-issue-tag.h:614
 msgid "This icon uses an unsupported file format. Icons should be PNG, JPEG-XL (`.jxl`) or vector graphics (`.svg`/`.svgz`) images."
-msgstr ""
+msgstr "Ikon ini menggunakan format file yang tidak didukung. Ikon sebaiknya berupa gambar PNG, JPEG-XL (`.jxl`), atau grafis vektor (`.svg`/`.svgz`)."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:621
@@ -2460,7 +2459,7 @@ msgstr "Nilai yang ditetapkan sebagai jenis rilis issue tidak valid."
 
 #: src/as-validator-issue-tag.h:1077
 msgid "The issue is tagged at security vulnerability with a CVE number, but its value does not look like a valid CVE identifier."
-msgstr "Masalah ini ditandai pada kerentanan keamanan dengan nomor CVE, tetapi nilainya tidak terlihat seperti pengenal CVE yang valid."
+msgstr "Masalah ini ditandai sebagai kerentanan keamanan dengan nomor CVE, tetapi nilainya tidak tampak seperti pengenal CVE yang valid."
 
 #: src/as-validator-issue-tag.h:1082
 #, fuzzy
@@ -2484,7 +2483,7 @@ msgstr "Komponen ini memperluas, menyediakan, memerlukan, atau merekomendasikan 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1107
 msgid "Licenses for `runtime` components are usually too complex to reflect them in a simple SPDX expression. Consider using a `LicenseRef` and a web URL as value for this component's `project_license`. E.g. `LicenseRef-free=https://example.com/licenses.html`"
-msgstr "Lisensi untuk komponen `runtime` biasanya terlalu kompleks untuk mencerminkannya dalam ekspresi SPDX sederhana. Pertimbangkan untuk menggunakan `LicenseRef` dan URL web sebagai nilai untuk `project_license` komponen ini. Misalnya `LicenseRef-free=https://example.com/licenses.html`"
+msgstr "Lisensi untuk komponen `runtime` biasanya terlalu kompleks untuk direfleksikan dalam ekspresi SPDX sederhana. Pertimbangkan menggunakan `LicenseRef` dan URL web sebagai nilai untuk `project_license` komponen ini. Mis. `LicenseRef-free=https://example.com/licenses.html`"
 
 #: src/as-validator-issue-tag.h:1113
 #, fuzzy
@@ -2747,7 +2746,7 @@ msgstr "String kebijakan ikon untuk mengatur bagaimana ukuran ikon harus ditanga
 #. TRANSLATORS: ascompose flag description for: --image-format
 #: tools/appstream-compose.c:292
 msgid "The file format that generated icons and screenshots are stored in (`jxl` by default, or `png` for compatibility with older clients)."
-msgstr ""
+msgstr "Format file yang menghasilkan ikon dan tangkapan layar disimpan dalam (`jxl` secara default, atau `png` untuk kompatibilitas dengan klien yang lebih lama)."
 
 #. TRANSLATORS: ascompose flag description for: --allow-custom
 #: tools/appstream-compose.c:299
@@ -2810,7 +2809,7 @@ msgstr "Tidak ada direktori tujuan yang ditetapkan, harap berikan lokasi keluara
 #: tools/appstream-compose.c:404
 #, c-format
 msgid "Metadata origin not set, using '%s'"
-msgstr ""
+msgstr "Asal metadata tidak diatur, menggunakan '%s'"
 
 #: tools/appstream-compose.c:409 tools/appstream-compose.c:411
 msgid "WARNING"
@@ -2824,7 +2823,7 @@ msgstr "Tidak bisa mengatur kebijakan ikon"
 #: tools/appstream-compose.c:453
 #, c-format
 msgid "Invalid image format: %s. Only `jxl` and `png` are supported for generated media.\n"
-msgstr ""
+msgstr "Format gambar tidak valid: %s. Hanya `jxl` dan `png` yang didukung untuk media yang dihasilkan.\n"
 
 #. TRANSLATORS: Information about as-compose allowlist
 #: tools/appstream-compose.c:483
@@ -2919,22 +2918,22 @@ msgstr "Cetak keluaran terrinci tentang komponen yang ditemukan."
 #. TRANSLATORS: ascli flag description for: --server (used by the "list-reviews" command)
 #: tools/appstreamcli.c:184
 msgid "URL of the ODRS-compatible reviews server to use."
-msgstr ""
+msgstr "URL server ulasan yang kompatibel dengan ODRS untuk digunakan."
 
 #. TRANSLATORS: ascli flag description for: --start (used by the "list-reviews" command)
 #: tools/appstreamcli.c:190
 msgid "Index of the first review to fetch, to page through all reviews."
-msgstr ""
+msgstr "Indeks ulasan pertama yang akan diambil, untuk menelusuri semua ulasan."
 
 #. TRANSLATORS: ascli flag description for: --limit (used by the "list-reviews" command)
 #: tools/appstreamcli.c:196
 msgid "Maximum number of reviews to fetch."
-msgstr ""
+msgstr "Jumlah maksimum ulasan yang akan diambil."
 
 #. TRANSLATORS: ascli flag description for: --locale (used by the "list-reviews" and "submit-review" commands)
 #: tools/appstreamcli.c:202
 msgid "Locale to prefer for reviews, instead of the current system locale."
-msgstr ""
+msgstr "Lokal yang lebih disukai untuk ulasan, bukan lokal sistem saat ini."
 
 #. TRANSLATORS: ascli flag description for: --pedantic (used by the "validate" command)
 #: tools/appstreamcli.c:223
@@ -3250,7 +3249,7 @@ msgstr "Menulis teks NEWS atau berkas YAML dengan informasi dari berkas metainfo
 #. TRANSLATORS: `appstreamcli compose` command description.
 #: tools/appstreamcli.c:1704
 msgid "Compose AppStream metadata catalog from directory trees."
-msgstr "Susun katalog metadata AppStream dari pohon direktori."
+msgstr "Buat katalog metadata AppStream dari pohon direktori."
 
 #. TRANSLATORS: `appstreamcli list-reviews` command description.
 #: tools/appstreamcli.c:1713
@@ -3262,7 +3261,7 @@ msgstr "Kami punya informasi atas %i komponen perangkat lunak."
 #. TRANSLATORS: `appstreamcli submit-review` command description.
 #: tools/appstreamcli.c:1726
 msgid "Compose and submit an online review for a software component."
-msgstr ""
+msgstr "Buat dan kirim ulasan daring untuk komponen perangkat lunak."
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstreamcli.c:1808
@@ -3592,13 +3591,12 @@ msgstr "Tidak ada nama berkas keluaran yang ditentukan, memodifikasi berkas meta
 
 #: tools/ascli-actions-misc.c:547
 msgid "You need to specify a NEWS file as output, or '-' to print to stdout."
-msgstr "Anda perlu menyatakan suatu berkas NEWS sebagai luaran, atau '-' untuk mencetak ke stdout."
+msgstr "Anda perlu menentukan file NEWS sebagai keluaran, atau '-' untuk mencetak ke stdout."
 
 #: tools/ascli-actions-misc.c:575
-#, fuzzy, c-format
-#| msgid "The release metadata file '%s' is named incorrectly."
+#, c-format
 msgid "Release metadata file '%s' contains no data."
-msgstr "Berkas metadata rilis '%s' diberi nama yang salah."
+msgstr "File metadata rilis '%s' tidak berisi data apa pun."
 
 #: tools/ascli-actions-misc.c:590
 #, fuzzy, c-format
@@ -3612,6 +3610,8 @@ msgid ""
 "The metainfo file '%s' references external release data.\n"
 "Run this command on the release metadata file instead."
 msgstr ""
+"File metainfo '%s' mereferensikan data rilis eksternal.\n"
+"Jalankan perintah ini pada file metadata rilis sebagai gantinya."
 
 #: tools/ascli-actions-misc.c:612
 msgid "You need to specify a NEWS format to write the output in."
@@ -3670,11 +3670,11 @@ msgstr "Memori Fisik"
 
 #: tools/ascli-actions-misc.c:721 tools/ascli-actions-misc.c:726
 msgid "Largest Display"
-msgstr ""
+msgstr "Tampilan Terbesar"
 
 #: tools/ascli-actions-misc.c:724
 msgid "logical px"
-msgstr ""
+msgstr "px logis"
 
 #: tools/ascli-actions-misc.c:726
 #, fuzzy
@@ -3706,7 +3706,7 @@ msgstr "tidak"
 
 #: tools/ascli-actions-misc.c:829
 msgid "Overall rating"
-msgstr ""
+msgstr "Peringkat keseluruhan"
 
 #: tools/ascli-actions-misc.c:842
 #, fuzzy, c-format
@@ -3716,81 +3716,81 @@ msgstr "Ditemukan komponen perangkat lunak yang didukung '%s'."
 
 #: tools/ascli-actions-misc.c:857 tools/ascli-actions-misc.c:958
 msgid "Author"
-msgstr ""
+msgstr "Penulis"
 
 #: tools/ascli-actions-misc.c:860
 msgid "Date"
-msgstr ""
+msgstr "Tanggal"
 
 #: tools/ascli-actions-misc.c:910
 #, c-format
 msgid "Composing a review for '%s' to be submitted to %s."
-msgstr ""
+msgstr "Menyusun ulasan untuk '%s' yang akan dikirim ke %s."
 
 #: tools/ascli-actions-misc.c:913
 msgid "Please only review the software itself, and mind that your review will be publicly visible."
-msgstr ""
+msgstr "Harap hanya mengulas perangkat lunaknya sendiri, dan perhatikan bahwa ulasan Anda akan terlihat secara publik."
 
 #. TRANSLATORS: Prompt when composing a review, %s is a user name
 #: tools/ascli-actions-misc.c:918
 #, c-format
 msgid "Your display name (leave empty to use '%s'):"
-msgstr ""
+msgstr "Nama tampilan Anda (kosongkan untuk menggunakan '%s'):"
 
 #. TRANSLATORS: Prompt for a star rating when composing a review
 #: tools/ascli-actions-misc.c:925
 msgid "Star rating, from 1 (worst) to 5 (best):"
-msgstr ""
+msgstr "Peringkat bintang, dari 1 (terburuk) hingga 5 (terbaik):"
 
 #. TRANSLATORS: Prompt when composing a review
 #: tools/ascli-actions-misc.c:932
 msgid "Short summary of your review:"
-msgstr ""
+msgstr "Ringkasan singkat ulasan Anda:"
 
 #: tools/ascli-actions-misc.c:938
 msgid "The summary must not be empty and be no longer than 70 characters."
-msgstr ""
+msgstr "Ringkasan tidak boleh kosong dan tidak boleh lebih dari 70 karakter."
 
 #. TRANSLATORS: Prompt when composing a review
 #: tools/ascli-actions-misc.c:942
 msgid "Detailed review text (end with an empty line):"
-msgstr ""
+msgstr "Teks ulasan terperinci (akhiri dengan baris kosong):"
 
 #: tools/ascli-actions-misc.c:944
 msgid "The review text must not be empty."
-msgstr ""
+msgstr "Teks ulasan tidak boleh kosong."
 
 #: tools/ascli-actions-misc.c:965
 msgid "Rating"
-msgstr ""
+msgstr "Peringkat"
 
 #: tools/ascli-actions-misc.c:968
 msgid "Review"
-msgstr ""
+msgstr "Ulasan"
 
 #. TRANSLATORS: Prompt before publishing a composed review
 #: tools/ascli-actions-misc.c:975
 msgid "Publish this review?"
-msgstr ""
+msgstr "Terbitkan ulasan ini?"
 
 #: tools/ascli-actions-misc.c:979
 msgid "Review submission cancelled."
-msgstr ""
+msgstr "Pengiriman ulasan dibatalkan."
 
 #: tools/ascli-actions-misc.c:989
 #, c-format
 msgid "Review submitted successfully (ID: %s). Thank you!"
-msgstr ""
+msgstr "Ulasan berhasil dikirim (ID: %s). Terima kasih!"
 
 #: tools/ascli-actions-misc.c:992
 msgid "Review submitted successfully. Thank you!"
-msgstr ""
+msgstr "Ulasan berhasil dikirim. Terima kasih!"
 
 #. TRANSLATORS: The placeholder is the invalid package name found in metadata.
 #: tools/ascli-actions-pkgmgr.c:92
 #, c-format
 msgid "Refusing to run the package manager: The component metadata contains an invalid package name: %s"
-msgstr ""
+msgstr "Menolak menjalankan manajer paket: Metadata komponen berisi nama paket yang tidak valid: %s"
 
 #: tools/ascli-actions-pkgmgr.c:107
 #, fuzzy
@@ -3806,7 +3806,7 @@ msgstr "Tidak bisa men-spawn manajer paket: %s"
 #: tools/ascli-actions-pkgmgr.c:144
 #, c-format
 msgid "Refusing to run Flatpak: The component metadata contains an invalid bundle ID: %s"
-msgstr ""
+msgstr "Menolak menjalankan Flatpak: Metadata komponen berisi ID bundle yang tidak valid: %s"
 
 #: tools/ascli-actions-pkgmgr.c:151
 msgid "Flatpak was not found! Please install it to continue."
@@ -3840,7 +3840,7 @@ msgstr "Masukkan banyaknya komponen yang akan dihapus:"
 #. TRANSLATORS: A list of components is displayed with number prefixes. This is a prompt for the user to select one.
 #: tools/ascli-actions-pkgmgr.c:262
 msgid "Please enter the number of the component to install:"
-msgstr "Silakan masukkan banyaknya komponen yang akan dipasang:"
+msgstr "Masukkan nomor komponen yang akan diinstal:"
 
 #. we reached the end of the input stream without ever getting an
 #. * answer, e.g. because stdin was closed or is not a terminal
@@ -4034,7 +4034,7 @@ msgstr "Butir Yang Disediakan"
 #: tools/ascli-utils.c:525
 #, c-format
 msgid "Please enter a number from 1 to %i: "
-msgstr "Silakan masukkan angka dari 1 hingga %i: "
+msgstr "Masukkan angka dari 1 hingga %i: "
 
 #~ msgid "Invalid number of parameters"
 #~ msgstr "Cacah parameter tidak valid"
