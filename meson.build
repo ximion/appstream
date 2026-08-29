@@ -11,7 +11,7 @@ source_root = meson.project_source_root()
 
 as_version = meson.project_version()
 as_api_level = '5'
-asc_api_level = '0'
+asc_api_level = '1'
 
 varr = as_version.split('.')
 as_major_version = varr[0]
