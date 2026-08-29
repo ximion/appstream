@@ -576,6 +576,26 @@ as_xml_desc_inline_content_is_valid (xmlNode *node, guint depth)
 }
 
 /**
+ * as_xml_desc_text_is_blank:
+ *
+ * Check whether the content of a text node is whitespace only. Whitespace is
+ * never significant in descriptions, so such a node carries nothing.
+ */
+static inline gboolean
+as_xml_desc_text_is_blank (const xmlChar *content)
+{
+	if (content == NULL)
+		return TRUE;
+
+	for (const gchar *c = (const gchar *) content; *c != '\0'; c++) {
+		if (!g_ascii_isspace (*c))
+			return FALSE;
+	}
+
+	return TRUE;
+}
+
+/**
  * as_xml_desc_node_has_content:
  *
  * Check whether an element holds anything that we would write out. Whitespace
@@ -588,30 +608,53 @@ as_xml_desc_node_has_content (xmlNode *node)
 	for (xmlNode *iter = node->children; iter != NULL; iter = iter->next) {
 		if (iter->type == XML_ELEMENT_NODE)
 			return TRUE;
-		if ((iter->type != XML_TEXT_NODE) || (iter->content == NULL))
-			continue;
-		for (const gchar *c = (const gchar *) iter->content; *c != '\0'; c++) {
-			if (!g_ascii_isspace (*c))
-				return TRUE;
-		}
+		if ((iter->type == XML_TEXT_NODE) && !as_xml_desc_text_is_blank (iter->content))
+			return TRUE;
 	}
 
 	return FALSE;
 }
 
 /**
+ * as_xml_desc_node_holds_only_elements:
+ *
+ * Check whether an element holds nothing but child elements. Text that sits
+ * outside of a block element, a comment or a CDATA section is dropped when we
+ * serialize the markup, so a tree that carries any of them is not something we
+ * can pass through unchanged. Whitespace does not count, as the serializer
+ * discards it just the same.
+ */
+static gboolean
+as_xml_desc_node_holds_only_elements (xmlNode *node)
+{
+	for (xmlNode *iter = node->children; iter != NULL; iter = iter->next) {
+		if (iter->type == XML_ELEMENT_NODE)
+			continue;
+		if ((iter->type == XML_TEXT_NODE) && as_xml_desc_text_is_blank (iter->content))
+			continue;
+		return FALSE;
+	}
+
+	return TRUE;
+}
+
+/**
  * as_xml_desc_tree_is_valid:
  * @root: The node holding the description markup.
  *
- * Check whether the given description markup tree contains only valid markup.
- * Node types other than elements are ignored here, as those are never written
- * out anyway.
+ * Check whether the given description markup tree contains only valid markup,
+ * that is: whether serializing it would give us back exactly what we have.
  *
  * Returns: %TRUE if the tree can be used as-is.
  */
 static gboolean
 as_xml_desc_tree_is_valid (xmlNode *root)
 {
+	/* text outside of a block element is dropped when the markup is serialized,
+	 * and a tree that holds nothing else is dropped in its entirety */
+	if (!as_xml_desc_node_holds_only_elements (root))
+		return FALSE;
+
 	for (xmlNode *iter = root->children; iter != NULL; iter = iter->next) {
 		const gchar *node_name;
 
@@ -642,6 +685,12 @@ as_xml_desc_tree_is_valid (xmlNode *root)
 
 		if (as_str_equal0 (node_name, "ul") || as_str_equal0 (node_name, "ol")) {
 			gboolean have_items = FALSE;
+
+			/* an enumeration only ever brackets its items, so anything else
+			 * in it is dropped - and the walk that copies the tree into the
+			 * document can not represent it either */
+			if (!as_xml_desc_node_holds_only_elements (iter))
+				return FALSE;
 
 			for (xmlNode *iter2 = iter->children; iter2 != NULL; iter2 = iter2->next) {
 				if (iter2->type != XML_ELEMENT_NODE)
@@ -1752,9 +1801,12 @@ as_xml_add_description_node_raw (AsContext *ctx, xmlNode *root, const gchar *des
 	if (helper == NULL)
 		return NULL;
 
-	dnode = xmlNewChild (root, NULL, (xmlChar *) "description", NULL);
+	/* nothing of the markup survived sanitization, so there is no description
+	 * left for us to write */
 	if (helper->node == NULL)
 		return NULL;
+
+	dnode = xmlNewChild (root, NULL, (xmlChar *) "description", NULL);
 	cnode = dnode;
 
 	do {
