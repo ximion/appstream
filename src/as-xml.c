@@ -745,6 +745,7 @@ gchar *
 as_xml_desc_format_markup (const gchar *markup, gssize len, guint indent)
 {
 	GString *out;
+	const gchar *end;
 	guint list_depth = 0;
 	gsize column = 0;
 	gboolean pending_space = FALSE;
@@ -754,8 +755,9 @@ as_xml_desc_format_markup (const gchar *markup, gssize len, guint indent)
 	if (len < 0)
 		len = (gssize) strlen (markup);
 
+	end = markup + len;
 	out = g_string_sized_new (len + 32);
-	for (const gchar *p = markup; *p != '\0';) {
+	for (const gchar *p = markup; p < end;) {
 		const gchar *tag_end = NULL;
 		const gchar *run_end;
 		guint line_indent;
@@ -770,7 +772,7 @@ as_xml_desc_format_markup (const gchar *markup, gssize len, guint indent)
 		}
 
 		if (*p == '<')
-			tag_end = strchr (p, '>');
+			tag_end = memchr (p, '>', end - p);
 		if (tag_end != NULL) {
 			gboolean is_end_tag = (p[1] == '/');
 			const gchar *name = p + (is_end_tag ? 2 : 1);
@@ -833,8 +835,7 @@ as_xml_desc_format_markup (const gchar *markup, gssize len, guint indent)
 			run_end = (tag_end == NULL) ? p + 1 : tag_end + 1;
 		} else {
 			run_end = p;
-			while ((*run_end != '\0') && (*run_end != '<') &&
-			       !g_ascii_isspace (*run_end))
+			while ((run_end < end) && (*run_end != '<') && !g_ascii_isspace (*run_end))
 				run_end++;
 		}
 		for (const gchar *c = p; c < run_end; c++) {
