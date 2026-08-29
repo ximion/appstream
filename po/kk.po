@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-08-28 08:48+0200\n"
-"PO-Revision-Date: 2026-08-23 18:44+0000\n"
+"PO-Revision-Date: 2026-08-29 20:51+0000\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
 "Language-Team: Kazakh <https://hosted.weblate.org/projects/appstream/translations/kk/>\n"
 "Language: kk\n"
@@ -1652,10 +1652,8 @@ msgid "This element (paragraph, list, etc.) of a <description/> tag must not be 
 msgstr "<description/> тегінің бұл элементі (параграф, тізім т.б.) каталог метадеректерінде жеке локализацияланбауы керек. Оның орнына бүкіл <description/> тегін локализациялаңыз. AppStream метадеректер каталогының генераторы (мысалы, `appstream-generator`) деректерді құрастыру кезінде бәрін дұрыс жасайды."
 
 #: src/as-validator-issue-tag.h:64
-#, fuzzy
-#| msgid "AppStream descriptions support only a limited set of tags to format text: Paragraphs (<p/>) and lists (<ul/>, <ol/>). This description markup contains an invalid XML tag that would not be rendered correctly in applications supporting the metainfo specification."
 msgid "AppStream descriptions support only a limited set of tags to format text: Paragraphs (<p/>), section headings (<heading/>) and lists (<ul/>, <ol/>). This description markup contains an invalid XML tag that would not be rendered correctly in applications supporting the metainfo specification."
-msgstr "AppStream сипаттамалары мәтінді пішімдеу үшін тек шектеулі тегтер жиынтығын қолдайды: параграфтар (<p/>) және тізімдер (<ul/>, <ol/>). Бұл сипаттама белгілеуінде metainfo спецификациясын қолдайтын қолданбаларда дұрыс көрсетілмейтін жарамсыз XML тегі бар."
+msgstr "AppStream сипаттамалары мәтінді пішімдеу үшін тегтердің тек шектеулі жиынтығын қолдайды: абзацтар (<p/>), бөлім тақырыптары (<heading/>) және тізімдер (<ul/>, <ol/>). Бұл сипаттама белгілеуі metainfo спецификациясын қолдайтын қолданбаларда дұрыс көрсетілмейтін жарамсыз XML тегін қамтиды."
 
 #: src/as-validator-issue-tag.h:70
 msgid "This description paragraph contains invalid markup. Currently, only <em/> and <code/> are permitted."
@@ -1680,12 +1678,12 @@ msgstr "Тізім толығымен аударылмауы керек. MetaInf
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:99
 msgid "Section headings (`description/heading`) are plain text and must not contain any markup, not even <em/> or <code/>. The markup will be removed when the metadata is read."
-msgstr ""
+msgstr "Бөлім тақырыптары (`description/heading`) жай мәтін болып табылады және кез келген белгілеуді, тіпті <em/> немесе <code/> қамтымауы тиіс. Метадеректер оқылған кезде белгілеу өшіріледі."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:106
 msgid "This section heading (`description/heading`) is very long and will likely not be displayed properly everywhere. A heading should be a short label for the section that follows it, and be <= 80 characters long. Use a paragraph (<p/>) for longer text."
-msgstr ""
+msgstr "Бұл бөлім тақырыбы (`description/heading`) өте ұзақ және барлық жерде дұрыс көрсетілмеуі мүмкін. Тақырып өзінен кейінгі бөлім үшін қысқа жапсырма болуы және ұзындығы <= 80 таңба болуы тиіс. Ұзағырақ мәтін үшін абзацты (<p/>) пайдаланыңыз."
 
 #: src/as-validator-issue-tag.h:113
 msgid "The first `description/p` paragraph of this component might be too short (< 80 characters). Please consider starting with a longer paragraph to improve how the description looks like in software centers and to provide more detailed information on this component immediately in the first paragraph."
@@ -2787,7 +2785,7 @@ msgstr "Мақсатты бума орнатылмаған, деректерді
 #: tools/appstream-compose.c:404
 #, c-format
 msgid "Metadata origin not set, using '%s'"
-msgstr ""
+msgstr "Метадеректердің бастау нүктесі орнатылмаған, '%s' пайдаланылады"
 
 #: tools/appstream-compose.c:409 tools/appstream-compose.c:411
 msgid "WARNING"
@@ -3570,16 +3568,14 @@ msgid "You need to specify a NEWS file as output, or '-' to print to stdout."
 msgstr "Шығару үшін NEWS файлын немесе стандартты шығысқа шығару үшін '-' таңбасын көрсетуіңіз керек."
 
 #: tools/ascli-actions-misc.c:575
-#, fuzzy, c-format
-#| msgid "The release metadata file '%s' is named incorrectly."
+#, c-format
 msgid "Release metadata file '%s' contains no data."
-msgstr "'%s' шығарылым метадеректері файлы қате аталған."
+msgstr "'%s' шығарылым метадеректер файлы ешқандай деректерді қамтымайды."
 
 #: tools/ascli-actions-misc.c:590
-#, fuzzy, c-format
-#| msgid "Metainfo file '%s' does not exist."
+#, c-format
 msgid "Metainfo file '%s' contains no component."
-msgstr "'%s' metainfo файлы жоқ."
+msgstr "'%s' metainfo файлы ешқандай компонентті қамтымайды."
 
 #: tools/ascli-actions-misc.c:599
 #, c-format
@@ -3587,6 +3583,8 @@ msgid ""
 "The metainfo file '%s' references external release data.\n"
 "Run this command on the release metadata file instead."
 msgstr ""
+"'%s' metainfo файлы сыртқы шығарылым деректеріне сілтеме жасайды.\n"
+"Оның орнына бұл команданы шығарылым метадеректер файлында орындаңыз."
 
 #: tools/ascli-actions-misc.c:612
 msgid "You need to specify a NEWS format to write the output in."
@@ -3816,10 +3814,8 @@ msgstr "Орнатылатын компоненттің нөмірін енгі�
 #. we reached the end of the input stream without ever getting an
 #. * answer, e.g. because stdin was closed or is not a terminal
 #: tools/ascli-actions-pkgmgr.c:267
-#, fuzzy
-#| msgid "No component matching '%s' found."
 msgid "No component was selected."
-msgstr "'%s' мәніне сәйкес келетін компонент табылмады."
+msgstr "Ешқандай компонент таңдалмады."
 
 #: tools/ascli-actions-pkgmgr.c:278
 #, c-format
