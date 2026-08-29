@@ -2,8 +2,8 @@ AppStream Release Notes
 
 1. Set variables
 
-OLD_VERSION="1.1.6"
-NEW_VERSION="1.2.0"
+OLD_VERSION="1.2.0"
+NEW_VERSION="1.2.1"
 
 2. Ensure translations are synced from Weblate
 
@@ -12,7 +12,7 @@ NEW_VERSION="1.2.0"
 git shortlog v$OLD_VERSION.. | grep -i -v -E '^\s*(trivial:|l10n:)' | grep -v Merge > NEWS.new
 
 --------------------------------------------------------------------------------
-Version 1.2.0
+Version 1.2.1
 ~~~~~~~~~~~~~
 Released: 2026-xx-xx
 
@@ -52,7 +52,7 @@ git push
 10. Send an email to appstream@lists.freedesktop.org
 
 =================================================
-AppStream 1.2.0 released!
+AppStream 1.2.1 released!
 
 Tarballs available here: https://www.freedesktop.org/software/appstream/releases/
 

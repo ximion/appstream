@@ -1,9 +1,9 @@
 project('AppStream', 'c',
-  meson_version: '>=0.62',
+  meson_version: '>=1.0',
   default_options: ['c_std=gnu17', 'cpp_std=c++20'],
 
   license: 'LGPL-2.1-or-later',
-  version: '1.2.0',
+  version: '1.2.1',
 )
 
 cc = meson.get_compiler('c')
