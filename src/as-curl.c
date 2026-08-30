@@ -79,12 +79,34 @@ as_curl_finalize (GObject *object)
 	G_OBJECT_CLASS (as_curl_parent_class)->finalize (object);
 }
 
+/**
+ * as_curl_make_user_agent:
+ * @client_id: product token identifying the client, e.g. `appstream/1.2.0`
+ *
+ * Build a user agent string for @client_id with the version of the HTTP
+ * library we use appended to it.
+ * Some servers only answer requests from clients that they recognize as
+ * well-behaved automated downloaders, and use the presence of a known
+ * library token to make that decision, so we always advertise libcurl.
+ *
+ * Returns: (transfer full): a newly allocated user agent string.
+ */
+static gchar *
+as_curl_make_user_agent (const gchar *client_id)
+{
+	const curl_version_info_data *cvi = curl_version_info (CURLVERSION_NOW);
+
+	if (cvi == NULL || cvi->version == NULL)
+		return g_strdup (client_id);
+	return g_strdup_printf ("%s libcurl/%s", client_id, cvi->version);
+}
+
 static void
 as_curl_init (AsCurl *acurl)
 {
 	AsCurlPrivate *priv = GET_PRIVATE (acurl);
 
-	priv->user_agent = g_strdup ("appstream/" PACKAGE_VERSION);
+	priv->user_agent = as_curl_make_user_agent ("appstream/" PACKAGE_VERSION);
 
 	/* retry downloads 3 times by default */
 	priv->n_retries = 3;
@@ -306,12 +328,17 @@ as_curl_get_user_agent (AsCurl *acurl)
  * @user_agent: the new user agent string.
  *
  * Set the user agent to use for HTTP requests.
+ * The version of the HTTP library in use is appended automatically,
+ * see %as_curl_make_user_agent for the reasons why.
  **/
 void
 as_curl_set_user_agent (AsCurl *acurl, const gchar *user_agent)
 {
 	AsCurlPrivate *priv = GET_PRIVATE (acurl);
-	as_assign_string_safe (priv->user_agent, user_agent);
+	gchar *new_ua = as_curl_make_user_agent (user_agent);
+
+	g_free (priv->user_agent);
+	priv->user_agent = new_ua;
 	curl_easy_setopt (priv->curl, CURLOPT_USERAGENT, priv->user_agent);
 }
 
