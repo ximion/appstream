@@ -61,6 +61,7 @@ typedef struct {
 	GPtrArray *custom_allowed;
 	gssize max_scr_size_bytes;
 	gchar *cainfo;
+	gchar *user_agent;
 
 	AscComposeFlags flags;
 	AscIconPolicy *icon_policy;
@@ -123,6 +124,7 @@ asc_compose_finalize (GObject *object)
 	g_ptr_array_unref (priv->results);
 	g_ptr_array_unref (priv->custom_allowed);
 	g_free (priv->cainfo);
+	g_free (priv->user_agent);
 
 	g_hash_table_unref (priv->allowed_cids);
 	g_hash_table_unref (priv->known_cids);
@@ -616,6 +618,45 @@ asc_compose_set_cainfo (AscCompose *compose, const gchar *cainfo)
 	locker = g_mutex_locker_new (&priv->mutex);
 
 	as_assign_string_safe (priv->cainfo, cainfo);
+}
+
+/**
+ * asc_compose_get_user_agent:
+ * @compose: an #AscCompose instance.
+ *
+ * Get the user agent used for network requests, or %NULL for the default one.
+ *
+ * Since: 1.2.1
+ */
+const gchar *
+asc_compose_get_user_agent (AscCompose *compose)
+{
+	AscComposePrivate *priv = GET_PRIVATE (compose);
+	g_return_val_if_fail (ASC_IS_COMPOSE (compose), NULL);
+
+	return priv->user_agent;
+}
+
+/**
+ * asc_compose_set_user_agent:
+ * @compose: an #AscCompose instance.
+ * @user_agent: the user agent to use, e.g. `mygenerator/1.0`
+ *
+ * Set the user agent that download operations performed by this #AscCompose
+ * identify themselves with.
+ *
+ * Since: 1.2.1
+ */
+void
+asc_compose_set_user_agent (AscCompose *compose, const gchar *user_agent)
+{
+	AscComposePrivate *priv = GET_PRIVATE (compose);
+	g_autoptr(GMutexLocker) locker = NULL;
+
+	g_return_if_fail (ASC_IS_COMPOSE (compose));
+	locker = g_mutex_locker_new (&priv->mutex);
+
+	as_assign_string_safe (priv->user_agent, user_agent);
 }
 
 /**
@@ -1757,6 +1798,8 @@ asc_compose_process_task_cb (AscComposeTask *ctask, AscCompose *compose)
 	}
 	if (priv->cainfo != NULL)
 		as_curl_set_cainfo (acurl, priv->cainfo);
+	if (priv->user_agent != NULL)
+		as_curl_set_user_agent (acurl, priv->user_agent);
 
 	/* media processing interface for this task - its worker process
 	 * is only spawned if media actually needs to be processed.
