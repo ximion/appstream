@@ -24,9 +24,6 @@
 
 G_BEGIN_DECLS
 
-/* how much of a file we need to determine what it is */
-#define ASW_MEDIA_HEAD_LEN 1024
-
 gsize	 asw_read_fd_head (gint	   fd,
 			   guchar *buf,
 			   gsize   buf_len);

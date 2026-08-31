@@ -151,8 +151,8 @@ asw_describe_data (const guchar *data, gsize len, gchar **content_type)
 
 /**
  * asw_describe_wrong_media:
- * @content_type: the content type we actually received, as determined by
- *   %asw_describe_data.
+ * @content_type: (nullable): the content type we actually have, as determined by
+ *   %asw_describe_data, or %NULL if we could not determine it.
  * @expected_prefix: (nullable): content type prefix the data should have had,
  *   e.g. `image/`, or %NULL if we can not say.
  *
@@ -163,17 +163,20 @@ asw_describe_data (const guchar *data, gsize len, gchar **content_type)
 gchar *
 asw_describe_wrong_media (const gchar *content_type, const gchar *expected_prefix)
 {
-	if (g_strcmp0 (content_type, "text/html") == 0)
-		return g_strdup ("found HTML instead of the expected media, we might have hit "
-				 "an error page or bot protection");
+	if (content_type == NULL)
+		return g_strdup ("the data could not be identified");
 
-	if (g_strcmp0 (content_type, "application/x-zerosize") == 0)
-		return g_strdup ("the server sent no data at all");
+	if (g_str_equal (content_type, "text/html"))
+		return g_strdup ("the data is an HTML document - a download may have hit an error "
+				 "page or bot protection");
+
+	if (g_str_equal (content_type, "application/x-zerosize"))
+		return g_strdup ("the file was empty");
 
 	if (expected_prefix != NULL && g_str_has_prefix (content_type, expected_prefix))
-		return g_strdup_printf ("the received %s data could not be read, it may be "
-					"damaged or truncated",
+		return g_strdup_printf ("the %s data could not be read, it may be damaged "
+					"or truncated",
 					content_type);
 
-	return g_strdup_printf ("an invalid document was downloaded: %s", content_type);
+	return g_strdup_printf ("the data is %s", content_type);
 }
