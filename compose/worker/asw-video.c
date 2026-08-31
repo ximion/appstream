@@ -102,20 +102,20 @@ asw_video_check_container (gint video_fd, GError **error)
 	if (!asw_describe_data (head, head_len, &content_type)) {
 		g_set_error_literal (error,
 				     ASC_MEDIA_ERROR,
-				     ASC_MEDIA_ERROR_BAD_CONTAINER,
+				     ASC_MEDIA_ERROR_UNSUPPORTED,
 				     "The file is not a Matroska or WebM video.");
 	} else if (g_str_has_prefix (content_type, "video/")) {
 		/* a perfectly fine video, just not in a container we take */
 		g_set_error (error,
 			     ASC_MEDIA_ERROR,
-			     ASC_MEDIA_ERROR_BAD_CONTAINER,
+			     ASC_MEDIA_ERROR_UNSUPPORTED,
 			     "The file is not a Matroska or WebM video, but %s.",
 			     content_type);
 	} else {
 		g_autofree gchar *detail = asw_describe_wrong_media (content_type, NULL);
 		g_set_error (error,
 			     ASC_MEDIA_ERROR,
-			     ASC_MEDIA_ERROR_BAD_CONTAINER,
+			     ASC_MEDIA_ERROR_UNSUPPORTED,
 			     "The file is not a Matroska or WebM video: %s.",
 			     detail);
 	}
