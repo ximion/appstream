@@ -132,12 +132,25 @@ asc_extract_video_info (AscResult *cres, AsComponent *cpt, AscMedia *media, cons
 				    &error)) {
 		/* the worker can not inspect videos without ffprobe - we have no opinion on
 		 * this video then, and continue with the metadata that we were given */
-		if (g_error_matches (error, ASC_MEDIA_ERROR, ASC_MEDIA_ERROR_UNSUPPORTED)) {
+		if (g_error_matches (error, ASC_MEDIA_ERROR, ASC_MEDIA_ERROR_MISSING_MODULE)) {
 			asc_video_info_free (vinfo);
 			return NULL;
 		}
 
-		g_warning ("Failed to probe video '%s': %s", vid_fname, error->message);
+		/* we know exactly what this video is, we just do not take it */
+		if (g_error_matches (error, ASC_MEDIA_ERROR, ASC_MEDIA_ERROR_UNSUPPORTED)) {
+			asc_result_add_hint (cres,
+					     cpt,
+					     "screenshot-video-unsupported",
+					     "fname",
+					     vid_basename,
+					     "msg",
+					     error->message,
+					     NULL);
+			/* the video is not acceptable, so the caller will drop it */
+			return vinfo;
+		}
+
 		asc_result_add_hint (cres,
 				     cpt,
 				     asc_media_error_is_worker_failure (error)

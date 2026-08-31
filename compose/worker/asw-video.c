@@ -115,7 +115,7 @@ asw_video_check_container (gint video_fd, GError **error)
 		g_autofree gchar *detail = asw_describe_wrong_media (content_type, NULL);
 		g_set_error (error,
 			     ASC_MEDIA_ERROR,
-			     ASC_MEDIA_ERROR_UNSUPPORTED,
+			     ASC_MEDIA_ERROR_FAILED,
 			     "The file is not a Matroska or WebM video: %s.",
 			     detail);
 	}
@@ -166,7 +166,7 @@ asw_probe_video (gint video_fd, GError **error)
 	if (asc_globals_get_ffprobe_binary () == NULL) {
 		g_set_error_literal (error,
 				     ASC_MEDIA_ERROR,
-				     ASC_MEDIA_ERROR_UNSUPPORTED,
+				     ASC_MEDIA_ERROR_MISSING_MODULE,
 				     "Unable to probe video file: No ffprobe binary was found.");
 		return NULL;
 	}

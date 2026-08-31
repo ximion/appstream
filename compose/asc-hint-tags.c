@@ -228,6 +228,11 @@ AscHintTagStatic asc_hint_tag_list[] =  {
 	  "The error message was: {{msg}}"
 	},
 
+	{ "screenshot-video-unsupported",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  "Unable to use the video file '{{fname}}': {{msg}} Please encode the video as VP9 or AV1 using the WebM or Matroska container."
+	},
+
 	{ "screenshot-video-has-audio",
 	  AS_ISSUE_SEVERITY_INFO,
 	  "The video '{{fname}}' contains an audio track. The audio may not be played by software centers, so ideally you should avoid using audio, "

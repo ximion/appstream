@@ -35,6 +35,7 @@ G_BEGIN_DECLS
  * @ASC_MEDIA_ERROR_TIMEOUT:		A media operation took too long and was aborted.
  * @ASC_MEDIA_ERROR_PROTOCOL:		Communication with the media worker was corrupted.
  * @ASC_MEDIA_ERROR_UNSUPPORTED:	The requested operation or image type was not supported.
+ * @ASC_MEDIA_ERROR_MISSING_MODULE:	An external module was missing to process the request.
  *
  * A media processing error.
  *
@@ -46,6 +47,7 @@ typedef enum {
 	ASC_MEDIA_ERROR_TIMEOUT,
 	ASC_MEDIA_ERROR_PROTOCOL,
 	ASC_MEDIA_ERROR_UNSUPPORTED,
+	ASC_MEDIA_ERROR_MISSING_MODULE,
 	/*< private >*/
 	ASC_MEDIA_ERROR_LAST
 } AscMediaError;
