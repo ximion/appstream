@@ -27,6 +27,7 @@
 
 #include "config.h"
 #include "asw-image-private.h"
+#include "asw-utils.h"
 
 #include <gio/gio.h>
 #include <math.h>
@@ -687,26 +688,20 @@ asw_image_check_data_format (const void *data, gssize len, GError **error)
 }
 
 /**
- * asw_image_new_from_data:
- * @data: Data to load.
- * @len: Length of the data to load.
- * @render_width: The width to rasterize vector graphics at, or 0 for their native size
- * @render_height: The height to rasterize vector graphics at, or 0 for their native size
- * @error: A #GError or %NULL
+ * asw_image_load_data:
  *
- * Creates a new #AswImage from data in memory.
- * The image format is detected from the data itself.
+ * Load image data with libvips.
  *
  * The render size only says how vector graphics should be rasterized - raster
  * images are always decoded at their native size, and the geometry of every
  * rendition is decided when the image is saved.
  **/
-AswImage *
-asw_image_new_from_data (const void *data,
-			 gssize len,
-			 gint render_width,
-			 gint render_height,
-			 GError **error)
+static AswImage *
+asw_image_load_data (const void *data,
+		     gssize len,
+		     gint render_width,
+		     gint render_height,
+		     GError **error)
 {
 	g_autoptr(VipsImage) vimg = NULL;
 	g_autoptr(AswImage) image = asw_image_new ();
@@ -770,6 +765,51 @@ asw_image_new_from_data (const void *data,
 		return NULL;
 
 	return g_steal_pointer (&image);
+}
+
+/**
+ * asw_image_new_from_data:
+ * @data: Data to load.
+ * @len: Length of the data to load.
+ * @render_width: The width to rasterize vector graphics at, or 0 for their native size
+ * @render_height: The height to rasterize vector graphics at, or 0 for their native size
+ * @error: A #GError or %NULL
+ *
+ * Creates a new #AswImage from data in memory.
+ * The image format is detected from the data itself.
+ *
+ * If the data can not be loaded, we inspect it to find out what it actually is
+ * and say so in the error, as media downloads regularly end up delivering
+ * something that is not an image at all.
+ **/
+AswImage *
+asw_image_new_from_data (const void *data,
+			 gssize len,
+			 gint render_width,
+			 gint render_height,
+			 GError **error)
+{
+	g_autoptr(GError) tmp_error = NULL;
+	g_autofree gchar *content_type = NULL;
+	g_autofree gchar *detail = NULL;
+	AswImage *image = asw_image_load_data (data, len, render_width, render_height, &tmp_error);
+
+	if (image != NULL)
+		return image;
+
+	if (!asw_describe_data (data, len < 0 ? 0 : (gsize) len, &content_type)) {
+		g_propagate_error (error, g_steal_pointer (&tmp_error));
+		return NULL;
+	}
+	detail = asw_describe_wrong_media (content_type, "image/");
+
+	g_set_error (error,
+		     tmp_error->domain,
+		     tmp_error->code,
+		     "%s (%s)",
+		     tmp_error->message,
+		     detail);
+	return NULL;
 }
 
 /**

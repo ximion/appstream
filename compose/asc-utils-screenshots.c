@@ -105,174 +105,6 @@ asc_get_filesize (const gchar *filename)
 }
 
 /**
- * asc_data_starts_with_html:
- *
- * Check whether @data looks like the beginning of an HTML document.
- */
-static gboolean
-asc_data_starts_with_html (const guchar *data, gsize len)
-{
-	const gchar *html_tags[] = {
-		"<!doctype html", "<html", "<head", "<body", "<script", "<meta"
-	};
-	gsize offset = 0;
-
-	/* skip an UTF-8 BOM and any leading whitespace */
-	if (len >= 3 && data[0] == 0xEF && data[1] == 0xBB && data[2] == 0xBF)
-		offset = 3;
-	while (offset < len && g_ascii_isspace (data[offset]))
-		offset++;
-
-	for (gsize i = 0; i < G_N_ELEMENTS (html_tags); i++) {
-		gsize tag_len = strlen (html_tags[i]);
-		if (len - offset < tag_len)
-			continue;
-		if (g_ascii_strncasecmp ((const gchar *) data + offset, html_tags[i], tag_len) == 0)
-			return TRUE;
-	}
-
-	return FALSE;
-}
-
-/**
- * asc_describe_media_data:
- * @bytes: the data to inspect.
- * @len: length of @bytes.
- * @content_type: (out) (optional) (nullable): the content type we found, or %NULL
- *   if we could not determine it.
- *
- * Determine what @bytes actually is by looking at its content, so we can say
- * something more useful than "unrecognized" when a screenshot image or video was
- * rejected. Screenshot URLs regularly end up serving something that is not media
- * at all, for example an error page or an anti-bot challenge from the hosting site.
- *
- * Returns: %TRUE if we could determine the content type, which is then returned
- * in @content_type.
- */
-static gboolean
-asc_describe_media_data (const guchar *bytes, gsize len, gchar **content_type)
-{
-	g_autofree gchar *guessed_type = NULL;
-	gboolean uncertain = TRUE;
-
-	if (content_type != NULL)
-		*content_type = NULL;
-
-	if (bytes == NULL || len == 0) {
-		if (content_type != NULL)
-			*content_type = g_strdup ("application/x-zerosize");
-		return TRUE;
-	}
-
-	/* We handle HTML detection ourself in case shared-mime-info is missing.
-	 * Due to the prevalence of AI-defenses, this is the one thing we need
-	 * to detect now, to give better error messages. */
-	if (asc_data_starts_with_html (bytes, len)) {
-		if (content_type != NULL)
-			*content_type = g_strdup ("text/html");
-		return TRUE;
-	}
-
-	guessed_type = g_content_type_guess (NULL, bytes, len, &uncertain);
-	if (guessed_type == NULL || uncertain)
-		return FALSE;
-
-	/* this is what we get told when there is nothing to tell */
-	if (g_strcmp0 (guessed_type, "application/octet-stream") == 0)
-		return FALSE;
-
-	if (content_type != NULL)
-		*content_type = g_steal_pointer (&guessed_type);
-
-	return TRUE;
-}
-
-/**
- * asc_read_file_head:
- *
- * Read up to @buf_len leading bytes of @fname into @buf.
- *
- * Returns: the amount of bytes read, zero if the file could not be read at all.
- */
-static gsize
-asc_read_file_head (const gchar *fname, guchar *buf, gsize buf_len)
-{
-	size_t len;
-	FILE *f = g_fopen (fname, "rb");
-
-	if (f == NULL)
-		return 0;
-	len = fread (buf, 1, buf_len, f);
-	fclose (f);
-
-	return len;
-}
-
-/**
- * asc_describe_media_file:
- * @fname: the file to inspect.
- * @content_type: (out) (optional) (nullable): the content type we found, or %NULL.
- *
- * Like %asc_describe_media_data, but for media that we streamed to a file.
- *
- * Returns: %TRUE if we could determine the content type.
- */
-static gboolean
-asc_describe_media_file (const gchar *fname, gchar **content_type)
-{
-	guchar head[1024];
-	gsize head_len = asc_read_file_head (fname, head, sizeof (head));
-
-	return asc_describe_media_data (head, head_len, content_type);
-}
-
-/**
- * asc_file_is_matroska:
- *
- * Check whether @fname starts with an EBML header.
- * Since those are the only containers we accept for screenshot videos, this is
- * enough to tell a video we could use from anything else.
- */
-static gboolean
-asc_file_is_matroska (const gchar *fname)
-{
-	const guchar ebml_magic[] = { 0x1A, 0x45, 0xDF, 0xA3 };
-	guchar head[sizeof (ebml_magic)];
-	gsize head_len = asc_read_file_head (fname, head, sizeof (head));
-
-	return head_len == sizeof (ebml_magic) &&
-	       memcmp (head, ebml_magic, sizeof (ebml_magic)) == 0;
-}
-
-/**
- * asc_build_wrong_media_message:
- * @content_type: the content type we actually received.
- * @expected_prefix: (nullable): content type prefix that the download should have
- *   had, e.g. `image/`, or %NULL if we can not say.
- *
- * Explain what we ended up with instead of usable media. Data of the type that we
- * did want is reported as damaged rather than as the wrong kind of file, so we do
- * not send people looking for a server issue when their image is merely broken.
- */
-static gchar *
-asc_build_wrong_media_message (const gchar *content_type, const gchar *expected_prefix)
-{
-	if (as_str_equal0 (content_type, "text/html"))
-		return g_strdup ("Found HTML instead of the expected media. We might have hit an "
-				 "error page or bot protection.");
-
-	if (as_str_equal0 (content_type, "application/x-zerosize"))
-		return g_strdup ("The server sent no data at all.");
-
-	if (expected_prefix != NULL && g_str_has_prefix (content_type, expected_prefix))
-		return g_strdup_printf ("The downloaded %s data could not be read, it may be "
-					"damaged or truncated.",
-					content_type);
-
-	return g_strdup_printf ("Downloaded an invalid document: %s", content_type);
-}
-
-/**
  * asc_extract_video_info: (skip):
  */
 AscVideoInfo *
@@ -283,8 +115,6 @@ asc_extract_video_info (AscResult *cres, AsComponent *cpt, AscMedia *media, cons
 	gboolean audio_okay = FALSE;
 	g_autoptr(GError) error = NULL;
 
-	if (asc_globals_get_ffprobe_binary () == NULL)
-		return NULL;
 	if (vid_fname == NULL)
 		return NULL;
 
@@ -300,23 +130,14 @@ asc_extract_video_info (AscResult *cres, AsComponent *cpt, AscMedia *media, cons
 				    &vinfo->width,
 				    &vinfo->height,
 				    &error)) {
-		g_autofree gchar *content_type = NULL;
-		g_autofree gchar *data_desc = NULL;
-		g_autofree gchar *probe_err = NULL;
-		g_autofree gchar *msg = NULL;
+		/* the worker can not inspect videos without ffprobe - we have no opinion on
+		 * this video then, and continue with the metadata that we were given */
+		if (g_error_matches (error, ASC_MEDIA_ERROR, ASC_MEDIA_ERROR_UNSUPPORTED)) {
+			asc_video_info_free (vinfo);
+			return NULL;
+		}
 
-		/* ffprobe frequently fails without saying anything useful, so look at the
-		 * file ourselves to find out what we are actually dealing with */
-		probe_err = g_strstrip (g_strdup (error->message));
-		if (asc_describe_media_file (vid_fname, &content_type))
-			data_desc = asc_build_wrong_media_message (content_type, "video/");
-
-		if (data_desc == NULL)
-			msg = g_steal_pointer (&probe_err);
-		else
-			msg = g_strdup_printf ("%s (%s)", probe_err, data_desc);
-
-		g_warning ("Failed to probe video '%s': %s", vid_fname, msg);
+		g_warning ("Failed to probe video '%s': %s", vid_fname, error->message);
 		asc_result_add_hint (cres,
 				     cpt,
 				     asc_media_error_is_worker_failure (error)
@@ -325,7 +146,7 @@ asc_extract_video_info (AscResult *cres, AsComponent *cpt, AscMedia *media, cons
 				     "fname",
 				     vid_basename,
 				     "msg",
-				     msg,
+				     error->message,
 				     NULL);
 		return vinfo;
 	}
@@ -489,34 +310,9 @@ asc_process_screenshot_videos (AscResult *cres,
 		}
 
 		vinfo = asc_extract_video_info (cres, cpt, media, scr_vid_path);
-		/* if vinfo is NULL, we couldn't gather the required info because ffprobe is missing.
-		 * continue with incomplete metadata in that case, but still ensure we ended up with
-		 * a video in an MKV/WebM container. */
-		if (vinfo == NULL && !asc_file_is_matroska (scr_vid_path)) {
-			g_autofree gchar *content_type = NULL;
-			g_autofree gchar *msg = NULL;
-
-			asc_describe_media_file (scr_vid_path, &content_type);
-			if (content_type == NULL)
-				msg = g_strdup ("The file is not a Matroska or WebM video.");
-			else if (g_str_has_prefix (content_type, "video/"))
-				msg = g_strdup_printf (
-				    "The file is not a Matroska or WebM video, but %s.",
-				    content_type);
-			else
-				msg = asc_build_wrong_media_message (content_type, NULL);
-
-			asc_result_add_hint (cres,
-					     cpt,
-					     "screenshot-video-check-failed",
-					     "fname",
-					     scr_vid_name,
-					     "msg",
-					     msg,
-					     NULL);
-			g_remove (scr_vid_path);
-			continue;
-		}
+		/* if vinfo is NULL, the worker had no ffprobe to inspect the video with.
+		 * continue with incomplete metadata in that case - the worker has already
+		 * verified that we are dealing with a container that we support */
 		if (vinfo != NULL) {
 			if (!vinfo->is_acceptable) {
 				asc_video_info_free (vinfo);
@@ -575,11 +371,9 @@ static void
 asc_add_screenshot_media_error_hint (AscResult *cres,
 				     AsComponent *cpt,
 				     const gchar *img_url,
-				     GBytes *img_data,
 				     const gchar *context_msg,
 				     const GError *error)
 {
-	g_autofree gchar *data_desc = NULL;
 	g_autofree gchar *msg = NULL;
 
 	if (asc_media_error_is_worker_failure (error)) {
@@ -594,18 +388,7 @@ asc_add_screenshot_media_error_hint (AscResult *cres,
 		return;
 	}
 
-	if (img_data != NULL) {
-		gsize len;
-		g_autofree gchar *content_type = NULL;
-		const guchar *bytes = g_bytes_get_data (img_data, &len);
-		if (asc_describe_media_data (bytes, len, &content_type))
-			data_desc = asc_build_wrong_media_message (content_type, "image/");
-	}
-
-	if (data_desc == NULL)
-		msg = g_strdup_printf ("%s: %s", context_msg, error->message);
-	else
-		msg = g_strdup_printf ("%s: %s (%s)", context_msg, error->message, data_desc);
+	msg = g_strdup_printf ("%s: %s", context_msg, error->message);
 
 	asc_result_add_hint (cres,
 			     cpt,
@@ -741,7 +524,6 @@ asc_process_screenshot_images_lang (AscResult *cres,
 			    cres,
 			    cpt,
 			    orig_img_url,
-			    img_bytes,
 			    "Could not load source screenshot for storing",
 			    error);
 			return FALSE;
@@ -798,7 +580,6 @@ asc_process_screenshot_images_lang (AscResult *cres,
 			    cres,
 			    cpt,
 			    orig_img_url,
-			    img_bytes,
 			    "Could not load source screenshot for storing",
 			    error);
 			return FALSE;
@@ -907,7 +688,6 @@ asc_process_screenshot_images_lang (AscResult *cres,
 			    cres,
 			    cpt,
 			    orig_img_url,
-			    img_bytes,
 			    "Could not load source screenshot for thumbnailing",
 			    error);
 			g_error_free (g_steal_pointer (&error));

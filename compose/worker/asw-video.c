@@ -25,6 +25,7 @@
 
 #include "config.h"
 #include "asw-video.h"
+#include "asw-utils.h"
 
 #include <unistd.h>
 
@@ -113,6 +114,41 @@ asw_probe_video (gint video_fd, GError **error)
 					"fd:",
 					NULL };
 
+	{
+		guchar head[ASW_MEDIA_HEAD_LEN];
+		gsize head_len = asw_read_fd_head (video_fd, head, sizeof (head));
+
+		/* reject anything that isn't Matroska/WebM before we even try ffprobe */
+		if (!asw_data_is_matroska (head, head_len)) {
+			g_autofree gchar *content_type = NULL;
+
+			if (!asw_describe_data (head, head_len, &content_type)) {
+				g_set_error_literal (error,
+						     ASC_MEDIA_ERROR,
+						     ASC_MEDIA_ERROR_FAILED,
+						     "The file is not a Matroska or WebM video.");
+			} else if (g_str_has_prefix (content_type, "video/")) {
+				/* a perfectly fine video, just not in a container we take */
+				g_set_error (error,
+					     ASC_MEDIA_ERROR,
+					     ASC_MEDIA_ERROR_FAILED,
+					     "The file is not a Matroska or WebM video, but %s.",
+					     content_type);
+			} else {
+				g_autofree gchar *detail = asw_describe_wrong_media (content_type,
+										     NULL);
+				g_set_error (error,
+					     ASC_MEDIA_ERROR,
+					     ASC_MEDIA_ERROR_FAILED,
+					     "The file is not a Matroska or WebM video: %s.",
+					     detail);
+			}
+			return NULL;
+		}
+	}
+
+	/* probing is simply unavailable without ffprobe - the client decides what to
+	 * make of a video that we could not inspect */
 	if (asc_globals_get_ffprobe_binary () == NULL) {
 		g_set_error_literal (error,
 				     ASC_MEDIA_ERROR,
