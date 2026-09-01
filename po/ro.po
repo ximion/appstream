@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-08-28 08:48+0200\n"
-"PO-Revision-Date: 2026-08-22 19:51+0000\n"
+"PO-Revision-Date: 2026-09-01 09:51+0000\n"
 "Last-Translator: Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>\n"
 "Language-Team: Romanian <https://hosted.weblate.org/projects/appstream/translations/ro/>\n"
 "Language: ro\n"
@@ -1653,10 +1653,8 @@ msgid "This element (paragraph, list, etc.) of a <description/> tag must not be 
 msgstr "Acest element (paragraf, listă etc.) al unei etichete <description/> nu trebuie să fie localizat individual în metadatele de catalog. Localizați în schimb întreaga etichetă <description/>. Generatorul catalogului de metadate AppStream (de exemplu «appstream-generator») va face deja ceea ce trebuie atunci când compilează datele."
 
 #: src/as-validator-issue-tag.h:64
-#, fuzzy
-#| msgid "AppStream descriptions support only a limited set of tags to format text: Paragraphs (<p/>) and lists (<ul/>, <ol/>). This description markup contains an invalid XML tag that would not be rendered correctly in applications supporting the metainfo specification."
 msgid "AppStream descriptions support only a limited set of tags to format text: Paragraphs (<p/>), section headings (<heading/>) and lists (<ul/>, <ol/>). This description markup contains an invalid XML tag that would not be rendered correctly in applications supporting the metainfo specification."
-msgstr "Descrierile AppStream acceptă doar un set limitat de etichete pentru a formata textul: Paragrafele (<p/>) și listele (<ul/>, <ol/>). Această marcare a descrierii conține o etichetă XML nevalidă care nu ar fi redată corect în aplicațiile care acceptă specificația de meta-informații."
+msgstr "Descrierile AppStream acceptă doar un set limitat de etichete pentru a formata textul: paragrafele (<p/>), titlurile secțiunilor (<heading/>) și listele (<ul/>, <ol/>). Această marcare a descrierii conține o etichetă XML nevalidă care nu ar fi redată corect în aplicațiile care acceptă specificația de meta-informații."
 
 #: src/as-validator-issue-tag.h:70
 msgid "This description paragraph contains invalid markup. Currently, only <em/> and <code/> are permitted."
@@ -1681,12 +1679,12 @@ msgstr "Enumerarea nu trebuie să fie tradusă ca un întreg. În fișierele de 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:99
 msgid "Section headings (`description/heading`) are plain text and must not contain any markup, not even <em/> or <code/>. The markup will be removed when the metadata is read."
-msgstr ""
+msgstr "Titlurile secțiunilor („description/heading”) sunt text simplu și nu trebuie să conțină niciun element de marcare, nici măcar <em/> sau <code/>. Elementele de marcare vor fi eliminate la citirea metadatelor."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:106
 msgid "This section heading (`description/heading`) is very long and will likely not be displayed properly everywhere. A heading should be a short label for the section that follows it, and be <= 80 characters long. Use a paragraph (<p/>) for longer text."
-msgstr ""
+msgstr "Titlul acestei secțiuni („description/heading”) este foarte lung și, probabil, nu va fi afișat corect peste tot. Un titlu ar trebui să fie o denumire scurtă pentru secțiunea care urmează și să aibă o lungime de cel mult 80 de caractere. Pentru textul mai lung, folosiți un paragraf (<p/>)."
 
 #: src/as-validator-issue-tag.h:113
 msgid "The first `description/p` paragraph of this component might be too short (< 80 characters). Please consider starting with a longer paragraph to improve how the description looks like in software centers and to provide more detailed information on this component immediately in the first paragraph."
@@ -2788,7 +2786,7 @@ msgstr "Nu este definit niciun director de destinație, vă rugăm să furnizaț
 #: tools/appstream-compose.c:404
 #, c-format
 msgid "Metadata origin not set, using '%s'"
-msgstr ""
+msgstr "Originea metadatelor nu este definită, se utilizează „%s”"
 
 #: tools/appstream-compose.c:409 tools/appstream-compose.c:411
 msgid "WARNING"
@@ -3571,16 +3569,14 @@ msgid "You need to specify a NEWS file as output, or '-' to print to stdout."
 msgstr "Trebuie să specificați un fișier NEWS ca ieșire, sau „-” pentru a afișa datele la ieșirea standard."
 
 #: tools/ascli-actions-misc.c:575
-#, fuzzy, c-format
-#| msgid "The release metadata file '%s' is named incorrectly."
+#, c-format
 msgid "Release metadata file '%s' contains no data."
-msgstr "Fișierul de metadate de lansare de versiune \"%s\" are un nume incorect."
+msgstr "Fișierul de metadate de lansare de versiune „%s” nu conține date."
 
 #: tools/ascli-actions-misc.c:590
-#, fuzzy, c-format
-#| msgid "Metainfo file '%s' does not exist."
+#, c-format
 msgid "Metainfo file '%s' contains no component."
-msgstr "Fișierul de meta-informații „%s” nu există."
+msgstr "Fișierul de meta-informații „%s” nu conține componente."
 
 #: tools/ascli-actions-misc.c:599
 #, c-format
@@ -3588,6 +3584,8 @@ msgid ""
 "The metainfo file '%s' references external release data.\n"
 "Run this command on the release metadata file instead."
 msgstr ""
+"Fișierul de meta-informații „%s” face referire la date externe privind versiunea.\n"
+"Executați această comandă pe fișierul de metadate al versiunii."
 
 #: tools/ascli-actions-misc.c:612
 msgid "You need to specify a NEWS format to write the output in."
@@ -3817,10 +3815,8 @@ msgstr "Vă rugăm să introduceți numărul componentei de instalat:"
 #. we reached the end of the input stream without ever getting an
 #. * answer, e.g. because stdin was closed or is not a terminal
 #: tools/ascli-actions-pkgmgr.c:267
-#, fuzzy
-#| msgid "No component matching '%s' found."
 msgid "No component was selected."
-msgstr "Nu s-a găsit nicio componentă care să coincidă cu „%s”."
+msgstr "Nu a fost selectată nicio componentă."
 
 #: tools/ascli-actions-pkgmgr.c:278
 #, c-format
