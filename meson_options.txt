@@ -6,7 +6,7 @@ option('stemming',
 option('systemd',
        type : 'boolean',
        value : true,
-       description : 'Build with systemd support'
+       description : 'Build with systemd/elogind support'
 )
 option('vapi',
        type : 'boolean',
