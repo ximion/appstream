@@ -479,7 +479,7 @@ as_get_physical_memory_total (void)
 	struct sysinfo si = { 0 };
 	sysinfo (&si);
 	if (si.mem_unit > 0)
-		return (si.totalram * si.mem_unit) / MB_IN_BYTES;
+		return ((guint64) si.totalram * si.mem_unit) / MB_IN_BYTES;
 	return 0;
 #elif defined(__FreeBSD__) || defined(__NetBSD__)
 	unsigned long physmem;
