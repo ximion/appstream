@@ -228,14 +228,15 @@ endif
 
 stemmer_inc_dirs = include_directories()
 if get_option('stemming')
+    libstemmer_include_dir = get_option ('libstemmer_include_dir')
+    if libstemmer_include_dir != ''
+        stemmer_inc_dirs = include_directories(libstemmer_include_dir)
+    endif
     stemmer_lib = cc.find_library('stemmer', required: true)
-    stemmer_inc_dirs = include_directories(['/usr/include'])
-    if not cc.has_header('libstemmer.h')
-        if cc.has_header('libstemmer/libstemmer.h')
-            stemmer_inc_dirs = include_directories('/usr/include/libstemmer')
-        else
-            error('Unable to find Snowball header "libstemmer.h". Please ensure libstemmer/Snowball is installed properly in order to continue.')
-        endif
+    if not cc.has_header('libstemmer.h', include_directories: stemmer_inc_dirs)
+        error('Unable to find Snowball header "libstemmer.h". ' +
+              'Ensure libstemmer.h is on the include path of your compiler, ' +
+              'or set its location via the "libstemmer_include_dir" option.')
     endif
 endif
 

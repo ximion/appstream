@@ -3,6 +3,11 @@ option('stemming',
        value : true,
        description : 'Use stemming while searching. Requires Snowball (libstemmer)'
 )
+option('libstemmer_include_dir',
+       type : 'string',
+       value : '',
+       description : 'The include directory of the libstemmer library'
+)
 option('systemd',
        type : 'boolean',
        value : true,
