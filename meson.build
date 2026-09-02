@@ -202,7 +202,7 @@ else
     zstd_dep = dependency('', required: false)
 endif
 if get_option('systemd')
-    libsystemd_dep = dependency('libsystemd', required: get_option('systemd'))
+    libsystemd_dep = dependency('libsystemd', 'libelogind', required: get_option('systemd'))
 else
     libsystemd_dep = dependency('', required: false)
 endif
