@@ -24,7 +24,11 @@
 #include <glib.h>
 #include <string.h>
 #ifdef HAVE_STEMMING
+#ifdef HAVE_LIBSTEMMER_SUBDIR
+#include <libstemmer/libstemmer.h>
+#else
 #include <libstemmer.h>
+#endif
 #endif
 
 #include "as-utils.h"

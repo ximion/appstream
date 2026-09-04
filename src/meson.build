@@ -207,7 +207,7 @@ aslib_deps = [
     coregraphics_dep,
 ]
 if get_option ('stemming')
-    aslib_deps += [stemmer_lib]
+    aslib_deps += [stemmer_dep]
 endif
 
 appstream_lib = library ('appstream',
@@ -220,8 +220,7 @@ appstream_lib = library ('appstream',
     soversion: as_api_level,
     version: as_version,
     dependencies: [aslib_deps],
-    include_directories: [stemmer_inc_dirs,
-                          root_inc_dir],
+    include_directories: [root_inc_dir],
     install: true
 )
 

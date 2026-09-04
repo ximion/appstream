@@ -226,16 +226,23 @@ if get_option ('gir')
     dependency('gobject-introspection-1.0', version: '>=1.56')
 endif
 
-stemmer_inc_dirs = include_directories()
+stemmer_dep = dependency('', required: false)
 if get_option('stemming')
-    stemmer_lib = cc.find_library('stemmer', required: true)
-    stemmer_inc_dirs = include_directories(['/usr/include'])
-    if not cc.has_header('libstemmer.h')
-        if cc.has_header('libstemmer/libstemmer.h')
-            stemmer_inc_dirs = include_directories('/usr/include/libstemmer')
-        else
-            error('Unable to find Snowball header "libstemmer.h". Please ensure libstemmer/Snowball is installed properly in order to continue.')
-        endif
+    # Snowball doesn't have an upstream pkg-conf file, but some distros conveniently add one
+    # See https://github.com/snowballstem/snowball/issues/190
+    stemmer_dep = dependency('libstemmer', required: false)
+    if not stemmer_dep.found()
+        stemmer_dep = cc.find_library('stemmer', required: true)
+    endif
+
+    # The Snowball header is either installed directly into an include directory,
+    # or into a "libstemmer" subdirectory of it.
+    if cc.has_header('libstemmer.h', dependencies: [stemmer_dep])
+        conf.set('HAVE_LIBSTEMMER_SUBDIR', false)
+    elif cc.has_header('libstemmer/libstemmer.h', dependencies: [stemmer_dep])
+        conf.set('HAVE_LIBSTEMMER_SUBDIR', true)
+    else
+        error('Unable to find Snowball header "libstemmer.h". Please ensure libstemmer/Snowball is installed properly in order to continue.')
     endif
 endif
 
