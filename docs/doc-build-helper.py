@@ -32,6 +32,42 @@ from pathlib import Path
 EXTRA_CSS = [['/usr/share/javascript/highlight.js/styles/routeros.css', 'highlight.css']]
 
 
+def prepare_profile_dirs(src_dir, build_dir, daps_exe):
+    """Create the directories that DAPS profiles the XML sources into.
+
+    DAPS profiles all XML sources in parallel, but its make rule for that only
+    depends on the toplevel profiling directory to exist. Any subdirectory of it
+    (we have one for the manual pages) is created implicitly by libxslt when the
+    result is written, and that creation is not race-safe: If two xsltproc jobs
+    write into the same new subdirectory at the same time, one of them may fail
+    with "xsltApplyStylesheet: saving to [...] may not be possible".
+    So we simply create the directories in advance to avoid the race.
+    """
+    try:
+        proc = subprocess.run(
+            [daps_exe, 'showvariable', 'VARIABLE=PROFILEDIR'],
+            cwd=src_dir,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+    except (OSError, subprocess.CalledProcessError) as e:
+        # not being able to do this is not fatal, we just may hit the rare race again
+        print('Unable to determine the DAPS profiling directory:', e)
+        return
+
+    profile_dir = proc.stdout.strip().split('\n')[-1].strip()
+    if not os.path.isabs(profile_dir) or os.path.commonpath([build_dir, profile_dir]) != build_dir:
+        print('DAPS returned an unexpected profiling directory:', profile_dir)
+        return
+
+    xml_dir = os.path.join(src_dir, 'xml')
+    for root, _, files in os.walk(xml_dir):
+        if root == xml_dir or not any(fname.endswith('.xml') for fname in files):
+            continue
+        os.makedirs(os.path.join(profile_dir, os.path.relpath(root, xml_dir)), exist_ok=True)
+
+
 def daps_build(src_dir, project_name, daps_exe, valsec_gen):
     print('Creating HTML with DAPS...')
     sys.stdout.flush()
@@ -50,6 +86,7 @@ def daps_build(src_dir, project_name, daps_exe, valsec_gen):
     if os.path.exists(build_dir):
         shutil.rmtree(build_dir)
     os.makedirs(build_dir, exist_ok=True)
+    prepare_profile_dirs(src_dir, build_dir, daps_exe)
 
     ret = subprocess.call(cmd, cwd=src_dir)
     if ret != 0:
@@ -109,6 +146,7 @@ def daps_validate(src_dir, daps_exe, valsec_gen):
     if os.path.exists(build_dir):
         shutil.rmtree(build_dir)
     os.makedirs(build_dir, exist_ok=True)
+    prepare_profile_dirs(src_dir, build_dir, daps_exe)
 
     ret = subprocess.call([daps_exe, 'validate'], cwd=src_dir)
     if ret != 0:
