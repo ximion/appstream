@@ -253,7 +253,8 @@ pkgc.generate(
 sed_prog = find_program('sed')
 pc_fixup = run_command(sed_prog,
                        '-i.old',
-                       '/^Requires.private\|^Libs.private/ d',
+                       '-e', '/^Requires\.private/ d',
+                       '-e', '/^Libs\.private/ d',
                        meson.global_build_root() / 'meson-private' / 'appstream.pc',
                        check: false)
 if pc_fixup.returncode() != 0
