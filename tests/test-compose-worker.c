@@ -472,6 +472,15 @@ test_image_physical_size (void)
 	g_assert_cmpint (asw_image_get_width (image), ==, 64);
 	g_assert_cmpint (asw_image_get_height (image), ==, 64);
 
+	/* libvips reads the ARGB32 pixels that cairo renders vector graphics into as if they were
+	 * laid out in little-endian byte order, so on big-endian machines every drawing comes out
+	 * with its channels scrambled (opaque red turns into transparent cyan). Until that is
+	 * fixed in libvips, we can only check the geometry of the rendering there. */
+	if (G_BYTE_ORDER == G_BIG_ENDIAN) {
+		g_test_skip ("libvips scrambles the colors of vector graphics on big-endian machines");
+		return;
+	}
+
 	asx_assert_pixel_is_marker (image, 60, 60);
 	g_clear_object (&image);
 

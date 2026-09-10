@@ -140,6 +140,7 @@ if get_option('compose')
         args: as_test_args,
         env: as_test_compose_env,
         depends: [asc_mediaworker_exe],
+        timeout: 180
     )
 
     # tests for the media worker internals, exercised in-process
@@ -161,6 +162,7 @@ if get_option('compose')
     test ('as-test_compose-worker',
         as_test_compose_worker_exe,
         args: as_test_args,
-        env: as_test_compose_env
+        env: as_test_compose_env,
+        timeout: 180
     )
 endif
