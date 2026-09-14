@@ -26,7 +26,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-08-28 08:48+0200\n"
-"PO-Revision-Date: 2026-08-29 20:51+0000\n"
+"PO-Revision-Date: 2026-09-14 14:51+0000\n"
 "Last-Translator: Arif Budiman <arifpedia@gmail.com>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/appstream/translations/id/>\n"
 "Language: id\n"
@@ -34,7 +34,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 2026.9.dev0\n"
+"X-Generator: Weblate 2026.10.dev0\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1479,10 +1479,9 @@ msgstr "Alasan tidak diketahui"
 
 #. TRANSLATORS: We failed to fetch a software rating from the ODRS review server
 #: src/as-reviews-client.c:1247
-#, fuzzy, c-format
-#| msgid "Unable to find component matching %s!"
+#, c-format
 msgid "Unable to fetch software rating: %s"
-msgstr "Tidak bisa menemukan komponen yang cocok %s!"
+msgstr "Tidak dapat mengambil penilaian perangkat lunak: %s"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:39
@@ -1671,10 +1670,8 @@ msgid "This element (paragraph, list, etc.) of a <description/> tag must not be 
 msgstr "Elemen ini (paragraf, daftar, dll.) dari tag <description/> tidak boleh dilokalkan secara individual dalam metadata katalog. Lokalkan seluruh tag <description/> sebagai gantinya. Generator katalog metadata AppStream (mis. `appstream-generator`) sudah akan melakukan hal yang benar saat mengompilasi data."
 
 #: src/as-validator-issue-tag.h:64
-#, fuzzy
-#| msgid "AppStream descriptions support only a limited set of tags to format text: Paragraphs (<p/>) and lists (<ul/>, <ol/>). This description markup contains an invalid XML tag that would not be rendered correctly in applications supporting the metainfo specification."
 msgid "AppStream descriptions support only a limited set of tags to format text: Paragraphs (<p/>), section headings (<heading/>) and lists (<ul/>, <ol/>). This description markup contains an invalid XML tag that would not be rendered correctly in applications supporting the metainfo specification."
-msgstr "Deskripsi AppStream hanya mendukung serangkaian tag terbatas untuk memformat teks: Paragraf (<p/>) dan daftar (<ul/>, <ol/>). Markup deskripsi ini berisi tag XML yang tidak valid yang tidak akan ditampilkan dengan benar dalam aplikasi yang mendukung spesifikasi metainfo."
+msgstr "Deskripsi AppStream hanya mendukung sejumlah tag terbatas untuk memformat teks: paragraf (<p/>), judul bagian (<heading/>), dan daftar (<ul/>, <ol/>). Markup deskripsi ini berisi tag XML tidak valid yang tidak akan dirender dengan benar pada aplikasi yang mendukung spesifikasi metainfo."
 
 #: src/as-validator-issue-tag.h:70
 msgid "This description paragraph contains invalid markup. Currently, only <em/> and <code/> are permitted."
@@ -2462,10 +2459,8 @@ msgid "The issue is tagged at security vulnerability with a CVE number, but its 
 msgstr "Masalah ini ditandai sebagai kerentanan keamanan dengan nomor CVE, tetapi nilainya tidak tampak seperti pengenal CVE yang valid."
 
 #: src/as-validator-issue-tag.h:1082
-#, fuzzy
-#| msgid "The issue is tagged at security vulnerability with a CVE number, but its value does not look like a valid CVE identifier."
 msgid "The issue is tagged as security vulnerability with a GCVE identifier, but its value does not follow the `GCVE-<GNA-ID>-<YEAR>-<UNIQUE-ID>` scheme of the Global CVE Allocation System."
-msgstr "Masalah ini ditandai pada kerentanan keamanan dengan nomor CVE, tetapi nilainya tidak terlihat seperti pengenal CVE yang valid."
+msgstr "Masalah tersebut ditandai sebagai kerentanan keamanan dengan pengenal GCVE, tetapi nilainya tidak mengikuti skema `GCVE-<GNA-ID>-<YEAR>-<UNIQUE-ID>` dari Global CVE Allocation System."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1089
@@ -2486,9 +2481,8 @@ msgid "Licenses for `runtime` components are usually too complex to reflect them
 msgstr "Lisensi untuk komponen `runtime` biasanya terlalu kompleks untuk direfleksikan dalam ekspresi SPDX sederhana. Pertimbangkan menggunakan `LicenseRef` dan URL web sebagai nilai untuk `project_license` komponen ini. Mis. `LicenseRef-free=https://example.com/licenses.html`"
 
 #: src/as-validator-issue-tag.h:1113
-#, fuzzy
 msgid "Since a `runtime` component consists of multiple other software components, their component-IDs may be listed in a `<provides/>` section for this runtime."
-msgstr "Karena komponen `runtime` terdiri dari beberapa komponen perangkat lunak lain, ID-komponennya dapat dicantumkan dalam bagian `<provides/>` untuk runtime ini."
+msgstr "Karena komponen `runtime` terdiri atas beberapa komponen perangkat lunak lain, ID komponen tersebut dapat dicantumkan dalam bagian `<provides/>` untuk runtime ini."
 
 #: src/as-validator-issue-tag.h:1118
 msgid "The type of the item that the component provides is not known to AppStream."
@@ -3253,10 +3247,8 @@ msgstr "Buat katalog metadata AppStream dari pohon direktori."
 
 #. TRANSLATORS: `appstreamcli list-reviews` command description.
 #: tools/appstreamcli.c:1713
-#, fuzzy
-#| msgid "We have information on %i software components."
 msgid "List online user reviews for a software component."
-msgstr "Kami punya informasi atas %i komponen perangkat lunak."
+msgstr "Tampilkan ulasan pengguna daring untuk komponen perangkat lunak."
 
 #. TRANSLATORS: `appstreamcli submit-review` command description.
 #: tools/appstreamcli.c:1726
@@ -3599,10 +3591,9 @@ msgid "Release metadata file '%s' contains no data."
 msgstr "File metadata rilis '%s' tidak berisi data apa pun."
 
 #: tools/ascli-actions-misc.c:590
-#, fuzzy, c-format
-#| msgid "Metainfo file '%s' does not exist."
+#, c-format
 msgid "Metainfo file '%s' contains no component."
-msgstr "Berkas metainfo '%s' tidak ada."
+msgstr "Berkas metainfo '%s' tidak berisi komponen."
 
 #: tools/ascli-actions-misc.c:599
 #, c-format
@@ -3677,10 +3668,8 @@ msgid "logical px"
 msgstr "px logis"
 
 #: tools/ascli-actions-misc.c:726
-#, fuzzy
-#| msgid "Unable to read file."
 msgid "unable to determine"
-msgstr "Tidak bisa membaca berkas."
+msgstr "tidak dapat ditentukan"
 
 #: tools/ascli-actions-misc.c:730
 msgid "Devices with Modaliases"
@@ -3709,10 +3698,9 @@ msgid "Overall rating"
 msgstr "Peringkat keseluruhan"
 
 #: tools/ascli-actions-misc.c:842
-#, fuzzy, c-format
-#| msgid "Found supported software component '%s'."
+#, c-format
 msgid "No reviews found for component '%s'."
-msgstr "Ditemukan komponen perangkat lunak yang didukung '%s'."
+msgstr "Tidak ditemukan ulasan untuk komponen '%s'."
 
 #: tools/ascli-actions-misc.c:857 tools/ascli-actions-misc.c:958
 msgid "Author"
@@ -3793,9 +3781,8 @@ msgid "Refusing to run the package manager: The component metadata contains an i
 msgstr "Menolak menjalankan manajer paket: Metadata komponen berisi nama paket yang tidak valid: %s"
 
 #: tools/ascli-actions-pkgmgr.c:107
-#, fuzzy
 msgid "No suitable package manager tool found. Please make sure that e.g. \"pkgcli\" (part of PackageKit) is available."
-msgstr "Tidak ditemukan CLI manajer paket yang cocok. Harap pastikan bahwa mis. \"pkcon\" (bagian dari PackageKit) tersedia."
+msgstr "Tidak ditemukan alat pengelola paket yang sesuai. Pastikan, misalnya, \"pkgcli\" yang merupakan bagian dari PackageKit tersedia."
 
 #: tools/ascli-actions-pkgmgr.c:124
 #, c-format
@@ -3845,10 +3832,8 @@ msgstr "Masukkan nomor komponen yang akan diinstal:"
 #. we reached the end of the input stream without ever getting an
 #. * answer, e.g. because stdin was closed or is not a terminal
 #: tools/ascli-actions-pkgmgr.c:267
-#, fuzzy
-#| msgid "No component matching '%s' found."
 msgid "No component was selected."
-msgstr "Tidak ditemukan komponen yang cocok '%s'."
+msgstr "Tidak ada komponen yang dipilih."
 
 #: tools/ascli-actions-pkgmgr.c:278
 #, c-format
