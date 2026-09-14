@@ -26,7 +26,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-08-28 08:48+0200\n"
-"PO-Revision-Date: 2026-09-11 18:51+0000\n"
+"PO-Revision-Date: 2026-09-14 14:51+0000\n"
 "Last-Translator: Joonas Tuomi <git@joonastuomi.fi>\n"
 "Language-Team: Finnish <https://hosted.weblate.org/projects/appstream/translations/fi/>\n"
 "Language: fi\n"
@@ -1939,12 +1939,12 @@ msgstr "Vaaditusta/suositellusta kohteesta löytyi `version`-ominaisuus, jonka t
 #. TRANSLATORS: `version` and `compare` are AppStream XML properties. Please do not translate them.
 #: src/as-validator-issue-tag.h:413
 msgid "Found `version` property on this required/recommended item, but not `compare` property. It is recommended to explicitly define a comparison operation."
-msgstr ""
+msgstr "Tästä vaaditusta tai suositellusta kohteesta löydettiin `version` ominaisuus mutta ei `compare` ominaisuutta. On suositeltua määritellä vertausoperaatio."
 
 #. TRANSLATORS: `eq/ne/lt/gt/le/ge` are AppStream XML values. Please do not translate them.
 #: src/as-validator-issue-tag.h:419
 msgid "Invalid comparison operation on relation item. Only one of `eq/ne/lt/gt/le/ge` is permitted."
-msgstr ""
+msgstr "Ei kelvollinen vertausoperaatiota suhde kohteessa. Vain joko `eq/ne/lt/gt/le/ge` on sallittu."
 
 #: src/as-validator-issue-tag.h:424
 msgid "The relation item has a comparison operation set, but does not support any comparisons."
