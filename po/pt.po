@@ -35,7 +35,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-08-28 08:48+0200\n"
-"PO-Revision-Date: 2026-09-16 04:51+0000\n"
+"PO-Revision-Date: 2026-09-16 19:51+0000\n"
 "Last-Translator: Américo Monteiro <a_monteiro@gmx.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/appstream/translations/pt/>\n"
 "Language: pt\n"
@@ -1714,7 +1714,7 @@ msgstr "Cabeçalhos de secção (`description/heading`) são texto simples e nã
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:106
 msgid "This section heading (`description/heading`) is very long and will likely not be displayed properly everywhere. A heading should be a short label for the section that follows it, and be <= 80 characters long. Use a paragraph (<p/>) for longer text."
-msgstr ""
+msgstr "O cabeçalho desta secção (`description/heading`) é muito longo e provavelmente não vai ser mostrado de maneira apropriada em lado nenhum. Um cabeçalho deve ser uma etiqueta curta para a secção que a segue, e ter 80 ou menos caracteres de comprimento. Use um parágrafo (<p/>) para textos maiores."
 
 #: src/as-validator-issue-tag.h:113
 msgid "The first `description/p` paragraph of this component might be too short (< 80 characters). Please consider starting with a longer paragraph to improve how the description looks like in software centers and to provide more detailed information on this component immediately in the first paragraph."
@@ -2816,7 +2816,7 @@ msgstr "Nenhum diretório de destino definido, fornece um local de saída de dad
 #: tools/appstream-compose.c:404
 #, c-format
 msgid "Metadata origin not set, using '%s'"
-msgstr ""
+msgstr "Origem dos metadados não definida, a usar '%s'"
 
 #: tools/appstream-compose.c:409 tools/appstream-compose.c:411
 msgid "WARNING"
@@ -2830,7 +2830,7 @@ msgstr "Não foi possível definir a política de ícone"
 #: tools/appstream-compose.c:453
 #, c-format
 msgid "Invalid image format: %s. Only `jxl` and `png` are supported for generated media.\n"
-msgstr ""
+msgstr "Formato de imagem inválido: %s. Apenas `jxl` e `png` são suportados para média gerada.\n"
 
 #. TRANSLATORS: Information about as-compose allowlist
 #: tools/appstream-compose.c:483
@@ -2925,7 +2925,7 @@ msgstr "Imprimir saída detalhada sobre os componentes encontrados."
 #. TRANSLATORS: ascli flag description for: --server (used by the "list-reviews" command)
 #: tools/appstreamcli.c:184
 msgid "URL of the ODRS-compatible reviews server to use."
-msgstr ""
+msgstr "URL do servidor de revisões compatível com ODRS para usar."
 
 #. TRANSLATORS: ascli flag description for: --start (used by the "list-reviews" command)
 #: tools/appstreamcli.c:190
