@@ -54,7 +54,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-08-28 08:48+0200\n"
-"PO-Revision-Date: 2026-08-17 00:51+0000\n"
+"PO-Revision-Date: 2026-09-16 04:51+0000\n"
 "Last-Translator: xiezhihai <xiezhihai7321@outlook.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/projects/appstream/translations/zh_Hans/>\n"
 "Language: zh_CN\n"
@@ -62,7 +62,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 2026.9.dev0\n"
+"X-Generator: Weblate 2026.10.dev0\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1698,10 +1698,8 @@ msgid "This element (paragraph, list, etc.) of a <description/> tag must not be 
 msgstr "位于集合元数据（catalog metadata）中的 <description/> 标签内的该元素（段落、列表等）不应被单独本地化，而应本地化整个 <description/> 标签。AppStream 集合元数据生成器（如 `appstream-generator`）将在编译数据时做该做的事。"
 
 #: src/as-validator-issue-tag.h:64
-#, fuzzy
-#| msgid "AppStream descriptions support only a limited set of tags to format text: Paragraphs (<p/>) and lists (<ul/>, <ol/>). This description markup contains an invalid XML tag that would not be rendered correctly in applications supporting the metainfo specification."
 msgid "AppStream descriptions support only a limited set of tags to format text: Paragraphs (<p/>), section headings (<heading/>) and lists (<ul/>, <ol/>). This description markup contains an invalid XML tag that would not be rendered correctly in applications supporting the metainfo specification."
-msgstr "AppStream 中的简介只支持有限的文本格式标签：段落 (<p/>) 和列表 (<ul/>, <ol/>)。以下简介的标记文本中包含无效的 XML 标签，不能在支持该源信息渲染标准的应用中正常渲染。"
+msgstr "AppStream 描述仅支持有限的标签集来格式化文本：段落 (<p/>)、章节标题 (<heading/>) 和列表 (<ul/>, <ol/>)。此描述标记包含一个无效的 XML 标签，在支持元信息规范的应用程序中无法正确呈现。"
 
 #: src/as-validator-issue-tag.h:70
 msgid "This description paragraph contains invalid markup. Currently, only <em/> and <code/> are permitted."
@@ -1726,12 +1724,12 @@ msgstr "此枚举不可作为整体翻译。请在元信息文件中单独翻译
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:99
 msgid "Section headings (`description/heading`) are plain text and must not contain any markup, not even <em/> or <code/>. The markup will be removed when the metadata is read."
-msgstr ""
+msgstr "章节标题（`description/heading`）是纯文本，不能包含任何标记，即使是 <em/> 或 <code/> 也不行。读取元数据时，标记将被移除。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:106
 msgid "This section heading (`description/heading`) is very long and will likely not be displayed properly everywhere. A heading should be a short label for the section that follows it, and be <= 80 characters long. Use a paragraph (<p/>) for longer text."
-msgstr ""
+msgstr "本节标题（`description/heading`）非常长，可能在所有地方都无法正确显示。标题应为紧凑的短标签，用于说明下面的部分，并且长度应≤80个字符。较长的文本请使用段落（<p/>）表示。"
 
 #: src/as-validator-issue-tag.h:113
 msgid "The first `description/p` paragraph of this component might be too short (< 80 characters). Please consider starting with a longer paragraph to improve how the description looks like in software centers and to provide more detailed information on this component immediately in the first paragraph."
@@ -2770,7 +2768,7 @@ msgstr "一个 icon-policy 字符串，设置图标大小的处理方式（参�
 #. TRANSLATORS: ascompose flag description for: --image-format
 #: tools/appstream-compose.c:292
 msgid "The file format that generated icons and screenshots are stored in (`jxl` by default, or `png` for compatibility with older clients)."
-msgstr ""
+msgstr "生成的图标和截图存储的文件格式（默认是 `jxl`，或为了兼容较旧的客户端使用 `png`）。"
 
 #. TRANSLATORS: ascompose flag description for: --allow-custom
 #: tools/appstream-compose.c:299
@@ -2833,7 +2831,7 @@ msgstr "未设置目标目录，请提供数据输出位置！"
 #: tools/appstream-compose.c:404
 #, c-format
 msgid "Metadata origin not set, using '%s'"
-msgstr ""
+msgstr "元数据来源未设置，使用 '%s'"
 
 #: tools/appstream-compose.c:409 tools/appstream-compose.c:411
 msgid "WARNING"
@@ -2847,7 +2845,7 @@ msgstr "无法设置图标策略"
 #: tools/appstream-compose.c:453
 #, c-format
 msgid "Invalid image format: %s. Only `jxl` and `png` are supported for generated media.\n"
-msgstr ""
+msgstr "无效的图片格式：%s。生成的媒体仅支持 `jxl` 和 `png`。\n"
 
 #. TRANSLATORS: Information about as-compose allowlist
 #: tools/appstream-compose.c:483
@@ -3616,16 +3614,14 @@ msgid "You need to specify a NEWS file as output, or '-' to print to stdout."
 msgstr "您需要指定 NEWS 文件作为输出，或指定“-”以打印到标准输出。"
 
 #: tools/ascli-actions-misc.c:575
-#, fuzzy, c-format
-#| msgid "The release metadata file '%s' is named incorrectly."
+#, c-format
 msgid "Release metadata file '%s' contains no data."
-msgstr "版本元数据文件“%s”命名不正确。"
+msgstr "发布元数据文件 '%s' 不包含任何数据。"
 
 #: tools/ascli-actions-misc.c:590
-#, fuzzy, c-format
-#| msgid "Metainfo file '%s' does not exist."
+#, c-format
 msgid "Metainfo file '%s' contains no component."
-msgstr "不存在 “%s” 元数据文件。"
+msgstr "元信息文件 '%s' 不包含任何组件。"
 
 #: tools/ascli-actions-misc.c:599
 #, c-format
@@ -3633,6 +3629,8 @@ msgid ""
 "The metainfo file '%s' references external release data.\n"
 "Run this command on the release metadata file instead."
 msgstr ""
+"元信息文件 '%s' 引用了外部发布数据。\n"
+"请改在发布元数据文件上运行此命令。"
 
 #: tools/ascli-actions-misc.c:612
 msgid "You need to specify a NEWS format to write the output in."
@@ -3862,10 +3860,8 @@ msgstr "请输入要安装的组件号码："
 #. we reached the end of the input stream without ever getting an
 #. * answer, e.g. because stdin was closed or is not a terminal
 #: tools/ascli-actions-pkgmgr.c:267
-#, fuzzy
-#| msgid "No component matching '%s' found."
 msgid "No component was selected."
-msgstr "未找到符合“%s”的组件。"
+msgstr "未选择任何组件。"
 
 #: tools/ascli-actions-pkgmgr.c:278
 #, c-format
