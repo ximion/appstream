@@ -35,7 +35,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-08-28 08:48+0200\n"
-"PO-Revision-Date: 2026-09-16 19:51+0000\n"
+"PO-Revision-Date: 2026-09-17 08:09+0000\n"
 "Last-Translator: Américo Monteiro <a_monteiro@gmx.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/appstream/translations/pt/>\n"
 "Language: pt\n"
@@ -2549,7 +2549,7 @@ msgstr "O valor da tag `content_attribute` é desconhecido."
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1180
 msgid "The `content_attribute` tag value is invalid for the given id."
-msgstr "O valor de tag `content_attribute` é inválido para o ID dado."
+msgstr "O valor da etiqueta `content_attribute` é inválido para o ID dado."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1186
@@ -2930,17 +2930,17 @@ msgstr "URL do servidor de revisões compatível com ODRS para usar."
 #. TRANSLATORS: ascli flag description for: --start (used by the "list-reviews" command)
 #: tools/appstreamcli.c:190
 msgid "Index of the first review to fetch, to page through all reviews."
-msgstr ""
+msgstr "Índice da primeira revisão a obter, para procurar por todas as revisões."
 
 #. TRANSLATORS: ascli flag description for: --limit (used by the "list-reviews" command)
 #: tools/appstreamcli.c:196
 msgid "Maximum number of reviews to fetch."
-msgstr ""
+msgstr "Número máximo de revisões a ir buscar."
 
 #. TRANSLATORS: ascli flag description for: --locale (used by the "list-reviews" and "submit-review" commands)
 #: tools/appstreamcli.c:202
 msgid "Locale to prefer for reviews, instead of the current system locale."
-msgstr ""
+msgstr "Idioma de preferência para revisões, em vez do idioma atual do sistema."
 
 #. TRANSLATORS: ascli flag description for: --pedantic (used by the "validate" command)
 #: tools/appstreamcli.c:223
@@ -3266,7 +3266,7 @@ msgstr "Lista revisões de utilizadores online para um componente de software."
 #. TRANSLATORS: `appstreamcli submit-review` command description.
 #: tools/appstreamcli.c:1726
 msgid "Compose and submit an online review for a software component."
-msgstr ""
+msgstr "Compor e submeter uma revisão online para um componente de software."
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstreamcli.c:1808
@@ -3599,16 +3599,14 @@ msgid "You need to specify a NEWS file as output, or '-' to print to stdout."
 msgstr "Tem de especificar um ficheiro de NOTÍCIAS como saída, ou '-' para imprimir para stdout."
 
 #: tools/ascli-actions-misc.c:575
-#, fuzzy, c-format
-#| msgid "The release metadata file '%s' is named incorrectly."
+#, c-format
 msgid "Release metadata file '%s' contains no data."
-msgstr "O ficheiro de metadados de lançamento '%s' foi nomeado incorretamente."
+msgstr "O ficheiro de metadados de lançamento '%s' não contém dados."
 
 #: tools/ascli-actions-misc.c:590
-#, fuzzy, c-format
-#| msgid "Metainfo file '%s' does not exist."
+#, c-format
 msgid "Metainfo file '%s' contains no component."
-msgstr "O ficheiro de \"metainfo\" '%s' não existe."
+msgstr "O ficheiro \"metainfo\" '%s' não contém nenhum componente."
 
 #: tools/ascli-actions-misc.c:599
 #, c-format
@@ -3616,6 +3614,8 @@ msgid ""
 "The metainfo file '%s' references external release data.\n"
 "Run this command on the release metadata file instead."
 msgstr ""
+"O ficheiro metainfo '%s' referencia dados de lançamento externos.\n"
+"Corra este comando no ficheiro de metadados de lançamento em vez disto."
 
 #: tools/ascli-actions-misc.c:612
 msgid "You need to specify a NEWS format to write the output in."
@@ -3674,17 +3674,15 @@ msgstr "Memória Física"
 
 #: tools/ascli-actions-misc.c:721 tools/ascli-actions-misc.c:726
 msgid "Largest Display"
-msgstr ""
+msgstr "Mostrador Maior"
 
 #: tools/ascli-actions-misc.c:724
 msgid "logical px"
-msgstr ""
+msgstr "px lógico"
 
 #: tools/ascli-actions-misc.c:726
-#, fuzzy
-#| msgid "Unable to read file."
 msgid "unable to determine"
-msgstr "Não é possível ler o ficheiro."
+msgstr "incapaz de determinar"
 
 #: tools/ascli-actions-misc.c:730
 msgid "Devices with Modaliases"
@@ -3710,96 +3708,94 @@ msgstr "não"
 
 #: tools/ascli-actions-misc.c:829
 msgid "Overall rating"
-msgstr ""
+msgstr "Classificação geral"
 
 #: tools/ascli-actions-misc.c:842
-#, fuzzy, c-format
-#| msgid "Found supported software component '%s'."
+#, c-format
 msgid "No reviews found for component '%s'."
-msgstr "Foi encontrado o componente de software suportado '%s'."
+msgstr "Nenhumas revisões encontradas para o componente '%s'."
 
 #: tools/ascli-actions-misc.c:857 tools/ascli-actions-misc.c:958
 msgid "Author"
-msgstr ""
+msgstr "Autor"
 
 #: tools/ascli-actions-misc.c:860
 msgid "Date"
-msgstr ""
+msgstr "Data"
 
 #: tools/ascli-actions-misc.c:910
 #, c-format
 msgid "Composing a review for '%s' to be submitted to %s."
-msgstr ""
+msgstr "Compor uma revisão para '%s' para ser submetida para %s."
 
 #: tools/ascli-actions-misc.c:913
 msgid "Please only review the software itself, and mind that your review will be publicly visible."
-msgstr ""
+msgstr "Por favor apenas reveja o próprio software, e lembre-se que a sua revisão vai ser visível publicamente."
 
 #. TRANSLATORS: Prompt when composing a review, %s is a user name
 #: tools/ascli-actions-misc.c:918
 #, c-format
 msgid "Your display name (leave empty to use '%s'):"
-msgstr ""
+msgstr "O seu nome mostrado (deixe vazio para usar '%s'):"
 
 #. TRANSLATORS: Prompt for a star rating when composing a review
 #: tools/ascli-actions-misc.c:925
 msgid "Star rating, from 1 (worst) to 5 (best):"
-msgstr ""
+msgstr "Avaliação de estrelas, desde 1 (pior) até 5 (melhor):"
 
 #. TRANSLATORS: Prompt when composing a review
 #: tools/ascli-actions-misc.c:932
 msgid "Short summary of your review:"
-msgstr ""
+msgstr "Resumo curto da sua revisão:"
 
 #: tools/ascli-actions-misc.c:938
 msgid "The summary must not be empty and be no longer than 70 characters."
-msgstr ""
+msgstr "O resumo não pode estar vazio e não ser maior que 70 caracteres."
 
 #. TRANSLATORS: Prompt when composing a review
 #: tools/ascli-actions-misc.c:942
 msgid "Detailed review text (end with an empty line):"
-msgstr ""
+msgstr "Texto de revisão detalhado (terminar com uma linha vazia):"
 
 #: tools/ascli-actions-misc.c:944
 msgid "The review text must not be empty."
-msgstr ""
+msgstr "O texto de revisão não pode ficar vazio."
 
 #: tools/ascli-actions-misc.c:965
 msgid "Rating"
-msgstr ""
+msgstr "Classificação"
 
 #: tools/ascli-actions-misc.c:968
 msgid "Review"
-msgstr ""
+msgstr "Revisão"
 
 #. TRANSLATORS: Prompt before publishing a composed review
 #: tools/ascli-actions-misc.c:975
 msgid "Publish this review?"
-msgstr ""
+msgstr "Publicar esta revisão?"
 
 #: tools/ascli-actions-misc.c:979
 msgid "Review submission cancelled."
-msgstr ""
+msgstr "Submissão de revisão cancelada."
 
 #: tools/ascli-actions-misc.c:989
 #, c-format
 msgid "Review submitted successfully (ID: %s). Thank you!"
-msgstr ""
+msgstr "Revisão submetida com sucesso (ID: %s). Obrigado!"
 
 #: tools/ascli-actions-misc.c:992
 msgid "Review submitted successfully. Thank you!"
-msgstr ""
+msgstr "Revisão submetida com sucesso. Obrigado!"
 
 #. TRANSLATORS: The placeholder is the invalid package name found in metadata.
 #: tools/ascli-actions-pkgmgr.c:92
 #, c-format
 msgid "Refusing to run the package manager: The component metadata contains an invalid package name: %s"
-msgstr ""
+msgstr "A recusar correr o gestor e pacotes: Os metadados do componente contêm um nome de pacote inválido: %s"
 
 #: tools/ascli-actions-pkgmgr.c:107
-#, fuzzy
 msgid "No suitable package manager tool found. Please make sure that e.g. \"pkgcli\" (part of PackageKit) is available."
-msgstr "Não foi encontrado nenhum gestor de pacotes CLI adequado. Por favor, certifique-se que está disponível por exemplo “pkcon” (parte de PackageKit)."
+msgstr "Não foi encontrado nenhuma ferramenta de gestor de pacotes adequada. Certifique que por exemplo “pkgcli” (parte de PackageKit) está disponível."
 
 #: tools/ascli-actions-pkgmgr.c:124
 #, c-format
@@ -3810,7 +3806,7 @@ msgstr "Não foi possível iniciar o gestor de pacotes: %s"
 #: tools/ascli-actions-pkgmgr.c:144
 #, c-format
 msgid "Refusing to run Flatpak: The component metadata contains an invalid bundle ID: %s"
-msgstr ""
+msgstr "A recusar correr o Flatpak: Os metadados do componente contêm um ID de maço inválido: %s"
 
 #: tools/ascli-actions-pkgmgr.c:151
 msgid "Flatpak was not found! Please install it to continue."
@@ -3849,10 +3845,8 @@ msgstr "Insira o número do componente que será instalado:"
 #. we reached the end of the input stream without ever getting an
 #. * answer, e.g. because stdin was closed or is not a terminal
 #: tools/ascli-actions-pkgmgr.c:267
-#, fuzzy
-#| msgid "No component matching '%s' found."
 msgid "No component was selected."
-msgstr "Sem correspondência para \"%s\"."
+msgstr "Nenhum componente foi selecionado."
 
 #: tools/ascli-actions-pkgmgr.c:278
 #, c-format
@@ -3869,7 +3863,7 @@ msgstr "O formato da substituição de problema do validador \"%s\" é inválido
 #: tools/ascli-actions-validate.c:268
 #, c-format
 msgid "Can not override issue tag: %s"
-msgstr "Não é possível substituir a tag de problema: %s"
+msgstr "Não é possível substituir a etiqueta do problema: %s"
 
 #: tools/ascli-actions-validate.c:299 tools/ascli-actions-validate.c:512
 #, c-format
