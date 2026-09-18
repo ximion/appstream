@@ -6,20 +6,21 @@
 # Jenni Hollis <jennihollis@outlook.com>, 2021.
 # Matthias Klumpp <matthias@tenstral.net>, 2021.
 # Brage Fuglseth <brage.fuglseth@gmail.com>, 2024.
+# Kjartan Maraas <kjartan.maraas@proton.me>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-08-28 08:48+0200\n"
-"PO-Revision-Date: 2024-02-19 07:02+0000\n"
-"Last-Translator: Brage Fuglseth <brage.fuglseth@gmail.com>\n"
+"PO-Revision-Date: 2026-09-18 06:51+0000\n"
+"Last-Translator: Kjartan Maraas <kjartan.maraas@proton.me>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/appstream/translations/nb_NO/>\n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.4\n"
+"X-Generator: Weblate 2026.10.dev0\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -927,13 +928,13 @@ msgstr "Klarte ikke å laste ned filen: %s"
 #: src/as-curl.c:201
 #, c-format
 msgid "URL was not found on the server."
-msgstr ""
+msgstr "URL ble ikke funnet på tjeneren."
 
 #. TRANSLATORS: We received an uexpected HTTP status code while talking to a server, likely an error
 #: src/as-curl.c:209
 #, c-format
 msgid "Unexpected status code: %ld"
-msgstr ""
+msgstr "Uventet statuskode: %ld"
 
 #. TRANSLATORS: We tried to download from an URL, but the retrieved data was empty
 #: src/as-curl.c:574
@@ -945,31 +946,30 @@ msgstr "Innhentet filstørrelse er null."
 #. TRANSLATORS: Name of the "cinnamon" visual environment style.
 #: src/as-desktop-env-data.h:43 src/as-desktop-env-data.h:79
 msgid "Cinnamon"
-msgstr ""
+msgstr "Cinnamon"
 
 #. TRANSLATORS: Name of the "DDE" desktop environment.
 #. TRANSLATORS: Name of the "dde" visual environment style.
 #: src/as-desktop-env-data.h:45 src/as-desktop-env-data.h:81
 msgid "Deepin"
-msgstr ""
+msgstr "Deepin"
 
 #. TRANSLATORS: Name of the "EDE" desktop environment.
 #. TRANSLATORS: Name of the "ede" visual environment style.
 #: src/as-desktop-env-data.h:47 src/as-desktop-env-data.h:83
 msgid "EDE"
-msgstr ""
+msgstr "EDE"
 
 #. TRANSLATORS: Name of the "Endless" desktop environment.
 #: src/as-desktop-env-data.h:49
-#, fuzzy
 msgid "Endless"
-msgstr "Programvarepakke"
+msgstr "Endless"
 
 #. TRANSLATORS: Name of the "GNOME" desktop environment.
 #. TRANSLATORS: Name of the "gnome" visual environment style.
 #: src/as-desktop-env-data.h:51 src/as-desktop-env-data.h:85
 msgid "GNOME"
-msgstr ""
+msgstr "GNOME"
 
 #. TRANSLATORS: Name of the "KDE" desktop environment.
 #. TRANSLATORS: Name of the "Plasma" desktop environment.
@@ -977,108 +977,108 @@ msgstr ""
 #: src/as-desktop-env-data.h:53 src/as-desktop-env-data.h:63
 #: src/as-desktop-env-data.h:103
 msgid "KDE Plasma"
-msgstr ""
+msgstr "KDE Plasma"
 
 #. TRANSLATORS: Name of the "LXDE" desktop environment.
 #. TRANSLATORS: Name of the "lxde" visual environment style.
 #: src/as-desktop-env-data.h:55 src/as-desktop-env-data.h:91
 msgid "LXDE"
-msgstr ""
+msgstr "LXDE"
 
 #. TRANSLATORS: Name of the "LXQt" desktop environment.
 #. TRANSLATORS: Name of the "lxqt" visual environment style.
 #: src/as-desktop-env-data.h:57 src/as-desktop-env-data.h:93
 msgid "LXQt"
-msgstr ""
+msgstr "LXQt"
 
 #. TRANSLATORS: Name of the "MATE" desktop environment.
 #: src/as-desktop-env-data.h:59
 msgid "MATE"
-msgstr ""
+msgstr "MATE"
 
 #. TRANSLATORS: Name of the "Pantheon" desktop environment.
 #. TRANSLATORS: Name of the "pantheon" visual environment style.
 #: src/as-desktop-env-data.h:61 src/as-desktop-env-data.h:99
 msgid "Pantheon"
-msgstr ""
+msgstr "Pantheon"
 
 #. TRANSLATORS: Name of the "Razor" desktop environment.
 #. TRANSLATORS: Name of the "razor" visual environment style.
 #: src/as-desktop-env-data.h:65 src/as-desktop-env-data.h:111
 msgid "Razor"
-msgstr ""
+msgstr "Razor"
 
 #. TRANSLATORS: Name of the "ROX" desktop environment.
 #: src/as-desktop-env-data.h:67
 msgid "ROX"
-msgstr ""
+msgstr "ROX"
 
 #. TRANSLATORS: Name of the "Unity" desktop environment.
 #. TRANSLATORS: Name of the "unity" visual environment style.
 #: src/as-desktop-env-data.h:69 src/as-desktop-env-data.h:115
 msgid "Unity"
-msgstr ""
+msgstr "Unity"
 
 #. TRANSLATORS: Name of the "XFCE" desktop environment.
 #. TRANSLATORS: Name of the "xfce" visual environment style.
 #: src/as-desktop-env-data.h:71 src/as-desktop-env-data.h:119
 msgid "Xfce"
-msgstr ""
+msgstr "Xfce"
 
 #. TRANSLATORS: Name of the "android" visual environment style.
 #: src/as-desktop-env-data.h:77
 msgid "Android"
-msgstr ""
+msgstr "Android"
 
 #. TRANSLATORS: Name of the "gnome:dark" visual environment style.
 #: src/as-desktop-env-data.h:87
 msgid "GNOME (Dark)"
-msgstr ""
+msgstr "GNOME (Mørk)"
 
 #. TRANSLATORS: Name of the "ios" visual environment style.
 #: src/as-desktop-env-data.h:89
 msgid "iOS"
-msgstr ""
+msgstr "iOS"
 
 #. TRANSLATORS: Name of the "macos" visual environment style.
 #: src/as-desktop-env-data.h:95
 msgid "macOS"
-msgstr ""
+msgstr "macOS"
 
 #. TRANSLATORS: Name of the "mate" visual environment style.
 #: src/as-desktop-env-data.h:97
 msgid "Mate"
-msgstr ""
+msgstr "Mate"
 
 #. TRANSLATORS: Name of the "pantheon:dark" visual environment style.
 #: src/as-desktop-env-data.h:101
 msgid "Pantheon (Dark)"
-msgstr ""
+msgstr "Pantheon (Mørk)"
 
 #. TRANSLATORS: Name of the "plasma-mobile" visual environment style.
 #: src/as-desktop-env-data.h:105
 msgid "Plasma Mobile"
-msgstr ""
+msgstr "Plasma Mobil"
 
 #. TRANSLATORS: Name of the "plasma-mobile:dark" visual environment style.
 #: src/as-desktop-env-data.h:107
 msgid "Plasma Mobile (Dark)"
-msgstr ""
+msgstr "Plasma Mobil (Mørk)"
 
 #. TRANSLATORS: Name of the "plasma:dark" visual environment style.
 #: src/as-desktop-env-data.h:109
 msgid "KDE Plasma (Dark)"
-msgstr ""
+msgstr "KDE Plasma (Mørk)"
 
 #. TRANSLATORS: Name of the "rox" visual environment style.
 #: src/as-desktop-env-data.h:113
 msgid "Rox"
-msgstr ""
+msgstr "Rox"
 
 #. TRANSLATORS: Name of the "windows" visual environment style.
 #: src/as-desktop-env-data.h:117
 msgid "Microsoft Windows"
-msgstr ""
+msgstr "Microsoft Windows"
 
 #. TRANSLATORS: List of "grey-listed" words sperated with ";"
 #. Do not translate this list directly. Instead,
@@ -1095,7 +1095,7 @@ msgstr "Feil i metadatafiler:"
 
 #: src/as-pool.c:2502
 msgid "Group"
-msgstr ""
+msgstr "Gruppe"
 
 #: src/as-pool.c:2557
 msgid "Iconsets"
@@ -1104,12 +1104,12 @@ msgstr "Ikonsett"
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
 #: src/as-pool.c:2605
 msgid "Data from locally installed software"
-msgstr ""
+msgstr "Data fra lokalt installert programvare"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
 #: src/as-pool.c:2608
 msgid "Software catalog data"
-msgstr ""
+msgstr "Data for programvarekatalog"
 
 #: src/as-provided.c:138
 msgid "Libraries"
@@ -1157,191 +1157,190 @@ msgstr "Komponent"
 
 #: src/as-relation.c:1354
 msgid "pointing device (e.g. a mouse)"
-msgstr ""
+msgstr "pekerenhet ( f.eks. mus)"
 
 #: src/as-relation.c:1356
-#, fuzzy
 msgid "keyboard"
-msgstr "Brett"
+msgstr "tastatur"
 
 #: src/as-relation.c:1358
 msgid "gamepad"
-msgstr ""
+msgstr "spillkontroller"
 
 #: src/as-relation.c:1360
 msgid "tv remote"
-msgstr ""
+msgstr "fjernkontroll til tv"
 
 #: src/as-relation.c:1362
 msgid "graphics tablet"
-msgstr ""
+msgstr "tegnebrett"
 
 #. TRANSLATORS: The placeholder is replaced with an input device name, e.g. "gamepad"
 #: src/as-relation.c:1367
 #, c-format
 msgid "This software requires a %s for input."
-msgstr ""
+msgstr "Denne programvaren krever en %s for inndata."
 
 #: src/as-relation.c:1372
 msgid "This software requires a touch input device."
-msgstr ""
+msgstr "Denne programvaren krever en berøringsenhet for inndata."
 
 #: src/as-relation.c:1374
 msgid "This software requires a microphone to be controlled via voice input."
-msgstr ""
+msgstr "Denne programvaren krever en mikrofon for å kontrolleres via stemme."
 
 #: src/as-relation.c:1376
 msgid "This software requires a camera for input control."
-msgstr ""
+msgstr "Denne programvaren krever et kamera for inndatakontroll."
 
 #: src/as-relation.c:1378
 msgid "This software requires a method for console input."
-msgstr ""
+msgstr "Denne programvaren krever en metode for inndata via konsoll."
 
 #. TRANSLATORS: The placeholder is replaced with an input device name, e.g. "gamepad"
 #: src/as-relation.c:1383
 #, c-format
 msgid "This software recommends a %s for input."
-msgstr ""
+msgstr "Denne programvaren anbefaler en %s for inndata."
 
 #: src/as-relation.c:1388
 msgid "This software recommends a touch input device."
-msgstr ""
+msgstr "Denne programvaren anbefaler en berøringsenhet."
 
 #: src/as-relation.c:1390
 msgid "This software recommends a microphone to be controlled via voice input."
-msgstr ""
+msgstr "Denne programvaren anbefaler en mikrofon for å kontrolleres via stemme."
 
 #: src/as-relation.c:1392
 msgid "This software recommends a camera for input control."
-msgstr ""
+msgstr "Denne programvaren anbefaler et kamera for inndatakontroll."
 
 #: src/as-relation.c:1394
 msgid "This software recommends a method for console input."
-msgstr ""
+msgstr "Denne programvaren anbefaler en metode for inndata via konsoll."
 
 #: src/as-relation.c:1399
 msgid "pointing devices (e.g. mice)"
-msgstr ""
+msgstr "pekeenheter (f.eks. mus)"
 
 #: src/as-relation.c:1401
 msgid "keyboards"
-msgstr ""
+msgstr "tastatur"
 
 #: src/as-relation.c:1403
 msgid "gamepads"
-msgstr ""
+msgstr "spillkontrollere"
 
 #: src/as-relation.c:1405
 msgid "tv remotes"
-msgstr ""
+msgstr "fjernkontroller for tv"
 
 #: src/as-relation.c:1407
 msgid "graphics tablets"
-msgstr ""
+msgstr "tegnebrett"
 
 #. TRANSLATORS: The placeholder is replaced with a plural input device name, e.g. "gamepads"
 #: src/as-relation.c:1411
 #, c-format
 msgid "This software supports %s."
-msgstr ""
+msgstr "Denne programvaren støtter %s."
 
 #: src/as-relation.c:1415
 msgid "This software supports touch input."
-msgstr ""
+msgstr "Denne programvaren støtter inndata via berøring."
 
 #: src/as-relation.c:1417
 msgid "This software can be controlled via voice input."
-msgstr ""
+msgstr "Denne programvaren kan kontrolleres med stemmen."
 
 #: src/as-relation.c:1419
 msgid "This software can be controlled via a camera."
-msgstr ""
+msgstr "Denne programvaren kan kontrolleres via et kamera."
 
 #: src/as-relation.c:1422
 msgid "This software supports operation via console commands."
-msgstr ""
+msgstr "Denne programvaren støtter styring via konsollkommandoer."
 
 #: src/as-relation.c:1435
 msgid "Pointing device (e.g. a mouse or touchpad) found."
-msgstr ""
+msgstr "Pekeenhet (f.eks. mus eller pekeplate) funnet."
 
 #: src/as-relation.c:1437
 msgid "Physical keyboard found."
-msgstr ""
+msgstr "Fysisk tastatur funnet."
 
 #: src/as-relation.c:1439
 msgid "Gamepad found."
-msgstr ""
+msgstr "Spillkontroll funnet."
 
 #: src/as-relation.c:1441
 msgid "TV remote found."
-msgstr ""
+msgstr "Fjernkontroll for TV funnet."
 
 #: src/as-relation.c:1443
 msgid "Graphics tablet found."
-msgstr ""
+msgstr "Tegnebrett funnet."
 
 #: src/as-relation.c:1446
 msgid "Touch input device found."
-msgstr ""
+msgstr "Berøringsenhet for inndata funnet."
 
 #: src/as-relation.c:1448
 msgid "Microphone for voice input control found."
-msgstr ""
+msgstr "Mikrofon for kontroll via stemmeinndata funnet."
 
 #: src/as-relation.c:1450
 msgid "Camera for input control found."
-msgstr ""
+msgstr "Kamera for inndatakontroll funnet."
 
 #: src/as-relation.c:1452
 msgid "Console interface available."
-msgstr ""
+msgstr "Konsollgrensesnitt tilgjengelig."
 
 #: src/as-relation.c:1513
 #, c-format
 msgid "Software '%s' was found"
-msgstr ""
+msgstr "Programvare «%s» ble funnet"
 
 #: src/as-relation.c:1522
 #, c-format
 msgid "Required software component '%s' is missing."
-msgstr ""
+msgstr "Nødvendig programvarekomponent «%s» mangler."
 
 #: src/as-relation.c:1526
 #, c-format
 msgid "Recommended software component '%s' is missing."
-msgstr ""
+msgstr "Anbefalt programvarekomponent «%s» mangler."
 
 #: src/as-relation.c:1530
-#, fuzzy, c-format
+#, c-format
 msgid "Found supported software component '%s'."
-msgstr "Fant %i komponenter."
+msgstr "Fant støttet programvarekomponent «%s»."
 
 #: src/as-relation.c:1563
 #, c-format
 msgid "Found hardware that is supported by this software: '%s'"
-msgstr ""
+msgstr "Fant maskinvare som er støttet av denne programvaren: «%s»"
 
 #: src/as-relation.c:1572
 #, c-format
 msgid "Required hardware for this software was not found on this system: '%s'"
-msgstr ""
+msgstr "Nødvendig maskinvare for denne programvaren ble ikke funnet på dette systemet: «%s»"
 
 #: src/as-relation.c:1577
 #, c-format
 msgid "Recommended hardware for this software was not found on this system: '%s'"
-msgstr ""
+msgstr "Nødvendig maskinvare for denne programvaren ble ikke funnet på dette systemet: «%s»"
 
 #: src/as-relation.c:1582
 #, c-format
 msgid "This software supports hardware not present in this system: '%s'"
-msgstr ""
+msgstr "Programvaren støtter maskinvare som ikke finnes på dette systemet: «%s»"
 
 #: src/as-relation.c:1621
 #, c-format
 msgid "This software requires a %s kernel, but this system is running %s."
-msgstr ""
+msgstr "Denne programvaren krever en %s-kjerne, men dette systemet kjører %s."
 
 #: src/as-relation.c:1627
 #, c-format
