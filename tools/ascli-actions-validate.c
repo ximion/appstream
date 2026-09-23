@@ -381,6 +381,7 @@ ascli_validate_files (gchar **argv,
 		      gboolean explain,
 		      gboolean validate_strict,
 		      gboolean use_net,
+		      gboolean ignore_empty,
 		      const gchar *overrides_str)
 {
 	gboolean ret = TRUE;
@@ -392,8 +393,12 @@ ascli_validate_files (gchar **argv,
 	g_autoptr(GPtrArray) metainfo_files = NULL;
 
 	if (argc < 1) {
-		g_printerr ("%s\n", _("You need to specify at least one file to validate!"));
-		return ASCLI_EXIT_CODE_FAILED;
+		if (ignore_empty) {
+			return ASCLI_EXIT_CODE_SUCCESS;
+		} else {
+			g_printerr ("%s\n", _("You need to specify at least one file to validate!"));
+			return ASCLI_EXIT_CODE_FAILED;
+		}
 	}
 
 	validator = as_validator_new ();
@@ -475,6 +480,7 @@ ascli_validate_files_format (gchar **argv,
 			     const gchar *format,
 			     gboolean validate_strict,
 			     gboolean use_net,
+			     gboolean ignore_empty,
 			     const gchar *overrides_str)
 {
 	if (g_strcmp0 (format, "text") == 0) {
@@ -487,6 +493,7 @@ ascli_validate_files_format (gchar **argv,
 					     TRUE, /* explain */
 					     validate_strict,
 					     use_net,
+					     ignore_empty,
 					     overrides_str);
 	}
 
@@ -496,8 +503,12 @@ ascli_validate_files_format (gchar **argv,
 		g_autofree gchar *yaml_result = NULL;
 
 		if (argc < 1) {
-			g_print ("%s\n", _("You need to specify at least one file to validate!"));
-			return 1;
+			if (ignore_empty) {
+				return ASCLI_EXIT_CODE_SUCCESS;
+			} else {
+				g_print ("%s\n", _("You need to specify at least one file to validate!"));
+				return ASCLI_EXIT_CODE_FAILED;
+			}
 		}
 
 		validator = as_validator_new ();
