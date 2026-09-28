@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2026-08-28 08:48+0200\n"
+"POT-Creation-Date: 2026-09-28 17:26+0200\n"
 "PO-Revision-Date: 2025-06-17 23:01+0000\n"
 "Last-Translator: Philip Goto <philip.goto@gmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/appstream/translations/nl/>\n"
@@ -913,30 +913,30 @@ msgid "Graphic depictions of modern-day slavery"
 msgstr "Grafische afbeeldingen van hedendaagse slavernĳ"
 
 #. TRANSLATORS: We got a 429 error while trying to download data
-#: src/as-curl.c:177
+#: src/as-curl.c:199
 #, c-format
 msgid "Failed to download due to server limit"
 msgstr "Downloaden mislukt door serverlimiet"
 
-#: src/as-curl.c:184 src/as-curl.c:190
+#: src/as-curl.c:206 src/as-curl.c:212
 #, c-format
 msgid "Failed to download file: %s"
 msgstr "Bestand downloaden mislukt: %s"
 
 #. TRANSLATORS: We tried to download an URL, but received a 404 error code
-#: src/as-curl.c:201
+#: src/as-curl.c:223
 #, c-format
 msgid "URL was not found on the server."
 msgstr "URL kon niet worden gevonden op de server"
 
 #. TRANSLATORS: We received an uexpected HTTP status code while talking to a server, likely an error
-#: src/as-curl.c:209
+#: src/as-curl.c:231
 #, c-format
 msgid "Unexpected status code: %ld"
 msgstr "Onverwachte statuscode: %ld"
 
 #. TRANSLATORS: We tried to download from an URL, but the retrieved data was empty
-#: src/as-curl.c:574
+#: src/as-curl.c:601
 #, c-format
 msgid "Retrieved file size was zero."
 msgstr "Opgehaalde bestandsgrootte was nul."
@@ -1492,152 +1492,152 @@ msgid "GNU Affero General Public License v3.0 or later"
 msgstr "GNU Affero General Public License v3.0 of hoger"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:297
+#: src/as-spdx-data.h:301
 msgid "GNU Free Documentation License v1.1 only - invariants"
 msgstr "GNU Free Documentation License v1.1 - invarianten"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:299
+#: src/as-spdx-data.h:303
 msgid "GNU Free Documentation License v1.1 or later - invariants"
 msgstr "GNU Free Documentation License v1.1 of hoger - invarianten"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:301
+#: src/as-spdx-data.h:305
 msgid "GNU Free Documentation License v1.1 only - no invariants"
 msgstr "GNU Free Documentation License v1.1 - geen invarianten"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:303
+#: src/as-spdx-data.h:307
 msgid "GNU Free Documentation License v1.1 or later - no invariants"
 msgstr "GNU Free Documentation License v1.1 of hoger - geen invarianten"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:305
+#: src/as-spdx-data.h:309
 msgid "GNU Free Documentation License v1.1 only"
 msgstr "GNU Free Documentation License v1.1"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:307
+#: src/as-spdx-data.h:311
 msgid "GNU Free Documentation License v1.1 or later"
 msgstr "GNU Free Documentation License v1.1 of hoger"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:310
+#: src/as-spdx-data.h:314
 msgid "GNU Free Documentation License v1.2 only - invariants"
 msgstr "GNU Free Documentation License v1.2 - invarianten"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:312
+#: src/as-spdx-data.h:316
 msgid "GNU Free Documentation License v1.2 or later - invariants"
 msgstr "GNU Free Documentation License v1.2 of nieuwer - invarianten"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:314
+#: src/as-spdx-data.h:318
 msgid "GNU Free Documentation License v1.2 only - no invariants"
 msgstr "GNU Free Documentation License v1.2 - geen invarianten"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:316
+#: src/as-spdx-data.h:320
 msgid "GNU Free Documentation License v1.2 or later - no invariants"
 msgstr "GNU Free Documentation License v1.2 of nieuwer - geen invarianten"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:318
+#: src/as-spdx-data.h:322
 msgid "GNU Free Documentation License v1.2 only"
 msgstr "GNU Free Documentation License v1.2"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:320
+#: src/as-spdx-data.h:324
 msgid "GNU Free Documentation License v1.2 or later"
 msgstr "GNU Free Documentation License v1.2 of hoger"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:323
+#: src/as-spdx-data.h:327
 msgid "GNU Free Documentation License v1.3 only - invariants"
 msgstr "GNU Free Documentation License v1.3 - invarianten"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:325
+#: src/as-spdx-data.h:329
 msgid "GNU Free Documentation License v1.3 or later - invariants"
 msgstr "GNU Free Documentation License v1.3 of nieuwer - invarianten"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:327
+#: src/as-spdx-data.h:331
 msgid "GNU Free Documentation License v1.3 only - no invariants"
 msgstr "GNU Free Documentation License v1.3 - geen invarianten"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:329
+#: src/as-spdx-data.h:333
 msgid "GNU Free Documentation License v1.3 or later - no invariants"
 msgstr "GNU Free Documentation License v1.3 of nieuwer - geen invarianten"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:331
+#: src/as-spdx-data.h:335
 msgid "GNU Free Documentation License v1.3 only"
 msgstr "GNU Free Documentation License v1.3"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:333
+#: src/as-spdx-data.h:337
 msgid "GNU Free Documentation License v1.3 or later"
 msgstr "GNU Free Documentation License v1.3 of hoger"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:337 src/as-spdx-data.h:341
+#: src/as-spdx-data.h:341 src/as-spdx-data.h:345
 msgid "GNU General Public License v1.0 only"
 msgstr "GNU General Public License v1.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:339 src/as-spdx-data.h:343
+#: src/as-spdx-data.h:343 src/as-spdx-data.h:347
 msgid "GNU General Public License v1.0 or later"
 msgstr "GNU General Public License v1.0 of hoger"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:345 src/as-spdx-data.h:349
+#: src/as-spdx-data.h:349 src/as-spdx-data.h:353
 msgid "GNU General Public License v2.0 only"
 msgstr "GNU General Public License v2.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:347 src/as-spdx-data.h:351
+#: src/as-spdx-data.h:351 src/as-spdx-data.h:355
 msgid "GNU General Public License v2.0 or later"
 msgstr "GNU General Public License v2.0 of hoger"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:358 src/as-spdx-data.h:362
+#: src/as-spdx-data.h:362 src/as-spdx-data.h:366
 msgid "GNU General Public License v3.0 only"
 msgstr "GNU General Public License v3.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:360 src/as-spdx-data.h:364
+#: src/as-spdx-data.h:364 src/as-spdx-data.h:368
 msgid "GNU General Public License v3.0 or later"
 msgstr "GNU General Public License v3.0 of hoger"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:436 src/as-spdx-data.h:440
+#: src/as-spdx-data.h:441 src/as-spdx-data.h:445
 msgid "GNU Library General Public License v2 only"
 msgstr "GNU Library General Public License v2"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:438 src/as-spdx-data.h:442
+#: src/as-spdx-data.h:443 src/as-spdx-data.h:447
 msgid "GNU Library General Public License v2 or later"
 msgstr "GNU Library General Public License v2 of nieuwer"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:444 src/as-spdx-data.h:448
+#: src/as-spdx-data.h:449 src/as-spdx-data.h:453
 msgid "GNU Lesser General Public License v2.1 only"
 msgstr "GNU Lesser General Public License v2.1"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:446 src/as-spdx-data.h:450
+#: src/as-spdx-data.h:451 src/as-spdx-data.h:455
 msgid "GNU Lesser General Public License v2.1 or later"
 msgstr "GNU Lesser General Public License v2.1 of nieuwer"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:452 src/as-spdx-data.h:456
+#: src/as-spdx-data.h:457 src/as-spdx-data.h:461
 msgid "GNU Lesser General Public License v3.0 only"
 msgstr "GNU Lesser General Public License v3.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
-#: src/as-spdx-data.h:454 src/as-spdx-data.h:458
+#: src/as-spdx-data.h:459 src/as-spdx-data.h:463
 msgid "GNU Lesser General Public License v3.0 or later"
 msgstr "GNU Lesser General Public License v3.0 of nieuwer"
 
