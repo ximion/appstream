@@ -568,6 +568,62 @@ test_validator_extern_ids (void)
 }
 
 /**
+ * test_validator_references:
+ *
+ * Test that valid references are accepted, and malformed DOIs and
+ * citation URLs are flagged.
+ */
+static void
+test_validator_references (void)
+{
+	const gchar *XML_TMPL = "<component>\n"
+				"  <id>org.example.Test</id>\n"
+				"  <name>Test</name>\n"
+				"  <summary>Just a unittest.</summary>\n"
+				"  <description>\n"
+				"    <p>First paragraph</p>\n"
+				"  </description>\n"
+				"  <references>\n"
+				"    %s\n"
+				"  </references>\n"
+				"</component>\n";
+
+	const struct {
+		const gchar *tag_xml;
+		const gchar *expected_tag;
+	} test_cases[] = {
+		/* valid values must not be flagged */
+		{ "<doi>10.1000/182</doi>",					   NULL				    },
+		{ "<citation_cff>https://example.org/CITATION.cff</citation_cff>", NULL				    },
+
+		{ "<doi>https://doi.org/10.1000/182</doi>",			   "reference-doi-invalid"	    },
+		{ "<citation_cff>CITATION.cff</citation_cff>",			   "reference-citation-url-invalid" },
+		{ "<citation_cff>https://example.org/CITATION.txt</citation_cff>",
+		 "reference-citation-url-invalid"								    },
+	};
+
+	for (guint i = 0; i < G_N_ELEMENTS (test_cases); i++) {
+		g_autoptr(AsValidator) validator = as_validator_new ();
+		g_autoptr(GList) issues = NULL;
+		g_autofree gchar *sample_xml = NULL;
+
+		sample_xml = g_strdup_printf (XML_TMPL, test_cases[i].tag_xml);
+		as_validator_validate_data (validator, sample_xml);
+		issues = as_validator_get_issues (validator);
+
+		if (test_cases[i].expected_tag == NULL) {
+			g_assert_false (
+			    _astest_issues_contain_tag (issues, "reference-doi-invalid"));
+			g_assert_false (
+			    _astest_issues_contain_tag (issues, "reference-citation-url-invalid"));
+		} else {
+			g_assert_true (
+			    _astest_issues_contain_tag (issues, test_cases[i].expected_tag));
+		}
+	}
+}
+
+/**
  * _astest_sort_hints_cb:
  */
 static gint
@@ -680,6 +736,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/AppStream/Validate/IconFormat", test_validator_icon_format);
 	g_test_add_func ("/AppStream/Validate/ExternIds", test_validator_extern_ids);
 	g_test_add_func ("/AppStream/Validate/ComponentIdChars", test_validator_cid_chars);
+	g_test_add_func ("/AppStream/Validate/References", test_validator_references);
 
 	ret = g_test_run ();
 	g_free (datadir);

@@ -1717,7 +1717,7 @@ as_validator_check_references (AsValidator *validator, xmlNode *node)
 							value);
 
 		} else if (as_str_equal0 (iter->name, "citation_cff")) {
-			if (!as_validate_has_hyperlink (value) || g_str_has_suffix (value, ".cff"))
+			if (!as_validate_has_hyperlink (value) || !g_str_has_suffix (value, ".cff"))
 				as_validator_add_issue (validator,
 							iter,
 							"reference-citation-url-invalid",
