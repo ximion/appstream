@@ -36,9 +36,9 @@ static const struct {
 	gint height;
 } font_screenshot_sizes[] = {
 	{ 1560, 878 },
-	{ 752,  423 },
-	{ 624,  351 },
-	{ 0,    0   }
+	{ 752,	423 },
+	{ 624,	351 },
+	{ 0,	0   }
 };
 
 /**

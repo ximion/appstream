@@ -76,29 +76,29 @@ static gboolean optn_enable_profiling = FALSE;
  */
 const GOptionEntry ascli_global_options[] = {
 	{ "version",
-	  0, 0,
-	  G_OPTION_ARG_NONE, &optn_show_version,
-	  /* TRANSLATORS: ascli flag description for: --version */
+	 0, 0,
+	 G_OPTION_ARG_NONE, &optn_show_version,
+	 /* TRANSLATORS: ascli flag description for: --version */
 	  N_ ("Show the program version."),
-	  NULL },
+	 NULL },
 	{ "verbose",
-	  0, 0,
-	  G_OPTION_ARG_NONE, &optn_verbose_mode,
-	  /* TRANSLATORS: ascli flag description for: --verbose */
+	 0, 0,
+	 G_OPTION_ARG_NONE, &optn_verbose_mode,
+	 /* TRANSLATORS: ascli flag description for: --verbose */
 	  N_ ("Show extra debugging information."),
-	  NULL },
+	 NULL },
 	{ "no-color",
-	  0, 0,
-	  G_OPTION_ARG_NONE, &optn_no_color,
-	  /* TRANSLATORS: ascli flag description for: --no-color */
+	 0, 0,
+	 G_OPTION_ARG_NONE, &optn_no_color,
+	 /* TRANSLATORS: ascli flag description for: --no-color */
 	  N_ ("Don\'t show colored output."),
-	  NULL },
+	 NULL },
 	{ "profile",
-	  0, 0,
-	  G_OPTION_ARG_NONE, &optn_enable_profiling,
-	  /* TRANSLATORS: ascli flag description for: --profile */
+	 0, 0,
+	 G_OPTION_ARG_NONE, &optn_enable_profiling,
+	 /* TRANSLATORS: ascli flag description for: --profile */
 	  N_ ("Enable profiling"),
-	  NULL },
+	 NULL },
 	{ NULL }
 };
 
@@ -115,23 +115,23 @@ static gboolean optn_no_cache = FALSE;
  */
 const GOptionEntry data_catalog_options[] = {
 	{ "cachepath",
-	  0, 0,
-	  G_OPTION_ARG_STRING, &optn_cachepath,
-	  /* TRANSLATORS: ascli flag description for: --cachepath */
+	 0, 0,
+	 G_OPTION_ARG_STRING, &optn_cachepath,
+	 /* TRANSLATORS: ascli flag description for: --cachepath */
 	  N_ ("Manually selected location of AppStream cache."),
-	  NULL },
+	 NULL },
 	{ "datapath",
-	  0, 0,
-	  G_OPTION_ARG_STRING, &optn_datapath,
-	  /* TRANSLATORS: ascli flag description for: --datapath */
+	 0, 0,
+	 G_OPTION_ARG_STRING, &optn_datapath,
+	 /* TRANSLATORS: ascli flag description for: --datapath */
 	  N_ ("Manually selected location of AppStream metadata to scan."),
-	  NULL },
+	 NULL },
 	{ "no-cache",
-	  0, 0,
-	  G_OPTION_ARG_NONE, &optn_no_cache,
-	  /* TRANSLATORS: ascli flag description for: --no-cache */
+	 0, 0,
+	 G_OPTION_ARG_NONE, &optn_no_cache,
+	 /* TRANSLATORS: ascli flag description for: --no-cache */
 	  N_ ("Ignore cache age and build a fresh cache before performing the query."),
-	  NULL },
+	 NULL },
 	{ NULL }
 };
 
@@ -143,11 +143,11 @@ static gchar *optn_format = NULL;
  */
 const GOptionEntry format_options[] = {
 	{ "format",
-	  0, 0,
-	  G_OPTION_ARG_STRING, &optn_format,
-	  /* TRANSLATORS: ascli flag description for: --format */
+	 0, 0,
+	 G_OPTION_ARG_STRING, &optn_format,
+	 /* TRANSLATORS: ascli flag description for: --format */
 	  N_ ("Default metadata format (valid values are 'xml' and 'yaml')."),
-	  NULL },
+	 NULL },
 	{ NULL }
 };
 
@@ -159,11 +159,11 @@ static gboolean optn_details = FALSE;
  */
 const GOptionEntry find_options[] = {
 	{ "details",
-	  0, 0,
-	  G_OPTION_ARG_NONE, &optn_details,
-	  /* TRANSLATORS: ascli flag description for: --details */
+	 0, 0,
+	 G_OPTION_ARG_NONE, &optn_details,
+	 /* TRANSLATORS: ascli flag description for: --details */
 	  N_ ("Print detailed output about found components."),
-	  NULL },
+	 NULL },
 	{ NULL }
 };
 
@@ -178,29 +178,29 @@ static gint optn_reviews_limit = 15;
  */
 const GOptionEntry reviews_options[] = {
 	{ "server",
-	  0, 0,
-	  G_OPTION_ARG_STRING, &optn_reviews_server,
-	  /* TRANSLATORS: ascli flag description for: --server (used by the "list-reviews" command) */
+	 0, 0,
+	 G_OPTION_ARG_STRING, &optn_reviews_server,
+	 /* TRANSLATORS: ascli flag description for: --server (used by the "list-reviews" command) */
 	  N_ ("URL of the ODRS-compatible reviews server to use."),
-	  NULL },
+	 NULL },
 	{ "start",
-	  0, 0,
-	  G_OPTION_ARG_INT, &optn_reviews_start,
-	  /* TRANSLATORS: ascli flag description for: --start (used by the "list-reviews" command) */
+	 0, 0,
+	 G_OPTION_ARG_INT, &optn_reviews_start,
+	 /* TRANSLATORS: ascli flag description for: --start (used by the "list-reviews" command) */
 	  N_ ("Index of the first review to fetch, to page through all reviews."),
-	  NULL },
+	 NULL },
 	{ "limit",
-	  0, 0,
-	  G_OPTION_ARG_INT, &optn_reviews_limit,
-	  /* TRANSLATORS: ascli flag description for: --limit (used by the "list-reviews" command) */
+	 0, 0,
+	 G_OPTION_ARG_INT, &optn_reviews_limit,
+	 /* TRANSLATORS: ascli flag description for: --limit (used by the "list-reviews" command) */
 	  N_ ("Maximum number of reviews to fetch."),
-	  NULL },
+	 NULL },
 	{ "locale",
-	  0, 0,
-	  G_OPTION_ARG_STRING, &optn_reviews_locale,
-	  /* TRANSLATORS: ascli flag description for: --locale (used by the "list-reviews" and "submit-review" commands) */
+	 0, 0,
+	 G_OPTION_ARG_STRING, &optn_reviews_locale,
+	 /* TRANSLATORS: ascli flag description for: --locale (used by the "list-reviews" and "submit-review" commands) */
 	  N_ ("Locale to prefer for reviews, instead of the current system locale."),
-	  NULL },
+	 NULL },
 	{ NULL }
 };
 
@@ -216,45 +216,45 @@ static gchar *optn_issue_overrides = NULL;
  */
 const GOptionEntry validate_options[] = {
 	{ "pedantic",
-	  (gchar) 0,
-	  0, G_OPTION_ARG_NONE,
-	  &optn_pedantic,
-	  /* TRANSLATORS: ascli flag description for: --pedantic (used by the "validate" command) */
+	 (gchar) 0,
+	 0, G_OPTION_ARG_NONE,
+	 &optn_pedantic,
+	 /* TRANSLATORS: ascli flag description for: --pedantic (used by the "validate" command) */
 	  N_ ("Also show pedantic hints."),
-	  NULL },
+	 NULL },
 	{ "explain",
-	  (gchar) 0,
-	  0, G_OPTION_ARG_NONE,
-	  &optn_explain,
-	  /* TRANSLATORS: ascli flag description for: --explain (used by the "validate" command) */
+	 (gchar) 0,
+	 0, G_OPTION_ARG_NONE,
+	 &optn_explain,
+	 /* TRANSLATORS: ascli flag description for: --explain (used by the "validate" command) */
 	  N_ ("Print detailed explanation for found issues."),
-	  NULL },
+	 NULL },
 	{ "no-net",
-	  (gchar) 0,
-	  0, G_OPTION_ARG_NONE,
-	  &optn_no_net,
-	  /* TRANSLATORS: ascli flag description for: --no-net (used by the "validate" command) */
+	 (gchar) 0,
+	 0, G_OPTION_ARG_NONE,
+	 &optn_no_net,
+	 /* TRANSLATORS: ascli flag description for: --no-net (used by the "validate" command) */
 	  N_ ("Do not use network access."),
-	  NULL },
+	 NULL },
 	{ "strict",
-	  (gchar) 0,
-	  0, G_OPTION_ARG_NONE,
-	  &optn_validate_strict,
-	  /* TRANSLATORS: ascli flag description for: --strict (used by the "validate" command) */
+	 (gchar) 0,
+	 0, G_OPTION_ARG_NONE,
+	 &optn_validate_strict,
+	 /* TRANSLATORS: ascli flag description for: --strict (used by the "validate" command) */
 	  N_ ("Fail validation if any issue is emitted that is not of pedantic severity."),
-	  NULL },
+	 NULL },
 	{ "format",
-	  0, 0,
-	  G_OPTION_ARG_STRING, &optn_format,
-	  /* TRANSLATORS: ascli flag description for: --format  when validating XML files */
+	 0, 0,
+	 G_OPTION_ARG_STRING, &optn_format,
+	 /* TRANSLATORS: ascli flag description for: --format  when validating XML files */
 	  N_ ("Format of the generated report (valid values are 'text' and 'yaml')."),
-	  NULL },
+	 NULL },
 	{ "override",
-	  0, 0,
-	  G_OPTION_ARG_STRING, &optn_issue_overrides,
-	  /* TRANSLATORS: ascli flag description for: --override  when validating XML files */
+	 0, 0,
+	 G_OPTION_ARG_STRING, &optn_issue_overrides,
+	 /* TRANSLATORS: ascli flag description for: --override  when validating XML files */
 	  N_ ("Override the severities of selected issue tags."),
-	  NULL },
+	 NULL },
 
 	{ NULL }
 };
@@ -455,19 +455,19 @@ as_client_run_refresh_cache (AsCliCommand *cmd, gint argc, gchar **argv)
 
 	const GOptionEntry refresh_options[] = {
 		{ "force",
-		  (gchar) 0,
-		  0, G_OPTION_ARG_NONE,
-		  &optn_force,
-		  /* TRANSLATORS: ascli flag description for: --force */
+		 (gchar) 0,
+		 0, G_OPTION_ARG_NONE,
+		 &optn_force,
+		 /* TRANSLATORS: ascli flag description for: --force */
 		  _("Enforce a cache refresh."), NULL },
 		  { "source",
-		    (gchar) 0,
-		    0, G_OPTION_ARG_STRING_ARRAY,
-		    &optn_sources,
-		    /* TRANSLATORS: ascli flag description for: --source in a refresh action. Don't translate strings in backticks: `name` */
+		 (gchar) 0,
+		 0, G_OPTION_ARG_STRING_ARRAY,
+		 &optn_sources,
+		 /* TRANSLATORS: ascli flag description for: --source in a refresh action. Don't translate strings in backticks: `name` */
 		    _("Limit cache refresh to data from a specific source, e.g. `os` or `flatpak`. May be specified multiple times."), NULL },
 		    { NULL }
-	     };
+	    };
 
 	opt_context = as_client_new_subcommand_option_context (cmd, refresh_options);
 	g_option_context_add_main_entries (opt_context, data_catalog_options, NULL);
@@ -769,11 +769,11 @@ as_client_run_check_syscompat (AsCliCommand *cmd, gint argc, gchar **argv)
 
 	const GOptionEntry check_syscompat_options[] = {
 		{ "details",
-		  0, 0,
-		  G_OPTION_ARG_NONE, &optn_sc_details,
-		  /* TRANSLATORS: ascli flag description for: --details (part of the "check-syscompat" subcommand) */
+		 0, 0,
+		 G_OPTION_ARG_NONE, &optn_sc_details,
+		 /* TRANSLATORS: ascli flag description for: --details (part of the "check-syscompat" subcommand) */
 		  N_ ("Print more detailed output on why incompatibilities exist."),
-		  NULL },
+		 NULL },
 		{ NULL }
 	};
 
@@ -806,17 +806,17 @@ as_client_run_put (AsCliCommand *cmd, gint argc, gchar **argv)
 
 	const GOptionEntry put_file_options[] = {
 		{ "origin",
-		  0, 0,
-		  G_OPTION_ARG_STRING, &optn_origin,
-		  /* TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand) */
+		 0, 0,
+		 G_OPTION_ARG_STRING, &optn_origin,
+		 /* TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand) */
 		  N_ ("Set the data origin for the installed metadata catalog file."),
-		  NULL },
+		 NULL },
 		{ "user",
-		  0, 0,
-		  G_OPTION_ARG_NONE, &optn_usermode,
-		  /* TRANSLATORS: ascli flag description for: --user (part of the "put" subcommand) */
+		 0, 0,
+		 G_OPTION_ARG_NONE, &optn_usermode,
+		 /* TRANSLATORS: ascli flag description for: --user (part of the "put" subcommand) */
 		  N_ ("Install the file for the current user, instead of globally."),
-		  NULL },
+		 NULL },
 		{ NULL }
 	};
 
@@ -840,19 +840,19 @@ static gboolean optn_choose_first = FALSE;
 
 const GOptionEntry pkgmanage_options[] = {
 	{ "bundle-type",
-	  0, 0,
-	  G_OPTION_ARG_STRING, &optn_bundle_type,
-	  /* TRANSLATORS: ascli flag description for: --bundle-type (part of the "remove" and "install" subcommands) */
+	 0, 0,
+	 G_OPTION_ARG_STRING, &optn_bundle_type,
+	 /* TRANSLATORS: ascli flag description for: --bundle-type (part of the "remove" and "install" subcommands) */
 	  N_ ("Limit the command to use only components from the given bundling system (`flatpak` "
 	      "or `package`)."),
-	  NULL },
+	 NULL },
 	{ "first",
-	  0, 0,
-	  G_OPTION_ARG_NONE, &optn_choose_first,
-	  /* TRANSLATORS: ascli flag description for: --first (part of the "remove" and "install" subcommands) */
+	 0, 0,
+	 G_OPTION_ARG_NONE, &optn_choose_first,
+	 /* TRANSLATORS: ascli flag description for: --first (part of the "remove" and "install" subcommands) */
 	  N_ ("Do not ask for which software component should be used and always choose the first "
 	      "entry."),
-	  NULL },
+	 NULL },
 	{ NULL }
 };
 
@@ -1172,12 +1172,12 @@ as_client_run_new_template (AsCliCommand *cmd, gint argc, gchar **argv)
 
 	const GOptionEntry newtemplate_options[] = {
 		{ "from-desktop",
-		  0, 0,
-		  G_OPTION_ARG_STRING, &optn_desktop_file,
-		  /* TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand) */
+		 0, 0,
+		 G_OPTION_ARG_STRING, &optn_desktop_file,
+		 /* TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand) */
 		  N_ ("Use the given .desktop file to fill in the basic values of the metainfo "
 		      "file."),
-		  NULL },
+		 NULL },
 		{ NULL }
 	};
 
@@ -1223,11 +1223,11 @@ as_client_run_make_desktop_file (AsCliCommand *cmd, gint argc, gchar **argv)
 
 	const GOptionEntry make_desktop_file_options[] = {
 		{ "exec",
-		  0, 0,
-		  G_OPTION_ARG_STRING, &optn_exec_command,
-		  /* TRANSLATORS: ascli flag description for: --exec (part of the make-desktop-file subcommand) */
+		 0, 0,
+		 G_OPTION_ARG_STRING, &optn_exec_command,
+		 /* TRANSLATORS: ascli flag description for: --exec (part of the make-desktop-file subcommand) */
 		  N_ ("Use the specified line for the 'Exec=' key of the desktop-entry file."),
-		  NULL },
+		 NULL },
 		{ NULL }
 	};
 
@@ -1263,26 +1263,26 @@ as_client_run_news_to_metainfo (AsCliCommand *cmd, gint argc, gchar **argv)
 
 	const GOptionEntry news_to_metainfo_options[] = {
 		{ "format",
-		  0, 0,
-		  G_OPTION_ARG_STRING, &optn_format_text,
-		  /* TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command */
+		 0, 0,
+		 G_OPTION_ARG_STRING, &optn_format_text,
+		 /* TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command */
 		  N_ ("Assume the input file is in the selected format ('yaml', 'text' or "
 		      "'markdown')."),
-		  NULL },
+		 NULL },
 		{ "limit",
-		  'l', 0,
-		  G_OPTION_ARG_INT, &optn_limit,
-		  /* TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command */
+		 'l', 0,
+		 G_OPTION_ARG_INT, &optn_limit,
+		 /* TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command */
 		  N_ ("Limit the number of release entries that end up in the metainfo file (<= 0 "
 		      "for unlimited)."),
-		  NULL },
+		 NULL },
 		{ "translatable-count",
-		  't', 0,
-		  G_OPTION_ARG_INT, &optn_translatable_n,
-		  /* TRANSLATORS: ascli flag description for: --translatable-count as part of the news-to-metainfo command */
+		 't', 0,
+		 G_OPTION_ARG_INT, &optn_translatable_n,
+		 /* TRANSLATORS: ascli flag description for: --translatable-count as part of the news-to-metainfo command */
 		  N_ ("Set the number of releases that should have descriptions marked for "
 		      "translation (latest releases are translated first, -1 for unlimited)."),
-		  NULL },
+		 NULL },
 		{ NULL }
 	};
 
@@ -1322,11 +1322,11 @@ as_client_run_metainfo_to_news (AsCliCommand *cmd, gint argc, gchar **argv)
 
 	const GOptionEntry metainfo_to_news_options[] = {
 		{ "format",
-		  0, 0,
-		  G_OPTION_ARG_STRING, &optn_format_text,
-		  /* TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command */
+		 0, 0,
+		 G_OPTION_ARG_STRING, &optn_format_text,
+		 /* TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command */
 		  N_ ("Generate the output in the selected format ('yaml', 'text' or 'markdown')."),
-		  NULL },
+		 NULL },
 		{ NULL }
 	};
 

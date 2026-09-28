@@ -177,116 +177,116 @@ test_validator_manyerrors_desktopapp (void)
 
 	AsVResultCheck expected_results[] = {
 		{
-		    "content-rating-missing", "",
-		    -1,
-		    AS_ISSUE_SEVERITY_INFO, },
+		 "content-rating-missing", "",
+		 -1,
+		 AS_ISSUE_SEVERITY_INFO, },
 		{
-		    "desktop-app-launchable-missing", "",
-		    -1,
-		    AS_ISSUE_SEVERITY_ERROR, },
+		 "desktop-app-launchable-missing", "",
+		 -1,
+		 AS_ISSUE_SEVERITY_ERROR, },
 		{
-		    "developer-info-missing", "",
-		    -1,
-		    AS_ISSUE_SEVERITY_INFO, },
+		 "developer-info-missing", "",
+		 -1,
+		 AS_ISSUE_SEVERITY_INFO, },
 		{
-		    "cid-domain-not-lowercase", "invalid.7-bad-ID.app",
-		    7, AS_ISSUE_SEVERITY_ERROR,
+		 "cid-domain-not-lowercase", "invalid.7-bad-ID.app",
+		 7, AS_ISSUE_SEVERITY_ERROR,
 		 },
 		{
-		    "cid-rdns-contains-hyphen", "invalid.7-bad-ID.app",
-		    7, AS_ISSUE_SEVERITY_WARNING,
+		 "cid-rdns-contains-hyphen", "invalid.7-bad-ID.app",
+		 7, AS_ISSUE_SEVERITY_WARNING,
 		 },
 		{
-		    "cid-contains-uppercase-letter", "invalid.7-bad-ID.app",
-		    7, AS_ISSUE_SEVERITY_PEDANTIC,
+		 "cid-contains-uppercase-letter", "invalid.7-bad-ID.app",
+		 7, AS_ISSUE_SEVERITY_PEDANTIC,
 		 },
 		{
-		    "cid-has-number-prefix", "invalid.7-bad-ID.app: 7-bad-ID → _7-bad-ID",
-		    7, AS_ISSUE_SEVERITY_INFO,
+		 "cid-has-number-prefix", "invalid.7-bad-ID.app: 7-bad-ID → _7-bad-ID",
+		 7, AS_ISSUE_SEVERITY_INFO,
 		 },
 		{
-		    "cid-maybe-not-rdns", "invalid.7-bad-ID.app",
-		    7, AS_ISSUE_SEVERITY_INFO,
+		 "cid-maybe-not-rdns", "invalid.7-bad-ID.app",
+		 7, AS_ISSUE_SEVERITY_INFO,
 		 },
 		{
-		    "metadata-license-invalid", "GPL-2.0+",
-		    8, AS_ISSUE_SEVERITY_ERROR,
+		 "metadata-license-invalid", "GPL-2.0+",
+		 8, AS_ISSUE_SEVERITY_ERROR,
 		 },
 		{
-		    "spdx-license-unknown", "weird",
-		    9, AS_ISSUE_SEVERITY_WARNING,
+		 "spdx-license-unknown", "weird",
+		 9, AS_ISSUE_SEVERITY_WARNING,
 		 },
 		{
-		    "name-has-dot-suffix", "A name.",
-		    11, AS_ISSUE_SEVERITY_PEDANTIC,
+		 "name-has-dot-suffix", "A name.",
+		 11, AS_ISSUE_SEVERITY_PEDANTIC,
 		 },
 		{
-		    "summary-has-dot-suffix", "Too short, ends with dot.",
-		    12, AS_ISSUE_SEVERITY_INFO,
+		 "summary-has-dot-suffix", "Too short, ends with dot.",
+		 12, AS_ISSUE_SEVERITY_INFO,
 		 },
 		{
-		    "description-first-para-too-short", "Have some invalid markup as well as some valid one.",
-		    15, AS_ISSUE_SEVERITY_INFO,
+		 "description-first-para-too-short", "Have some invalid markup as well as some valid one.",
+		 15, AS_ISSUE_SEVERITY_INFO,
 		 },
 		{
-		    "description-para-markup-invalid", "b",
-		    16, AS_ISSUE_SEVERITY_ERROR,
+		 "description-para-markup-invalid", "b",
+		 16, AS_ISSUE_SEVERITY_ERROR,
 		 },
 		{
-		    "description-markup-attribute-invalid", "em/@id",
-		    18, AS_ISSUE_SEVERITY_WARNING,
+		 "description-markup-attribute-invalid", "em/@id",
+		 18, AS_ISSUE_SEVERITY_WARNING,
 		 },
 		{
-		    "description-markup-nesting-too-deep", "em",
-		    18, AS_ISSUE_SEVERITY_ERROR,
+		 "description-markup-nesting-too-deep", "em",
+		 18, AS_ISSUE_SEVERITY_ERROR,
 		 },
 		{
-		    "description-heading-too-long", "This section heading is far too long to work as a label for the section that "
+		 "description-heading-too-long", "This section heading is far too long to work as a label for the section that "
 		    "follows it", 19,
-		    AS_ISSUE_SEVERITY_WARNING, },
+		 AS_ISSUE_SEVERITY_WARNING, },
 		{
-		    "description-heading-markup-invalid", "em",
-		    24, AS_ISSUE_SEVERITY_ERROR,
+		 "description-heading-markup-invalid", "em",
+		 24, AS_ISSUE_SEVERITY_ERROR,
 		 },
 		{
-		    "web-url-expected", "not a link",
-		    27, AS_ISSUE_SEVERITY_ERROR,
+		 "web-url-expected", "not a link",
+		 27, AS_ISSUE_SEVERITY_ERROR,
 		 },
 		{
-		    "url-not-secure", "http://www.example.org/insecure-url",
-		    28, AS_ISSUE_SEVERITY_INFO,
+		 "url-not-secure", "http://www.example.org/insecure-url",
+		 28, AS_ISSUE_SEVERITY_INFO,
 		 },
 		{
-		    "url-redefined", "homepage",
-		    29, AS_ISSUE_SEVERITY_WARNING,
+		 "url-redefined", "homepage",
+		 29, AS_ISSUE_SEVERITY_WARNING,
 		 },
 		{
-		    "release-urgency-invalid", "superduperhigh",
-		    34, AS_ISSUE_SEVERITY_WARNING,
+		 "release-urgency-invalid", "superduperhigh",
+		 34, AS_ISSUE_SEVERITY_WARNING,
 		 },
 		{
-		    "web-url-expected", "not an URL",
-		    39, AS_ISSUE_SEVERITY_ERROR,
+		 "web-url-expected", "not an URL",
+		 39, AS_ISSUE_SEVERITY_ERROR,
 		 },
 		{
-		    "release-issue-is-cve-but-no-cve-id", "hmm...",
-		    41, AS_ISSUE_SEVERITY_WARNING,
+		 "release-issue-is-cve-but-no-cve-id", "hmm...",
+		 41, AS_ISSUE_SEVERITY_WARNING,
 		 },
 		{
-		    "release-issue-is-gcve-but-no-gcve-id", "nope",
-		    42, AS_ISSUE_SEVERITY_WARNING,
+		 "release-issue-is-gcve-but-no-gcve-id", "nope",
+		 42, AS_ISSUE_SEVERITY_WARNING,
 		 },
 		{
-		    "artifact-invalid-platform-triplet", "OS/Kernel invalid: lunix",
-		    47, AS_ISSUE_SEVERITY_WARNING,
+		 "artifact-invalid-platform-triplet", "OS/Kernel invalid: lunix",
+		 47, AS_ISSUE_SEVERITY_WARNING,
 		 },
 		{
-		    "artifact-filename-not-basename", "/root/file.dat",
-		    53, AS_ISSUE_SEVERITY_ERROR,
+		 "artifact-filename-not-basename", "/root/file.dat",
+		 53, AS_ISSUE_SEVERITY_ERROR,
 		 },
 		{
-		    "release-type-invalid", "unstable",
-		    57, AS_ISSUE_SEVERITY_WARNING,
+		 "release-type-invalid", "unstable",
+		 57, AS_ISSUE_SEVERITY_WARNING,
 		 },
 
 		{ NULL, NULL, 0, AS_ISSUE_SEVERITY_UNKNOWN }
@@ -313,45 +313,45 @@ test_validator_relationissues (void)
 
 	AsVResultCheck expected_results[] = {
 		{
-		    "developer-info-missing", "",
-		    -1,
-		    AS_ISSUE_SEVERITY_INFO, },
+		 "developer-info-missing", "",
+		 -1,
+		 AS_ISSUE_SEVERITY_INFO, },
 		{
-		    "url-homepage-missing", "",
-		    -1,
-		    AS_ISSUE_SEVERITY_WARNING, },
+		 "url-homepage-missing", "",
+		 -1,
+		 AS_ISSUE_SEVERITY_WARNING, },
 		{
-		    "relation-control-value-invalid", "telekinesis",
-		    26, AS_ISSUE_SEVERITY_WARNING,
+		 "relation-control-value-invalid", "telekinesis",
+		 26, AS_ISSUE_SEVERITY_WARNING,
 		 },
 		{
-		    "relation-item-has-vercmp", "gt",
-		    27, AS_ISSUE_SEVERITY_INFO,
+		 "relation-item-has-vercmp", "gt",
+		 27, AS_ISSUE_SEVERITY_INFO,
 		 },
 		{
-		    "relation-item-invalid-vercmp", "gl",
-		    28, AS_ISSUE_SEVERITY_ERROR,
+		 "relation-item-invalid-vercmp", "gl",
+		 28, AS_ISSUE_SEVERITY_ERROR,
 		 },
 		{
-		    "relation-display-length-side-property-invalid", "alpha",
-		    31, AS_ISSUE_SEVERITY_WARNING,
+		 "relation-display-length-side-property-invalid", "alpha",
+		 31, AS_ISSUE_SEVERITY_WARNING,
 		 },
 		{
-		    "relation-display-length-value-invalid", "bleh",
-		    29, AS_ISSUE_SEVERITY_WARNING,
+		 "relation-display-length-value-invalid", "bleh",
+		 29, AS_ISSUE_SEVERITY_WARNING,
 		 },
 		{
-		    "relation-item-redefined", "requires & recommends",
-		    32, AS_ISSUE_SEVERITY_WARNING,
+		 "relation-item-redefined", "requires & recommends",
+		 32, AS_ISSUE_SEVERITY_WARNING,
 		 },
 		{
-		    "releases-info-missing", "",
-		    -1,
-		    AS_ISSUE_SEVERITY_PEDANTIC, },
+		 "releases-info-missing", "",
+		 -1,
+		 AS_ISSUE_SEVERITY_PEDANTIC, },
 		{
-		    "desktop-app-launchable-missing", "",
-		    -1,
-		    AS_ISSUE_SEVERITY_ERROR, },
+		 "desktop-app-launchable-missing", "",
+		 -1,
+		 AS_ISSUE_SEVERITY_ERROR, },
 
 		{ NULL, NULL, 0, AS_ISSUE_SEVERITY_UNKNOWN }
 	};
@@ -529,20 +529,20 @@ test_validator_extern_ids (void)
 		const gchar *expected_tag;
 	} test_cases[] = {
 		/* valid values must not be flagged */
-		{ "<pkgname>hello</pkgname>",					      NULL			   },
-		{ "<pkgname>libstdc++6</pkgname>",					   NULL			},
-		{ "<pkgname>python3.11</pkgname>",					   NULL			},
-		{ "<pkgname>libfoo:i386</pkgname>",					    NULL			 },
-		{ "<bundle type=\"flatpak\">app/org.example.Test/x86_64/stable</bundle>", NULL		       },
+		{ "<pkgname>hello</pkgname>",						  NULL			    },
+		{ "<pkgname>libstdc++6</pkgname>",					  NULL			    },
+		{ "<pkgname>python3.11</pkgname>",					  NULL			    },
+		{ "<pkgname>libfoo:i386</pkgname>",					  NULL			    },
+		{ "<bundle type=\"flatpak\">app/org.example.Test/x86_64/stable</bundle>", NULL			    },
 
 		/* a value that would be read as a switch by the package manager */
-		{ "<pkgname>-oDPkg::Pre-Invoke::=/bin/sh</pkgname>",			     "pkgname-invalid-chars"   },
+		{ "<pkgname>-oDPkg::Pre-Invoke::=/bin/sh</pkgname>",			  "pkgname-invalid-chars"   },
 		/* a value that apt would install as a local .deb file */
-		{ "<pkgname>./evil.deb</pkgname>",					   "pkgname-invalid-chars"   },
+		{ "<pkgname>./evil.deb</pkgname>",					  "pkgname-invalid-chars"   },
 		/* version pinning is still honored after an end-of-options marker */
-		{ "<pkgname>hello=1.0</pkgname>",					  "pkgname-invalid-chars"	  },
+		{ "<pkgname>hello=1.0</pkgname>",					  "pkgname-invalid-chars"   },
 		/* a name that would be expanded as a regular expression */
-		{ "<pkgname>.*</pkgname>",						"pkgname-invalid-chars"   },
+		{ "<pkgname>.*</pkgname>",						  "pkgname-invalid-chars"   },
 		{ "<bundle type=\"flatpak\">--nonsense</bundle>",			  "bundle-id-invalid-chars" },
 	};
 
@@ -679,11 +679,11 @@ test_validator_cid_chars (void)
 		const gchar *expected_hints;
 	} test_cases[] = {
 		/* a well-formed ID must not be flagged */
-		{ "org.example.Test",     ""				 },
+		{ "org.example.Test",	  ""			       },
 		/* plain ASCII offenders are reported as-is */
-		{ "org.example.Te st",    "org.example.Te st: ' '"	},
+		{ "org.example.Te st",	  "org.example.Te st: ' '"     },
 		/* a multi-byte character must be reported as one whole character, not per byte */
-		{ "org.example.Tä",	    "org.example.Tä: 'ä'"	  },
+		{ "org.example.Tä",	  "org.example.Tä: 'ä'"	       },
 		/* an ID made up almost entirely of multi-byte characters: its byte length far
 		 * exceeds its character count, which used to make us read past the end of the
 		 * heap allocation holding the ID. We stop at the first bad character, so only

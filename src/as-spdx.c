@@ -63,14 +63,14 @@ as_spdx_license_tokenize_drop (AsSpdxHelper *helper)
 		const gchar *old;
 		const gchar *new;
 	} licenses[] = {
-		{ "CC0",	 "CC0-1.0"		   },
-		{ "CC-BY",	   "CC-BY-3.0"	       },
-		{ "CC-BY-SA",    "CC-BY-SA-3.0"	     },
-		{ "GFDL",	  "GFDL-1.3"		     },
-		{ "GPL-2",	   "GPL-2.0"		     },
-		{ "GPL-3",	   "GPL-3.0"		     },
+		{ "CC0",	 "CC0-1.0"		  },
+		{ "CC-BY",	 "CC-BY-3.0"		  },
+		{ "CC-BY-SA",	 "CC-BY-SA-3.0"		  },
+		{ "GFDL",	 "GFDL-1.3"		  },
+		{ "GPL-2",	 "GPL-2.0"		  },
+		{ "GPL-3",	 "GPL-3.0"		  },
 		{ "proprietary", "LicenseRef-proprietary" },
-		{ NULL,		NULL		     }
+		{ NULL,		 NULL			  }
 	};
 
 	/* nothing from last time */

@@ -72,15 +72,15 @@ static const struct wl_message as_zxdg_output_v1_requests[] = {
 };
 static const struct wl_message as_zxdg_output_v1_events[] = {
 	{ "logical_position", "ii", as_xdg_types_null },
-	{ "logical_size",	  "ii", as_xdg_types_null },
-	{ "done",		  "",   as_xdg_types_null },
+	{ "logical_size",     "ii", as_xdg_types_null },
+	{ "done",	      "",   as_xdg_types_null },
 };
 static const struct wl_interface as_zxdg_output_v1_interface = {
 	"zxdg_output_v1", 1, 1, as_zxdg_output_v1_requests, 3, as_zxdg_output_v1_events,
 };
 
 static const struct wl_message as_zxdg_output_manager_v1_requests[] = {
-	{ "destroy",	     "",	 as_xdg_types_null	   },
+	{ "destroy",	    "",	  as_xdg_types_null	  },
 	{ "get_xdg_output", "no", as_xdg_get_output_types },
 };
 static const struct wl_interface as_zxdg_output_manager_v1_interface = {

@@ -44,10 +44,10 @@ static const struct {
 	gint height;
 } target_screenshot_sizes[] = {
 	{ 1248, 702 },
-	{ 752,  423 },
-	{ 624,  351 },
-	{ 224,  126 },
-	{ 0,    0   }
+	{ 752,	423 },
+	{ 624,	351 },
+	{ 224,	126 },
+	{ 0,	0   }
 };
 
 /* The minimum size reduction a thumbnail rendition has to achieve relative to its

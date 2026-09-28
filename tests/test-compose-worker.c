@@ -477,7 +477,8 @@ test_image_physical_size (void)
 	 * with its channels scrambled (opaque red turns into transparent cyan). Until that is
 	 * fixed in libvips, we can only check the geometry of the rendering there. */
 	if (G_BYTE_ORDER == G_BIG_ENDIAN) {
-		g_test_skip ("libvips scrambles the colors of vector graphics on big-endian machines");
+		g_test_skip (
+		    "libvips scrambles the colors of vector graphics on big-endian machines");
 		return;
 	}
 

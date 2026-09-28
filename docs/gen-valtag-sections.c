@@ -139,9 +139,9 @@ main (int argc, char **argv)
 
 	const GOptionEntry options[] = {
 		{ "verbose",
-		  'v', 0,
-		  G_OPTION_ARG_NONE, &verbose,
-		  "Show extra debugging information", NULL },
+		 'v', 0,
+		 G_OPTION_ARG_NONE, &verbose,
+		 "Show extra debugging information", NULL },
 		{ NULL }
 	};
 

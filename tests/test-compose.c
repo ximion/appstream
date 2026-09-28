@@ -111,17 +111,17 @@ test_utils (void)
 	 * neither via a path separator nor via relative path segments. */
 	{
 		const gchar *bad_gcids[][2] = {
-			{ "org.example.app/../../../evil", "DEADBEEF"      },
-			{ "org.example.app/evil",	  "DEADBEEF"	     },
-			{ "../../../evil.desktop",	   "DEADBEEF"      },
-			{ "org.example...",		    "DEADBEEF"      },
-			{ "org.example.",		  "DEADBEEF"	     },
-			{ "evil/app",		      "DEADBEEF"	 },
-			{ "ab",				"DEADBEEF"	   },
-			{ "",			      "DEADBEEF"	 },
-			{ "org.example.app",		     "../../../evil" },
-			{ "org.example.app",		     "sub/dir"       },
-			{ "org.example.app",		     ".."		  },
+			{ "org.example.app/../../../evil", "DEADBEEF"	   },
+			{ "org.example.app/evil",	   "DEADBEEF"	   },
+			{ "../../../evil.desktop",	   "DEADBEEF"	   },
+			{ "org.example...",		   "DEADBEEF"	   },
+			{ "org.example.",		   "DEADBEEF"	   },
+			{ "evil/app",			   "DEADBEEF"	   },
+			{ "ab",				   "DEADBEEF"	   },
+			{ "",				   "DEADBEEF"	   },
+			{ "org.example.app",		   "../../../evil" },
+			{ "org.example.app",		   "sub/dir"	   },
+			{ "org.example.app",		   ".."		   },
 		};
 
 		for (guint i = 0; i < G_N_ELEMENTS (bad_gcids); i++) {

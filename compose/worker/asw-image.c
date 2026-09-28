@@ -307,7 +307,7 @@ asw_image_supported_format_names (void)
 		{ "webpload_buffer", "webp" },
 		{ "heifload_buffer", "avif" },
 		{ "gifload_buffer",  "gif"  },
-		{ NULL,		NULL   }
+		{ NULL,		     NULL   }
 	};
 	GHashTable *res;
 
