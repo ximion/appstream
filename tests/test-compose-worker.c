@@ -106,44 +106,13 @@ test_read_fontinfo (void)
 	g_autofree gchar *data = NULL;
 	gsize data_len;
 	g_autoptr(GList) lang_list = NULL;
-	const gchar *expected_langs_old_fontconfig[] = {
-		"aa",	  "ab",	   "af",  "an",	 "ast",	  "av",	   "ay",  "az-az", "ba",  "be",
-		"bg",	  "bi",	   "bin", "br",	 "bs",	  "bua",   "ca",  "ce",	   "ch",  "chm",
-		"co",	  "crh",   "cs",  "csb", "cv",	  "cy",	   "da",  "de",	   "en",  "eo",
-		"es",	  "et",	   "eu",  "fi",	 "fil",	  "fj",	   "fo",  "fr",	   "fur", "fy",
-		"gd",	  "gl",	   "gn",  "gv",	 "haw",	  "ho",	   "hr",  "hsb",   "ht",  "hu",
-		"ia",	  "id",	   "ie",  "ig",	 "ik",	  "io",	   "is",  "it",	   "jv",  "kaa",
-		"ki",	  "kj",	   "kk",  "kl",	 "ku-am", "ku-tr", "kum", "kv",	   "kw",  "kwm",
-		"ky",	  "la",	   "lb",  "lez", "lg",	  "li",	   "lt",  "lv",	   "mg",  "mh",
-		"mk",	  "mn-mn", "mo",  "ms",	 "mt",	  "na",	   "nb",  "nds",   "ng",  "nl",
-		"nn",	  "no",	   "nr",  "nso", "nv",	  "ny",	   "oc",  "om",	   "os",  "pap-an",
-		"pap-aw", "pl",	   "pt",  "qu",	 "quz",	  "rm",	   "rn",  "ro",	   "ru",  "rw",
-		"sah",	  "sc",	   "se",  "sel", "sg",	  "sh",	   "sk",  "sl",	   "sm",  "sma",
-		"smj",	  "smn",   "sn",  "so",	 "sq",	  "sr",	   "ss",  "st",	   "su",  "sv",
-		"sw",	  "tg",	   "tk",  "tl",	 "tn",	  "to",	   "tr",  "ts",	   "tt",  "ty",
-		"tyv",	  "uk",	   "uz",  "vi",	 "vo",	  "vot",   "wa",  "wen",   "wo",  "xh",
-		"yap",	  "za",	   "zu",  NULL
-	};
-	const gchar *expected_langs[] = {
-		"aa",	  "ab",	    "af",  "agr", "an",	 "ast", "av",  "ay",  "ayc",   "az-az",
-		"ba",	  "be",	    "bem", "bg",  "bi",	 "bin", "br",  "bs",  "bua",   "ca",
-		"ce",	  "ch",	    "chm", "co",  "crh", "cs",	"csb", "cv",  "cy",    "da",
-		"de",	  "dsb",    "en",  "eo",  "es",	 "et",	"eu",  "fi",  "fil",   "fj",
-		"fo",	  "fr",	    "fur", "fy",  "gd",	 "gl",	"gn",  "gv",  "haw",   "ho",
-		"hr",	  "hsb",    "ht",  "hu",  "ia",	 "id",	"ie",  "ig",  "ik",    "io",
-		"is",	  "it",	    "jv",  "kaa", "ki",	 "kj",	"kk",  "kl",  "ku-am", "ku-tr",
-		"kum",	  "kv",	    "kw",  "kwm", "ky",	 "la",	"lb",  "lez", "lg",    "li",
-		"lij",	  "lt",	    "lv",  "mfe", "mg",	 "mh",	"mhr", "miq", "mjw",   "mk",
-		"mn-mn",  "mo",	    "ms",  "mt",  "na",	 "nb",	"nds", "ng",  "nhn",   "niu",
-		"nl",	  "nn",	    "no",  "nr",  "nso", "nv",	"ny",  "oc",  "om",    "os",
-		"pap-an", "pap-aw", "pl",  "pt",  "qu",	 "quz", "rm",  "rn",  "ro",    "ru",
-		"rw",	  "sah",    "sc",  "se",  "sel", "sg",	"sgs", "sh",  "sk",    "sl",
-		"sm",	  "sma",    "smj", "smn", "sn",	 "so",	"sq",  "sr",  "ss",    "st",
-		"su",	  "sv",	    "sw",  "szl", "tg",	 "tk",	"tl",  "tn",  "to",    "tpi",
-		"tr",	  "ts",	    "tt",  "ty",  "tyv", "uk",	"unm", "uz",  "vi",    "vo",
-		"vot",	  "wa",	    "wae", "wen", "wo",	 "xh",	"yap", "yuw", "za",    "zu",
-		NULL
-	};
+	/* languages with a stable Latin orthography in fontconfig, which Raleway
+	 * must always support - we do not check for the complete list here,
+	 * as fontconfig changes its orthography data between releases */
+	const gchar *expected_langs[] = { "af", "ca", "cs", "da", "de", "en", "es", "et",
+					  "eu", "fi", "fr", "hr", "hu", "id", "is", "it",
+					  "lt", "lv", "nl", "pl", "pt", "ro", "sk", "sl",
+					  "sq", "sv", "tr", "vi", NULL };
 
 	font_fname = g_build_filename (datadir, "Raleway-Regular.ttf", NULL);
 
@@ -179,26 +148,19 @@ test_read_fontinfo (void)
 
 	lang_list = asw_font_get_language_list (font);
 
-	{
-		guint i = 0;
-		gboolean fc_lang_success = TRUE;
-		for (GList *l = lang_list; l != NULL; l = l->next) {
-			g_assert_nonnull (expected_langs_old_fontconfig[i]);
-			if (!as_str_equal0 (expected_langs_old_fontconfig[i], l->data)) {
-				fc_lang_success = FALSE;
-				break;
-			}
-			i++;
-		}
-		if (!fc_lang_success) {
-			i = 0;
-			for (GList *l = lang_list; l != NULL; l = l->next) {
-				g_assert_nonnull (expected_langs[i]);
-				g_assert_cmpstr (expected_langs[i], ==, l->data);
-				i++;
-			}
-		}
+	/* the list must be sorted and free of duplicates */
+	for (GList *l = lang_list; l != NULL && l->next != NULL; l = l->next)
+		g_assert_cmpstr (l->data, <, l->next->data);
+
+	for (guint i = 0; expected_langs[i] != NULL; i++) {
+		if (g_list_find_custom (lang_list, expected_langs[i], (GCompareFunc) g_strcmp0) ==
+		    NULL)
+			g_error ("Expected language '%s' not found in font language list.",
+				 expected_langs[i]);
 	}
+
+	/* Raleway covers a lot of Latin-script languages */
+	g_assert_cmpint (g_list_length (lang_list), >=, 100);
 
 	/* uses "Noto Sans" */
 	g_assert_cmpstr (asw_font_get_sample_text (font),
