@@ -1,3 +1,29 @@
+Version 1.2.1
+~~~~~~~~~~~~~
+Released: 2026-09-28
+
+Features:
+ * curl: Include "libcurl" in UA string so AI bot protection hits us less
+ * compose: Permit changing the downloader user agent
+ * compose: Try to guess what media we actually downloaded if processing failed
+ * Add support for elogind
+
+Bugfixes:
+ * meson: Make sed command cross-platform friendly
+ * meson: Don't use any absolute include path to find libstemmer.h
+ * system-info: Avoid overflow in physical memory total on 32-bit systems
+ * compose: Flag a missing ffprobe as its own error
+ * docs: Work around a rare DAPS race condition when building documentation
+ * Resolve or skip failing tests on riscv64 & s390x
+ * validator: Fix validation of `references` elements
+ * tests: Relax fontconfig orthography data check for 2.18.3 bug
+
+Miscellaneous:
+ * compose: Move media detection to the worker process
+
+Contributors:
+ Felix Häcker, Matthias Klumpp, Maxim Cournoyer
+
 Version 1.2.0
 ~~~~~~~~~~~~~
 Released: 2026-08-28
