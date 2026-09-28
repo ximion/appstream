@@ -5,7 +5,7 @@
 # Translators:
 # André Marcelo Alvarenga <alvarenga@kde.org>, 2016
 # Rafael Fontenelle <rffontenelle@gmail.com>, 2015-2016
-# Rafael Fontenelle <rafaelff@gnome.org>, 2017, 2019, 2020, 2021, 2022, 2023, 2024, 2025.
+# Rafael Fontenelle <rafaelff@gnome.org>, 2017, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026.
 # Wellington Terumi Uemura <wellingtonuemura@gmail.com>, 2020, 2021, 2022.
 # André Marcelo Alvarenga <andrealvarenga@gmx.net>, 2020, 2021.
 # #-#-#-#-#  pt_BR.po (appstream)  #-#-#-#-#
@@ -39,15 +39,15 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-08-28 08:48+0200\n"
-"PO-Revision-Date: 2026-07-24 11:01+0000\n"
-"Last-Translator: Gabriel <bloxgabriel18@gmail.com>\n"
+"PO-Revision-Date: 2026-09-28 12:51+0000\n"
+"Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/appstream/translations/pt_BR/>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 2026.8.dev0\n"
+"X-Generator: Weblate 2026.10.dev0\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1492,10 +1492,9 @@ msgstr "Razão desconhecida"
 
 #. TRANSLATORS: We failed to fetch a software rating from the ODRS review server
 #: src/as-reviews-client.c:1247
-#, fuzzy, c-format
-#| msgid "Unable to find component matching %s!"
+#, c-format
 msgid "Unable to fetch software rating: %s"
-msgstr "Não foi possível encontrar um componente correspondendo a %s!"
+msgstr "Não foi possível obter a classificação do software: %s"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:39
@@ -1684,10 +1683,8 @@ msgid "This element (paragraph, list, etc.) of a <description/> tag must not be 
 msgstr "Este elemento (parágrafo, lista, etc.) de uma tag <description/> não deve ser localizado individualmente em metadados de coleção. Localize a tag <description/> inteira em vez disso. O gerador de metadados de coleção do AppStream (por exemplo, `appstream-generator`) já fará a coisa certa ao compilar os dados."
 
 #: src/as-validator-issue-tag.h:64
-#, fuzzy
-#| msgid "AppStream descriptions support only a limited set of tags to format text: Paragraphs (<p/>) and lists (<ul/>, <ol/>). This description markup contains an invalid XML tag that would not be rendered correctly in applications supporting the metainfo specification."
 msgid "AppStream descriptions support only a limited set of tags to format text: Paragraphs (<p/>), section headings (<heading/>) and lists (<ul/>, <ol/>). This description markup contains an invalid XML tag that would not be rendered correctly in applications supporting the metainfo specification."
-msgstr "As descrições do AppStream possuem suporte apenas a um conjunto limitado de tags para formatar texto: parágrafos (<p/>) e listas (<ul/>, <ol/>). Essa marcação de descrição contém uma marca XML inválida que não seria processada corretamente em aplicativos que possuem suporte à especificação metainfo."
+msgstr "As descrições do AppStream possuem suporte apenas a um conjunto limitado de tags para formatar texto: parágrafos (<p/>), cabeçalhos de seção (<heading/>) e listas (<ul/>, <ol/>). Essa marcação de descrição contém uma marca XML inválida que não seria processada corretamente em aplicativos que possuem suporte à especificação metainfo."
 
 #: src/as-validator-issue-tag.h:70
 msgid "This description paragraph contains invalid markup. Currently, only <em/> and <code/> are permitted."
@@ -1695,11 +1692,11 @@ msgstr "Este parágrafo de descrição contém marcação inválida. Atualmente,
 
 #: src/as-validator-issue-tag.h:75
 msgid "Elements of description markup must not have any attributes set, with the exception of a language property on paragraphs and list items in MetaInfo files. Any other attribute is not permitted and will be removed when the metadata is read."
-msgstr ""
+msgstr "Elementos da marcação da descrição não devem ter quaisquer atributos definidos, com exceção de uma propriedade de idioma em parágrafos e itens de lista em arquivos MetaInfo. Qualquer outro atributo não é permitido e será removido quando os metadados forem lidos."
 
 #: src/as-validator-issue-tag.h:81
 msgid "The markup in this description is nested too deeply. Excessively nested markup will be flattened to plain text when the metadata is read."
-msgstr ""
+msgstr "A marcação nesta descrição está aninhada muito profundamente. Marcação excessivamente aninhada será achatada em texto simples quando os metadados forem lidos."
 
 #: src/as-validator-issue-tag.h:87
 msgid "Enumerations must only have list items (<li/>) as children."
@@ -1712,12 +1709,12 @@ msgstr "A enumeração não deve ser traduzida como um todo. Em arquivos MetaInf
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:99
 msgid "Section headings (`description/heading`) are plain text and must not contain any markup, not even <em/> or <code/>. The markup will be removed when the metadata is read."
-msgstr ""
+msgstr "Cabeçalhos das seções (`description/heading`) são texto simples e não devem conter qualquer marcação, nem mesmo <em/> ou <code/>. A marcação será removida quando os metadados forem lidos."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:106
 msgid "This section heading (`description/heading`) is very long and will likely not be displayed properly everywhere. A heading should be a short label for the section that follows it, and be <= 80 characters long. Use a paragraph (<p/>) for longer text."
-msgstr ""
+msgstr "Este cabeçalho da seção (`description/heading`) é muito longo e provavelmente não será exibido corretamente em todos os lugares. Um cabeçalho deve ser um rótulo curto para a seção que o segue, e ser <= 80 caracteres de comprimento. Use um parágrafo (<p/>) para texto mais longo."
 
 #: src/as-validator-issue-tag.h:113
 msgid "The first `description/p` paragraph of this component might be too short (< 80 characters). Please consider starting with a longer paragraph to improve how the description looks like in software centers and to provide more detailed information on this component immediately in the first paragraph."
@@ -2057,11 +2054,11 @@ msgstr "A tag `pkgname` aparece várias vezes. Você deve avaliar a criação de
 
 #: src/as-validator-issue-tag.h:542
 msgid "The package name contains characters that are not permitted here. A package name must start with an alphanumeric character and may only contain alphanumeric characters as well as `+`, `-`, `.`, `_` and `:`."
-msgstr ""
+msgstr "O nome do pacote contém caracteres que não são permitidos aqui. Um nome de pacote deve começar com um caractere alfanumérico e pode conter apenas caracteres alfanuméricos, bem como `+`, `-`, `.`, `_` e `:`."
 
 #: src/as-validator-issue-tag.h:548
 msgid "The bundle ID contains characters that are not permitted here. It must start with an alphanumeric character and may only contain alphanumeric characters as well as `+`, `-`, `.`, `_`, `:` and `/`."
-msgstr ""
+msgstr "O ID do pacote contém caracteres que não são permitidos aqui. Ele deve começar com um caractere alfanumérico e pode conter apenas caracteres alfanuméricos, bem como `+`, `-`, `.`, `_`, `:` e `/`."
 
 #: src/as-validator-issue-tag.h:554
 msgid "The component name should (likely) not end with a dot (`.`)."
@@ -2113,7 +2110,7 @@ msgstr "Os arquivos metainfo podem conter apenas ícones do tipo `stock` ou `rem
 #. TRANSLATORS: Please do not translate names in backticks.
 #: src/as-validator-issue-tag.h:614
 msgid "This icon uses an unsupported file format. Icons should be PNG, JPEG-XL (`.jxl`) or vector graphics (`.svg`/`.svgz`) images."
-msgstr ""
+msgstr "Este ícone usa um formato de arquivo não suportado. Os ícones devem ser imagens PNG, JPEG-XL (`.jxl`) ou gráficos vetoriais (`.svg`/`.svgz`)."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:621
@@ -2475,10 +2472,8 @@ msgid "The issue is tagged at security vulnerability with a CVE number, but its 
 msgstr "O problema está marcado na vulnerabilidade de segurança com um número CVE, mas seu valor não se parece com um identificador CVE válido."
 
 #: src/as-validator-issue-tag.h:1082
-#, fuzzy
-#| msgid "The issue is tagged at security vulnerability with a CVE number, but its value does not look like a valid CVE identifier."
 msgid "The issue is tagged as security vulnerability with a GCVE identifier, but its value does not follow the `GCVE-<GNA-ID>-<YEAR>-<UNIQUE-ID>` scheme of the Global CVE Allocation System."
-msgstr "O problema está marcado na vulnerabilidade de segurança com um número CVE, mas seu valor não se parece com um identificador CVE válido."
+msgstr "O problema está marcado como vulnerabilidade de segurança com um identificador GCVE, mas seu valor não segue o esquema `GCVE-<ID-GNA>-<ano>-<ID-ÚNICO>` do Global CVE Allocation System."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1089
@@ -2758,7 +2753,7 @@ msgstr "Um texto de política de ícone para determinar como os ícones serão t
 #. TRANSLATORS: ascompose flag description for: --image-format
 #: tools/appstream-compose.c:292
 msgid "The file format that generated icons and screenshots are stored in (`jxl` by default, or `png` for compatibility with older clients)."
-msgstr ""
+msgstr "O formato de arquivo que gerou ícones e capturas de tela são armazenados em (`jxl` por padrão, ou `png` para compatibilidade com clientes mais velhos)."
 
 #. TRANSLATORS: ascompose flag description for: --allow-custom
 #: tools/appstream-compose.c:299
@@ -2821,7 +2816,7 @@ msgstr "Nenhum diretório de destino definido, fornece um local de saída de dad
 #: tools/appstream-compose.c:404
 #, c-format
 msgid "Metadata origin not set, using '%s'"
-msgstr ""
+msgstr "Origem dos metadados não está definida, usando \"%s\""
 
 #: tools/appstream-compose.c:409 tools/appstream-compose.c:411
 msgid "WARNING"
@@ -2835,7 +2830,7 @@ msgstr "Não foi possível definir a política de ícone"
 #: tools/appstream-compose.c:453
 #, c-format
 msgid "Invalid image format: %s. Only `jxl` and `png` are supported for generated media.\n"
-msgstr ""
+msgstr "Formato de imagem inválido: %s. Somente `jxl` e `png` são suportados para mídia gerada.\n"
 
 #. TRANSLATORS: Information about as-compose allowlist
 #: tools/appstream-compose.c:483
@@ -2930,22 +2925,22 @@ msgstr "Mostra saída detalhada sobre componentes encontrados."
 #. TRANSLATORS: ascli flag description for: --server (used by the "list-reviews" command)
 #: tools/appstreamcli.c:184
 msgid "URL of the ODRS-compatible reviews server to use."
-msgstr ""
+msgstr "URL do servidor de avaliação compatível com ODRS para usar."
 
 #. TRANSLATORS: ascli flag description for: --start (used by the "list-reviews" command)
 #: tools/appstreamcli.c:190
 msgid "Index of the first review to fetch, to page through all reviews."
-msgstr ""
+msgstr "Índice da primeira avaliação a ser buscada, para percorrer todas as avaliações."
 
 #. TRANSLATORS: ascli flag description for: --limit (used by the "list-reviews" command)
 #: tools/appstreamcli.c:196
 msgid "Maximum number of reviews to fetch."
-msgstr ""
+msgstr "Número máximo das avaliações para buscar."
 
 #. TRANSLATORS: ascli flag description for: --locale (used by the "list-reviews" and "submit-review" commands)
 #: tools/appstreamcli.c:202
 msgid "Locale to prefer for reviews, instead of the current system locale."
-msgstr ""
+msgstr "Localidade preferida para avaliações, em vez da localidade atual do sistema."
 
 #. TRANSLATORS: ascli flag description for: --pedantic (used by the "validate" command)
 #: tools/appstreamcli.c:223
@@ -3265,15 +3260,13 @@ msgstr "Compõe coleção de metadados AppStream a partir de árvores de diretó
 
 #. TRANSLATORS: `appstreamcli list-reviews` command description.
 #: tools/appstreamcli.c:1713
-#, fuzzy
-#| msgid "We have information on %i software components."
 msgid "List online user reviews for a software component."
-msgstr "Nós temos informação sobre %i componentes de software."
+msgstr "Lista avaliações online de usuários de um componente de software."
 
 #. TRANSLATORS: `appstreamcli submit-review` command description.
 #: tools/appstreamcli.c:1726
 msgid "Compose and submit an online review for a software component."
-msgstr ""
+msgstr "Compõe e submete uma avaliação online para um componente de software."
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstreamcli.c:1808
@@ -3606,16 +3599,14 @@ msgid "You need to specify a NEWS file as output, or '-' to print to stdout."
 msgstr "Você precisa especificar um arquivo NEWS como saída ou “-” para imprimir para stdout."
 
 #: tools/ascli-actions-misc.c:575
-#, fuzzy, c-format
-#| msgid "The release metadata file '%s' is named incorrectly."
+#, c-format
 msgid "Release metadata file '%s' contains no data."
-msgstr "O arquivo de metadados de lançamento '%s' foi nomeado incorretamente."
+msgstr "O arquivo de metadados de lançamento \"%s\" contém nenhum dado."
 
 #: tools/ascli-actions-misc.c:590
-#, fuzzy, c-format
-#| msgid "Metainfo file '%s' does not exist."
+#, c-format
 msgid "Metainfo file '%s' contains no component."
-msgstr "O arquivo metainfo “%s” não existe."
+msgstr "O arquivo metainfo “%s” contém nenhum componente."
 
 #: tools/ascli-actions-misc.c:599
 #, c-format
@@ -3623,6 +3614,8 @@ msgid ""
 "The metainfo file '%s' references external release data.\n"
 "Run this command on the release metadata file instead."
 msgstr ""
+"O arquivo metainfo “%s” referencia dados de lançamento externos.\n"
+"Execute este comando em um arquivo de metadados de lançamento em vez disso."
 
 #: tools/ascli-actions-misc.c:612
 msgid "You need to specify a NEWS format to write the output in."
@@ -3681,17 +3674,15 @@ msgstr "Memória Física"
 
 #: tools/ascli-actions-misc.c:721 tools/ascli-actions-misc.c:726
 msgid "Largest Display"
-msgstr ""
+msgstr "Tela maior"
 
 #: tools/ascli-actions-misc.c:724
 msgid "logical px"
-msgstr ""
+msgstr "px lógico"
 
 #: tools/ascli-actions-misc.c:726
-#, fuzzy
-#| msgid "Unable to read file."
 msgid "unable to determine"
-msgstr "Não foi possível ler o arquivo."
+msgstr "não foi possível determinar"
 
 #: tools/ascli-actions-misc.c:730
 msgid "Devices with Modaliases"
@@ -3717,91 +3708,90 @@ msgstr "não"
 
 #: tools/ascli-actions-misc.c:829
 msgid "Overall rating"
-msgstr ""
+msgstr "Classificação geral"
 
 #: tools/ascli-actions-misc.c:842
-#, fuzzy, c-format
-#| msgid "Found supported software component '%s'."
+#, c-format
 msgid "No reviews found for component '%s'."
-msgstr "Suporte de software para componente '%s' encontrado."
+msgstr "Nenhuma avaliação encontrada para o componente “%s”."
 
 #: tools/ascli-actions-misc.c:857 tools/ascli-actions-misc.c:958
 msgid "Author"
-msgstr ""
+msgstr "Autor"
 
 #: tools/ascli-actions-misc.c:860
 msgid "Date"
-msgstr ""
+msgstr "Data"
 
 #: tools/ascli-actions-misc.c:910
 #, c-format
 msgid "Composing a review for '%s' to be submitted to %s."
-msgstr ""
+msgstr "Compondo uma avaliação para “%s” para ser submetida para %s."
 
 #: tools/ascli-actions-misc.c:913
 msgid "Please only review the software itself, and mind that your review will be publicly visible."
-msgstr ""
+msgstr "Por favor, somente avalie o próprio software e lembre0se que sua avaliação estará publicamente visível."
 
 #. TRANSLATORS: Prompt when composing a review, %s is a user name
 #: tools/ascli-actions-misc.c:918
 #, c-format
 msgid "Your display name (leave empty to use '%s'):"
-msgstr ""
+msgstr "O seu nome visível (deixe vazio para usar “%s”):"
 
 #. TRANSLATORS: Prompt for a star rating when composing a review
 #: tools/ascli-actions-misc.c:925
 msgid "Star rating, from 1 (worst) to 5 (best):"
-msgstr ""
+msgstr "Classificação por estrelas, de 1 (pior) a 5 (melhor):"
 
 #. TRANSLATORS: Prompt when composing a review
 #: tools/ascli-actions-misc.c:932
 msgid "Short summary of your review:"
-msgstr ""
+msgstr "Breve resumo de sua avaliação:"
 
 #: tools/ascli-actions-misc.c:938
 msgid "The summary must not be empty and be no longer than 70 characters."
-msgstr ""
+msgstr "O resumo não pode estar vazio e não pode ser maior que 70 caracteres."
 
 #. TRANSLATORS: Prompt when composing a review
 #: tools/ascli-actions-misc.c:942
 msgid "Detailed review text (end with an empty line):"
-msgstr ""
+msgstr "Texto da avaliação detalhada (termine com uma linha vazia):"
 
 #: tools/ascli-actions-misc.c:944
 msgid "The review text must not be empty."
-msgstr ""
+msgstr "O texto da avaliação não pode estar vazio."
 
 #: tools/ascli-actions-misc.c:965
 msgid "Rating"
-msgstr ""
+msgstr "Classificação"
 
 #: tools/ascli-actions-misc.c:968
 msgid "Review"
-msgstr ""
+msgstr "Avaliação"
 
 #. TRANSLATORS: Prompt before publishing a composed review
 #: tools/ascli-actions-misc.c:975
 msgid "Publish this review?"
-msgstr ""
+msgstr "Publicar esta avaliação?"
 
 #: tools/ascli-actions-misc.c:979
 msgid "Review submission cancelled."
-msgstr ""
+msgstr "Submissão da avaliação cancelada."
 
 #: tools/ascli-actions-misc.c:989
 #, c-format
 msgid "Review submitted successfully (ID: %s). Thank you!"
-msgstr ""
+msgstr "Avaliação submetida com sucesso (ID: %s). Obrigado!"
 
 #: tools/ascli-actions-misc.c:992
 msgid "Review submitted successfully. Thank you!"
-msgstr ""
+msgstr "Avaliação submetida com sucesso. Obrigado!"
 
 #. TRANSLATORS: The placeholder is the invalid package name found in metadata.
 #: tools/ascli-actions-pkgmgr.c:92
 #, c-format
 msgid "Refusing to run the package manager: The component metadata contains an invalid package name: %s"
-msgstr ""
+msgstr "Recusando executar o gerenciador de pacotes: Os metadados do componente contêm um nome de pacote inválido: %s"
 
 #: tools/ascli-actions-pkgmgr.c:107
 msgid "No suitable package manager tool found. Please make sure that e.g. \"pkgcli\" (part of PackageKit) is available."
@@ -3816,7 +3806,7 @@ msgstr "Não foi possível invocar o gerenciador de pacotes: %s"
 #: tools/ascli-actions-pkgmgr.c:144
 #, c-format
 msgid "Refusing to run Flatpak: The component metadata contains an invalid bundle ID: %s"
-msgstr ""
+msgstr "Recusando executar Flatpak: Os metadados do componente contém um ID de pacote inválido: %s"
 
 #: tools/ascli-actions-pkgmgr.c:151
 msgid "Flatpak was not found! Please install it to continue."
@@ -3855,10 +3845,8 @@ msgstr "Insira o número do componente que será instalado:"
 #. we reached the end of the input stream without ever getting an
 #. * answer, e.g. because stdin was closed or is not a terminal
 #: tools/ascli-actions-pkgmgr.c:267
-#, fuzzy
-#| msgid "No component matching '%s' found."
 msgid "No component was selected."
-msgstr "Nenhum componente encontrado que corresponda a “%s”."
+msgstr "Nenhum componente foi selecionado."
 
 #: tools/ascli-actions-pkgmgr.c:278
 #, c-format
