@@ -7,963 +7,964 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-09-28 17:26+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2026-09-30 05:52+0000\n"
+"Last-Translator: Roy-Magne Mo <rmo@sunnmore.net>\n"
+"Language-Team: Norwegian Nynorsk <https://hosted.weblate.org/projects/appstream/translations/nn/>\n"
 "Language: nn\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2026.10.dev0\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
-msgstr ""
+msgstr "AppStream CLI"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:9
 msgid "An utility to work with AppStream metadata"
-msgstr ""
+msgstr "Eit verktøy for arbeid med AppStream-metadata"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:12
 msgid "AppStream is a metadata specification which permits software components to provide information about themselves to automated systems and end-users before the software is actually installed. The AppStream project provides facilities to easily access and transform this metadata, as well as a few additional services for building feature-rich software centers and similar applications that make use of software metadata."
-msgstr ""
+msgstr "AppStream er ein metadataspesifikasjon som gjer det mogleg for programvarekomponentar å gje informasjon om seg sjølve til automatiske system og sluttbrukarar før programvara faktisk vert installert. AppStream-prosjektet har verktøy for å lese og omforme desse metadataa enkelt, og i tillegg nokre tenester for å byggje funksjonsrike programvaresenter og liknande program som brukar metadata om programvare."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:18
 msgid "The <em>appstreamcli</em> command-line tool allows to read, write, and transform AppStream XML or YAML metadata as well as to validate it for compliance with the specification. It also provides easy access to the system metadata pool, for example to query for software that provides a specific Mediatype handler or for installing software by its component identifier."
-msgstr ""
+msgstr "Kommandolinjeverktøyet <em>appstreamcli</em> kan lese, skrive og omforme AppStream-metadata i XML eller YAML, og validere at dei følgjer spesifikasjonen. Det gjev òg enkel tilgang til metadatalageret i systemet, til dømes for å søkje etter programvare som kan handtere ein bestemt medietype, eller for å installere programvare ut frå komponent-ID-en."
 
 #: src/as-cache.c:935
 #, c-format
 msgid "Cache location '%s' is not writable."
-msgstr ""
+msgstr "Det går ikkje an å skrive til mellomlagerplasseringa «%s»."
 
 #: src/as-category.c:69
 msgctxt "Category of AudioVideo"
 msgid "Featured"
-msgstr ""
+msgstr "Framheva"
 
 #: src/as-category.c:72
 msgctxt "Category of AudioVideo"
 msgid "Audio Creation & Editing"
-msgstr ""
+msgstr "Lydproduksjon og -redigering"
 
 #: src/as-category.c:78
 msgctxt "Category of AudioVideo"
 msgid "Music Players"
-msgstr ""
+msgstr "Musikkspelarar"
 
 #: src/as-category.c:87
 msgctxt "Category of Development"
 msgid "Featured"
-msgstr ""
+msgstr "Framheva"
 
 #: src/as-category.c:90
 msgctxt "Category of Development"
 msgid "Debuggers"
-msgstr ""
+msgstr "Feilsøkingsverktøy"
 
 #: src/as-category.c:93
 msgctxt "Category of Development"
 msgid "IDEs"
-msgstr ""
+msgstr "IDE-ar"
 
 #: src/as-category.c:102
 msgctxt "Category of Education"
 msgid "Featured"
-msgstr ""
+msgstr "Framheva"
 
 #: src/as-category.c:105
 msgctxt "Category of Education"
 msgid "Astronomy"
-msgstr ""
+msgstr "Astronomi"
 
 #: src/as-category.c:108
 msgctxt "Category of Education"
 msgid "Chemistry"
-msgstr ""
+msgstr "Kjemi"
 
 #: src/as-category.c:111
 msgctxt "Category of Education"
 msgid "Languages"
-msgstr ""
+msgstr "Språk"
 
 #: src/as-category.c:115
 msgctxt "Category of Education"
 msgid "Math"
-msgstr ""
+msgstr "Matematikk"
 
 #: src/as-category.c:124
 msgctxt "Category of Games"
 msgid "Featured"
-msgstr ""
+msgstr "Framheva"
 
 #: src/as-category.c:127
 msgctxt "Category of Games"
 msgid "Action"
-msgstr ""
+msgstr "Handling"
 
 #: src/as-category.c:130
 msgctxt "Category of Games"
 msgid "Adventure"
-msgstr ""
+msgstr "Eventyr"
 
 #: src/as-category.c:133
 msgctxt "Category of Games"
 msgid "Arcade"
-msgstr ""
+msgstr "Arkade"
 
 #: src/as-category.c:136
 msgctxt "Category of Games"
 msgid "Blocks"
-msgstr ""
+msgstr "Blokkspel"
 
 #: src/as-category.c:139
 msgctxt "Category of Games"
 msgid "Board"
-msgstr ""
+msgstr "Brettspel"
 
 #: src/as-category.c:142
 msgctxt "Category of Games"
 msgid "Card"
-msgstr ""
+msgstr "Kortspel"
 
 #: src/as-category.c:145
 msgctxt "Category of Games"
 msgid "Emulators"
-msgstr ""
+msgstr "Emulatorar"
 
 #: src/as-category.c:148
 msgctxt "Category of Games"
 msgid "Kids"
-msgstr ""
+msgstr "Barn"
 
 #: src/as-category.c:151
 msgctxt "Category of Games"
 msgid "Logic"
-msgstr ""
+msgstr "Logikk"
 
 #: src/as-category.c:154
 msgctxt "Category of Games"
 msgid "Role Playing"
-msgstr ""
+msgstr "Rollespel"
 
 #: src/as-category.c:157
 msgctxt "Category of Games"
 msgid "Sports"
-msgstr ""
+msgstr "Sport"
 
 #: src/as-category.c:161
 msgctxt "Category of Games"
 msgid "Strategy"
-msgstr ""
+msgstr "Strategi"
 
 #: src/as-category.c:169
 msgctxt "Category of Graphics"
 msgid "Featured"
-msgstr ""
+msgstr "Framheva"
 
 #: src/as-category.c:172
 msgctxt "Category of Graphics"
 msgid "3D Graphics"
-msgstr ""
+msgstr "3D-grafikk"
 
 #: src/as-category.c:175
 msgctxt "Category of Graphics"
 msgid "Photography"
-msgstr ""
+msgstr "Fotografi"
 
 #: src/as-category.c:178
 msgctxt "Category of Graphics"
 msgid "Scanning"
-msgstr ""
+msgstr "Skanning"
 
 #: src/as-category.c:181
 msgctxt "Category of Graphics"
 msgid "Vector Graphics"
-msgstr ""
+msgstr "Vektorgrafikk"
 
 #: src/as-category.c:184
 msgctxt "Category of Graphics"
 msgid "Viewers"
-msgstr ""
+msgstr "Visarar"
 
 #: src/as-category.c:192
 msgctxt "Category of Office"
 msgid "Featured"
-msgstr ""
+msgstr "Framheva"
 
 #: src/as-category.c:195
 msgctxt "Category of Office"
 msgid "Calendar"
-msgstr ""
+msgstr "Kalender"
 
 #: src/as-category.c:199
 msgctxt "Category of Office"
 msgid "Database"
-msgstr ""
+msgstr "Database"
 
 #: src/as-category.c:202
 msgctxt "Category of Office"
 msgid "Finance"
-msgstr ""
+msgstr "Finans"
 
 #: src/as-category.c:206
 msgctxt "Category of Office"
 msgid "Word Processor"
-msgstr ""
+msgstr "Tekstbehandlar"
 
 #: src/as-category.c:215
 msgctxt "Category of Addons"
 msgid "Fonts"
-msgstr ""
+msgstr "Skrifter"
 
 #: src/as-category.c:218
 msgctxt "Category of Addons"
 msgid "Codecs"
-msgstr ""
+msgstr "Kodekar"
 
 #: src/as-category.c:221
 msgctxt "Category of Addons"
 msgid "Input Sources"
-msgstr ""
+msgstr "Inndatakjelder"
 
 #: src/as-category.c:224
 msgctxt "Category of Addons"
 msgid "Language Packs"
-msgstr ""
+msgstr "Språkpakkar"
 
 #: src/as-category.c:227
 msgctxt "Category of Addons"
 msgid "Localization"
-msgstr ""
+msgstr "Lokalisering"
 
 #: src/as-category.c:235
 msgctxt "Category of Science"
 msgid "Featured"
-msgstr ""
+msgstr "Framheva"
 
 #: src/as-category.c:238
 msgctxt "Category of Science"
 msgid "Artificial Intelligence"
-msgstr ""
+msgstr "Kunstig intelligens"
 
 #: src/as-category.c:241
 msgctxt "Category of Science"
 msgid "Astronomy"
-msgstr ""
+msgstr "Astronomi"
 
 #: src/as-category.c:244
 msgctxt "Category of Science"
 msgid "Chemistry"
-msgstr ""
+msgstr "Kjemi"
 
 #: src/as-category.c:247
 msgctxt "Category of Science"
 msgid "Math"
-msgstr ""
+msgstr "Matematikk"
 
 #: src/as-category.c:252
 msgctxt "Category of Science"
 msgid "Robotics"
-msgstr ""
+msgstr "Robotikk"
 
 #: src/as-category.c:260
 msgctxt "Category of Communication"
 msgid "Featured"
-msgstr ""
+msgstr "Framheva"
 
 #: src/as-category.c:263
 msgctxt "Category of Communication"
 msgid "Chat"
-msgstr ""
+msgstr "Prat"
 
 #: src/as-category.c:270
 msgctxt "Category of Communication"
 msgid "News"
-msgstr ""
+msgstr "Nyheiter"
 
 #: src/as-category.c:274
 msgctxt "Category of Communication"
 msgid "Web Browsers"
-msgstr ""
+msgstr "Nettlesarar"
 
 #: src/as-category.c:282
 msgctxt "Category of Utility"
 msgid "Featured"
-msgstr ""
+msgstr "Framheva"
 
 #: src/as-category.c:285
 msgctxt "Category of Utility"
 msgid "Text Editors"
-msgstr ""
+msgstr "Tekstredigeringsprogram"
 
 #: src/as-category.c:288
 msgctxt "Category of Utility"
 msgid "Terminal Emulators"
-msgstr ""
+msgstr "Terminalemulatorar"
 
 #: src/as-category.c:291
 msgctxt "Category of Utility"
 msgid "File System"
-msgstr ""
+msgstr "Filsystem"
 
 #: src/as-category.c:294
 msgctxt "Category of Utility"
 msgid "System Monitoring"
-msgstr ""
+msgstr "Systemovervaking"
 
 #: src/as-category.c:297
 msgctxt "Category of Utility"
 msgid "Security"
-msgstr ""
+msgstr "Tryggleik"
 
 #. TRANSLATORS: this is the menu spec main category for Audio & Video
 #: src/as-category.c:306
 msgid "Audio & Video"
-msgstr ""
+msgstr "Lyd og video"
 
 #. TRANSLATORS: this is the menu spec main category for Development
 #: src/as-category.c:309
 msgid "Developer Tools"
-msgstr ""
+msgstr "Utviklarverktøy"
 
 #. TRANSLATORS: this is the menu spec main category for Education
 #: src/as-category.c:312
 msgid "Education"
-msgstr ""
+msgstr "Utdanning"
 
 #. TRANSLATORS: this is the menu spec main category for Game
 #: src/as-category.c:315
 msgid "Games"
-msgstr ""
+msgstr "Spel"
 
 #. TRANSLATORS: this is the menu spec main category for Graphics
 #: src/as-category.c:318
 msgid "Graphics & Photography"
-msgstr ""
+msgstr "Grafikk og fotografi"
 
 #. TRANSLATORS: this is the menu spec main category for Office
 #: src/as-category.c:321
 msgid "Office"
-msgstr ""
+msgstr "Kontor"
 
 #. TRANSLATORS: this is the main category for Add-ons
 #. TRANSLATORS: Addons are extensions for existing software components, e.g. support for more visual effects for a video editor
 #: src/as-category.c:324 tools/ascli-utils.c:417
 msgid "Add-ons"
-msgstr ""
+msgstr "Tillegg"
 
 #. TRANSLATORS: this is the menu spec main category for Science
 #: src/as-category.c:327
 msgid "Science"
-msgstr ""
+msgstr "Vitskap"
 
 #. TRANSLATORS: this is the menu spec main category for Communication
 #: src/as-category.c:330
 msgid "Communication & News"
-msgstr ""
+msgstr "Kommunikasjon og nyheiter"
 
 #. TRANSLATORS: this is the menu spec main category for Utilities
 #: src/as-category.c:333
 msgid "Utilities"
-msgstr ""
+msgstr "Verktøy"
 
 #. TRANSLATORS: This is the formatting of English and localized name
 #. of the rating e.g. "Adults Only (solo adultos)"
 #: src/as-content-rating.c:283
 #, c-format
 msgid "%s (%s)"
-msgstr ""
+msgstr "%s (%s)"
 
 #: src/as-content-rating.c:429
 msgid "General"
-msgstr ""
+msgstr "Generelt"
 
 #: src/as-content-rating.c:438
 msgid "ALL"
-msgstr ""
+msgstr "ALL"
 
 #: src/as-content-rating.c:442 src/as-content-rating.c:551
 msgid "Adults Only"
-msgstr ""
+msgstr "Berre for vaksne"
 
 #: src/as-content-rating.c:444 src/as-content-rating.c:549
 msgid "Mature"
-msgstr ""
+msgstr "Vaksen"
 
 #: src/as-content-rating.c:446 src/as-content-rating.c:548
 msgid "Teen"
-msgstr ""
+msgstr "Ungdom"
 
 #: src/as-content-rating.c:448 src/as-content-rating.c:547
 msgid "Everyone 10+"
-msgstr ""
+msgstr "Alle 10+"
 
 #: src/as-content-rating.c:450 src/as-content-rating.c:545
 msgid "Everyone"
-msgstr ""
+msgstr "Alle"
 
 #: src/as-content-rating.c:452 src/as-content-rating.c:544
 msgid "Early Childhood"
-msgstr ""
+msgstr "Småbarn"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:834
 msgid "No cartoon violence"
-msgstr ""
+msgstr "Ingen teikneserievald"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:836
 msgid "Cartoon characters in unsafe situations"
-msgstr ""
+msgstr "Teikneseriefigurar i farlege situasjonar"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:838
 msgid "Cartoon characters in aggressive conflict"
-msgstr ""
+msgstr "Teikneseriefigurar i aggressiv konflikt"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:840
 msgid "Graphic violence involving cartoon characters"
-msgstr ""
+msgstr "Grafisk vald med teikneseriefigurar"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:845
 msgid "No fantasy violence"
-msgstr ""
+msgstr "Ingen fantasy-vald"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:847
 msgid "Characters in unsafe situations easily distinguishable from reality"
-msgstr ""
+msgstr "Figurar i farlege situasjonar som lett kan skiljast frå røynda"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:849
 msgid "Characters in aggressive conflict easily distinguishable from reality"
-msgstr ""
+msgstr "Figurar i aggressiv konflikt som lett kan skiljast frå røynda"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:851
 msgid "Graphic violence easily distinguishable from reality"
-msgstr ""
+msgstr "Grafisk vald som lett kan skiljast frå røynda"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:856
 msgid "No realistic violence"
-msgstr ""
+msgstr "Ingen realistisk vald"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:858
 msgid "Mildly realistic characters in unsafe situations"
-msgstr ""
+msgstr "Litt realistiske figurar i farlege situasjonar"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:860
 msgid "Depictions of realistic characters in aggressive conflict"
-msgstr ""
+msgstr "Framstillingar av realistiske figurar i aggressiv konflikt"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:862
 msgid "Graphic violence involving realistic characters"
-msgstr ""
+msgstr "Grafisk vald med realistiske figurar"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:867
 msgid "No bloodshed"
-msgstr ""
+msgstr "Ingen blodsøl"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:869
 msgid "Unrealistic bloodshed"
-msgstr ""
+msgstr "Urealistisk blodsøl"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:871
 msgid "Realistic bloodshed"
-msgstr ""
+msgstr "Realistisk blodsøl"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:873
 msgid "Depictions of bloodshed and the mutilation of body parts"
-msgstr ""
+msgstr "Framstillingar av blodsøl og lemlesting av kroppsdelar"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:878
 msgid "No sexual violence"
-msgstr ""
+msgstr "Ingen seksuell vald"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:882
 msgid "Rape or other violent sexual behavior"
-msgstr ""
+msgstr "Valdtekt eller anna valdeleg seksuell åtferd"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:887
 msgid "No references to alcohol"
-msgstr ""
+msgstr "Ingen tilvisingar til alkohol"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:889
 msgid "References to alcoholic beverages"
-msgstr ""
+msgstr "Tilvisingar til alkoholhaldig drikke"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:891
 msgid "Use of alcoholic beverages"
-msgstr ""
+msgstr "Bruk av alkoholhaldig drikke"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:897
 msgid "No references to illicit drugs"
-msgstr ""
+msgstr "Ingen tilvisingar til ulovlege rusmiddel"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:899
 msgid "References to illicit drugs"
-msgstr ""
+msgstr "Tilvisingar til ulovlege rusmiddel"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:901
 msgid "Use of illicit drugs"
-msgstr ""
+msgstr "Bruk av ulovlege rusmiddel"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:907
 msgid "No references to tobacco products"
-msgstr ""
+msgstr "Ingen tilvisingar til tobakksprodukt"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:909
 msgid "References to tobacco products"
-msgstr ""
+msgstr "Tilvisingar til tobakksprodukt"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:911
 msgid "Use of tobacco products"
-msgstr ""
+msgstr "Bruk av tobakksprodukt"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:917
 msgid "No nudity of any sort"
-msgstr ""
+msgstr "Ingen nakenheit av noko slag"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:919
 msgid "Brief artistic nudity"
-msgstr ""
+msgstr "Kort kunstnarisk nakenheit"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:921
 msgid "Prolonged nudity"
-msgstr ""
+msgstr "Langvarig nakenheit"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:923
 msgid "Explicit nudity involving visible sexual organs"
-msgstr ""
+msgstr "Eksplisitt nakenheit med synlege kjønnsorgan"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:928
 msgid "No references to or depictions of sexual nature"
-msgstr ""
+msgstr "Ingen tilvisingar til eller framstillingar av seksuell art"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:930
 msgid "Provocative references or depictions"
-msgstr ""
+msgstr "Provoserande tilvisingar eller framstillingar"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:932
 msgid "Sexual references or depictions"
-msgstr ""
+msgstr "Seksuelle tilvisingar eller framstillingar"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:934
 msgid "Graphic sexual behavior"
-msgstr ""
+msgstr "Grafisk seksuell åtferd"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:939
 msgid "No profanity of any kind"
-msgstr ""
+msgstr "Inga banning av noko slag"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:941
 msgid "Mild or infrequent use of profanity"
-msgstr ""
+msgstr "Mild eller sjeldan bruk av banning"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:943
 msgid "Moderate use of profanity"
-msgstr ""
+msgstr "Moderat bruk av banning"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:945
 msgid "Strong or frequent use of profanity"
-msgstr ""
+msgstr "Grov eller hyppig bruk av banning"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:950
 msgid "No inappropriate humor"
-msgstr ""
+msgstr "Ingen upassande humor"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:952
 msgid "Slapstick humor"
-msgstr ""
+msgstr "Slapstick-humor"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:954
 msgid "Vulgar or bathroom humor"
-msgstr ""
+msgstr "Vulgær humor eller dohumor"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:956
 msgid "Mature or sexual humor"
-msgstr ""
+msgstr "Vaksen eller seksuell humor"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:961
 msgid "No discriminatory language of any kind"
-msgstr ""
+msgstr "Ikkje noko diskriminerande språk av noko slag"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:963
 msgid "Negativity towards a specific group of people"
-msgstr ""
+msgstr "Negativitet mot ei bestemt gruppe menneske"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:965
 msgid "Discrimination designed to cause emotional harm"
-msgstr ""
+msgstr "Diskriminering som er meint å gjere kjenslemessig skade"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:967
 msgid "Explicit discrimination based on gender, sexuality, race or religion"
-msgstr ""
+msgstr "Eksplisitt diskriminering basert på kjønn, seksualitet, rase eller religion"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:972
 msgid "No advertising of any kind"
-msgstr ""
+msgstr "Ingen reklame av noko slag"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:974
 msgid "Product placement"
-msgstr ""
+msgstr "Produktplassering"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:976
 msgid "Explicit references to specific brands or trademarked products"
-msgstr ""
+msgstr "Eksplisitte tilvisingar til bestemte merkevarer eller varemerkte produkt"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:978
 msgid "Users are encouraged to purchase specific real-world items"
-msgstr ""
+msgstr "Brukarane vert oppmoda til å kjøpe bestemte ting i den verkelege verda"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:983
 msgid "No gambling of any kind"
-msgstr ""
+msgstr "Ingen gambling av noko slag"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:985
 msgid "Gambling on random events using tokens or credits"
-msgstr ""
+msgstr "Gambling på tilfeldige hendingar med poeng eller kredittar"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:987
 msgid "Gambling using “play” money"
-msgstr ""
+msgstr "Gambling med «leikepengar»"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:989
 msgid "Gambling using real money"
-msgstr ""
+msgstr "Gambling med ekte pengar"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:994
 msgid "No ability to spend money"
-msgstr ""
+msgstr "Ingen moglegheit til å bruke pengar"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:996
 msgid "Users are encouraged to donate real money"
-msgstr ""
+msgstr "Brukarane vert oppmoda til å gje ekte pengar"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:999
 msgid "Ability to spend real money in-app"
-msgstr ""
+msgstr "Moglegheit til å bruke ekte pengar i appen"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1004
 msgid "No way to chat with other users"
-msgstr ""
+msgstr "Ingen måte å prate med andre brukarar på"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1006
 msgid "User-to-user interactions without chat functionality"
-msgstr ""
+msgstr "Samhandling mellom brukarar utan pratefunksjon"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1008
 msgid "Moderated chat functionality between users"
-msgstr ""
+msgstr "Moderert pratefunksjon mellom brukarar"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1010
 msgid "Uncontrolled chat functionality between users"
-msgstr ""
+msgstr "Ukontrollert pratefunksjon mellom brukarar"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1015
 msgid "No way to talk with other users"
-msgstr ""
+msgstr "Ingen måte å snakke med andre brukarar på"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1018
 msgid "Moderated audio or video chat functionality between users"
-msgstr ""
+msgstr "Moderert lyd- eller videoprat mellom brukarar"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1020
 msgid "Uncontrolled audio or video chat functionality between users"
-msgstr ""
+msgstr "Ukontrollert lyd- eller videoprat mellom brukarar"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1025
 msgid "No sharing of social network usernames or email addresses"
-msgstr ""
+msgstr "Inga deling av brukarnamn på sosiale nettverk eller e-postadresser"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1029
 msgid "Sharing social network usernames or email addresses"
-msgstr ""
+msgstr "Deling av brukarnamn på sosiale nettverk eller e-postadresser"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1034
 msgid "No sharing of user information with third parties"
-msgstr ""
+msgstr "Inga deling av brukaropplysningar med tredjepartar"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1036
 msgid "Checking for the latest application version"
-msgstr ""
+msgstr "Ser etter nyaste versjon av programmet"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1038
 msgid "Sharing diagnostic data that does not let others identify the user"
-msgstr ""
+msgstr "Deling av diagnosedata som ikkje lèt andre identifisere brukaren"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1040
 msgid "Sharing information that lets others identify the user"
-msgstr ""
+msgstr "Deling av informasjon som gjer det mogleg for andre å identifisere brukaren"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1045
 msgid "No sharing of physical location with other users"
-msgstr ""
+msgstr "Inga deling av fysisk posisjon med andre brukarar"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1049
 msgid "Sharing physical location with other users"
-msgstr ""
+msgstr "Deling av fysisk posisjon med andre brukarar"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1070
 msgid "No references to homosexuality"
-msgstr ""
+msgstr "Ingen tilvisingar til homofili"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1072
 msgid "Indirect references to homosexuality"
-msgstr ""
+msgstr "Indirekte tilvisingar til homofili"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1074
 msgid "Kissing between people of the same gender"
-msgstr ""
+msgstr "Kyssing mellom personar av same kjønn"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1076
 msgid "Graphic sexual behavior between people of the same gender"
-msgstr ""
+msgstr "Grafisk seksuell åtferd mellom personar av same kjønn"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1081
 msgid "No references to prostitution"
-msgstr ""
+msgstr "Ingen tilvisingar til prostitusjon"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1083
 msgid "Indirect references to prostitution"
-msgstr ""
+msgstr "Indirekte tilvisingar til prostitusjon"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1085
 msgid "Direct references to prostitution"
-msgstr ""
+msgstr "Direkte tilvisingar til prostitusjon"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1087
 msgid "Graphic depictions of the act of prostitution"
-msgstr ""
+msgstr "Grafiske framstillingar av prostitusjonshandlinga"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1092
 msgid "No references to adultery"
-msgstr ""
+msgstr "Ingen tilvisingar til ekteskapsbrot"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1094
 msgid "Indirect references to adultery"
-msgstr ""
+msgstr "Indirekte tilvisingar til ekteskapsbrot"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1096
 msgid "Direct references to adultery"
-msgstr ""
+msgstr "Direkte tilvisingar til ekteskapsbrot"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1098
 msgid "Graphic depictions of the act of adultery"
-msgstr ""
+msgstr "Grafisk framstilling av ekteskapsbrot"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1103
 msgid "No sexualized characters"
-msgstr ""
+msgstr "Ingen seksualiserte figurar"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1106
 msgid "Scantily clad human characters"
-msgstr ""
+msgstr "Lettkledde menneskefigurar"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1108
 msgid "Overtly sexualized human characters"
-msgstr ""
+msgstr "Tydeleg seksualiserte menneskefigurar"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1113
 msgid "No references to desecration"
-msgstr ""
+msgstr "Ingen tilvisingar til vanhelging"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1115
 msgid "Depictions of or references to historical desecration"
-msgstr ""
+msgstr "Framstillingar av eller tilvisingar til historisk vanhelging"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1117
 msgid "Depictions of modern-day human desecration"
-msgstr ""
+msgstr "Framstillingar av vanhelging av menneske i moderne tid"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1119
 msgid "Graphic depictions of modern-day desecration"
-msgstr ""
+msgstr "Grafiske framstillingar av vanhelging i moderne tid"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1124
 msgid "No visible dead human remains"
-msgstr ""
+msgstr "Ingen synlege menneskelege levningar"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1126
 msgid "Visible dead human remains"
-msgstr ""
+msgstr "Synlege menneskelege levningar"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1128
 msgid "Dead human remains that are exposed to the elements"
-msgstr ""
+msgstr "Menneskelege levningar som er utsette for vêr og vind"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1130
 msgid "Graphic depictions of desecration of human bodies"
-msgstr ""
+msgstr "Grafiske framstillingar av vanhelging av menneskekroppar"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1135
 msgid "No references to slavery"
-msgstr ""
+msgstr "Ingen tilvisingar til slaveri"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1137
 msgid "Depictions of or references to historical slavery"
-msgstr ""
+msgstr "Framstillingar av eller tilvisingar til historisk slaveri"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1139
 msgid "Depictions of modern-day slavery"
-msgstr ""
+msgstr "Framstillingar av slaveri i moderne tid"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1141
 msgid "Graphic depictions of modern-day slavery"
-msgstr ""
+msgstr "Grafiske framstillingar av slaveri i moderne tid"
 
 #. TRANSLATORS: We got a 429 error while trying to download data
 #: src/as-curl.c:199
 #, c-format
 msgid "Failed to download due to server limit"
-msgstr ""
+msgstr "Klarte ikkje laste ned på grunn av avgrensing på tenaren"
 
 #: src/as-curl.c:206 src/as-curl.c:212
 #, c-format
 msgid "Failed to download file: %s"
-msgstr ""
+msgstr "Klarte ikkje laste ned fila: %s"
 
 #. TRANSLATORS: We tried to download an URL, but received a 404 error code
 #: src/as-curl.c:223
 #, c-format
 msgid "URL was not found on the server."
-msgstr ""
+msgstr "Fann ikkje URL-en på tenaren."
 
 #. TRANSLATORS: We received an uexpected HTTP status code while talking to a server, likely an error
 #: src/as-curl.c:231
 #, c-format
 msgid "Unexpected status code: %ld"
-msgstr ""
+msgstr "Uventa statuskode: %ld"
 
 #. TRANSLATORS: We tried to download from an URL, but the retrieved data was empty
 #: src/as-curl.c:601
 #, c-format
 msgid "Retrieved file size was zero."
-msgstr ""
+msgstr "Den henta fila var tom."
 
 #. TRANSLATORS: Name of the "Cinnamon" desktop environment.
 #. TRANSLATORS: Name of the "cinnamon" visual environment style.
 #: src/as-desktop-env-data.h:43 src/as-desktop-env-data.h:79
 msgid "Cinnamon"
-msgstr ""
+msgstr "Cinnamon"
 
 #. TRANSLATORS: Name of the "DDE" desktop environment.
 #. TRANSLATORS: Name of the "dde" visual environment style.
 #: src/as-desktop-env-data.h:45 src/as-desktop-env-data.h:81
 msgid "Deepin"
-msgstr ""
+msgstr "Deepin"
 
 #. TRANSLATORS: Name of the "EDE" desktop environment.
 #. TRANSLATORS: Name of the "ede" visual environment style.
 #: src/as-desktop-env-data.h:47 src/as-desktop-env-data.h:83
 msgid "EDE"
-msgstr ""
+msgstr "EDE"
 
 #. TRANSLATORS: Name of the "Endless" desktop environment.
 #: src/as-desktop-env-data.h:49
 msgid "Endless"
-msgstr ""
+msgstr "Endless"
 
 #. TRANSLATORS: Name of the "GNOME" desktop environment.
 #. TRANSLATORS: Name of the "gnome" visual environment style.
 #: src/as-desktop-env-data.h:51 src/as-desktop-env-data.h:85
 msgid "GNOME"
-msgstr ""
+msgstr "GNOME"
 
 #. TRANSLATORS: Name of the "KDE" desktop environment.
 #. TRANSLATORS: Name of the "Plasma" desktop environment.
@@ -971,108 +972,108 @@ msgstr ""
 #: src/as-desktop-env-data.h:53 src/as-desktop-env-data.h:63
 #: src/as-desktop-env-data.h:103
 msgid "KDE Plasma"
-msgstr ""
+msgstr "KDE Plasma"
 
 #. TRANSLATORS: Name of the "LXDE" desktop environment.
 #. TRANSLATORS: Name of the "lxde" visual environment style.
 #: src/as-desktop-env-data.h:55 src/as-desktop-env-data.h:91
 msgid "LXDE"
-msgstr ""
+msgstr "LXDE"
 
 #. TRANSLATORS: Name of the "LXQt" desktop environment.
 #. TRANSLATORS: Name of the "lxqt" visual environment style.
 #: src/as-desktop-env-data.h:57 src/as-desktop-env-data.h:93
 msgid "LXQt"
-msgstr ""
+msgstr "LXQt"
 
 #. TRANSLATORS: Name of the "MATE" desktop environment.
 #: src/as-desktop-env-data.h:59
 msgid "MATE"
-msgstr ""
+msgstr "MATE"
 
 #. TRANSLATORS: Name of the "Pantheon" desktop environment.
 #. TRANSLATORS: Name of the "pantheon" visual environment style.
 #: src/as-desktop-env-data.h:61 src/as-desktop-env-data.h:99
 msgid "Pantheon"
-msgstr ""
+msgstr "Pantheon"
 
 #. TRANSLATORS: Name of the "Razor" desktop environment.
 #. TRANSLATORS: Name of the "razor" visual environment style.
 #: src/as-desktop-env-data.h:65 src/as-desktop-env-data.h:111
 msgid "Razor"
-msgstr ""
+msgstr "Razor"
 
 #. TRANSLATORS: Name of the "ROX" desktop environment.
 #: src/as-desktop-env-data.h:67
 msgid "ROX"
-msgstr ""
+msgstr "ROX"
 
 #. TRANSLATORS: Name of the "Unity" desktop environment.
 #. TRANSLATORS: Name of the "unity" visual environment style.
 #: src/as-desktop-env-data.h:69 src/as-desktop-env-data.h:115
 msgid "Unity"
-msgstr ""
+msgstr "Unity"
 
 #. TRANSLATORS: Name of the "XFCE" desktop environment.
 #. TRANSLATORS: Name of the "xfce" visual environment style.
 #: src/as-desktop-env-data.h:71 src/as-desktop-env-data.h:119
 msgid "Xfce"
-msgstr ""
+msgstr "Xfce"
 
 #. TRANSLATORS: Name of the "android" visual environment style.
 #: src/as-desktop-env-data.h:77
 msgid "Android"
-msgstr ""
+msgstr "Android"
 
 #. TRANSLATORS: Name of the "gnome:dark" visual environment style.
 #: src/as-desktop-env-data.h:87
 msgid "GNOME (Dark)"
-msgstr ""
+msgstr "GNOME (mørk)"
 
 #. TRANSLATORS: Name of the "ios" visual environment style.
 #: src/as-desktop-env-data.h:89
 msgid "iOS"
-msgstr ""
+msgstr "iOS"
 
 #. TRANSLATORS: Name of the "macos" visual environment style.
 #: src/as-desktop-env-data.h:95
 msgid "macOS"
-msgstr ""
+msgstr "macOS"
 
 #. TRANSLATORS: Name of the "mate" visual environment style.
 #: src/as-desktop-env-data.h:97
 msgid "Mate"
-msgstr ""
+msgstr "Mate"
 
 #. TRANSLATORS: Name of the "pantheon:dark" visual environment style.
 #: src/as-desktop-env-data.h:101
 msgid "Pantheon (Dark)"
-msgstr ""
+msgstr "Pantheon (mørk)"
 
 #. TRANSLATORS: Name of the "plasma-mobile" visual environment style.
 #: src/as-desktop-env-data.h:105
 msgid "Plasma Mobile"
-msgstr ""
+msgstr "Plasma Mobile"
 
 #. TRANSLATORS: Name of the "plasma-mobile:dark" visual environment style.
 #: src/as-desktop-env-data.h:107
 msgid "Plasma Mobile (Dark)"
-msgstr ""
+msgstr "Plasma Mobile (mørk)"
 
 #. TRANSLATORS: Name of the "plasma:dark" visual environment style.
 #: src/as-desktop-env-data.h:109
 msgid "KDE Plasma (Dark)"
-msgstr ""
+msgstr "KDE Plasma (mørk)"
 
 #. TRANSLATORS: Name of the "rox" visual environment style.
 #: src/as-desktop-env-data.h:113
 msgid "Rox"
-msgstr ""
+msgstr "Rox"
 
 #. TRANSLATORS: Name of the "windows" visual environment style.
 #: src/as-desktop-env-data.h:117
 msgid "Microsoft Windows"
-msgstr ""
+msgstr "Microsoft Windows"
 
 #. TRANSLATORS: List of "grey-listed" words sperated with ";"
 #. Do not translate this list directly. Instead,
@@ -1081,270 +1082,270 @@ msgstr ""
 #. the search.
 #: src/as-pool.c:101
 msgid "app;application;package;program;programme;suite;tool"
-msgstr ""
+msgstr "app;appar;program;programvare;pakke;pakkar;verktøy"
 
 #: src/as-pool.c:1209
 msgid "Metadata files have errors:"
-msgstr ""
+msgstr "Metadatafilene har feil:"
 
 #: src/as-pool.c:2502
 msgid "Group"
-msgstr ""
+msgstr "Gruppe"
 
 #: src/as-pool.c:2557
 msgid "Iconsets"
-msgstr ""
+msgstr "Ikonsett"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
 #: src/as-pool.c:2605
 msgid "Data from locally installed software"
-msgstr ""
+msgstr "Data frå lokalt installert programvare"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
 #: src/as-pool.c:2608
 msgid "Software catalog data"
-msgstr ""
+msgstr "Programvarekatalogdata"
 
 #: src/as-provided.c:138
 msgid "Libraries"
-msgstr ""
+msgstr "Bibliotek"
 
 #: src/as-provided.c:140
 msgid "Binaries"
-msgstr ""
+msgstr "Binære filer"
 
 #: src/as-provided.c:142
 msgid "Media types"
-msgstr ""
+msgstr "Medietypar"
 
 #: src/as-provided.c:144
 msgid "Fonts"
-msgstr ""
+msgstr "Skrifter"
 
 #: src/as-provided.c:146
 msgid "Modaliases"
-msgstr ""
+msgstr "Modalias"
 
 #: src/as-provided.c:148
 msgid "Python 3"
-msgstr ""
+msgstr "Python 3"
 
 #: src/as-provided.c:150
 msgid "D-Bus System Services"
-msgstr ""
+msgstr "D-Bus-systemtenester"
 
 #: src/as-provided.c:152
 msgid "D-Bus Session Services"
-msgstr ""
+msgstr "D-Bus-økttenester"
 
 #: src/as-provided.c:154
 msgid "Runtime Firmware"
-msgstr ""
+msgstr "Fastvare ved køyring"
 
 #: src/as-provided.c:156
 msgid "Flashed Firmware"
-msgstr ""
+msgstr "Flasha fastvare"
 
 #: src/as-provided.c:158 tools/ascli-actions-misc.c:957
 msgid "Component"
-msgstr ""
+msgstr "Komponent"
 
 #: src/as-relation.c:1354
 msgid "pointing device (e.g. a mouse)"
-msgstr ""
+msgstr "peikeeining (t.d. ei mus)"
 
 #: src/as-relation.c:1356
 msgid "keyboard"
-msgstr ""
+msgstr "tastatur"
 
 #: src/as-relation.c:1358
 msgid "gamepad"
-msgstr ""
+msgstr "spelkontroll"
 
 #: src/as-relation.c:1360
 msgid "tv remote"
-msgstr ""
+msgstr "fjernkontroll til tv"
 
 #: src/as-relation.c:1362
 msgid "graphics tablet"
-msgstr ""
+msgstr "grafikktablett"
 
 #. TRANSLATORS: The placeholder is replaced with an input device name, e.g. "gamepad"
 #: src/as-relation.c:1367
 #, c-format
 msgid "This software requires a %s for input."
-msgstr ""
+msgstr "Denne programvara krev ein %s for inndata."
 
 #: src/as-relation.c:1372
 msgid "This software requires a touch input device."
-msgstr ""
+msgstr "Denne programvara krev ei eining for berøringsinndata."
 
 #: src/as-relation.c:1374
 msgid "This software requires a microphone to be controlled via voice input."
-msgstr ""
+msgstr "Denne programvara krev ein mikrofon, sidan ho vert styrt med stemma."
 
 #: src/as-relation.c:1376
 msgid "This software requires a camera for input control."
-msgstr ""
+msgstr "Denne programvara krev eit kamera for styring."
 
 #: src/as-relation.c:1378
 msgid "This software requires a method for console input."
-msgstr ""
+msgstr "Denne programvara krev ein måte å gje inndata i konsollen på."
 
 #. TRANSLATORS: The placeholder is replaced with an input device name, e.g. "gamepad"
 #: src/as-relation.c:1383
 #, c-format
 msgid "This software recommends a %s for input."
-msgstr ""
+msgstr "Denne programvara tilrår ein %s for inndata."
 
 #: src/as-relation.c:1388
 msgid "This software recommends a touch input device."
-msgstr ""
+msgstr "Denne programvara tilrår ei eining for berøringsinndata."
 
 #: src/as-relation.c:1390
 msgid "This software recommends a microphone to be controlled via voice input."
-msgstr ""
+msgstr "Denne programvara tilrår ein mikrofon for styring med stemma."
 
 #: src/as-relation.c:1392
 msgid "This software recommends a camera for input control."
-msgstr ""
+msgstr "Denne programvara tilrår eit kamera for styring."
 
 #: src/as-relation.c:1394
 msgid "This software recommends a method for console input."
-msgstr ""
+msgstr "Denne programvara tilrår ein måte å gje inndata i konsollen på."
 
 #: src/as-relation.c:1399
 msgid "pointing devices (e.g. mice)"
-msgstr ""
+msgstr "peikeeiningar (t.d. mus)"
 
 #: src/as-relation.c:1401
 msgid "keyboards"
-msgstr ""
+msgstr "tastatur"
 
 #: src/as-relation.c:1403
 msgid "gamepads"
-msgstr ""
+msgstr "spelkontrollar"
 
 #: src/as-relation.c:1405
 msgid "tv remotes"
-msgstr ""
+msgstr "tv-fjernkontrollar"
 
 #: src/as-relation.c:1407
 msgid "graphics tablets"
-msgstr ""
+msgstr "grafikktablettar"
 
 #. TRANSLATORS: The placeholder is replaced with a plural input device name, e.g. "gamepads"
 #: src/as-relation.c:1411
 #, c-format
 msgid "This software supports %s."
-msgstr ""
+msgstr "Denne programvara støttar %s."
 
 #: src/as-relation.c:1415
 msgid "This software supports touch input."
-msgstr ""
+msgstr "Denne programvara støttar berøringsinndata."
 
 #: src/as-relation.c:1417
 msgid "This software can be controlled via voice input."
-msgstr ""
+msgstr "Denne programvara kan styrast med stemma."
 
 #: src/as-relation.c:1419
 msgid "This software can be controlled via a camera."
-msgstr ""
+msgstr "Denne programvara kan styrast med eit kamera."
 
 #: src/as-relation.c:1422
 msgid "This software supports operation via console commands."
-msgstr ""
+msgstr "Denne programvara kan styrast med kommandoar i konsollen."
 
 #: src/as-relation.c:1435
 msgid "Pointing device (e.g. a mouse or touchpad) found."
-msgstr ""
+msgstr "Fann ei peikeeining (t.d. ei mus eller styreplate)."
 
 #: src/as-relation.c:1437
 msgid "Physical keyboard found."
-msgstr ""
+msgstr "Fann eit fysisk tastatur."
 
 #: src/as-relation.c:1439
 msgid "Gamepad found."
-msgstr ""
+msgstr "Fann ein spelkontroll."
 
 #: src/as-relation.c:1441
 msgid "TV remote found."
-msgstr ""
+msgstr "Fann ein TV-fjernkontroll."
 
 #: src/as-relation.c:1443
 msgid "Graphics tablet found."
-msgstr ""
+msgstr "Fann ein grafikktablett."
 
 #: src/as-relation.c:1446
 msgid "Touch input device found."
-msgstr ""
+msgstr "Fann ei eining for berøringsinndata."
 
 #: src/as-relation.c:1448
 msgid "Microphone for voice input control found."
-msgstr ""
+msgstr "Fann ein mikrofon for stemmestyring."
 
 #: src/as-relation.c:1450
 msgid "Camera for input control found."
-msgstr ""
+msgstr "Fann eit kamera for styring."
 
 #: src/as-relation.c:1452
 msgid "Console interface available."
-msgstr ""
+msgstr "Konsollgrensesnitt er tilgjengeleg."
 
 #: src/as-relation.c:1513
 #, c-format
 msgid "Software '%s' was found"
-msgstr ""
+msgstr "Fann programvara «%s»"
 
 #: src/as-relation.c:1522
 #, c-format
 msgid "Required software component '%s' is missing."
-msgstr ""
+msgstr "Den påkravde programvarekomponenten «%s» manglar."
 
 #: src/as-relation.c:1526
 #, c-format
 msgid "Recommended software component '%s' is missing."
-msgstr ""
+msgstr "Den tilrådde programvarekomponenten «%s» manglar."
 
 #: src/as-relation.c:1530
 #, c-format
 msgid "Found supported software component '%s'."
-msgstr ""
+msgstr "Fann den støtta programvarekomponenten «%s»."
 
 #: src/as-relation.c:1563
 #, c-format
 msgid "Found hardware that is supported by this software: '%s'"
-msgstr ""
+msgstr "Fann maskinvare som denne programvara støttar: «%s»"
 
 #: src/as-relation.c:1572
 #, c-format
 msgid "Required hardware for this software was not found on this system: '%s'"
-msgstr ""
+msgstr "Fann ikkje maskinvare som denne programvara krev, på dette systemet: «%s»"
 
 #: src/as-relation.c:1577
 #, c-format
 msgid "Recommended hardware for this software was not found on this system: '%s'"
-msgstr ""
+msgstr "Fann ikkje maskinvare som er tilrådd for denne programvara, på dette systemet: «%s»"
 
 #: src/as-relation.c:1582
 #, c-format
 msgid "This software supports hardware not present in this system: '%s'"
-msgstr ""
+msgstr "Denne programvara støttar maskinvare som ikkje finst på dette systemet: «%s»"
 
 #: src/as-relation.c:1621
 #, c-format
 msgid "This software requires a %s kernel, but this system is running %s."
-msgstr ""
+msgstr "Denne programvara krev ein %s-kjerne, men dette systemet køyrer %s."
 
 #: src/as-relation.c:1627
 #, c-format
 msgid "This software recommends a %s kernel, but this system is running %s."
-msgstr ""
+msgstr "Denne programvara tilrår ein %s-kjerne, men dette systemet køyrer %s."
 
 #: src/as-relation.c:1633
 #, c-format
 msgid "This software only supports a %s kernel, but may run on %s anyway."
-msgstr ""
+msgstr "Denne programvara støttar berre ein %s-kjerne, men kan likevel køyre på %s."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
@@ -1352,7 +1353,7 @@ msgstr ""
 #: src/as-relation.c:1663
 #, c-format
 msgid "This software requires %s %s %s, but this system is running %s %s."
-msgstr ""
+msgstr "Denne programvara krev %s %s %s, men dette systemet køyrer %s %s."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
@@ -1360,1272 +1361,1274 @@ msgstr ""
 #: src/as-relation.c:1675
 #, c-format
 msgid "The use of %s %s %s is recommended, but this system is running %s %s."
-msgstr ""
+msgstr "Bruk av %s %s %s er tilrådd, men dette systemet køyrer %s %s."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number.
 #: src/as-relation.c:1686
 #, c-format
 msgid "This software supports %s %s %s."
-msgstr ""
+msgstr "Denne programvara støttar %s %s %s."
 
 #. TRANSLATORS: We checked a kernel dependency, with success, the first placeholder is the current kernel name, second is its version number.
 #: src/as-relation.c:1704
 #, c-format
 msgid "Kernel %s %s is supported."
-msgstr ""
+msgstr "Kjernen %s %s er støtta."
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory and fourth is the amount of memory we have.
 #: src/as-relation.c:1738
 #, c-format
 msgid "This software requires %s %.2f GiB of memory, but this system has %.2f GiB."
-msgstr ""
+msgstr "Denne programvara krev %s %.2f GiB minne, men dette systemet har %.2f GiB."
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory and fourth is the amount of memory we have.
 #: src/as-relation.c:1747
 #, c-format
 msgid "This software recommends %s %.2f GiB of memory, but this system has %.2f GiB."
-msgstr ""
+msgstr "Denne programvara tilrår %s %.2f GiB minne, men dette systemet har %.2f GiB."
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory.
 #: src/as-relation.c:1756
 #, c-format
 msgid "This software supports %s %.2f GiB of memory."
-msgstr ""
+msgstr "Denne programvara støttar %s %.2f GiB minne."
 
 #: src/as-relation.c:1772
 msgid "This system has sufficient memory for this software."
-msgstr ""
+msgstr "Dette systemet har nok minne for denne programvara."
 
 #: src/as-relation.c:1836
 msgid "This software needs a display for graphical content."
-msgstr ""
+msgstr "Denne programvara treng ein skjerm for grafisk innhald."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and third is the size the current device has.
 #: src/as-relation.c:1864
 #, c-format
 msgid "This software requires a display with its longest edge being %s %lu px in size, but the display of this device has %lu px."
-msgstr ""
+msgstr "Denne programvara krev ein skjerm der den lengste kanten er %s %lu px, men skjermen til denne eininga har %lu px."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and third is the size the current device has.
 #: src/as-relation.c:1873
 #, c-format
 msgid "This software requires a display with its shortest edge being %s %lu px in size, but the display of this device has %lu px."
-msgstr ""
+msgstr "Denne programvara krev ein skjerm der den kortaste kanten er %s %lu px, men skjermen til denne eininga har %lu px."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and third is the size the current device has.
 #: src/as-relation.c:1883
 #, c-format
 msgid "This software recommends a display with its longest edge being %s %lu px in size, but the display of this device has %lu px."
-msgstr ""
+msgstr "Denne programvara tilrår ein skjerm der den lengste kanten er %s %lu px, men skjermen til denne eininga har %lu px."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and third is the size the current device has.
 #: src/as-relation.c:1892
 #, c-format
 msgid "This software recommends a display with its shortest edge being %s %lu px in size, but the display of this device has %lu px."
-msgstr ""
+msgstr "Denne programvara tilrår ein skjerm der den kortaste kanten er %s %lu px, men skjermen til denne eininga har %lu px."
 
 #: src/as-relation.c:1904
 msgid "Display size is sufficient for this software."
-msgstr ""
+msgstr "Skjermen er stor nok for denne programvara."
 
 #: src/as-relation.c:1921
 #, c-format
 msgid "Satisfiability check for relation items of type '%s' is not implemented yet."
-msgstr ""
+msgstr "Kontroll av om relasjonselement av typen «%s» er oppfylte, er ikkje implementert enno."
 
 #. TRANSLATORS: The ODRS review server rejected our request, %s is the error message
 #: src/as-reviews-client.c:976 src/as-reviews-client.c:1069
 #, c-format
 msgid "The reviews server rejected the request: %s"
-msgstr ""
+msgstr "Vurderingstenaren avviste førespurnaden: %s"
 
 #. TRANSLATORS: We failed to communicate with the ODRS review server, %s is an error message
 #: src/as-reviews-client.c:983
 #, c-format
 msgid "Unable to communicate with the reviews server: %s"
-msgstr ""
+msgstr "Klarte ikkje kommunisere med vurderingstenaren: %s"
 
 #: src/as-reviews-client.c:1070
 msgid "Unknown reason"
-msgstr ""
+msgstr "Ukjend grunn"
 
 #. TRANSLATORS: We failed to fetch a software rating from the ODRS review server
 #: src/as-reviews-client.c:1247
 #, c-format
 msgid "Unable to fetch software rating: %s"
-msgstr ""
+msgstr "Klarte ikkje hente programvarevurdering: %s"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:39
 msgid "Affero General Public License v1.0 only"
-msgstr ""
+msgstr "Berre Affero General Public License v1.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:41
 msgid "Affero General Public License v1.0 or later"
-msgstr ""
+msgstr "Affero General Public License v1.0 eller seinare"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:44
 msgid "GNU Affero General Public License v3.0 only"
-msgstr ""
+msgstr "Berre GNU Affero General Public License v3.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:46
 msgid "GNU Affero General Public License v3.0 or later"
-msgstr ""
+msgstr "GNU Affero General Public License v3.0 eller seinare"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:301
 msgid "GNU Free Documentation License v1.1 only - invariants"
-msgstr ""
+msgstr "Berre GNU Free Documentation License v1.1 - invariants"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:303
 msgid "GNU Free Documentation License v1.1 or later - invariants"
-msgstr ""
+msgstr "GNU Free Documentation License v1.1 eller seinare - invariants"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:305
 msgid "GNU Free Documentation License v1.1 only - no invariants"
-msgstr ""
+msgstr "Berre GNU Free Documentation License v1.1 - no invariants"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:307
 msgid "GNU Free Documentation License v1.1 or later - no invariants"
-msgstr ""
+msgstr "GNU Free Documentation License v1.1 eller seinare - no invariants"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:309
 msgid "GNU Free Documentation License v1.1 only"
-msgstr ""
+msgstr "Berre GNU Free Documentation License v1.1"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:311
 msgid "GNU Free Documentation License v1.1 or later"
-msgstr ""
+msgstr "GNU Free Documentation License v1.1 eller seinare"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:314
 msgid "GNU Free Documentation License v1.2 only - invariants"
-msgstr ""
+msgstr "Berre GNU Free Documentation License v1.2 - invariants"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:316
 msgid "GNU Free Documentation License v1.2 or later - invariants"
-msgstr ""
+msgstr "GNU Free Documentation License v1.2 eller seinare - invariants"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:318
 msgid "GNU Free Documentation License v1.2 only - no invariants"
-msgstr ""
+msgstr "Berre GNU Free Documentation License v1.2 - no invariants"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:320
 msgid "GNU Free Documentation License v1.2 or later - no invariants"
-msgstr ""
+msgstr "GNU Free Documentation License v1.2 eller seinare - no invariants"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:322
 msgid "GNU Free Documentation License v1.2 only"
-msgstr ""
+msgstr "Berre GNU Free Documentation License v1.2"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:324
 msgid "GNU Free Documentation License v1.2 or later"
-msgstr ""
+msgstr "GNU Free Documentation License v1.2 eller seinare"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:327
 msgid "GNU Free Documentation License v1.3 only - invariants"
-msgstr ""
+msgstr "Berre GNU Free Documentation License v1.3 - invariants"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:329
 msgid "GNU Free Documentation License v1.3 or later - invariants"
-msgstr ""
+msgstr "GNU Free Documentation License v1.3 eller seinare - invariants"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:331
 msgid "GNU Free Documentation License v1.3 only - no invariants"
-msgstr ""
+msgstr "Berre GNU Free Documentation License v1.3 - no invariants"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:333
 msgid "GNU Free Documentation License v1.3 or later - no invariants"
-msgstr ""
+msgstr "GNU Free Documentation License v1.3 eller seinare - no invariants"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:335
 msgid "GNU Free Documentation License v1.3 only"
-msgstr ""
+msgstr "Berre GNU Free Documentation License v1.3"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:337
 msgid "GNU Free Documentation License v1.3 or later"
-msgstr ""
+msgstr "GNU Free Documentation License v1.3 eller seinare"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:341 src/as-spdx-data.h:345
 msgid "GNU General Public License v1.0 only"
-msgstr ""
+msgstr "Berre GNU General Public License v1.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:343 src/as-spdx-data.h:347
 msgid "GNU General Public License v1.0 or later"
-msgstr ""
+msgstr "GNU General Public License v1.0 eller seinare"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:349 src/as-spdx-data.h:353
 msgid "GNU General Public License v2.0 only"
-msgstr ""
+msgstr "Berre GNU General Public License v2.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:351 src/as-spdx-data.h:355
 msgid "GNU General Public License v2.0 or later"
-msgstr ""
+msgstr "GNU General Public License v2.0 eller seinare"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:362 src/as-spdx-data.h:366
 msgid "GNU General Public License v3.0 only"
-msgstr ""
+msgstr "Berre GNU General Public License v3.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:364 src/as-spdx-data.h:368
 msgid "GNU General Public License v3.0 or later"
-msgstr ""
+msgstr "GNU General Public License v3.0 eller seinare"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:441 src/as-spdx-data.h:445
 msgid "GNU Library General Public License v2 only"
-msgstr ""
+msgstr "Berre GNU Library General Public License v2"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:443 src/as-spdx-data.h:447
 msgid "GNU Library General Public License v2 or later"
-msgstr ""
+msgstr "GNU Library General Public License v2 eller seinare"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:449 src/as-spdx-data.h:453
 msgid "GNU Lesser General Public License v2.1 only"
-msgstr ""
+msgstr "Berre GNU Lesser General Public License v2.1"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:451 src/as-spdx-data.h:455
 msgid "GNU Lesser General Public License v2.1 or later"
-msgstr ""
+msgstr "GNU Lesser General Public License v2.1 eller seinare"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:457 src/as-spdx-data.h:461
 msgid "GNU Lesser General Public License v3.0 only"
-msgstr ""
+msgstr "Berre GNU Lesser General Public License v3.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:459 src/as-spdx-data.h:463
 msgid "GNU Lesser General Public License v3.0 or later"
-msgstr ""
+msgstr "GNU Lesser General Public License v3.0 eller seinare"
 
 #: src/as-validator-issue-tag.h:42
 msgid "This tag requires a type property."
-msgstr ""
+msgstr "Denne taggen krev ein type-eigenskap."
 
 #: src/as-validator-issue-tag.h:47
 msgid "Tags of this name are not permitted in this section."
-msgstr ""
+msgstr "Taggar med dette namnet er ikkje tillatne i denne seksjonen."
 
 #: src/as-validator-issue-tag.h:52
 msgid "A <description/> tag must not be localized in metainfo files (upstream metadata). Localize the individual paragraphs instead."
-msgstr ""
+msgstr "Ein <description/>-tag skal ikkje omsetjast i metainfo-filer (oppstraums metadata). Omset heller dei enkelte avsnitta."
 
 #: src/as-validator-issue-tag.h:58
 msgid "This element (paragraph, list, etc.) of a <description/> tag must not be localized individually in catalog metadata. Localize the whole <description/> tag instead. The AppStream metadata catalog generator (e.g. `appstream-generator`) will already do the right thing when compiling the data."
-msgstr ""
+msgstr "Dette elementet (avsnitt, liste osb.) i ein <description/>-tag skal ikkje omsetjast kvar for seg i katalogmetadata. Omset heller heile <description/>-taggen. Generatoren for AppStream-metadatakatalogar (t.d. `appstream-generator`) gjer alt det rette når dataa vert kompilerte."
 
 #: src/as-validator-issue-tag.h:64
 msgid "AppStream descriptions support only a limited set of tags to format text: Paragraphs (<p/>), section headings (<heading/>) and lists (<ul/>, <ol/>). This description markup contains an invalid XML tag that would not be rendered correctly in applications supporting the metainfo specification."
-msgstr ""
+msgstr "AppStream-skildringar støttar berre nokre få taggar for tekstformatering: avsnitt (<p/>), seksjonsoverskrifter (<heading/>) og lister (<ul/>, <ol/>). Denne skildringsmarkeringa inneheld ein ugyldig XML-tag som ikkje vil verte vist rett i program som støttar metainfo-spesifikasjonen."
 
 #: src/as-validator-issue-tag.h:70
 msgid "This description paragraph contains invalid markup. Currently, only <em/> and <code/> are permitted."
-msgstr ""
+msgstr "Dette skildringsavsnittet inneheld ugyldig markering. Førebels er berre <em/> og <code/> tillatne."
 
 #: src/as-validator-issue-tag.h:75
 msgid "Elements of description markup must not have any attributes set, with the exception of a language property on paragraphs and list items in MetaInfo files. Any other attribute is not permitted and will be removed when the metadata is read."
-msgstr ""
+msgstr "Element i skildringsmarkeringa kan ikkje ha attributt, med unntak av eit språkattributt på avsnitt og listepunkt i MetaInfo-filer. Andre attributt er ikkje tillatne og vert fjerna når metadataa vert lesne."
 
 #: src/as-validator-issue-tag.h:81
 msgid "The markup in this description is nested too deeply. Excessively nested markup will be flattened to plain text when the metadata is read."
-msgstr ""
+msgstr "Markeringa i denne skildringa er nøsta for djupt. Markering som er nøsta for djupt, vert gjort om til rein tekst når metadataa vert lesne."
 
 #: src/as-validator-issue-tag.h:87
 msgid "Enumerations must only have list items (<li/>) as children."
-msgstr ""
+msgstr "Oppramsingar kan berre ha listepunkt (<li/>) som barn."
 
 #: src/as-validator-issue-tag.h:92
 msgid "The enumeration must not be translated as a whole. In MetaInfo files, translate individual items (<li/> elements) instead."
-msgstr ""
+msgstr "Oppramsinga må ikkje omsetjast som ein heilskap. I MetaInfo-filer skal du i staden omsetje enkeltelement (<li/>-element)."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:99
 msgid "Section headings (`description/heading`) are plain text and must not contain any markup, not even <em/> or <code/>. The markup will be removed when the metadata is read."
-msgstr ""
+msgstr "Seksjonsoverskrifter (`description/heading`) er rein tekst og kan ikkje innehalde markering, ikkje eingong <em/> eller <code/>. Markeringa vert fjerna når metadataa vert lesne."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:106
 msgid "This section heading (`description/heading`) is very long and will likely not be displayed properly everywhere. A heading should be a short label for the section that follows it, and be <= 80 characters long. Use a paragraph (<p/>) for longer text."
-msgstr ""
+msgstr "Denne seksjonsoverskrifta (`description/heading`) er svært lang og vert truleg ikkje vist rett alle stadar. Ei overskrift bør vere ein kort etikett for seksjonen som følgjer, og vere <= 80 teikn lang. Bruk eit avsnitt (<p/>) for lengre tekst."
 
 #: src/as-validator-issue-tag.h:113
 msgid "The first `description/p` paragraph of this component might be too short (< 80 characters). Please consider starting with a longer paragraph to improve how the description looks like in software centers and to provide more detailed information on this component immediately in the first paragraph."
-msgstr ""
+msgstr "Det første `description/p`-avsnittet i denne komponenten er kanskje for kort (< 80 teikn). Vurder å byrje med eit lengre avsnitt, slik at skildringa ser betre ut i programvaresenter og gjev meir detaljert informasjon om komponenten alt i det første avsnittet."
 
 #: src/as-validator-issue-tag.h:120
 msgid "The description line does not start with a capitalized word, project name or number."
-msgstr ""
+msgstr "Skildringslinja byrjar ikkje med eit ord med stor forbokstav, eit prosjektnamn eller eit tal."
 
 #: src/as-validator-issue-tag.h:125
 msgid "The description contains a web URL in plain text. This is not allowed, please use the <url/> tag instead to share links."
-msgstr ""
+msgstr "Skildringa inneheld ei nettadresse i klartekst. Dette er ikkje tillate, bruk heller <url/>-taggen for å dele lenkjer."
 
 #: src/as-validator-issue-tag.h:130
 msgid "The description element does not contain any valid content (paragraphs, enumerations, etc.)."
-msgstr ""
+msgstr "Skildringselementet har ikkje noko gyldig innhald (avsnitt, oppramsingar osb.)."
 
 #: src/as-validator-issue-tag.h:135
 msgid "The description element contains raw text that is not in any paragraph or other permitted tag. This is not allowed and the additional text may be ignored by parsers or raise errors."
-msgstr ""
+msgstr "Skildringselementet inneheld rå tekst som ikkje står i eit avsnitt eller ein annan tillaten tag. Dette er ikkje tillate, og teksten kan verte oversett av tolkarar eller gje feil."
 
 #: src/as-validator-issue-tag.h:141
 msgid "This tag is not translatable."
-msgstr ""
+msgstr "Denne taggen kan ikkje omsetjast."
 
 #: src/as-validator-issue-tag.h:146
 msgid "This tag must only appear once in this context. Having multiple tags of this kind is not valid."
-msgstr ""
+msgstr "Denne taggen kan berre førekome éin gong i denne samanhengen. Fleire taggar av denne typen er ikkje gyldig."
 
 #: src/as-validator-issue-tag.h:151
 msgid "The mentioned tag is empty, which is highly likely not intended as it should have content."
-msgstr ""
+msgstr "Den nemnde taggen er tom. Det er truleg ikkje meininga, sidan han skal ha innhald."
 
 #: src/as-validator-issue-tag.h:156
 msgid "The mentioned tag has text content, even though it must not contain text."
-msgstr ""
+msgstr "Den nemnde taggen har tekstinnhald, sjølv om han ikkje skal innehalde tekst."
 
 #: src/as-validator-issue-tag.h:161
 msgid "The component ID is required to follow a reverse domain-name scheme for its name. See the AppStream specification for details."
-msgstr ""
+msgstr "Komponent-ID-en må følgje eit omvendt domenenamnsskjema. Sjå AppStream-spesifikasjonen for detaljar."
 
 #: src/as-validator-issue-tag.h:166
 msgid "The component ID is not a reverse domain-name. Please update the ID to avoid future issues and be compatible with all AppStream implementations.\n"
 "You may also consider to update the name of the accompanying .desktop file to follow the latest version of the Desktop-Entry specification and use a rDNS name for it as well. In any case, do not forget to mention the new desktop-entry in a <launchable/> tag for this component to keep the application launchable from software centers and the .desktop file data associated with the metainfo data."
 msgstr ""
+"Komponent-ID-en er ikkje eit omvendt domenenamn. Oppdater ID-en for å unngå problem i framtida og vere kompatibel med alle AppStream-implementasjonar.\n"
+"Du kan òg vurdere å gje den tilhøyrande .desktop-fila nytt namn etter den nyaste versjonen av Desktop Entry-spesifikasjonen, med eit rDNS-namn. Uansett må du hugse å nemne den nye desktop-oppføringa i ein <launchable/>-tag for komponenten, slik at programmet framleis kan startast frå programvaresenter og .desktop-fildataa vert knytte til metainfo-dataa."
 
 #: src/as-validator-issue-tag.h:174
 msgid "The component ID might not follow the reverse domain-name schema (the TLD used by it is not known to the validator)."
-msgstr ""
+msgstr "Komponent-ID-en følgjer kanskje ikkje skjemaet for omvendte domenenamn (valideraren kjenner ikkje toppdomenet)."
 
 #: src/as-validator-issue-tag.h:179
 msgid "The component ID contains an invalid character. Only ASCII characters, dots and numbers are permitted."
-msgstr ""
+msgstr "Komponent-ID-en inneheld eit ugyldig teikn. Berre ASCII-teikn, punktum og tal er tillatne."
 
 #: src/as-validator-issue-tag.h:184
 msgid "The component ID starts with punctuation. This is not allowed."
-msgstr ""
+msgstr "Komponent-ID-en byrjar med eit skiljeteikn. Dette er ikkje tillate."
 
 #: src/as-validator-issue-tag.h:189
 msgid "The component ID contains a hyphen/minus in its domain part. Using a hyphen is strongly discouraged to improve interoperability with other tools such as D-Bus. A good option is to replace any hyphens with underscores (`_`). Hyphens are only allowed in the last segment of a component ID."
-msgstr ""
+msgstr "Komponent-ID-en inneheld ein bindestrek/minus i domenedelen. Bindestrek er sterkt frårådd for å betre samspelet med andre verktøy, som D-Bus. Ei god løysing er å byte ut alle bindestrekar med understrek (`_`). Bindestrek er berre tillaten i det siste segmentet av ein komponent-ID."
 
 #: src/as-validator-issue-tag.h:195
 msgid "The component ID contains a segment starting with a number. Starting a segment of the reverse-DNS ID with a number is strongly discouraged, to keep interoperability with other tools such as D-Bus. Ideally, prefix these segments with an underscore."
-msgstr ""
+msgstr "Komponent-ID-en inneheld eit segment som byrjar med eit tal. Det er sterkt frårådd å byrje eit segment av den omvendte DNS-ID-en med eit tal, for å sikre samhandling med andre verktøy som D-Bus. Ideelt sett bør desse segmenta ha eit understrek framfor seg."
 
 #: src/as-validator-issue-tag.h:201
 msgid "The component ID should only contain lowercase characters."
-msgstr ""
+msgstr "Komponent-ID-en skal berre innehalde små bokstavar."
 
 #: src/as-validator-issue-tag.h:206
 msgid "The domain part of the rDNS component ID (first two parts) must only contain lowercase characters."
-msgstr ""
+msgstr "Domenedelen av rDNS-komponent-ID-en (dei to første delane) kan berre innehalde små bokstavar."
 
 #: src/as-validator-issue-tag.h:211
 msgid "The component is part of the Freedesktop project, but its ID does not start with fd.o's reverse-DNS name (\"org.freedesktop\")."
-msgstr ""
+msgstr "Komponenten er ein del av Freedesktop-prosjektet, men ID-en byrjar ikkje med det omvendte DNS-namnet til fd.o («org.freedesktop»)."
 
 #: src/as-validator-issue-tag.h:216
 msgid "The component is part of the KDE project, but its ID does not start with KDE's reverse-DNS name (\"org.kde\")."
-msgstr ""
+msgstr "Komponenten er ein del av KDE-prosjektet, men ID-en byrjar ikkje med det omvendte DNS-namnet til KDE («org.kde»)."
 
 #: src/as-validator-issue-tag.h:221
 msgid "The component is part of the GNOME project, but its ID does not start with GNOME's reverse-DNS name (\"org.gnome\")."
-msgstr ""
+msgstr "Komponenten er ein del av GNOME-prosjektet, men ID-en byrjar ikkje med det omvendte DNS-namnet til GNOME («org.gnome»)."
 
 #: src/as-validator-issue-tag.h:226
 msgid "The SPDX license expression is invalid and could not be parsed."
-msgstr ""
+msgstr "SPDX-lisensuttrykket er ugyldig og kunne ikkje tolkast."
 
 #: src/as-validator-issue-tag.h:231
 msgid "The license ID was not found in the SPDX database. Please check that the license ID is written in an SPDX-conformant way and is a valid free software license."
-msgstr ""
+msgstr "Fann ikkje lisens-ID-en i SPDX-databasen. Kontroller at lisens-ID-en er skriven slik SPDX krev, og at det er ein gyldig fri programvarelisens."
 
 #: src/as-validator-issue-tag.h:237
 msgid "The metadata itself seems to be licensed under a complex collection of licenses. Please license the data under a simple permissive license, like FSFAP, MIT or CC0-1.0 to allow distributors to include it in mixed data collections without the risk of license violations due to mutually incompatible licenses."
-msgstr ""
+msgstr "Sjølve metadataa ser ut til å vere lisensierte under ei komplisert samling lisensar. Lisensier dataa under ein enkel, fri lisens som FSFAP, MIT eller CC0-1.0, slik at distributørar kan ta dei med i blanda datasamlingar utan risiko for lisensbrot på grunn av lisensar som ikkje er kompatible med kvarandre."
 
 #: src/as-validator-issue-tag.h:243
 msgid "The metadata itself does not seem to be licensed under a permissive license. Please license the data under a permissive license, like FSFAP, CC0-1.0 or 0BSD to allow distributors to include it in mixed data collections without the risk of license violations due to mutually incompatible licenses."
-msgstr ""
+msgstr "Sjølve metadataa ser ikkje ut til å vere lisensierte under ein fri (permissiv) lisens. Lisensier dataa under ein permissiv lisens som FSFAP, CC0-1.0 eller 0BSD, slik at distributørar kan ta dei med i blanda datasamlingar utan risiko for lisensbrot på grunn av lisensar som ikkje er kompatible med kvarandre."
 
 #: src/as-validator-issue-tag.h:249
 msgid "The update-contact does not appear to be a valid email address (escaping of `@` is only allowed as `_at_` or `_AT_`)."
-msgstr ""
+msgstr "update-contact ser ikkje ut til å vere ei gyldig e-postadresse (`@` kan berre skrivast om som `_at_` eller `_AT_`)."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:255
 msgid "The `environment` property is set to an unrecognized graphical environment/style combination."
-msgstr ""
+msgstr "Eigenskapen `environment` er sett til ein ukjend kombinasjon av grafisk miljø/stil."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:261
 msgid "The `width` property must be a positive integer."
-msgstr ""
+msgstr "Eigenskapen `width` må vere eit positivt heiltal."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:267
 msgid "The `height` property must be a positive integer."
-msgstr ""
+msgstr "Eigenskapen `height` må vere eit positivt heiltal."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:273
 msgid "The `scale` property must be a positive integer."
-msgstr ""
+msgstr "Eigenskapen `scale` må vere eit positivt heiltal."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:279
 msgid "The image type must be either `source` or `thumbnail`."
-msgstr ""
+msgstr "Biletet må vere av typen `source` eller `thumbnail`."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:285
 msgid "The `width` property must be present if the image type is `thumbnail`."
-msgstr ""
+msgstr "Eigenskapen `width` må vere med dersom biletet er av typen `thumbnail`."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:291
 msgid "The `height` property must be present if the image type is `thumbnail`."
-msgstr ""
+msgstr "Eigenskapen `height` må vere med dersom biletet er av typen `thumbnail`."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:297
 msgid "There can only be one `source` image per screenshot and language."
-msgstr ""
+msgstr "Det kan berre vere eitt `source`-bilete per skjermbilete og språk."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:303
 msgid "A screenshot must have at least one untranslated image of type `source`."
-msgstr ""
+msgstr "Eit skjermbilete må ha minst eitt uomsett bilete av typen `source`."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:309
 msgid "A screenshot must have at least one untranslated image of type `source`, which could not be found. Instead, a tag with an `en` locale (`xml:lang=en`) was found, which is likely intended to be the translatable image. Please remove the XML localization attribute in this case."
-msgstr ""
+msgstr "Eit skjermbilete må ha minst eitt uomsett bilete av typen `source`, men det vart ikkje funne. I staden vart det funne ein tag med lokaliseringa `en` (`xml:lang=en`), som truleg er meint å vere det omsetjelege biletet. Fjern i så fall XML-lokaliseringsattributtet."
 
 #: src/as-validator-issue-tag.h:316
 msgid "Unable to reach the screenshot image on its remote location - does the image exist?"
-msgstr ""
+msgstr "Klarte ikkje nå skjermbiletet på den eksterne plasseringa. Finst biletet?"
 
 #: src/as-validator-issue-tag.h:321
 msgid "Unable to reach the screenshot video on its remote location - does the video file exist?"
-msgstr ""
+msgstr "Klarte ikkje nå skjermvideoen på den eksterne plasseringa. Finst videofila?"
 
 #: src/as-validator-issue-tag.h:326
 msgid "Consider using a secure (HTTPS) URL to reference this screenshot image or video."
-msgstr ""
+msgstr "Vurder å bruke ein sikker URL (HTTPS) for å vise til dette skjermbiletet eller denne videoen."
 
 #: src/as-validator-issue-tag.h:331
 msgid "A screenshot must have at least one image that has a scaling factor of 1."
-msgstr ""
+msgstr "Eit skjermbilete må ha minst eitt bilete med skaleringsfaktor 1."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:337
 msgid "A screenshot must contain at least one image or video in order to be useful. Please add an <image/> to it."
-msgstr ""
+msgstr "Eit skjermbilete må innehalde minst eitt bilete eller éin video for å vere nyttig. Legg til eit <image/>."
 
 #: src/as-validator-issue-tag.h:342
 msgid "A screenshot must contain either images or videos, but not both at the same time. Please use this screenshot exclusively for either static images or for videos."
-msgstr ""
+msgstr "Eit skjermbilete kan innehalde anten bilete eller videoar, men ikkje begge delar samtidig. Bruk dette skjermbiletet anten berre til statiske bilete eller berre til videoar."
 
 #: src/as-validator-issue-tag.h:348
 msgid "The screenshot does not have a caption text. Consider adding one."
-msgstr ""
+msgstr "Skjermbiletet har ingen bilettekst. Vurder å leggje til ein."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:354
 msgid "The screenshot video does not specify which video codec was used in a `codec` property."
-msgstr ""
+msgstr "Skjermvideoen oppgjev ikkje kva videokodek som er brukt, i ein `codec`-eigenskap."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:360
 msgid "The screenshot video does not specify which container format was used in a `container` property."
-msgstr ""
+msgstr "Skjermvideoen oppgjev ikkje kva containerformat som er brukt, i ein `container`-eigenskap."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:366
 msgid "The selected video codec is not supported by AppStream and software centers may not be able to play the video. Only the AV1 and VP9 codecs are currently supported, using `av1` and `vp9` as values for the `codec` property."
-msgstr ""
+msgstr "Den valde videokodeken vert ikkje støtta av AppStream, og programvaresenter kan kanskje ikkje spele av videoen. Førebels er berre kodekane AV1 og VP9 støtta, med `av1` og `vp9` som verdiar for `codec`-eigenskapen."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:373
 msgid "The selected video container format is not supported by AppStream and software centers may not be able to play the video. Only the WebM and Matroska video containers are currently supported, using `webm` and `mkv` as values for the `container` property."
-msgstr ""
+msgstr "Det valde containerformatet for video vert ikkje støtta av AppStream, og programvaresenter kan kanskje ikkje spele av videoen. Førebels er berre videocontainerane WebM og Matroska støtta, med `webm` og `mkv` som verdiar for `container`-eigenskapen."
 
 #: src/as-validator-issue-tag.h:379
 msgid "For videos, only the WebM and Matroska (.mkv) container formats are currently supported. The file extension of the referenced video does not belong to either of these formats."
-msgstr ""
+msgstr "For videoar er førebels berre containerformata WebM og Matroska (.mkv) støtta. Filendinga til videoen det vert vist til, høyrer ikkje til nokon av desse formata."
 
 #: src/as-validator-issue-tag.h:385
 msgid "The default screenshot of a software component must not be a video. Use a static image as default screenshot and set the video as a secondary screenshot."
-msgstr ""
+msgstr "Standardskjermbiletet for ein programvarekomponent kan ikkje vere ein video. Bruk eit statisk bilete som standardskjermbilete, og set videoen som eit sekundært skjermbilete."
 
 #: src/as-validator-issue-tag.h:390
 msgid "No screenshot is marked as default."
-msgstr ""
+msgstr "Ingen skjermbilete er merkte som standard."
 
 #: src/as-validator-issue-tag.h:395
 msgid "Found an unknown tag in a requires/recommends group. This is likely an error, because a component relation of this type is unknown."
-msgstr ""
+msgstr "Fann ein ukjend tag i ei requires/recommends-gruppe. Dette er truleg ein feil, fordi ein komponentrelasjon av denne typen er ukjend."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:401
 msgid "A `requires` or `recommends` item requires a value to denote a valid relation."
-msgstr ""
+msgstr "Eit `requires`- eller `recommends`-element krev ein verdi som viser ein gyldig relasjon."
 
 #. TRANSLATORS: `version` is an AppStream XML property. Please do not translate it.
 #: src/as-validator-issue-tag.h:407
 msgid "Found `version` property on required/recommended item of a type that should not have or require a version."
-msgstr ""
+msgstr "Fann ein `version`-eigenskap på eit påkravd/tilrådd element av ein type som ikkje skal ha eller krevje ein versjon."
 
 #. TRANSLATORS: `version` and `compare` are AppStream XML properties. Please do not translate them.
 #: src/as-validator-issue-tag.h:413
 msgid "Found `version` property on this required/recommended item, but not `compare` property. It is recommended to explicitly define a comparison operation."
-msgstr ""
+msgstr "Fann ein `version`-eigenskap på dette påkravde/tilrådde elementet, men ingen `compare`-eigenskap. Det er tilrådd å definere ein samanlikningsoperasjon eksplisitt."
 
 #. TRANSLATORS: `eq/ne/lt/gt/le/ge` are AppStream XML values. Please do not translate them.
 #: src/as-validator-issue-tag.h:419
 msgid "Invalid comparison operation on relation item. Only one of `eq/ne/lt/gt/le/ge` is permitted."
-msgstr ""
+msgstr "Ugyldig samanlikningsoperasjon på relasjonselementet. Berre éin av `eq/ne/lt/gt/le/ge` er tillaten."
 
 #: src/as-validator-issue-tag.h:424
 msgid "The relation item has a comparison operation set, but does not support any comparisons."
-msgstr ""
+msgstr "Relasjonselementet har ein samanlikningsoperasjon sett, men støttar ingen samanlikningar."
 
 #: src/as-validator-issue-tag.h:429
 msgid "This relation item has already been defined once for this or a different relation type. Please do not redefine relations."
-msgstr ""
+msgstr "Dette relasjonselementet er alt definert éin gong for denne eller ein annan relasjonstype. Ikkje definer relasjonar på nytt."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:435
 msgid "Found a memory size relation in a `requires` tag. This means users will not be able to even install the component without having enough RAM. This is usually not intended and you want to use `memory` in the `recommends` tag instead."
-msgstr ""
+msgstr "Fann ein relasjon for minnestorleik i ein `requires`-tag. Det tyder at brukarar ikkje eingong kan installere komponenten utan nok RAM. Det er vanlegvis ikkje meininga, og du bør heller bruke `memory` i `recommends`-taggen."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:442
 msgid "Found a user input control relation in a `requires` tag. This means users will not be able to even install the component without having the defined input control available on the system. This is usually not intended and you want to use `control` in the `recommends` tag instead."
-msgstr ""
+msgstr "Fann ein relasjon for inndatakontroll i ein `requires`-tag. Det tyder at brukarar ikkje eingong kan installere komponenten utan at den definerte inndatakontrollen finst på systemet. Det er vanlegvis ikkje meininga, og du bør heller bruke `control` i `recommends`-taggen."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:449
 msgid "This `control` item defines an unknown input method and is invalid. Check the specification for a list of permitted values."
-msgstr ""
+msgstr "Dette `control`-elementet definerer ein ukjend inndatametode og er ugyldig. Sjå spesifikasjonen for ei liste over tillatne verdiar."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:455
 msgid "This `display_length` item contains an invalid display length. Its value must be a positive integer value denoting logical pixels. Please refer to the AppStream specification for more information on this tag."
-msgstr ""
+msgstr "Dette `display_length`-elementet inneheld ei ugyldig visingslengd. Verdien må vere eit positivt heiltal som står for logiske pikslar. Sjå AppStream-spesifikasjonen for meir informasjon om denne taggen."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:462
 msgid "This `side` property of this `display_length` item contains an invalid value. It must either be `shortest` or `longest`, or unset to imply `shortest` to make the item value refer to either the shortest or longest side of the display."
-msgstr ""
+msgstr "`side`-eigenskapen til dette `display_length`-elementet inneheld ein ugyldig verdi. Han må vere anten `shortest` eller `longest`, eller ikkje vere sett (då gjeld `shortest`), slik at elementverdien viser til anten den kortaste eller den lengste sida av skjermen."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:469
 msgid "This `hardware` item contains an invalid value. It should be a Computer Hardware ID (CHID) UUID without braces."
-msgstr ""
+msgstr "Dette `hardware`-elementet inneheld ein ugyldig verdi. Det skal vere ein Computer Hardware ID (CHID) UUID utan krøllparentesar."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:475
 msgid "A `memory` item must only contain a non-zero integer value, depicting a system memory size in mebibyte (MiB)"
-msgstr ""
+msgstr "Eit `memory`-element kan berre innehalde eit heiltal som ikkje er null, og som gjev storleiken på systemminnet i mebibyte (MiB)"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:481
 msgid "The set tag value is not valid for an `internet` relation."
-msgstr ""
+msgstr "Den oppgjevne tag-verdien er ikkje gyldig for ein `internet`-relasjon."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:487
 msgid "The `bandwidth_mbitps` property is not allowed when using `offline-only` as value."
-msgstr ""
+msgstr "Eigenskapen `bandwidth_mbitps` er ikkje tillaten når `offline-only` vert brukt som verdi."
 
 #: src/as-validator-issue-tag.h:492
 msgid "The value of this property must be a positive integer value, describing the minimum required bandwidth in mbit/s."
-msgstr ""
+msgstr "Verdien til denne eigenskapen må vere eit positivt heiltal som gjev minste påkravde bandbreidd i mbit/s."
 
 #: src/as-validator-issue-tag.h:497
 msgid "The set component type is not a recognized, valid AppStream component type."
-msgstr ""
+msgstr "Den oppgjevne komponenttypen er ikkje ein kjend, gyldig AppStream-komponenttype."
 
 #: src/as-validator-issue-tag.h:502
 msgid "The component has a priority value set. This is not allowed in metainfo files."
-msgstr ""
+msgstr "Komponenten har ein prioritetsverdi. Det er ikkje tillate i metainfo-filer."
 
 #: src/as-validator-issue-tag.h:507
 msgid "The component has a `merge` method defined. This is not allowed in metainfo files."
-msgstr ""
+msgstr "Komponenten har ein `merge`-metode definert. Det er ikkje tillate i metainfo-filer."
 
 #: src/as-validator-issue-tag.h:512
 msgid "The component is missing an ID (<id/> tag)."
-msgstr ""
+msgstr "Komponenten manglar ein ID (<id/>-tag)."
 
 #: src/as-validator-issue-tag.h:517
 msgid "The component is missing a name (<name/> tag)."
-msgstr ""
+msgstr "Komponenten manglar eit namn (<name/>-tag)."
 
 #: src/as-validator-issue-tag.h:522
 msgid "The name of this component is excessively long and can likely not be displayed properly in most layouts."
-msgstr ""
+msgstr "Namnet på denne komponenten er altfor langt og kan truleg ikkje visast skikkeleg i dei fleste oppsett."
 
 #: src/as-validator-issue-tag.h:527
 msgid "The component is missing a summary (<summary/> tag)."
-msgstr ""
+msgstr "Komponenten manglar eit samandrag (<summary/>-tag)."
 
 #: src/as-validator-issue-tag.h:532
 msgid "The <id/> tag still contains a `type` property, probably from an old conversion to the recent metainfo format."
-msgstr ""
+msgstr "<id/>-taggen inneheld framleis ein `type`-eigenskap, truleg frå ei gammal konvertering til det nyare metainfo-formatet."
 
 #: src/as-validator-issue-tag.h:537
 msgid "The `pkgname` tag appears multiple times. You should evaluate creating a metapackage containing the metainfo and .desktop files in order to avoid defining multiple package names per component."
-msgstr ""
+msgstr "`pkgname`-taggen finst fleire gonger. Du bør vurdere å lage ein metapakke med metainfo- og .desktop-filene, slik at du ikkje treng å definere fleire pakkenamn per komponent."
 
 #: src/as-validator-issue-tag.h:542
 msgid "The package name contains characters that are not permitted here. A package name must start with an alphanumeric character and may only contain alphanumeric characters as well as `+`, `-`, `.`, `_` and `:`."
-msgstr ""
+msgstr "Pakkenamnet inneheld teikn som ikkje er tillatne her. Eit pakkenamn må byrje med eit alfanumerisk teikn og kan berre innehalde alfanumeriske teikn og `+`, `-`, `.`, `_` og `:`."
 
 #: src/as-validator-issue-tag.h:548
 msgid "The bundle ID contains characters that are not permitted here. It must start with an alphanumeric character and may only contain alphanumeric characters as well as `+`, `-`, `.`, `_`, `:` and `/`."
-msgstr ""
+msgstr "Pakke-ID-en inneheld teikn som ikkje er tillatne her. Han må byrje med eit alfanumerisk teikn og kan berre innehalde alfanumeriske teikn og `+`, `-`, `.`, `_`, `:` og `/`."
 
 #: src/as-validator-issue-tag.h:554
 msgid "The component name should (likely) not end with a dot (`.`)."
-msgstr ""
+msgstr "Komponentnamnet bør (truleg) ikkje slutte med eit punktum (`.`)."
 
 #: src/as-validator-issue-tag.h:559
 msgid "The component summary should not end with a dot (`.`)."
-msgstr ""
+msgstr "Samandraget for komponenten bør ikkje slutte med punktum (`.`)."
 
 #: src/as-validator-issue-tag.h:564
 msgid "The component summary must not contain tabs or linebreaks."
-msgstr ""
+msgstr "Samandraget for komponenten kan ikkje innehalde tabulatorar eller linjeskift."
 
 #: src/as-validator-issue-tag.h:569
 msgid "The summary must not contain any URL. Use the `<url/>` tags for links."
-msgstr ""
+msgstr "Samandraget kan ikkje innehalde nokon URL. Bruk `<url/>`-taggar for lenkjer."
 
 #: src/as-validator-issue-tag.h:574
 msgid "The summary text does not start with a capitalized word, project name or number."
-msgstr ""
+msgstr "Samandraget byrjar ikkje med eit ord med stor forbokstav, eit prosjektnamn eller eit tal."
 
 #: src/as-validator-issue-tag.h:579
 msgid "The summary text is very long, and will likely not be displayed properly everywhere. It should be <= 90 characters."
-msgstr ""
+msgstr "Oppsummeringsteksten er svært lang, og vil truleg ikkje verte vist på rett vis overalt. Ho bør vere <= 90 teikn."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:585
 msgid "Icons of type `stock` or `cached` must not contain an URL, a full or an relative path to the icon. Only file basenames or stock names are allowed."
-msgstr ""
+msgstr "Ikon av typen `stock` eller `cached` kan ikkje innehalde ein URL eller ein fullstendig eller relativ sti til ikonet. Berre filnamn utan sti eller stock-namn er tillatne."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:592
 msgid "Icons of type `remote` must contain an URL to the referenced icon."
-msgstr ""
+msgstr "Ikon av typen `remote` må innehalde ein URL til det refererte ikonet."
 
 #: src/as-validator-issue-tag.h:597
 msgid "Unable to reach remote icon at the given web location - does it exist?"
-msgstr ""
+msgstr "Klarte ikkje nå det eksterne ikonet på den oppgjevne nettadressa. Finst det?"
 
 #: src/as-validator-issue-tag.h:602
 msgid "Consider using a secure (HTTPS) URL for the remote icon link."
-msgstr ""
+msgstr "Vurder å bruke ein sikker URL (HTTPS) for lenkja til det eksterne ikonet."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:608
 msgid "Metainfo files may only contain icons of type `stock` or `remote`, the set type is not allowed."
-msgstr ""
+msgstr "Metainfo-filer kan berre innehalde ikon av typen `stock` eller `remote`. Den oppgjevne typen er ikkje tillaten."
 
 #. TRANSLATORS: Please do not translate names in backticks.
 #: src/as-validator-issue-tag.h:614
 msgid "This icon uses an unsupported file format. Icons should be PNG, JPEG-XL (`.jxl`) or vector graphics (`.svg`/`.svgz`) images."
-msgstr ""
+msgstr "Dette ikonet brukar eit filformat som ikkje er støtta. Ikon bør vere bilete i PNG, JPEG-XL (`.jxl`) eller vektorgrafikk (`.svg`/`.svgz`)."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:621
 msgid "Invalid `type` property for this `url` tag. URLs of this type are not known in the AppStream specification."
-msgstr ""
+msgstr "Ugyldig `type`-eigenskap for denne `url`-taggen. URL-ar av denne typen er ikkje kjende i AppStream-spesifikasjonen."
 
 #: src/as-validator-issue-tag.h:626
 msgid "Unable to reach remote location that this URL references - does it exist?"
-msgstr ""
+msgstr "Klarte ikkje nå den eksterne plasseringa denne URL-en viser til. Finst ho?"
 
 #: src/as-validator-issue-tag.h:631
 msgid "Consider using a secure (HTTPS) URL for this web link."
-msgstr ""
+msgstr "Vurder å bruke ein sikker URL (HTTPS) for denne nettlenkja."
 
 #: src/as-validator-issue-tag.h:636
 msgid "A web URL was expected for this value."
-msgstr ""
+msgstr "Venta ein nett-URL for denne verdien."
 
 #: src/as-validator-issue-tag.h:641
 msgid "This web link uses the FTP protocol. Consider switching to HTTP(S) instead."
-msgstr ""
+msgstr "Denne nettlenkja brukar FTP-protokollen. Vurder å byte til HTTP(S) i staden."
 
 #: src/as-validator-issue-tag.h:646
 msgid "An URL of this type has already been defined."
-msgstr ""
+msgstr "Ein URL av denne typen er alt definert."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:652
 msgid "This component is missing an `url` element of type `homepage` to link to the project's homepage."
-msgstr ""
+msgstr "Denne komponenten manglar eit `url`-element av typen `homepage` som lenkjer til heimesida til prosjektet."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:658
 msgid "The toplevel `developer_name` element is deprecated. Please use the `name` element in a `developer` block instead."
-msgstr ""
+msgstr "`developer_name`-elementet på øvste nivå er forelda. Bruk `name`-elementet i ei `developer`-blokk i staden."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:665
 msgid "This component contains no `developer` element with information about its author."
-msgstr ""
+msgstr "Denne komponenten har ikkje noko `developer`-element med informasjon om opphavspersonen."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:671
 msgid "The `developer` element is missing an `id` property, containing a unique string ID for the developer. Consider adding a unique ID."
-msgstr ""
+msgstr "`developer`-elementet manglar ein `id`-eigenskap, som skal innehalde ein unik streng-ID for utviklaren. Vurder å leggje til ein unik ID."
 
 #: src/as-validator-issue-tag.h:677
 msgid "The developer-ID is invalid. It should be an rDNS string identifying the developer, or a Fediverse handle. It must also only contain lowercase ASCII letters, numbers and punctuation."
-msgstr ""
+msgstr "Utviklar-ID-en er ugyldig. Han skal vere ein rDNS-streng som identifiserer utviklaren, eller eit Fediverse-brukarnamn. Han kan òg berre innehalde små ASCII-bokstavar, tal og skiljeteikn."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:684
 msgid "The `developer` block does not have a `name` element with a human-readable project author name."
-msgstr ""
+msgstr "`developer`-blokka har ikkje noko `name`-element med eit lesbart namn på opphavspersonen til prosjektet."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:690
 msgid "The `name` child of a `developer` block must not contain a hyperlink."
-msgstr ""
+msgstr "`name`-barnet i ei `developer`-blokk kan ikkje innehalde ei hyperlenkje."
 
 #: src/as-validator-issue-tag.h:695
 msgid "The set value is not an identifier for a desktop environment as registered with Freedesktop.org."
-msgstr ""
+msgstr "Den oppgjevne verdien er ikkje ein identifikator for eit skrivebordsmiljø som er registrert hos Freedesktop.org."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:701
 msgid "This `launchable` tag has an unknown type and can not be used."
-msgstr ""
+msgstr "Denne `launchable`-taggen har ein ukjend type og kan ikkje brukast."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:707
 msgid "This `bundle` tag has an unknown type and can not be used."
-msgstr ""
+msgstr "Denne `bundle`-taggen har ein ukjend type og kan ikkje brukast."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:713
 msgid "The `update_contact` tag should not be included in catalog AppStream XML."
-msgstr ""
+msgstr "`update_contact`-taggen bør ikkje vere med i AppStream-XML for katalogar."
 
 #: src/as-validator-issue-tag.h:718
 msgid "This tag is a GNOME-specific extension to AppStream and not part of the official specification. Do not expect it to work in all implementations and in all software centers."
-msgstr ""
+msgstr "Denne taggen er ei GNOME-spesifikk utviding av AppStream og ikkje ein del av den offisielle spesifikasjonen. Ikkje rekn med at han fungerer i alle implementasjonar og alle programvaresenter."
 
 #: src/as-validator-issue-tag.h:724
 msgid "Found invalid tag. Non-standard tags should be prefixed with `x-`. AppStream also provides the <custom/> tag to add arbitrary custom data to metainfo files. This tag is read by AppStream libraries and may be useful instead of defining new custom toplevel or `x-`-prefixed tags if you just want to add custom data to a metainfo file."
-msgstr ""
+msgstr "Fann ein ugyldig tag. Taggar som ikkje er standard, bør ha prefikset `x-`. AppStream har òg <custom/>-taggen for å leggje vilkårlege eigne data til metainfo-filer. Denne taggen vert lesen av AppStream-biblioteka og kan vere nyttig i staden for å definere nye eigne taggar på øvste nivå eller taggar med `x-`-prefiks, dersom du berre vil leggje eigne data til ei metainfo-fil."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:732
 msgid "The essential tag `metadata_license` is missing. A license for the metadata itself always has to be defined."
-msgstr ""
+msgstr "Den vesentlege taggen `metadata_license` manglar. Ein lisens for sjølve metadataa må alltid vere definert."
 
 #: src/as-validator-issue-tag.h:737
 msgid "The component is missing a long description. Components of this type must have a long description."
-msgstr ""
+msgstr "Komponenten manglar ei lang skildring. Komponentar av denne typen må ha ei lang skildring."
 
 #: src/as-validator-issue-tag.h:742
 msgid "It would be useful to add a long description to this font to present it better to users."
-msgstr ""
+msgstr "Det ville vere nyttig å leggje til ei lang skildring av denne skrifta for å presentere ho betre for brukarane."
 
 #: src/as-validator-issue-tag.h:747
 msgid "It is recommended to add a long description to this component to present it better to users."
-msgstr ""
+msgstr "Det er tilrådd å leggje til ei lang skildring av denne komponenten for å presentere han betre for brukarane."
 
 #: src/as-validator-issue-tag.h:752
 msgid "This generic component is missing a long description. It may be useful to add one."
-msgstr ""
+msgstr "Denne generiske komponenten manglar ei lang skildring. Det kan vere nyttig å leggje til ei."
 
 #: src/as-validator-issue-tag.h:757
 msgid "The component is missing an untranslated long description, but has a translated one for the English locale. You need to provide a locale-less description in English as translation template."
-msgstr ""
+msgstr "Komponenten manglar ei uomsett lang skildring, men har ei omsett for den engelske lokaliseringa. Du må oppgje ei skildring på engelsk utan lokalisering som omsetjingsmal."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:764
 msgid "This `desktop-application` component is missing a `desktop-id` launchable tag. This means that this application can not be launched and has no association with its desktop-entry file. It also means no icon data or category information from the desktop-entry file will be available, which will result in this application being ignored entirely."
-msgstr ""
+msgstr "Denne `desktop-application`-komponenten manglar ein `desktop-id` launchable-tag. Det tyder at programmet ikkje kan startast og ikkje er knytt til desktop-entry-fila si. Det tyder òg at ingen ikondata eller kategoriinformasjon frå desktop-entry-fila vil vere tilgjengeleg, og programmet vert då heilt oversett."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:773
 msgid "This `desktop-application` component has no `desktop-id` launchable tag, however it contains all the necessary information to display the application. The omission of the launchable entry means that this application can not be launched directly from installers or software centers. If this is intended, this information can be ignored, otherwise it is strongly recommended to add a launchable tag as well."
-msgstr ""
+msgstr "Denne `desktop-application`-komponenten har ingen `desktop-id` launchable-tag, men han inneheld all informasjonen som trengst for å vise programmet. Når launchable-oppføringa manglar, kan programmet ikkje startast direkte frå installasjonsprogram eller programvaresenter. Dersom det er meininga, kan du sjå bort frå dette, elles er det sterkt tilrådd å leggje til ein launchable-tag òg."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:783
 msgid "Type `console-application` component, but no information about binaries in $PATH was provided via a `provides/binary` tag."
-msgstr ""
+msgstr "Komponent av typen `console-application`, men ingen informasjon om programfiler i $PATH vart oppgjeven via ein `provides/binary`-tag."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:789
 msgid "This `web-application` component is missing a `launchable` tag of type `url`."
-msgstr ""
+msgstr "Denne `web-application`-komponenten manglar ein `launchable`-tag av typen `url`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:795
 msgid "This `web-application` component is missing a `icon` tag to specify a valid icon."
-msgstr ""
+msgstr "Denne `web-application`-komponenten manglar ein `icon`-tag som oppgjev eit gyldig ikon."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:801
 msgid "This `web-application` component is missing categorizations. A `categories` block is likely missing."
-msgstr ""
+msgstr "Denne `web-application`-komponenten manglar kategorisering. Truleg manglar det ei `categories`-blokk."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:807
 msgid "Type `font` component, but no font information was provided via a `provides/font` tag."
-msgstr ""
+msgstr "Komponent av typen `font`, men ingen skriftinformasjon vart oppgjeven via ein `provides/font`-tag."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:813
 msgid "Type `driver` component, but no modalias information was provided via a `provides/modalias` tag."
-msgstr ""
+msgstr "Komponent av typen `driver`, men ingen modalias-informasjon vart oppgjeven via ein `provides/modalias`-tag."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:819
 msgid "An `extends` tag is specified, but the component is not of type `addon`, `localization` or `repository`."
-msgstr ""
+msgstr "Ein `extends`-tag er oppgjeven, men komponenten er ikkje av typen `addon`, `localization` eller `repository`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:825
 msgid "The component is an addon, but no `extends` tag was specified."
-msgstr ""
+msgstr "Komponenten er eit tillegg, men ingen `extends`-tag er oppgjeven."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:831
 msgid "This `localization` component is missing an `extends` tag, to specify the components it adds localization to."
-msgstr ""
+msgstr "Denne `localization`-komponenten manglar ein `extends`-tag som oppgjev kva komponentar han legg til lokalisering for."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:837
 msgid "This `localization` component does not define any languages this localization is for."
-msgstr ""
+msgstr "Denne `localization`-komponenten oppgjev ikkje kva språk lokaliseringa gjeld."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:843
 msgid "This `service` component is missing a `launchable` tag of type `service`."
-msgstr ""
+msgstr "Denne `service`-komponenten manglar ein `launchable`-tag av typen `service`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:849
 msgid "Suggestions of any type other than `upstream` are not allowed in metainfo files."
-msgstr ""
+msgstr "Forslag av andre typar enn `upstream` er ikkje tillatne i metainfo-filer."
 
 #: src/as-validator-issue-tag.h:854
 msgid "The category name is not valid. Refer to the XDG Menu Specification for a list of valid category names."
-msgstr ""
+msgstr "Namnet på kategorien er ikkje gyldig. Sjå XDG-menyspesifikasjonen for ei liste over gyldige kategorinamn."
 
 #: src/as-validator-issue-tag.h:859
 msgid "All categories for this component have been ignored, either because they were invalid or because they are of low quality (e.g. custom 'X-' prefixed or toolkit ones like 'GTK' or 'Qt'). Please fix your category names, or add more categories."
-msgstr ""
+msgstr "Alle kategoriane for denne komponenten vart oversette, anten fordi dei var ugyldige eller fordi dei er av låg kvalitet (t.d. eigne med prefikset 'X-' eller verktøysett som 'GTK' eller 'Qt'). Rett opp kategorinamna eller legg til fleire kategoriar."
 
 #: src/as-validator-issue-tag.h:865
 msgid "This component is in no valid categories, even though it should be. Please check its metainfo file and desktop-entry file."
-msgstr ""
+msgstr "Denne komponenten er ikkje i nokon gyldig kategori, sjølv om han burde vere det. Kontroller metainfo-fila og desktop-entry-fila."
 
 #: src/as-validator-issue-tag.h:870
 msgid "The screenshot caption is too long (should be <= 100 characters)"
-msgstr ""
+msgstr "Skjermbiletteksten er for lang (bør vere <= 100 teikn)"
 
 #: src/as-validator-issue-tag.h:875
 msgid "Unable to read file."
-msgstr ""
+msgstr "Klarte ikkje lese fila."
 
 #: src/as-validator-issue-tag.h:880
 msgid "The XML of this file is malformed."
-msgstr ""
+msgstr "XML-en i denne fila er misdanna."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:886
 msgid "Invalid tag found in catalog metadata. Only `component` tags are permitted."
-msgstr ""
+msgstr "Fann ein ugyldig tag i katalogmetadataa. Berre `component`-taggar er tillatne."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:892
 msgid "The metainfo file uses an ancient version of the AppStream specification, which can not be validated. Please migrate it to version 0.6 (or higher). Modern files use the `component` root tag and include many other differences, so check for changes carefully when modernizing the data."
-msgstr ""
+msgstr "Metainfo-fila brukar ein svært gammal versjon av AppStream-spesifikasjonen, som ikkje kan validerast. Flytt ho over til versjon 0.6 (eller nyare). Moderne filer brukar rottaggen `component` og har mange andre skilnader, så sjå nøye etter endringar når du moderniserer dataa."
 
 #: src/as-validator-issue-tag.h:898
 msgid "This XML document has an unknown root tag. Maybe this file is not a metainfo document?"
-msgstr ""
+msgstr "Dette XML-dokumentet har ein ukjend rottag. Kanskje fila ikkje er eit metainfo-dokument?"
 
 #: src/as-validator-issue-tag.h:903
 msgid "The metainfo filename does not match the component ID."
-msgstr ""
+msgstr "Filnamnet til metainfo-fila samsvarar ikkje med komponent-ID-en."
 
 #: src/as-validator-issue-tag.h:908
 msgid "Unable to load the desktop-entry file associated with this component."
-msgstr ""
+msgstr "Klarte ikkje laste inn desktop-entry-fila som høyrer til denne komponenten."
 
 #: src/as-validator-issue-tag.h:913
 msgid "This component metadata refers to a non-existing .desktop file."
-msgstr ""
+msgstr "Metadataa for denne komponenten viser til ei .desktop-fil som ikkje finst."
 
 #: src/as-validator-issue-tag.h:918
 msgid "A category defined in the desktop-entry file is not valid. Refer to the XDG Menu Specification for a list of valid categories."
-msgstr ""
+msgstr "Ein kategori som er definert i desktop-entry-fila, er ugyldig. Sjå XDG Menu-spesifikasjonen for ei liste over gyldige kategoriar."
 
 #: src/as-validator-issue-tag.h:923
 msgid "Error while reading some data from the desktop-entry file."
-msgstr ""
+msgstr "Feil ved lesing av data frå desktop-entry-fila."
 
 #: src/as-validator-issue-tag.h:928
 msgid "The value of this desktop-entry field contains invalid or non-printable UTF-8 characters, which can not be displayed properly."
-msgstr ""
+msgstr "Verdien i dette desktop-entry-feltet inneheld ugyldige UTF-8-teikn eller UTF-8-teikn som ikkje kan skrivast ut, og som ikkje kan visast rett."
 
 #: src/as-validator-issue-tag.h:933
 msgid "This desktop-entry field value is quoted, which is likely unintentional."
-msgstr ""
+msgstr "Verdien i dette desktop-entry-feltet står i hermeteikn, noko som truleg ikkje er meininga."
 
 #: src/as-validator-issue-tag.h:938
 msgid "This desktop-entry file has the 'Hidden' property set. This is wrong for vendor-installed .desktop files, and nullifies all effects this .desktop file has (including MIME associations), which most certainly is not intentional."
-msgstr ""
+msgstr "Denne desktop-entry-fila har eigenskapen 'Hidden' sett. Det er feil for .desktop-filer som er installerte av leverandøren, og det opphevar all verknad denne .desktop-fila har (medrekna MIME-tilknytingar), noko som nesten heilt sikkert ikkje er meininga."
 
 #: src/as-validator-issue-tag.h:944
 msgid "This desktop-entry file has the 'OnlyShowIn' property set with an empty value. This might not be intended, as this will hide the application from all desktops. If you do want to hide the application from all desktops, using 'NoDisplay=true' is more explicit."
-msgstr ""
+msgstr "Denne desktop-entry-fila har eigenskapen 'OnlyShowIn' sett til ein tom verdi. Det er kanskje ikkje meininga, sidan programmet då vert gøymt på alle skrivebord. Vil du gøyme programmet på alle skrivebord, er 'NoDisplay=true' tydelegare."
 
 #: src/as-validator-issue-tag.h:950
 msgid "No AppStream metadata was found in this directory or directory tree."
-msgstr ""
+msgstr "Fann ingen AppStream-metadata i denne mappa eller mappetreet."
 
 #. pedantic because not everything which has metadata is an application
 #: src/as-validator-issue-tag.h:955
 msgid "No XDG applications directory found."
-msgstr ""
+msgstr "Fann inga XDG-programmappe."
 
 #: src/as-validator-issue-tag.h:960
 msgid "The metainfo file is stored in a legacy path. Please place it in `/usr/share/metainfo/`."
-msgstr ""
+msgstr "Metainfo-fila er lagra på ein gammal stad. Legg ho i `/usr/share/metainfo/`."
 
 #: src/as-validator-issue-tag.h:965
 msgid "The metainfo file specifies multiple components. This is not allowed."
-msgstr ""
+msgstr "Metainfo-fila oppgjev fleire komponentar. Det er ikkje tillate."
 
 #: src/as-validator-issue-tag.h:970
 msgid "The releases are not sorted in a latest to oldest version order. This is required as some tools will assume that the latest version is always at the top. Sorting releases also increases overall readability of the metainfo file."
-msgstr ""
+msgstr "Utgåvene er ikkje sorterte frå nyaste til eldste versjon. Det er påkravd, fordi somme verktøy går ut frå at den nyaste versjonen alltid står øvst. Sortering gjer òg metainfo-fila lettare å lese."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:978
 msgid "The type of the releases block is invalid. It needs to either `embedded` (the default) or `external`."
-msgstr ""
+msgstr "Typen til utgåveblokka er ugyldig. Han må vere anten `embedded` (standard) eller `external`."
 
 #: src/as-validator-issue-tag.h:983
 msgid "The URL to an external release metadata file is insecure. This is not allowed, please use HTTPS URLs only."
-msgstr ""
+msgstr "URL-en til ei ekstern metadatafil for utgåver er ikkje trygg. Det er ikkje tillate; bruk berre HTTPS-URL-ar."
 
 #: src/as-validator-issue-tag.h:988
 msgid "Failed to download release metadata."
-msgstr ""
+msgstr "Klarte ikkje laste ned metadata for utgåver."
 
 #: src/as-validator-issue-tag.h:993
 msgid "A local release metadata file was not found. It is strongly recommended to validate this metadata together with the main MetaInfo file."
-msgstr ""
+msgstr "Fann ikkje ei lokal metadatafil for utgåver. Det er sterkt tilrådd å validere desse metadataa saman med hovudfila for MetaInfo."
 
 #: src/as-validator-issue-tag.h:999
 msgid "The value set as release urgency is not a known urgency value."
-msgstr ""
+msgstr "Verdien som er sett som hastegrad for utgåva, er ikkje ein kjend hastegrad."
 
 #: src/as-validator-issue-tag.h:1004
 msgid "The value set as release type is invalid."
-msgstr ""
+msgstr "Verdien som er sett som utgåvetype, er ugyldig."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1010
 msgid "The release is missing the `version` property."
-msgstr ""
+msgstr "Utgåva manglar `version`-eigenskapen."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1016
 msgid "The release entry is missing either the `date` (preferred) or the `timestamp` property."
-msgstr ""
+msgstr "Utgåveoppføringa manglar anten `date`-eigenskapen (føretrekt) eller `timestamp`-eigenskapen."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1022
 msgid "The release entry is missing the `date` property. Ensure to add it before publishing the snapshot release."
-msgstr ""
+msgstr "Utgåveoppføringa manglar `date`-eigenskapen. Sjå til at han er lagd til før du publiserer snapshot-utgåva."
 
 #: src/as-validator-issue-tag.h:1027
 msgid "The release timestamp is invalid."
-msgstr ""
+msgstr "Tidsstempelet for utgåva er ugyldig."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1033
 msgid "The release description must be put inside a `description` tag"
-msgstr ""
+msgstr "Skildringa av utgåva må stå inne i ein `description`-tag"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1039
 msgid "The value set as artifact type is invalid. Must be either `source` or `binary`."
-msgstr ""
+msgstr "Verdien som er sett som artefakttype, er ugyldig. Han må vere anten `source` eller `binary`."
 
 #: src/as-validator-issue-tag.h:1044
 msgid "The value set as artifact bundle type is invalid."
-msgstr ""
+msgstr "Verdien som er sett som pakketype for artefaktet, er ugyldig."
 
 #: src/as-validator-issue-tag.h:1049
 msgid "The platform triplet for this release is invalid. It must be in the form of `architecture-oskernel-osenv` - refer to the AppStream documentation or information on normalized GNU triplets for more information and valid fields."
-msgstr ""
+msgstr "Plattformtrippelen for denne utgåva er ugyldig. Han må ha forma `architecture-oskernel-osenv`. Sjå AppStream-dokumentasjonen eller informasjon om normaliserte GNU-tripplar for meir informasjon og gyldige felt."
 
 #: src/as-validator-issue-tag.h:1056
 msgid "The selected checksumming algorithm is unsupported or unknown."
-msgstr ""
+msgstr "Den valde kontrollsumalgoritmen vert ikkje støtta eller er ukjend."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1062
 msgid "The size type is unknown. Must be `download` or `installed`."
-msgstr ""
+msgstr "Storleikstypen er ukjend. Han må vere `download` eller `installed`."
 
 #: src/as-validator-issue-tag.h:1067
 msgid "The artifact filename must be a file basename, not a (relative or absolute) path."
-msgstr ""
+msgstr "Filnamnet til artefaktet må vere eit filnamn utan sti, ikkje ein (relativ eller absolutt) sti."
 
 #: src/as-validator-issue-tag.h:1072
 msgid "The value set as release issue type is invalid."
-msgstr ""
+msgstr "Verdien som er sett som problemtype for utgåva, er ugyldig."
 
 #: src/as-validator-issue-tag.h:1077
 msgid "The issue is tagged at security vulnerability with a CVE number, but its value does not look like a valid CVE identifier."
-msgstr ""
+msgstr "Problemet er merkt som tryggleikssårbarheit med eit CVE-nummer, men verdien ser ikkje ut som ein gyldig CVE-identifikator."
 
 #: src/as-validator-issue-tag.h:1082
 msgid "The issue is tagged as security vulnerability with a GCVE identifier, but its value does not follow the `GCVE-<GNA-ID>-<YEAR>-<UNIQUE-ID>` scheme of the Global CVE Allocation System."
-msgstr ""
+msgstr "Problemet er merkt som tryggleikssårbarheit med ein GCVE-identifikator, men verdien følgjer ikkje skjemaet `GCVE-<GNA-ID>-<YEAR>-<UNIQUE-ID>` i Global CVE Allocation System."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1089
 msgid "This component is missing information about releases. Consider adding a `releases` tag to describe releases and their changes."
-msgstr ""
+msgstr "Denne komponenten manglar informasjon om utgåver. Vurder å leggje til ein `releases`-tag som skildrar utgåvene og endringane i dei."
 
 #: src/as-validator-issue-tag.h:1094
 msgid "The AppStream specification requires a complete, ISO 8601 date string with at least day-granularity to denote dates. Please ensure the date string is valid."
-msgstr ""
+msgstr "AppStream-spesifikasjonen krev ein fullstendig datostreng etter ISO 8601, med minst dag som oppløysing. Sjå til at datostrengen er gyldig."
 
 #: src/as-validator-issue-tag.h:1100
 msgid "This component extends, provides, requires or recommends itself, which is certainly not intended and may confuse users or machines dealing with this metadata."
-msgstr ""
+msgstr "Denne komponenten utvidar, tilbyr, krev eller tilrår seg sjølv. Det er heilt sikkert ikkje meininga, og kan forvirre brukarar eller maskinar som handsamar desse metadataa."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1107
 msgid "Licenses for `runtime` components are usually too complex to reflect them in a simple SPDX expression. Consider using a `LicenseRef` and a web URL as value for this component's `project_license`. E.g. `LicenseRef-free=https://example.com/licenses.html`"
-msgstr ""
+msgstr "Lisensar for `runtime`-komponentar er som regel for komplekse til å speglast i eit enkelt SPDX-uttrykk. Vurder å bruke `LicenseRef` og ein nett-URL som verdi for `project_license` til denne komponenten. Til dømes `LicenseRef-free=https://example.com/licenses.html`"
 
 #: src/as-validator-issue-tag.h:1113
 msgid "Since a `runtime` component consists of multiple other software components, their component-IDs may be listed in a `<provides/>` section for this runtime."
-msgstr ""
+msgstr "Sidan ein `runtime`-komponent består av fleire andre programvarekomponentar, kan komponent-ID-ane deira førast opp i ein `<provides/>`-seksjon for dette køyremiljøet."
 
 #: src/as-validator-issue-tag.h:1118
 msgid "The type of the item that the component provides is not known to AppStream."
-msgstr ""
+msgstr "AppStream kjenner ikkje typen til elementet som komponenten tilbyr."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1124
 msgid "The toplevel `mimetypes` tag is deprecated. Please use `mediatype` tags in a `provides` block instead to indicate that your software provides a media handler for the given types."
-msgstr ""
+msgstr "`mimetypes`-taggen på øvste nivå er forelda. Bruk heller `mediatype`-taggar i ei `provides`-blokk for å vise at programvara din kan handtere dei gjevne medietypane."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1131
 msgid "This component has no `content_rating` tag to provide age rating information. You can generate the tag data online by answering a few questions at https://hughsie.github.io/oars/"
-msgstr ""
+msgstr "Denne komponenten har ingen `content_rating`-tag med informasjon om aldersgrense. Du kan lage tag-dataa på nettet ved å svare på nokre få spørsmål på https://hughsie.github.io/oars/"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1138
 msgid "The `type` attribute of this `content_rating` element is missing or empty."
-msgstr ""
+msgstr "`type`-attributtet til dette `content_rating`-elementet manglar eller er tomt."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1144
 msgid "The `type` attribute of the `content_rating` element has an invalid value."
-msgstr ""
+msgstr "Attributtet `type` i `content_rating`-elementet har ein ugyldig verdi."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1150
 msgid "The `content_rating` tag can only contain `content_attribute` children."
-msgstr ""
+msgstr "`content_rating`-taggen kan berre innehalde `content_attribute`-barn."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1156
 msgid "The `id` attribute of the `content_attribute` element is missing or empty."
-msgstr ""
+msgstr "Attributtet `id` til elementet `content_attribute` manglar eller er tomt."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1162
 msgid "The `id` attribute of the `content_attribute` element has an invalid value."
-msgstr ""
+msgstr "Attributtet `id` til `content_attribute`-elementet har ein ugyldig verdi."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1168
 msgid "The `content_attribute` tag needs a value."
-msgstr ""
+msgstr "`content_attribute`-taggen treng ein verdi."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1174
 msgid "The `content_attribute` tag value is unknown."
-msgstr ""
+msgstr "Verdien for `content_attribute`-taggen er ukjend."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1180
 msgid "The `content_attribute` tag value is invalid for the given id."
-msgstr ""
+msgstr "Verdien for `content_attribute`-taggen er ugyldig for den gjevne id-en."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1186
 msgid "A `content_attribute` tag with this ID has already been defined."
-msgstr ""
+msgstr "Ein `content_attribute`-tag med denne ID-en er allereie definert."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1192
 msgid "This `tag` is missing a `namespace` attribute."
-msgstr ""
+msgstr "Denne `tag` manglar eit `namespace`-attributt."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1198
 msgid "This tag or its namespace contains invalid characters. Only lower-cased ASCII letters, numbers, dots, hyphens and underscores are permitted."
-msgstr ""
+msgstr "Denne taggen eller namnerommet inneheld ugyldige teikn. Berre små ASCII-bokstavar, tal, punktum, bindestrek og understrek er tillatne."
 
 #: src/as-validator-issue-tag.h:1203
 msgid "The type of this color is not valid."
-msgstr ""
+msgstr "Typen til denne fargen er ugyldig."
 
 #: src/as-validator-issue-tag.h:1208
 msgid "The value of this color scheme preference is not valid."
-msgstr ""
+msgstr "Verdien til denne fargeskjemainnstillinga er ugyldig."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1214
 msgid "The name of the color scheme property is wrong. It should be `scheme_preference`."
-msgstr ""
+msgstr "Namnet på fargeskjema-eigenskapen er feil. Det skal vere `scheme_preference`."
 
 #: src/as-validator-issue-tag.h:1219
 msgid "This color is not a valid HTML color code."
-msgstr ""
+msgstr "Denne fargen er ikkje ein gyldig HTML-fargekode."
 
 #: src/as-validator-issue-tag.h:1224
 msgid "A color for this type/scheme combination was already set. Colors must be unique per type/scheme."
-msgstr ""
+msgstr "Ein farge for denne kombinasjonen av type og skjema er alt sett. Fargar må vere unike per type/skjema."
 
 #: src/as-validator-issue-tag.h:1229
 msgid "The given DOI (Digital Object Identifier) for this reference item is not valid."
-msgstr ""
+msgstr "Den oppgjevne DOI-en (Digital Object Identifier) for dette referanseelementet er ugyldig."
 
 #: src/as-validator-issue-tag.h:1234
 msgid "The value for this citation reference item must be an URL to a CFF (Citation File Format) file."
-msgstr ""
+msgstr "Verdien for dette siteringsreferanseelementet må vere ein URL til ei CFF-fil (Citation File Format)."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1240
 msgid "This registry reference item is missing the `name` property to denote the name of the registry it is about."
-msgstr ""
+msgstr "Dette registerreferanseelementet manglar `name`-eigenskapen som oppgjev namnet på registeret det gjeld."
 
 #: src/as-validator-issue-tag.h:1245
 msgid "The registry for this reference item is unknown. This may be due to a typing error, or the registry needs to be registered with AppStream."
-msgstr ""
+msgstr "Registeret for dette referanseelementet er ukjent. Det kan kome av ein skrivefeil, eller registeret må registrerast hos AppStream."
 
 #: src/as-validator-issue-tag.h:1251
 msgid "The reference item is missing a value."
-msgstr ""
+msgstr "Referanseelementet manglar ein verdi."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1257
 msgid "The `custom` tag can only contain `value` children."
-msgstr ""
+msgstr "`custom`-taggen kan berre innehalde `value`-barn."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1263
 msgid "This `custom` tag value is missing a `key` attribute."
-msgstr ""
+msgstr "Denne `custom`-tag-verdien manglar eit `key`-attributt."
 
 #: src/as-validator-issue-tag.h:1268
 msgid "A key can only be used once."
-msgstr ""
+msgstr "Ein nøkkel kan berre brukast éin gong."
 
 #: src/as-validator-issue-tag.h:1273
 msgid "This custom value is empty."
-msgstr ""
+msgstr "Denne eigne verdien er tom."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1279
 msgid "A `keywords` tag must not be localized in metainfo files (upstream metadata). Localize the individual keyword entries instead."
-msgstr ""
+msgstr "Ein `keywords`-tag skal ikkje omsetjast i metainfo-filer (oppstraumsmetadata). Omset heller dei enkelte nøkkelorda."
 
 #: src/as-validator.c:200
 msgid "The emitted issue tag is unknown in the tag registry of AppStream. This is a bug in the validator itself, please report this issue in our bugtracker."
-msgstr ""
+msgstr "Problem-taggen som vart sendt ut, er ukjend i tag-registeret til AppStream. Dette er ein feil i sjølve valideraren; meld han i feilsporaren vår."
 
 #: src/as-validator.c:420
 msgid "URL format is invalid."
-msgstr ""
+msgstr "URL-formatet er ugyldig."
 
 #: src/as-validator.c:481 src/as-validator.c:526
 #, c-format
 msgid "The release metadata file '%s' is named incorrectly."
-msgstr ""
+msgstr "Metadatafila for utgåver «%s» har feil namn."
 
 #. TRANSLATORS: The user tried to set an invalid severity for a validator issue tag
 #: src/as-validator.c:674
 #, c-format
 msgid "The new issue severity for tag '%s' is invalid."
-msgstr ""
+msgstr "Den nye alvorsgraden for taggen «%s» er ugyldig."
 
 #. TRANSLATORS: The user tried to override a validator issue tag that we don't know
 #: src/as-validator.c:685
 #, c-format
 msgid "The issue tag '%s' is not recognized."
-msgstr ""
+msgstr "Problem-taggen «%s» er ukjend."
 
 #. TRANSLATORS: The user tried to override an issue tag and make it non-fatal, even though the tag is not
 #. whitelisted for that.
 #: src/as-validator.c:712
 #, c-format
 msgid "It is not allowed to downgrade the severity of tag '%s' to one that allows validation to pass."
-msgstr ""
+msgstr "Det er ikkje lov å setje ned alvorsgraden for taggen «%s» til ein grad som lèt valideringa gå gjennom."
 
 #. TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted name.
 #. TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted names.
@@ -2634,111 +2637,111 @@ msgstr ""
 #: src/as-validator.c:2882 src/as-validator.c:3205
 #, c-format
 msgid "Found: %s - Allowed: %s"
-msgstr ""
+msgstr "Fann: %s — Tillate: %s"
 
 #. TRANSLATORS: ascli flag description for: --verbose
 #. TRANSLATORS: ascompose flag description for: --verbose
 #: tools/appstream-compose.c:187 tools/appstreamcli.c:88
 msgid "Show extra debugging information."
-msgstr ""
+msgstr "Vis ekstra feilsøkingsinformasjon."
 
 #. TRANSLATORS: ascli flag description for: --no-color
 #. TRANSLATORS: ascompose flag description for: --no-color
 #: tools/appstream-compose.c:194 tools/appstreamcli.c:94
 msgid "Don't show colored output."
-msgstr ""
+msgstr "Ikkje vis farga utdata."
 
 #. TRANSLATORS: ascli flag description for: --version
 #. TRANSLATORS: ascompose flag description for: --version
 #: tools/appstream-compose.c:201 tools/appstreamcli.c:82
 msgid "Show the program version."
-msgstr ""
+msgstr "Vis programversjonen."
 
 #. TRANSLATORS: ascompose flag description for: --no-net
 #: tools/appstream-compose.c:208
 msgid "Do not use the network at all, not even for URL validity checks."
-msgstr ""
+msgstr "Ikkje bruk nettverket i det heile, ikkje eingong for å kontrollere om URL-ar er gyldige."
 
 #. TRANSLATORS: ascompose flag description for: --print-report
 #: tools/appstream-compose.c:215
 msgid "Set mode of the issue report that is printed to the console."
-msgstr ""
+msgstr "Set modus for problemrapporten som vert skriven ut i konsollen."
 
 #. TRANSLATORS: ascompose flag description for: --prefix
 #: tools/appstream-compose.c:222
 msgid "Override the default prefix (`/usr` by default)."
-msgstr ""
+msgstr "Overstyr standardprefikset (`/usr` som standard)."
 
 #. TRANSLATORS: ascompose flag description for: --result-root
 #: tools/appstream-compose.c:229
 msgid "Set the result output directory."
-msgstr ""
+msgstr "Set utdatamappa for resultatet."
 
 #. TRANSLATORS: ascompose flag description for: --data-dir, `catalog metadata` is an AppStream term
 #: tools/appstream-compose.c:236
 msgid "Override the catalog metadata output directory."
-msgstr ""
+msgstr "Overstyr utdatamappa for katalogmetadata."
 
 #. TRANSLATORS: ascompose flag description for: --icons-dir
 #: tools/appstream-compose.c:243
 msgid "Override the icon output directory."
-msgstr ""
+msgstr "Overstyr utdatamappa for ikon."
 
 #. TRANSLATORS: ascompose flag description for: --media-dir
 #: tools/appstream-compose.c:250
 msgid "Set the media output directory (for media data to be served by a webserver)."
-msgstr ""
+msgstr "Set utdatamappa for media (for mediedata som skal leverast av ein nettenar)."
 
 #. TRANSLATORS: ascompose flag description for: --hints-dir
 #: tools/appstream-compose.c:257
 msgid "Set a directory where HTML and text issue reports will be stored."
-msgstr ""
+msgstr "Set ei mappe der problemrapportar i HTML og tekst vert lagra."
 
 #. TRANSLATORS: ascompose flag description for: --origin
 #: tools/appstream-compose.c:264
 msgid "Set the origin name"
-msgstr ""
+msgstr "Set opphavsnamnet"
 
 #. TRANSLATORS: ascompose flag description for: --media-baseurl
 #: tools/appstream-compose.c:271
 msgid "Set the URL where the exported media content will be hosted."
-msgstr ""
+msgstr "Set URL-en der det eksporterte medieinnhaldet skal liggje."
 
 #. TRANSLATORS: ascompose flag description for: --no-partial-urls
 #: tools/appstream-compose.c:278
 msgid "Makes all URLs in output data complete URLs and avoids the use of a shared URL prefix for all metadata."
-msgstr ""
+msgstr "Gjer alle URL-ar i utdataa til fullstendige URL-ar og unngår eit felles URL-prefiks for alle metadata."
 
 #. TRANSLATORS: ascompose flag description for: --icon-policy
 #: tools/appstream-compose.c:285
 msgid "An icon-policy string to set how icon sizes should be handled (refer to the man page for details)."
-msgstr ""
+msgstr "Ein streng for ikonpolicy som fastset korleis ikonstorleikar skal handterast (sjå manualsida for detaljar)."
 
 #. TRANSLATORS: ascompose flag description for: --image-format
 #: tools/appstream-compose.c:292
 msgid "The file format that generated icons and screenshots are stored in (`jxl` by default, or `png` for compatibility with older clients)."
-msgstr ""
+msgstr "Filformatet som genererte ikon og skjermbilete vert lagra i (`jxl` som standard, eller `png` for kompatibilitet med eldre klientar)."
 
 #. TRANSLATORS: ascompose flag description for: --allow-custom
 #: tools/appstream-compose.c:299
 msgid "A comma-separated list of custom keys that should be propagated to the output data."
-msgstr ""
+msgstr "Ei kommaskild liste over eigne nøklar som skal førast vidare til utdataa."
 
 #. TRANSLATORS: ascompose flag description for: --components
 #: tools/appstream-compose.c:306
 msgid "A comma-separated list of component-IDs to accept."
-msgstr ""
+msgstr "Ei kommaskild liste over komponent-ID-ar som skal godtakast."
 
 #. TRANSLATORS: Error message of appstream-compose
 #: tools/appstream-compose.c:323
 msgid "Failed to parse arguments"
-msgstr ""
+msgstr "Klarte ikkje tolke argumenta"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
 #: tools/appstream-compose.c:334 tools/appstreamcli.c:1795
 #, c-format
 msgid "AppStream version: %s"
-msgstr ""
+msgstr "AppStream-versjon: %s"
 
 #. TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ.
 #: tools/appstream-compose.c:338 tools/appstreamcli.c:1799
@@ -2746,6 +2749,8 @@ msgstr ""
 msgid "AppStream CLI tool version: %s\n"
 "AppStream library version: %s"
 msgstr ""
+"Versjon av AppStream CLI-verktøyet: %s\n"
+"Versjon av AppStream-biblioteket: %s"
 
 #. TRANSLATORS: invalid value for the --print-report CLI option
 #: tools/appstream-compose.c:360
@@ -2756,510 +2761,515 @@ msgid "Invalid value for `--print-report` option: %s\n"
 "`short` - generates an abridged report\n"
 "`full` - a detailed report will be printed"
 msgstr ""
+"Ugyldig verdi for valet `--print-report`: %s\n"
+"Moglege verdiar er:\n"
+"`on-error` – skriv berre ut ein kort rapport dersom køyringa mislukkast (standard)\n"
+"`short` – lagar ein forkorta rapport\n"
+"`full` – skriv ut ein detaljert rapport"
 
 #: tools/appstream-compose.c:390
 #, c-format
 msgid "Automatically selected '%s' as data output location."
-msgstr ""
+msgstr "Valde «%s» automatisk som plassering for utdata."
 
 #. TRANSLATORS: We don't have a destination directory for compose
 #: tools/appstream-compose.c:396
 msgid "No destination directory set, please provide a data output location!"
-msgstr ""
+msgstr "Inga målmappe er sett. Oppgje ei plassering for utdata!"
 
 #. TRANSLATORS: Information message of appstream-compose
 #: tools/appstream-compose.c:404
 #, c-format
 msgid "Metadata origin not set, using '%s'"
-msgstr ""
+msgstr "Opphavet til metadataa er ikkje sett, brukar «%s»"
 
 #: tools/appstream-compose.c:409 tools/appstream-compose.c:411
 msgid "WARNING"
-msgstr ""
+msgstr "ÅTVARING"
 
 #: tools/appstream-compose.c:443
 msgid "Unable to set icon policy"
-msgstr ""
+msgstr "Klarte ikkje setje ikonpolicy"
 
 #. TRANSLATORS: The user selected an invalid image format for generated media, %s is the format name they used
 #: tools/appstream-compose.c:453
 #, c-format
 msgid "Invalid image format: %s. Only `jxl` and `png` are supported for generated media.\n"
-msgstr ""
+msgstr "Ugyldig biletformat: %s. Berre `jxl` og `png` er støtta for genererte medium.\n"
 
 #. TRANSLATORS: Information about as-compose allowlist
 #: tools/appstream-compose.c:483
 #, c-format
 msgid "Only accepting components: %s"
-msgstr ""
+msgstr "Godtek berre komponentane: %s"
 
 #. TRANSLATORS: Information about as-compose allowlist
 #: tools/appstream-compose.c:486
 #, c-format
 msgid "Only accepting component: %s"
-msgstr ""
+msgstr "Godtek berre komponenten: %s"
 
 #. TRANSLATORS: Information about as-compose units to be processed
 #: tools/appstream-compose.c:491
 msgid "Processing directories:"
-msgstr ""
+msgstr "Handsamar mapper:"
 
 #. TRANSLATORS: Information about as-compose units to be processed
 #: tools/appstream-compose.c:494
 msgid "Processing directory:"
-msgstr ""
+msgstr "Handsamar mappa:"
 
 #. TRANSLATORS: Error message
 #: tools/appstream-compose.c:503
 msgid "Can not process invalid directory"
-msgstr ""
+msgstr "Kan ikkje handsame ugyldig mappe"
 
 #. TRANSLATORS: Information message
 #: tools/appstream-compose.c:515
 msgid "Composing metadata..."
-msgstr ""
+msgstr "Lagar metadata …"
 
 #. TRANSLATORS: Error message
 #: tools/appstream-compose.c:520
 msgid "Failed to compose AppStream metadata"
-msgstr ""
+msgstr "Klarte ikkje lage AppStream-metadata"
 
 #. TRANSLATORS: appstream-compose failed to include all data
 #: tools/appstream-compose.c:526
 msgid "Run failed, some data was ignored."
-msgstr ""
+msgstr "Køyringa mislukkast, og nokre data vart oversette."
 
 #. TRANSLATORS: information message of appstream-compose
 #: tools/appstream-compose.c:530
 msgid "Errors were raised during this compose run:"
-msgstr ""
+msgstr "Det oppstod feil under denne compose-køyringa:"
 
 #: tools/appstream-compose.c:532
 msgid "Refer to the generated issue report data for details on the individual problems."
-msgstr ""
+msgstr "Sjå dataa i den genererte problemrapporten for detaljar om dei enkelte problema."
 
 #: tools/appstream-compose.c:536
 msgid "Overview of generated hints:"
-msgstr ""
+msgstr "Oversyn over genererte hint:"
 
 #. TRANSLATORS: Information message
 #: tools/appstream-compose.c:538
 msgid "Success!"
-msgstr ""
+msgstr "Fullført!"
 
 #. TRANSLATORS: ascli flag description for: --profile
 #: tools/appstreamcli.c:100
 msgid "Enable profiling"
-msgstr ""
+msgstr "Slå på profilering"
 
 #. TRANSLATORS: ascli flag description for: --cachepath
 #: tools/appstreamcli.c:121
 msgid "Manually selected location of AppStream cache."
-msgstr ""
+msgstr "Manuelt vald plassering for AppStream-mellomlageret."
 
 #. TRANSLATORS: ascli flag description for: --datapath
 #: tools/appstreamcli.c:127
 msgid "Manually selected location of AppStream metadata to scan."
-msgstr ""
+msgstr "Manuell plassering av AppStream-metadata som skal skannast."
 
 #. TRANSLATORS: ascli flag description for: --no-cache
 #: tools/appstreamcli.c:133
 msgid "Ignore cache age and build a fresh cache before performing the query."
-msgstr ""
+msgstr "Sjå bort frå alderen på mellomlageret og bygg eit nytt mellomlager før spørjinga vert utført."
 
 #. TRANSLATORS: ascli flag description for: --format
 #: tools/appstreamcli.c:149
 msgid "Default metadata format (valid values are 'xml' and 'yaml')."
-msgstr ""
+msgstr "Standard metadataformat (gyldige verdiar er 'xml' og 'yaml')."
 
 #. TRANSLATORS: ascli flag description for: --details
 #: tools/appstreamcli.c:165
 msgid "Print detailed output about found components."
-msgstr ""
+msgstr "Skriv ut detaljerte utdata om komponentane som vart funne."
 
 #. TRANSLATORS: ascli flag description for: --server (used by the "list-reviews" command)
 #: tools/appstreamcli.c:184
 msgid "URL of the ODRS-compatible reviews server to use."
-msgstr ""
+msgstr "URL til den ODRS-kompatible vurderingstenaren som skal brukast."
 
 #. TRANSLATORS: ascli flag description for: --start (used by the "list-reviews" command)
 #: tools/appstreamcli.c:190
 msgid "Index of the first review to fetch, to page through all reviews."
-msgstr ""
+msgstr "Indeks for den første vurderinga som skal hentast, for å bla gjennom alle vurderingane."
 
 #. TRANSLATORS: ascli flag description for: --limit (used by the "list-reviews" command)
 #: tools/appstreamcli.c:196
 msgid "Maximum number of reviews to fetch."
-msgstr ""
+msgstr "Høgaste tal på vurderingar som skal hentast."
 
 #. TRANSLATORS: ascli flag description for: --locale (used by the "list-reviews" and "submit-review" commands)
 #: tools/appstreamcli.c:202
 msgid "Locale to prefer for reviews, instead of the current system locale."
-msgstr ""
+msgstr "Lokalitet som skal føretrekkjast for vurderingar, i staden for lokaliteten til systemet."
 
 #. TRANSLATORS: ascli flag description for: --pedantic (used by the "validate" command)
 #: tools/appstreamcli.c:223
 msgid "Also show pedantic hints."
-msgstr ""
+msgstr "Vis òg pedantiske hint."
 
 #. TRANSLATORS: ascli flag description for: --explain (used by the "validate" command)
 #: tools/appstreamcli.c:230
 msgid "Print detailed explanation for found issues."
-msgstr ""
+msgstr "Skriv ut ei detaljert forklaring på problema som vart funne."
 
 #. TRANSLATORS: ascli flag description for: --no-net (used by the "validate" command)
 #: tools/appstreamcli.c:237
 msgid "Do not use network access."
-msgstr ""
+msgstr "Ikkje bruk nettverkstilgang."
 
 #. TRANSLATORS: ascli flag description for: --strict (used by the "validate" command)
 #: tools/appstreamcli.c:244
 msgid "Fail validation if any issue is emitted that is not of pedantic severity."
-msgstr ""
+msgstr "La valideringa mislukkast dersom det kjem eit problem som ikkje har alvorsgraden pedantisk."
 
 #. TRANSLATORS: ascli flag description for: --format  when validating XML files
 #: tools/appstreamcli.c:250
 msgid "Format of the generated report (valid values are 'text' and 'yaml')."
-msgstr ""
+msgstr "Formatet på den genererte rapporten (gyldige verdiar er 'text' og 'yaml')."
 
 #. TRANSLATORS: ascli flag description for: --override  when validating XML files
 #: tools/appstreamcli.c:256
 msgid "Override the severities of selected issue tags."
-msgstr ""
+msgstr "Overstyr alvorsgraden for utvalde problem-taggar."
 
 #. TRANSLATORS: this is a (usually shorter) command alias, shown after the command summary text
 #: tools/appstreamcli.c:303
 #, c-format
 msgid "(Alias: '%s')"
-msgstr ""
+msgstr "(Alias: '%s')"
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
 #: tools/appstreamcli.c:352 tools/appstreamcli.c:1432
 msgid "AppStream command-line interface"
-msgstr ""
+msgstr "Kommandolinjegrensesnitt for AppStream"
 
 #: tools/appstreamcli.c:355
 #, c-format
 msgid "'%s' command"
-msgstr ""
+msgstr "Kommandoen «%s»"
 
 #. TRANSLATORS: An unknown option was passed to appstreamcli.
 #: tools/appstreamcli.c:398
 #, c-format
 msgid "Option '%s' is unknown."
-msgstr ""
+msgstr "Valet '%s' er ukjent."
 
 #: tools/appstreamcli.c:403 tools/appstreamcli.c:1810
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
-msgstr ""
+msgstr "Køyr '%s --help' for å sjå ei fullstendig liste over tilgjengelege kommandolinjeval."
 
 #: tools/appstreamcli.c:407
 #, c-format
 msgid "Run '%s --help' to see a list of available commands and options, and '%s %s --help' to see a list of options specific for this subcommand."
-msgstr ""
+msgstr "Køyr '%s --help' for å sjå ei liste over tilgjengelege kommandoar og val, og '%s %s --help' for å sjå ei liste over val som gjeld for denne underkommandoen."
 
 #. TRANSLATORS: ascli flag description for: --force
 #: tools/appstreamcli.c:462
 msgid "Enforce a cache refresh."
-msgstr ""
+msgstr "Tving fram oppfrisking av mellomlageret."
 
 #. TRANSLATORS: ascli flag description for: --source in a refresh action. Don't translate strings in backticks: `name`
 #: tools/appstreamcli.c:468
 msgid "Limit cache refresh to data from a specific source, e.g. `os` or `flatpak`. May be specified multiple times."
-msgstr ""
+msgstr "Avgrens oppfriskinga av mellomlageret til data frå ei bestemt kjelde, t.d. `os` eller `flatpak`. Kan oppgjevast fleire gonger."
 
 #. TRANSLATORS: ascli check-license is missing its parameter
 #: tools/appstreamcli.c:726
 msgid "No license, license expression or license exception string was provided."
-msgstr ""
+msgstr "Ingen lisens, lisensuttrykk eller lisensunntak vart oppgjeve."
 
 #. TRANSLATORS: ascli flag description for: --details (part of the "check-syscompat" subcommand)
 #: tools/appstreamcli.c:775
 msgid "Print more detailed output on why incompatibilities exist."
-msgstr ""
+msgstr "Skriv ut meir detaljerte utdata om kvifor det finst inkompatibilitetar."
 
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
 #: tools/appstreamcli.c:812
 msgid "Set the data origin for the installed metadata catalog file."
-msgstr ""
+msgstr "Set opphavet til den installerte katalogfila for metadata."
 
 #. TRANSLATORS: ascli flag description for: --user (part of the "put" subcommand)
 #: tools/appstreamcli.c:818
 msgid "Install the file for the current user, instead of globally."
-msgstr ""
+msgstr "Installer fila for den noverande brukaren, i staden for globalt."
 
 #. TRANSLATORS: ascli flag description for: --bundle-type (part of the "remove" and "install" subcommands)
 #: tools/appstreamcli.c:846
 msgid "Limit the command to use only components from the given bundling system (`flatpak` or `package`)."
-msgstr ""
+msgstr "Avgrens kommandoen til berre å bruke komponentar frå det oppgjevne pakkesystemet (`flatpak` eller `package`)."
 
 #. TRANSLATORS: ascli flag description for: --first (part of the "remove" and "install" subcommands)
 #: tools/appstreamcli.c:853
 msgid "Do not ask for which software component should be used and always choose the first entry."
-msgstr ""
+msgstr "Ikkje spør kva programvarekomponent som skal brukast, og vel alltid den første oppføringa."
 
 #. TRANSLATORS: ascli install currently only supports two values for --bundle-type.
 #: tools/appstreamcli.c:887 tools/appstreamcli.c:922
 msgid "No valid bundle kind was specified. Only `package` and `flatpak` are currently recognized."
-msgstr ""
+msgstr "Ingen gyldig pakketype vart oppgjeven. Førebels er berre `package` og `flatpak` kjende."
 
 #: tools/appstreamcli.c:1082
 msgid "You need to provide at least two version numbers to compare as parameters."
-msgstr ""
+msgstr "Du må oppgje minst to versjonsnummer som parametrar for å samanlikne."
 
 #. * TRANSLATORS: The user tried to compare version numbers, but the comparison operator (greater-then, equal, etc.) was invalid.
 #: tools/appstreamcli.c:1111
 #, c-format
 msgid "Unknown compare relation '%s'. Valid values are:"
-msgstr ""
+msgstr "Ukjend samanlikningsrelasjon «%s». Gyldige verdiar er:"
 
 #: tools/appstreamcli.c:1152
 msgid "Too many parameters: Need two version numbers or version numbers and a comparison operator."
-msgstr ""
+msgstr "For mange parametrar: Treng to versjonsnummer, eller versjonsnummer og ein samanlikningsoperator."
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
 #: tools/appstreamcli.c:1178
 msgid "Use the given .desktop file to fill in the basic values of the metainfo file."
-msgstr ""
+msgstr "Bruk den oppgjevne .desktop-fila til å fylle inn dei grunnleggjande verdiane i metainfo-fila."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
 #: tools/appstreamcli.c:1186
 msgid "This command takes optional TYPE and FILE positional arguments, FILE being a file to write to (or \"-\" for standard output)."
-msgstr ""
+msgstr "Denne kommandoen tek dei valfrie posisjonsargumenta TYPE og FILE, der FILE er ei fil det skal skrivast til (eller «-» for standard ut)."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
 #: tools/appstreamcli.c:1191
 #, c-format
 msgid "The TYPE must be a valid component-type, such as: %s"
-msgstr ""
+msgstr "TYPE må vere ein gyldig komponenttype, som: %s"
 
 #. TRANSLATORS: ascli flag description for: --exec (part of the make-desktop-file subcommand)
 #: tools/appstreamcli.c:1229
 msgid "Use the specified line for the 'Exec=' key of the desktop-entry file."
-msgstr ""
+msgstr "Bruk den oppgjevne linja for nøkkelen 'Exec=' i desktop-entry-fila."
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
 #: tools/appstreamcli.c:1269
 msgid "Assume the input file is in the selected format ('yaml', 'text' or 'markdown')."
-msgstr ""
+msgstr "Gå ut frå at inndatafila er i det valde formatet ('yaml', 'text' eller 'markdown')."
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
 #: tools/appstreamcli.c:1276
 msgid "Limit the number of release entries that end up in the metainfo file (<= 0 for unlimited)."
-msgstr ""
+msgstr "Avgrens kor mange utgåveoppføringar som hamnar i metainfo-fila (<= 0 for uavgrensa)."
 
 #. TRANSLATORS: ascli flag description for: --translatable-count as part of the news-to-metainfo command
 #: tools/appstreamcli.c:1283
 msgid "Set the number of releases that should have descriptions marked for translation (latest releases are translated first, -1 for unlimited)."
-msgstr ""
+msgstr "Set kor mange utgåver som skal ha skildringar merkte for omsetjing (dei nyaste utgåvene vert omsette først, -1 for uavgrensa)."
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
 #: tools/appstreamcli.c:1328
 msgid "Generate the output in the selected format ('yaml', 'text' or 'markdown')."
-msgstr ""
+msgstr "Lag utdata i det valde formatet ('yaml', 'text' eller 'markdown')."
 
 #. TRANSLATORS: appstreamcli-compose was not found
 #: tools/appstreamcli.c:1373
 #, c-format
 msgid "AppStream Compose binary '%s' was not found! Can not continue."
-msgstr ""
+msgstr "Fann ikkje AppStream Compose-programfila «%s»! Kan ikkje halde fram."
 
 #. TRANSLATORS: appstreamcli-compose was not found - info text
 #: tools/appstreamcli.c:1377
 #, c-format
 msgid "You may be able to install the AppStream Compose addon via: `%s`"
-msgstr ""
+msgstr "Du kan kanskje installere AppStream Compose-tillegget med: `%s`"
 
 #. TRANSLATORS: "Compose" is a command of appstreamcli to build metadata catalogs.
 #: tools/appstreamcli.c:1399
 #, c-format
 msgid "Compose operation failed to execute: %s"
-msgstr ""
+msgstr "Klarte ikkje utføre compose-operasjonen: %s"
 
 #: tools/appstreamcli.c:1409
 #, c-format
 msgid "Compose failed: %s"
-msgstr ""
+msgstr "Compose mislukkast: %s"
 
 #. these are commands we can use with appstreamcli
 #: tools/appstreamcli.c:1434
 msgid "Subcommands:"
-msgstr ""
+msgstr "Underkommandoar:"
 
 #: tools/appstreamcli.c:1488
 msgid "You can find information about subcommand-specific options by passing \"--help\" to the subcommand."
-msgstr ""
+msgstr "Du finn informasjon om val for kvar underkommando ved å gje «--help» til underkommandoen."
 
 #. TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated.
 #: tools/appstreamcli.c:1506
 #, c-format
 msgid "Command '%s' is unknown. Run '%s --help' for a list of available commands."
-msgstr ""
+msgstr "Kommandoen «%s» er ukjend. Køyr «%s --help» for ei liste over tilgjengelege kommandoar."
 
 #. TRANSLATORS: `appstreamcli search` command description.
 #: tools/appstreamcli.c:1530
 msgid "Search the component database."
-msgstr ""
+msgstr "Søk i komponentdatabasen."
 
 #. TRANSLATORS: `appstreamcli get` command description.
 #: tools/appstreamcli.c:1537
 msgid "Get information about a component by its ID."
-msgstr ""
+msgstr "Hent informasjon om ein komponent ut frå ID-en."
 
 #. TRANSLATORS: `appstreamcli what-provides` command description.
 #: tools/appstreamcli.c:1544
 msgid "Get components which provide the given item. Needs an item type (e.g. lib, bin, python3, …) and item value as parameter."
-msgstr ""
+msgstr "Hent komponentar som tilbyr det oppgjevne elementet. Krev ein elementtype (t.d. lib, bin, python3, …) og ein elementverdi som parametrar."
 
 #. TRANSLATORS: `appstreamcli list-categories` command description.
 #: tools/appstreamcli.c:1552
 msgid "List components that are part of the specified categories."
-msgstr ""
+msgstr "List opp komponentar som høyrer til dei oppgjevne kategoriane."
 
 #. TRANSLATORS: `appstreamcli dump` command description.
 #: tools/appstreamcli.c:1561
 msgid "Dump raw XML metadata for a component matching the ID."
-msgstr ""
+msgstr "Skriv ut rå XML-metadata for ein komponent som samsvarar med ID-en."
 
 #. TRANSLATORS: `appstreamcli refresh-cache` command description.
 #: tools/appstreamcli.c:1569
 msgid "Rebuild the component metadata cache."
-msgstr ""
+msgstr "Bygg opp att mellomlageret for komponentmetadata."
 
 #. TRANSLATORS: `appstreamcli validate` command description.
 #: tools/appstreamcli.c:1577
 msgid "Validate AppStream XML files for issues."
-msgstr ""
+msgstr "Valider AppStream XML-filer for å finne problem."
 
 #. TRANSLATORS: `appstreamcli validate-tree` command description.
 #: tools/appstreamcli.c:1584
 msgid "Validate an installed file-tree of an application for valid metadata."
-msgstr ""
+msgstr "Valider at eit installert filtre for eit program har gyldige metadata."
 
 #. TRANSLATORS: `appstreamcli `check-license` command description.
 #: tools/appstreamcli.c:1592
 msgid "Check license string for validity and print details about it."
-msgstr ""
+msgstr "Kontroller om ein lisensstreng er gyldig, og skriv ut detaljar om han."
 
 #. TRANSLATORS: `appstreamcli `check-license` command description.
 #: tools/appstreamcli.c:1600
 msgid "Check if requirements of a component (via its ID or MetaInfo file) are satisfied on this system."
-msgstr ""
+msgstr "Kontroller om krava til ein komponent (via ID-en eller MetaInfo-fila) er oppfylte på dette systemet."
 
 #. TRANSLATORS: `appstreamcli `check-syscompat` command description.
 #: tools/appstreamcli.c:1608
 msgid "Check compatibility of a component (via its ID or MetaInfo file) with common system and chassis types."
-msgstr ""
+msgstr "Kontroller om ein komponent (via ID-en eller MetaInfo-fila) er kompatibel med vanlege system- og kabinettypar."
 
 #. TRANSLATORS: `appstreamcli install` command description.
 #: tools/appstreamcli.c:1617
 msgid "Install software matching the component-ID."
-msgstr ""
+msgstr "Installer programvare som samsvarar med komponent-ID-en."
 
 #. TRANSLATORS: `appstreamcli remove` command description.
 #: tools/appstreamcli.c:1624
 msgid "Remove software matching the component-ID."
-msgstr ""
+msgstr "Fjern programvare som samsvarar med komponent-ID-en."
 
 #. TRANSLATORS: `appstreamcli status` command description.
 #: tools/appstreamcli.c:1632
 msgid "Display status information about available AppStream metadata."
-msgstr ""
+msgstr "Vis statusinformasjon om tilgjengelege AppStream-metadata."
 
 #. TRANSLATORS: `appstreamcli sysinfo` command description.
 #: tools/appstreamcli.c:1640
 msgid "Show information about the current device and used operating system."
-msgstr ""
+msgstr "Vis informasjon om den gjeldande eininga og operativsystemet som er i bruk."
 
 #. TRANSLATORS: `appstreamcli put` command description.
 #: tools/appstreamcli.c:1648
 msgid "Install a metadata file into the right location."
-msgstr ""
+msgstr "Installer ei metadatafil på rett plass."
 
 #. TRANSLATORS: `appstreamcli convert` command description. "Catalog XML" is a term describing a specific type of AppStream XML data.
 #: tools/appstreamcli.c:1656
 msgid "Convert metadata catalog XML to YAML or vice versa."
-msgstr ""
+msgstr "Konverter XML for metadatakatalogar til YAML eller omvendt."
 
 #. TRANSLATORS: `appstreamcli vercmp` command description.
 #: tools/appstreamcli.c:1663
 msgid "Compare two version numbers."
-msgstr ""
+msgstr "Samanlikn to versjonsnummer."
 
 #. TRANSLATORS: `appstreamcli new-template` command description.
 #: tools/appstreamcli.c:1672
 msgid "Create a template for a metainfo file (to be filled out by the upstream project)."
-msgstr ""
+msgstr "Lag ein mal for ei metainfo-fil (som oppstraumsprosjektet skal fylle ut)."
 
 #. TRANSLATORS: `appstreamcli make-desktop-file` command description.
 #: tools/appstreamcli.c:1680
 msgid "Create a desktop-entry file from a metainfo file."
-msgstr ""
+msgstr "Lag ei desktop-entry-fil frå ei metainfo-fil."
 
 #. TRANSLATORS: `appstreamcli news-to-metainfo` command description.
 #: tools/appstreamcli.c:1688
 msgid "Convert a YAML or text NEWS file into metainfo releases."
-msgstr ""
+msgstr "Gjer om ei NEWS-fil i YAML eller tekst til utgåver i metainfo."
 
 #. TRANSLATORS: `appstreamcli metainfo-to-news` command description.
 #: tools/appstreamcli.c:1696
 msgid "Write NEWS text or YAML file with information from a metainfo file."
-msgstr ""
+msgstr "Skriv ei NEWS-fil i tekst eller YAML med informasjon frå ei metainfo-fil."
 
 #. TRANSLATORS: `appstreamcli compose` command description.
 #: tools/appstreamcli.c:1704
 msgid "Compose AppStream metadata catalog from directory trees."
-msgstr ""
+msgstr "Lag ein AppStream-metadatakatalog frå mappetre."
 
 #. TRANSLATORS: `appstreamcli list-reviews` command description.
 #: tools/appstreamcli.c:1713
 msgid "List online user reviews for a software component."
-msgstr ""
+msgstr "List opp vurderingar frå brukarar på nettet for ein programvarekomponent."
 
 #. TRANSLATORS: `appstreamcli submit-review` command description.
 #: tools/appstreamcli.c:1726
 msgid "Compose and submit an online review for a software component."
-msgstr ""
+msgstr "Skriv og send inn ei vurdering på nettet for ein programvarekomponent."
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstreamcli.c:1808
 msgid "You need to specify a command."
-msgstr ""
+msgstr "Du må oppgje ein kommando."
 
 #. TRANSLATORS: In ascli: Status information during a "refresh" action.
 #: tools/ascli-actions-mdata.c:49
 msgid "Only refreshing metadata cache specific to the current user."
-msgstr ""
+msgstr "Oppdaterer berre det brukarspesifikke mellomlageret for metadata."
 
 #: tools/ascli-actions-mdata.c:62
 msgid "Updating software metadata cache for the operating system."
-msgstr ""
+msgstr "Oppdaterer mellomlageret for programvaremetadata for operativsystemet."
 
 #: tools/ascli-actions-mdata.c:66
 msgid "Updating software metadata cache for Flatpak."
-msgstr ""
+msgstr "Oppdaterer mellomlageret for programvaremetadata for Flatpak."
 
 #: tools/ascli-actions-mdata.c:69
 #, c-format
 msgid "A metadata source group with the name '%s' does not exist!"
-msgstr ""
+msgstr "Ei kjeldegruppe for metadata med namnet «%s» finst ikkje!"
 
 #. TRANSLATORS: In ascli: The requested action needs higher permissions.
 #: tools/ascli-actions-mdata.c:98
 msgid "You might need superuser permissions to perform this action."
-msgstr ""
+msgstr "Du treng kanskje superbrukarløyve for å utføre denne handlinga."
 
 #. TRANSLATORS: Updating the metadata cache succeeded
 #: tools/ascli-actions-mdata.c:106
 msgid "Metadata cache was updated successfully."
-msgstr ""
+msgstr "Mellomlageret for metadata er oppdatert."
 
 #. TRANSLATORS: Metadata cache was not updated, likely because it was recent enough
 #: tools/ascli-actions-mdata.c:109
 msgid "Metadata cache update is not necessary."
-msgstr ""
+msgstr "Det er ikkje nødvendig å oppdatere mellomlageret for metadata."
 
 #. TRANSLATORS: An AppStream component-id is missing in the command-line arguments
 #. TRANSLATORS: ascli was told to find a software component by its ID, but no component-id was specified.
@@ -3267,718 +3277,722 @@ msgstr ""
 #: tools/ascli-actions-misc.c:811 tools/ascli-actions-misc.c:898
 #: tools/ascli-actions-pkgmgr.c:182
 msgid "You need to specify a component-ID."
-msgstr ""
+msgstr "Du må oppgje ein komponent-ID."
 
 #: tools/ascli-actions-mdata.c:144 tools/ascli-actions-mdata.c:310
 #: tools/ascli-actions-mdata.c:734 tools/ascli-actions-mdata.c:866
 #: tools/ascli-actions-pkgmgr.c:195
 #, c-format
 msgid "Unable to find component with ID '%s'!"
-msgstr ""
+msgstr "Fann ikkje komponenten med ID-en «%s»!"
 
 #: tools/ascli-actions-mdata.c:167
 msgid "You need to specify a term to search for."
-msgstr ""
+msgstr "Du må oppgje noko å søkje etter."
 
 #. TRANSLATORS: We got no full-text search results
 #: tools/ascli-actions-mdata.c:180
 #, c-format
 msgid "No component matching '%s' found."
-msgstr ""
+msgstr "Fann ingen komponent som samsvarar med «%s»."
 
 #: tools/ascli-actions-mdata.c:207
 msgid "No value for the item to search for was defined."
-msgstr ""
+msgstr "Ingen verdi vart oppgjeven for elementet det skal søkjast etter."
 
 #: tools/ascli-actions-mdata.c:214
 msgid "Invalid type for provided item selected. Valid values are:"
-msgstr ""
+msgstr "Ugyldig type for elementet. Gyldige verdiar er:"
 
 #. TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results
 #: tools/ascli-actions-mdata.c:230
 #, c-format
 msgid "Could not find component providing '%s::%s'."
-msgstr ""
+msgstr "Fann ingen komponent som tilbyr «%s::%s»."
 
 #: tools/ascli-actions-mdata.c:256
 msgid "You need to specify categories to list."
-msgstr ""
+msgstr "Du må oppgje kategoriar som skal listast opp."
 
 #. TRANSLATORS: We got no category list results
 #: tools/ascli-actions-mdata.c:270
 #, c-format
 msgid "No component found in categories %s."
-msgstr ""
+msgstr "Fann ingen komponent i kategoriane %s."
 
 #: tools/ascli-actions-mdata.c:353
 msgid "You need to specify a metadata file."
-msgstr ""
+msgstr "Du må oppgje ei metadatafil."
 
 #: tools/ascli-actions-mdata.c:367
 #, c-format
 msgid "Unable to install metadata file: %s"
-msgstr ""
+msgstr "Klarte ikkje installere metadatafila: %s"
 
 #: tools/ascli-actions-mdata.c:387
 msgid "You need to specify an input and output file."
-msgstr ""
+msgstr "Du må oppgje ei innfil og ei utfil."
 
 #: tools/ascli-actions-mdata.c:394
 #, c-format
 msgid "Metadata file '%s' does not exist."
-msgstr ""
+msgstr "Metadatafila «%s» finst ikkje."
 
 #. TRANSLATORS: User is trying to convert a file in ascli
 #: tools/ascli-actions-mdata.c:433
 msgid "Unable to convert file: Could not determine output format, please set it explicitly using '--format='."
-msgstr ""
+msgstr "Klarte ikkje konvertere fila: Klarte ikkje fastslå utdataformatet; set det eksplisitt med '--format='."
 
 #. TRANSLATORS: The user tried to create a new template, but supplied a wrong component-type string
 #: tools/ascli-actions-mdata.c:481
 msgid "You need to give an AppStream software component type to generate a template. Possible values are:"
-msgstr ""
+msgstr "Du må oppgje ein AppStream-komponenttype for å lage ein mal. Moglege verdiar er:"
 
 #. TRANSLATORS: The user tried to create a new template, but supplied a wrong component-type string
 #: tools/ascli-actions-mdata.c:484
 #, c-format
 msgid "The software component type '%s' is not valid in AppStream. Possible values are:"
-msgstr ""
+msgstr "Komponenttypen «%s» er ikkje gyldig i AppStream. Moglege verdiar er:"
 
 #: tools/ascli-actions-mdata.c:504
 #, c-format
 msgid "The .desktop file '%s' does not exist."
-msgstr ""
+msgstr ".desktop-fila «%s» finst ikkje."
 
 #: tools/ascli-actions-mdata.c:511
 #, c-format
 msgid "Unable to read the .desktop file: %s"
-msgstr ""
+msgstr "Klarte ikkje lese .desktop-fila: %s"
 
 #: tools/ascli-actions-mdata.c:601
 #, c-format
 msgid "Unable to build the template metainfo file: %s"
-msgstr ""
+msgstr "Klarte ikkje byggje malfila for metainfo: %s"
 
 #: tools/ascli-actions-mdata.c:610
 #, c-format
 msgid "Unable to save the template metainfo file: %s"
-msgstr ""
+msgstr "Klarte ikkje lagre malfila for metainfo: %s"
 
 #: tools/ascli-actions-mdata.c:650
 msgid "Unable to check display size: Can not read information without GUI toolkit access."
-msgstr ""
+msgstr "Klarte ikkje sjekke skjermstorleik: Kan ikkje lese informasjon utan tilgang til GUI-verktøysettet."
 
 #: tools/ascli-actions-mdata.c:658 tools/ascli-actions-mdata.c:914
 msgid "ERROR"
-msgstr ""
+msgstr "FEIL"
 
 #: tools/ascli-actions-mdata.c:695 tools/ascli-actions-mdata.c:826
 msgid "You need to specify a MetaInfo filename or component ID."
-msgstr ""
+msgstr "Du må oppgje eit filnamn for MetaInfo eller ein komponent-ID."
 
 #: tools/ascli-actions-mdata.c:714 tools/ascli-actions-mdata.c:838
 #: tools/ascli-actions-misc.c:133 tools/ascli-actions-misc.c:468
 #: tools/ascli-actions-misc.c:557
 #, c-format
 msgid "Metainfo file '%s' does not exist."
-msgstr ""
+msgstr "Metainfo-fila «%s» finst ikkje."
 
 #. TRANSLATORS: We are testing the relations (requires, recommends & supports data) for being satisfied on the current system.
 #: tools/ascli-actions-mdata.c:743
 #, c-format
 msgid "Relation check for: %s"
-msgstr ""
+msgstr "Relasjonskontroll for: %s"
 
 #: tools/ascli-actions-mdata.c:754
 msgid "Requirements:"
-msgstr ""
+msgstr "Krav:"
 
 #: tools/ascli-actions-mdata.c:756
 msgid "No required items are set for this software."
-msgstr ""
+msgstr "Ingen påkravde element er sette for denne programvara."
 
 #: tools/ascli-actions-mdata.c:761
 msgid "Recommendations:"
-msgstr ""
+msgstr "Tilrådingar:"
 
 #: tools/ascli-actions-mdata.c:763
 msgid "No recommended items are set for this software."
-msgstr ""
+msgstr "Ingen tilrådde element er sette for denne programvara."
 
 #: tools/ascli-actions-mdata.c:768
 msgid "Supported:"
-msgstr ""
+msgstr "Støtta:"
 
 #: tools/ascli-actions-mdata.c:770
 msgid "No supported items are set for this software."
-msgstr ""
+msgstr "Ingen støtta element er sette for denne programvara."
 
 #. TRANSLATORS: This represents a computer chassis type.
 #: tools/ascli-actions-mdata.c:794
 msgid "Desktop"
-msgstr ""
+msgstr "Stasjonær"
 
 #. TRANSLATORS: This represents a computer chassis type.
 #: tools/ascli-actions-mdata.c:797
 msgid "Laptop"
-msgstr ""
+msgstr "Berbar datamaskin"
 
 #. TRANSLATORS: This represents a computer chassis type.
 #: tools/ascli-actions-mdata.c:800
 msgid "Server"
-msgstr ""
+msgstr "Tenar"
 
 #. TRANSLATORS: This represents a computer chassis type.
 #: tools/ascli-actions-mdata.c:803
 msgid "Tablet"
-msgstr ""
+msgstr "Nettbrett"
 
 #. TRANSLATORS: This represents a computer chassis type.
 #: tools/ascli-actions-mdata.c:806
 msgid "Handset"
-msgstr ""
+msgstr "Mobiltelefon"
 
 #: tools/ascli-actions-mdata.c:808
 msgid "Unknown"
-msgstr ""
+msgstr "Ukjend"
 
 #. TRANSLATORS: We are testing compatibility of a component with a common representation of hardware for a specific chassis (phone/tablet/desktop, etc.)
 #: tools/ascli-actions-mdata.c:875
 #, c-format
 msgid "Chassis compatibility check for: %s"
-msgstr ""
+msgstr "Kontroll av kabinettkompatibilitet for: %s"
 
 #: tools/ascli-actions-mdata.c:894
 msgid "Incompatible"
-msgstr ""
+msgstr "Ikkje kompatibel"
 
 #: tools/ascli-actions-mdata.c:929
 msgid "Compatible"
-msgstr ""
+msgstr "Kompatibel"
 
 #. TRANSLATORS: In the status report of ascli: Header
 #: tools/ascli-actions-misc.c:47
 msgid "AppStream Status:"
-msgstr ""
+msgstr "AppStream-status:"
 
 #: tools/ascli-actions-misc.c:48 tools/ascli-actions-misc.c:682
 #, c-format
 msgid "Version: %s"
-msgstr ""
+msgstr "Versjon: %s"
 
 #. TRANSLATORS: In the status report of ascli: Refers to the metadata shipped by distributions
 #: tools/ascli-actions-misc.c:55
 msgid "OS metadata sources:"
-msgstr ""
+msgstr "Metadatakjelder frå operativsystemet:"
 
 #. TRANSLATORS: In ascli status, the OS had no metadata (which may be a bug)
 #: tools/ascli-actions-misc.c:59
 msgid "No OS metadata found. This is unusual."
-msgstr ""
+msgstr "Fann ingen metadata frå operativsystemet. Det er uvanleg."
 
 #. TRANSLATORS: In the status report of ascli: Refers to the metadata that isn't shipped by the OS (e.g. Flatpak)
 #: tools/ascli-actions-misc.c:62
 msgid "Other metadata sources:"
-msgstr ""
+msgstr "Andre metadatakjelder:"
 
 #. TRANSLATORS: In ascli status, no additional metadata sources have been found
 #: tools/ascli-actions-misc.c:69
 msgid "No metadata."
-msgstr ""
+msgstr "Ingen metadata."
 
 #. TRANSLATORS: Status summary in ascli
 #: tools/ascli-actions-misc.c:72
 msgid "Summary:"
-msgstr ""
+msgstr "Samandrag:"
 
 #: tools/ascli-actions-misc.c:86
 #, c-format
 msgid "We have information on %i software components."
-msgstr ""
+msgstr "Vi har informasjon om %i programvarekomponentar."
 
 #: tools/ascli-actions-misc.c:91
 #, c-format
 msgid "Error while loading the metadata pool: %s"
-msgstr ""
+msgstr "Feil ved innlasting av metadatalageret: %s"
 
 #: tools/ascli-actions-misc.c:118 tools/ascli-actions-misc.c:542
 msgid "You need to specify a metainfo file as input."
-msgstr ""
+msgstr "Du må oppgje ei metainfo-fil som inndata."
 
 #: tools/ascli-actions-misc.c:123
 msgid "You need to specify a desktop-entry file to create or augment as output."
-msgstr ""
+msgstr "Du må oppgje ei desktop-entry-fil som skal opprettast eller utvidast som utdata."
 
 #: tools/ascli-actions-misc.c:152
 #, c-format
 msgid "Augmenting existing desktop-entry file '%s' with data from '%s'."
-msgstr ""
+msgstr "Utvidar den eksisterande desktop-entry-fila «%s» med data frå «%s»."
 
 #: tools/ascli-actions-misc.c:161
 #, c-format
 msgid "Unable to load existing desktop-entry file template: %s"
-msgstr ""
+msgstr "Klarte ikkje laste inn den eksisterande malen for desktop-entry-fila: %s"
 
 #: tools/ascli-actions-misc.c:166
 #, c-format
 msgid "Creating new desktop-entry file '%s' using data from '%s'"
-msgstr ""
+msgstr "Lagar ei ny desktop-entry-fil «%s» med data frå «%s»"
 
 #: tools/ascli-actions-misc.c:226
 msgid "No stock icon name was provided in the metainfo file. Can not continue."
-msgstr ""
+msgstr "Ingen stock-ikonnamn er oppgjeve i metainfo-fila. Kan ikkje halde fram."
 
 #: tools/ascli-actions-misc.c:250
 msgid "No provided binary specified in metainfo file, and no exec command specified via '--exec'. Can not create 'Exec=' key."
-msgstr ""
+msgstr "Metainfo-fila oppgjev inga programfil, og ingen exec-kommando er oppgjeven med '--exec'. Kan ikkje lage nøkkelen 'Exec='."
 
 #: tools/ascli-actions-misc.c:330
 #, c-format
 msgid "Unable to save desktop entry file: %s"
-msgstr ""
+msgstr "Klarte ikkje lagre desktop-entry-fila: %s"
 
 #: tools/ascli-actions-misc.c:423
 msgid "You need to specify a NEWS file as input."
-msgstr ""
+msgstr "Du må oppgje ei NEWS-fil som inndata."
 
 #: tools/ascli-actions-misc.c:427
 msgid "You need to specify a metainfo file to augment, or '-' to print to stdout."
-msgstr ""
+msgstr "Du må oppgje ei metainfo-fil som skal utvidast, eller '-' for å skrive til stdout."
 
 #: tools/ascli-actions-misc.c:480
 msgid "No output filename specified, modifying metainfo file directly."
-msgstr ""
+msgstr "Ingen utfil er oppgjeven, endrar metainfo-fila direkte."
 
 #: tools/ascli-actions-misc.c:547
 msgid "You need to specify a NEWS file as output, or '-' to print to stdout."
-msgstr ""
+msgstr "Du må oppgi ei NEWS-fil som utdata, eller '-' for å skrive til stdout."
 
 #: tools/ascli-actions-misc.c:575
 #, c-format
 msgid "Release metadata file '%s' contains no data."
-msgstr ""
+msgstr "Metadatafila for utgåver «%s» inneheld ingen data."
 
 #: tools/ascli-actions-misc.c:590
 #, c-format
 msgid "Metainfo file '%s' contains no component."
-msgstr ""
+msgstr "Metainfo-fila «%s» inneheld ingen komponent."
 
 #: tools/ascli-actions-misc.c:599
 #, c-format
 msgid "The metainfo file '%s' references external release data.\n"
 "Run this command on the release metadata file instead."
 msgstr ""
+"Metainfo-fila «%s» viser til eksterne utgåvedata.\n"
+"Køyr heller denne kommandoen på metadatafila for utgåver."
 
 #: tools/ascli-actions-misc.c:612
 msgid "You need to specify a NEWS format to write the output in."
-msgstr ""
+msgstr "Du må oppgje eit NEWS-format som utdataa skal skrivast i."
 
 #: tools/ascli-actions-misc.c:667
 msgid "Operating System Details"
-msgstr ""
+msgstr "Detaljar om operativsystemet"
 
 #: tools/ascli-actions-misc.c:671
 #, c-format
 msgid "Unable to find operating system component '%s'!"
-msgstr ""
+msgstr "Fann ikkje operativsystemkomponenten «%s»!"
 
 #: tools/ascli-actions-misc.c:678
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #: tools/ascli-actions-misc.c:679 tools/ascli-actions-misc.c:706
 #: tools/ascli-utils.c:304
 msgid "Name"
-msgstr ""
+msgstr "Namn"
 
 #: tools/ascli-actions-misc.c:680 tools/ascli-actions-misc.c:967
 #: tools/ascli-utils.c:305
 msgid "Summary"
-msgstr ""
+msgstr "Samandrag"
 
 #: tools/ascli-actions-misc.c:685 tools/ascli-utils.c:309
 msgid "Homepage"
-msgstr ""
+msgstr "Heimeside"
 
 #: tools/ascli-actions-misc.c:688 tools/ascli-utils.c:330
 msgid "Developer"
-msgstr ""
+msgstr "Utviklar"
 
 #: tools/ascli-actions-misc.c:697 tools/ascli-utils.c:344
 msgid "Description"
-msgstr ""
+msgstr "Skildring"
 
 #: tools/ascli-actions-misc.c:705
 msgid "Kernel"
-msgstr ""
+msgstr "Kjerne"
 
 #: tools/ascli-actions-misc.c:707 tools/ascli-actions-misc.c:863
 msgid "Version"
-msgstr ""
+msgstr "Versjon"
 
 #: tools/ascli-actions-misc.c:710
 msgid "Hardware"
-msgstr ""
+msgstr "Maskinvare"
 
 #: tools/ascli-actions-misc.c:713
 msgid "Physical Memory"
-msgstr ""
+msgstr "Fysisk minne"
 
 #: tools/ascli-actions-misc.c:721 tools/ascli-actions-misc.c:726
 msgid "Largest Display"
-msgstr ""
+msgstr "Største skjerm"
 
 #: tools/ascli-actions-misc.c:724
 msgid "logical px"
-msgstr ""
+msgstr "logisk px"
 
 #: tools/ascli-actions-misc.c:726
 msgid "unable to determine"
-msgstr ""
+msgstr "kan ikkje fastslå"
 
 #: tools/ascli-actions-misc.c:730
 msgid "Devices with Modaliases"
-msgstr ""
+msgstr "Einingar med modalias"
 
 #: tools/ascli-actions-misc.c:759
 msgid "User Input Controls"
-msgstr ""
+msgstr "Kontrollar for brukarinndata"
 
 #: tools/ascli-actions-misc.c:762
 msgid "unknown"
-msgstr ""
+msgstr "ukjend"
 
 #: tools/ascli-actions-misc.c:769 tools/ascli-actions-validate.c:700
 #: tools/ascli-actions-validate.c:706
 msgid "yes"
-msgstr ""
+msgstr "ja"
 
 #: tools/ascli-actions-misc.c:771 tools/ascli-actions-validate.c:701
 #: tools/ascli-actions-validate.c:707
 msgid "no"
-msgstr ""
+msgstr "nei"
 
 #: tools/ascli-actions-misc.c:829
 msgid "Overall rating"
-msgstr ""
+msgstr "Samla vurdering"
 
 #: tools/ascli-actions-misc.c:842
 #, c-format
 msgid "No reviews found for component '%s'."
-msgstr ""
+msgstr "Fann ingen vurderingar for komponenten «%s»."
 
 #: tools/ascli-actions-misc.c:857 tools/ascli-actions-misc.c:958
 msgid "Author"
-msgstr ""
+msgstr "Opphavsperson"
 
 #: tools/ascli-actions-misc.c:860
 msgid "Date"
-msgstr ""
+msgstr "Dato"
 
 #: tools/ascli-actions-misc.c:910
 #, c-format
 msgid "Composing a review for '%s' to be submitted to %s."
-msgstr ""
+msgstr "Skriv ei vurdering av «%s» som skal sendast til %s."
 
 #: tools/ascli-actions-misc.c:913
 msgid "Please only review the software itself, and mind that your review will be publicly visible."
-msgstr ""
+msgstr "Vurder berre sjølve programvara, og hugs at vurderinga di vert offentleg synleg."
 
 #. TRANSLATORS: Prompt when composing a review, %s is a user name
 #: tools/ascli-actions-misc.c:918
 #, c-format
 msgid "Your display name (leave empty to use '%s'):"
-msgstr ""
+msgstr "Visingsnamnet ditt (la stå tomt for å bruke «%s»):"
 
 #. TRANSLATORS: Prompt for a star rating when composing a review
 #: tools/ascli-actions-misc.c:925
 msgid "Star rating, from 1 (worst) to 5 (best):"
-msgstr ""
+msgstr "Talet på stjerner, frå 1 (dårlegast) til 5 (best):"
 
 #. TRANSLATORS: Prompt when composing a review
 #: tools/ascli-actions-misc.c:932
 msgid "Short summary of your review:"
-msgstr ""
+msgstr "Kort samandrag av vurderinga di:"
 
 #: tools/ascli-actions-misc.c:938
 msgid "The summary must not be empty and be no longer than 70 characters."
-msgstr ""
+msgstr "Samandraget kan ikkje vere tomt og kan ikkje vere lengre enn 70 teikn."
 
 #. TRANSLATORS: Prompt when composing a review
 #: tools/ascli-actions-misc.c:942
 msgid "Detailed review text (end with an empty line):"
-msgstr ""
+msgstr "Detaljert vurderingstekst (avslutt med ei tom linje):"
 
 #: tools/ascli-actions-misc.c:944
 msgid "The review text must not be empty."
-msgstr ""
+msgstr "Vurderingsteksten kan ikkje vere tom."
 
 #: tools/ascli-actions-misc.c:965
 msgid "Rating"
-msgstr ""
+msgstr "Vurdering"
 
 #: tools/ascli-actions-misc.c:968
 msgid "Review"
-msgstr ""
+msgstr "Vurdering"
 
 #. TRANSLATORS: Prompt before publishing a composed review
 #: tools/ascli-actions-misc.c:975
 msgid "Publish this review?"
-msgstr ""
+msgstr "Vil du publisere denne vurderinga?"
 
 #: tools/ascli-actions-misc.c:979
 msgid "Review submission cancelled."
-msgstr ""
+msgstr "Innsendinga av vurderinga er avbroten."
 
 #: tools/ascli-actions-misc.c:989
 #, c-format
 msgid "Review submitted successfully (ID: %s). Thank you!"
-msgstr ""
+msgstr "Vurderinga er send (ID: %s). Takk!"
 
 #: tools/ascli-actions-misc.c:992
 msgid "Review submitted successfully. Thank you!"
-msgstr ""
+msgstr "Vurderinga er sendt. Takk!"
 
 #. TRANSLATORS: The placeholder is the invalid package name found in metadata.
 #: tools/ascli-actions-pkgmgr.c:92
 #, c-format
 msgid "Refusing to run the package manager: The component metadata contains an invalid package name: %s"
-msgstr ""
+msgstr "Nektar å køyre pakkehandsamaren: Komponentmetadataa inneheld eit ugyldig pakkenamn: %s"
 
 #: tools/ascli-actions-pkgmgr.c:107
 msgid "No suitable package manager tool found. Please make sure that e.g. \"pkgcli\" (part of PackageKit) is available."
-msgstr ""
+msgstr "Fann ikkje noko eigna pakkehandsamingsverktøy. Sjå til at til dømes «pkgcli» (ein del av PackageKit) er tilgjengeleg."
 
 #: tools/ascli-actions-pkgmgr.c:124
 #, c-format
 msgid "Unable to spawn package manager: %s"
-msgstr ""
+msgstr "Klarte ikkje starte pakkehandsamaren: %s"
 
 #. TRANSLATORS: The placeholder is the invalid Flatpak bundle ID found in metadata.
 #: tools/ascli-actions-pkgmgr.c:144
 #, c-format
 msgid "Refusing to run Flatpak: The component metadata contains an invalid bundle ID: %s"
-msgstr ""
+msgstr "Nektar å køyre Flatpak: Komponentmetadataa inneheld ein ugyldig pakke-ID: %s"
 
 #: tools/ascli-actions-pkgmgr.c:151
 msgid "Flatpak was not found! Please install it to continue."
-msgstr ""
+msgstr "Fann ikkje Flatpak! Installer det for å halde fram."
 
 #: tools/ascli-actions-pkgmgr.c:164
 #, c-format
 msgid "Unable to spawn Flatpak process: %s"
-msgstr ""
+msgstr "Klarte ikkje starte Flatpak-prosessen: %s"
 
 #: tools/ascli-actions-pkgmgr.c:222
 #, c-format
 msgid "Unable to find component with ID '%s' and the selected filter criteria!"
-msgstr ""
+msgstr "Fann ingen komponent med ID-en «%s» og dei valde filterkriteria!"
 
 #. TRANSLATORS: We found multiple components to remove, a list of them is printed below this text.
 #: tools/ascli-actions-pkgmgr.c:233
 msgid "Multiple candidates were found for removal:"
-msgstr ""
+msgstr "Fann fleire kandidatar for fjerning:"
 
 #. TRANSLATORS: We found multiple components to install, a list of them is printed below this text.
 #: tools/ascli-actions-pkgmgr.c:236
 msgid "Multiple candidates were found for installation:"
-msgstr ""
+msgstr "Fann fleire kandidatar for installering:"
 
 #. TRANSLATORS: A list of components is displayed with number prefixes. This is a prompt for the user to select one.
 #: tools/ascli-actions-pkgmgr.c:257
 msgid "Please enter the number of the component to remove:"
-msgstr ""
+msgstr "Skriv inn nummeret til komponenten som skal fjernast:"
 
 #. TRANSLATORS: A list of components is displayed with number prefixes. This is a prompt for the user to select one.
 #: tools/ascli-actions-pkgmgr.c:262
 msgid "Please enter the number of the component to install:"
-msgstr ""
+msgstr "Skriv inn nummeret til komponenten som skal installerast:"
 
 #. we reached the end of the input stream without ever getting an
 #. * answer, e.g. because stdin was closed or is not a terminal
 #: tools/ascli-actions-pkgmgr.c:267
 msgid "No component was selected."
-msgstr ""
+msgstr "Ingen komponent vart vald."
 
 #: tools/ascli-actions-pkgmgr.c:278
 #, c-format
 msgid "Component '%s' has no installation candidate."
-msgstr ""
+msgstr "Komponenten «%s» har ingen installasjonskandidat."
 
 #. TRANSLATORS: User-supplied overrides string for appstreamcli was badly formatted
 #. (tag is an issue tag, severity is the desired severity that it should be set to).
 #: tools/ascli-actions-validate.c:259
 #, c-format
 msgid "The format of validator issue override '%s' is invalid (should be 'tag=severity')"
-msgstr ""
+msgstr "Formatet på overstyringa av validatorproblem «%s» er ugyldig (skal vere 'tag=severity')"
 
 #: tools/ascli-actions-validate.c:268
 #, c-format
 msgid "Can not override issue tag: %s"
-msgstr ""
+msgstr "Klarte ikkje overstyre problem-taggen: %s"
 
 #: tools/ascli-actions-validate.c:299 tools/ascli-actions-validate.c:512
 #, c-format
 msgid "File '%s' does not exist."
-msgstr ""
+msgstr "Fila «%s» finst ikkje."
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate, shows amount of "error"-type hints
 #: tools/ascli-actions-validate.c:348
 #, c-format
 msgid "errors: %lu"
-msgstr ""
+msgstr "feil: %lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate, shows amount of "warning"-type hints
 #: tools/ascli-actions-validate.c:355
 #, c-format
 msgid "warnings: %lu"
-msgstr ""
+msgstr "åtvaringar: %lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate, shows amount of "info"-type hints
 #: tools/ascli-actions-validate.c:362
 #, c-format
 msgid "infos: %lu"
-msgstr ""
+msgstr "info: %lu"
 
 #. TRANSLATORS: Used for small issue-statistics in appstreamcli-validate, shows amount of "pedantic"-type hints
 #: tools/ascli-actions-validate.c:369
 #, c-format
 msgid "pedantic: %lu"
-msgstr ""
+msgstr "pedantisk: %lu"
 
 #: tools/ascli-actions-validate.c:395 tools/ascli-actions-validate.c:499
 msgid "You need to specify at least one file to validate!"
-msgstr ""
+msgstr "Du må oppgje minst éi fil som skal validerast!"
 
 #: tools/ascli-actions-validate.c:406
 #, c-format
 msgid "Unable to add release metadata file: %s"
-msgstr ""
+msgstr "Klarte ikkje leggje til metadatafila for utgåver: %s"
 
 #: tools/ascli-actions-validate.c:416
 msgid "You need to specify at least one MetaInfo file to validate.\n"
 "Release metadata files can currently not be validated without their accompanying MetaInfo file."
 msgstr ""
+"Du må oppgje minst éi MetaInfo-fil som skal validerast.\n"
+"Metadatafiler for utgåver kan førebels ikkje validerast utan den tilhøyrande MetaInfo-fila."
 
 #: tools/ascli-actions-validate.c:444 tools/ascli-actions-validate.c:577
 msgid "Validation was successful."
-msgstr ""
+msgstr "Valideringa lukkast."
 
 #: tools/ascli-actions-validate.c:446 tools/ascli-actions-validate.c:579
 #, c-format
 msgid "Validation was successful: %s"
-msgstr ""
+msgstr "Valideringa lukkast: %s"
 
 #: tools/ascli-actions-validate.c:458 tools/ascli-actions-validate.c:591
 #, c-format
 msgid "Validation failed: %s"
-msgstr ""
+msgstr "Valideringa mislukkast: %s"
 
 #: tools/ascli-actions-validate.c:526 tools/ascli-actions-validate.c:647
 #, c-format
 msgid "The validator can not create reports in the '%s' format. You may select 'yaml' or 'text' instead."
-msgstr ""
+msgstr "Validatoren kan ikkje lage rapportar i formatet «%s». Du kan velje 'yaml' eller 'text' i staden."
 
 #: tools/ascli-actions-validate.c:551 tools/ascli-actions-validate.c:633
 msgid "You need to specify a root directory to start validation!"
-msgstr ""
+msgstr "Du må oppgje ei rotmappe for å starte valideringa!"
 
 #. TRANSLATORS: A plain license ID (used as value in a key-value pair, like "Type: license")
 #: tools/ascli-actions-validate.c:675
 msgid "license"
-msgstr ""
+msgstr "lisens"
 
 #. TRANSLATORS: A license exception (used as value in a key-value pair, like "Type: exception")
 #: tools/ascli-actions-validate.c:678
 msgid "license exception"
-msgstr ""
+msgstr "lisensunntak"
 
 #. TRANSLATORS: A complex license expression (used as value in a key-value pair, like "Type: exception")
 #: tools/ascli-actions-validate.c:681
 msgid "license expression"
-msgstr ""
+msgstr "lisensuttrykk"
 
 #. TRANSLATORS: An invalid license (used as value in a key-value pair, like "Type: invalid")
 #: tools/ascli-actions-validate.c:685
 msgid "invalid"
-msgstr ""
+msgstr "ugyldig"
 
 #. TRANSLATORS: The license string type (single license, expression, exception, invalid)
 #: tools/ascli-actions-validate.c:690
 msgid "License Type"
-msgstr ""
+msgstr "Lisenstype"
 
 #. TRANSLATORS: Canonical identifier of a software license
 #: tools/ascli-actions-validate.c:694
 msgid "Canonical ID"
-msgstr ""
+msgstr "Kanonisk ID"
 
 #. TRANSLATORS: Whether a license is suitable for AppStream metadata
 #: tools/ascli-actions-validate.c:698
 msgid "Suitable for AppStream metadata"
-msgstr ""
+msgstr "Eigna for AppStream-metadata"
 
 #. TRANSLATORS: Whether a license considered suitable for Free and Open Source software
 #: tools/ascli-actions-validate.c:704
 msgid "Free and Open Source"
-msgstr ""
+msgstr "Fri og open kjeldekode"
 
 #. TRANSLATORS: Software license URL
 #: tools/ascli-actions-validate.c:712
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: tools/ascli-utils.c:301
 msgid "Identifier"
-msgstr ""
+msgstr "Identifikator"
 
 #: tools/ascli-utils.c:303
 msgid "Internal ID"
-msgstr ""
+msgstr "Intern ID"
 
 #: tools/ascli-utils.c:306
 msgid "Package"
-msgstr ""
+msgstr "Pakke"
 
 #: tools/ascli-utils.c:307
 msgid "Bundle"
-msgstr ""
+msgstr "Pakke-ID"
 
 #: tools/ascli-utils.c:310
 msgid "Icon"
-msgstr ""
+msgstr "Ikon"
 
 #: tools/ascli-utils.c:336
 msgid "Extends"
-msgstr ""
+msgstr "Utvidar"
 
 #: tools/ascli-utils.c:364
 msgid "Default Screenshot URL"
-msgstr ""
+msgstr "URL til standardskjermbilete"
 
 #: tools/ascli-utils.c:374
 msgid "Project Group"
-msgstr ""
+msgstr "Prosjektgruppe"
 
 #. license
 #: tools/ascli-utils.c:377
 msgid "License"
-msgstr ""
+msgstr "Lisens"
 
 #: tools/ascli-utils.c:383
 msgid "Categories"
-msgstr ""
+msgstr "Kategoriar"
 
 #: tools/ascli-utils.c:391
 msgid "Compulsory for"
-msgstr ""
+msgstr "Obligatorisk for"
 
 #. TRANSLATORS: Other software or interfaces that this software component provides
 #: tools/ascli-utils.c:425
 msgid "Provided Items"
-msgstr ""
+msgstr "Element som vert tilbodne"
 
 #: tools/ascli-utils.c:525
 #, c-format
 msgid "Please enter a number from 1 to %i: "
-msgstr ""
+msgstr "Skriv inn eit tal frå 1 til %i: "
