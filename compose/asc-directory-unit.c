@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2016-2024 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2016-2026 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -38,6 +38,10 @@
 #ifdef HAVE_LINUX_OPENAT2_H
 #include <linux/openat2.h>
 #include <sys/syscall.h>
+/* allow calling openat2 with an older glibc on a newer kernel */
+#if !defined(SYS_openat2) && defined(__NR_openat2)
+#define SYS_openat2 __NR_openat2
+#endif
 #endif
 
 #include "as-utils-private.h"
@@ -202,7 +206,7 @@ asc_resolve_path_in_root (const gchar *root,
 static gint
 asc_openat2 (gint dir_fd, const gchar *path, gint flags)
 {
-#if defined(HAVE_OPENAT2) || defined(HAVE_LINUX_OPENAT2_H)
+#if defined(HAVE_OPENAT2) || defined(SYS_openat2)
 	struct open_how how = {
 		.flags = flags,
 		.resolve = RESOLVE_IN_ROOT,
