@@ -20,6 +20,7 @@
 # Максим Горпиніч <maksimgorpinic4@gmail.com>, 2025.
 # "myroslav.m201461e65a7244654b72" <myroslav.m2014@gmail.com>, 2025.
 # Максим Горпиніч <gorpinicmaksim0@gmail.com>, 2025.
+# Михайло Щетінін <karnemorkon@gmail.com>, 2026.
 #
 # Translators:
 msgid ""
@@ -27,15 +28,15 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-09-28 17:26+0200\n"
-"PO-Revision-Date: 2026-08-12 13:46+0000\n"
-"Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
+"PO-Revision-Date: 2026-10-03 19:34+0000\n"
+"Last-Translator: Михайло Щетінін <karnemorkon@gmail.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/appstream/translations/uk/>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 2026.9.dev0\n"
+"X-Generator: Weblate 2026.10.1.dev0\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1671,10 +1672,8 @@ msgid "This element (paragraph, list, etc.) of a <description/> tag must not be 
 msgstr "Цей елемент (абзац, список тощо) теґу <description/> не варто перекладати окремо у збірці метаданих. Замість цього, має бути здійснено переклад цілого теґу <description/>. Засіб створення збірок AppStream (наприклад `appstream-generator`) має автоматично виконати потрібні дії під час компілювання даних."
 
 #: src/as-validator-issue-tag.h:64
-#, fuzzy
-#| msgid "AppStream descriptions support only a limited set of tags to format text: Paragraphs (<p/>) and lists (<ul/>, <ol/>). This description markup contains an invalid XML tag that would not be rendered correctly in applications supporting the metainfo specification."
 msgid "AppStream descriptions support only a limited set of tags to format text: Paragraphs (<p/>), section headings (<heading/>) and lists (<ul/>, <ol/>). This description markup contains an invalid XML tag that would not be rendered correctly in applications supporting the metainfo specification."
-msgstr "У описах AppStream передбачено підтримку лише обмеженої множини теґів для форматування тексту: абзаци (<p/>) і списки (<ul/>, <ol/>). У розмітці цього опису міститься некоректний теґ XML, який не буде показано належним чином у програмах, у яких передбачено можливість обробки даних специфікації metainfo."
+msgstr "Описи AppStream підтримують лише обмежений набір тегів для форматування тексту: абзаци (<p/>), заголовки розділів (<heading/>) та списки (<ul/>, <ol/>). Ця розмітка опису містить недійсний XML-тег, який не відображатиметься правильно в програмах, що підтримують специфікацію metainfo."
 
 #: src/as-validator-issue-tag.h:70
 msgid "This description paragraph contains invalid markup. Currently, only <em/> and <code/> are permitted."
@@ -1699,12 +1698,12 @@ msgstr "Не слід перекладати переліки як один об
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:99
 msgid "Section headings (`description/heading`) are plain text and must not contain any markup, not even <em/> or <code/>. The markup will be removed when the metadata is read."
-msgstr ""
+msgstr "Заголовки розділів (`description/heading`) є простим текстом і не повинні містити жодних тегів, навіть <em/> або <code/>. Ці теги будуть видалені під час зчитування метаданих."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:106
 msgid "This section heading (`description/heading`) is very long and will likely not be displayed properly everywhere. A heading should be a short label for the section that follows it, and be <= 80 characters long. Use a paragraph (<p/>) for longer text."
-msgstr ""
+msgstr "Цей заголовок розділу (`description/heading`) є дуже довгим і, ймовірно, не скрізь відображатиметься належним чином. Заголовок має бути коротким позначенням розділу, що йде за ним, і містити не більше 80 символів. Для довшого тексту використовуйте абзац (<p/>)."
 
 #: src/as-validator-issue-tag.h:113
 msgid "The first `description/p` paragraph of this component might be too short (< 80 characters). Please consider starting with a longer paragraph to improve how the description looks like in software centers and to provide more detailed information on this component immediately in the first paragraph."
@@ -2743,7 +2742,7 @@ msgstr "Рядок правил обробки піктограм для вст�
 #. TRANSLATORS: ascompose flag description for: --image-format
 #: tools/appstream-compose.c:292
 msgid "The file format that generated icons and screenshots are stored in (`jxl` by default, or `png` for compatibility with older clients)."
-msgstr ""
+msgstr "Формат файлу, у якому зберігаються створені іконки та знімки екрана (за замовчуванням — `jxl`, або `png` для сумісності зі старими клієнтами)."
 
 #. TRANSLATORS: ascompose flag description for: --allow-custom
 #: tools/appstream-compose.c:299
@@ -2806,7 +2805,7 @@ msgstr "Не встановлено каталог призначення. Бу�
 #: tools/appstream-compose.c:404
 #, c-format
 msgid "Metadata origin not set, using '%s'"
-msgstr ""
+msgstr "Джерело метаданих не вказано, використовується «%s»"
 
 #: tools/appstream-compose.c:409 tools/appstream-compose.c:411
 msgid "WARNING"
@@ -2820,7 +2819,7 @@ msgstr "Не вдалося встановити правила обробки �
 #: tools/appstream-compose.c:453
 #, c-format
 msgid "Invalid image format: %s. Only `jxl` and `png` are supported for generated media.\n"
-msgstr ""
+msgstr "Неправильний формат зображення: %s. Для згенерованих мультимедійних файлів підтримуються лише формати `jxl` та `png`.\n"
 
 #. TRANSLATORS: Information about as-compose allowlist
 #: tools/appstream-compose.c:483
