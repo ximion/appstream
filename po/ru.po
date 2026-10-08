@@ -38,20 +38,21 @@
 # Сергей <asvmail.as@gmail.com>, 2022, 2023, 2024, 2025, 2026.
 # lenemter <lenemter@gmail.com>, 2023.
 # vanapro1 <law820314@gmail.com>, 2025.
+# Arthur <personal.hankering128@passinbox.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-09-28 17:26+0200\n"
-"PO-Revision-Date: 2026-07-21 10:01+0000\n"
-"Last-Translator: Сергей <asvmail.as@gmail.com>\n"
+"PO-Revision-Date: 2026-10-08 05:51+0000\n"
+"Last-Translator: Arthur <personal.hankering128@passinbox.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/appstream/translations/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 2026.8.dev0\n"
+"X-Generator: Weblate 2026.10.1.dev0\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1491,17 +1492,14 @@ msgid "Unable to communicate with the reviews server: %s"
 msgstr ""
 
 #: src/as-reviews-client.c:1070
-#, fuzzy
-#| msgid "Unknown"
 msgid "Unknown reason"
-msgstr "Неизвестно"
+msgstr "Неизвестная причина"
 
 #. TRANSLATORS: We failed to fetch a software rating from the ODRS review server
 #: src/as-reviews-client.c:1247
-#, fuzzy, c-format
-#| msgid "Unable to find component matching %s!"
+#, c-format
 msgid "Unable to fetch software rating: %s"
-msgstr "Не удаётся найти компоненту, соответствующую %s!"
+msgstr "Не удаётся найти компоненту, соответствующую %s"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:39
