@@ -12,15 +12,15 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-09-28 17:26+0200\n"
-"PO-Revision-Date: 2026-09-18 06:51+0000\n"
+"PO-Revision-Date: 2026-10-08 19:51+0000\n"
 "Last-Translator: Kjartan Maraas <kjartan.maraas@proton.me>\n"
-"Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/appstream/translations/nb_NO/>\n"
+"Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/appstream/translations/nb/>\n"
 "Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.10.dev0\n"
+"X-Generator: Weblate 2026.10.1.dev0\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1345,12 +1345,12 @@ msgstr "Denne programvaren krever en %s-kjerne, men dette systemet kjører %s."
 #: src/as-relation.c:1627
 #, c-format
 msgid "This software recommends a %s kernel, but this system is running %s."
-msgstr ""
+msgstr "Denne programvaren anbefaler en %s-kjerne, men systemet kjører %s."
 
 #: src/as-relation.c:1633
 #, c-format
 msgid "This software only supports a %s kernel, but may run on %s anyway."
-msgstr ""
+msgstr "Denne programvaren støtter kun en %s-kjerne, men kan kjøre på %s likevel."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
@@ -1358,7 +1358,7 @@ msgstr ""
 #: src/as-relation.c:1663
 #, c-format
 msgid "This software requires %s %s %s, but this system is running %s %s."
-msgstr ""
+msgstr "Denne programvaren krever %s %s %s, men systemet kjører %s %s."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the required kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number fourth the current kernel name
@@ -1366,49 +1366,49 @@ msgstr ""
 #: src/as-relation.c:1675
 #, c-format
 msgid "The use of %s %s %s is recommended, but this system is running %s %s."
-msgstr ""
+msgstr "Bruk av %s %s %s anbefales, men dette systemet kjører %s %s."
 
 #. TRANSLATORS: We checked a kernel dependency, the first placeholder is the kernel name,
 #. second is comparison operator (e.g. >=), third is the expected version number.
 #: src/as-relation.c:1686
 #, c-format
 msgid "This software supports %s %s %s."
-msgstr ""
+msgstr "Denne programvaren støtter %s %s %s."
 
 #. TRANSLATORS: We checked a kernel dependency, with success, the first placeholder is the current kernel name, second is its version number.
 #: src/as-relation.c:1704
 #, c-format
 msgid "Kernel %s %s is supported."
-msgstr ""
+msgstr "Kjerne %s %s er støttet."
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory and fourth is the amount of memory we have.
 #: src/as-relation.c:1738
 #, c-format
 msgid "This software requires %s %.2f GiB of memory, but this system has %.2f GiB."
-msgstr ""
+msgstr "Denne programvaren krevet %s %.2f GiB med minne, men dette systemet har %.2f GiB."
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory and fourth is the amount of memory we have.
 #: src/as-relation.c:1747
 #, c-format
 msgid "This software recommends %s %.2f GiB of memory, but this system has %.2f GiB."
-msgstr ""
+msgstr "Denne programvaren anbefaler %s %.2f GiB med minne, men dette systemet har %.2f GiB."
 
 #. TRANSLATORS: We checked a memory dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected amount of memory.
 #: src/as-relation.c:1756
 #, c-format
 msgid "This software supports %s %.2f GiB of memory."
-msgstr ""
+msgstr "Denne programvaren støtter %s %.2f GiB med minne."
 
 #: src/as-relation.c:1772
 msgid "This system has sufficient memory for this software."
-msgstr ""
+msgstr "Dette systemet har tilstrekkelig med minne for denne programvaren."
 
 #: src/as-relation.c:1836
 msgid "This software needs a display for graphical content."
-msgstr ""
+msgstr "Denne programvaren trenger en skjerm for grafisk innhold."
 
 #. TRANSLATORS: We checked a display size dependency, the first placeholder is the comparison operator (e.g. >=),
 #. second is the expected size and third is the size the current device has.
@@ -1440,7 +1440,7 @@ msgstr ""
 
 #: src/as-relation.c:1904
 msgid "Display size is sufficient for this software."
-msgstr ""
+msgstr "Skjermstørrelsen er tilstrekkelig for denne programvaren."
 
 #: src/as-relation.c:1921
 #, c-format
@@ -1461,7 +1461,7 @@ msgstr ""
 
 #: src/as-reviews-client.c:1070
 msgid "Unknown reason"
-msgstr ""
+msgstr "Ukjent årsak"
 
 #. TRANSLATORS: We failed to fetch a software rating from the ODRS review server
 #: src/as-reviews-client.c:1247
@@ -1473,22 +1473,22 @@ msgstr "Klarer ikke å finne en komponent som samsvarer med %s!"
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:39
 msgid "Affero General Public License v1.0 only"
-msgstr ""
+msgstr "Kun Affero General Public License v1.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:41
 msgid "Affero General Public License v1.0 or later"
-msgstr ""
+msgstr "Affero General Public License v1.0 eller senere"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:44
 msgid "GNU Affero General Public License v3.0 only"
-msgstr ""
+msgstr "Kun GNU Affero General Public License v3.0"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:46
 msgid "GNU Affero General Public License v3.0 or later"
-msgstr ""
+msgstr "GNU Affero General Public License v3.0 eller senere"
 
 #. TRANSLATORS: Please do not translate the license name itself.
 #: src/as-spdx-data.h:301
@@ -1712,7 +1712,7 @@ msgstr ""
 
 #: src/as-validator-issue-tag.h:141
 msgid "This tag is not translatable."
-msgstr ""
+msgstr "Denne etiketten kan ikke oversettes."
 
 #: src/as-validator-issue-tag.h:146
 msgid "This tag must only appear once in this context. Having multiple tags of this kind is not valid."
