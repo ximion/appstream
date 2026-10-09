@@ -3,7 +3,7 @@
 # Copyright (C) YEAR Matthias Klumpp
 # This file is distributed under the same license as the appstream package.
 # Translators:
-# Ettore Atalan <atalanttore@googlemail.com>, 2014-2016, 2020, 2021, 2022, 2023, 2024, 2025.
+# Ettore Atalan <atalanttore@googlemail.com>, 2014-2016, 2020, 2021, 2022, 2023, 2024, 2025, 2026.
 # Mario Blättermann <mario.blaettermann@gmail.com>, 2016, 2021.
 # Matthias Klumpp <matthias@tenstral.net>, 2014, 2021, 2022.
 # Andreas Kleinert <Andy.Kleinert@gmail.com>, 2019, 2021.
@@ -25,7 +25,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Ettore Atalan <atalanttore@googlemail.com>, 2014-2016, 2021, 2022, 2023, 2024, 2025.
+# Ettore Atalan <atalanttore@googlemail.com>, 2014-2016, 2021, 2022, 2023, 2024, 2025, 2026.
 # Mario Blättermann <mario.blaettermann@gmail.com>, 2016. #zanata, 2021.
 # Richard Hughes <richard@hughsie.com>, 2016. #zanata
 # Tobias Weise <tobias.weise@web.de>, 2019. #zanata
@@ -48,15 +48,15 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-09-28 17:26+0200\n"
-"PO-Revision-Date: 2026-03-31 20:09+0000\n"
-"Last-Translator: Kolja Lampe <razzeee@gmail.com>\n"
+"PO-Revision-Date: 2026-10-09 18:51+0000\n"
+"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/appstream/translations/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.17-dev\n"
+"X-Generator: Weblate 2026.10.1.dev0\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1496,10 +1496,8 @@ msgid "Unable to communicate with the reviews server: %s"
 msgstr ""
 
 #: src/as-reviews-client.c:1070
-#, fuzzy
-#| msgid "Unknown"
 msgid "Unknown reason"
-msgstr "Unbekannt"
+msgstr "Unbekannte Ursache"
 
 #. TRANSLATORS: We failed to fetch a software rating from the ODRS review server
 #: src/as-reviews-client.c:1247
@@ -3625,10 +3623,9 @@ msgid "Release metadata file '%s' contains no data."
 msgstr "Die Datei mit den Metadaten der Veröffentlichung »%s« ist falsch benannt."
 
 #: tools/ascli-actions-misc.c:590
-#, fuzzy, c-format
-#| msgid "Metainfo file '%s' does not exist."
+#, c-format
 msgid "Metainfo file '%s' contains no component."
-msgstr "Metainfo-Datei »%s« existiert nicht."
+msgstr "Metainfo-Datei »%s« enthält keine Komponente."
 
 #: tools/ascli-actions-misc.c:599
 #, c-format
@@ -3730,7 +3727,7 @@ msgstr "nein"
 
 #: tools/ascli-actions-misc.c:829
 msgid "Overall rating"
-msgstr ""
+msgstr "Gesamtbewertung"
 
 #: tools/ascli-actions-misc.c:842
 #, fuzzy, c-format
@@ -3740,11 +3737,11 @@ msgstr "Unterstützte Softwarekomponente »%s« gefunden."
 
 #: tools/ascli-actions-misc.c:857 tools/ascli-actions-misc.c:958
 msgid "Author"
-msgstr ""
+msgstr "Autor"
 
 #: tools/ascli-actions-misc.c:860
 msgid "Date"
-msgstr ""
+msgstr "Datum"
 
 #: tools/ascli-actions-misc.c:910
 #, c-format
@@ -3764,7 +3761,7 @@ msgstr ""
 #. TRANSLATORS: Prompt for a star rating when composing a review
 #: tools/ascli-actions-misc.c:925
 msgid "Star rating, from 1 (worst) to 5 (best):"
-msgstr ""
+msgstr "Sternebewertung, von 1 (am schlechtesten) bis 5 (am besten):"
 
 #. TRANSLATORS: Prompt when composing a review
 #: tools/ascli-actions-misc.c:932
@@ -3786,7 +3783,7 @@ msgstr ""
 
 #: tools/ascli-actions-misc.c:965
 msgid "Rating"
-msgstr ""
+msgstr "Bewertung"
 
 #: tools/ascli-actions-misc.c:968
 msgid "Review"
