@@ -511,7 +511,7 @@ ascli_validate_files_format (gchar **argv,
 			if (!g_file_query_exists (file, NULL)) {
 				g_print (_("File '%s' does not exist."), argv[i]);
 				g_print ("\n");
-				return FALSE;
+				return ASCLI_EXIT_CODE_BAD_INPUT;
 			}
 
 			if (!as_validator_validate_file (validator, file))
