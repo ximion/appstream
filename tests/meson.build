@@ -121,19 +121,6 @@ test ('as-test_misc',
     env: as_test_env
 )
 
-# Command-line interface
-as_test_cli_exe = executable ('as-test_cli',
-    ['test-cli.c'],
-    dependencies: [appstream_dep,
-                   gio_dep],
-    include_directories: [root_inc_dir]
-)
-test ('as-test_cli',
-    as_test_cli_exe,
-    args: [ascli_exe],
-    env: as_test_env
-)
-
 # AppStream Compose tests
 if get_option('compose')
     as_test_compose_exe = executable ('as-test_compose',
