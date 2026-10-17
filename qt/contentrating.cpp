@@ -31,6 +31,8 @@ static_assert(static_cast<int>(ContentRating::RatingValueIntense) + 1
               "ContentRating::RatingValue is out of sync with AsContentRatingValue");
 static_assert(static_cast<int>(ContentRating::SystemIarc) + 1 == AS_CONTENT_RATING_SYSTEM_LAST,
               "ContentRating::System is out of sync with AsContentRatingSystem");
+static_assert(static_cast<int>(ContentRating::GroupSocial) + 1 == AS_CONTENT_RATING_GROUP_LAST,
+              "ContentRating::Group is out of sync with AsContentRatingGroup");
 
 class AppStream::ContentRatingData : public QSharedData
 {
@@ -123,6 +125,22 @@ AppStream::ContentRating::attributeFromCsmAge(const QString &id, uint age)
 {
     return static_cast<ContentRating::RatingValue>(
         as_content_rating_attribute_from_csm_age(qPrintable(id), age));
+}
+
+QString AppStream::ContentRating::attributeTitle(const QString &id)
+{
+    return QString::fromUtf8(as_content_rating_attribute_get_title(qPrintable(id)));
+}
+
+AppStream::ContentRating::Group AppStream::ContentRating::attributeGroup(const QString &id)
+{
+    return static_cast<ContentRating::Group>(as_content_rating_attribute_get_group(qPrintable(id)));
+}
+
+QString AppStream::ContentRating::groupTitle(AppStream::ContentRating::Group group)
+{
+    return QString::fromUtf8(
+        as_content_rating_group_get_title(static_cast<AsContentRatingGroup>(group)));
 }
 
 ContentRating::ContentRating()

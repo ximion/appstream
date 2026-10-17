@@ -823,6 +823,8 @@ as_content_rating_system_from_locale (const gchar *locale)
  * non-%NULL description for a lower #AsContentRatingValue will be used. */
 static const struct {
 	const gchar *id;  /* (not nullable) */
+	const gchar *title;  /* (not nullable) */
+	const gchar *desc_unknown;  /* (not nullable) */
 	const gchar *desc_none;  /* (not nullable) */
 	const gchar *desc_mild;  /* (nullable) */
 	const gchar *desc_moderate;  /* (nullable) */
@@ -830,6 +832,10 @@ static const struct {
 } oars_descriptions[] = {
 	{
 		"violence-cartoon",
+		/* TRANSLATORS: content rating title, see https://hughsie.github.io/oars/ */
+		N_("Cartoon Violence"),
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
+		N_("No information regarding cartoon violence"),
 		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("No cartoon violence"),
 		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
@@ -841,6 +847,10 @@ static const struct {
 	},
 	{
 		"violence-fantasy",
+		/* TRANSLATORS: content rating title, see https://hughsie.github.io/oars/ */
+		N_("Fantasy Violence"),
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
+		N_("No information regarding fantasy violence"),
 		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("No fantasy violence"),
 		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
@@ -852,6 +862,10 @@ static const struct {
 	},
 	{
 		"violence-realistic",
+		/* TRANSLATORS: content rating title, see https://hughsie.github.io/oars/ */
+		N_("Realistic Violence"),
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
+		N_("No information regarding realistic violence"),
 		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("No realistic violence"),
 		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
@@ -863,6 +877,10 @@ static const struct {
 	},
 	{
 		"violence-bloodshed",
+		/* TRANSLATORS: content rating title, see https://hughsie.github.io/oars/ */
+		N_("Violence Depicting Bloodshed"),
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
+		N_("No information regarding bloodshed"),
 		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("No bloodshed"),
 		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
@@ -874,6 +892,10 @@ static const struct {
 	},
 	{
 		"violence-sexual",
+		/* TRANSLATORS: content rating title, see https://hughsie.github.io/oars/ */
+		N_("Sexual Violence"),
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
+		N_("No information regarding sexual violence"),
 		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("No sexual violence"),
 		NULL,
@@ -883,6 +905,10 @@ static const struct {
 	},
 	{
 		"drugs-alcohol",
+		/* TRANSLATORS: content rating title, see https://hughsie.github.io/oars/ */
+		N_("Alcohol"),
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
+		N_("No information regarding references to alcohol"),
 		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("No references to alcohol"),
 		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
@@ -893,6 +919,10 @@ static const struct {
 	},
 	{
 		"drugs-narcotics",
+		/* TRANSLATORS: content rating title, see https://hughsie.github.io/oars/ */
+		N_("Narcotics"),
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
+		N_("No information regarding references to illicit drugs"),
 		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("No references to illicit drugs"),
 		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
@@ -903,6 +933,10 @@ static const struct {
 	},
 	{
 		"drugs-tobacco",
+		/* TRANSLATORS: content rating title, see https://hughsie.github.io/oars/ */
+		N_("Tobacco"),
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
+		N_("No information regarding references to tobacco products"),
 		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("No references to tobacco products"),
 		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
@@ -913,6 +947,10 @@ static const struct {
 	},
 	{
 		"sex-nudity",
+		/* TRANSLATORS: content rating title, see https://hughsie.github.io/oars/ */
+		N_("Nudity"),
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
+		N_("No information regarding nudity of any sort"),
 		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("No nudity of any sort"),
 		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
@@ -924,6 +962,10 @@ static const struct {
 	},
 	{
 		"sex-themes",
+		/* TRANSLATORS: content rating title, see https://hughsie.github.io/oars/ */
+		N_("Sexual Themes"),
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
+		N_("No information regarding references to or depictions of sexual nature"),
 		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("No references to or depictions of sexual nature"),
 		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
@@ -935,6 +977,10 @@ static const struct {
 	},
 	{
 		"language-profanity",
+		/* TRANSLATORS: content rating title, see https://hughsie.github.io/oars/ */
+		N_("Profanity"),
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
+		N_("No information regarding profanity of any kind"),
 		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("No profanity of any kind"),
 		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
@@ -946,6 +992,10 @@ static const struct {
 	},
 	{
 		"language-humor",
+		/* TRANSLATORS: content rating title, see https://hughsie.github.io/oars/ */
+		N_("Inappropriate Humor"),
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
+		N_("No information regarding inappropriate humor"),
 		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("No inappropriate humor"),
 		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
@@ -957,6 +1007,10 @@ static const struct {
 	},
 	{
 		"language-discrimination",
+		/* TRANSLATORS: content rating title, see https://hughsie.github.io/oars/ */
+		N_("Discrimination"),
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
+		N_("No information regarding discriminatory language of any kind"),
 		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("No discriminatory language of any kind"),
 		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
@@ -968,6 +1022,10 @@ static const struct {
 	},
 	{
 		"money-advertising",
+		/* TRANSLATORS: content rating title, see https://hughsie.github.io/oars/ */
+		N_("Advertising"),
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
+		N_("No information regarding advertising of any kind"),
 		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("No advertising of any kind"),
 		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
@@ -979,6 +1037,10 @@ static const struct {
 	},
 	{
 		"money-gambling",
+		/* TRANSLATORS: content rating title, see https://hughsie.github.io/oars/ */
+		N_("Gambling"),
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
+		N_("No information regarding gambling of any kind"),
 		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("No gambling of any kind"),
 		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
@@ -990,6 +1052,10 @@ static const struct {
 	},
 	{
 		"money-purchasing",
+		/* TRANSLATORS: content rating title, see https://hughsie.github.io/oars/ */
+		N_("Purchasing"),
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
+		N_("No information regarding the ability to spend money"),
 		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("No ability to spend money"),
 		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
@@ -1000,6 +1066,10 @@ static const struct {
 	},
 	{
 		"social-chat",
+		/* TRANSLATORS: content rating title, see https://hughsie.github.io/oars/ */
+		N_("Chat Between Users"),
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
+		N_("No information regarding ways to chat with other users"),
 		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("No way to chat with other users"),
 		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
@@ -1011,6 +1081,10 @@ static const struct {
 	},
 	{
 		"social-audio",
+		/* TRANSLATORS: content rating title, see https://hughsie.github.io/oars/ */
+		N_("Audio Chat Between Users"),
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
+		N_("No information regarding ways to talk with other users"),
 		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("No way to talk with other users"),
 		NULL,
@@ -1021,6 +1095,10 @@ static const struct {
 	},
 	{
 		"social-contacts",
+		/* TRANSLATORS: content rating title, see https://hughsie.github.io/oars/ */
+		N_("Contact Details"),
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
+		N_("No information regarding sharing of social network usernames or email addresses"),
 		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("No sharing of social network usernames or email addresses"),
 		NULL,
@@ -1030,6 +1108,10 @@ static const struct {
 	},
 	{
 		"social-info",
+		/* TRANSLATORS: content rating title, see https://hughsie.github.io/oars/ */
+		N_("Identifying Information"),
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
+		N_("No information regarding sharing of user information with third parties"),
 		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("No sharing of user information with third parties"),
 		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
@@ -1041,6 +1123,10 @@ static const struct {
 	},
 	{
 		"social-location",
+		/* TRANSLATORS: content rating title, see https://hughsie.github.io/oars/ */
+		N_("Location Sharing"),
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
+		N_("No information regarding sharing of physical location with other users"),
 		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("No sharing of physical location with other users"),
 		NULL,
@@ -1066,6 +1152,10 @@ static const struct {
 		 * The differences between countries are handled through handling #AsContentRatingSystem
 		 * values differently. */
 		"sex-homosexuality",
+		/* TRANSLATORS: content rating title, see https://hughsie.github.io/oars/ */
+		N_("Homosexuality"),
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
+		N_("No information regarding references to homosexuality"),
 		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("No references to homosexuality"),
 		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
@@ -1077,6 +1167,10 @@ static const struct {
 	},
 	{
 		"sex-prostitution",
+		/* TRANSLATORS: content rating title, see https://hughsie.github.io/oars/ */
+		N_("Prostitution"),
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
+		N_("No information regarding references to prostitution"),
 		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("No references to prostitution"),
 		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
@@ -1088,6 +1182,10 @@ static const struct {
 	},
 	{
 		"sex-adultery",
+		/* TRANSLATORS: content rating title, see https://hughsie.github.io/oars/ */
+		N_("Adultery"),
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
+		N_("No information regarding references to adultery"),
 		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("No references to adultery"),
 		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
@@ -1099,6 +1197,10 @@ static const struct {
 	},
 	{
 		"sex-appearance",
+		/* TRANSLATORS: content rating title, see https://hughsie.github.io/oars/ */
+		N_("Sexualized Characters"),
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
+		N_("No information regarding sexualized characters"),
 		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("No sexualized characters"),
 		NULL,
@@ -1109,6 +1211,10 @@ static const struct {
 	},
 	{
 		"violence-worship",
+		/* TRANSLATORS: content rating title, see https://hughsie.github.io/oars/ */
+		N_("Desecration"),
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
+		N_("No information regarding references to desecration"),
 		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("No references to desecration"),
 		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
@@ -1120,6 +1226,10 @@ static const struct {
 	},
 	{
 		"violence-desecration",
+		/* TRANSLATORS: content rating title, see https://hughsie.github.io/oars/ */
+		N_("Human Remains"),
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
+		N_("No information regarding visible dead human remains"),
 		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("No visible dead human remains"),
 		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
@@ -1131,6 +1241,10 @@ static const struct {
 	},
 	{
 		"violence-slavery",
+		/* TRANSLATORS: content rating title, see https://hughsie.github.io/oars/ */
+		N_("Slavery"),
+		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
+		N_("No information regarding references to slavery"),
 		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
 		N_("No references to slavery"),
 		/* TRANSLATORS: content rating description, see https://hughsie.github.io/oars/ */
@@ -1151,6 +1265,9 @@ static const struct {
  * Get a human-readable description of what content would be expected to
  * require the content rating attribute given by @id and @value.
  *
+ * For %AS_CONTENT_RATING_VALUE_UNKNOWN, a description stating that no
+ * information about the attribute is available is returned (since 1.2.2).
+ *
  * Returns: a human-readable description of @id and @value
  * Since: 0.12.12
  */
@@ -1159,13 +1276,16 @@ as_content_rating_attribute_get_description (const gchar *id, AsContentRatingVal
 {
 	gsize i;
 
-	if ((gint) value < AS_CONTENT_RATING_VALUE_NONE ||
+	if ((gint) value < AS_CONTENT_RATING_VALUE_UNKNOWN ||
 	    (gint) value > AS_CONTENT_RATING_VALUE_INTENSE)
 		return NULL;
 
 	for (i = 0; i < G_N_ELEMENTS (oars_descriptions); i++) {
 		if (!g_str_equal (oars_descriptions[i].id, id))
 			continue;
+
+		if (value == AS_CONTENT_RATING_VALUE_UNKNOWN)
+			return _(oars_descriptions[i].desc_unknown);
 
 		/* Return the most-intense non-NULL string. */
 		if (oars_descriptions[i].desc_intense != NULL &&
@@ -1186,6 +1306,95 @@ as_content_rating_attribute_get_description (const gchar *id, AsContentRatingVal
 	g_warn_if_reached ();
 
 	return NULL;
+}
+
+/**
+ * as_content_rating_attribute_get_title:
+ * @id: the subsection ID e.g. `violence-cartoon`
+ *
+ * Get a short, human-readable title for the content rating attribute
+ * given by @id, e.g. "Cartoon Violence".
+ *
+ * Returns: (nullable): a human-readable title of @id, or %NULL if @id is unknown
+ * Since: 1.2.2
+ */
+const gchar *
+as_content_rating_attribute_get_title (const gchar *id)
+{
+	for (gsize i = 0; i < G_N_ELEMENTS (oars_descriptions); i++) {
+		if (g_str_equal (oars_descriptions[i].id, id))
+			return _(oars_descriptions[i].title);
+	}
+
+	return NULL;
+}
+
+/**
+ * as_content_rating_attribute_get_group:
+ * @id: the subsection ID e.g. `violence-cartoon`
+ *
+ * Get the group the content rating attribute given by @id belongs to.
+ *
+ * Returns: the #AsContentRatingGroup, or %AS_CONTENT_RATING_GROUP_UNKNOWN if @id is unknown
+ * Since: 1.2.2
+ */
+AsContentRatingGroup
+as_content_rating_attribute_get_group (const gchar *id)
+{
+	if (as_content_rating_attribute_get_title (id) == NULL)
+		return AS_CONTENT_RATING_GROUP_UNKNOWN;
+
+	/* OARS attribute IDs are always prefixed with their group name */
+	if (g_str_has_prefix (id, "violence-"))
+		return AS_CONTENT_RATING_GROUP_VIOLENCE;
+	if (g_str_has_prefix (id, "drugs-"))
+		return AS_CONTENT_RATING_GROUP_DRUGS;
+	if (g_str_has_prefix (id, "sex-"))
+		return AS_CONTENT_RATING_GROUP_SEX;
+	if (g_str_has_prefix (id, "language-"))
+		return AS_CONTENT_RATING_GROUP_LANGUAGE;
+	if (g_str_has_prefix (id, "money-"))
+		return AS_CONTENT_RATING_GROUP_MONEY;
+	if (g_str_has_prefix (id, "social-"))
+		return AS_CONTENT_RATING_GROUP_SOCIAL;
+
+	return AS_CONTENT_RATING_GROUP_UNKNOWN;
+}
+
+/**
+ * as_content_rating_group_get_title:
+ * @group: the #AsContentRatingGroup
+ *
+ * Get a short, human-readable title for @group, e.g. "Violence".
+ *
+ * Returns: (nullable): a human-readable title of @group
+ * Since: 1.2.2
+ */
+const gchar *
+as_content_rating_group_get_title (AsContentRatingGroup group)
+{
+	switch (group) {
+	case AS_CONTENT_RATING_GROUP_VIOLENCE:
+		/* TRANSLATORS: content rating group title, see https://hughsie.github.io/oars/ */
+		return _("Violence");
+	case AS_CONTENT_RATING_GROUP_DRUGS:
+		/* TRANSLATORS: content rating group title, see https://hughsie.github.io/oars/ */
+		return _("Drugs");
+	case AS_CONTENT_RATING_GROUP_SEX:
+		/* TRANSLATORS: content rating group title, see https://hughsie.github.io/oars/ */
+		return _("Sex & Nudity");
+	case AS_CONTENT_RATING_GROUP_LANGUAGE:
+		/* TRANSLATORS: content rating group title, see https://hughsie.github.io/oars/ */
+		return _("Strong Language");
+	case AS_CONTENT_RATING_GROUP_MONEY:
+		/* TRANSLATORS: content rating group title, see https://hughsie.github.io/oars/ */
+		return _("Money");
+	case AS_CONTENT_RATING_GROUP_SOCIAL:
+		/* TRANSLATORS: content rating group title, see https://hughsie.github.io/oars/ */
+		return _("Social");
+	default:
+		return NULL;
+	}
 }
 
 /* The struct definition below assumes we don’t grow more

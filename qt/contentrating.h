@@ -68,6 +68,17 @@ public:
     };
     Q_ENUM(System)
 
+    enum Group {
+        GroupUnknown,
+        GroupViolence,
+        GroupDrugs,
+        GroupSex,
+        GroupLanguage,
+        GroupMoney,
+        GroupSocial
+    };
+    Q_ENUM(Group)
+
     ContentRating();
     ContentRating(_AsContentRating *category);
     ContentRating(const ContentRating &category);
@@ -84,6 +95,9 @@ public:
     static QStringList allRatingIds();
     static uint attributeToCsmAge(const QString &id, RatingValue value);
     static RatingValue attributeFromCsmAge(const QString &id, uint age);
+    static QString attributeTitle(const QString &id);
+    static Group attributeGroup(const QString &id);
+    static QString groupTitle(Group group);
 
     ContentRating &operator=(const ContentRating &category);
     bool operator==(const ContentRating &r) const;

@@ -1376,12 +1376,32 @@ test_content_rating_mappings (void)
 		    as_content_rating_attribute_to_csm_age (ids[i], AS_CONTENT_RATING_VALUE_LAST),
 		    ==,
 		    0);
+
+		/* every ID has a title, a group and descriptions for unknown and none values */
+		g_assert_nonnull (as_content_rating_attribute_get_title (ids[i]));
+		g_assert_nonnull (as_content_rating_group_get_title (
+		    as_content_rating_attribute_get_group (ids[i])));
+		g_assert_nonnull (
+		    as_content_rating_attribute_get_description (ids[i],
+								 AS_CONTENT_RATING_VALUE_UNKNOWN));
+		g_assert_nonnull (
+		    as_content_rating_attribute_get_description (ids[i],
+								 AS_CONTENT_RATING_VALUE_NONE));
 	}
 
 	g_assert_cmpuint (as_content_rating_attribute_to_csm_age ("not-valid-id",
 								  AS_CONTENT_RATING_VALUE_INTENSE),
 			  ==,
 			  0);
+
+	g_assert_cmpint (as_content_rating_attribute_get_group ("money-gambling"),
+			 ==,
+			 AS_CONTENT_RATING_GROUP_MONEY);
+	g_assert_cmpint (as_content_rating_attribute_get_group ("violence-not-valid"),
+			 ==,
+			 AS_CONTENT_RATING_GROUP_UNKNOWN);
+	g_assert_null (as_content_rating_attribute_get_title ("not-valid-id"));
+	g_assert_null (as_content_rating_group_get_title (AS_CONTENT_RATING_GROUP_UNKNOWN));
 }
 
 /* Test that gs_utils_content_rating_system_from_locale() returns the correct

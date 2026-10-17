@@ -108,6 +108,32 @@ typedef enum {
 	AS_CONTENT_RATING_VALUE_LAST
 } AsContentRatingValue;
 
+/**
+ * AsContentRatingGroup:
+ * @AS_CONTENT_RATING_GROUP_UNKNOWN:	Unknown group
+ * @AS_CONTENT_RATING_GROUP_VIOLENCE:	Violence
+ * @AS_CONTENT_RATING_GROUP_DRUGS:	Drugs, alcohol and tobacco
+ * @AS_CONTENT_RATING_GROUP_SEX:	Sex and nudity
+ * @AS_CONTENT_RATING_GROUP_LANGUAGE:	Strong language
+ * @AS_CONTENT_RATING_GROUP_MONEY:	Advertising, gambling and purchases
+ * @AS_CONTENT_RATING_GROUP_SOCIAL:	Social interaction and sharing of user information
+ *
+ * The group a content rating attribute belongs to.
+ *
+ * Since: 1.2.2
+ **/
+typedef enum {
+	AS_CONTENT_RATING_GROUP_UNKNOWN,
+	AS_CONTENT_RATING_GROUP_VIOLENCE,
+	AS_CONTENT_RATING_GROUP_DRUGS,
+	AS_CONTENT_RATING_GROUP_SEX,
+	AS_CONTENT_RATING_GROUP_LANGUAGE,
+	AS_CONTENT_RATING_GROUP_MONEY,
+	AS_CONTENT_RATING_GROUP_SOCIAL,
+	/*< private >*/
+	AS_CONTENT_RATING_GROUP_LAST
+} AsContentRatingGroup;
+
 const gchar	     *as_content_rating_value_to_string (AsContentRatingValue value);
 AsContentRatingValue  as_content_rating_value_from_string (const gchar *value);
 
@@ -130,6 +156,9 @@ AsContentRatingValue  as_content_rating_attribute_from_csm_age (const gchar *id,
 								guint	     age);
 const gchar	     *as_content_rating_attribute_get_description (const gchar	       *id,
 								   AsContentRatingValue value);
+const gchar	     *as_content_rating_attribute_get_title (const gchar *id);
+AsContentRatingGroup  as_content_rating_attribute_get_group (const gchar *id);
+const gchar	     *as_content_rating_group_get_title (AsContentRatingGroup group);
 
 AsContentRating	     *as_content_rating_new (void);
 
