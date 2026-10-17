@@ -675,6 +675,8 @@ as_pool_register_flatpak_dir (AsPool *pool, const gchar *flatpak_root_dir, AsCom
 									   "icons",
 									   NULL);
 				cache_key = g_strconcat ("flatpak-",
+							 as_component_scope_to_string (scope),
+							 "-",
 							 repo_name,
 							 "-",
 							 arch_name,
