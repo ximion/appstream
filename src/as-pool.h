@@ -166,6 +166,11 @@ void		as_pool_reset_extra_data_locations (AsPool *pool);
 void		as_pool_add_extra_data_location (AsPool	      *pool,
 						 const gchar  *directory,
 						 AsFormatStyle format_style);
+void		as_pool_add_extra_data_location_full (AsPool	      *pool,
+						      const gchar     *directory,
+						      AsFormatStyle    format_style,
+						      AsComponentScope scope,
+						      const gchar     *origin);
 
 AsPoolFlags	as_pool_get_flags (AsPool *pool);
 void		as_pool_set_flags (AsPool     *pool,

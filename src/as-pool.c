@@ -123,7 +123,6 @@ static gchar *OS_CATALOG_CACHE_KEY = "os-catalog";
 typedef struct {
 	AsFormatKind format_kind;
 	GRefString *location;
-	gboolean compressed_only; /* load only compressed data, workaround for Flatpak */
 } AsLocationEntry;
 
 typedef struct {
@@ -698,11 +697,6 @@ as_pool_register_flatpak_dir (AsPool *pool, const gchar *flatpak_root_dir, AsCom
 					continue;
 				}
 
-				/* Flatpak keeps an uncompressed copy of the same data in the same directory - AppStream does not expect
-				 * that, so we work around this issue to not load unnecessary data. Loading the compressed data was faster
-				 * in every tested scenario, so that's the way to go. */
-				lentry->compressed_only = TRUE;
-
 				/* all Flatpak catalogs use "flatpak" as origin, so we use the remote name instead */
 				as_ref_string_assign_safe (&lgroup->origin, repo_name);
 
@@ -1085,6 +1079,40 @@ as_pool_is_empty (AsPool *pool)
 }
 
 /**
+ * as_pool_drop_uncompressed_duplicates:
+ *
+ * Some data providers (e.g. Flatpak) keep an uncompressed copy of a catalog
+ * file next to the compressed one. Loading both is pointless, so we keep only
+ * the compressed file in that case (it was also faster to load in all tests).
+ */
+static void
+as_pool_drop_uncompressed_duplicates (GPtrArray *files)
+{
+	const gchar *compressed_exts[] = { ".gz", ".zst", NULL };
+	g_autoptr(GHashTable) names = g_hash_table_new (g_str_hash, g_str_equal);
+
+	for (guint i = 0; i < files->len; i++)
+		g_hash_table_add (names, g_ptr_array_index (files, i));
+
+	for (guint i = 0; i < files->len;) {
+		const gchar *fname = g_ptr_array_index (files, i);
+		gboolean dropped = FALSE;
+
+		for (guint j = 0; compressed_exts[j] != NULL; j++) {
+			g_autofree gchar *cname = g_strconcat (fname, compressed_exts[j], NULL);
+			if (g_hash_table_contains (names, cname)) {
+				g_debug ("Skipping '%s': compressed copy is present.", fname);
+				g_ptr_array_remove_index (files, i);
+				dropped = TRUE;
+				break;
+			}
+		}
+		if (!dropped)
+			i++;
+	}
+}
+
+/**
  * as_pool_load_catalog_data:
  *
  * Load metadata from AppStream catalog data directories,
@@ -1134,16 +1162,10 @@ as_pool_load_catalog_data (AsPool *pool,
 		if (lentry->format_kind == AS_FORMAT_KIND_XML) {
 			g_autoptr(GPtrArray) xmls = NULL;
 			g_debug ("Searching for XML data in: %s", lentry->location);
-			if (lentry->compressed_only)
-				xmls = as_utils_find_files_matching (lentry->location,
-								     "*.xml.gz",
-								     FALSE,
-								     NULL);
-			else
-				xmls = as_utils_find_files_matching (lentry->location,
-								     "*.xml*",
-								     FALSE,
-								     NULL);
+			xmls = as_utils_find_files_matching (lentry->location,
+							     "*.xml*",
+							     FALSE,
+							     NULL);
 			if (xmls != NULL) {
 				for (guint j = 0; j < xmls->len; j++) {
 					const gchar *val;
@@ -1158,16 +1180,10 @@ as_pool_load_catalog_data (AsPool *pool,
 			g_autoptr(GPtrArray) yamls = NULL;
 
 			g_debug ("Searching for YAML data in: %s", lentry->location);
-			if (lentry->compressed_only)
-				yamls = as_utils_find_files_matching (lentry->location,
-								      "*.yml.gz",
-								      FALSE,
-								      NULL);
-			else
-				yamls = as_utils_find_files_matching (lentry->location,
-								      "*.yml*",
-								      FALSE,
-								      NULL);
+			yamls = as_utils_find_files_matching (lentry->location,
+							      "*.yml*",
+							      FALSE,
+							      NULL);
 			if (yamls != NULL) {
 				for (guint j = 0; j < yamls->len; j++) {
 					const gchar *val;
@@ -1177,6 +1193,8 @@ as_pool_load_catalog_data (AsPool *pool,
 			}
 		}
 	}
+
+	as_pool_drop_uncompressed_duplicates (mdata_files);
 
 	/* parse the found data */
 	for (guint i = 0; i < mdata_files->len; i++) {
@@ -2467,15 +2485,49 @@ as_pool_get_locale (AsPool *pool)
 void
 as_pool_add_extra_data_location (AsPool *pool, const gchar *directory, AsFormatStyle format_style)
 {
+	as_pool_add_extra_data_location_full (pool,
+					      directory,
+					      format_style,
+					      as_utils_guess_scope_from_path (directory),
+					      NULL);
+}
+
+/**
+ * as_pool_add_extra_data_location_full:
+ * @pool: An instance of #AsPool.
+ * @directory: An existing filesystem location.
+ * @format_style: The expected format style of the metadata, e.g. %AS_FORMAT_STYLE_CATALOG
+ * @scope: The #AsComponentScope to assign to components found in @directory.
+ * @origin: (nullable): An origin name to assign to components found in @directory, or %NULL to keep the origin from the metadata.
+ *
+ * Like as_pool_add_extra_data_location(), but with explicit control over the scope
+ * and origin of the loaded components.
+ * This is useful for bundling systems where the metadata origin does not identify
+ * its source, e.g. to load the metadata of a Flatpak remote with the remote's name as origin.
+ *
+ * Since: 1.2.2
+ */
+void
+as_pool_add_extra_data_location_full (AsPool *pool,
+				      const gchar *directory,
+				      AsFormatStyle format_style,
+				      AsComponentScope scope,
+				      const gchar *origin)
+{
 	AsPoolPrivate *priv = GET_PRIVATE (pool);
 	AsLocationGroup *extra_group;
+	g_autofree gchar *cache_key = NULL;
 	g_autoptr(GRWLockWriterLocker) locker = g_rw_lock_writer_locker_new (&priv->rw_lock);
 
+	/* the origin is part of the cached data, so it must be part of the cache key */
+	cache_key = (origin == NULL) ? g_strdup (directory)
+				     : g_strconcat (directory, "#", origin, NULL);
 	extra_group = as_location_group_new (pool,
-					     as_utils_guess_scope_from_path (directory),
+					     scope,
 					     format_style,
 					     FALSE, /* is not OS data */
-					     directory);
+					     cache_key);
+	as_ref_string_assign_safe (&extra_group->origin, origin);
 	g_hash_table_insert (priv->extra_data_locations,
 			     g_strdup (extra_group->cache_key),
 			     extra_group);

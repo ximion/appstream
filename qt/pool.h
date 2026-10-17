@@ -138,6 +138,10 @@ public:
 
     void resetExtraDataLocations();
     void addExtraDataLocation(const QString &directory, Metadata::FormatStyle formatStyle);
+    void addExtraDataLocation(const QString &directory,
+                              Metadata::FormatStyle formatStyle,
+                              Component::Scope scope,
+                              const QString &origin = QString());
 
     void setLoadStdDataLocations(bool enabled);
     void overrideCacheLocations(const QString &sysDir, const QString &userDir);

@@ -847,6 +847,92 @@ test_pool_empty (void)
 	g_clear_pointer (&result, g_object_unref);
 }
 
+/**
+ * test_pool_extra_location_full:
+ *
+ * Test explicit scope/origin for extra locations, and that an uncompressed
+ * duplicate of a compressed catalog file is ignored.
+ */
+static void
+test_pool_extra_location_full (void)
+{
+	g_autoptr(AsPool) pool = NULL;
+	g_autoptr(AsComponentBox) cbox = NULL;
+	g_autoptr(GError) error = NULL;
+	g_autofree gchar *tmpdir = NULL;
+	g_autofree gchar *src_fname = NULL;
+	g_autofree gchar *xml_fname = NULL;
+	g_autofree gchar *gz_fname = NULL;
+	g_autofree gchar *xml_data = NULL;
+	g_autoptr(GFile) gz_file = NULL;
+	g_autoptr(GFileOutputStream) fos = NULL;
+	g_autoptr(GOutputStream) cos = NULL;
+	g_autoptr(GZlibCompressor) compressor = NULL;
+	gboolean ret;
+
+	tmpdir = g_dir_make_tmp ("as-pool-extra-XXXXXX", &error);
+	g_assert_no_error (error);
+
+	/* valid data, compressed */
+	src_fname = g_build_filename (datadir, "catalog", "xml", "foobar-1.xml", NULL);
+	g_assert_true (g_file_get_contents (src_fname, &xml_data, NULL, &error));
+	g_assert_no_error (error);
+
+	gz_fname = g_build_filename (tmpdir, "data.xml.gz", NULL);
+	gz_file = g_file_new_for_path (gz_fname);
+	fos = g_file_create (gz_file, G_FILE_CREATE_NONE, NULL, &error);
+	g_assert_no_error (error);
+	compressor = g_zlib_compressor_new (G_ZLIB_COMPRESSOR_FORMAT_GZIP, -1);
+	cos = g_converter_output_stream_new (G_OUTPUT_STREAM (fos), G_CONVERTER (compressor));
+	g_assert_true (
+	    g_output_stream_write_all (cos, xml_data, strlen (xml_data), NULL, NULL, &error));
+	g_assert_no_error (error);
+	g_assert_true (g_output_stream_close (cos, NULL, &error));
+	g_assert_no_error (error);
+
+	/* uncompressed "copy" with different content - must be skipped in favor of the compressed file */
+	xml_fname = g_build_filename (tmpdir, "data.xml", NULL);
+	g_assert_true (g_file_set_contents (
+	    xml_fname,
+	    "<components version=\"1.0\" origin=\"test\"><component type=\"desktop-application\">"
+	    "<id>org.example.Uncompressed</id><name>Uncompressed</name><summary>Nope</summary>"
+	    "</component></components>",
+	    -1,
+	    &error));
+	g_assert_no_error (error);
+
+	pool = as_pool_new ();
+	as_pool_set_locale (pool, "C");
+	as_pool_set_load_std_data_locations (pool, FALSE);
+	as_pool_set_flags (pool, AS_POOL_FLAG_IGNORE_CACHE_AGE);
+	as_pool_override_cache_locations (pool, cache_dummy_dir, NULL);
+	as_pool_add_extra_data_location_full (pool,
+					      tmpdir,
+					      AS_FORMAT_STYLE_CATALOG,
+					      AS_COMPONENT_SCOPE_USER,
+					      "my-remote");
+
+	ret = as_pool_load (pool, NULL, &error);
+	g_assert_no_error (error);
+	g_assert_true (ret);
+
+	cbox = as_pool_get_components (pool);
+	g_assert_cmpint (as_component_box_len (cbox), >, 0);
+	for (guint i = 0; i < as_component_box_len (cbox); i++) {
+		AsComponent *cpt = as_component_box_index (cbox, i);
+		g_assert_cmpstr (as_component_get_origin (cpt), ==, "my-remote");
+		g_assert_cmpint (as_component_get_scope (cpt), ==, AS_COMPONENT_SCOPE_USER);
+	}
+	g_clear_object (&cbox);
+
+	cbox = as_pool_get_components_by_id (pool, "org.example.Uncompressed");
+	g_assert_cmpint (as_component_box_len (cbox), ==, 0);
+
+	g_assert_cmpint (g_unlink (xml_fname), ==, 0);
+	g_assert_cmpint (g_unlink (gz_fname), ==, 0);
+	g_assert_cmpint (g_rmdir (tmpdir), ==, 0);
+}
+
 static void
 monitor_test_cb (AsFileMonitor *mon, const gchar *filename, guint *cnt)
 {
@@ -1189,6 +1275,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/AppStream/PoolRead", test_pool_read);
 	g_test_add_func ("/AppStream/PoolReadAsync", test_pool_read_async);
 	g_test_add_func ("/AppStream/PoolEmpty", test_pool_empty);
+	g_test_add_func ("/AppStream/PoolExtraLocationFull", test_pool_extra_location_full);
 	g_test_add_func ("/AppStream/Cache", test_cache);
 	g_test_add_func ("/AppStream/CacheExtendsCycle", test_cache_extends_cycle);
 	g_test_add_func ("/AppStream/Merges", test_merge_components);

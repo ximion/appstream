@@ -240,6 +240,18 @@ void Pool::addExtraDataLocation(const QString &directory, Metadata::FormatStyle 
     as_pool_add_extra_data_location(d->pool, qPrintable(directory), (AsFormatStyle) formatStyle);
 }
 
+void Pool::addExtraDataLocation(const QString &directory,
+                                Metadata::FormatStyle formatStyle,
+                                Component::Scope scope,
+                                const QString &origin)
+{
+    as_pool_add_extra_data_location_full(d->pool,
+                                         qPrintable(directory),
+                                         static_cast<AsFormatStyle>(formatStyle),
+                                         static_cast<AsComponentScope>(scope),
+                                         origin.isEmpty() ? nullptr : qPrintable(origin));
+}
+
 void Pool::setLoadStdDataLocations(bool enabled)
 {
     as_pool_set_load_std_data_locations(d->pool, enabled);
