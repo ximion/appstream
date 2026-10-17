@@ -39,20 +39,21 @@
 # lenemter <lenemter@gmail.com>, 2023.
 # vanapro1 <law820314@gmail.com>, 2025.
 # Arthur <personal.hankering128@passinbox.com>, 2026.
+# Andrei Stepanov <adem@users.noreply.hosted.weblate.org>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-09-28 17:26+0200\n"
-"PO-Revision-Date: 2026-10-08 05:51+0000\n"
-"Last-Translator: Arthur <personal.hankering128@passinbox.com>\n"
+"PO-Revision-Date: 2026-10-17 22:51+0000\n"
+"Last-Translator: Andrei Stepanov <adem@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/appstream/translations/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 2026.10.1.dev0\n"
+"X-Generator: Weblate 2026.11.dev0\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1483,13 +1484,13 @@ msgstr "Проверка соотношения для элементов тип
 #: src/as-reviews-client.c:976 src/as-reviews-client.c:1069
 #, c-format
 msgid "The reviews server rejected the request: %s"
-msgstr ""
+msgstr "Сервер отзывов отклонил запрос: %s"
 
 #. TRANSLATORS: We failed to communicate with the ODRS review server, %s is an error message
 #: src/as-reviews-client.c:983
 #, c-format
 msgid "Unable to communicate with the reviews server: %s"
-msgstr ""
+msgstr "Не удалось связаться с сервером отзывов: %s"
 
 #: src/as-reviews-client.c:1070
 msgid "Unknown reason"
@@ -1688,10 +1689,8 @@ msgid "This element (paragraph, list, etc.) of a <description/> tag must not be 
 msgstr "Этот элемент (параграф, список и т. д.) в теге <description/> не должен быть локализован отдельно в процессе сбора метаданных. Вместо этого полностью локализовывайте тег <description/>. Генератор метаданных AppStream (к примеру `appstream-generator`), который сделает всё правильно в процессе компиляции данных."
 
 #: src/as-validator-issue-tag.h:64
-#, fuzzy
-#| msgid "AppStream descriptions support only a limited set of tags to format text: Paragraphs (<p/>) and lists (<ul/>, <ol/>). This description markup contains an invalid XML tag that would not be rendered correctly in applications supporting the metainfo specification."
 msgid "AppStream descriptions support only a limited set of tags to format text: Paragraphs (<p/>), section headings (<heading/>) and lists (<ul/>, <ol/>). This description markup contains an invalid XML tag that would not be rendered correctly in applications supporting the metainfo specification."
-msgstr "Описания AppStream поддерживают только ограниченный набор тегов для форматирования текста: Параграфы (<p/>) и списки (<ul/>, <ol/>). Эта разметка описания содержит недействительный XML-тег, который будет отображаться некорректно в приложениях, поддерживающих спецификацию метаинформации."
+msgstr "Описания AppStream поддерживают только ограниченный набор тегов для форматирования текста: параграфы (<p/>), заголовки разделов (<heading/>) и списки (<ul/>, <ol/>). Эта разметка описания содержит недействительный XML-тег, который не будет корректно отображаться в приложениях, поддерживающих спецификацию метаинформации."
 
 #: src/as-validator-issue-tag.h:70
 msgid "This description paragraph contains invalid markup. Currently, only <em/> and <code/> are permitted."
@@ -1699,11 +1698,11 @@ msgstr "Данный параграф содержит некорректную 
 
 #: src/as-validator-issue-tag.h:75
 msgid "Elements of description markup must not have any attributes set, with the exception of a language property on paragraphs and list items in MetaInfo files. Any other attribute is not permitted and will be removed when the metadata is read."
-msgstr ""
+msgstr "У элементов разметки описания не должно быть установлено никаких атрибутов, за исключением свойства language у параграфов и элементов списка в файлах MetaInfo. Любой другой атрибут не допускается и будет удалён при чтении метаданных."
 
 #: src/as-validator-issue-tag.h:81
 msgid "The markup in this description is nested too deeply. Excessively nested markup will be flattened to plain text when the metadata is read."
-msgstr ""
+msgstr "Разметка в этом описании вложена слишком глубоко. Чрезмерно вложенная разметка будет преобразована в простой текст при чтении метаданных."
 
 #: src/as-validator-issue-tag.h:87
 msgid "Enumerations must only have list items (<li/>) as children."
@@ -1716,12 +1715,12 @@ msgstr "Перечисление не следует переводить цел
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:99
 msgid "Section headings (`description/heading`) are plain text and must not contain any markup, not even <em/> or <code/>. The markup will be removed when the metadata is read."
-msgstr ""
+msgstr "Заголовки разделов (`description/heading`) представляют собой простой текст и не должны содержать никакой разметки, даже <em/> или <code/>. Разметка будет удалена при чтении метаданных."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:106
 msgid "This section heading (`description/heading`) is very long and will likely not be displayed properly everywhere. A heading should be a short label for the section that follows it, and be <= 80 characters long. Use a paragraph (<p/>) for longer text."
-msgstr ""
+msgstr "Этот заголовок раздела (`description/heading`) очень длинный и, вероятно, будет отображаться неправильно не везде. Заголовок должен быть коротким названием следующего за ним раздела и иметь длину не более 80 символов. Для более длинного текста используйте параграф (<p/>)."
 
 #: src/as-validator-issue-tag.h:113
 msgid "The first `description/p` paragraph of this component might be too short (< 80 characters). Please consider starting with a longer paragraph to improve how the description looks like in software centers and to provide more detailed information on this component immediately in the first paragraph."
@@ -2061,11 +2060,11 @@ msgstr "Тег `pkgname` появляется несколько раз. Вы д
 
 #: src/as-validator-issue-tag.h:542
 msgid "The package name contains characters that are not permitted here. A package name must start with an alphanumeric character and may only contain alphanumeric characters as well as `+`, `-`, `.`, `_` and `:`."
-msgstr ""
+msgstr "Имя пакета содержит недопустимые здесь символы. Имя пакета должно начинаться с буквы или цифры и может содержать только буквы и цифры, а также `+`, `-`, `.`, `_` и `:`."
 
 #: src/as-validator-issue-tag.h:548
 msgid "The bundle ID contains characters that are not permitted here. It must start with an alphanumeric character and may only contain alphanumeric characters as well as `+`, `-`, `.`, `_`, `:` and `/`."
-msgstr ""
+msgstr "Идентификатор пакета (bundle ID) содержит недопустимые здесь символы. Он должен начинаться с буквы или цифры и может содержать только буквы и цифры, а также `+`, `-`, `.`, `_`, `:` и `/`."
 
 #: src/as-validator-issue-tag.h:554
 msgid "The component name should (likely) not end with a dot (`.`)."
@@ -2479,10 +2478,8 @@ msgid "The issue is tagged at security vulnerability with a CVE number, but its 
 msgstr "Проблема помечена в уязвимости безопасности номером CVE, но ее значение не похоже на действительный идентификатор CVE."
 
 #: src/as-validator-issue-tag.h:1082
-#, fuzzy
-#| msgid "The issue is tagged at security vulnerability with a CVE number, but its value does not look like a valid CVE identifier."
 msgid "The issue is tagged as security vulnerability with a GCVE identifier, but its value does not follow the `GCVE-<GNA-ID>-<YEAR>-<UNIQUE-ID>` scheme of the Global CVE Allocation System."
-msgstr "Проблема помечена в уязвимости безопасности номером CVE, но ее значение не похоже на действительный идентификатор CVE."
+msgstr "Проблема помечена как уязвимость безопасности идентификатором GCVE, но её значение не соответствует схеме `GCVE-<GNA-ID>-<YEAR>-<UNIQUE-ID>` Глобальной системы распределения CVE."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1089
@@ -2762,7 +2759,7 @@ msgstr "Строка правил для значков, задающая пор
 #. TRANSLATORS: ascompose flag description for: --image-format
 #: tools/appstream-compose.c:292
 msgid "The file format that generated icons and screenshots are stored in (`jxl` by default, or `png` for compatibility with older clients)."
-msgstr ""
+msgstr "Формат файлов, в котором сохраняются сгенерированные значки и снимки экрана (`jxl` по умолчанию или `png` для совместимости со старыми клиентами)."
 
 #. TRANSLATORS: ascompose flag description for: --allow-custom
 #: tools/appstream-compose.c:299
@@ -2825,7 +2822,7 @@ msgstr "Не задан целевой каталог, укажите место
 #: tools/appstream-compose.c:404
 #, c-format
 msgid "Metadata origin not set, using '%s'"
-msgstr ""
+msgstr "Источник метаданных не задан, используется «%s»"
 
 #: tools/appstream-compose.c:409 tools/appstream-compose.c:411
 msgid "WARNING"
@@ -2839,7 +2836,7 @@ msgstr "Невозможно установить политику значко�
 #: tools/appstream-compose.c:453
 #, c-format
 msgid "Invalid image format: %s. Only `jxl` and `png` are supported for generated media.\n"
-msgstr ""
+msgstr "Неверный формат изображения: %s. Для сгенерированных медиафайлов поддерживаются только `jxl` и `png`.\n"
 
 #. TRANSLATORS: Information about as-compose allowlist
 #: tools/appstream-compose.c:483
@@ -2934,22 +2931,22 @@ msgstr "Напечатать подробный вывод о найденных
 #. TRANSLATORS: ascli flag description for: --server (used by the "list-reviews" command)
 #: tools/appstreamcli.c:184
 msgid "URL of the ODRS-compatible reviews server to use."
-msgstr ""
+msgstr "URL-адрес используемого сервера отзывов, совместимого с ODRS."
 
 #. TRANSLATORS: ascli flag description for: --start (used by the "list-reviews" command)
 #: tools/appstreamcli.c:190
 msgid "Index of the first review to fetch, to page through all reviews."
-msgstr ""
+msgstr "Индекс первого отзыва для загрузки — для постраничного просмотра всех отзывов."
 
 #. TRANSLATORS: ascli flag description for: --limit (used by the "list-reviews" command)
 #: tools/appstreamcli.c:196
 msgid "Maximum number of reviews to fetch."
-msgstr ""
+msgstr "Максимальное количество загружаемых отзывов."
 
 #. TRANSLATORS: ascli flag description for: --locale (used by the "list-reviews" and "submit-review" commands)
 #: tools/appstreamcli.c:202
 msgid "Locale to prefer for reviews, instead of the current system locale."
-msgstr ""
+msgstr "Локаль, предпочитаемая для отзывов, вместо текущей системной локали."
 
 #. TRANSLATORS: ascli flag description for: --pedantic (used by the "validate" command)
 #: tools/appstreamcli.c:223
@@ -3269,15 +3266,13 @@ msgstr "Скомпоновать каталог метаданных AppStream �
 
 #. TRANSLATORS: `appstreamcli list-reviews` command description.
 #: tools/appstreamcli.c:1713
-#, fuzzy
-#| msgid "We have information on %i software components."
 msgid "List online user reviews for a software component."
-msgstr "У нас есть информация о %i компонентах программного обеспечения."
+msgstr "Показать онлайн-отзывы пользователей о программном компоненте."
 
 #. TRANSLATORS: `appstreamcli submit-review` command description.
 #: tools/appstreamcli.c:1726
 msgid "Compose and submit an online review for a software component."
-msgstr ""
+msgstr "Составить и отправить онлайн-отзыв о программном компоненте."
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstreamcli.c:1808
@@ -3610,16 +3605,14 @@ msgid "You need to specify a NEWS file as output, or '-' to print to stdout."
 msgstr "Вам необходимо указать файл NEWS в качестве выходного или «-» для печати в stdout."
 
 #: tools/ascli-actions-misc.c:575
-#, fuzzy, c-format
-#| msgid "The release metadata file '%s' is named incorrectly."
+#, c-format
 msgid "Release metadata file '%s' contains no data."
-msgstr "Название файла метаданных выпуска «%s» некорректно."
+msgstr "Файл метаданных выпуска «%s» не содержит данных."
 
 #: tools/ascli-actions-misc.c:590
-#, fuzzy, c-format
-#| msgid "Metainfo file '%s' does not exist."
+#, c-format
 msgid "Metainfo file '%s' contains no component."
-msgstr "Файл Metainfo '%s' не существует."
+msgstr "Файл Metainfo «%s» не содержит компонента."
 
 #: tools/ascli-actions-misc.c:599
 #, c-format
@@ -3627,6 +3620,8 @@ msgid ""
 "The metainfo file '%s' references external release data.\n"
 "Run this command on the release metadata file instead."
 msgstr ""
+"Файл Metainfo «%s» ссылается на внешние данные выпуска.\n"
+"Вместо этого выполните эту команду для файла метаданных выпуска."
 
 #: tools/ascli-actions-misc.c:612
 msgid "You need to specify a NEWS format to write the output in."
@@ -3685,11 +3680,11 @@ msgstr "Физическая память"
 
 #: tools/ascli-actions-misc.c:721 tools/ascli-actions-misc.c:726
 msgid "Largest Display"
-msgstr ""
+msgstr "Наибольший дисплей"
 
 #: tools/ascli-actions-misc.c:724
 msgid "logical px"
-msgstr ""
+msgstr "логических px"
 
 #: tools/ascli-actions-misc.c:726
 msgid "unable to determine"
@@ -3719,91 +3714,90 @@ msgstr "нет"
 
 #: tools/ascli-actions-misc.c:829
 msgid "Overall rating"
-msgstr ""
+msgstr "Общий рейтинг"
 
 #: tools/ascli-actions-misc.c:842
-#, fuzzy, c-format
-#| msgid "Found supported software component '%s'."
+#, c-format
 msgid "No reviews found for component '%s'."
-msgstr "Найден поддерживаемый программный компонент «%s»."
+msgstr "Для компонента «%s» отзывов не найдено."
 
 #: tools/ascli-actions-misc.c:857 tools/ascli-actions-misc.c:958
 msgid "Author"
-msgstr ""
+msgstr "Автор"
 
 #: tools/ascli-actions-misc.c:860
 msgid "Date"
-msgstr ""
+msgstr "Дата"
 
 #: tools/ascli-actions-misc.c:910
 #, c-format
 msgid "Composing a review for '%s' to be submitted to %s."
-msgstr ""
+msgstr "Составление отзыва о «%s» для отправки на %s."
 
 #: tools/ascli-actions-misc.c:913
 msgid "Please only review the software itself, and mind that your review will be publicly visible."
-msgstr ""
+msgstr "Пожалуйста, отзывайтесь только о самом программном обеспечении и учитывайте, что ваш отзыв будет публично виден."
 
 #. TRANSLATORS: Prompt when composing a review, %s is a user name
 #: tools/ascli-actions-misc.c:918
 #, c-format
 msgid "Your display name (leave empty to use '%s'):"
-msgstr ""
+msgstr "Ваше отображаемое имя (оставьте пустым, чтобы использовать «%s»):"
 
 #. TRANSLATORS: Prompt for a star rating when composing a review
 #: tools/ascli-actions-misc.c:925
 msgid "Star rating, from 1 (worst) to 5 (best):"
-msgstr ""
+msgstr "Звёздный рейтинг, от 1 (худший) до 5 (лучший):"
 
 #. TRANSLATORS: Prompt when composing a review
 #: tools/ascli-actions-misc.c:932
 msgid "Short summary of your review:"
-msgstr ""
+msgstr "Краткое резюме вашего отзыва:"
 
 #: tools/ascli-actions-misc.c:938
 msgid "The summary must not be empty and be no longer than 70 characters."
-msgstr ""
+msgstr "Резюме не должно быть пустым и не должно превышать 70 символов."
 
 #. TRANSLATORS: Prompt when composing a review
 #: tools/ascli-actions-misc.c:942
 msgid "Detailed review text (end with an empty line):"
-msgstr ""
+msgstr "Подробный текст отзыва (завершите пустой строкой):"
 
 #: tools/ascli-actions-misc.c:944
 msgid "The review text must not be empty."
-msgstr ""
+msgstr "Текст отзыва не должен быть пустым."
 
 #: tools/ascli-actions-misc.c:965
 msgid "Rating"
-msgstr ""
+msgstr "Рейтинг"
 
 #: tools/ascli-actions-misc.c:968
 msgid "Review"
-msgstr ""
+msgstr "Отзыв"
 
 #. TRANSLATORS: Prompt before publishing a composed review
 #: tools/ascli-actions-misc.c:975
 msgid "Publish this review?"
-msgstr ""
+msgstr "Опубликовать этот отзыв?"
 
 #: tools/ascli-actions-misc.c:979
 msgid "Review submission cancelled."
-msgstr ""
+msgstr "Отправка отзыва отменена."
 
 #: tools/ascli-actions-misc.c:989
 #, c-format
 msgid "Review submitted successfully (ID: %s). Thank you!"
-msgstr ""
+msgstr "Отзыв успешно отправлен (ID: %s). Спасибо!"
 
 #: tools/ascli-actions-misc.c:992
 msgid "Review submitted successfully. Thank you!"
-msgstr ""
+msgstr "Отзыв успешно отправлен. Спасибо!"
 
 #. TRANSLATORS: The placeholder is the invalid package name found in metadata.
 #: tools/ascli-actions-pkgmgr.c:92
 #, c-format
 msgid "Refusing to run the package manager: The component metadata contains an invalid package name: %s"
-msgstr ""
+msgstr "Отказ от запуска менеджера пакетов: метаданные компонента содержат неверное имя пакета: %s"
 
 #: tools/ascli-actions-pkgmgr.c:107
 msgid "No suitable package manager tool found. Please make sure that e.g. \"pkgcli\" (part of PackageKit) is available."
@@ -3818,7 +3812,7 @@ msgstr "Не удаётся запустить процесс менеджера
 #: tools/ascli-actions-pkgmgr.c:144
 #, c-format
 msgid "Refusing to run Flatpak: The component metadata contains an invalid bundle ID: %s"
-msgstr ""
+msgstr "Отказ от запуска Flatpak: метаданные компонента содержат неверный идентификатор пакета (bundle ID): %s"
 
 #: tools/ascli-actions-pkgmgr.c:151
 msgid "Flatpak was not found! Please install it to continue."
@@ -3857,10 +3851,8 @@ msgstr "Пожалуйста, введите номер компонента д�
 #. we reached the end of the input stream without ever getting an
 #. * answer, e.g. because stdin was closed or is not a terminal
 #: tools/ascli-actions-pkgmgr.c:267
-#, fuzzy
-#| msgid "No component matching '%s' found."
 msgid "No component was selected."
-msgstr "Не найден компонент, соответствующий «%s»."
+msgstr "Компонент не выбран."
 
 #: tools/ascli-actions-pkgmgr.c:278
 #, c-format
