@@ -28,6 +28,7 @@
 #include "as-icon-private.h"
 
 #include "as-utils-private.h"
+#include "as-context-private.h"
 
 typedef struct {
 	AsIconKind kind;
@@ -437,6 +438,10 @@ as_icon_to_xml_node (AsIcon *icon, AsContext *ctx, xmlNode *root)
 
 	if (priv->kind == AS_ICON_KIND_LOCAL)
 		value = as_icon_get_filename (icon);
+	else if (priv->kind == AS_ICON_KIND_CACHED && as_context_get_internal_mode (ctx) &&
+		 priv->filename != NULL && g_path_is_absolute (priv->filename))
+		/* keep resolved cached icon paths in our cache, so they don't need to be found again */
+		value = priv->filename;
 	else if (priv->kind == AS_ICON_KIND_REMOTE)
 		value = as_icon_get_url (icon);
 	else

@@ -136,6 +136,8 @@ typedef struct {
 	GPtrArray *locations;
 	GPtrArray *icon_dirs;
 	GRefString *cache_key;
+	/* overrides the origin of loaded components, e.g. with a Flatpak remote name */
+	GRefString *origin;
 	AsFileMonitor *monitor;
 } AsLocationGroup;
 
@@ -219,6 +221,7 @@ as_location_group_unref (AsLocationGroup *lgroup)
 	g_ptr_array_unref (lgroup->locations);
 	g_ptr_array_unref (lgroup->icon_dirs);
 	as_ref_string_release (lgroup->cache_key);
+	as_ref_string_release (lgroup->origin);
 
 	g_free (lgroup);
 }
@@ -697,6 +700,10 @@ as_pool_register_flatpak_dir (AsPool *pool, const gchar *flatpak_root_dir, AsCom
 				 * that, so we work around this issue to not load unnecessary data. Loading the compressed data was faster
 				 * in every tested scenario, so that's the way to go. */
 				lentry->compressed_only = TRUE;
+
+				/* all Flatpak catalogs use "flatpak" as origin, so we use the remote name instead */
+				as_ref_string_assign_safe (&lgroup->origin, repo_name);
+
 				g_hash_table_insert (priv->std_data_locations,
 						     g_strdup (cache_key),
 						     g_steal_pointer (&lgroup));
@@ -1215,6 +1222,11 @@ as_pool_load_catalog_data (AsPool *pool,
 		AsComponent *cpt = as_component_box_index (cbox, i);
 
 		as_component_set_scope (cpt, lgroup->scope);
+		if (lgroup->origin != NULL) {
+			/* resolve icon paths first, as they are found via the original origin */
+			as_component_complete (cpt, lgroup->icon_dirs);
+			as_component_set_origin (cpt, lgroup->origin);
+		}
 
 		/* deal with merge-components later */
 		if (as_component_get_merge_kind (cpt) != AS_MERGE_KIND_NONE) {
