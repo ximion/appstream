@@ -1304,6 +1304,10 @@ test_rdns_convert (void)
 	tmp = as_utils_dns_to_rdns ("https://example.com", "MyApp");
 	g_assert_cmpstr (tmp, ==, "com.example.MyApp");
 	g_free (tmp);
+
+	tmp = as_utils_dns_to_rdns ("https://my-example.org", "My-App");
+	g_assert_cmpstr (tmp, ==, "org.my_example.My-App");
+	g_free (tmp);
 }
 
 /**
