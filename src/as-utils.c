@@ -2267,6 +2267,7 @@ as_utils_dns_to_rdns (const gchar *url, const gchar *suffix)
 	new_cid = g_string_new (suffix);
 	for (i = 0; parts[i] != NULL; i++) {
 		if (g_strcmp0 (parts[i], "www") != 0) {
+			g_strdelimit (parts[i], "-", '_');
 			g_string_prepend_c (new_cid, '.');
 			g_string_prepend (new_cid, parts[i]);
 		}
