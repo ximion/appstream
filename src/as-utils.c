@@ -2494,6 +2494,27 @@ as_utils_tar_child_setup (gpointer user_data)
 #endif
 
 /**
+ * as_utils_tar_stderr_drain_cb:
+ *
+ * Drain tar's stderr to EOF, retaining up to 4096 bytes for diagnostics.
+ */
+static gpointer
+as_utils_tar_stderr_drain_cb (gpointer data)
+{
+	GString *diagnostic = g_string_new ("");
+	gssize bytes_read;
+	gchar buffer[4096];
+
+	while ((bytes_read = g_input_stream_read (data, buffer, sizeof (buffer), NULL, NULL)) > 0) {
+		/* Keep draining even after the diagnostic buffer is full. */
+		g_string_append_len (diagnostic,
+				     buffer,
+				     MIN ((gsize) bytes_read, sizeof (buffer) - diagnostic->len));
+	}
+	return diagnostic;
+}
+
+/**
  * as_utils_extract_tarball:
  *
  * Internal helper function to extract a tarball with tar.
@@ -2508,6 +2529,9 @@ as_utils_extract_tarball (const gchar *filename, const gchar *target_dir, GError
 	g_autoptr(GSubprocessLauncher) launcher = NULL;
 	g_autoptr(GSubprocess) tar_process = NULL;
 	GOutputStream *tar_stdin = NULL;
+	g_autoptr(GString) stderr_buf = NULL;
+	GThread *stderr_thread;
+	gboolean ret = FALSE;
 	gssize bytes_read;
 	gchar buffer[4096];
 	GError *tmp_error = NULL;
@@ -2559,6 +2583,12 @@ as_utils_extract_tarball (const gchar *filename, const gchar *target_dir, GError
 		return FALSE;
 	}
 
+	/* Drain stderr concurrently so tar cannot block on a full pipe while
+	 * we write the archive to its stdin. */
+	stderr_thread = g_thread_new ("as-tar-stderr-drain",
+				      as_utils_tar_stderr_drain_cb,
+				      g_subprocess_get_stderr_pipe (tar_process));
+
 	tar_stdin = g_subprocess_get_stdin_pipe (tar_process);
 
 	/* read decompressed data from the tarball and write it to the tar subprocess */
@@ -2569,32 +2599,33 @@ as_utils_extract_tarball (const gchar *filename, const gchar *target_dir, GError
 						  &tmp_error)) > 0) {
 		if (!g_output_stream_write_all (tar_stdin, buffer, bytes_read, NULL, NULL, error)) {
 			g_prefix_error (error, "Error writing to tar subprocess: ");
-			return FALSE;
+			goto out;
 		}
 	}
 
 	/* close the input stream to tar */
 	if (!g_output_stream_close (tar_stdin, NULL, error)) {
 		g_prefix_error (error, "Error closing tar subprocess stdin: ");
-		return FALSE;
+		goto out;
 	}
 
 	if (tmp_error != NULL) {
 		g_propagate_prefixed_error (error, tmp_error, "Error reading tarball: ");
-		return FALSE;
+		goto out;
 	}
 
 	/* wait for the subprocess to finish and check for errors */
 	if (!g_subprocess_wait_check (tar_process, NULL, &tmp_error)) {
-		g_autoptr(GBytes) stderr_bytes = NULL;
 		g_autoptr(GString) error_msg = NULL;
 		const gchar *stderr_data;
 		gsize stderr_size;
-		GInputStream *tar_stderr = NULL;
 
-		tar_stderr = g_subprocess_get_stderr_pipe (tar_process);
-		stderr_bytes = g_input_stream_read_bytes (tar_stderr, 4096, NULL, NULL);
-		stderr_data = g_bytes_get_data (stderr_bytes, &stderr_size);
+		/* Process exit does not mean all buffered stderr has been consumed. */
+		stderr_buf = g_thread_join (stderr_thread);
+		stderr_thread = NULL;
+
+		stderr_data = stderr_buf->str;
+		stderr_size = stderr_buf->len;
 
 		error_msg = g_string_new ("Tarball extraction failed");
 		if (stderr_size > 0) {
@@ -2623,10 +2654,18 @@ as_utils_extract_tarball (const gchar *filename, const gchar *target_dir, GError
 				     g_subprocess_get_exit_status (tar_process));
 		}
 
-		return FALSE;
+		goto out;
 	}
 
-	return TRUE;
+	ret = TRUE;
+out:
+	/* Closing stdin lets tar exit before we join the drain thread. */
+	if (stderr_thread != NULL) {
+		if (!g_output_stream_is_closed (tar_stdin))
+			g_output_stream_close (tar_stdin, NULL, NULL);
+		stderr_buf = g_thread_join (stderr_thread);
+	}
+	return ret;
 }
 
 /**
