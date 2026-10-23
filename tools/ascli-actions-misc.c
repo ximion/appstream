@@ -689,7 +689,8 @@ ascli_show_sysinfo (const gchar *cachepath, gboolean no_cache, gboolean detailed
 			releases = as_component_load_releases (cpt, FALSE, &rel_error);
 			if (releases == NULL) {
 				if (rel_error != NULL)
-					g_debug ("Unable to load OS releases: %s", rel_error->message);
+					g_debug ("Unable to load OS releases: %s",
+						 rel_error->message);
 			} else {
 				g_autoptr(GString) newer = g_string_new (NULL);
 				GPtrArray *entries;
@@ -697,7 +698,8 @@ ascli_show_sysinfo (const gchar *cachepath, gboolean no_cache, gboolean detailed
 				as_release_list_sort (releases);
 				entries = as_release_list_get_entries (releases);
 				for (guint j = 0; j < entries->len; j++) {
-					AsRelease *rel = AS_RELEASE (g_ptr_array_index (entries, j));
+					AsRelease *rel = AS_RELEASE (
+					    g_ptr_array_index (entries, j));
 					const gchar *rel_version = as_release_get_version (rel);
 					const gchar *kind_str = as_release_kind_to_string (
 					    as_release_get_kind (rel));
@@ -708,28 +710,34 @@ ascli_show_sysinfo (const gchar *cachepath, gboolean no_cache, gboolean detailed
 					cmp = as_vercmp_simple (rel_version, os_version);
 					if (cmp == 0) {
 						/* TRANSLATORS: The kind of the running OS release, e.g. "stable" */
-						ascli_print_stdout ("%s: %s", _("Release Kind"), kind_str);
+						ascli_print_stdout ("%s: %s",
+								    _("Release Kind"), kind_str);
 						if (as_release_get_date (rel) != NULL)
-							ascli_print_stdout ("%s: %s",
-									    /* TRANSLATORS: Release date of the running OS release */
-									    _("Released"),
-									      as_release_get_date (rel));
+							ascli_print_stdout (
+							    "%s: %s",
+							    /* TRANSLATORS: Release date of the running OS release */
+							    _("Released"),
+							      as_release_get_date (rel));
 						if (as_release_get_date_eol (rel) != NULL)
-							ascli_print_stdout ("%s: %s",
-									    /* TRANSLATORS: End-of-life date of the running OS release */
-									    _("Supported Until"),
-									      as_release_get_date_eol (rel));
+							ascli_print_stdout (
+							    "%s: %s",
+							    /* TRANSLATORS: End-of-life date of the running OS release */
+							    _("Supported Until"),
+							      as_release_get_date_eol (rel));
 					} else if (cmp > 0) {
 						if (newer->len > 0)
 							g_string_append (newer, ", ");
-						g_string_append_printf (newer, "%s (%s)", rel_version, kind_str);
+						g_string_append_printf (newer,
+									"%s (%s)",
+									rel_version,
+									kind_str);
 					}
 				}
 				if (newer->len > 0)
-					ascli_print_stdout ("%s: %s",
-							    /* TRANSLATORS: OS releases newer than the running one, with their kind */
-							    _("Newer Releases"),
-							      newer->str);
+					ascli_print_stdout (
+					    "%s: %s",
+					    /* TRANSLATORS: OS releases newer than the running one, with their kind */
+					    _("Newer Releases"), newer->str);
 			}
 		}
 		ascli_print_stdout ("%s: %s",

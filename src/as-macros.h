@@ -42,7 +42,7 @@ G_BEGIN_DECLS
 	} while (0)
 #define as_flags_invert(bitfield, flag) \
 	do {                            \
-		((bitfield) ^= (flag));   \
+		((bitfield) ^= (flag)); \
 	} while (0)
 #define as_flags_contains(bitfield, flag) (((bitfield) & (flag)) > 0)
 
