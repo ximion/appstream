@@ -19,10 +19,11 @@
  * along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#define _GNU_SOURCE
+#include "config.h"
 #include "as-utils.h"
 #include "as-utils-private.h"
 
-#include <config.h>
 #include <glib.h>
 #include <glib-object.h>
 #include <stdlib.h>
@@ -37,6 +38,10 @@
 #include <windows.h>
 #else
 #include <sys/utsname.h>
+#include <unistd.h>
+#endif
+#ifdef HAVE_MEMFD_CREATE
+#include <sys/mman.h>
 #endif
 #include <sys/stat.h>
 #include <errno.h>
@@ -2491,6 +2496,81 @@ as_utils_tar_child_setup (gpointer user_data)
 {
 	as_reset_umask ();
 }
+
+/**
+ * as_utils_tar_stderr_fd_new:
+ *
+ * Create an fd to capture the stderr output of tar in.
+ * Unlike a pipe, it can never fill up and block while we are still writing
+ * archive data to its stdin.
+ * This can happen when the system's clock is completely wrong,
+ * see https://github.com/ximion/appstream/issues/797 for details.
+ *
+ * Returns: A new file descriptor, or -1 on error.
+ */
+static gint
+as_utils_tar_stderr_fd_new (GError **error)
+{
+	gint fd;
+
+#ifdef HAVE_MEMFD_CREATE
+	fd = memfd_create ("appstream-tar-stderr", MFD_CLOEXEC);
+	if (fd >= 0)
+		return fd;
+#endif
+	{
+		g_autofree gchar *tmp_fname = NULL;
+
+		/* fall back to a temporary file, e.g. if memfds were blocked by a seccomp filter */
+		fd = g_file_open_tmp ("appstream-tar-XXXXXX", &tmp_fname, error);
+		if (fd < 0)
+			return -1;
+		g_unlink (tmp_fname);
+	}
+
+	return fd;
+}
+
+/**
+ * as_utils_tar_stderr_read_tail:
+ *
+ * Read the last lines tar has written to its stderr file. We read from the end,
+ * as the actual errors are reported last, after any warnings.
+ *
+ * Returns: (transfer full) (nullable): The stderr output, or %NULL if there was none.
+ */
+static gchar *
+as_utils_tar_stderr_read_tail (gint fd)
+{
+	struct stat st;
+	gchar buffer[4096];
+	gchar *start;
+	gchar *nl;
+	off_t offset;
+	gssize len;
+
+	if (fstat (fd, &st) != 0 || st.st_size == 0)
+		return NULL;
+
+	offset = MAX (st.st_size - (off_t) (sizeof (buffer) - 1), 0);
+	do {
+		len = pread (fd, buffer, sizeof (buffer) - 1, offset);
+	} while (len < 0 && errno == EINTR);
+	if (len <= 0)
+		return NULL;
+	buffer[len] = '\0';
+
+	/* don't start in the middle of a line if we had to cut the output */
+	start = buffer;
+	nl = strchr (buffer, '\n');
+	if (offset > 0 && nl != NULL && nl[1] != '\0')
+		start = nl + 1;
+
+	g_strstrip (start);
+	if (start[0] == '\0')
+		return NULL;
+	return g_strdup (start);
+}
 #endif
 
 /**
@@ -2511,6 +2591,10 @@ as_utils_extract_tarball (const gchar *filename, const gchar *target_dir, GError
 	gssize bytes_read;
 	gchar buffer[4096];
 	GError *tmp_error = NULL;
+	gboolean ret = FALSE;
+#ifndef G_OS_WIN32
+	gint stderr_fd;
+#endif
 
 	/* read the (possibly compressed) tarball */
 	tarz_file = g_file_new_for_path (filename);
@@ -2537,10 +2621,20 @@ as_utils_extract_tarball (const gchar *filename, const gchar *target_dir, GError
 	 * and sticky bits, so a malicious archive could drop a setuid-root binary on the
 	 * system. We explicitly refuse to restore any of that metadata, as well as any
 	 * extended attributes (which may carry file capabilities) and ACLs, and enforce a
-	 * sane umask on the tar process in case our caller had set a permissive one. */
+	 * sane umask on the tar process in case our caller had set a permissive one.
+	 * The stderr output of tar is captured in a file instead of a pipe, as tar may emit
+	 * lots of warnings, and would block on a full pipe while we are still writing to it. */
+#ifdef G_OS_WIN32
 	launcher = g_subprocess_launcher_new (G_SUBPROCESS_FLAGS_STDIN_PIPE |
-					      G_SUBPROCESS_FLAGS_STDERR_PIPE);
-#ifndef G_OS_WIN32
+					      G_SUBPROCESS_FLAGS_STDERR_SILENCE);
+#else
+	stderr_fd = as_utils_tar_stderr_fd_new (error);
+	if (stderr_fd < 0) {
+		g_prefix_error (error, "Unable to create file for tar stderr: ");
+		return FALSE;
+	}
+	launcher = g_subprocess_launcher_new (G_SUBPROCESS_FLAGS_STDIN_PIPE);
+	g_subprocess_launcher_take_stderr_fd (launcher, dup (stderr_fd));
 	g_subprocess_launcher_set_child_setup (launcher, as_utils_tar_child_setup, NULL, NULL);
 #endif
 	tar_process = g_subprocess_launcher_spawn (launcher,
@@ -2556,7 +2650,7 @@ as_utils_extract_tarball (const gchar *filename, const gchar *target_dir, GError
 						   NULL);
 	if (tar_process == NULL) {
 		g_propagate_prefixed_error (error, tmp_error, "Unable to launch tar process: ");
-		return FALSE;
+		goto out;
 	}
 
 	tar_stdin = g_subprocess_get_stdin_pipe (tar_process);
@@ -2569,35 +2663,32 @@ as_utils_extract_tarball (const gchar *filename, const gchar *target_dir, GError
 						  &tmp_error)) > 0) {
 		if (!g_output_stream_write_all (tar_stdin, buffer, bytes_read, NULL, NULL, error)) {
 			g_prefix_error (error, "Error writing to tar subprocess: ");
-			return FALSE;
+			goto out;
 		}
 	}
 
 	/* close the input stream to tar */
 	if (!g_output_stream_close (tar_stdin, NULL, error)) {
 		g_prefix_error (error, "Error closing tar subprocess stdin: ");
-		return FALSE;
+		goto out;
 	}
 
 	if (tmp_error != NULL) {
 		g_propagate_prefixed_error (error, tmp_error, "Error reading tarball: ");
-		return FALSE;
+		goto out;
 	}
 
 	/* wait for the subprocess to finish and check for errors */
 	if (!g_subprocess_wait_check (tar_process, NULL, &tmp_error)) {
-		g_autoptr(GBytes) stderr_bytes = NULL;
 		g_autoptr(GString) error_msg = NULL;
-		const gchar *stderr_data;
-		gsize stderr_size;
-		GInputStream *tar_stderr = NULL;
+		g_autofree gchar *stderr_data = NULL;
 
-		tar_stderr = g_subprocess_get_stderr_pipe (tar_process);
-		stderr_bytes = g_input_stream_read_bytes (tar_stderr, 4096, NULL, NULL);
-		stderr_data = g_bytes_get_data (stderr_bytes, &stderr_size);
+#ifndef G_OS_WIN32
+		stderr_data = as_utils_tar_stderr_read_tail (stderr_fd);
+#endif
 
 		error_msg = g_string_new ("Tarball extraction failed");
-		if (stderr_size > 0) {
+		if (stderr_data != NULL) {
 			g_string_append_printf (error_msg,
 						" with the following error: %s",
 						stderr_data);
@@ -2623,10 +2714,15 @@ as_utils_extract_tarball (const gchar *filename, const gchar *target_dir, GError
 				     g_subprocess_get_exit_status (tar_process));
 		}
 
-		return FALSE;
+		goto out;
 	}
 
-	return TRUE;
+	ret = TRUE;
+out:
+#ifndef G_OS_WIN32
+	close (stderr_fd);
+#endif
+	return ret;
 }
 
 /**
