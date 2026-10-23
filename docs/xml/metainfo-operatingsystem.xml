@@ -90,6 +90,19 @@
 					It is also recommended to set the <literal>date_eol</literal> property on individual releases, to allow software to determine
 					whether the current operating system release is still supported.
 				</para>
+				<para>
+					The <literal>version</literal> of each release must be the value the respective release ships as <code>VERSION_ID</code>
+					in its <filename>/etc/os-release</filename> file, e.g. <code>12</code> rather than <code>12.0</code> for Debian 12.
+					This allows software to find the release that describes the operating system it is currently running on by comparing
+					the <code>VERSION_ID</code> with the release versions, and to treat any release with a higher version as a release
+					the system could be upgraded to.
+					Any release that is currently being developed and has not been published yet should be marked with
+					<code>type="development"</code>.
+				</para>
+				<para>
+					Rolling or development branches of an operating system often do not set <code>VERSION_ID</code> at all. Software must
+					handle the case where no release matches the running operating system.
+				</para>
 			</listitem>
 			</varlistentry>
 
