@@ -324,6 +324,8 @@ const gchar *
 as_system_info_get_os_cid (AsSystemInfo *sysinfo)
 {
 	AsSystemInfoPrivate *priv = GET_PRIVATE (sysinfo);
+	g_autofree gchar *homepage_cid = NULL;
+	g_auto(GStrv) os_id_parts = NULL;
 
 	as_system_info_load_os_release (sysinfo, NULL);
 	if (priv->os_cid != NULL)
@@ -331,6 +333,25 @@ as_system_info_get_os_cid (AsSystemInfo *sysinfo)
 	if (priv->os_homepage == NULL) {
 		priv->os_cid = g_strdup (priv->os_id);
 		return priv->os_cid;
+	}
+
+	homepage_cid = as_utils_dns_to_rdns (priv->os_homepage, NULL);
+	if (priv->os_id != NULL) {
+		if (homepage_cid != NULL) {
+			gsize homepage_cid_len = strlen (homepage_cid);
+
+			if (g_str_has_prefix (priv->os_id, homepage_cid) &&
+			    priv->os_id[homepage_cid_len] == '.') {
+				priv->os_cid = g_strdup (priv->os_id);
+				return priv->os_cid;
+			}
+		}
+
+		os_id_parts = g_strsplit (priv->os_id, ".", -1);
+		if (g_strv_length (os_id_parts) >= 3 && as_utils_is_tld (os_id_parts[0])) {
+			priv->os_cid = g_strdup (priv->os_id);
+			return priv->os_cid;
+		}
 	}
 
 	priv->os_cid = as_utils_dns_to_rdns (priv->os_homepage, priv->os_id);

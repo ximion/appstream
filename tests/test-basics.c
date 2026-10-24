@@ -1216,7 +1216,15 @@ test_system_info (void)
 {
 	g_autoptr(AsSystemInfo) sysinfo_tmpl = NULL;
 	g_autoptr(AsSystemInfo) sysinfo = as_system_info_new ();
+	g_autoptr(AsSystemInfo) sysinfo_rdns_home_match = as_system_info_new ();
+	g_autoptr(AsSystemInfo) sysinfo_rdns_home_match_unknown_tld = as_system_info_new ();
+	g_autoptr(AsSystemInfo) sysinfo_rdns_home_prefix_collision = as_system_info_new ();
+	g_autoptr(AsSystemInfo) sysinfo_rdns_home_mismatch = as_system_info_new ();
 	g_autofree gchar *osrelease_fname = NULL;
+	g_autofree gchar *osrelease_rdns_home_match_fname = NULL;
+	g_autofree gchar *osrelease_rdns_home_match_unknown_tld_fname = NULL;
+	g_autofree gchar *osrelease_rdns_home_prefix_collision_fname = NULL;
+	g_autofree gchar *osrelease_rdns_home_mismatch_fname = NULL;
 	g_autofree gchar *dev_name = NULL;
 	g_autoptr(GError) error = NULL;
 
@@ -1230,6 +1238,38 @@ test_system_info (void)
 
 	g_assert_cmpstr (as_system_info_get_os_id (sysinfo), ==, "debian");
 	g_assert_cmpstr (as_system_info_get_os_cid (sysinfo), ==, "org.debian.debian");
+
+	osrelease_rdns_home_match_fname =
+	    g_build_filename (datadir, "os-release-rdns-home-match", NULL);
+	as_system_info_load_os_release (sysinfo_rdns_home_match,
+					osrelease_rdns_home_match_fname);
+	g_assert_cmpstr (as_system_info_get_os_cid (sysinfo_rdns_home_match),
+			 ==,
+			 "org.freedesktop.platform");
+
+	osrelease_rdns_home_match_unknown_tld_fname =
+	    g_build_filename (datadir, "os-release-rdns-home-match-unknown-tld", NULL);
+	as_system_info_load_os_release (sysinfo_rdns_home_match_unknown_tld,
+					osrelease_rdns_home_match_unknown_tld_fname);
+	g_assert_cmpstr (as_system_info_get_os_cid (sysinfo_rdns_home_match_unknown_tld),
+			 ==,
+			 "invalid.freedesktop.platform");
+
+	osrelease_rdns_home_prefix_collision_fname =
+	    g_build_filename (datadir, "os-release-rdns-home-prefix-collision", NULL);
+	as_system_info_load_os_release (sysinfo_rdns_home_prefix_collision,
+					osrelease_rdns_home_prefix_collision_fname);
+	g_assert_cmpstr (as_system_info_get_os_cid (sysinfo_rdns_home_prefix_collision),
+			 ==,
+			 "invalid.freedesktop.invalid.freedesktopx.platform");
+
+	osrelease_rdns_home_mismatch_fname =
+	    g_build_filename (datadir, "os-release-rdns-home-mismatch", NULL);
+	as_system_info_load_os_release (sysinfo_rdns_home_mismatch,
+					osrelease_rdns_home_mismatch_fname);
+	g_assert_cmpstr (as_system_info_get_os_cid (sysinfo_rdns_home_mismatch),
+			 ==,
+			 "org.example.platform");
 
 #ifndef G_OS_WIN32
 	g_assert_nonnull (as_system_info_get_kernel_name (sysinfo));
