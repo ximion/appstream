@@ -21,6 +21,7 @@
 # phlostically <phlostically@mailinator.com>, 2021.
 # Bernardino <bennycorrente@outlook.it>, 2023, 2024.
 # Alessandro Scarozza <xan.scale@gmail.com>, 2026.
+# Alessandro Scarozza <xan.scale@users.noreply.hosted.weblate.org>, 2026.
 #
 # Translators:
 msgid ""
@@ -28,15 +29,15 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-09-28 17:26+0200\n"
-"PO-Revision-Date: 2026-04-14 21:09+0000\n"
-"Last-Translator: Alessandro Scarozza <xan.scale@gmail.com>\n"
+"PO-Revision-Date: 2026-10-26 06:51+0000\n"
+"Last-Translator: Alessandro Scarozza <xan.scale@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/appstream/translations/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.17-dev\n"
+"X-Generator: Weblate 2026.11.dev0\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -1467,13 +1468,13 @@ msgstr "Il controllo di soddisfacibilità per gli elementi di relazione di tipo 
 #: src/as-reviews-client.c:976 src/as-reviews-client.c:1069
 #, c-format
 msgid "The reviews server rejected the request: %s"
-msgstr ""
+msgstr "Il server delle recensioni ha rifiutato la richiesta: %s"
 
 #. TRANSLATORS: We failed to communicate with the ODRS review server, %s is an error message
 #: src/as-reviews-client.c:983
 #, c-format
 msgid "Unable to communicate with the reviews server: %s"
-msgstr ""
+msgstr "Impossibile comunicare con il server delle recensioni: %s"
 
 #: src/as-reviews-client.c:1070
 #, fuzzy
@@ -1687,11 +1688,11 @@ msgstr "Questo paragrafo di descrizione non contiene un markup valido. Attualmen
 
 #: src/as-validator-issue-tag.h:75
 msgid "Elements of description markup must not have any attributes set, with the exception of a language property on paragraphs and list items in MetaInfo files. Any other attribute is not permitted and will be removed when the metadata is read."
-msgstr ""
+msgstr "Gli elementi del markup di descrizione non devono presentare alcun attributo impostato, fatta eccezione per una proprietà relativa alla lingua su paragrafi ed elementi di elenco nei file MetaInfo. Qualsiasi altro attributo non è consentito e verrà rimosso al momento della lettura dei metadati."
 
 #: src/as-validator-issue-tag.h:81
 msgid "The markup in this description is nested too deeply. Excessively nested markup will be flattened to plain text when the metadata is read."
-msgstr ""
+msgstr "Il markup in questa descrizione è annidato in modo eccessivamente profondo. Quando i metadati verranno letti, il markup annidato in eccesso verrà convertito in testo semplice."
 
 #: src/as-validator-issue-tag.h:87
 msgid "Enumerations must only have list items (<li/>) as children."
@@ -1704,12 +1705,12 @@ msgstr "L'elenco non deve essere tradotto nella sua interezza. Nei file MetaInfo
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:99
 msgid "Section headings (`description/heading`) are plain text and must not contain any markup, not even <em/> or <code/>. The markup will be removed when the metadata is read."
-msgstr ""
+msgstr "Le intestazioni di sezione (`description/heading`) sono costituite da testo semplice e non devono contenere alcun markup, nemmeno <em/> o <code/>. Il markup verrà rimosso al momento della lettura dei metadati."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:106
 msgid "This section heading (`description/heading`) is very long and will likely not be displayed properly everywhere. A heading should be a short label for the section that follows it, and be <= 80 characters long. Use a paragraph (<p/>) for longer text."
-msgstr ""
+msgstr "L'intestazione di questa sezione (`description/heading`) è molto lunga e probabilmente non verrà visualizzata correttamente ovunque. Un'intestazione dovrebbe costituire una breve etichetta per la sezione che la segue e non superare gli 80 caratteri. Per testi più lunghi, utilizza un paragrafo (<p/>)."
 
 #: src/as-validator-issue-tag.h:113
 msgid "The first `description/p` paragraph of this component might be too short (< 80 characters). Please consider starting with a longer paragraph to improve how the description looks like in software centers and to provide more detailed information on this component immediately in the first paragraph."
@@ -2062,11 +2063,11 @@ msgstr "Il tag «pkgname» compare più volte. Potrebbe essere utile creare un m
 
 #: src/as-validator-issue-tag.h:542
 msgid "The package name contains characters that are not permitted here. A package name must start with an alphanumeric character and may only contain alphanumeric characters as well as `+`, `-`, `.`, `_` and `:`."
-msgstr ""
+msgstr "Il nome del pacchetto contiene caratteri non consentiti in questo contesto. Un nome di pacchetto deve iniziare con un carattere alfanumerico e può contenere esclusivamente caratteri alfanumerici, oltre a `+`, `-`, `.`, `_` e `:`."
 
 #: src/as-validator-issue-tag.h:548
 msgid "The bundle ID contains characters that are not permitted here. It must start with an alphanumeric character and may only contain alphanumeric characters as well as `+`, `-`, `.`, `_`, `:` and `/`."
-msgstr ""
+msgstr "L'ID del bundle contiene caratteri non consentiti in questo contesto. Deve iniziare con un carattere alfanumerico e può contenere esclusivamente caratteri alfanumerici, oltre a `+`, `-`, `.`, `_`, `:` e `/`."
 
 #: src/as-validator-issue-tag.h:554
 msgid "The component name should (likely) not end with a dot (`.`)."
@@ -2121,7 +2122,7 @@ msgstr "I file metainfo possono contenere solamente icone di tipo «stock» o «
 #. TRANSLATORS: Please do not translate names in backticks.
 #: src/as-validator-issue-tag.h:614
 msgid "This icon uses an unsupported file format. Icons should be PNG, JPEG-XL (`.jxl`) or vector graphics (`.svg`/`.svgz`) images."
-msgstr ""
+msgstr "Questa icona utilizza un formato file non supportato. Le icone devono essere immagini in formato PNG, JPEG-XL (`.jxl`) o grafica vettoriale (`.svg`/`.svgz`)."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:621
@@ -2780,7 +2781,7 @@ msgstr "Una stringa icon-policy per impostare come gestire le dimensioni delle i
 #. TRANSLATORS: ascompose flag description for: --image-format
 #: tools/appstream-compose.c:292
 msgid "The file format that generated icons and screenshots are stored in (`jxl` by default, or `png` for compatibility with older clients)."
-msgstr ""
+msgstr "Il formato di file in cui vengono salvate le icone e gli screenshot generati (per impostazione predefinita `jxl`, oppure `png` per garantire la compatibilità con client meno recenti)."
 
 #. TRANSLATORS: ascompose flag description for: --allow-custom
 #: tools/appstream-compose.c:299
@@ -2843,7 +2844,7 @@ msgstr "Non è stata impostata alcuna directory di destinazione. Si prega di spe
 #: tools/appstream-compose.c:404
 #, c-format
 msgid "Metadata origin not set, using '%s'"
-msgstr ""
+msgstr "Origine dei metadati non impostata; utilizzo di '%s'"
 
 #: tools/appstream-compose.c:409 tools/appstream-compose.c:411
 msgid "WARNING"
@@ -2858,7 +2859,7 @@ msgstr "Impossibile rimuovere la vecchia cache."
 #: tools/appstream-compose.c:453
 #, c-format
 msgid "Invalid image format: %s. Only `jxl` and `png` are supported for generated media.\n"
-msgstr ""
+msgstr "Formato immagine non valido: %s. Per i contenuti multimediali generati sono supportati solo `jxl` e `png`.\n"
 
 #. TRANSLATORS: Information about as-compose allowlist
 #: tools/appstream-compose.c:483
@@ -2954,22 +2955,22 @@ msgstr "Stampa informazioni dettagliate riguardo ai componenti trovati"
 #. TRANSLATORS: ascli flag description for: --server (used by the "list-reviews" command)
 #: tools/appstreamcli.c:184
 msgid "URL of the ODRS-compatible reviews server to use."
-msgstr ""
+msgstr "URL del server di recensioni compatibile con ODRS da utilizzare."
 
 #. TRANSLATORS: ascli flag description for: --start (used by the "list-reviews" command)
 #: tools/appstreamcli.c:190
 msgid "Index of the first review to fetch, to page through all reviews."
-msgstr ""
+msgstr "Indice della prima recensione da recuperare, per scorrere tutte le recensioni."
 
 #. TRANSLATORS: ascli flag description for: --limit (used by the "list-reviews" command)
 #: tools/appstreamcli.c:196
 msgid "Maximum number of reviews to fetch."
-msgstr ""
+msgstr "Numero massimo di recensioni da recuperare."
 
 #. TRANSLATORS: ascli flag description for: --locale (used by the "list-reviews" and "submit-review" commands)
 #: tools/appstreamcli.c:202
 msgid "Locale to prefer for reviews, instead of the current system locale."
-msgstr ""
+msgstr "Localizzazione da preferire per le revisioni, anziché la localizzazione del sistema corrente."
 
 #. TRANSLATORS: ascli flag description for: --pedantic (used by the "validate" command)
 #: tools/appstreamcli.c:223
@@ -3304,7 +3305,7 @@ msgstr "Trovate informazioni su %i componenti software."
 #. TRANSLATORS: `appstreamcli submit-review` command description.
 #: tools/appstreamcli.c:1726
 msgid "Compose and submit an online review for a software component."
-msgstr ""
+msgstr "Scrivi e invia una recensione online per un componente software."
 
 #. TRANSLATORS: ascli has been run without command.
 #: tools/appstreamcli.c:1808
@@ -3663,6 +3664,8 @@ msgid ""
 "The metainfo file '%s' references external release data.\n"
 "Run this command on the release metadata file instead."
 msgstr ""
+"Il file di metainfo '%s' fa riferimento a dati di rilascio esterni.\n"
+"Esegui invece questo comando sul file di metadati del rilascio."
 
 #: tools/ascli-actions-misc.c:612
 #, fuzzy
@@ -3723,11 +3726,11 @@ msgstr "Memoria fisica"
 
 #: tools/ascli-actions-misc.c:721 tools/ascli-actions-misc.c:726
 msgid "Largest Display"
-msgstr ""
+msgstr "Display più grande"
 
 #: tools/ascli-actions-misc.c:724
 msgid "logical px"
-msgstr ""
+msgstr "px logico"
 
 #: tools/ascli-actions-misc.c:726
 #, fuzzy
@@ -3759,7 +3762,7 @@ msgstr "no"
 
 #: tools/ascli-actions-misc.c:829
 msgid "Overall rating"
-msgstr ""
+msgstr "Valutazione complessiva"
 
 #: tools/ascli-actions-misc.c:842
 #, fuzzy, c-format
@@ -3769,81 +3772,81 @@ msgstr "Trovati %s componenti."
 
 #: tools/ascli-actions-misc.c:857 tools/ascli-actions-misc.c:958
 msgid "Author"
-msgstr ""
+msgstr "Autore"
 
 #: tools/ascli-actions-misc.c:860
 msgid "Date"
-msgstr ""
+msgstr "Data"
 
 #: tools/ascli-actions-misc.c:910
 #, c-format
 msgid "Composing a review for '%s' to be submitted to %s."
-msgstr ""
+msgstr "Composizione di una recensione per '%s' da inviare a %s."
 
 #: tools/ascli-actions-misc.c:913
 msgid "Please only review the software itself, and mind that your review will be publicly visible."
-msgstr ""
+msgstr "Ti preghiamo di recensire esclusivamente il software; tieni presente che la tua recensione sarà visibile pubblicamente."
 
 #. TRANSLATORS: Prompt when composing a review, %s is a user name
 #: tools/ascli-actions-misc.c:918
 #, c-format
 msgid "Your display name (leave empty to use '%s'):"
-msgstr ""
+msgstr "Il tuo nome visualizzato (lascia vuoto per usare '%s'):"
 
 #. TRANSLATORS: Prompt for a star rating when composing a review
 #: tools/ascli-actions-misc.c:925
 msgid "Star rating, from 1 (worst) to 5 (best):"
-msgstr ""
+msgstr "Valutazione in stelle, da 1 (peggiore) a 5 (migliore):"
 
 #. TRANSLATORS: Prompt when composing a review
 #: tools/ascli-actions-misc.c:932
 msgid "Short summary of your review:"
-msgstr ""
+msgstr "Breve riassunto della tua recensione:"
 
 #: tools/ascli-actions-misc.c:938
 msgid "The summary must not be empty and be no longer than 70 characters."
-msgstr ""
+msgstr "Il riassunto non deve essere vuoto e non deve superare i 70 caratteri."
 
 #. TRANSLATORS: Prompt when composing a review
 #: tools/ascli-actions-misc.c:942
 msgid "Detailed review text (end with an empty line):"
-msgstr ""
+msgstr "Testo dettagliato della recensione (termina con una riga vuota):"
 
 #: tools/ascli-actions-misc.c:944
 msgid "The review text must not be empty."
-msgstr ""
+msgstr "Il testo della recensione non deve essere vuoto."
 
 #: tools/ascli-actions-misc.c:965
 msgid "Rating"
-msgstr ""
+msgstr "Valutazione"
 
 #: tools/ascli-actions-misc.c:968
 msgid "Review"
-msgstr ""
+msgstr "Recensione"
 
 #. TRANSLATORS: Prompt before publishing a composed review
 #: tools/ascli-actions-misc.c:975
 msgid "Publish this review?"
-msgstr ""
+msgstr "Pubblicare questa recensione?"
 
 #: tools/ascli-actions-misc.c:979
 msgid "Review submission cancelled."
-msgstr ""
+msgstr "Invio della recensione annullato."
 
 #: tools/ascli-actions-misc.c:989
 #, c-format
 msgid "Review submitted successfully (ID: %s). Thank you!"
-msgstr ""
+msgstr "Recensione inviata correttamente (ID: %s). Grazie!"
 
 #: tools/ascli-actions-misc.c:992
 msgid "Review submitted successfully. Thank you!"
-msgstr ""
+msgstr "Recensione inviata correttamente. Grazie!"
 
 #. TRANSLATORS: The placeholder is the invalid package name found in metadata.
 #: tools/ascli-actions-pkgmgr.c:92
 #, c-format
 msgid "Refusing to run the package manager: The component metadata contains an invalid package name: %s"
-msgstr ""
+msgstr "Impossibile eseguire il gestore pacchetti: i metadati del componente contengono un nome di pacchetto non valido: %s"
 
 #: tools/ascli-actions-pkgmgr.c:107
 #, fuzzy
@@ -3859,7 +3862,7 @@ msgstr "Impossibile lanciare il gestore di pacchetti: %s"
 #: tools/ascli-actions-pkgmgr.c:144
 #, c-format
 msgid "Refusing to run Flatpak: The component metadata contains an invalid bundle ID: %s"
-msgstr ""
+msgstr "Impossibile eseguire Flatpak: i metadati del componente contengono un ID del pacchetto non valido: %s"
 
 #: tools/ascli-actions-pkgmgr.c:151
 msgid "Flatpak was not found! Please install it to continue."
