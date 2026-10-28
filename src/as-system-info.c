@@ -328,6 +328,16 @@ as_system_info_get_os_cid (AsSystemInfo *sysinfo)
 	as_system_info_load_os_release (sysinfo, NULL);
 	if (priv->os_cid != NULL)
 		return priv->os_cid;
+
+	/* the OS ID may already be an rDNS ID */
+	if (priv->os_id != NULL) {
+		g_auto(GStrv) id_parts = g_strsplit (priv->os_id, ".", 3);
+		if (g_strv_length (id_parts) == 3 && as_utils_is_tld (id_parts[0])) {
+			priv->os_cid = g_strdup (priv->os_id);
+			return priv->os_cid;
+		}
+	}
+
 	if (priv->os_homepage == NULL) {
 		priv->os_cid = g_strdup (priv->os_id);
 		return priv->os_cid;

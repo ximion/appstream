@@ -1217,8 +1217,18 @@ test_system_info (void)
 	g_autoptr(AsSystemInfo) sysinfo_tmpl = NULL;
 	g_autoptr(AsSystemInfo) sysinfo = as_system_info_new ();
 	g_autofree gchar *osrelease_fname = NULL;
+	g_autofree gchar *tmp_dir = NULL;
+	g_autofree gchar *tmp_osrelease_fname = NULL;
 	g_autofree gchar *dev_name = NULL;
 	g_autoptr(GError) error = NULL;
+	struct {
+		const gchar *id;
+		const gchar *expected_cid;
+	} os_cid_tests[] = {
+		{ "org.freedesktop.platform", "org.freedesktop.platform"	     },
+		{ "freedesktop-platform",     "org.freedesktop.freedesktop-platform" },
+		{ NULL,			      NULL				     }
+	};
 
 	osrelease_fname = g_build_filename (datadir, "os-release-1", NULL);
 
@@ -1230,6 +1240,26 @@ test_system_info (void)
 
 	g_assert_cmpstr (as_system_info_get_os_id (sysinfo), ==, "debian");
 	g_assert_cmpstr (as_system_info_get_os_cid (sysinfo), ==, "org.debian.debian");
+
+	/* an OS ID that already is rDNS must be used as-is, others get the homepage prefix */
+	tmp_dir = g_dir_make_tmp ("as-test-osrelease-XXXXXX", &error);
+	g_assert_no_error (error);
+	tmp_osrelease_fname = g_build_filename (tmp_dir, "os-release", NULL);
+	for (guint i = 0; os_cid_tests[i].id != NULL; i++) {
+		g_autoptr(AsSystemInfo) sysinfo_osr = as_system_info_new ();
+		g_autofree gchar *osrelease_data = g_strdup_printf (
+		    "ID=%s\nHOME_URL=\"https://freedesktop.org\"\n",
+		    os_cid_tests[i].id);
+
+		g_file_set_contents (tmp_osrelease_fname, osrelease_data, -1, &error);
+		g_assert_no_error (error);
+
+		as_system_info_load_os_release (sysinfo_osr, tmp_osrelease_fname);
+		g_assert_cmpstr (as_system_info_get_os_cid (sysinfo_osr),
+				 ==,
+				 os_cid_tests[i].expected_cid);
+	}
+	as_utils_delete_dir_recursive (tmp_dir);
 
 #ifndef G_OS_WIN32
 	g_assert_nonnull (as_system_info_get_kernel_name (sysinfo));
