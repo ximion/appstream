@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2026-09-28 17:26+0200\n"
+"POT-Creation-Date: 2026-10-26 10:22+0100\n"
 "PO-Revision-Date: 2026-09-30 05:52+0000\n"
 "Last-Translator: Roy-Magne Mo <rmo@sunnmore.net>\n"
 "Language-Team: Norwegian Nynorsk <https://hosted.weblate.org/projects/appstream/translations/nn/>\n"
@@ -408,505 +408,892 @@ msgstr "Alle"
 msgid "Early Childhood"
 msgstr "Småbarn"
 
+#. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:836
+#, fuzzy
+#| msgid "No cartoon violence"
+msgid "Cartoon Violence"
+msgstr "Ingen teikneserievald"
+
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:834
+#: src/as-content-rating.c:838
+#, fuzzy
+#| msgid "No cartoon violence"
+msgid "No information regarding cartoon violence"
+msgstr "Ingen teikneserievald"
+
+#. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:840
 msgid "No cartoon violence"
 msgstr "Ingen teikneserievald"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:836
+#: src/as-content-rating.c:842
 msgid "Cartoon characters in unsafe situations"
 msgstr "Teikneseriefigurar i farlege situasjonar"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:838
+#: src/as-content-rating.c:844
 msgid "Cartoon characters in aggressive conflict"
 msgstr "Teikneseriefigurar i aggressiv konflikt"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:840
+#: src/as-content-rating.c:846
 msgid "Graphic violence involving cartoon characters"
 msgstr "Grafisk vald med teikneseriefigurar"
 
+#. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:851
+#, fuzzy
+#| msgid "No fantasy violence"
+msgid "Fantasy Violence"
+msgstr "Ingen fantasy-vald"
+
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:845
+#: src/as-content-rating.c:853
+#, fuzzy
+#| msgid "No fantasy violence"
+msgid "No information regarding fantasy violence"
+msgstr "Ingen fantasy-vald"
+
+#. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:855
 msgid "No fantasy violence"
 msgstr "Ingen fantasy-vald"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:847
+#: src/as-content-rating.c:857
 msgid "Characters in unsafe situations easily distinguishable from reality"
 msgstr "Figurar i farlege situasjonar som lett kan skiljast frå røynda"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:849
+#: src/as-content-rating.c:859
 msgid "Characters in aggressive conflict easily distinguishable from reality"
 msgstr "Figurar i aggressiv konflikt som lett kan skiljast frå røynda"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:851
+#: src/as-content-rating.c:861
 msgid "Graphic violence easily distinguishable from reality"
 msgstr "Grafisk vald som lett kan skiljast frå røynda"
 
+#. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:866
+#, fuzzy
+#| msgid "No realistic violence"
+msgid "Realistic Violence"
+msgstr "Ingen realistisk vald"
+
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:856
+#: src/as-content-rating.c:868
+#, fuzzy
+#| msgid "No realistic violence"
+msgid "No information regarding realistic violence"
+msgstr "Ingen realistisk vald"
+
+#. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:870
 msgid "No realistic violence"
 msgstr "Ingen realistisk vald"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:858
+#: src/as-content-rating.c:872
 msgid "Mildly realistic characters in unsafe situations"
 msgstr "Litt realistiske figurar i farlege situasjonar"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:860
+#: src/as-content-rating.c:874
 msgid "Depictions of realistic characters in aggressive conflict"
 msgstr "Framstillingar av realistiske figurar i aggressiv konflikt"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:862
+#: src/as-content-rating.c:876
 msgid "Graphic violence involving realistic characters"
 msgstr "Grafisk vald med realistiske figurar"
 
+#. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:881
+msgid "Violence Depicting Bloodshed"
+msgstr ""
+
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:867
+#: src/as-content-rating.c:883
+msgid "No information regarding bloodshed"
+msgstr ""
+
+#. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:885
 msgid "No bloodshed"
 msgstr "Ingen blodsøl"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:869
+#: src/as-content-rating.c:887
 msgid "Unrealistic bloodshed"
 msgstr "Urealistisk blodsøl"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:871
+#: src/as-content-rating.c:889
 msgid "Realistic bloodshed"
 msgstr "Realistisk blodsøl"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:873
+#: src/as-content-rating.c:891
 msgid "Depictions of bloodshed and the mutilation of body parts"
 msgstr "Framstillingar av blodsøl og lemlesting av kroppsdelar"
 
+#. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:896
+#, fuzzy
+#| msgid "No sexual violence"
+msgid "Sexual Violence"
+msgstr "Ingen seksuell vald"
+
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:878
+#: src/as-content-rating.c:898
+#, fuzzy
+#| msgid "No sexual violence"
+msgid "No information regarding sexual violence"
+msgstr "Ingen seksuell vald"
+
+#. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:900
 msgid "No sexual violence"
 msgstr "Ingen seksuell vald"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:882
+#: src/as-content-rating.c:904
 msgid "Rape or other violent sexual behavior"
 msgstr "Valdtekt eller anna valdeleg seksuell åtferd"
 
+#. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:909
+msgid "Alcohol"
+msgstr ""
+
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:887
+#: src/as-content-rating.c:911
+#, fuzzy
+#| msgid "No references to alcohol"
+msgid "No information regarding references to alcohol"
+msgstr "Ingen tilvisingar til alkohol"
+
+#. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:913
 msgid "No references to alcohol"
 msgstr "Ingen tilvisingar til alkohol"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:889
+#: src/as-content-rating.c:915
 msgid "References to alcoholic beverages"
 msgstr "Tilvisingar til alkoholhaldig drikke"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:891
+#: src/as-content-rating.c:917
 msgid "Use of alcoholic beverages"
 msgstr "Bruk av alkoholhaldig drikke"
 
+#. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:923
+msgid "Narcotics"
+msgstr ""
+
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:897
+#: src/as-content-rating.c:925
+#, fuzzy
+#| msgid "No references to illicit drugs"
+msgid "No information regarding references to illicit drugs"
+msgstr "Ingen tilvisingar til ulovlege rusmiddel"
+
+#. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:927
 msgid "No references to illicit drugs"
 msgstr "Ingen tilvisingar til ulovlege rusmiddel"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:899
+#: src/as-content-rating.c:929
 msgid "References to illicit drugs"
 msgstr "Tilvisingar til ulovlege rusmiddel"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:901
+#: src/as-content-rating.c:931
 msgid "Use of illicit drugs"
 msgstr "Bruk av ulovlege rusmiddel"
 
+#. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:937
+msgid "Tobacco"
+msgstr ""
+
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:907
+#: src/as-content-rating.c:939
+#, fuzzy
+#| msgid "No references to tobacco products"
+msgid "No information regarding references to tobacco products"
+msgstr "Ingen tilvisingar til tobakksprodukt"
+
+#. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:941
 msgid "No references to tobacco products"
 msgstr "Ingen tilvisingar til tobakksprodukt"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:909
+#: src/as-content-rating.c:943
 msgid "References to tobacco products"
 msgstr "Tilvisingar til tobakksprodukt"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:911
+#: src/as-content-rating.c:945
 msgid "Use of tobacco products"
 msgstr "Bruk av tobakksprodukt"
 
+#. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:951
+msgid "Nudity"
+msgstr ""
+
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:917
+#: src/as-content-rating.c:953
+#, fuzzy
+#| msgid "No nudity of any sort"
+msgid "No information regarding nudity of any sort"
+msgstr "Ingen nakenheit av noko slag"
+
+#. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:955
 msgid "No nudity of any sort"
 msgstr "Ingen nakenheit av noko slag"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:919
+#: src/as-content-rating.c:957
 msgid "Brief artistic nudity"
 msgstr "Kort kunstnarisk nakenheit"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:921
+#: src/as-content-rating.c:959
 msgid "Prolonged nudity"
 msgstr "Langvarig nakenheit"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:923
+#: src/as-content-rating.c:961
 msgid "Explicit nudity involving visible sexual organs"
 msgstr "Eksplisitt nakenheit med synlege kjønnsorgan"
 
+#. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:966
+msgid "Sexual Themes"
+msgstr ""
+
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:928
+#: src/as-content-rating.c:968
+#, fuzzy
+#| msgid "No references to or depictions of sexual nature"
+msgid "No information regarding references to or depictions of sexual nature"
+msgstr "Ingen tilvisingar til eller framstillingar av seksuell art"
+
+#. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:970
 msgid "No references to or depictions of sexual nature"
 msgstr "Ingen tilvisingar til eller framstillingar av seksuell art"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:930
+#: src/as-content-rating.c:972
 msgid "Provocative references or depictions"
 msgstr "Provoserande tilvisingar eller framstillingar"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:932
+#: src/as-content-rating.c:974
 msgid "Sexual references or depictions"
 msgstr "Seksuelle tilvisingar eller framstillingar"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:934
+#: src/as-content-rating.c:976
 msgid "Graphic sexual behavior"
 msgstr "Grafisk seksuell åtferd"
 
+#. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:981
+msgid "Profanity"
+msgstr ""
+
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:939
+#: src/as-content-rating.c:983
+#, fuzzy
+#| msgid "No profanity of any kind"
+msgid "No information regarding profanity of any kind"
+msgstr "Inga banning av noko slag"
+
+#. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:985
 msgid "No profanity of any kind"
 msgstr "Inga banning av noko slag"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:941
+#: src/as-content-rating.c:987
 msgid "Mild or infrequent use of profanity"
 msgstr "Mild eller sjeldan bruk av banning"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:943
+#: src/as-content-rating.c:989
 msgid "Moderate use of profanity"
 msgstr "Moderat bruk av banning"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:945
+#: src/as-content-rating.c:991
 msgid "Strong or frequent use of profanity"
 msgstr "Grov eller hyppig bruk av banning"
 
+#. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:996
+#, fuzzy
+#| msgid "No inappropriate humor"
+msgid "Inappropriate Humor"
+msgstr "Ingen upassande humor"
+
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:950
+#: src/as-content-rating.c:998
+#, fuzzy
+#| msgid "No inappropriate humor"
+msgid "No information regarding inappropriate humor"
+msgstr "Ingen upassande humor"
+
+#. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:1000
 msgid "No inappropriate humor"
 msgstr "Ingen upassande humor"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:952
+#: src/as-content-rating.c:1002
 msgid "Slapstick humor"
 msgstr "Slapstick-humor"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:954
+#: src/as-content-rating.c:1004
 msgid "Vulgar or bathroom humor"
 msgstr "Vulgær humor eller dohumor"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:956
+#: src/as-content-rating.c:1006
 msgid "Mature or sexual humor"
 msgstr "Vaksen eller seksuell humor"
 
+#. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:1011
+#, fuzzy
+#| msgid "Description"
+msgid "Discrimination"
+msgstr "Skildring"
+
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:961
+#: src/as-content-rating.c:1013
+#, fuzzy
+#| msgid "No discriminatory language of any kind"
+msgid "No information regarding discriminatory language of any kind"
+msgstr "Ikkje noko diskriminerande språk av noko slag"
+
+#. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:1015
 msgid "No discriminatory language of any kind"
 msgstr "Ikkje noko diskriminerande språk av noko slag"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:963
+#: src/as-content-rating.c:1017
 msgid "Negativity towards a specific group of people"
 msgstr "Negativitet mot ei bestemt gruppe menneske"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:965
+#: src/as-content-rating.c:1019
 msgid "Discrimination designed to cause emotional harm"
 msgstr "Diskriminering som er meint å gjere kjenslemessig skade"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:967
+#: src/as-content-rating.c:1021
 msgid "Explicit discrimination based on gender, sexuality, race or religion"
 msgstr "Eksplisitt diskriminering basert på kjønn, seksualitet, rase eller religion"
 
+#. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:1026
+msgid "Advertising"
+msgstr ""
+
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:972
+#: src/as-content-rating.c:1028
+#, fuzzy
+#| msgid "No advertising of any kind"
+msgid "No information regarding advertising of any kind"
+msgstr "Ingen reklame av noko slag"
+
+#. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:1030
 msgid "No advertising of any kind"
 msgstr "Ingen reklame av noko slag"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:974
+#: src/as-content-rating.c:1032
 msgid "Product placement"
 msgstr "Produktplassering"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:976
+#: src/as-content-rating.c:1034
 msgid "Explicit references to specific brands or trademarked products"
 msgstr "Eksplisitte tilvisingar til bestemte merkevarer eller varemerkte produkt"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:978
+#: src/as-content-rating.c:1036
 msgid "Users are encouraged to purchase specific real-world items"
 msgstr "Brukarane vert oppmoda til å kjøpe bestemte ting i den verkelege verda"
 
+#. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:1041
+msgid "Gambling"
+msgstr ""
+
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:983
+#: src/as-content-rating.c:1043
+#, fuzzy
+#| msgid "No gambling of any kind"
+msgid "No information regarding gambling of any kind"
+msgstr "Ingen gambling av noko slag"
+
+#. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:1045
 msgid "No gambling of any kind"
 msgstr "Ingen gambling av noko slag"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:985
+#: src/as-content-rating.c:1047
 msgid "Gambling on random events using tokens or credits"
 msgstr "Gambling på tilfeldige hendingar med poeng eller kredittar"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:987
+#: src/as-content-rating.c:1049
 msgid "Gambling using “play” money"
 msgstr "Gambling med «leikepengar»"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:989
+#: src/as-content-rating.c:1051
 msgid "Gambling using real money"
 msgstr "Gambling med ekte pengar"
 
+#. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:1056
+msgid "Purchasing"
+msgstr ""
+
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:994
+#: src/as-content-rating.c:1058
+#, fuzzy
+#| msgid "No ability to spend money"
+msgid "No information regarding the ability to spend money"
+msgstr "Ingen moglegheit til å bruke pengar"
+
+#. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:1060
 msgid "No ability to spend money"
 msgstr "Ingen moglegheit til å bruke pengar"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:996
+#: src/as-content-rating.c:1062
 msgid "Users are encouraged to donate real money"
 msgstr "Brukarane vert oppmoda til å gje ekte pengar"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:999
+#: src/as-content-rating.c:1065
 msgid "Ability to spend real money in-app"
 msgstr "Moglegheit til å bruke ekte pengar i appen"
 
+#. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:1070
+msgid "Chat Between Users"
+msgstr ""
+
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1004
+#: src/as-content-rating.c:1072
+#, fuzzy
+#| msgid "No way to chat with other users"
+msgid "No information regarding ways to chat with other users"
+msgstr "Ingen måte å prate med andre brukarar på"
+
+#. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:1074
 msgid "No way to chat with other users"
 msgstr "Ingen måte å prate med andre brukarar på"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1006
+#: src/as-content-rating.c:1076
 msgid "User-to-user interactions without chat functionality"
 msgstr "Samhandling mellom brukarar utan pratefunksjon"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1008
+#: src/as-content-rating.c:1078
 msgid "Moderated chat functionality between users"
 msgstr "Moderert pratefunksjon mellom brukarar"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1010
+#: src/as-content-rating.c:1080
 msgid "Uncontrolled chat functionality between users"
 msgstr "Ukontrollert pratefunksjon mellom brukarar"
 
+#. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:1085
+msgid "Audio Chat Between Users"
+msgstr ""
+
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1015
+#: src/as-content-rating.c:1087
+#, fuzzy
+#| msgid "No way to talk with other users"
+msgid "No information regarding ways to talk with other users"
+msgstr "Ingen måte å snakke med andre brukarar på"
+
+#. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:1089
 msgid "No way to talk with other users"
 msgstr "Ingen måte å snakke med andre brukarar på"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1018
+#: src/as-content-rating.c:1092
 msgid "Moderated audio or video chat functionality between users"
 msgstr "Moderert lyd- eller videoprat mellom brukarar"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1020
+#: src/as-content-rating.c:1094
 msgid "Uncontrolled audio or video chat functionality between users"
 msgstr "Ukontrollert lyd- eller videoprat mellom brukarar"
 
+#. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:1099
+msgid "Contact Details"
+msgstr ""
+
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1025
+#: src/as-content-rating.c:1101
+#, fuzzy
+#| msgid "No sharing of social network usernames or email addresses"
+msgid "No information regarding sharing of social network usernames or email addresses"
+msgstr "Inga deling av brukarnamn på sosiale nettverk eller e-postadresser"
+
+#. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:1103
 msgid "No sharing of social network usernames or email addresses"
 msgstr "Inga deling av brukarnamn på sosiale nettverk eller e-postadresser"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1029
+#: src/as-content-rating.c:1107
 msgid "Sharing social network usernames or email addresses"
 msgstr "Deling av brukarnamn på sosiale nettverk eller e-postadresser"
 
+#. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:1112
+msgid "Identifying Information"
+msgstr ""
+
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1034
+#: src/as-content-rating.c:1114
+#, fuzzy
+#| msgid "No sharing of user information with third parties"
+msgid "No information regarding sharing of user information with third parties"
+msgstr "Inga deling av brukaropplysningar med tredjepartar"
+
+#. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:1116
 msgid "No sharing of user information with third parties"
 msgstr "Inga deling av brukaropplysningar med tredjepartar"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1036
+#: src/as-content-rating.c:1118
 msgid "Checking for the latest application version"
 msgstr "Ser etter nyaste versjon av programmet"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1038
+#: src/as-content-rating.c:1120
 msgid "Sharing diagnostic data that does not let others identify the user"
 msgstr "Deling av diagnosedata som ikkje lèt andre identifisere brukaren"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1040
+#: src/as-content-rating.c:1122
 msgid "Sharing information that lets others identify the user"
 msgstr "Deling av informasjon som gjer det mogleg for andre å identifisere brukaren"
 
+#. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:1127
+msgid "Location Sharing"
+msgstr ""
+
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1045
+#: src/as-content-rating.c:1129
+#, fuzzy
+#| msgid "No sharing of physical location with other users"
+msgid "No information regarding sharing of physical location with other users"
+msgstr "Inga deling av fysisk posisjon med andre brukarar"
+
+#. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:1131
 msgid "No sharing of physical location with other users"
 msgstr "Inga deling av fysisk posisjon med andre brukarar"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1049
+#: src/as-content-rating.c:1135
 msgid "Sharing physical location with other users"
 msgstr "Deling av fysisk posisjon med andre brukarar"
 
+#. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:1156
+msgid "Homosexuality"
+msgstr ""
+
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1070
+#: src/as-content-rating.c:1158
+#, fuzzy
+#| msgid "No references to homosexuality"
+msgid "No information regarding references to homosexuality"
+msgstr "Ingen tilvisingar til homofili"
+
+#. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:1160
 msgid "No references to homosexuality"
 msgstr "Ingen tilvisingar til homofili"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1072
+#: src/as-content-rating.c:1162
 msgid "Indirect references to homosexuality"
 msgstr "Indirekte tilvisingar til homofili"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1074
+#: src/as-content-rating.c:1164
 msgid "Kissing between people of the same gender"
 msgstr "Kyssing mellom personar av same kjønn"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1076
+#: src/as-content-rating.c:1166
 msgid "Graphic sexual behavior between people of the same gender"
 msgstr "Grafisk seksuell åtferd mellom personar av same kjønn"
 
+#. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:1171
+msgid "Prostitution"
+msgstr ""
+
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1081
+#: src/as-content-rating.c:1173
+#, fuzzy
+#| msgid "No references to prostitution"
+msgid "No information regarding references to prostitution"
+msgstr "Ingen tilvisingar til prostitusjon"
+
+#. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:1175
 msgid "No references to prostitution"
 msgstr "Ingen tilvisingar til prostitusjon"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1083
+#: src/as-content-rating.c:1177
 msgid "Indirect references to prostitution"
 msgstr "Indirekte tilvisingar til prostitusjon"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1085
+#: src/as-content-rating.c:1179
 msgid "Direct references to prostitution"
 msgstr "Direkte tilvisingar til prostitusjon"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1087
+#: src/as-content-rating.c:1181
 msgid "Graphic depictions of the act of prostitution"
 msgstr "Grafiske framstillingar av prostitusjonshandlinga"
 
+#. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:1186
+#, fuzzy
+#| msgid "Adults Only"
+msgid "Adultery"
+msgstr "Berre for vaksne"
+
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1092
+#: src/as-content-rating.c:1188
+#, fuzzy
+#| msgid "No references to adultery"
+msgid "No information regarding references to adultery"
+msgstr "Ingen tilvisingar til ekteskapsbrot"
+
+#. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:1190
 msgid "No references to adultery"
 msgstr "Ingen tilvisingar til ekteskapsbrot"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1094
+#: src/as-content-rating.c:1192
 msgid "Indirect references to adultery"
 msgstr "Indirekte tilvisingar til ekteskapsbrot"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1096
+#: src/as-content-rating.c:1194
 msgid "Direct references to adultery"
 msgstr "Direkte tilvisingar til ekteskapsbrot"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1098
+#: src/as-content-rating.c:1196
 msgid "Graphic depictions of the act of adultery"
 msgstr "Grafisk framstilling av ekteskapsbrot"
 
+#. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:1201
+#, fuzzy
+#| msgid "No sexualized characters"
+msgid "Sexualized Characters"
+msgstr "Ingen seksualiserte figurar"
+
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1103
+#: src/as-content-rating.c:1203
+#, fuzzy
+#| msgid "No sexualized characters"
+msgid "No information regarding sexualized characters"
+msgstr "Ingen seksualiserte figurar"
+
+#. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:1205
 msgid "No sexualized characters"
 msgstr "Ingen seksualiserte figurar"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1106
+#: src/as-content-rating.c:1208
 msgid "Scantily clad human characters"
 msgstr "Lettkledde menneskefigurar"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1108
+#: src/as-content-rating.c:1210
 msgid "Overtly sexualized human characters"
 msgstr "Tydeleg seksualiserte menneskefigurar"
 
+#. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:1215
+#, fuzzy
+#| msgid "Description"
+msgid "Desecration"
+msgstr "Skildring"
+
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1113
+#: src/as-content-rating.c:1217
+#, fuzzy
+#| msgid "No references to desecration"
+msgid "No information regarding references to desecration"
+msgstr "Ingen tilvisingar til vanhelging"
+
+#. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:1219
 msgid "No references to desecration"
 msgstr "Ingen tilvisingar til vanhelging"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1115
+#: src/as-content-rating.c:1221
 msgid "Depictions of or references to historical desecration"
 msgstr "Framstillingar av eller tilvisingar til historisk vanhelging"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1117
+#: src/as-content-rating.c:1223
 msgid "Depictions of modern-day human desecration"
 msgstr "Framstillingar av vanhelging av menneske i moderne tid"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1119
+#: src/as-content-rating.c:1225
 msgid "Graphic depictions of modern-day desecration"
 msgstr "Grafiske framstillingar av vanhelging i moderne tid"
 
+#. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:1230
+msgid "Human Remains"
+msgstr ""
+
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1124
+#: src/as-content-rating.c:1232
+#, fuzzy
+#| msgid "No visible dead human remains"
+msgid "No information regarding visible dead human remains"
+msgstr "Ingen synlege menneskelege levningar"
+
+#. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:1234
 msgid "No visible dead human remains"
 msgstr "Ingen synlege menneskelege levningar"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1126
+#: src/as-content-rating.c:1236
 msgid "Visible dead human remains"
 msgstr "Synlege menneskelege levningar"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1128
+#: src/as-content-rating.c:1238
 msgid "Dead human remains that are exposed to the elements"
 msgstr "Menneskelege levningar som er utsette for vêr og vind"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1130
+#: src/as-content-rating.c:1240
 msgid "Graphic depictions of desecration of human bodies"
 msgstr "Grafiske framstillingar av vanhelging av menneskekroppar"
 
+#. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:1245
+msgid "Slavery"
+msgstr ""
+
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1135
+#: src/as-content-rating.c:1247
+#, fuzzy
+#| msgid "No references to slavery"
+msgid "No information regarding references to slavery"
+msgstr "Ingen tilvisingar til slaveri"
+
+#. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:1249
 msgid "No references to slavery"
 msgstr "Ingen tilvisingar til slaveri"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1137
+#: src/as-content-rating.c:1251
 msgid "Depictions of or references to historical slavery"
 msgstr "Framstillingar av eller tilvisingar til historisk slaveri"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1139
+#: src/as-content-rating.c:1253
 msgid "Depictions of modern-day slavery"
 msgstr "Framstillingar av slaveri i moderne tid"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
-#: src/as-content-rating.c:1141
+#: src/as-content-rating.c:1255
 msgid "Graphic depictions of modern-day slavery"
 msgstr "Grafiske framstillingar av slaveri i moderne tid"
+
+#. TRANSLATORS: content rating group title, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:1379
+#, fuzzy
+#| msgid "Science"
+msgid "Violence"
+msgstr "Vitskap"
+
+#. TRANSLATORS: content rating group title, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:1382
+msgid "Drugs"
+msgstr ""
+
+#. TRANSLATORS: content rating group title, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:1385
+msgid "Sex & Nudity"
+msgstr ""
+
+#. TRANSLATORS: content rating group title, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:1388
+#, fuzzy
+#| msgctxt "Category of Education"
+#| msgid "Languages"
+msgid "Strong Language"
+msgstr "Språk"
+
+#. TRANSLATORS: content rating group title, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:1391
+msgid "Money"
+msgstr ""
+
+#. TRANSLATORS: content rating group title, see https://hughsie.github.io/oars/
+#: src/as-content-rating.c:1394
+msgid "Social"
+msgstr ""
 
 #. TRANSLATORS: We got a 429 error while trying to download data
 #: src/as-curl.c:199
@@ -1084,25 +1471,25 @@ msgstr "Microsoft Windows"
 msgid "app;application;package;program;programme;suite;tool"
 msgstr "app;appar;program;programvare;pakke;pakkar;verktøy"
 
-#: src/as-pool.c:1209
+#: src/as-pool.c:1236
 msgid "Metadata files have errors:"
 msgstr "Metadatafilene har feil:"
 
-#: src/as-pool.c:2502
+#: src/as-pool.c:2568
 msgid "Group"
 msgstr "Gruppe"
 
-#: src/as-pool.c:2557
+#: src/as-pool.c:2623
 msgid "Iconsets"
 msgstr "Ikonsett"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
-#: src/as-pool.c:2605
+#: src/as-pool.c:2671
 msgid "Data from locally installed software"
 msgstr "Data frå lokalt installert programvare"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
-#: src/as-pool.c:2608
+#: src/as-pool.c:2674
 msgid "Software catalog data"
 msgstr "Programvarekatalogdata"
 
@@ -1146,7 +1533,7 @@ msgstr "Fastvare ved køyring"
 msgid "Flashed Firmware"
 msgstr "Flasha fastvare"
 
-#: src/as-provided.c:158 tools/ascli-actions-misc.c:957
+#: src/as-provided.c:158 tools/ascli-actions-misc.c:1016
 msgid "Component"
 msgstr "Komponent"
 
@@ -1725,7 +2112,8 @@ msgid "The component ID is required to follow a reverse domain-name scheme for i
 msgstr "Komponent-ID-en må følgje eit omvendt domenenamnsskjema. Sjå AppStream-spesifikasjonen for detaljar."
 
 #: src/as-validator-issue-tag.h:166
-msgid "The component ID is not a reverse domain-name. Please update the ID to avoid future issues and be compatible with all AppStream implementations.\n"
+msgid ""
+"The component ID is not a reverse domain-name. Please update the ID to avoid future issues and be compatible with all AppStream implementations.\n"
 "You may also consider to update the name of the accompanying .desktop file to follow the latest version of the Desktop-Entry specification and use a rDNS name for it as well. In any case, do not forget to mention the new desktop-entry in a <launchable/> tag for this component to keep the application launchable from software centers and the .desktop file data associated with the metainfo data."
 msgstr ""
 "Komponent-ID-en er ikkje eit omvendt domenenamn. Oppdater ID-en for å unngå problem i framtida og vere kompatibel med alle AppStream-implementasjonar.\n"
@@ -2746,7 +3134,8 @@ msgstr "AppStream-versjon: %s"
 #. TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ.
 #: tools/appstream-compose.c:338 tools/appstreamcli.c:1799
 #, c-format
-msgid "AppStream CLI tool version: %s\n"
+msgid ""
+"AppStream CLI tool version: %s\n"
 "AppStream library version: %s"
 msgstr ""
 "Versjon av AppStream CLI-verktøyet: %s\n"
@@ -2755,7 +3144,8 @@ msgstr ""
 #. TRANSLATORS: invalid value for the --print-report CLI option
 #: tools/appstream-compose.c:360
 #, c-format
-msgid "Invalid value for `--print-report` option: %s\n"
+msgid ""
+"Invalid value for `--print-report` option: %s\n"
 "Possible values are:\n"
 "`on-error` - only prints a short report if the run failed (default)\n"
 "`short` - generates an abridged report\n"
@@ -3274,7 +3664,7 @@ msgstr "Det er ikkje nødvendig å oppdatere mellomlageret for metadata."
 #. TRANSLATORS: An AppStream component-id is missing in the command-line arguments
 #. TRANSLATORS: ascli was told to find a software component by its ID, but no component-id was specified.
 #: tools/ascli-actions-mdata.c:132 tools/ascli-actions-mdata.c:298
-#: tools/ascli-actions-misc.c:811 tools/ascli-actions-misc.c:898
+#: tools/ascli-actions-misc.c:870 tools/ascli-actions-misc.c:957
 #: tools/ascli-actions-pkgmgr.c:182
 msgid "You need to specify a component-ID."
 msgstr "Du må oppgje ein komponent-ID."
@@ -3471,7 +3861,7 @@ msgstr "Kompatibel"
 msgid "AppStream Status:"
 msgstr "AppStream-status:"
 
-#: tools/ascli-actions-misc.c:48 tools/ascli-actions-misc.c:682
+#: tools/ascli-actions-misc.c:48 tools/ascli-actions-misc.c:686
 #, c-format
 msgid "Version: %s"
 msgstr "Versjon: %s"
@@ -3575,7 +3965,8 @@ msgstr "Metainfo-fila «%s» inneheld ingen komponent."
 
 #: tools/ascli-actions-misc.c:599
 #, c-format
-msgid "The metainfo file '%s' references external release data.\n"
+msgid ""
+"The metainfo file '%s' references external release data.\n"
 "Run this command on the release metadata file instead."
 msgstr ""
 "Metainfo-fila «%s» viser til eksterne utgåvedata.\n"
@@ -3598,156 +3989,177 @@ msgstr "Fann ikkje operativsystemkomponenten «%s»!"
 msgid "ID"
 msgstr "ID"
 
-#: tools/ascli-actions-misc.c:679 tools/ascli-actions-misc.c:706
+#: tools/ascli-actions-misc.c:679 tools/ascli-actions-misc.c:765
 #: tools/ascli-utils.c:304
 msgid "Name"
 msgstr "Namn"
 
-#: tools/ascli-actions-misc.c:680 tools/ascli-actions-misc.c:967
+#: tools/ascli-actions-misc.c:680 tools/ascli-actions-misc.c:1026
 #: tools/ascli-utils.c:305
 msgid "Summary"
 msgstr "Samandrag"
 
-#: tools/ascli-actions-misc.c:685 tools/ascli-utils.c:309
+#: tools/ascli-actions-misc.c:714
+msgid "Release Kind"
+msgstr ""
+
+#. TRANSLATORS: Release date of the running OS release
+#: tools/ascli-actions-misc.c:719
+msgid "Released"
+msgstr ""
+
+#. TRANSLATORS: End-of-life date of the running OS release
+#: tools/ascli-actions-misc.c:725
+#, fuzzy
+#| msgid "Supported:"
+msgid "Supported Until"
+msgstr "Støtta:"
+
+#. TRANSLATORS: OS releases newer than the running one, with their kind
+#: tools/ascli-actions-misc.c:740
+msgid "Newer Releases"
+msgstr ""
+
+#: tools/ascli-actions-misc.c:744 tools/ascli-utils.c:309
 msgid "Homepage"
 msgstr "Heimeside"
 
-#: tools/ascli-actions-misc.c:688 tools/ascli-utils.c:330
+#: tools/ascli-actions-misc.c:747 tools/ascli-utils.c:330
 msgid "Developer"
 msgstr "Utviklar"
 
-#: tools/ascli-actions-misc.c:697 tools/ascli-utils.c:344
+#: tools/ascli-actions-misc.c:756 tools/ascli-utils.c:344
 msgid "Description"
 msgstr "Skildring"
 
-#: tools/ascli-actions-misc.c:705
+#: tools/ascli-actions-misc.c:764
 msgid "Kernel"
 msgstr "Kjerne"
 
-#: tools/ascli-actions-misc.c:707 tools/ascli-actions-misc.c:863
+#: tools/ascli-actions-misc.c:766 tools/ascli-actions-misc.c:922
 msgid "Version"
 msgstr "Versjon"
 
-#: tools/ascli-actions-misc.c:710
+#: tools/ascli-actions-misc.c:769
 msgid "Hardware"
 msgstr "Maskinvare"
 
-#: tools/ascli-actions-misc.c:713
+#: tools/ascli-actions-misc.c:772
 msgid "Physical Memory"
 msgstr "Fysisk minne"
 
-#: tools/ascli-actions-misc.c:721 tools/ascli-actions-misc.c:726
+#: tools/ascli-actions-misc.c:780 tools/ascli-actions-misc.c:785
 msgid "Largest Display"
 msgstr "Største skjerm"
 
-#: tools/ascli-actions-misc.c:724
+#: tools/ascli-actions-misc.c:783
 msgid "logical px"
 msgstr "logisk px"
 
-#: tools/ascli-actions-misc.c:726
+#: tools/ascli-actions-misc.c:785
 msgid "unable to determine"
 msgstr "kan ikkje fastslå"
 
-#: tools/ascli-actions-misc.c:730
+#: tools/ascli-actions-misc.c:789
 msgid "Devices with Modaliases"
 msgstr "Einingar med modalias"
 
-#: tools/ascli-actions-misc.c:759
+#: tools/ascli-actions-misc.c:818
 msgid "User Input Controls"
 msgstr "Kontrollar for brukarinndata"
 
-#: tools/ascli-actions-misc.c:762
+#: tools/ascli-actions-misc.c:821
 msgid "unknown"
 msgstr "ukjend"
 
-#: tools/ascli-actions-misc.c:769 tools/ascli-actions-validate.c:700
+#: tools/ascli-actions-misc.c:828 tools/ascli-actions-validate.c:700
 #: tools/ascli-actions-validate.c:706
 msgid "yes"
 msgstr "ja"
 
-#: tools/ascli-actions-misc.c:771 tools/ascli-actions-validate.c:701
+#: tools/ascli-actions-misc.c:830 tools/ascli-actions-validate.c:701
 #: tools/ascli-actions-validate.c:707
 msgid "no"
 msgstr "nei"
 
-#: tools/ascli-actions-misc.c:829
+#: tools/ascli-actions-misc.c:888
 msgid "Overall rating"
 msgstr "Samla vurdering"
 
-#: tools/ascli-actions-misc.c:842
+#: tools/ascli-actions-misc.c:901
 #, c-format
 msgid "No reviews found for component '%s'."
 msgstr "Fann ingen vurderingar for komponenten «%s»."
 
-#: tools/ascli-actions-misc.c:857 tools/ascli-actions-misc.c:958
+#: tools/ascli-actions-misc.c:916 tools/ascli-actions-misc.c:1017
 msgid "Author"
 msgstr "Opphavsperson"
 
-#: tools/ascli-actions-misc.c:860
+#: tools/ascli-actions-misc.c:919
 msgid "Date"
 msgstr "Dato"
 
-#: tools/ascli-actions-misc.c:910
+#: tools/ascli-actions-misc.c:969
 #, c-format
 msgid "Composing a review for '%s' to be submitted to %s."
 msgstr "Skriv ei vurdering av «%s» som skal sendast til %s."
 
-#: tools/ascli-actions-misc.c:913
+#: tools/ascli-actions-misc.c:972
 msgid "Please only review the software itself, and mind that your review will be publicly visible."
 msgstr "Vurder berre sjølve programvara, og hugs at vurderinga di vert offentleg synleg."
 
 #. TRANSLATORS: Prompt when composing a review, %s is a user name
-#: tools/ascli-actions-misc.c:918
+#: tools/ascli-actions-misc.c:977
 #, c-format
 msgid "Your display name (leave empty to use '%s'):"
 msgstr "Visingsnamnet ditt (la stå tomt for å bruke «%s»):"
 
 #. TRANSLATORS: Prompt for a star rating when composing a review
-#: tools/ascli-actions-misc.c:925
+#: tools/ascli-actions-misc.c:984
 msgid "Star rating, from 1 (worst) to 5 (best):"
 msgstr "Talet på stjerner, frå 1 (dårlegast) til 5 (best):"
 
 #. TRANSLATORS: Prompt when composing a review
-#: tools/ascli-actions-misc.c:932
+#: tools/ascli-actions-misc.c:991
 msgid "Short summary of your review:"
 msgstr "Kort samandrag av vurderinga di:"
 
-#: tools/ascli-actions-misc.c:938
+#: tools/ascli-actions-misc.c:997
 msgid "The summary must not be empty and be no longer than 70 characters."
 msgstr "Samandraget kan ikkje vere tomt og kan ikkje vere lengre enn 70 teikn."
 
 #. TRANSLATORS: Prompt when composing a review
-#: tools/ascli-actions-misc.c:942
+#: tools/ascli-actions-misc.c:1001
 msgid "Detailed review text (end with an empty line):"
 msgstr "Detaljert vurderingstekst (avslutt med ei tom linje):"
 
-#: tools/ascli-actions-misc.c:944
+#: tools/ascli-actions-misc.c:1003
 msgid "The review text must not be empty."
 msgstr "Vurderingsteksten kan ikkje vere tom."
 
-#: tools/ascli-actions-misc.c:965
+#: tools/ascli-actions-misc.c:1024
 msgid "Rating"
 msgstr "Vurdering"
 
-#: tools/ascli-actions-misc.c:968
+#: tools/ascli-actions-misc.c:1027
 msgid "Review"
 msgstr "Vurdering"
 
 #. TRANSLATORS: Prompt before publishing a composed review
-#: tools/ascli-actions-misc.c:975
+#: tools/ascli-actions-misc.c:1034
 msgid "Publish this review?"
 msgstr "Vil du publisere denne vurderinga?"
 
-#: tools/ascli-actions-misc.c:979
+#: tools/ascli-actions-misc.c:1038
 msgid "Review submission cancelled."
 msgstr "Innsendinga av vurderinga er avbroten."
 
-#: tools/ascli-actions-misc.c:989
+#: tools/ascli-actions-misc.c:1048
 #, c-format
 msgid "Review submitted successfully (ID: %s). Thank you!"
 msgstr "Vurderinga er send (ID: %s). Takk!"
 
-#: tools/ascli-actions-misc.c:992
+#: tools/ascli-actions-misc.c:1051
 msgid "Review submitted successfully. Thank you!"
 msgstr "Vurderinga er sendt. Takk!"
 
@@ -3868,7 +4280,8 @@ msgid "Unable to add release metadata file: %s"
 msgstr "Klarte ikkje leggje til metadatafila for utgåver: %s"
 
 #: tools/ascli-actions-validate.c:416
-msgid "You need to specify at least one MetaInfo file to validate.\n"
+msgid ""
+"You need to specify at least one MetaInfo file to validate.\n"
 "Release metadata files can currently not be validated without their accompanying MetaInfo file."
 msgstr ""
 "Du må oppgje minst éi MetaInfo-fil som skal validerast.\n"
