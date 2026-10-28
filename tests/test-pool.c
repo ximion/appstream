@@ -524,7 +524,9 @@ test_pool_read (void)
 			 "http://neverball.org/");
 	bundle = as_component_get_bundle (cpt_a, AS_BUNDLE_KIND_FLATPAK);
 	g_assert_nonnull (bundle);
-	g_assert_cmpstr (as_bundle_get_id (bundle), ==, "app/org.neverball.Neverball/x86_64/stable");
+	g_assert_cmpstr (as_bundle_get_id (bundle),
+			 ==,
+			 "app/org.neverball.Neverball/x86_64/stable");
 
 	rels = as_component_get_releases_plain (cpt_a);
 	g_assert_cmpint (as_release_list_len (rels), ==, 2);
