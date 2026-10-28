@@ -1,3 +1,26 @@
+Version 1.2.2
+~~~~~~~~~~~~~
+Released: 2026-10-28
+
+Features:
+ * content-rating: Add attribute titles and group descriptions
+ * pool: Allow adding extra data locations with explicit scope and origin
+ * ascli: sysinfo: Print some more information about the OS, like its support period
+ * bundle: Drop Limba, add Manifold
+
+Bugfixes:
+ * cli: Fail YAML validation for missing input
+ * compose: Fix build on a newer kernel with an old glibc
+ * pool: Work around all Flatpak origins having the same name
+ * pool: Include scope in metadata cache keys for Flatpak
+ * apt: Don't hang when tar emits lots of stderr output
+ * its: Support MetaInfo files that use the specification's namespace
+ * system-info: Don't prefix an OS ID that already is rDNS
+ * sysinfo: Also replace `-` with `_` at `dns_to_rdns` function
+
+Contributors:
+ Eugenio Depalo, Florian Leander Singer, Matthias Klumpp, Vladimir Romanov
+
 Version 1.2.1
 ~~~~~~~~~~~~~
 Released: 2026-09-28
