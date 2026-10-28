@@ -507,8 +507,8 @@ test_pool_read (void)
 
 	/* by bundle ID */
 	result = as_pool_get_components_by_bundle_id (dpool,
-						      AS_BUNDLE_KIND_LIMBA,
-						      "neverball-",
+						      AS_BUNDLE_KIND_FLATPAK,
+						      "app/org.neverball.Neverball/",
 						      TRUE);
 	print_cptbox (result);
 	g_assert_cmpint (as_component_box_len (result), ==, 1);
@@ -522,9 +522,9 @@ test_pool_read (void)
 	g_assert_cmpstr (as_component_get_url (cpt_a, AS_URL_KIND_HOMEPAGE),
 			 ==,
 			 "http://neverball.org/");
-	bundle = as_component_get_bundle (cpt_a, AS_BUNDLE_KIND_LIMBA);
+	bundle = as_component_get_bundle (cpt_a, AS_BUNDLE_KIND_FLATPAK);
 	g_assert_nonnull (bundle);
-	g_assert_cmpstr (as_bundle_get_id (bundle), ==, "neverball-1.6.0");
+	g_assert_cmpstr (as_bundle_get_id (bundle), ==, "app/org.neverball.Neverball/x86_64/stable");
 
 	rels = as_component_get_releases_plain (cpt_a);
 	g_assert_cmpint (as_release_list_len (rels), ==, 2);

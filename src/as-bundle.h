@@ -47,7 +47,7 @@ struct _AsBundleClass {
  * AsBundleKind:
  * @AS_BUNDLE_KIND_UNKNOWN:	Type invalid or not known
  * @AS_BUNDLE_KIND_PACKAGE:	A native package (currently not used)
- * @AS_BUNDLE_KIND_LIMBA:	A Limba bundle
+ * @AS_BUNDLE_KIND_MANIFOLD:	A Manifold bundle
  * @AS_BUNDLE_KIND_FLATPAK:	A Flatpak bundle
  * @AS_BUNDLE_KIND_APPIMAGE:	An AppImageKit bundle
  * @AS_BUNDLE_KIND_SNAP:	A Snap/Snappy bundle
@@ -61,7 +61,7 @@ struct _AsBundleClass {
 typedef enum {
 	AS_BUNDLE_KIND_UNKNOWN,
 	AS_BUNDLE_KIND_PACKAGE,
-	AS_BUNDLE_KIND_LIMBA,
+	AS_BUNDLE_KIND_MANIFOLD,
 	AS_BUNDLE_KIND_FLATPAK,
 	AS_BUNDLE_KIND_APPIMAGE,
 	AS_BUNDLE_KIND_SNAP,
@@ -72,6 +72,9 @@ typedef enum {
 	/*< private >*/
 	AS_BUNDLE_KIND_LAST
 } AsBundleKind;
+
+/* DEPRECATED: Limba bundles have not been supported for a long time */
+#define AS_BUNDLE_KIND_LIMBA AS_BUNDLE_KIND_UNKNOWN
 
 const gchar *as_bundle_kind_to_string (AsBundleKind kind);
 AsBundleKind as_bundle_kind_from_string (const gchar *bundle_str);

@@ -56,8 +56,8 @@ as_bundle_kind_to_string (AsBundleKind kind)
 {
 	if (kind == AS_BUNDLE_KIND_PACKAGE)
 		return "package";
-	if (kind == AS_BUNDLE_KIND_LIMBA)
-		return "limba";
+	if (kind == AS_BUNDLE_KIND_MANIFOLD)
+		return "manifold";
 	if (kind == AS_BUNDLE_KIND_FLATPAK)
 		return "flatpak";
 	if (kind == AS_BUNDLE_KIND_APPIMAGE)
@@ -88,8 +88,8 @@ as_bundle_kind_from_string (const gchar *bundle_str)
 {
 	if (g_strcmp0 (bundle_str, "package") == 0)
 		return AS_BUNDLE_KIND_PACKAGE;
-	if (g_strcmp0 (bundle_str, "limba") == 0)
-		return AS_BUNDLE_KIND_LIMBA;
+	if (g_strcmp0 (bundle_str, "manifold") == 0)
+		return AS_BUNDLE_KIND_MANIFOLD;
 	if (g_strcmp0 (bundle_str, "flatpak") == 0)
 		return AS_BUNDLE_KIND_FLATPAK;
 	if (g_strcmp0 (bundle_str, "appimage") == 0)
@@ -184,7 +184,7 @@ as_bundle_get_kind (AsBundle *bundle)
 /**
  * as_bundle_set_kind:
  * @bundle: an #AsBundle instance.
- * @kind: the #AsBundleKind, e.g. %AS_BUNDLE_KIND_LIMBA.
+ * @kind: the #AsBundleKind, e.g. %AS_BUNDLE_KIND_MANIFOLD.
  *
  * Sets the bundle kind.
  *
@@ -220,7 +220,7 @@ as_bundle_load_from_xml (AsBundle *bundle, AsContext *ctx, xmlNode *node, GError
 	type_str = as_xml_get_prop_value (node, "type");
 	priv->kind = as_bundle_kind_from_string (type_str);
 	if (priv->kind == AS_BUNDLE_KIND_UNKNOWN)
-		priv->kind = AS_BUNDLE_KIND_LIMBA;
+		priv->kind = AS_BUNDLE_KIND_MANIFOLD;
 
 	as_bundle_set_id (bundle, content);
 
