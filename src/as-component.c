@@ -916,7 +916,7 @@ as_component_set_bundles_array (AsComponent *cpt, GPtrArray *bundles)
 /**
  * as_component_get_bundle:
  * @cpt: a #AsComponent instance.
- * @bundle_kind: the bundle kind, e.g. %AS_BUNDLE_KIND_LIMBA.
+ * @bundle_kind: the bundle kind, e.g. %AS_BUNDLE_KIND_FLATPAK.
  *
  * Gets a bundle identifier string.
  *

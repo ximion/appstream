@@ -27,8 +27,8 @@
         <url>https://example.com/releasenotes-1.6.1.html</url>
 
         <artifacts>
-          <artifact type="binary" platform="x86_64-linux-gnu" bundle="limba">
-            <location>https://example.com/mytarball.bin.lpk</location>
+          <artifact type="binary" platform="x86_64-linux-gnu" bundle="appimage">
+            <location>https://example.com/MyAppImage_1.6.1_amd64.AppImage</location>
             <checksum type="sha256">f7dd28d23679b5cd6598534a27cd821cf3375c385a10a633f104d9e4841991a8</checksum>
             <size type="download">112358</size>
             <size type="installed">42424242</size>

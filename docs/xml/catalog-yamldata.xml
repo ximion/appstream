@@ -866,15 +866,15 @@
 				<para>See <xref linkend="tag-ct-bundle"/>.</para>
 				<para>
 					The <literal>Bundles</literal> contains a list of dictionaries with the keys <literal>type</literal>, having the ID for a specific bundling
-					system (e.g. <code>flatpak</code> or <code>limba</code>) as value, and <literal>id</literal> for the associated bundle-id.
+					system (e.g. <code>flatpak</code> or <code>manifold</code>) as value, and <literal>id</literal> for the associated bundle-id.
 					See the XML tag description for information on all valid bundling systems.
 				</para>
 				<para>
 					Example:
 				</para>
 				<programlisting language="YAML"><![CDATA[Bundles:
-  - type: limba
-    id: foobar-1.0.2]]></programlisting>
+  - type: flatpak
+    id: app/foobar/x86_64/stable]]></programlisting>
 				<literallayout>Field info: <property>value-type</property>:<emphasis>list</emphasis></literallayout>
 			</listitem>
 			</varlistentry>
