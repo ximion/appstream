@@ -36,7 +36,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-10-26 10:22+0100\n"
-"PO-Revision-Date: 2026-10-29 00:07+0000\n"
+"PO-Revision-Date: 2026-10-29 00:54+0000\n"
 "Last-Translator: Américo Monteiro <a-monteiro@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/appstream/translations/pt/>\n"
 "Language: pt\n"
@@ -60,7 +60,7 @@ msgstr "AppStream é uma especificação de metadados que permite que os compone
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:18
 msgid "The <em>appstreamcli</em> command-line tool allows to read, write, and transform AppStream XML or YAML metadata as well as to validate it for compliance with the specification. It also provides easy access to the system metadata pool, for example to query for software that provides a specific Mediatype handler or for installing software by its component identifier."
-msgstr "A ferramenta da linha de comandos <em>appstreamcli</em> permite ler, escrever, e transformar metadados AppStream em XML ou YAML, bem como validá-la para conformidade com a especificação. Esta também permite aceder ao grupo de metadados do sistema, por exemplo, consultar por um \"software\" que forneça um tipo MIME específico, ou para instalar \"software\" usando o próprio identificador de componente."
+msgstr "A ferramenta da linha de comandos <em>appstreamcli</em> permite ler, escrever, e transformar metadados AppStream em XML ou YAML, bem como valida-la para conformidade com a especificação. Esta também permite aceder ao grupo de metadados do sistema, por exemplo, consultar por um \"software\" que forneça um tipo MIME específico, ou para instalar \"software\" usando o próprio identificador de componente."
 
 #: src/as-cache.c:935
 #, c-format
@@ -450,7 +450,7 @@ msgstr "Nenhuma informação sobre Violência de Desenho Animado"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:840
 msgid "No cartoon violence"
-msgstr "Sem violência cartunesca"
+msgstr "Sem violência de desenho animado"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:842
@@ -530,12 +530,12 @@ msgstr "Violência gráfica envolvendo personagens realistas"
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:881
 msgid "Violence Depicting Bloodshed"
-msgstr ""
+msgstr "Violência Representante de Derramamento de Sangue"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:883
 msgid "No information regarding bloodshed"
-msgstr ""
+msgstr "Nenhuma informação sobre derramamento de sangue"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:885
@@ -559,17 +559,13 @@ msgstr "Representações de derrame de sangue e mutilações de partes do corpo"
 
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:896
-#, fuzzy
-#| msgid "No sexual violence"
 msgid "Sexual Violence"
-msgstr "Sem violência sexual"
+msgstr "Violência Sexual"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:898
-#, fuzzy
-#| msgid "No sexual violence"
 msgid "No information regarding sexual violence"
-msgstr "Sem violência sexual"
+msgstr "Nenhuma informação sobre violência sexual"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:900
@@ -584,14 +580,12 @@ msgstr "Violação ou outro comportamento sexual violento"
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:909
 msgid "Alcohol"
-msgstr ""
+msgstr "Bebidas Alcoólicas"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:911
-#, fuzzy
-#| msgid "No references to alcohol"
 msgid "No information regarding references to alcohol"
-msgstr "Sem referência a bebidas alcoólicas"
+msgstr "Nenhuma informação sobre referências a bebidas alcoólicas"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:913
@@ -611,14 +605,12 @@ msgstr "Uso de bebidas alcoólicas"
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:923
 msgid "Narcotics"
-msgstr ""
+msgstr "Narcóticos"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:925
-#, fuzzy
-#| msgid "No references to illicit drugs"
 msgid "No information regarding references to illicit drugs"
-msgstr "Sem referência a drogas ilícitas"
+msgstr "Nenhuma informação sobre referências a drogas ilícitas"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:927
@@ -638,14 +630,12 @@ msgstr "Uso de drogas ilícitas"
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:937
 msgid "Tobacco"
-msgstr ""
+msgstr "Tabaco"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:939
-#, fuzzy
-#| msgid "No references to tobacco products"
 msgid "No information regarding references to tobacco products"
-msgstr "Sem referências a produtos com tabaco"
+msgstr "Nenhuma informação sobre referências a produtos de tabaco"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:941
@@ -665,14 +655,12 @@ msgstr "Uso de produtos com tabaco"
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:951
 msgid "Nudity"
-msgstr ""
+msgstr "Nudez"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:953
-#, fuzzy
-#| msgid "No nudity of any sort"
 msgid "No information regarding nudity of any sort"
-msgstr "Sem nudez de qualquer tipo"
+msgstr "Nenhuma informação sobre nudez de qualquer tipo"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:955
@@ -692,19 +680,17 @@ msgstr "Nudez prolongada"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:961
 msgid "Explicit nudity involving visible sexual organs"
-msgstr "Nudez explícita involvendo órgãos sexuais visíveis"
+msgstr "Nudez explícita envolvendo órgãos sexuais visíveis"
 
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:966
 msgid "Sexual Themes"
-msgstr ""
+msgstr "Temas Sexuais"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:968
-#, fuzzy
-#| msgid "No references to or depictions of sexual nature"
 msgid "No information regarding references to or depictions of sexual nature"
-msgstr "Sem referências para representações de natureza sexual"
+msgstr "Nenhuma informação sobre referências a ou para representações de natureza sexual"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:970
@@ -729,14 +715,12 @@ msgstr "Comportamento sexual gráfico"
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:981
 msgid "Profanity"
-msgstr ""
+msgstr "Profanação"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:983
-#, fuzzy
-#| msgid "No profanity of any kind"
 msgid "No information regarding profanity of any kind"
-msgstr "Sem profanidade de qualquer tipo"
+msgstr "Nenhuma informação sobre profanação de qualquer tipo"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:985
@@ -760,17 +744,13 @@ msgstr "Uso constante ou frequente de profanidades"
 
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:996
-#, fuzzy
-#| msgid "No inappropriate humor"
 msgid "Inappropriate Humor"
-msgstr "Sem humor inapropriado"
+msgstr "Humor Inapropriado"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:998
-#, fuzzy
-#| msgid "No inappropriate humor"
 msgid "No information regarding inappropriate humor"
-msgstr "Sem humor inapropriado"
+msgstr "Nenhuma informação sobre humor inapropriado"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1000
@@ -794,17 +774,13 @@ msgstr "Humor maduro ou sexual"
 
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1011
-#, fuzzy
-#| msgid "Description"
 msgid "Discrimination"
-msgstr "Descrição"
+msgstr "Descriminação"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1013
-#, fuzzy
-#| msgid "No discriminatory language of any kind"
 msgid "No information regarding discriminatory language of any kind"
-msgstr "Sem linguagem discriminatória de qualquer tipo"
+msgstr "Nenhuma informação sobre linguagem discriminatória de qualquer tipo"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1015
@@ -829,14 +805,12 @@ msgstr "Descriminação explícita baseada em género, sexualidade, raça ou rel
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1026
 msgid "Advertising"
-msgstr ""
+msgstr "Publicidade"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1028
-#, fuzzy
-#| msgid "No advertising of any kind"
 msgid "No information regarding advertising of any kind"
-msgstr "Sem publicidade de qualquer tipo"
+msgstr "Nenhuma informação sobre publicidade de qualquer tipo"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1030
@@ -861,14 +835,12 @@ msgstr "Os jogadores são encorajados a comprar itens específicos do mundo real
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1041
 msgid "Gambling"
-msgstr ""
+msgstr "Jogos de azar"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1043
-#, fuzzy
-#| msgid "No gambling of any kind"
 msgid "No information regarding gambling of any kind"
-msgstr "Sem jogos de azar de qualquer tipo"
+msgstr "Nenhuma informação sobre jogos de azar de qualquer tipo"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1045
@@ -893,14 +865,12 @@ msgstr "Jogo de apostas com dinheiro real"
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1056
 msgid "Purchasing"
-msgstr ""
+msgstr "Comprar"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1058
-#, fuzzy
-#| msgid "No ability to spend money"
 msgid "No information regarding the ability to spend money"
-msgstr "Sem capacidade para gastar dinheiro"
+msgstr "Nenhuma informação sobre habilidade para gastar dinheiro"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1060
@@ -920,14 +890,12 @@ msgstr "Possibilidade de gastar dinheiro real dentro do jogo"
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1070
 msgid "Chat Between Users"
-msgstr ""
+msgstr "Conversa Entre Utilizadores"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1072
-#, fuzzy
-#| msgid "No way to chat with other users"
 msgid "No information regarding ways to chat with other users"
-msgstr "Sem modo para conversar com outros utilizadores"
+msgstr "Nenhuma informação sobre maneiras de conversar com outros utilizadores"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1074
@@ -952,14 +920,12 @@ msgstr "Conversa entre os utilizadores não controlada"
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1085
 msgid "Audio Chat Between Users"
-msgstr ""
+msgstr "Conversa por Audio Entre Utilizadores"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1087
-#, fuzzy
-#| msgid "No way to talk with other users"
 msgid "No information regarding ways to talk with other users"
-msgstr "Sem modo para falar com outros utilizadores"
+msgstr "Nenhuma informação sobre maneiras de falar com outros utilizadores"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1089
@@ -979,14 +945,12 @@ msgstr "Conversa em áudio e vídeo entre os utilizadores não controlada"
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1099
 msgid "Contact Details"
-msgstr ""
+msgstr "Detalhes de Contacto"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1101
-#, fuzzy
-#| msgid "No sharing of social network usernames or email addresses"
 msgid "No information regarding sharing of social network usernames or email addresses"
-msgstr "Sem partilha de nomes de utilizadores de redes sociais e endereços de e-mail"
+msgstr "Nenhuma informação sobre partilha de nomes de utilizadores de redes sociais e endereços de e-mail"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1103
@@ -1001,16 +965,14 @@ msgstr "Partilha de nomes de utilizadores de redes sociais e endereços de email
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1112
 msgid "Identifying Information"
-msgstr ""
+msgstr "Informação Identificadora"
 
 # #-#-#-#-#  pt.po (appstream)  #-#-#-#-#
 # Profiling já foi traduzido como perfilamento, porém a tradução também pode ser a de criação de perfil --Enrico
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1114
-#, fuzzy
-#| msgid "No sharing of user information with third parties"
 msgid "No information regarding sharing of user information with third parties"
-msgstr "Sem partilha de informação do utilizador com terceiros"
+msgstr "Nenhuma informação sobre partilha de informação de utilizador com terceiros"
 
 # #-#-#-#-#  pt.po (appstream)  #-#-#-#-#
 # Profiling já foi traduzido como perfilamento, porém a tradução também pode ser a de criação de perfil --Enrico
@@ -1027,7 +989,7 @@ msgstr "A verificar pela última versão instalada"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1120
 msgid "Sharing diagnostic data that does not let others identify the user"
-msgstr "Compartilhamento de dados de diagnóstico que não deixa outros identificar o utilizador"
+msgstr "Partilha de dados de diagnóstico que não deixa outros identificar o utilizador"
 
 # #-#-#-#-#  pt.po (appstream)  #-#-#-#-#
 # Profiling já foi traduzido como perfilamento, porém a tradução também pode ser a de criação de perfil --Enrico
@@ -1039,14 +1001,12 @@ msgstr "Partilha informação do utilizador com terceiros"
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1127
 msgid "Location Sharing"
-msgstr ""
+msgstr "Partilha de Localização"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1129
-#, fuzzy
-#| msgid "No sharing of physical location with other users"
 msgid "No information regarding sharing of physical location with other users"
-msgstr "Sem partilha de localizações físicas de outros utilizadores"
+msgstr "Nenhuma informação sobre partilha de localizações físicas com outros utilizadores"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1131
@@ -1061,14 +1021,12 @@ msgstr "Partilha de localização física com terceiros"
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1156
 msgid "Homosexuality"
-msgstr ""
+msgstr "Homossexualidade"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1158
-#, fuzzy
-#| msgid "No references to homosexuality"
 msgid "No information regarding references to homosexuality"
-msgstr "Sem referência à homossexualidade"
+msgstr "Nenhuma informação sobre referências a homossexualidade"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1160
@@ -1083,24 +1041,22 @@ msgstr "Referências indiretas para homossexualidade"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1164
 msgid "Kissing between people of the same gender"
-msgstr "Beijos entre pessoas do mesmo gênero"
+msgstr "Beijos entre pessoas do mesmo género"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1166
 msgid "Graphic sexual behavior between people of the same gender"
-msgstr "Comportamento sexual gráfico entre pessoas do mesmo gênero"
+msgstr "Comportamento sexual gráfico entre pessoas do mesmo género"
 
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1171
 msgid "Prostitution"
-msgstr ""
+msgstr "Prostituição"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1173
-#, fuzzy
-#| msgid "No references to prostitution"
 msgid "No information regarding references to prostitution"
-msgstr "Sem referências a prostituição"
+msgstr "Nenhuma informação sobre referências a prostituição"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1175
@@ -1124,17 +1080,13 @@ msgstr "Representações gráficas da lei de prostituição"
 
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1186
-#, fuzzy
-#| msgid "Adults Only"
 msgid "Adultery"
-msgstr "Somente adultos"
+msgstr "Adultério"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1188
-#, fuzzy
-#| msgid "No references to adultery"
 msgid "No information regarding references to adultery"
-msgstr "Sem referências a adultério"
+msgstr "Nenhuma informação sobre referências a adultério"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1190
@@ -1158,51 +1110,43 @@ msgstr "Representações gráficas da lei de adultério"
 
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1201
-#, fuzzy
-#| msgid "No sexualized characters"
 msgid "Sexualized Characters"
-msgstr "Sem personagens sexualizados"
+msgstr "Personagens Sexualizadas"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1203
-#, fuzzy
-#| msgid "No sexualized characters"
 msgid "No information regarding sexualized characters"
-msgstr "Sem personagens sexualizados"
+msgstr "Nenhuma informação sobre personagens sexualizadas"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1205
 msgid "No sexualized characters"
-msgstr "Sem personagens sexualizados"
+msgstr "Sem personagens sexualizadas"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1208
 msgid "Scantily clad human characters"
-msgstr "Personagens humanos seminus"
+msgstr "Personagens humanos semi-nus"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1210
 msgid "Overtly sexualized human characters"
-msgstr "Personagens humanos sexualizados abertamente"
+msgstr "Personagens humanos sexualizadas abertamente"
 
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1215
-#, fuzzy
-#| msgid "Description"
 msgid "Desecration"
-msgstr "Descrição"
+msgstr "Sacrilégio"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1217
-#, fuzzy
-#| msgid "No references to desecration"
 msgid "No information regarding references to desecration"
-msgstr "Sem referências ou representações sexuais"
+msgstr "Nenhuma informação sobre referências a sacrilégios"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1219
 msgid "No references to desecration"
-msgstr "Sem referências ou representações sexuais"
+msgstr "Sem referências a sacrilégios"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1221
@@ -1222,19 +1166,17 @@ msgstr "Representações gráficas de profanações modernas"
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1230
 msgid "Human Remains"
-msgstr ""
+msgstr "Restos Humanos"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1232
-#, fuzzy
-#| msgid "No visible dead human remains"
 msgid "No information regarding visible dead human remains"
-msgstr "Sem restos humanos mortos visíveis"
+msgstr "Nenhuma informação sobre restos de humanos mortos visíveis"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1234
 msgid "No visible dead human remains"
-msgstr "Sem restos humanos mortos visíveis"
+msgstr "Sem restos de humanos mortos visíveis"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1236
@@ -1254,14 +1196,12 @@ msgstr "Representações gráficas de profanação de corpos humanos"
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1245
 msgid "Slavery"
-msgstr ""
+msgstr "Escravidão"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1247
-#, fuzzy
-#| msgid "No references to slavery"
 msgid "No information regarding references to slavery"
-msgstr "Sem referências a escravatura"
+msgstr "Nenhuma informação sobre referências a escravatura"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1249
@@ -1285,38 +1225,33 @@ msgstr "Representações gráficas da escravatura moderna"
 
 #. TRANSLATORS: content rating group title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1379
-#, fuzzy
-#| msgid "Science"
 msgid "Violence"
-msgstr "Ciências"
+msgstr "Violência"
 
 #. TRANSLATORS: content rating group title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1382
 msgid "Drugs"
-msgstr ""
+msgstr "Drogas"
 
 #. TRANSLATORS: content rating group title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1385
 msgid "Sex & Nudity"
-msgstr ""
+msgstr "Sexo e Nudez"
 
 #. TRANSLATORS: content rating group title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1388
-#, fuzzy
-#| msgctxt "Category of Education"
-#| msgid "Languages"
 msgid "Strong Language"
-msgstr "Idiomas"
+msgstr "Linguagem Agressiva"
 
 #. TRANSLATORS: content rating group title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1391
 msgid "Money"
-msgstr ""
+msgstr "Dinheiro"
 
 #. TRANSLATORS: content rating group title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1394
 msgid "Social"
-msgstr ""
+msgstr "Social"
 
 #. TRANSLATORS: We got a 429 error while trying to download data
 #: src/as-curl.c:199
@@ -1584,11 +1519,11 @@ msgstr "mesa digitalizadora"
 #: src/as-relation.c:1367
 #, c-format
 msgid "This software requires a %s for input."
-msgstr "Este programa reqjuer um %s para a digitação."
+msgstr "Este programa requer um %s para a digitação."
 
 #: src/as-relation.c:1372
 msgid "This software requires a touch input device."
-msgstr "Este programa reqjuer um dispositivo de entrada tátil."
+msgstr "Este programa requer um dispositivo de entrada tátil."
 
 #: src/as-relation.c:1374
 msgid "This software requires a microphone to be controlled via voice input."
@@ -1660,7 +1595,7 @@ msgstr "Este programa pode ser controlado via entrada de voz."
 
 #: src/as-relation.c:1419
 msgid "This software can be controlled via a camera."
-msgstr "Este programa pode ser controlado via câmera."
+msgstr "Este programa pode ser controlado via câmara."
 
 #: src/as-relation.c:1422
 msgid "This software supports operation via console commands."
@@ -1862,7 +1797,7 @@ msgstr "O servidor de revisões rejeitou o pedido: %s"
 #: src/as-reviews-client.c:983
 #, c-format
 msgid "Unable to communicate with the reviews server: %s"
-msgstr "Incapaz de comunicar com o ser vidor de revisões: %s"
+msgstr "Incapaz de comunicar com o servidor de revisões: %s"
 
 #: src/as-reviews-client.c:1070
 msgid "Unknown reason"
@@ -2062,7 +1997,7 @@ msgstr "Este elemento (parágrafo, lista, etc.) de uma tag <description/> não d
 
 #: src/as-validator-issue-tag.h:64
 msgid "AppStream descriptions support only a limited set of tags to format text: Paragraphs (<p/>), section headings (<heading/>) and lists (<ul/>, <ol/>). This description markup contains an invalid XML tag that would not be rendered correctly in applications supporting the metainfo specification."
-msgstr "As descrições do AppStream suportam apenas um número limitado de etiqetas para formatar texto: parágrafos (<p/>), cabeçalhos de secção (<heading/>) e listas (<ul/>, <ol/>). Esta descrição contém uma etiqueta XML inválida que não pode ser renderizada corretamente em aplicações que suportem a especificação metainfo."
+msgstr "As descrições do AppStream suportam apenas um número limitado de etiquetas para formatar texto: parágrafos (<p/>), cabeçalhos de secção (<heading/>) e listas (<ul/>, <ol/>). Esta descrição contém uma etiqueta XML inválida que não pode ser renderizada corretamente em aplicações que suportem a especificação metainfo."
 
 #: src/as-validator-issue-tag.h:70
 msgid "This description paragraph contains invalid markup. Currently, only <em/> and <code/> are permitted."
@@ -2196,7 +2131,7 @@ msgstr "Os metadados propriamente parecem estar licenciados sob uma coleção co
 
 #: src/as-validator-issue-tag.h:243
 msgid "The metadata itself does not seem to be licensed under a permissive license. Please license the data under a permissive license, like FSFAP, CC0-1.0 or 0BSD to allow distributors to include it in mixed data collections without the risk of license violations due to mutually incompatible licenses."
-msgstr "Os metadados propriamente não parecem estar licenciados sob uma licença permissiva. Por favor, licencie os dados sobuma licença permissiva, como FSFAP, CC0-1.0 ou 0BSD para permitir que os distribuidores a incluam em coleções de dados mistos sem o risco de violações de licença devido a licenças mutuamente incompatíveis."
+msgstr "Os metadados propriamente não parecem estar licenciados sob uma licença permissiva. Por favor, licencie os dados sob uma licença permissiva, como FSFAP, CC0-1.0 ou 0BSD para permitir que os distribuidores a incluam em coleções de dados mistos sem o risco de violações de licença devido a licenças mutuamente incompatíveis."
 
 #: src/as-validator-issue-tag.h:249
 msgid "The update-contact does not appear to be a valid email address (escaping of `@` is only allowed as `_at_` or `_AT_`)."
@@ -2307,7 +2242,7 @@ msgstr "Para vídeos, somente os formatos de contentor WebM e Matroska (.mkv) s�
 
 #: src/as-validator-issue-tag.h:385
 msgid "The default screenshot of a software component must not be a video. Use a static image as default screenshot and set the video as a secondary screenshot."
-msgstr "A captura de ecrã prededinida de um componente de software não deve ser um vídeo. Use uma imagem estática como captura de ecrã prededinida e defina o vídeo como uma captura de ecrã secundária."
+msgstr "A captura de ecrã predefinida de um componente de software não deve ser um vídeo. Use uma imagem estática como captura de ecrã predefinida e defina o vídeo como uma captura de ecrã secundária."
 
 #: src/as-validator-issue-tag.h:390
 msgid "No screenshot is marked as default."
@@ -2416,7 +2351,7 @@ msgstr "O componente não possui um nome (tag <name/>)."
 
 #: src/as-validator-issue-tag.h:522
 msgid "The name of this component is excessively long and can likely not be displayed properly in most layouts."
-msgstr "O nome desse componente é longo demais e pode não ser exibido corretamente na maioria dos leiautes."
+msgstr "O nome desse componente é longo demais e pode não ser exibido corretamente na maioria das disposições ."
 
 #: src/as-validator-issue-tag.h:527
 msgid "The component is missing a summary (<summary/> tag)."
@@ -2428,7 +2363,7 @@ msgstr "A tag <id/> ainda contém a propriedade `type`, provavelmente vinda de u
 
 #: src/as-validator-issue-tag.h:537
 msgid "The `pkgname` tag appears multiple times. You should evaluate creating a metapackage containing the metainfo and .desktop files in order to avoid defining multiple package names per component."
-msgstr "A marcação `pkgname` aparece várias vezes. Deve avaliar a criação de um metapacote contendo os ficheiros metainfo e .desktop a fim de evitar a definição de vários nomes de pacotes por componente."
+msgstr "A marcação `pkgname` aparece várias vezes. Deve avaliar a criação de um meta-pacote contendo os ficheiros metainfo e .desktop a fim de evitar a definição de vários nomes de pacotes por componente."
 
 #: src/as-validator-issue-tag.h:542
 msgid "The package name contains characters that are not permitted here. A package name must start with an alphanumeric character and may only contain alphanumeric characters as well as `+`, `-`, `.`, `_` and `:`."
@@ -2488,7 +2423,7 @@ msgstr "Os ficheiros metainfo podem conter apenas ícones do tipo `stock` ou `re
 #. TRANSLATORS: Please do not translate names in backticks.
 #: src/as-validator-issue-tag.h:614
 msgid "This icon uses an unsupported file format. Icons should be PNG, JPEG-XL (`.jxl`) or vector graphics (`.svg`/`.svgz`) images."
-msgstr "Este ícone usa um formato de ficheiro não suportado. Os ícones devem ser PNG, JPEG-XL (`.jxl`) ou imagens de gráficos vectoriais (`.svg`/`.svgz`)."
+msgstr "Este ícone usa um formato de ficheiro não suportado. Os ícones devem ser PNG, JPEG-XL (`.jxl`) ou imagens de gráficos vetoriais (`.svg`/`.svgz`)."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:621
@@ -2537,7 +2472,7 @@ msgstr "O elemento `developer`não possui a propriedade `id` com um identificado
 
 #: src/as-validator-issue-tag.h:677
 msgid "The developer-ID is invalid. It should be an rDNS string identifying the developer, or a Fediverse handle. It must also only contain lowercase ASCII letters, numbers and punctuation."
-msgstr "O identificador do programador é inválido. Ele deve ser uma cadeia rDNS identificando o programador, ou um identificador do Fediverso. Ele deve conter apenas letras ASCII minúscilas, números e pontuação."
+msgstr "O identificador do programador é inválido. Ele deve ser uma cadeia rDNS identificando o programador, ou uma manipulação Fediverse. Ele deve conter apenas letras ASCII minúsculas, números e pontuação."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:684
@@ -2587,11 +2522,11 @@ msgstr "O componente não possui uma descrição longa. Componentes desse tipo d
 
 #: src/as-validator-issue-tag.h:742
 msgid "It would be useful to add a long description to this font to present it better to users."
-msgstr "Seria útil adicionar uma descrição longa a esta fonte para apresentá-la melhor aos utilizadores."
+msgstr "Seria útil adicionar uma descrição longa a esta fonte para apresenta-la melhor aos utilizadores."
 
 #: src/as-validator-issue-tag.h:747
 msgid "It is recommended to add a long description to this component to present it better to users."
-msgstr "Recomenda-se adicionar uma descrição longa a este componente para apresentá-lo melhor aos utilizadores."
+msgstr "Recomenda-se adicionar uma descrição longa a este componente para apresenta-lo melhor aos utilizadores."
 
 #: src/as-validator-issue-tag.h:752
 msgid "This generic component is missing a long description. It may be useful to add one."
@@ -2677,7 +2612,7 @@ msgstr "O nome da categoria não é válido. Consulte XDG Menu Specification par
 
 #: src/as-validator-issue-tag.h:859
 msgid "All categories for this component have been ignored, either because they were invalid or because they are of low quality (e.g. custom 'X-' prefixed or toolkit ones like 'GTK' or 'Qt'). Please fix your category names, or add more categories."
-msgstr "Todas as categorias para esso componente foram ignoradas, talvez porque são inválidas ou porque são de baixa qualidade (por exemplo: com o prefixo 'X-' ou de conjuntos de ferramentas como 'GTK' ou 'QT'). Conserte os nomes ou adicione mais categorias."
+msgstr "Todas as categorias para esse componente foram ignoradas, talvez porque são inválidas ou porque são de baixa qualidade (por exemplo: com o prefixo 'X-' ou de conjuntos de ferramentas como 'GTK' ou 'Qt'). Conserte os nomes ou adicione mais categorias."
 
 #: src/as-validator-issue-tag.h:865
 msgid "This component is in no valid categories, even though it should be. Please check its metainfo file and desktop-entry file."
@@ -2693,7 +2628,7 @@ msgstr "Não é possível ler o ficheiro."
 
 #: src/as-validator-issue-tag.h:880
 msgid "The XML of this file is malformed."
-msgstr "O XML neste ficheiro está malformado."
+msgstr "O XML neste ficheiro está mal-formado."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:886
@@ -2711,7 +2646,7 @@ msgstr "Este documento XML tem uma marcação de raiz desconhecida. Talvez este 
 
 #: src/as-validator-issue-tag.h:903
 msgid "The metainfo filename does not match the component ID."
-msgstr "O nome de ficheiro de \"metainfo\" não corresponde à Id. do componente."
+msgstr "O nome de ficheiro de \"metainfo\" não corresponde ao ID do componente."
 
 #: src/as-validator-issue-tag.h:908
 msgid "Unable to load the desktop-entry file associated with this component."
@@ -2743,16 +2678,16 @@ msgstr "Este ficheiro de entrada de desktop tem o conjunto de propriedades 'Hidd
 
 #: src/as-validator-issue-tag.h:944
 msgid "This desktop-entry file has the 'OnlyShowIn' property set with an empty value. This might not be intended, as this will hide the application from all desktops. If you do want to hide the application from all desktops, using 'NoDisplay=true' is more explicit."
-msgstr "Este ficheiro de desktop tem a propriedade 'OnlyShowIn' definida com um valor vazio. Isso pode não ser intencional, pois isso ocultará a aplicação de todas os desktops. Se deseja ocultar a aplicaçao de todas as áreas de trabalho, usar 'NoDisplay=true' é mais explícito."
+msgstr "Este ficheiro de desktop tem a propriedade 'OnlyShowIn' definida com um valor vazio. Isso pode não ser intencional, pois isso ocultará a aplicação de todas os desktops. Se deseja ocultar a aplicação de todas as áreas de trabalho, usar 'NoDisplay=true' é mais explícito."
 
 #: src/as-validator-issue-tag.h:950
 msgid "No AppStream metadata was found in this directory or directory tree."
-msgstr "Nenhum metadado do AppStream foi encontrado neste diretório ou árvore de diretórios."
+msgstr "Nenhuns meta-dados do AppStream foram encontrados neste diretório ou árvore de diretórios."
 
 #. pedantic because not everything which has metadata is an application
 #: src/as-validator-issue-tag.h:955
 msgid "No XDG applications directory found."
-msgstr "Nenhum diretório de aplicacões XDG encontrado."
+msgstr "Nenhum diretório de aplicações XDG encontrado."
 
 #: src/as-validator-issue-tag.h:960
 msgid "The metainfo file is stored in a legacy path. Please place it in `/usr/share/metainfo/`."
@@ -2804,7 +2739,7 @@ msgstr "A entrada de lançamento não possui a propriedade `date` (preferido) ou
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1022
 msgid "The release entry is missing the `date` property. Ensure to add it before publishing the snapshot release."
-msgstr "A entrada de lançamento não tem a propriedade `date`. Certifique-se de adicioná-la antes de publicar o lançamento instantâneo."
+msgstr "A entrada de lançamento não tem a propriedade `date`. Certifique-se de adiciona-la antes de publicar o lançamento instantâneo."
 
 #: src/as-validator-issue-tag.h:1027
 msgid "The release timestamp is invalid."
@@ -2818,15 +2753,15 @@ msgstr "A descrição da versão deve estar numa tag `description`"
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1039
 msgid "The value set as artifact type is invalid. Must be either `source` or `binary`."
-msgstr "O valor definido como tipo de artefato é inválido. Deve ser `source` ou `binary`."
+msgstr "O valor definido como tipo de artefacto é inválido. Deve ser `source` ou `binary`."
 
 #: src/as-validator-issue-tag.h:1044
 msgid "The value set as artifact bundle type is invalid."
-msgstr "O valor definido como tipo de pacote de artefato é inválido."
+msgstr "O valor definido como tipo de pacote de artefacto é inválido."
 
 #: src/as-validator-issue-tag.h:1049
 msgid "The platform triplet for this release is invalid. It must be in the form of `architecture-oskernel-osenv` - refer to the AppStream documentation or information on normalized GNU triplets for more information and valid fields."
-msgstr "O tripleto da plataforma para esta versão é inválido. Ele deve ser na forma de `architecture-oskernel-osenv` – consulte a documentação do AppStream ou informações sobre tripleto normalizados GNU para obter mais informações e campos válidos."
+msgstr "O triplo da plataforma para esta versão é inválido. Tem de estar no formato `architecture-oskernel-osenv` – consulte a documentação do AppStream ou informações sobre triplos normalizados GNU para obter mais informações e campos válidos."
 
 #: src/as-validator-issue-tag.h:1056
 msgid "The selected checksumming algorithm is unsupported or unknown."
@@ -2839,7 +2774,7 @@ msgstr "O tipo de tamanho é desconhecido. Deve ser `download` ou `installed`."
 
 #: src/as-validator-issue-tag.h:1067
 msgid "The artifact filename must be a file basename, not a (relative or absolute) path."
-msgstr "O nome do ficheiro do artefato deve ser um nome base de ficheiro, não um caminho (relativo ou absoluto)."
+msgstr "O nome do ficheiro do artefacto deve ser um nome base de ficheiro, não um caminho (relativo ou absoluto)."
 
 #: src/as-validator-issue-tag.h:1072
 msgid "The value set as release issue type is invalid."
@@ -2860,7 +2795,7 @@ msgstr "Este componente não contém informações sobre lançamentos. Considere
 
 #: src/as-validator-issue-tag.h:1094
 msgid "The AppStream specification requires a complete, ISO 8601 date string with at least day-granularity to denote dates. Please ensure the date string is valid."
-msgstr "A especificação AppStream requer uma cadeia de data ISO 8601 completa com pelo menos granularidade em dias para denotar datas. Certifique-se de que a cadiea de data é válida."
+msgstr "A especificação AppStream requer uma cadeia de data ISO 8601 completa com pelo menos granularidade em dias para denotar datas. Certifique-se de que a sequência de data é válida."
 
 #: src/as-validator-issue-tag.h:1100
 msgid "This component extends, provides, requires or recommends itself, which is certainly not intended and may confuse users or machines dealing with this metadata."
@@ -2882,7 +2817,7 @@ msgstr "O tipo do item que o componente fornece não é conhecido pelo AppStream
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1124
 msgid "The toplevel `mimetypes` tag is deprecated. Please use `mediatype` tags in a `provides` block instead to indicate that your software provides a media handler for the given types."
-msgstr "A tag de topo de nível `mimetypes` foi descontinuada. Por favor, utilize tags `mediatype` num bloco `provides` para indicar que o seu software fornece um manipulador de mídia para os tipos em questão."
+msgstr "A tag de topo de nível `mimetypes` foi descontinuada. Por favor, utilize tags `mediatype` num bloco `provides` para indicar que o seu software fornece um manipulador de média para os tipos em questão."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1131
@@ -3101,7 +3036,7 @@ msgstr "Substitui o diretório de saída do ícone."
 #. TRANSLATORS: ascompose flag description for: --media-dir
 #: tools/appstream-compose.c:250
 msgid "Set the media output directory (for media data to be served by a webserver)."
-msgstr "Define o diretório de saída de mídia (para dados de mídia a serem veiculados por um servidor web)."
+msgstr "Define o diretório de saída de média (para dados de média a serem veiculados por um servidor web)."
 
 #. TRANSLATORS: ascompose flag description for: --hints-dir
 #: tools/appstream-compose.c:257
@@ -3116,7 +3051,7 @@ msgstr "Define o nome de origem"
 #. TRANSLATORS: ascompose flag description for: --media-baseurl
 #: tools/appstream-compose.c:271
 msgid "Set the URL where the exported media content will be hosted."
-msgstr "Define a URL onde o conteúdo da mídia que foi exportado será hospedado."
+msgstr "Define a URL onde o conteúdo da média que foi exportado será hospedado."
 
 #. TRANSLATORS: ascompose flag description for: --no-partial-urls
 #: tools/appstream-compose.c:278
@@ -3343,7 +3278,7 @@ msgstr "Falha na validação se algum problema for emitido que não seja de seve
 #. TRANSLATORS: ascli flag description for: --format  when validating XML files
 #: tools/appstreamcli.c:250
 msgid "Format of the generated report (valid values are 'text' and 'yaml')."
-msgstr "O formato do relatório gerado (os valores válidos são 'xml' e 'yaml')."
+msgstr "O formato do relatório gerado (os valores válidos são 'text' e 'yaml')."
 
 #. TRANSLATORS: ascli flag description for: --override  when validating XML files
 #: tools/appstreamcli.c:256
@@ -3797,7 +3732,7 @@ msgstr "ERRO"
 
 #: tools/ascli-actions-mdata.c:695 tools/ascli-actions-mdata.c:826
 msgid "You need to specify a MetaInfo filename or component ID."
-msgstr "Precisa especificar um ficheiro Metainfo ou ID do componente."
+msgstr "Precisa especificar um nome de ficheiro MetaInfo ou ID do componente."
 
 #: tools/ascli-actions-mdata.c:714 tools/ascli-actions-mdata.c:838
 #: tools/ascli-actions-misc.c:133 tools/ascli-actions-misc.c:468
@@ -3869,7 +3804,7 @@ msgstr "Desconhecido"
 #: tools/ascli-actions-mdata.c:875
 #, c-format
 msgid "Chassis compatibility check for: %s"
-msgstr "Verificação de compatibilidade de chassi para: %s"
+msgstr "Verificação de compatibilidade de chassis para: %s"
 
 #: tools/ascli-actions-mdata.c:894
 msgid "Incompatible"
@@ -4024,24 +3959,22 @@ msgstr "Resumo"
 
 #: tools/ascli-actions-misc.c:714
 msgid "Release Kind"
-msgstr ""
+msgstr "Tipo de Lançamento"
 
 #. TRANSLATORS: Release date of the running OS release
 #: tools/ascli-actions-misc.c:719
 msgid "Released"
-msgstr ""
+msgstr "Lançado"
 
 #. TRANSLATORS: End-of-life date of the running OS release
 #: tools/ascli-actions-misc.c:725
-#, fuzzy
-#| msgid "Supported:"
 msgid "Supported Until"
-msgstr "Compatível:"
+msgstr "Suportado Até"
 
 #. TRANSLATORS: OS releases newer than the running one, with their kind
 #: tools/ascli-actions-misc.c:740
 msgid "Newer Releases"
-msgstr ""
+msgstr "Lançamentos Mais Recentes"
 
 #: tools/ascli-actions-misc.c:744 tools/ascli-utils.c:309
 msgid "Homepage"
@@ -4361,7 +4294,7 @@ msgstr "Tipo da licença"
 #. TRANSLATORS: Canonical identifier of a software license
 #: tools/ascli-actions-validate.c:694
 msgid "Canonical ID"
-msgstr "ID canônico"
+msgstr "ID canónico"
 
 #. TRANSLATORS: Whether a license is suitable for AppStream metadata
 #: tools/ascli-actions-validate.c:698
