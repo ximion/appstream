@@ -12,6 +12,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Martin Srebotnjak <miles@filmsi.net>, 2015, 2024, 2025, 2026.
 # Richard Hughes <richard@hughsie.com>, 2016. #zanata
+# Martin Srebotnjak <filmsi@users.noreply.hosted.weblate.org>, 2026.
 #
 # Translators:
 msgid ""
@@ -19,15 +20,15 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-10-26 10:22+0100\n"
-"PO-Revision-Date: 2026-08-28 19:59+0000\n"
-"Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
+"PO-Revision-Date: 2026-10-29 19:51+0000\n"
+"Last-Translator: Martin Srebotnjak <filmsi@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Slovenian <https://hosted.weblate.org/projects/appstream/translations/sl/>\n"
 "Language: sl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3;\n"
-"X-Generator: Weblate 2026.9.dev0\n"
+"X-Generator: Weblate 2026.11.dev0\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -422,17 +423,13 @@ msgstr "Zgodnje otroštvo"
 
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:836
-#, fuzzy
-#| msgid "No cartoon violence"
 msgid "Cartoon Violence"
-msgstr "Brez nasilja v risani seriji"
+msgstr "Nasilje v risani seriji"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:838
-#, fuzzy
-#| msgid "No cartoon violence"
 msgid "No information regarding cartoon violence"
-msgstr "Brez nasilja v risani seriji"
+msgstr "Ni podatkov o nasilju v risani seriji"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:840
@@ -456,17 +453,13 @@ msgstr "Nazorno nasilje med risanimi liki"
 
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:851
-#, fuzzy
-#| msgid "No fantasy violence"
 msgid "Fantasy Violence"
-msgstr "Brez fantazijskega nasilja"
+msgstr "Fantazijsko nasilje"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:853
-#, fuzzy
-#| msgid "No fantasy violence"
 msgid "No information regarding fantasy violence"
-msgstr "Brez fantazijskega nasilja"
+msgstr "Ni podatkov o fantazijskem nasilju"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:855
@@ -490,17 +483,13 @@ msgstr "Nazorno nasilje, ki ga je mogoče zlahka razlikovati od realnosti"
 
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:866
-#, fuzzy
-#| msgid "No realistic violence"
 msgid "Realistic Violence"
-msgstr "Brez realističnega nasilja"
+msgstr "Realistično nasilje"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:868
-#, fuzzy
-#| msgid "No realistic violence"
 msgid "No information regarding realistic violence"
-msgstr "Brez realističnega nasilja"
+msgstr "Ni podatkov o realističnem nasilju"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:870
@@ -525,12 +514,12 @@ msgstr "Nazorno nasilje, ki vključuje realistične like"
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:881
 msgid "Violence Depicting Bloodshed"
-msgstr ""
+msgstr "Nasilje, ki prikazuje prelivanje krvi"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:883
 msgid "No information regarding bloodshed"
-msgstr ""
+msgstr "Ni podatkov o morebitnem prelivanju krvi"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:885
@@ -554,17 +543,13 @@ msgstr "Prikazi prelivanja krvi in pohabljanje delov telesa"
 
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:896
-#, fuzzy
-#| msgid "No sexual violence"
 msgid "Sexual Violence"
-msgstr "Brez spolnega nasilja"
+msgstr "Spolno nasilje"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:898
-#, fuzzy
-#| msgid "No sexual violence"
 msgid "No information regarding sexual violence"
-msgstr "Brez spolnega nasilja"
+msgstr "Ni podatkov o spolnem nasilju"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:900
@@ -579,14 +564,12 @@ msgstr "Posilstvo ali drugo nasilno vedenje"
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:909
 msgid "Alcohol"
-msgstr ""
+msgstr "Alkohol"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:911
-#, fuzzy
-#| msgid "No references to alcohol"
 msgid "No information regarding references to alcohol"
-msgstr "Brez omenjanja alkoholnih pijač"
+msgstr "Ni podatkov o morebitnem omenjanju alkoholnih pijač"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:913
@@ -606,14 +589,12 @@ msgstr "Uporaba alkoholnih pijač"
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:923
 msgid "Narcotics"
-msgstr ""
+msgstr "Droge"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:925
-#, fuzzy
-#| msgid "No references to illicit drugs"
 msgid "No information regarding references to illicit drugs"
-msgstr "Ni omenjanja prepovedanih drog"
+msgstr "Ni podatkov o morebitnem omenjanju prepovedanih drog"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:927
@@ -633,14 +614,12 @@ msgstr "Uporaba prepovedanih drog"
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:937
 msgid "Tobacco"
-msgstr ""
+msgstr "Tobačni izdelki"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:939
-#, fuzzy
-#| msgid "No references to tobacco products"
 msgid "No information regarding references to tobacco products"
-msgstr "Ni sklicevanja na tobačne izdelke"
+msgstr "Ni podatkov o sklicevanju na tobačne izdelke"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:941
@@ -660,14 +639,12 @@ msgstr "Uporaba tobačnih izdelkov"
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:951
 msgid "Nudity"
-msgstr ""
+msgstr "Golota"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:953
-#, fuzzy
-#| msgid "No nudity of any sort"
 msgid "No information regarding nudity of any sort"
-msgstr "Brez vsakršne golote"
+msgstr "Ni podatkov o pojavnosti golote"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:955
@@ -692,14 +669,12 @@ msgstr "Eksplicitna golota, ki vključuje vidne spolne organe"
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:966
 msgid "Sexual Themes"
-msgstr ""
+msgstr "Teme spolnosti"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:968
-#, fuzzy
-#| msgid "No references to or depictions of sexual nature"
 msgid "No information regarding references to or depictions of sexual nature"
-msgstr "Ni omenjanja in prikazov spolne narave"
+msgstr "Ni podatkov o omenjanju in prikazih spolne narave"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:970
@@ -724,14 +699,12 @@ msgstr "Nazorno seksualno vedenje"
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:981
 msgid "Profanity"
-msgstr ""
+msgstr "Preklinjanje"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:983
-#, fuzzy
-#| msgid "No profanity of any kind"
 msgid "No information regarding profanity of any kind"
-msgstr "Brez kakršnegakoli preklinjanja"
+msgstr "Ni podatkov o pojavljanju kakršnegakoli preklinjanja"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:985
@@ -755,17 +728,13 @@ msgstr "Izrazito ali pogosto preklinjanje"
 
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:996
-#, fuzzy
-#| msgid "No inappropriate humor"
 msgid "Inappropriate Humor"
-msgstr "Brez neustreznega humorja"
+msgstr "Neustrezen humor"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:998
-#, fuzzy
-#| msgid "No inappropriate humor"
 msgid "No information regarding inappropriate humor"
-msgstr "Brez neustreznega humorja"
+msgstr "Ni podatkov o neustreznem humorju"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1000
@@ -789,17 +758,13 @@ msgstr "Humor za odrasle"
 
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1011
-#, fuzzy
-#| msgid "Description"
 msgid "Discrimination"
-msgstr "Opis"
+msgstr "Diskriminacija"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1013
-#, fuzzy
-#| msgid "No discriminatory language of any kind"
 msgid "No information regarding discriminatory language of any kind"
-msgstr "Brez vsakršnega diskriminatornega namigovanja"
+msgstr "Ni podatkov o morebitnem diskriminatornem namigovanju"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1015
@@ -824,14 +789,12 @@ msgstr "Izrecna diskriminacija na podlagi spola, spolnosti, rase ali vere"
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1026
 msgid "Advertising"
-msgstr ""
+msgstr "Oglaševanje"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1028
-#, fuzzy
-#| msgid "No advertising of any kind"
 msgid "No information regarding advertising of any kind"
-msgstr "Brez kakršnegakoli oglaševanja"
+msgstr "Ni podatkov o morebitnem prisotnem oglaševanju"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1030
@@ -856,14 +819,12 @@ msgstr "Uporabnike spodbuja k nakupu določenih fizičnih predmetov"
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1041
 msgid "Gambling"
-msgstr ""
+msgstr "Igre na srečo"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1043
-#, fuzzy
-#| msgid "No gambling of any kind"
 msgid "No information regarding gambling of any kind"
-msgstr "Brez kakršnegakoli igranja na srečo"
+msgstr "Ni podatkov o morebitnem igranju na srečo"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1045
@@ -888,14 +849,12 @@ msgstr "Igranje na srečo s pravim denarjem"
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1056
 msgid "Purchasing"
-msgstr ""
+msgstr "Nakupi"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1058
-#, fuzzy
-#| msgid "No ability to spend money"
 msgid "No information regarding the ability to spend money"
-msgstr "Možnost uporabe pravega denarja"
+msgstr "Ni podatkov o prisotni možnosti trošenja denarja"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1060
@@ -915,14 +874,12 @@ msgstr "Možnost uporabe pravega denarja v programu"
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1070
 msgid "Chat Between Users"
-msgstr ""
+msgstr "Klepet med uporabniki"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1072
-#, fuzzy
-#| msgid "No way to chat with other users"
 msgid "No information regarding ways to chat with other users"
-msgstr "Ni možnosti klepeta z drugimi uporabniki"
+msgstr "Ni podatkov o morebitni možnosti klepeta z drugimi uporabniki"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1074
@@ -947,14 +904,12 @@ msgstr "Nenadzorovana možnost klepeta med uporabniki"
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1085
 msgid "Audio Chat Between Users"
-msgstr ""
+msgstr "Zvočni klepet med uporabniki"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1087
-#, fuzzy
-#| msgid "No way to talk with other users"
 msgid "No information regarding ways to talk with other users"
-msgstr "Ni možnosti klepeta ali pogovora z drugimi uporabniki"
+msgstr "Ni podatkov o morebitni možnosti pogovora z drugimi uporabniki"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1089
@@ -974,14 +929,12 @@ msgstr "Nenadzorovana možnost zvočnega ali video klepeta med uporabniki"
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1099
 msgid "Contact Details"
-msgstr ""
+msgstr "Podrobnosti o stiku"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1101
-#, fuzzy
-#| msgid "No sharing of social network usernames or email addresses"
 msgid "No information regarding sharing of social network usernames or email addresses"
-msgstr "Ni objavljanja uporabniških imen ali elektronskih naslovov"
+msgstr "Ni podatkov o morebitnem objavljanju ali deljenju uporabniških imen ali elektronskih naslovov na družbenih omrežjih"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1103
@@ -996,14 +949,12 @@ msgstr "Objavljanje uporabniškega imena ali elektronskega naslova socialnega om
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1112
 msgid "Identifying Information"
-msgstr ""
+msgstr "Identifikacijski podatki"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1114
-#, fuzzy
-#| msgid "No sharing of user information with third parties"
 msgid "No information regarding sharing of user information with third parties"
-msgstr "Podrobnosti o uporabniku se ne objavljajo tretjim osebam"
+msgstr "Ni podatkov o morebitnem objavljanju podrobnosti o uporabniku tretjim osebam"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1116
@@ -1028,14 +979,12 @@ msgstr "Objavljanje podrobnosti o uporabniku"
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1127
 msgid "Location Sharing"
-msgstr ""
+msgstr "Deljenje lokacije"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1129
-#, fuzzy
-#| msgid "No sharing of physical location with other users"
 msgid "No information regarding sharing of physical location with other users"
-msgstr "Trenutno mesto se ne objavlja drugim uporabnikom"
+msgstr "Ni podatkov o morebitnem objavljanju trenutnega položaja drugim uporabnikom"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1131
@@ -1050,14 +999,12 @@ msgstr "Omogočeno je objavljanje trenutnega mesta drugim uporabnikom"
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1156
 msgid "Homosexuality"
-msgstr ""
+msgstr "Homoseksualnost"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1158
-#, fuzzy
-#| msgid "No references to homosexuality"
 msgid "No information regarding references to homosexuality"
-msgstr "Brez sklicevanja na homoseksualnost"
+msgstr "Ni podatkov o morebitnem sklicevanju na homoseksualnost"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1160
@@ -1082,14 +1029,12 @@ msgstr "Nazorno spolno obnašanje med osebami istega spola"
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1171
 msgid "Prostitution"
-msgstr ""
+msgstr "Prostitucija"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1173
-#, fuzzy
-#| msgid "No references to prostitution"
 msgid "No information regarding references to prostitution"
-msgstr "Brez sklicevanja na prostitucijo"
+msgstr "Ni podatkov o morebitnem sklicevanju na prostitucijo"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1175
@@ -1113,32 +1058,28 @@ msgstr "Nazoren prikaz prostitucije"
 
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1186
-#, fuzzy
-#| msgid "Adults Only"
 msgid "Adultery"
-msgstr "Le za odrasle"
+msgstr "Prešuštvo"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1188
-#, fuzzy
-#| msgid "No references to adultery"
 msgid "No information regarding references to adultery"
-msgstr "Brez sklicevanja na nezvestobo"
+msgstr "Ni podatkov o sklicevanju na prešuštvo"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1190
 msgid "No references to adultery"
-msgstr "Brez sklicevanja na nezvestobo"
+msgstr "Brez sklicevanja na prešuštvo"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1192
 msgid "Indirect references to adultery"
-msgstr "Posredno namigovanje na nezvestobo"
+msgstr "Posredno namigovanje na prešuštvo"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1194
 msgid "Direct references to adultery"
-msgstr "Neposredno omenjanje nezvestobe"
+msgstr "Neposredno omenjanje prešuštva"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1196
@@ -1147,22 +1088,18 @@ msgstr "Nazoren prikaz prešuštva"
 
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1201
-#, fuzzy
-#| msgid "No sexualized characters"
 msgid "Sexualized Characters"
-msgstr "Brez izrazitega spolnega izražanja"
+msgstr "Spolno poudarjeni liki"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1203
-#, fuzzy
-#| msgid "No sexualized characters"
 msgid "No information regarding sexualized characters"
-msgstr "Brez izrazitega spolnega izražanja"
+msgstr "Ni podatkov o spolno poudarjenih likih"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1205
 msgid "No sexualized characters"
-msgstr "Brez izrazitega spolnega izražanja"
+msgstr "Brez. spolno poudarjenih likov"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1208
@@ -1176,17 +1113,13 @@ msgstr "Prekomerno spolno izraženi človeški liki"
 
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1215
-#, fuzzy
-#| msgid "Description"
 msgid "Desecration"
-msgstr "Opis"
+msgstr "Oskrunitev"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1217
-#, fuzzy
-#| msgid "No references to desecration"
 msgid "No information regarding references to desecration"
-msgstr "Brez sklicevanja na skrunjenje človeškega telesa"
+msgstr "Ni podatkov o sklicevanju na skrunjenje človeškega telesa"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1219
@@ -1211,14 +1144,12 @@ msgstr "Nazorno prikazovanje sodobnega skrunjenja človeškega telesa"
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1230
 msgid "Human Remains"
-msgstr ""
+msgstr "Posmrtni ostanki"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1232
-#, fuzzy
-#| msgid "No visible dead human remains"
 msgid "No information regarding visible dead human remains"
-msgstr "Brez vidnih ostankov mrtvih ljudi"
+msgstr "Ni podatkov o vidnih posmrtnih ostankov ljudi"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1234
@@ -1243,14 +1174,12 @@ msgstr "Nazorno prikazovanje oskrunjenja človeškega telesa"
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1245
 msgid "Slavery"
-msgstr ""
+msgstr "Suženjstvo"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1247
-#, fuzzy
-#| msgid "No references to slavery"
 msgid "No information regarding references to slavery"
-msgstr "Brez sklicevanja na suženjstvo"
+msgstr "Ni podatkov o morebitnem sklicevanju na suženjstvo"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1249
@@ -1274,38 +1203,33 @@ msgstr "Nazorno prikazovanje sodobnega suženjstva"
 
 #. TRANSLATORS: content rating group title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1379
-#, fuzzy
-#| msgid "Science"
 msgid "Violence"
-msgstr "Znanost"
+msgstr "Nasilje"
 
 #. TRANSLATORS: content rating group title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1382
 msgid "Drugs"
-msgstr ""
+msgstr "Droge"
 
 #. TRANSLATORS: content rating group title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1385
 msgid "Sex & Nudity"
-msgstr ""
+msgstr "Spolnost in golota"
 
 #. TRANSLATORS: content rating group title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1388
-#, fuzzy
-#| msgctxt "Category of Education"
-#| msgid "Languages"
 msgid "Strong Language"
-msgstr "Jeziki"
+msgstr "Vulgaren jezik"
 
 #. TRANSLATORS: content rating group title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1391
 msgid "Money"
-msgstr ""
+msgstr "Denar"
 
 #. TRANSLATORS: content rating group title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1394
 msgid "Social"
-msgstr ""
+msgstr "Družbena omrežja"
 
 #. TRANSLATORS: We got a 429 error while trying to download data
 #: src/as-curl.c:199
@@ -4013,24 +3937,22 @@ msgstr "Povzetek"
 
 #: tools/ascli-actions-misc.c:714
 msgid "Release Kind"
-msgstr ""
+msgstr "Vrsta izdaje"
 
 #. TRANSLATORS: Release date of the running OS release
 #: tools/ascli-actions-misc.c:719
 msgid "Released"
-msgstr ""
+msgstr "Izdano"
 
 #. TRANSLATORS: End-of-life date of the running OS release
 #: tools/ascli-actions-misc.c:725
-#, fuzzy
-#| msgid "Supported:"
 msgid "Supported Until"
-msgstr "Podprto:"
+msgstr "Podprto do"
 
 #. TRANSLATORS: OS releases newer than the running one, with their kind
 #: tools/ascli-actions-misc.c:740
 msgid "Newer Releases"
-msgstr ""
+msgstr "Novejše izdaje"
 
 #: tools/ascli-actions-misc.c:744 tools/ascli-utils.c:309
 msgid "Homepage"
