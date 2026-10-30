@@ -4,20 +4,21 @@
 # Daniel Șerbănescu <daniel@serbanescu.dk>, 2020, 2021.
 # Alecsa Maria <alecsandra.suciu@alizaur.com>, 2021.
 # Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>, 2024, 2025, 2026.
+# Remus-Gabriel Chelu <remus-gabriel@users.noreply.hosted.weblate.org>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-10-26 10:22+0100\n"
-"PO-Revision-Date: 2026-09-01 09:51+0000\n"
-"Last-Translator: Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>\n"
+"PO-Revision-Date: 2026-10-30 22:51+0000\n"
+"Last-Translator: Remus-Gabriel Chelu <remus-gabriel@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Romanian <https://hosted.weblate.org/projects/appstream/translations/ro/>\n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < 20)) ? 1 : 2;\n"
-"X-Generator: Weblate 2026.9.dev0\n"
+"X-Generator: Weblate 2026.11.dev0\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -412,17 +413,13 @@ msgstr "Copii mici"
 
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:836
-#, fuzzy
-#| msgid "No cartoon violence"
 msgid "Cartoon Violence"
-msgstr "Desene animate fără violență"
+msgstr "Desene animate cu violență"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:838
-#, fuzzy
-#| msgid "No cartoon violence"
 msgid "No information regarding cartoon violence"
-msgstr "Desene animate fără violență"
+msgstr "Nu există informații privind violența din desenele animate"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:840
@@ -446,17 +443,13 @@ msgstr "Violență grafică care implică personaje de desene animate"
 
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:851
-#, fuzzy
-#| msgid "No fantasy violence"
 msgid "Fantasy Violence"
-msgstr "Fără violență fantezistă"
+msgstr "Violență fantezistă"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:853
-#, fuzzy
-#| msgid "No fantasy violence"
 msgid "No information regarding fantasy violence"
-msgstr "Fără violență fantezistă"
+msgstr "Nu există informații privind violența fantezistă"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:855
@@ -480,17 +473,13 @@ msgstr "Violența grafică ușor de distins de realitate"
 
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:866
-#, fuzzy
-#| msgid "No realistic violence"
 msgid "Realistic Violence"
-msgstr "Fără violență realistă"
+msgstr "Violență realistă"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:868
-#, fuzzy
-#| msgid "No realistic violence"
 msgid "No information regarding realistic violence"
-msgstr "Fără violență realistă"
+msgstr "Nu există informații privind violența realistă"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:870
@@ -515,12 +504,12 @@ msgstr "Violență grafică care implică personaje realiste"
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:881
 msgid "Violence Depicting Bloodshed"
-msgstr ""
+msgstr "Violență care înfățișează vărsare de sânge"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:883
 msgid "No information regarding bloodshed"
-msgstr ""
+msgstr "Nu există informații privind vărsarea de sânge"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:885
@@ -544,17 +533,13 @@ msgstr "Reprezentarea vărsării de sânge și mutilarea părților corpului"
 
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:896
-#, fuzzy
-#| msgid "No sexual violence"
 msgid "Sexual Violence"
-msgstr "Fără violență sexuală"
+msgstr "Violență sexuală"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:898
-#, fuzzy
-#| msgid "No sexual violence"
 msgid "No information regarding sexual violence"
-msgstr "Fără violență sexuală"
+msgstr "Nu există informații privind violența sexuală"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:900
@@ -569,14 +554,12 @@ msgstr "Viol sau alt comportament sexual violent"
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:909
 msgid "Alcohol"
-msgstr ""
+msgstr "Alcool"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:911
-#, fuzzy
-#| msgid "No references to alcohol"
 msgid "No information regarding references to alcohol"
-msgstr "Fără referiri la alcool"
+msgstr "Nu există informații privind referiri la alcool"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:913
@@ -596,14 +579,12 @@ msgstr "Utilizarea băuturilor alcoolice"
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:923
 msgid "Narcotics"
-msgstr ""
+msgstr "Narcotice"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:925
-#, fuzzy
-#| msgid "No references to illicit drugs"
 msgid "No information regarding references to illicit drugs"
-msgstr "Fără referiri la drogurile ilicite"
+msgstr "Nu există informații privind referiri la drogurile ilicite"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:927
@@ -623,14 +604,12 @@ msgstr "Utilizarea drogurilor ilicite"
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:937
 msgid "Tobacco"
-msgstr ""
+msgstr "Tutun"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:939
-#, fuzzy
-#| msgid "No references to tobacco products"
 msgid "No information regarding references to tobacco products"
-msgstr "Nu există referiri la produsele din tutun"
+msgstr "Nu există informații privind referiri la produsele din tutun"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:941
@@ -650,19 +629,17 @@ msgstr "Utilizarea produselor din tutun"
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:951
 msgid "Nudity"
-msgstr ""
+msgstr "Nuditate"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:953
-#, fuzzy
-#| msgid "No nudity of any sort"
 msgid "No information regarding nudity of any sort"
-msgstr "Niciun fel de nuditate"
+msgstr "Nu există informații privind orice fel de nuditate"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:955
 msgid "No nudity of any sort"
-msgstr "Niciun fel de nuditate"
+msgstr "Fără niciun fel de nuditate"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:957
@@ -682,14 +659,12 @@ msgstr "Nuditate explicită care implică organe sexuale vizibile"
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:966
 msgid "Sexual Themes"
-msgstr ""
+msgstr "Teme sexuale"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:968
-#, fuzzy
-#| msgid "No references to or depictions of sexual nature"
 msgid "No information regarding references to or depictions of sexual nature"
-msgstr "Fără referiri sau descrieri de natură sexuală"
+msgstr "Nu există informații privind referiri sau descrieri de natură sexuală"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:970
@@ -714,19 +689,17 @@ msgstr "Comportament sexual grafic"
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:981
 msgid "Profanity"
-msgstr ""
+msgstr "Blasfemii / Limbaj obscen"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:983
-#, fuzzy
-#| msgid "No profanity of any kind"
 msgid "No information regarding profanity of any kind"
-msgstr "Niciun fel de blasfemie"
+msgstr "Nu există informații privind referiri la orice tip de blasfemie/limbaj obscen"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:985
 msgid "No profanity of any kind"
-msgstr "Niciun fel de blasfemie"
+msgstr "Niciun fel de blasfemie/limbaj obscen"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:987
@@ -745,22 +718,18 @@ msgstr "Folosirea puternică sau frecventă a blasfemieii"
 
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:996
-#, fuzzy
-#| msgid "No inappropriate humor"
 msgid "Inappropriate Humor"
-msgstr "Fără umor nepotrivit"
+msgstr "Umor de prost gust"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:998
-#, fuzzy
-#| msgid "No inappropriate humor"
 msgid "No information regarding inappropriate humor"
-msgstr "Fără umor nepotrivit"
+msgstr "Nu există informații referitoare la umorul de prost gust"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1000
 msgid "No inappropriate humor"
-msgstr "Fără umor nepotrivit"
+msgstr "Fără umor de prost gust"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1002
@@ -770,7 +739,7 @@ msgstr "Umor infantil"
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1004
 msgid "Vulgar or bathroom humor"
-msgstr "Umor vulgar"
+msgstr "Umor vulgar sau legat de nevoile fiziologice"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1006
@@ -779,17 +748,13 @@ msgstr "Umor pentru adulți sau cu tentă sexuală"
 
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1011
-#, fuzzy
-#| msgid "Description"
 msgid "Discrimination"
-msgstr "Descriere"
+msgstr "Discriminare"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1013
-#, fuzzy
-#| msgid "No discriminatory language of any kind"
 msgid "No information regarding discriminatory language of any kind"
-msgstr "Nu există limbaj discriminatoriu de niciun fel"
+msgstr "Nu există informații privind orice tip de limbaj discriminatoriu"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1015
@@ -814,14 +779,12 @@ msgstr "Discriminare explicită bazată pe sex, sexualitate, rasă sau religie"
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1026
 msgid "Advertising"
-msgstr ""
+msgstr "Publicitate"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1028
-#, fuzzy
-#| msgid "No advertising of any kind"
 msgid "No information regarding advertising of any kind"
-msgstr "Nu există publicitate de niciun fel"
+msgstr "Nu există informații privind orice fel de publicitate"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1030
@@ -846,19 +809,17 @@ msgstr "Utilizatorii sunt încurajați să cumpere articole specifice din lumea 
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1041
 msgid "Gambling"
-msgstr ""
+msgstr "Jocuri de noroc"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1043
-#, fuzzy
-#| msgid "No gambling of any kind"
 msgid "No information regarding gambling of any kind"
-msgstr "Fără jocuri de noroc"
+msgstr "Nu există informații privind orice fel de joc de noroc"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1045
 msgid "No gambling of any kind"
-msgstr "Fără jocuri de noroc"
+msgstr "Fără niciun fel de jocuri de noroc"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1047
@@ -878,19 +839,17 @@ msgstr "Jocuri de noroc folosind bani reali"
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1056
 msgid "Purchasing"
-msgstr ""
+msgstr "Achiziții/cumpărături"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1058
-#, fuzzy
-#| msgid "No ability to spend money"
 msgid "No information regarding the ability to spend money"
-msgstr "Nici o capacitate de a cheltui bani"
+msgstr "Nu există informații cu privire la posibilitatea de a cheltui bani"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1060
 msgid "No ability to spend money"
-msgstr "Nici o capacitate de a cheltui bani"
+msgstr "Nu există posibilitatea de a cheltui bani"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1062
@@ -905,19 +864,17 @@ msgstr "Abilitatea de a cheltui bani reali în aplicație"
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1070
 msgid "Chat Between Users"
-msgstr ""
+msgstr "Conversație între utilizatori"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1072
-#, fuzzy
-#| msgid "No way to chat with other users"
 msgid "No information regarding ways to chat with other users"
-msgstr "Nici o modalitate de a discuta cu alți utilizatori"
+msgstr "Nu există informații cu privire la modalitățile de a conversa cu alți utilizatori"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1074
 msgid "No way to chat with other users"
-msgstr "Nici o modalitate de a discuta cu alți utilizatori"
+msgstr "Nici o modalitate de a conversa cu alți utilizatori"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1076
@@ -937,19 +894,17 @@ msgstr "Funcționalitate de conversație (chat) necontrolată între utilizatori
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1085
 msgid "Audio Chat Between Users"
-msgstr ""
+msgstr "Conversație audio între utilizatori"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1087
-#, fuzzy
-#| msgid "No way to talk with other users"
 msgid "No information regarding ways to talk with other users"
-msgstr "Nici o modalitate de a conversa cu alți utilizatori"
+msgstr "Nu există informații cu privire la modalitățile de a vorbi cu alți utilizatori"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1089
 msgid "No way to talk with other users"
-msgstr "Nici o modalitate de a conversa cu alți utilizatori"
+msgstr "Nici o modalitate de a vorbi cu alți utilizatori"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1092
@@ -964,36 +919,32 @@ msgstr "Funcționalitate necontrolată de conversație audio sau video între ut
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1099
 msgid "Contact Details"
-msgstr ""
+msgstr "Date de contact"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1101
-#, fuzzy
-#| msgid "No sharing of social network usernames or email addresses"
 msgid "No information regarding sharing of social network usernames or email addresses"
-msgstr "Nu se partajează numele de utilizator sau adresele de poștă electronică ale rețelelor sociale"
+msgstr "Nu există informații cu privire la partajarea numelor de utilizator ale rețelelor sociale sau adresele de poștă electronică"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1103
 msgid "No sharing of social network usernames or email addresses"
-msgstr "Nu se partajează numele de utilizator sau adresele de poștă electronică ale rețelelor sociale"
+msgstr "Nu se partajează numele de utilizator ale rețelelor sociale sau adresele de poștă electronică"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1107
 msgid "Sharing social network usernames or email addresses"
-msgstr "Se partajează numele de utilizator sau adresele de poștă electronică ale rețelelor sociale"
+msgstr "Se partajează numele de utilizator ale rețelelor sociale sau adresele de poștă electronică"
 
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1112
 msgid "Identifying Information"
-msgstr ""
+msgstr "Informații de identificare"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1114
-#, fuzzy
-#| msgid "No sharing of user information with third parties"
 msgid "No information regarding sharing of user information with third parties"
-msgstr "Nu se partajează informațiile utilizatorului cu terțe părți"
+msgstr "Nu există informații privind partajarea datelor utilizatorilor cu terțe părți"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1116
@@ -1018,14 +969,12 @@ msgstr "Se partajează informațiile care permit altor persoane să identifice u
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1127
 msgid "Location Sharing"
-msgstr ""
+msgstr "Partajarea locației"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1129
-#, fuzzy
-#| msgid "No sharing of physical location with other users"
 msgid "No information regarding sharing of physical location with other users"
-msgstr "Nu se partajează locația fizică cu alți utilizatori"
+msgstr "Nu există informații privind partajarea locației fizice cu alți utilizatori"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1131
@@ -1040,14 +989,12 @@ msgstr "Se partajează locația fizică cu alți utilizatori"
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1156
 msgid "Homosexuality"
-msgstr ""
+msgstr "Homosexualitate"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1158
-#, fuzzy
-#| msgid "No references to homosexuality"
 msgid "No information regarding references to homosexuality"
-msgstr "Nicio referire la homosexualitate"
+msgstr "Nu există informații privind referiri la homosexualitate"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1160
@@ -1072,14 +1019,12 @@ msgstr "Comportament sexual explicit între persoane de același sex"
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1171
 msgid "Prostitution"
-msgstr ""
+msgstr "Prostituţie"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1173
-#, fuzzy
-#| msgid "No references to prostitution"
 msgid "No information regarding references to prostitution"
-msgstr "Nicio referire la prostituție"
+msgstr "Nu există informații privind referiri la prostituție"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1175
@@ -1103,17 +1048,13 @@ msgstr "Reprezentări explicite ale actului de prostituție"
 
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1186
-#, fuzzy
-#| msgid "Adults Only"
 msgid "Adultery"
-msgstr "Doar pentru adulți"
+msgstr "Adulter"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1188
-#, fuzzy
-#| msgid "No references to adultery"
 msgid "No information regarding references to adultery"
-msgstr "Nicio referire la adulter"
+msgstr "Nu există informații privind referiri la adulter"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1190
@@ -1137,22 +1078,18 @@ msgstr "Descrieri explicite ale actului de adulter"
 
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1201
-#, fuzzy
-#| msgid "No sexualized characters"
 msgid "Sexualized Characters"
-msgstr "Fără personaje cu caracter sexual"
+msgstr "Personaje sexualizate"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1203
-#, fuzzy
-#| msgid "No sexualized characters"
 msgid "No information regarding sexualized characters"
-msgstr "Fără personaje cu caracter sexual"
+msgstr "Nu există informații privind personaje sexualizate"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1205
 msgid "No sexualized characters"
-msgstr "Fără personaje cu caracter sexual"
+msgstr "Fără personaje sexualizate"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1208
@@ -1166,17 +1103,13 @@ msgstr "Personaje umane excesiv de sexualizate"
 
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1215
-#, fuzzy
-#| msgid "Description"
 msgid "Desecration"
-msgstr "Descriere"
+msgstr "Profanare"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1217
-#, fuzzy
-#| msgid "No references to desecration"
 msgid "No information regarding references to desecration"
-msgstr "Nicio referire la profanare"
+msgstr "Nu există informații privind referiri la profanare"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1219
@@ -1201,14 +1134,12 @@ msgstr "Descrieri grafice ale profanării din zilele noastre"
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1230
 msgid "Human Remains"
-msgstr ""
+msgstr "Rămășițe umane"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1232
-#, fuzzy
-#| msgid "No visible dead human remains"
 msgid "No information regarding visible dead human remains"
-msgstr "Nu există rămășițe umane vizibile"
+msgstr "Nu există informații privind prezența unor rămășițe umane vizibile"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1234
@@ -1233,14 +1164,12 @@ msgstr "Reprezentări grafice ale profanării corpurilor umane"
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1245
 msgid "Slavery"
-msgstr ""
+msgstr "Sclavie"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1247
-#, fuzzy
-#| msgid "No references to slavery"
 msgid "No information regarding references to slavery"
-msgstr "Nicio referire la sclavie"
+msgstr "Nu există informații privind referiri la sclavie"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1249
@@ -1264,38 +1193,33 @@ msgstr "Descrieri grafice ale sclaviei din zilele noastre"
 
 #. TRANSLATORS: content rating group title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1379
-#, fuzzy
-#| msgid "Science"
 msgid "Violence"
-msgstr "Știință"
+msgstr "Violență"
 
 #. TRANSLATORS: content rating group title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1382
 msgid "Drugs"
-msgstr ""
+msgstr "Droguri"
 
 #. TRANSLATORS: content rating group title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1385
 msgid "Sex & Nudity"
-msgstr ""
+msgstr "Sex și nuditate"
 
 #. TRANSLATORS: content rating group title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1388
-#, fuzzy
-#| msgctxt "Category of Education"
-#| msgid "Languages"
 msgid "Strong Language"
-msgstr "Limbi"
+msgstr "Injurii/Limbaj violent"
 
 #. TRANSLATORS: content rating group title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1391
 msgid "Money"
-msgstr ""
+msgstr "Bani"
 
 #. TRANSLATORS: content rating group title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1394
 msgid "Social"
-msgstr ""
+msgstr "Social"
 
 #. TRANSLATORS: We got a 429 error while trying to download data
 #: src/as-curl.c:199
@@ -4003,24 +3927,22 @@ msgstr "Rezumat"
 
 #: tools/ascli-actions-misc.c:714
 msgid "Release Kind"
-msgstr ""
+msgstr "Tipul versiunii publicate"
 
 #. TRANSLATORS: Release date of the running OS release
 #: tools/ascli-actions-misc.c:719
 msgid "Released"
-msgstr ""
+msgstr "Publicată"
 
 #. TRANSLATORS: End-of-life date of the running OS release
 #: tools/ascli-actions-misc.c:725
-#, fuzzy
-#| msgid "Supported:"
 msgid "Supported Until"
-msgstr "Compatibil:"
+msgstr "Asistență până la"
 
 #. TRANSLATORS: OS releases newer than the running one, with their kind
 #: tools/ascli-actions-misc.c:740
 msgid "Newer Releases"
-msgstr ""
+msgstr "Versiuni noi"
 
 #: tools/ascli-actions-misc.c:744 tools/ascli-utils.c:309
 msgid "Homepage"
@@ -4064,7 +3986,7 @@ msgstr "nu se poate determina"
 
 #: tools/ascli-actions-misc.c:789
 msgid "Devices with Modaliases"
-msgstr "Dispozitive cu alias de mod"
+msgstr "Dispozitive cu alias de mod (modaliases)"
 
 #: tools/ascli-actions-misc.c:818
 msgid "User Input Controls"
