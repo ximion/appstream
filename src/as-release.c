@@ -934,6 +934,7 @@ as_release_load_from_xml (AsRelease *release, AsContext *ctx, xmlNode *node, GEr
 		g_free (prop);
 	}
 
+	/* clear any existing descriptions, as we might add new ones */
 	g_hash_table_remove_all (priv->description);
 
 	for (iter = node->children; iter != NULL; iter = iter->next) {
