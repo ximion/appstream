@@ -219,8 +219,10 @@ as_bundle_load_from_xml (AsBundle *bundle, AsContext *ctx, xmlNode *node, GError
 
 	type_str = as_xml_get_prop_value (node, "type");
 	priv->kind = as_bundle_kind_from_string (type_str);
+
+	/* a bundle of an unknown type can not be used */
 	if (priv->kind == AS_BUNDLE_KIND_UNKNOWN)
-		priv->kind = AS_BUNDLE_KIND_MANIFOLD;
+		return FALSE;
 
 	as_bundle_set_id (bundle, content);
 
@@ -275,7 +277,8 @@ as_bundle_load_from_yaml (AsBundle *bundle, AsContext *ctx, struct fy_node *node
 		}
 	}
 
-	return TRUE;
+	/* a bundle of an unknown type can not be used */
+	return priv->kind != AS_BUNDLE_KIND_UNKNOWN;
 }
 
 /**
