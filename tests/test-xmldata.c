@@ -2544,25 +2544,6 @@ test_xml_read_releases (void)
 	}
 }
 
-static const gchar *xmldata_releases_catalog_l10n =
-    "<components version=\"1.0\" origin=\"test\">\n"
-    "  <component>\n"
-    "    <id>org.example.ReleaseL10NTest</id>\n"
-    "    <releases>\n"
-    "      <release type=\"stable\" version=\"1.2\">\n"
-    "        <description>\n"
-    "          <p>A release description.</p>\n"
-    "        </description>\n"
-    "        <description xml:lang=\"de\">\n"
-    "          <p>Eine Beschreibung der Veröffentlichung.</p>\n"
-    "        </description>\n"
-    "        <description xml:lang=\"it\">\n"
-    "          <p>Una descrizione della versione.</p>\n"
-    "        </description>\n"
-    "      </release>\n"
-    "    </releases>\n"
-    "  </component>\n"
-    "</components>\n";
 /**
  * test_xml_read_releases_catalog_l10n:
  *
@@ -2575,6 +2556,25 @@ test_xml_read_releases_catalog_l10n (void)
 	g_autoptr(GError) error = NULL;
 	AsComponent *cpt;
 	AsRelease *rel;
+	const gchar *xmldata_releases_catalog_l10n =
+	    "<components version=\"1.0\" origin=\"test\">\n"
+	    "  <component>\n"
+	    "    <id>org.example.ReleaseL10NTest</id>\n"
+	    "    <releases>\n"
+	    "      <release type=\"stable\" version=\"1.2\">\n"
+	    "        <description>\n"
+	    "          <p>A release description.</p>\n"
+	    "        </description>\n"
+	    "        <description xml:lang=\"de\">\n"
+	    "          <p>Eine Beschreibung der Veröffentlichung.</p>\n"
+	    "        </description>\n"
+	    "        <description xml:lang=\"it\">\n"
+	    "          <p>Una descrizione della versione.</p>\n"
+	    "        </description>\n"
+	    "      </release>\n"
+	    "    </releases>\n"
+	    "  </component>\n"
+	    "</components>\n";
 
 	metad = as_metadata_new ();
 	as_metadata_set_locale (metad, "ALL");
