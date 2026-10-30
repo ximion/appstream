@@ -1,5 +1,9 @@
 # Meson definition for AppStream Qt
 
+if not get_option('qt')
+    subdir_done()
+endif
+
 add_languages('cpp', native: true)
 add_languages('cpp', native: false)
 

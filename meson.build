@@ -274,15 +274,11 @@ pkgc = import('pkgconfig')
 # Directories
 #
 subdir('src/')
-if get_option('compose')
-    subdir('compose/')
-endif
+subdir('compose/')
 subdir('tools/')
 subdir('po/')
 subdir('data/')
 subdir('contrib/')
 subdir('docs/')
 subdir('tests/')
-if get_option('qt')
-    subdir('qt/')
-endif
+subdir('qt/')

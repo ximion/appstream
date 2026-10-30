@@ -1,5 +1,9 @@
 # Meson build configuration for the AppStream Compose library
 
+if not get_option('compose')
+    subdir_done()
+endif
+
 appstream_compose_lib_inc = include_directories ('.')
 
 ascompose_src = [
