@@ -639,6 +639,197 @@ test_compose_hints (void)
 }
 
 /**
+ * asx_component_new_with_bundle:
+ *
+ * Create a component whose metadata claims a package and a bundle of its own.
+ */
+static AsComponent *
+asx_component_new_with_bundle (const gchar *cid, AsComponentKind kind)
+{
+	AsComponent *cpt = as_component_new ();
+	g_autoptr(AsBundle) bundle = as_bundle_new ();
+
+	as_component_set_id (cpt, cid);
+	as_component_set_kind (cpt, kind);
+	as_component_set_name (cpt, "Bundle Test", "C");
+	as_component_set_summary (cpt, "A component to test bundles", "C");
+	as_component_set_pkgname (cpt, "shipped-package");
+
+	as_bundle_set_kind (bundle, AS_BUNDLE_KIND_FLATPAK);
+	as_bundle_set_id (bundle, "app/org.example.Shipped/x86_64/stable");
+	as_component_add_bundle (cpt, bundle);
+
+	return cpt;
+}
+
+/**
+ * asx_assert_only_bundle:
+ *
+ * Verify that a component has exactly one bundle, the given one.
+ */
+static void
+asx_assert_only_bundle (AsComponent *cpt, AsBundleKind kind, const gchar *bundle_id)
+{
+	GPtrArray *bundles = as_component_get_bundles (cpt);
+
+	g_assert_cmpuint (bundles->len, ==, 1);
+	g_assert_cmpint (as_bundle_get_kind (AS_BUNDLE (g_ptr_array_index (bundles, 0))), ==, kind);
+	g_assert_cmpstr (as_bundle_get_id (AS_BUNDLE (g_ptr_array_index (bundles, 0))),
+			 ==,
+			 bundle_id);
+}
+
+/**
+ * test_compose_result_bundle:
+ *
+ * Verify that the bundle of a result replaces the packages and bundles that a
+ * component has set in its metadata. Web applications and operating systems
+ * can be shipped in a package, and appstream-generator relies on us recording
+ * it, but they never get a bundle.
+ */
+static void
+test_compose_result_bundle (void)
+{
+	const AsComponentKind kinds[] = { AS_COMPONENT_KIND_GENERIC,
+					  AS_COMPONENT_KIND_WEB_APP,
+					  AS_COMPONENT_KIND_OPERATING_SYSTEM };
+	const gchar *bundle_id = "x86_64/org.example.Test/1.0";
+	g_autoptr(AscCompose) compose = asc_compose_new ();
+	g_autoptr(GError) error = NULL;
+	gboolean ret;
+
+	for (guint i = 0; i < G_N_ELEMENTS (kinds); i++) {
+		g_autoptr(AscResult) bundle_res = asc_result_new ();
+		g_autoptr(AscResult) pkg_res = asc_result_new ();
+		g_autoptr(AsComponent) bundle_cpt = NULL;
+		g_autoptr(AsComponent) pkg_cpt = NULL;
+		AsBundle *bundle;
+
+		bundle_cpt = asx_component_new_with_bundle ("org.example.Test", kinds[i]);
+		pkg_cpt = asx_component_new_with_bundle ("org.example.Test", kinds[i]);
+
+		/* a bundle */
+		asc_result_set_bundle_kind (bundle_res, AS_BUNDLE_KIND_MANIFOLD);
+		asc_result_set_bundle_id (bundle_res, bundle_id);
+		ret = asc_result_add_component_with_string (bundle_res,
+							    bundle_cpt,
+							    "<testdata>",
+							    &error);
+		g_assert_no_error (error);
+		g_assert_true (ret);
+
+		bundle = as_component_get_bundle (bundle_cpt, AS_BUNDLE_KIND_MANIFOLD);
+		if (kinds[i] == AS_COMPONENT_KIND_GENERIC)
+			g_assert_nonnull (bundle);
+		else
+			g_assert_null (bundle);
+
+		asc_compose_finalize_result (compose, bundle_res);
+		if (kinds[i] == AS_COMPONENT_KIND_GENERIC)
+			asx_assert_only_bundle (bundle_cpt, AS_BUNDLE_KIND_MANIFOLD, bundle_id);
+		else
+			g_assert_cmpuint (as_component_get_bundles (bundle_cpt)->len, ==, 0);
+		g_assert_null (as_component_get_pkgname (bundle_cpt));
+
+		/* a package */
+		asc_result_set_bundle_kind (pkg_res, AS_BUNDLE_KIND_PACKAGE);
+		asc_result_set_bundle_id (pkg_res, "unit-package");
+		ret = asc_result_add_component_with_string (pkg_res, pkg_cpt, "<testdata>", &error);
+		g_assert_no_error (error);
+		g_assert_true (ret);
+
+		asc_compose_finalize_result (compose, pkg_res);
+		g_assert_cmpstr (as_component_get_pkgname (pkg_cpt), ==, "unit-package");
+		g_assert_cmpuint (as_component_get_bundles (pkg_cpt)->len, ==, 0);
+	}
+
+	/* a component-removal merge has no use for a bundle either */
+	{
+		g_autoptr(AscResult) cres = asc_result_new ();
+		g_autoptr(AsComponent) cpt = NULL;
+
+		cpt = asx_component_new_with_bundle ("org.example.Test", AS_COMPONENT_KIND_GENERIC);
+		as_component_set_merge_kind (cpt, AS_MERGE_KIND_REMOVE_COMPONENT);
+
+		asc_result_set_bundle_kind (cres, AS_BUNDLE_KIND_MANIFOLD);
+		asc_result_set_bundle_id (cres, bundle_id);
+		ret = asc_result_add_component_with_string (cres, cpt, "<testdata>", &error);
+		g_assert_no_error (error);
+		g_assert_true (ret);
+
+		asc_compose_finalize_result (compose, cres);
+		g_assert_cmpuint (as_component_get_bundles (cpt)->len, ==, 0);
+	}
+}
+
+/**
+ * test_compose_unit_bundle:
+ *
+ * Verify that the bundle of a unit ends up in the generated data, in place of
+ * what the metainfo file of a component claims.
+ */
+static void
+test_compose_unit_bundle (void)
+{
+	const gchar *metainfo = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+				"<component type=\"generic\">\n"
+				"  <id>org.example.UnitBundle</id>\n"
+				"  <metadata_license>CC0-1.0</metadata_license>\n"
+				"  <name>Unit Bundle</name>\n"
+				"  <summary>A component to test bundles</summary>\n"
+				"  <bundle type=\"manifold\">x86_64/org.example.Old/9</bundle>\n"
+				"</component>\n";
+	const gchar *bundle_id = "x86_64/org.example.UnitBundle/1.0";
+	const AscComposeFlags flags[] = { ASC_COMPOSE_FLAG_NONE, ASC_COMPOSE_FLAG_NO_FINAL_CHECK };
+	g_autofree gchar *root = asx_build_workdir_path ("unit-bundle");
+	g_autofree gchar *icons_dir = asx_build_workdir_path ("unit-bundle-icons");
+	g_autofree gchar *media_dir = asx_build_workdir_path ("unit-bundle-media");
+	g_autofree gchar *metainfo_dir = g_build_filename (root, "usr", "share", "metainfo", NULL);
+	g_autofree gchar *metainfo_fname = g_build_filename (metainfo_dir,
+							     "org.example.UnitBundle.metainfo.xml",
+							     NULL);
+	g_autoptr(GError) error = NULL;
+	gboolean ret;
+
+	g_assert_cmpint (g_mkdir_with_parents (metainfo_dir, 0755), ==, 0);
+	ret = g_file_set_contents (metainfo_fname, metainfo, -1, &error);
+	g_assert_no_error (error);
+	g_assert_true (ret);
+
+	for (guint i = 0; i < G_N_ELEMENTS (flags); i++) {
+		g_autoptr(AscCompose) compose = asc_compose_new ();
+		g_autoptr(AscDirectoryUnit) unit = asc_directory_unit_new (root);
+		GPtrArray *results;
+		AsComponent *cpt;
+
+		asc_unit_set_bundle_kind (ASC_UNIT (unit), AS_BUNDLE_KIND_MANIFOLD);
+		asc_unit_set_bundle_id (ASC_UNIT (unit), bundle_id);
+
+		asc_compose_set_prefix (compose, "/usr");
+		asc_compose_set_origin (compose, "test");
+		asc_compose_set_icons_result_dir (compose, icons_dir);
+		asc_compose_set_media_result_dir (compose, media_dir);
+		asc_compose_set_media_baseurl (compose, "https://example.org/media");
+		asc_compose_set_flags (compose, flags[i]);
+		asc_compose_add_unit (compose, ASC_UNIT (unit));
+
+		results = asc_compose_run (compose, NULL, &error);
+		g_assert_no_error (error);
+		g_assert_nonnull (results);
+		g_assert_cmpuint (results->len, ==, 1);
+
+		/* with this flag, running the final checks is up to us */
+		if (flags[i] == ASC_COMPOSE_FLAG_NO_FINAL_CHECK)
+			asc_compose_finalize_results (compose);
+
+		cpt = asc_result_get_component (ASC_RESULT (g_ptr_array_index (results, 0)),
+						"org.example.UnitBundle");
+		g_assert_nonnull (cpt);
+		asx_assert_only_bundle (cpt, AS_BUNDLE_KIND_MANIFOLD, bundle_id);
+	}
+}
+
+/**
  * test_compose_result:
  *
  * Test the result object.
@@ -1619,6 +1810,8 @@ main (int argc, char **argv)
 	g_test_add_func ("/AppStream/Compose/MediaWorkerFailure", test_media_worker_failure);
 	g_test_add_func ("/AppStream/Compose/Hints", test_compose_hints);
 	g_test_add_func ("/AppStream/Compose/Result", test_compose_result);
+	g_test_add_func ("/AppStream/Compose/ResultBundle", test_compose_result_bundle);
+	g_test_add_func ("/AppStream/Compose/UnitBundle", test_compose_unit_bundle);
 	g_test_add_func ("/AppStream/Compose/DesktopEntry", test_compose_desktop_entry);
 	g_test_add_func ("/AppStream/Compose/DirectoryUnit", test_compose_directory_unit);
 	g_test_add_func ("/AppStream/Compose/DirectoryUnitEscape",

@@ -575,7 +575,7 @@ asc_result_add_component (AscResult *result, AsComponent *cpt, GBytes *bytes, GE
 			gchar *pkgnames[2] = { priv->bundle_id, NULL };
 			as_component_set_pkgnames (cpt, pkgnames);
 		} else if ((priv->bundle_kind != AS_BUNDLE_KIND_UNKNOWN) &&
-			   (priv->bundle_kind >= AS_BUNDLE_KIND_LAST)) {
+			   (priv->bundle_kind < AS_BUNDLE_KIND_LAST)) {
 			g_autoptr(AsBundle) bundle = as_bundle_new ();
 			as_bundle_set_kind (bundle, priv->bundle_kind);
 			as_bundle_set_id (bundle, priv->bundle_id);

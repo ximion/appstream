@@ -1615,12 +1615,19 @@ asc_compose_finalize_components (AscCompose *compose, AscResult *cres)
 			g_ptr_array_set_size (as_component_get_bundles (cpt), 0);
 			as_component_set_pkgname (cpt, NULL);
 
+			/* NOTE: Every component gets the package name, as web applications and
+			 * operating systems can be shipped in a package too. A bundle makes no
+			 * sense for those though, and neither for component-removal merges. */
 			if (bundle_kind == AS_BUNDLE_KIND_PACKAGE) {
 				as_component_set_pkgname (cpt, asc_result_get_bundle_id (cres));
-			} else {
+			} else if (ckind != AS_COMPONENT_KIND_WEB_APP &&
+				   ckind != AS_COMPONENT_KIND_OPERATING_SYSTEM &&
+				   as_component_get_merge_kind (cpt) !=
+				       AS_MERGE_KIND_REMOVE_COMPONENT) {
 				g_autoptr(AsBundle) bundle = as_bundle_new ();
 				as_bundle_set_kind (bundle, bundle_kind);
 				as_bundle_set_id (bundle, asc_result_get_bundle_id (cres));
+				as_component_add_bundle (cpt, bundle);
 			}
 		}
 
