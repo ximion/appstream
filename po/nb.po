@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-10-26 10:22+0100\n"
-"PO-Revision-Date: 2026-11-01 12:02+0000\n"
+"PO-Revision-Date: 2026-11-02 00:51+0000\n"
 "Last-Translator: Roy-Magne Mo <gaupe@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/appstream/translations/nb/>\n"
 "Language: nb\n"
@@ -34,7 +34,7 @@ msgstr "Et verktøy for å jobbe med AppStream-metadata"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:12
 msgid "AppStream is a metadata specification which permits software components to provide information about themselves to automated systems and end-users before the software is actually installed. The AppStream project provides facilities to easily access and transform this metadata, as well as a few additional services for building feature-rich software centers and similar applications that make use of software metadata."
-msgstr "AppStream er en metadata-spesifikasjon, som lar programvarekomponenter gi opplysninger om seg selv til automatiserte systemer og sluttbrukere, allerede før programvaren blir installert. AppStream-prosjektet tilbyr funksjonalitet for enkelt tilgang til og mulighet for å omforme disse metadataene.  I tillegg tilbys ekstra tjenester som gjør det mulig å lage programvaresentre og lignende programmer med mye funksjonalitet, ved å bruke de tilgjengelige programvaremetadataene."
+msgstr "AppStream er en metadata-spesifikasjon, som lar programvarekomponenter gi opplysninger om seg selv til automatiserte systemer og sluttbrukere, allerede før programvaren blir installert. AppStream-prosjektet tilbyr funksjonalitet for enkelt tilgang til og mulighet for å omforme disse metadataene. I tillegg tilbys ekstra tjenester som gjør det mulig å lage programvaresentre og lignende programmer med mye funksjonalitet, ved å bruke de tilgjengelige programvaremetadataene."
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:18
 msgid "The <em>appstreamcli</em> command-line tool allows to read, write, and transform AppStream XML or YAML metadata as well as to validate it for compliance with the specification. It also provides easy access to the system metadata pool, for example to query for software that provides a specific Mediatype handler or for installing software by its component identifier."
@@ -2107,7 +2107,7 @@ msgstr "Metadataene ser ikke ut til å være lisensiert under en permissiv lisen
 
 #: src/as-validator-issue-tag.h:249
 msgid "The update-contact does not appear to be a valid email address (escaping of `@` is only allowed as `_at_` or `_AT_`)."
-msgstr "`update-contact` ser ikke ut til å være en gyldig e-postadresse (`@` kan bare skrives om til `_at_` eller `_AT_`)."
+msgstr "update-contact ser ikke ut til å være en gyldig e-postadresse (`@` kan bare skrives om til `_at_` eller `_AT_`)."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
 #: src/as-validator-issue-tag.h:255
