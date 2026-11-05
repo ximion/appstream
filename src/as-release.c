@@ -934,6 +934,9 @@ as_release_load_from_xml (AsRelease *release, AsContext *ctx, xmlNode *node, GEr
 		g_free (prop);
 	}
 
+	/* clear any existing descriptions, as we might add new ones */
+	g_hash_table_remove_all (priv->description);
+
 	for (iter = node->children; iter != NULL; iter = iter->next) {
 		g_autofree gchar *content = NULL;
 		if (iter->type != XML_ELEMENT_NODE)
@@ -951,7 +954,6 @@ as_release_load_from_xml (AsRelease *release, AsContext *ctx, xmlNode *node, GEr
 					as_release_add_artifact (release, artifact);
 			}
 		} else if (as_str_equal0 (iter->name, "description")) {
-			g_hash_table_remove_all (priv->description);
 			if (as_context_get_style (ctx) == AS_FORMAT_STYLE_CATALOG) {
 				g_autofree gchar *lang = NULL;
 

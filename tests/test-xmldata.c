@@ -2545,6 +2545,69 @@ test_xml_read_releases (void)
 }
 
 /**
+ * test_xml_read_releases_catalog_l10n:
+ *
+ * Test reading localized release descriptions from catalog data.
+ */
+static void
+test_xml_read_releases_catalog_l10n (void)
+{
+	g_autoptr(AsMetadata) metad = NULL;
+	g_autoptr(GError) error = NULL;
+	AsComponent *cpt;
+	AsRelease *rel;
+	const gchar *xmldata_releases_catalog_l10n =
+	    "<components version=\"1.0\" origin=\"test\">\n"
+	    "  <component>\n"
+	    "    <id>org.example.ReleaseL10NTest</id>\n"
+	    "    <releases>\n"
+	    "      <release type=\"stable\" version=\"1.2\">\n"
+	    "        <description>\n"
+	    "          <p>A release description.</p>\n"
+	    "        </description>\n"
+	    "        <description xml:lang=\"de\">\n"
+	    "          <p>Eine Beschreibung der Veröffentlichung.</p>\n"
+	    "        </description>\n"
+	    "        <description xml:lang=\"it\">\n"
+	    "          <p>Una descrizione della versione.</p>\n"
+	    "        </description>\n"
+	    "      </release>\n"
+	    "    </releases>\n"
+	    "  </component>\n"
+	    "</components>\n";
+
+	metad = as_metadata_new ();
+	as_metadata_set_locale (metad, "ALL");
+	as_metadata_set_format_style (metad, AS_FORMAT_STYLE_CATALOG);
+	as_metadata_parse_data (metad,
+				xmldata_releases_catalog_l10n,
+				-1,
+				AS_FORMAT_KIND_XML,
+				&error);
+	g_assert_no_error (error);
+
+	cpt = as_component_box_index (as_metadata_get_components (metad), 0);
+	g_assert_cmpstr (as_component_get_id (cpt), ==, "org.example.ReleaseL10NTest");
+
+	g_assert_cmpint (as_release_list_len (as_component_get_releases_plain (cpt)), ==, 1);
+	rel = as_release_list_index (as_component_get_releases_plain (cpt), 0);
+
+	as_component_set_context_locale (cpt, "C");
+	as_release_set_context (rel, as_component_get_context (cpt));
+	g_assert_cmpstr (as_release_get_description (rel), ==, "<p>A release description.</p>");
+
+	as_component_set_context_locale (cpt, "de");
+	g_assert_cmpstr (as_release_get_description (rel),
+			 ==,
+			 "<p>Eine Beschreibung der Veröffentlichung.</p>");
+
+	as_component_set_context_locale (cpt, "it");
+	g_assert_cmpstr (as_release_get_description (rel),
+			 ==,
+			 "<p>Una descrizione della versione.</p>");
+}
+
+/**
  * test_xml_write_releases:
  *
  * Test writing the releases tag.
@@ -2977,6 +3040,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/XML/Write/Agreements", test_xml_write_agreements);
 
 	g_test_add_func ("/XML/Read/Releases", test_xml_read_releases);
+	g_test_add_func ("/XML/Read/ReleasesCatalogL10N", test_xml_read_releases_catalog_l10n);
 	g_test_add_func ("/XML/Write/Releases", test_xml_write_releases);
 
 	g_test_add_func ("/XML/ReadWrite/Reviews", test_xml_rw_reviews);
