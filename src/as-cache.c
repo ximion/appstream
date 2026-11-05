@@ -704,7 +704,7 @@ as_cache_components_to_internal_xb (AsCache *cache,
 	silo = xb_builder_compile (builder, XB_BUILDER_COMPILE_FLAG_NONE, NULL, &tmp_error);
 	if (silo == NULL) {
 		g_propagate_prefixed_error (error,
-					    tmp_error,
+					    g_steal_pointer (&tmp_error),
 					    "Unable to compile binary XML for caching:");
 		return NULL;
 	} else {
@@ -969,7 +969,9 @@ as_cache_set_contents_internal (AsCache *cache,
 	g_debug ("Writing cache file: %s", csec->fname);
 	file = g_file_new_for_path (csec->fname);
 	if (!xb_silo_save_to_file (csec->silo, file, NULL, &tmp_error)) {
-		g_propagate_prefixed_error (error, tmp_error, "Unable to write cache file:");
+		g_propagate_prefixed_error (error,
+					    g_steal_pointer (&tmp_error),
+					    "Unable to write cache file:");
 		ret = FALSE;
 	}
 
