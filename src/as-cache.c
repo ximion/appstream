@@ -45,6 +45,12 @@
 #include "as-component-box-private.h"
 #include "as-launchable.h"
 
+/* cache version - change whenever the cache changes in an incompatible way */
+#define AS_CACHE_ABI_VERSION "1"
+
+/* separates the search tokens in the token string, must never be part of a token or search term */
+#define AS_CACHE_TOKEN_SEP ';'
+
 typedef struct {
 	gchar *cache_root_dir;
 	gchar *system_cache_dir;
@@ -605,32 +611,73 @@ as_cache_builder_add_simple_tokens (XbBuilderNode *root,
 }
 
 /**
+ * as_cache_tokens_str_add:
+ * @str: The token string to append to.
+ * @token: The search token.
+ *
+ * Append @token to the token string, preceded by the token separator.
+ *
+ * Tokens may contain punctuation (e.g. "text-editor" in keywords), and searching
+ * for "editor" should still find these, so every part that follows a
+ * non-alphanumeric character is added as an additional token as well.
+ */
+static void
+as_cache_tokens_str_add (GString *str, const gchar *token)
+{
+	gboolean after_separator = FALSE;
+
+	g_string_append_c (str, AS_CACHE_TOKEN_SEP);
+	g_string_append (str, token);
+
+	for (const gchar *p = token; *p != '\0'; p = g_utf8_next_char (p)) {
+		gunichar c = g_utf8_get_char (p);
+
+		if (!g_unichar_isalnum (c) && !g_unichar_ismark (c)) {
+			after_separator = TRUE;
+		} else if (after_separator) {
+			g_string_append_c (str, AS_CACHE_TOKEN_SEP);
+			g_string_append (str, p);
+			after_separator = FALSE;
+		}
+	}
+}
+
+/**
  * as_cache_builder_add_manifold_tokens:
+ *
+ * Add keyword and description search tokens to the component node.
+ *
+ * All tokens go into the text of a single node, each one preceded by a semicolon,
+ * so a plain substring search for ";<term>" finds every token that starts with
+ * the search term.
+ * Our tokens are already normalized, case-folded and stemmed, and come with ASCII
+ * alternates for tokens that have non-ASCII characters, so we do not need any
+ * further folding when searching and can keep matching cheap.
  */
 static void
 as_cache_builder_add_manifold_tokens (XbBuilderNode *root, AsComponent *cpt)
 {
 	g_autoptr(XbBuilderNode) tokens_node = NULL;
-	g_autoptr(GPtrArray) token_array = NULL;
+	g_autoptr(GString) tokens_str = NULL;
+	const AsSearchTokenMatch token_kinds[] = { AS_SEARCH_TOKEN_MATCH_KEYWORD,
+						   AS_SEARCH_TOKEN_MATCH_DESCRIPTION };
 
+	tokens_str = g_string_new (NULL);
+	for (guint i = 0; i < G_N_ELEMENTS (token_kinds); i++) {
+		g_autoptr(GPtrArray) token_array = NULL;
+
+		token_array = as_component_generate_tokens_for (cpt, token_kinds[i]);
+		for (guint j = 0; j < token_array->len; j++)
+			as_cache_tokens_str_add (tokens_str, g_ptr_array_index (token_array, j));
+	}
+
+	if (tokens_str->len == 0)
+		return;
+
+	/* store the token string as-is, there is nothing for libxmlb to clean up */
 	tokens_node = xb_builder_node_new ("_asi_tokens");
-
-	token_array = as_component_generate_tokens_for (cpt, AS_SEARCH_TOKEN_MATCH_KEYWORD);
-	for (guint i = 0; i < token_array->len; i++) {
-		g_autoptr(XbBuilderNode) child = xb_builder_node_new ("t");
-		xb_builder_node_set_text (child, g_ptr_array_index (token_array, i), -1);
-		xb_builder_node_add_child (tokens_node, child);
-	}
-	g_clear_pointer (&token_array, g_ptr_array_unref);
-
-	token_array = as_component_generate_tokens_for (cpt, AS_SEARCH_TOKEN_MATCH_DESCRIPTION);
-	for (guint i = 0; i < token_array->len; i++) {
-		g_autoptr(XbBuilderNode) child = xb_builder_node_new ("t");
-		xb_builder_node_set_text (child, g_ptr_array_index (token_array, i), -1);
-		xb_builder_node_add_child (tokens_node, child);
-	}
-	g_clear_pointer (&token_array, g_ptr_array_unref);
-
+	xb_builder_node_add_flag (tokens_node, XB_BUILDER_NODE_FLAG_LITERAL_TEXT);
+	xb_builder_node_set_text (tokens_node, tokens_str->str, tokens_str->len);
 	xb_builder_node_add_child (root, tokens_node);
 }
 
@@ -658,6 +705,8 @@ as_cache_components_to_internal_xb (AsCache *cache,
 	/* NOTE: This function is already write-lock protected by its callers */
 
 	bnode_root = xb_builder_node_new ("components");
+	/* record which cache layout this file has, so we can tell when we can not read it anymore */
+	xb_builder_node_set_attr (bnode_root, "_asi_abi", AS_CACHE_ABI_VERSION);
 	for (guint i = 0; i < cpts->len; i++) {
 		xmlNode *cnode;
 		g_autoptr(XbBuilderNode) xbnode = NULL;
@@ -697,8 +746,8 @@ as_cache_components_to_internal_xb (AsCache *cache,
 	}
 
 	builder = xb_builder_new ();
-	/* add our version to the correctness hash */
-	xb_builder_append_guid (builder, PACKAGE_VERSION);
+	/* add our cache ABI version to the correctness hash */
+	xb_builder_append_guid (builder, AS_CACHE_ABI_VERSION);
 	xb_builder_import_node (builder, bnode_root);
 
 	silo = xb_builder_compile (builder, XB_BUILDER_COMPILE_FLAG_NONE, NULL, &tmp_error);
@@ -1172,6 +1221,7 @@ as_cache_load_section_internal (AsCache *cache,
 	g_autofree gchar *xb_fname = NULL;
 	g_autoptr(AsCacheSection) csec = NULL;
 	g_autoptr(GFile) file = NULL;
+	g_autoptr(XbNode) silo_root = NULL;
 	g_autoptr(GError) tmp_error = NULL;
 	g_autoptr(GRWLockWriterLocker) locker = g_rw_lock_writer_locker_new (&priv->rw_lock);
 
@@ -1207,6 +1257,18 @@ as_cache_load_section_internal (AsCache *cache,
 			 "Issue: %s",
 			 internal_section_key,
 			 tmp_error->message);
+		if (is_outdated != NULL)
+			*is_outdated = TRUE;
+		return;
+	}
+
+	/* the file may have been written by a version of this library with a different cache layout */
+	silo_root = xb_silo_get_root (csec->silo);
+	if (silo_root == NULL ||
+	    g_strcmp0 (xb_node_get_attr (silo_root, "_asi_abi"), AS_CACHE_ABI_VERSION) != 0) {
+		g_debug ("AppStream cache section '%s' was written for a different cache ABI - "
+			 "marking cache as outdated.",
+			 internal_section_key);
 		if (is_outdated != NULL)
 			*is_outdated = TRUE;
 		return;
@@ -1981,6 +2043,7 @@ as_cache_get_components_by_bundle_id (AsCache *cache,
 typedef struct {
 	AsSearchTokenMatch match_value;
 	XbQuery *query;
+	gboolean word_prefix;
 } AsFTSearchHelper;
 
 static void
@@ -1991,7 +2054,10 @@ as_ftsearch_helper_free (AsFTSearchHelper *helper)
 }
 
 static AsTokenType
-as_cache_search_component_node_term (GPtrArray *array, XbNode *cpt_node, const gchar *term)
+as_cache_search_component_node_term (GPtrArray *array,
+				     XbNode *cpt_node,
+				     const gchar *term,
+				     const gchar *word_term)
 {
 	AsTokenType match_value = 0;
 
@@ -2003,7 +2069,7 @@ as_cache_search_component_node_term (GPtrArray *array, XbNode *cpt_node, const g
 
 		xb_value_bindings_bind_str (xb_query_context_get_bindings (&context),
 					    0,
-					    term,
+					    helper->word_prefix ? word_term : term,
 					    NULL);
 		n = xb_node_query_with_context (cpt_node, helper->query, &context, NULL);
 		if (n != NULL)
@@ -2014,13 +2080,19 @@ as_cache_search_component_node_term (GPtrArray *array, XbNode *cpt_node, const g
 }
 
 static AsTokenType
-as_cache_search_component_node_terms (GPtrArray *array, XbNode *cpt_node, const gchar *const *terms)
+as_cache_search_component_node_terms (GPtrArray *array,
+				      XbNode *cpt_node,
+				      const gchar *const *terms,
+				      gchar **word_terms)
 {
 	AsTokenType matches_sum = 0;
 
 	/* match all search terms */
 	for (guint i = 0; terms[i] != NULL; i++) {
-		AsTokenType tmp = as_cache_search_component_node_term (array, cpt_node, terms[i]);
+		AsTokenType tmp = as_cache_search_component_node_term (array,
+								       cpt_node,
+								       terms[i],
+								       word_terms[i]);
 		if (tmp == 0)
 			return 0;
 		matches_sum |= tmp;
@@ -2046,27 +2118,45 @@ as_cache_search (AsCache *cache, const gchar *const *terms, gboolean sort, GErro
 	g_autoptr(AsComponentBox) results = NULL;
 	g_autoptr(AsQueryContext) qctx = NULL;
 	g_autoptr(GRWLockReaderLocker) locker = NULL;
+	g_auto(GStrv) word_terms = NULL;
+	guint n_terms;
 
 	/* clang-format off */
 	const struct {
 		AsSearchTokenMatch	match_value;
 		const gchar		*xpath;
+		gboolean		word_prefix;
 	} queries[] = {
-		{ AS_SEARCH_TOKEN_MATCH_MEDIATYPE,	"provides/mediatype[text()~=?]" },
-		{ AS_SEARCH_TOKEN_MATCH_PKGNAME,	"pkgname[text()~=?]" },
-		{ AS_SEARCH_TOKEN_MATCH_PKGNAME / 2,	"pkgname[contains(text(),?)]" },
-		{ AS_SEARCH_TOKEN_MATCH_SUMMARY,	"summary[text()~=?]" },
-		{ AS_SEARCH_TOKEN_MATCH_NAME,		"name[text()~=?]" },
-		{ AS_SEARCH_TOKEN_MATCH_NAME / 2,	"name[contains(text(),?)]" },
-		{ AS_SEARCH_TOKEN_MATCH_DESCRIPTION,	"_asi_tokens/t[text()~=?]" },
-		{ AS_SEARCH_TOKEN_MATCH_ID,		"id[text()~=?]" },
-		{ AS_SEARCH_TOKEN_MATCH_ORIGIN,		"_asi_origin[text()~=?]" },
-		{ AS_SEARCH_TOKEN_MATCH_NONE,		NULL }
+		{ AS_SEARCH_TOKEN_MATCH_MEDIATYPE,	"provides/mediatype[text()~=?]",	FALSE },
+		{ AS_SEARCH_TOKEN_MATCH_PKGNAME,	"pkgname[text()~=?]",			FALSE },
+		{ AS_SEARCH_TOKEN_MATCH_PKGNAME / 2,	"pkgname[contains(text(),?)]",		FALSE },
+		{ AS_SEARCH_TOKEN_MATCH_SUMMARY,	"summary[text()~=?]",			FALSE },
+		{ AS_SEARCH_TOKEN_MATCH_NAME,		"name[text()~=?]",			FALSE },
+		{ AS_SEARCH_TOKEN_MATCH_NAME / 2,	"name[contains(text(),?)]",		FALSE },
+		{ AS_SEARCH_TOKEN_MATCH_DESCRIPTION,	"_asi_tokens[contains(text(),?)]",	TRUE },
+		{ AS_SEARCH_TOKEN_MATCH_ID,		"id[text()~=?]",			FALSE },
+		{ AS_SEARCH_TOKEN_MATCH_ORIGIN,		"_asi_origin[text()~=?]",		FALSE },
+		{ AS_SEARCH_TOKEN_MATCH_NONE,		NULL,					FALSE }
 	};
 	/* clang-format on */
 
 	if (terms == NULL || terms[0] == NULL)
 		return as_component_box_new_simple ();
+
+	/* The token text has a separator in front of every token, so searching for ";<term>"
+	 * matches all tokens starting with the term. Our terms are usually folded already,
+	 * but the raw query that AsPool searches for as last resort is not, so we fold
+	 * them the same way as the tokens. */
+	n_terms = g_strv_length ((gchar **) terms);
+	word_terms = g_new0 (gchar *, n_terms + 1);
+	for (guint i = 0; i < n_terms; i++) {
+		g_autofree gchar *term_normal = NULL;
+		g_autofree gchar *term_folded = NULL;
+
+		term_normal = g_utf8_normalize (terms[i], -1, G_NORMALIZE_ALL_COMPOSE);
+		term_folded = g_utf8_casefold (term_normal != NULL ? term_normal : terms[i], -1);
+		word_terms[i] = g_strdup_printf ("%c%s", AS_CACHE_TOKEN_SEP, term_folded);
+	}
 
 	/* lock for reading */
 	locker = g_rw_lock_reader_locker_new (&priv->rw_lock);
@@ -2091,6 +2181,7 @@ as_cache_search (AsCache *cache, const gchar *const *terms, gboolean sort, GErro
 				AsFTSearchHelper *helper = g_new0 (AsFTSearchHelper, 1);
 				helper->match_value = queries[j].match_value;
 				helper->query = g_steal_pointer (&query);
+				helper->word_prefix = queries[j].word_prefix;
 				g_ptr_array_add (array, helper);
 			} else {
 				g_debug ("Unable to create query (ignoring it): %s",
@@ -2115,7 +2206,8 @@ as_cache_search (AsCache *cache, const gchar *const *terms, gboolean sort, GErro
 			XbNode *cpt_node = g_ptr_array_index (cpt_nodes, k);
 			AsTokenType match_value = as_cache_search_component_node_terms (array,
 											cpt_node,
-											terms);
+											terms,
+											word_terms);
 			if (match_value != 0) {
 				if (!as_query_context_add_component_from_node (qctx,
 									       cache,
