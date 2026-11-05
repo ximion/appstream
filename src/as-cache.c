@@ -626,6 +626,10 @@ as_cache_tokens_str_add (GString *str, const gchar *token)
 {
 	gboolean after_separator = FALSE;
 
+	/* FIXME: Silences an invalid null-dereference warning in GCC 14, which sees
+	 * the NULL check in the inlined g_string_append() and assumes @token may be NULL */
+	g_assert (token != NULL);
+
 	g_string_append_c (str, AS_CACHE_TOKEN_SEP);
 	g_string_append (str, token);
 
