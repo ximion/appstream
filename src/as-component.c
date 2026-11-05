@@ -3158,10 +3158,38 @@ as_component_value_tokenize (AsComponent *cpt,
 
 	/* we might still be able to extract tokens if g_str_tokenize_and_fold() can't do it or +/- were found */
 	if ((*tokens_utf8) == NULL) {
-		g_autofree gchar *delim = NULL;
-		delim = g_utf8_strdown (value, -1);
-		g_strdelimit (delim, "/,.;:", ' ');
-		(*tokens_utf8) = g_strsplit (delim, " ", -1);
+		g_autofree gchar *normal = NULL;
+		g_autofree gchar *folded = NULL;
+
+		/* fold the value like g_str_tokenize_and_fold() does, so these tokens
+		 * still match search terms that went through it */
+		normal = g_utf8_normalize (value, -1, G_NORMALIZE_ALL_COMPOSE);
+		folded = g_utf8_casefold (normal != NULL ? normal : value, -1);
+		g_strdelimit (folded, "/,.;:", ' ');
+		(*tokens_utf8) = g_strsplit (folded, " ", -1);
+
+		/* add ASCII alternates, so searching for e.g. "editeur" finds "éditeur" as well */
+		if (tokens_ascii != NULL && !g_str_is_ascii (folded)) {
+			const gchar *locale = as_component_get_active_locale (cpt);
+			GPtrArray *alternates = g_ptr_array_new ();
+
+			for (guint i = 0; (*tokens_utf8)[i] != NULL; i++) {
+				gchar *ascii;
+
+				if (g_str_is_ascii ((*tokens_utf8)[i]))
+					continue;
+
+				/* g_str_to_ascii() replaces everything it can not transliterate
+				 * with "?", and such an alternate is useless for searching */
+				ascii = g_str_to_ascii ((*tokens_utf8)[i], locale);
+				if (strchr (ascii, '?') == NULL)
+					g_ptr_array_add (alternates, ascii);
+				else
+					g_free (ascii);
+			}
+			g_ptr_array_add (alternates, NULL);
+			(*tokens_ascii) = (gchar **) g_ptr_array_free (alternates, FALSE);
+		}
 	}
 
 	if (tokens_ascii == NULL)

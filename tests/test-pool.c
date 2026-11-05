@@ -850,6 +850,61 @@ test_pool_empty (void)
 }
 
 /**
+ * test_pool_search_non_ascii:
+ *
+ * Test searching for keyword and description text with non-ASCII characters.
+ */
+static void
+test_pool_search_non_ascii (void)
+{
+	g_autoptr(AsPool) pool = NULL;
+	g_autoptr(AsComponentBox) cbox = NULL;
+	g_autoptr(AsComponent) cpt = NULL;
+	g_autoptr(GError) error = NULL;
+	gboolean ret;
+
+	/* we expect these to match the same way, independent of case, accents and ligatures */
+	const gchar *terms[] = {
+		"éditeur", "editeur", "ÉDITEUR", "filtre", "ärger", "arger", NULL,
+	};
+
+	pool = as_pool_new ();
+	as_pool_set_load_std_data_locations (pool, FALSE);
+	as_pool_override_cache_locations (pool, cache_dummy_dir, NULL);
+	as_pool_reset_extra_data_locations (pool);
+	as_pool_set_locale (pool, "C");
+
+	/* the hyphens are important here, they make us tokenize these values differently */
+	cpt = as_component_new ();
+	as_component_set_kind (cpt, AS_COMPONENT_KIND_DESKTOP_APP);
+	as_component_set_id (cpt, "org.example.TextTool");
+	as_component_set_name (cpt, "Text Tool", "C");
+	as_component_set_summary (cpt, "Edit some text", "C");
+	as_component_set_description (
+	    cpt,
+	    "<p>Un éditeur de texte multi-plateforme avec des ﬁltres utiles.</p>",
+	    "C");
+	as_component_add_keyword (cpt, "Ärger-Werkzeug", "C");
+
+	cbox = as_component_box_new_simple ();
+	g_assert_true (as_component_box_add (cbox, cpt, NULL));
+	ret = as_pool_add_components (pool, cbox, &error);
+	g_assert_no_error (error);
+	g_assert_true (ret);
+
+	for (guint i = 0; terms[i] != NULL; i++) {
+		g_autoptr(AsComponentBox) result = NULL;
+
+		g_test_message ("Searching for: %s", terms[i]);
+		result = as_pool_search (pool, terms[i]);
+		g_assert_cmpint (as_component_box_len (result), ==, 1);
+		g_assert_cmpstr (as_component_get_id (as_component_box_index (result, 0)),
+				 ==,
+				 "org.example.TextTool");
+	}
+}
+
+/**
  * test_pool_extra_location_full:
  *
  * Test explicit scope/origin for extra locations, and that an uncompressed
@@ -1277,6 +1332,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/AppStream/PoolRead", test_pool_read);
 	g_test_add_func ("/AppStream/PoolReadAsync", test_pool_read_async);
 	g_test_add_func ("/AppStream/PoolEmpty", test_pool_empty);
+	g_test_add_func ("/AppStream/PoolSearchNonAscii", test_pool_search_non_ascii);
 	g_test_add_func ("/AppStream/PoolExtraLocationFull", test_pool_extra_location_full);
 	g_test_add_func ("/AppStream/Cache", test_cache);
 	g_test_add_func ("/AppStream/CacheExtendsCycle", test_cache_extends_cycle);
