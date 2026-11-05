@@ -27,7 +27,7 @@
 
 using namespace AppStream;
 
-static_assert(static_cast<int>(Bundle::KindSysupdate) + 1 == AS_BUNDLE_KIND_LAST,
+static_assert(static_cast<int>(Bundle::KindManifold) + 1 == AS_BUNDLE_KIND_LAST,
               "Bundle::Kind is out of sync with AsBundleKind");
 
 QString Bundle::kindToString(Bundle::Kind kind)

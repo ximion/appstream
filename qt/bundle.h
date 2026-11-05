@@ -51,7 +51,7 @@ public:
     enum Kind {
         KindUnknown,
         KindPackage,
-        KindManifold,
+        KindLimba,
         KindFlatpak,
         KindAppImage,
         KindSnap,
@@ -59,7 +59,7 @@ public:
         KindCabinet,
         KindLinglong,
         KindSysupdate,
-        KindLimba [[deprecated]] = KindUnknown,
+        KindManifold,
     };
     Q_ENUM(Kind)
 

@@ -56,10 +56,10 @@ as_bundle_kind_to_string (AsBundleKind kind)
 {
 	if (kind == AS_BUNDLE_KIND_PACKAGE)
 		return "package";
-	if (kind == AS_BUNDLE_KIND_MANIFOLD)
-		return "manifold";
 	if (kind == AS_BUNDLE_KIND_FLATPAK)
 		return "flatpak";
+	if (kind == AS_BUNDLE_KIND_MANIFOLD)
+		return "manifold";
 	if (kind == AS_BUNDLE_KIND_APPIMAGE)
 		return "appimage";
 	if (kind == AS_BUNDLE_KIND_SNAP)
@@ -72,6 +72,8 @@ as_bundle_kind_to_string (AsBundleKind kind)
 		return "linglong";
 	if (kind == AS_BUNDLE_KIND_SYSUPDATE)
 		return "sysupdate";
+	if (kind == AS_BUNDLE_KIND_LIMBA)
+		return "limba";
 	return "unknown";
 }
 
@@ -88,10 +90,10 @@ as_bundle_kind_from_string (const gchar *bundle_str)
 {
 	if (g_strcmp0 (bundle_str, "package") == 0)
 		return AS_BUNDLE_KIND_PACKAGE;
-	if (g_strcmp0 (bundle_str, "manifold") == 0)
-		return AS_BUNDLE_KIND_MANIFOLD;
 	if (g_strcmp0 (bundle_str, "flatpak") == 0)
 		return AS_BUNDLE_KIND_FLATPAK;
+	if (g_strcmp0 (bundle_str, "manifold") == 0)
+		return AS_BUNDLE_KIND_MANIFOLD;
 	if (g_strcmp0 (bundle_str, "appimage") == 0)
 		return AS_BUNDLE_KIND_APPIMAGE;
 	if (g_strcmp0 (bundle_str, "snap") == 0)
@@ -104,6 +106,8 @@ as_bundle_kind_from_string (const gchar *bundle_str)
 		return AS_BUNDLE_KIND_LINGLONG;
 	if (g_strcmp0 (bundle_str, "sysupdate") == 0)
 		return AS_BUNDLE_KIND_SYSUPDATE;
+	if (g_strcmp0 (bundle_str, "limba") == 0)
+		return AS_BUNDLE_KIND_LIMBA;
 	return AS_BUNDLE_KIND_UNKNOWN;
 }
 
