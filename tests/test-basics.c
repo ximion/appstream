@@ -603,6 +603,14 @@ test_locale_compat (void)
 	g_assert_false (as_utils_locale_is_compatible ("de_CH", "de_DE"));
 	g_assert_true (as_utils_locale_is_compatible ("de", "de_CH"));
 	g_assert_true (as_utils_locale_is_compatible ("C", "C"));
+	g_assert_true (as_utils_locale_is_compatible ("de-DE", "de"));
+	g_assert_true (as_utils_locale_is_compatible ("sr", "sr@latin"));
+	g_assert_false (as_utils_locale_is_compatible ("pt_BR", "pt-BR"));
+
+	/* being a prefix of the other locale is not enough */
+	g_assert_false (as_utils_locale_is_compatible ("de", "deu"));
+	g_assert_false (as_utils_locale_is_compatible ("de_D", "de_DE"));
+	g_assert_false (as_utils_locale_is_compatible ("de_DE", "de_"));
 }
 
 /**

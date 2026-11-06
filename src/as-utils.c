@@ -1339,6 +1339,49 @@ as_arch_compatible (const gchar *arch1, const gchar *arch2)
 }
 
 /**
+ * as_utils_locale_language_len:
+ * @locale: the BCP47 or POSIX locale string.
+ *
+ * Get the length of the language part at the start of a locale string.
+ */
+static gsize
+as_utils_locale_language_len (const gchar *locale)
+{
+	const gchar *sep;
+	const gchar *modifier;
+	gsize len;
+
+	/* the language ends at the - for BCP47 locales, or else at the _ for POSIX
+	 * locales (the language is not always 2 chars!) */
+	sep = strchr (locale, '-');
+	if (sep == NULL)
+		sep = strchr (locale, '_');
+	len = sep != NULL ? (gsize) (sep - locale) : strlen (locale);
+
+	/* ...or before any "@" for locales with modifiers like "ca@valencia" */
+	modifier = memchr (locale, '@', len);
+	if (modifier != NULL)
+		len = modifier - locale;
+
+	return len;
+}
+
+/**
+ * as_utils_locale_language_equal:
+ * @locale: a locale string
+ * @lang_len: length of the language part of @locale
+ * @str: the string to compare with
+ *
+ * Returns: %TRUE if @str is the language part of @locale.
+ */
+static inline gboolean
+as_utils_locale_language_equal (const gchar *locale, gsize lang_len, const gchar *str)
+{
+	/* if the first lang_len bytes match, @str is at least as long as that */
+	return strncmp (locale, str, lang_len) == 0 && str[lang_len] == '\0';
+}
+
+/**
  * as_utils_locale_to_language:
  * @locale: (nullable): the BCP47 or POSIX locale string.
  *
@@ -1347,31 +1390,11 @@ as_arch_compatible (const gchar *arch1, const gchar *arch2)
 gchar *
 as_utils_locale_to_language (const gchar *locale)
 {
-	gchar *tmp;
-	gchar *country_code;
-
 	/* invalid */
 	if (locale == NULL)
 		return NULL;
 
-	/* return the part before the - for BCP47 locale */
-	country_code = g_strdup (locale);
-	tmp = g_strstr_len (country_code, -1, "-");
-	if (tmp != NULL) {
-		*tmp = '\0';
-	} else {
-		/* return the part before the _ for POSIX locale (not always 2 chars!) */
-		tmp = g_strstr_len (country_code, -1, "_");
-		if (tmp != NULL)
-			*tmp = '\0';
-	}
-
-	/* return the part before any "@" for locale with modifiers like "ca@valencia" */
-	tmp = g_strstr_len (country_code, -1, "@");
-	if (tmp != NULL)
-		*tmp = '\0';
-
-	return country_code;
+	return g_strndup (locale, as_utils_locale_language_len (locale));
 }
 
 /**
@@ -1431,32 +1454,38 @@ as_hash_table_string_keys_to_array (GHashTable *table, GPtrArray *array)
 gboolean
 as_utils_locale_is_compatible (const gchar *locale1, const gchar *locale2)
 {
-	g_autofree gchar *lang1 = as_utils_locale_to_language (locale1);
-	g_autofree gchar *lang2 = as_utils_locale_to_language (locale2);
+	gsize prefix_len = 0;
 
 	/* we've specified "don't care" and locale unspecified */
 	if (locale1 == NULL && locale2 == NULL)
 		return TRUE;
 
-	/* forward */
-	if (locale1 == NULL && locale2 != NULL) {
+	/* only one specified, so we check it against the locales of the current user */
+	if (locale1 == NULL || locale2 == NULL) {
+		const gchar *locale = locale1 != NULL ? locale1 : locale2;
+		gsize lang_len = as_utils_locale_language_len (locale);
 		const gchar *const *locales = g_get_language_names ();
-		return g_strv_contains (locales, locale2) || g_strv_contains (locales, lang2);
+
+		for (guint i = 0; locales[i] != NULL; i++) {
+			if (g_strcmp0 (locales[i], locale) == 0 ||
+			    as_utils_locale_language_equal (locale, lang_len, locales[i]))
+				return TRUE;
+		}
+		return FALSE;
 	}
 
-	/* backwards */
-	if (locale1 != NULL && locale2 == NULL) {
-		const gchar *const *locales = g_get_language_names ();
-		return g_strv_contains (locales, locale1) || g_strv_contains (locales, lang1);
-	}
-
-	/* both specified */
-	if (g_strcmp0 (locale1, locale2) == 0)
+	/* Both specified: they are compatible if they are equal, or if one of them is the
+	 * language part of the other. Either way, one has to be a prefix of the other.
+	 * This function is called a lot while reading metadata, so we check that first and
+	 * only look for the language part if it is needed. */
+	while (locale1[prefix_len] != '\0' && locale1[prefix_len] == locale2[prefix_len])
+		prefix_len++;
+	if (locale1[prefix_len] == locale2[prefix_len])
 		return TRUE;
-	if (g_strcmp0 (locale1, lang2) == 0)
-		return TRUE;
-	if (g_strcmp0 (lang1, locale2) == 0)
-		return TRUE;
+	if (locale1[prefix_len] == '\0')
+		return as_utils_locale_language_len (locale2) == prefix_len;
+	if (locale2[prefix_len] == '\0')
+		return as_utils_locale_language_len (locale1) == prefix_len;
 	return FALSE;
 }
 
