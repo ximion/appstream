@@ -518,10 +518,18 @@ as_metadata_parse_raw (AsMetadata *metad,
 			      FALSE);
 
 	if (format == AS_FORMAT_KIND_XML) {
+		g_autoptr(AsContext) context = NULL;
 		xmlDoc *doc;
 		xmlNode *root;
 
-		doc = as_xml_parse_document (data,
+		/* the parser needs the context already, so it can leave out translations we don't use */
+		context = as_metadata_new_context (metad,
+						   priv->mode == AS_FORMAT_STYLE_CATALOG
+						       ? AS_FORMAT_STYLE_CATALOG
+						       : AS_FORMAT_STYLE_METAINFO,
+						   filename);
+		doc = as_xml_parse_document (context,
+					     data,
 					     data_len,
 					     FALSE, /* pedantic */
 					     error);
@@ -530,12 +538,6 @@ as_metadata_parse_raw (AsMetadata *metad,
 		root = xmlDocGetRootElement (doc);
 
 		if (priv->mode == AS_FORMAT_STYLE_CATALOG) {
-			/* prepare context */
-			g_autoptr(AsContext) context = NULL;
-			context = as_metadata_new_context (metad,
-							   AS_FORMAT_STYLE_CATALOG,
-							   filename);
-
 			if (g_strcmp0 ((gchar *) root->name, "components") == 0) {
 				as_metadata_xml_parse_components_node (metad, context, root, error);
 			} else if (g_strcmp0 ((gchar *) root->name, "component") == 0) {
@@ -550,15 +552,12 @@ as_metadata_parse_raw (AsMetadata *metad,
 				    AS_METADATA_ERROR,
 				    AS_METADATA_ERROR_FAILED,
 				    "XML file does not contain valid AppStream data!");
+				xmlFreeDoc (doc);
 				return FALSE;
 			}
 		} else {
-			g_autoptr(AsContext) context = NULL;
 			g_autoptr(AsComponent) cpt = NULL;
 
-			context = as_metadata_new_context (metad,
-							   AS_FORMAT_STYLE_METAINFO,
-							   filename);
 			if (priv->update_existing) {
 				/* we should update the existing component with new metadata */
 				cpt = as_metadata_get_component (metad);
@@ -890,14 +889,15 @@ as_metadata_parse_releases_bytes (AsMetadata *metad, GBytes *bytes, GError **err
 	gsize data_len;
 	const gchar *data = g_bytes_get_data (bytes, &data_len);
 
-	xdoc = as_xml_parse_document (data,
+	context = as_metadata_new_context (metad, AS_FORMAT_STYLE_METAINFO, NULL);
+	xdoc = as_xml_parse_document (context,
+				      data,
 				      data_len,
 				      FALSE, /* pedantic */
 				      error);
 	if (xdoc == NULL)
 		return FALSE;
 
-	context = as_metadata_new_context (metad, AS_FORMAT_STYLE_METAINFO, NULL);
 	releases = as_release_list_new ();
 
 	/* load releases */

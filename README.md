@@ -77,7 +77,7 @@ To help with the latter we provide the `autoformat.py` helper script to format c
  * Meson (>= 0.62)
  * glib2 (>= 2.58)
  * GObject-Introspection
- * libxml2
+ * libxml2 (>= 2.11)
  * libfyaml (>= 0.8)
  * libcurl (>= 7.62)
  * libxmlb (>= 0.3.6)

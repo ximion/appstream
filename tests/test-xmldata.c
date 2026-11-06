@@ -2608,6 +2608,286 @@ test_xml_read_releases_catalog_l10n (void)
 }
 
 /**
+ * test_xml_read_l10n_filter:
+ *
+ * Test reading data for a single locale, with translations in all the places where the
+ * parser leaves them out right away, and in those where it has to keep them because the
+ * language of an element is ignored or the content is copied verbatim.
+ */
+static void
+test_xml_read_l10n_filter (void)
+{
+	g_autoptr(AsMetadata) metad = NULL;
+	g_autoptr(GError) error = NULL;
+	g_autofree gchar *res = NULL;
+	GPtrArray *screenshots;
+
+	/* The metainfo parser ignores the language of lists and keyword blocks and reads the
+	 * language of their items instead. Agreement descriptions are copied verbatim, and
+	 * a screenshot with nothing but foreign captions has to stay an empty screenshot. */
+	const gchar *xmldata_metainfo =
+	    "<component type=\"desktop-application\">\n"
+	    "  <id>org.example.L10nFilterTest</id>\n"
+	    "  <name>Filter Test</name>\n"
+	    "  <name xml:lang=\"de\">Filtertest</name>\n"
+	    "  <name xml:lang=\"fr\">Test de filtre</name>\n"
+	    "  <name_variant_suffix>Nightly</name_variant_suffix>\n"
+	    "  <name_variant_suffix xml:lang=\"fr\">Nocturne</name_variant_suffix>\n"
+	    "  <summary>Tests skipping translations</summary>\n"
+	    "  <summary xml:lang=\"de_DE\">Testet das Überspringen von Übersetzungen</summary>\n"
+	    "  <summary lang=\"fr\">Teste le saut des traductions</summary>\n"
+	    "  <developer id=\"example.org\">\n"
+	    "    <name>Example Developers</name>\n"
+	    "    <name xml:lang=\"fr\">Développeurs d'exemple</name>\n"
+	    "  </developer>\n"
+	    "  <description>\n"
+	    "    <p>First paragraph with <em xml:lang=\"fr\">emphasis</em>.</p>\n"
+	    "    <p xml:lang=\"de\">Erster Absatz mit <em>Betonung</em>.</p>\n"
+	    "    <p xml:lang=\"fr\">Premier paragraphe avec <em>emphase</em>.</p>\n"
+	    "    <ul>\n"
+	    "      <li>Item</li>\n"
+	    "      <li xml:lang=\"de\">Eintrag</li>\n"
+	    "      <li xml:lang=\"fr\">Élément</li>\n"
+	    "    </ul>\n"
+	    "    <ul xml:lang=\"fr\">\n"
+	    "      <li>List with a language of its own</li>\n"
+	    "      <li xml:lang=\"de\">Liste mit eigener Sprache</li>\n"
+	    "    </ul>\n"
+	    "  </description>\n"
+	    "  <keywords>\n"
+	    "    <keyword>filter</keyword>\n"
+	    "    <keyword xml:lang=\"de\">Filter</keyword>\n"
+	    "    <keyword xml:lang=\"fr\">filtre</keyword>\n"
+	    "  </keywords>\n"
+	    "  <keywords xml:lang=\"fr\">\n"
+	    "    <keyword>keywords with a language of their own</keyword>\n"
+	    "  </keywords>\n"
+	    "  <screenshots>\n"
+	    "    <screenshot type=\"default\">\n"
+	    "      <caption>The main window</caption>\n"
+	    "      <caption xml:lang=\"fr\">La fenêtre principale</caption>\n"
+	    "      <image>https://example.org/main.png</image>\n"
+	    "      <image xml:lang=\"fr\">https://example.org/main-fr.png</image>\n"
+	    "    </screenshot>\n"
+	    "    <screenshot>\n"
+	    "      <caption xml:lang=\"fr\">Seulement en français</caption>\n"
+	    "    </screenshot>\n"
+	    "    <screenshot/>\n"
+	    "  </screenshots>\n"
+	    "  <agreement type=\"privacy\" version_id=\"1.0\">\n"
+	    "    <agreement_section type=\"intro\">\n"
+	    "      <name>Introduction</name>\n"
+	    "      <name xml:lang=\"fr\">Présentation</name>\n"
+	    "      <description>\n"
+	    "        <p>Intro text.</p>\n"
+	    "        <p xml:lang=\"fr\">Agreement descriptions are copied verbatim.</p>\n"
+	    "      </description>\n"
+	    "      <description xml:lang=\"fr\">\n"
+	    "        <p>Texte d'introduction.</p>\n"
+	    "      </description>\n"
+	    "    </agreement_section>\n"
+	    "  </agreement>\n"
+	    "  <releases>\n"
+	    "    <release version=\"1.0\" date=\"2026-01-01\">\n"
+	    "      <description>\n"
+	    "        <p>Release notes.</p>\n"
+	    "        <p xml:lang=\"de\">Versionshinweise.</p>\n"
+	    "        <p xml:lang=\"fr\">Notes de version.</p>\n"
+	    "      </description>\n"
+	    "    </release>\n"
+	    "  </releases>\n"
+	    "</component>\n";
+	const gchar *expected_metainfo =
+	    "<component type=\"desktop-application\">\n"
+	    "  <id>org.example.L10nFilterTest</id>\n"
+	    "  <name>Filter Test</name>\n"
+	    "  <name xml:lang=\"de\">Filtertest</name>\n"
+	    "  <name_variant_suffix>Nightly</name_variant_suffix>\n"
+	    "  <summary>Tests skipping translations</summary>\n"
+	    "  <summary xml:lang=\"de_DE\">Testet das Überspringen von Übersetzungen</summary>\n"
+	    "  <description>\n"
+	    "    <p>First paragraph with <em>emphasis</em>.</p>\n"
+	    "    <p xml:lang=\"de\">Erster Absatz mit <em>Betonung</em>.</p>\n"
+	    "    <ul>\n"
+	    "      <li>Item</li>\n"
+	    "      <li xml:lang=\"de\">Eintrag</li>\n"
+	    "    </ul>\n"
+	    "    <ul>\n"
+	    "      <li>List with a language of its own</li>\n"
+	    "      <li xml:lang=\"de\">Liste mit eigener Sprache</li>\n"
+	    "    </ul>\n"
+	    "  </description>\n"
+	    "  <developer id=\"example.org\">\n"
+	    "    <name>Example Developers</name>\n"
+	    "  </developer>\n"
+	    "  <screenshots>\n"
+	    "    <screenshot type=\"default\">\n"
+	    "      <caption>The main window</caption>\n"
+	    "      <image type=\"source\">https://example.org/main.png</image>\n"
+	    "    </screenshot>\n"
+	    "    <screenshot/>\n"
+	    "    <screenshot/>\n"
+	    "  </screenshots>\n"
+	    "  <keywords>\n"
+	    "    <keyword>filter</keyword>\n"
+	    "    <keyword>keywords with a language of their own</keyword>\n"
+	    "    <keyword xml:lang=\"de\">Filter</keyword>\n"
+	    "  </keywords>\n"
+	    "  <agreement type=\"privacy\" version_id=\"1.0\">\n"
+	    "    <agreement_section type=\"intro\">\n"
+	    "      <name>Introduction</name>\n"
+	    "      <description>\n"
+	    "        <p>Intro text.</p>\n"
+	    "        <p>Agreement descriptions are copied verbatim.</p>\n"
+	    "      </description>\n"
+	    "    </agreement_section>\n"
+	    "  </agreement>\n"
+	    "  <releases>\n"
+	    "    <release type=\"stable\" version=\"1.0\" date=\"2026-01-01T00:00:00Z\">\n"
+	    "      <description>\n"
+	    "        <p>Release notes.</p>\n"
+	    "        <p xml:lang=\"de\">Versionshinweise.</p>\n"
+	    "      </description>\n"
+	    "    </release>\n"
+	    "  </releases>\n"
+	    "</component>\n";
+
+	/* catalog data has the language on description and keyword blocks, and reads
+	 * their children regardless of the language they have */
+	const gchar *xmldata_catalog =
+	    "<components version=\"1.0\" origin=\"test\">\n"
+	    "  <component type=\"desktop-application\">\n"
+	    "    <id>org.example.L10nFilterTest</id>\n"
+	    "    <name>Filter Test</name>\n"
+	    "    <name xml:lang=\"de\">Filtertest</name>\n"
+	    "    <name xml:lang=\"fr\">Test de filtre</name>\n"
+	    "    <summary>Tests skipping translations</summary>\n"
+	    "    <summary xml:lang=\"fr\">Teste le saut des traductions</summary>\n"
+	    "    <developer_name>Example Developers</developer_name>\n"
+	    "    <developer_name xml:lang=\"fr\">Développeurs d'exemple</developer_name>\n"
+	    "    <description>\n"
+	    "      <p>First paragraph.</p>\n"
+	    "      <p xml:lang=\"fr\">Catalog descriptions are copied verbatim.</p>\n"
+	    "    </description>\n"
+	    "    <description xml:lang=\"de\">\n"
+	    "      <p>Erster Absatz.</p>\n"
+	    "    </description>\n"
+	    "    <description xml:lang=\"fr\">\n"
+	    "      <p>Premier paragraphe.</p>\n"
+	    "    </description>\n"
+	    "    <keywords>\n"
+	    "      <keyword>filter</keyword>\n"
+	    "      <keyword xml:lang=\"fr\">keyword with a language of its own</keyword>\n"
+	    "    </keywords>\n"
+	    "    <keywords xml:lang=\"de\">\n"
+	    "      <keyword>Filter</keyword>\n"
+	    "    </keywords>\n"
+	    "    <keywords xml:lang=\"fr\">\n"
+	    "      <keyword>filtre</keyword>\n"
+	    "    </keywords>\n"
+	    "    <screenshots>\n"
+	    "      <screenshot type=\"default\">\n"
+	    "        <caption>The main window</caption>\n"
+	    "        <caption xml:lang=\"fr\">La fenêtre principale</caption>\n"
+	    "        <image type=\"source\">https://example.org/main.png</image>\n"
+	    "      </screenshot>\n"
+	    "    </screenshots>\n"
+	    "    <releases>\n"
+	    "      <release type=\"stable\" version=\"1.0\" timestamp=\"1767225600\">\n"
+	    "        <description>\n"
+	    "          <p>Release notes.</p>\n"
+	    "        </description>\n"
+	    "        <description xml:lang=\"de\">\n"
+	    "          <p>Versionshinweise.</p>\n"
+	    "        </description>\n"
+	    "        <description xml:lang=\"fr\">\n"
+	    "          <p>Notes de version.</p>\n"
+	    "        </description>\n"
+	    "      </release>\n"
+	    "    </releases>\n"
+	    "  </component>\n"
+	    "</components>\n";
+	const gchar *expected_catalog =
+	    "<components version=\"1.2\" origin=\"test\">\n"
+	    "  <component type=\"desktop-application\">\n"
+	    "    <id>org.example.L10nFilterTest</id>\n"
+	    "    <name>Filter Test</name>\n"
+	    "    <name xml:lang=\"de\">Filtertest</name>\n"
+	    "    <summary>Tests skipping translations</summary>\n"
+	    "    <description>\n"
+	    "      <p>First paragraph.</p>\n"
+	    "      <p>Catalog descriptions are copied verbatim.</p>\n"
+	    "    </description>\n"
+	    "    <description xml:lang=\"de\">\n"
+	    "      <p>Erster Absatz.</p>\n"
+	    "    </description>\n"
+	    "    <developer>\n"
+	    "      <name>Example Developers</name>\n"
+	    "    </developer>\n"
+	    "    <screenshots>\n"
+	    "      <screenshot type=\"default\">\n"
+	    "        <caption>The main window</caption>\n"
+	    "        <image type=\"source\">https://example.org/main.png</image>\n"
+	    "      </screenshot>\n"
+	    "    </screenshots>\n"
+	    "    <keywords>\n"
+	    "      <keyword>filter</keyword>\n"
+	    "      <keyword>keyword with a language of its own</keyword>\n"
+	    "    </keywords>\n"
+	    "    <keywords xml:lang=\"de\">\n"
+	    "      <keyword>Filter</keyword>\n"
+	    "    </keywords>\n"
+	    "    <releases>\n"
+	    "      <release type=\"stable\" version=\"1.0\" timestamp=\"1767225600\">\n"
+	    "        <description>\n"
+	    "          <p>Release notes.</p>\n"
+	    "        </description>\n"
+	    "        <description xml:lang=\"de\">\n"
+	    "          <p>Versionshinweise.</p>\n"
+	    "        </description>\n"
+	    "      </release>\n"
+	    "    </releases>\n"
+	    "  </component>\n"
+	    "</components>\n";
+
+	/* metainfo */
+	metad = as_metadata_new ();
+	as_metadata_set_locale (metad, "de");
+	as_metadata_parse_data (metad, xmldata_metainfo, -1, AS_FORMAT_KIND_XML, &error);
+	g_assert_no_error (error);
+
+	res = as_metadata_component_to_metainfo (metad, AS_FORMAT_KIND_XML, &error);
+	g_assert_no_error (error);
+	g_assert_true (as_xml_test_compare_xml (res, expected_metainfo));
+
+	/* screenshots without text are empty, not legacy screenshots with an empty image URL */
+	screenshots = as_component_get_screenshots_all (as_metadata_get_component (metad));
+	g_assert_cmpint (screenshots->len, ==, 3);
+	g_assert_cmpint (as_screenshot_get_images_all (g_ptr_array_index (screenshots, 0))->len,
+			 ==,
+			 1);
+	g_assert_cmpint (as_screenshot_get_images_all (g_ptr_array_index (screenshots, 1))->len,
+			 ==,
+			 0);
+	g_assert_cmpint (as_screenshot_get_images_all (g_ptr_array_index (screenshots, 2))->len,
+			 ==,
+			 0);
+
+	/* catalog */
+	g_clear_object (&metad);
+	g_clear_pointer (&res, g_free);
+	metad = as_metadata_new ();
+	as_metadata_set_locale (metad, "de");
+	as_metadata_set_format_style (metad, AS_FORMAT_STYLE_CATALOG);
+	as_metadata_parse_data (metad, xmldata_catalog, -1, AS_FORMAT_KIND_XML, &error);
+	g_assert_no_error (error);
+
+	res = as_metadata_components_to_catalog (metad, AS_FORMAT_KIND_XML, &error);
+	g_assert_no_error (error);
+	g_assert_true (as_xml_test_compare_xml (res, expected_catalog));
+}
+
+/**
  * test_xml_write_releases:
  *
  * Test writing the releases tag.
@@ -3041,6 +3321,7 @@ main (int argc, char **argv)
 
 	g_test_add_func ("/XML/Read/Releases", test_xml_read_releases);
 	g_test_add_func ("/XML/Read/ReleasesCatalogL10N", test_xml_read_releases_catalog_l10n);
+	g_test_add_func ("/XML/Read/L10nFilter", test_xml_read_l10n_filter);
 	g_test_add_func ("/XML/Write/Releases", test_xml_write_releases);
 
 	g_test_add_func ("/XML/ReadWrite/Reviews", test_xml_rw_reviews);

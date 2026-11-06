@@ -436,7 +436,8 @@ as_release_list_load_from_bytes (AsReleaseList *rels,
 		as_release_list_set_context (rels, context);
 
 	rel_data = g_bytes_get_data (bytes, &rel_data_len);
-	xdoc = as_xml_parse_document (rel_data,
+	xdoc = as_xml_parse_document (priv->context,
+				      rel_data,
 				      rel_data_len,
 				      FALSE, /* pedantic */
 				      &tmp_error);

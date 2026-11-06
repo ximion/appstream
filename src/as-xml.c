@@ -22,6 +22,7 @@
 
 #include <string.h>
 #include <libxml/xmlversion.h>
+#include <libxml/SAX2.h>
 
 #include "as-utils.h"
 #include "as-utils-private.h"
@@ -1155,7 +1156,7 @@ as_xml_sanitize_description (const gchar *markup, gssize len)
 	g_string_append_len (xmldata, markup, len);
 	g_string_append (xmldata, "</root>");
 
-	doc = as_xml_parse_document (xmldata->str, xmldata->len, FALSE, NULL);
+	doc = as_xml_parse_document (NULL, xmldata->str, xmldata->len, FALSE, NULL);
 	if (doc == NULL) {
 		/* the data was not well-formed XML at all, so we can only escape it */
 		return g_markup_escape_text (markup, len);
@@ -2081,11 +2082,343 @@ as_xml_set_out_of_context_error (gchar **error_msg_ptr)
 	}
 }
 
+/* we only remember the names of open elements up to this depth when skipping translations,
+ * which is far deeper than any element we may skip */
+#define AS_XML_L10N_FILTER_MAX_DEPTH 16
+
+/**
+ * AsXmlL10nFilter:
+ * @locale: The locale we read the document for.
+ * @style: The style of the document.
+ * @enabled: %FALSE if we must not skip anything in this document.
+ * @depth: Number of open elements we have passed on to the tree builder.
+ * @skip_depth: Number of open elements in the subtree we are skipping, 0 if we are not skipping.
+ * @names: Names of the open elements, starting at the root element.
+ *
+ * State for leaving translations we have no use for out of the tree while
+ * libxml2 is parsing a document.
+ */
+typedef struct {
+	const gchar *locale;
+	AsFormatStyle style;
+	gboolean enabled;
+	guint depth;
+	guint skip_depth;
+	const xmlChar *names[AS_XML_L10N_FILTER_MAX_DEPTH];
+} AsXmlL10nFilter;
+
+/* libxml2 2.14 added accessors for the private pointer of the parser context and
+ * deprecated the field itself, but we still support older versions */
+static inline AsXmlL10nFilter *
+as_xml_l10n_filter_from_ctx (void *ctx)
+{
+#if LIBXML_VERSION >= 21400
+	return xmlCtxtGetPrivate ((xmlParserCtxt *) ctx);
+#else
+	return ((xmlParserCtxt *) ctx)->_private;
+#endif
+}
+
+/**
+ * as_xml_l10n_filter_ancestor:
+ * @level: 1 for the parent of the element that is being opened, 2 for its grandparent, etc.
+ *
+ * Returns: The name of the ancestor element, or %NULL if we don't know it.
+ */
+static const gchar *
+as_xml_l10n_filter_ancestor (AsXmlL10nFilter *filter, guint level)
+{
+	if (level > filter->depth || filter->depth > AS_XML_L10N_FILTER_MAX_DEPTH)
+		return NULL;
+	return (const gchar *) filter->names[filter->depth - level];
+}
+
+/**
+ * as_xml_l10n_filter_skip_possible:
+ * @name: Name of the element that is being opened.
+ *
+ * Check whether the code reading the tree can possibly drop the element @name,
+ * at its current position in the document, in case its language does not match
+ * our locale.
+ *
+ * This has to mirror what the users of as_xml_get_node_locale_match() do. We can
+ * not just skip every element with a foreign language.
+ */
+static gboolean
+as_xml_l10n_filter_skip_possible (AsXmlL10nFilter *filter, const gchar *name)
+{
+	const gchar *parent = as_xml_l10n_filter_ancestor (filter, 1);
+	const gchar *grandparent;
+
+	if (parent == NULL)
+		return FALSE;
+
+	if (as_str_equal0 (parent, "component")) {
+		if (as_str_equal0 (name, "name") || as_str_equal0 (name, "summary") ||
+		    as_str_equal0 (name, "developer_name") ||
+		    as_str_equal0 (name, "name_variant_suffix"))
+			return TRUE;
+
+		/* only catalog data has the language on description and keyword blocks */
+		if (filter->style == AS_FORMAT_STYLE_CATALOG)
+			return as_str_equal0 (name, "description") ||
+			       as_str_equal0 (name, "keywords");
+		return FALSE;
+	}
+	if (as_str_equal0 (parent, "developer"))
+		return as_str_equal0 (name, "name");
+	if (as_str_equal0 (parent, "screenshot"))
+		return as_str_equal0 (name, "caption");
+	if (as_str_equal0 (parent, "agreement_section"))
+		return as_str_equal0 (name, "name") || as_str_equal0 (name, "description");
+	if (as_str_equal0 (parent, "release"))
+		return filter->style == AS_FORMAT_STYLE_CATALOG &&
+		       as_str_equal0 (name, "description");
+
+	/* Everything below is about elements inside of description and keyword blocks.
+	 * Only metainfo data reads the language of each of them, catalog data reads them
+	 * regardless of their language. */
+	if (filter->style != AS_FORMAT_STYLE_METAINFO)
+		return FALSE;
+
+	grandparent = as_xml_l10n_filter_ancestor (filter, 2);
+	if (as_str_equal0 (parent, "keywords"))
+		return as_str_equal0 (name, "keyword") && as_str_equal0 (grandparent, "component");
+
+	if (as_str_equal0 (parent, "description")) {
+		if (!as_str_equal0 (name, "p") && !as_str_equal0 (name, "heading"))
+			return FALSE;
+		/* agreement sections copy their description verbatim */
+		return as_str_equal0 (grandparent, "component") ||
+		       as_str_equal0 (grandparent, "release");
+	}
+
+	if (as_str_equal0 (parent, "ul") || as_str_equal0 (parent, "ol")) {
+		const gchar *ggparent;
+
+		if (!as_str_equal0 (name, "li") || !as_str_equal0 (grandparent, "description"))
+			return FALSE;
+		ggparent = as_xml_l10n_filter_ancestor (filter, 3);
+		return as_str_equal0 (ggparent, "component") || as_str_equal0 (ggparent, "release");
+	}
+
+	return FALSE;
+}
+
+/**
+ * as_xml_l10n_filter_locale_matches:
+ * @value: The value of a language attribute, not NUL-terminated.
+ * @value_end: The end of the value.
+ *
+ * Check the value of a language attribute like as_xml_get_node_locale_match() would.
+ */
+static gboolean
+as_xml_l10n_filter_locale_matches (AsXmlL10nFilter *filter,
+				   const xmlChar *value,
+				   const xmlChar *value_end)
+{
+	gchar lang[64];
+	gsize len = value_end - value;
+
+	/* We keep everything we can not judge here, like values that are too long or that
+	 * may still contain entity references, and let the code reading the tree decide. */
+	if (len >= sizeof (lang) || memchr (value, '&', len) != NULL)
+		return TRUE;
+	memcpy (lang, value, len);
+	lang[len] = '\0';
+
+	return as_utils_locale_is_compatible (filter->locale, lang);
+}
+
+static void
+as_xml_l10n_filter_internal_subset (void *ctx,
+				    const xmlChar *name,
+				    const xmlChar *external_id,
+				    const xmlChar *system_id)
+{
+	AsXmlL10nFilter *filter = as_xml_l10n_filter_from_ctx (ctx);
+
+	/* A DTD can declare entities and default attributes, which we can't take into
+	 * account while parsing. AppStream data has no use for DTDs, so we just leave
+	 * these documents alone. */
+	filter->enabled = FALSE;
+	xmlSAX2InternalSubset (ctx, name, external_id, system_id);
+}
+
+static void
+as_xml_l10n_filter_start_element (void *ctx,
+				  const xmlChar *localname,
+				  const xmlChar *prefix,
+				  const xmlChar *uri,
+				  int nb_namespaces,
+				  const xmlChar **namespaces,
+				  int nb_attributes,
+				  int nb_defaulted,
+				  const xmlChar **attributes)
+{
+	AsXmlL10nFilter *filter = as_xml_l10n_filter_from_ctx (ctx);
+
+	if (filter->skip_depth > 0) {
+		filter->skip_depth++;
+		return;
+	}
+
+	/* attributes come as localname/prefix/URI/value/end tuples, and just like
+	 * xmlGetProp() we only look at the first one named "lang", in any namespace */
+	for (gint i = 0; filter->enabled && i < nb_attributes; i++) {
+		const xmlChar **attr = attributes + (i * 5);
+
+		if (!as_str_equal0 (attr[0], "lang"))
+			continue;
+		if (as_xml_l10n_filter_skip_possible (filter, (const gchar *) localname) &&
+		    !as_xml_l10n_filter_locale_matches (filter, attr[3], attr[4])) {
+			filter->skip_depth = 1;
+			return;
+		}
+		break;
+	}
+
+	if (filter->depth < AS_XML_L10N_FILTER_MAX_DEPTH)
+		filter->names[filter->depth] = localname;
+	filter->depth++;
+
+	xmlSAX2StartElementNs (ctx,
+			       localname,
+			       prefix,
+			       uri,
+			       nb_namespaces,
+			       namespaces,
+			       nb_attributes,
+			       nb_defaulted,
+			       attributes);
+}
+
+static void
+as_xml_l10n_filter_end_element (void *ctx,
+				const xmlChar *localname,
+				const xmlChar *prefix,
+				const xmlChar *uri)
+{
+	AsXmlL10nFilter *filter = as_xml_l10n_filter_from_ctx (ctx);
+
+	if (filter->skip_depth > 0) {
+		filter->skip_depth--;
+		return;
+	}
+
+	filter->depth--;
+	xmlSAX2EndElementNs (ctx, localname, prefix, uri);
+}
+
+static void
+as_xml_l10n_filter_characters (void *ctx, const xmlChar *ch, int len)
+{
+	AsXmlL10nFilter *filter = as_xml_l10n_filter_from_ctx (ctx);
+	if (filter->skip_depth == 0)
+		xmlSAX2Characters (ctx, ch, len);
+}
+
+static void
+as_xml_l10n_filter_cdata_block (void *ctx, const xmlChar *value, int len)
+{
+	AsXmlL10nFilter *filter = as_xml_l10n_filter_from_ctx (ctx);
+	if (filter->skip_depth == 0)
+		xmlSAX2CDataBlock (ctx, value, len);
+}
+
+static void
+as_xml_l10n_filter_reference (void *ctx, const xmlChar *name)
+{
+	AsXmlL10nFilter *filter = as_xml_l10n_filter_from_ctx (ctx);
+	if (filter->skip_depth == 0)
+		xmlSAX2Reference (ctx, name);
+}
+
+static void
+as_xml_l10n_filter_comment (void *ctx, const xmlChar *value)
+{
+	AsXmlL10nFilter *filter = as_xml_l10n_filter_from_ctx (ctx);
+	if (filter->skip_depth == 0)
+		xmlSAX2Comment (ctx, value);
+}
+
+static void
+as_xml_l10n_filter_processing_instruction (void *ctx, const xmlChar *target, const xmlChar *data)
+{
+	AsXmlL10nFilter *filter = as_xml_l10n_filter_from_ctx (ctx);
+	if (filter->skip_depth == 0)
+		xmlSAX2ProcessingInstruction (ctx, target, data);
+}
+
+/**
+ * as_xml_read_memory_l10n_filtered:
+ *
+ * Parse a document like xmlReadMemory() does, but leave out the translations
+ * that the code reading the tree would drop anyway.
+ *
+ * libxml2 has no way to skip parts of a document, but its tree builder is just the
+ * default SAX2 handler, so we put ourselves in front of it and do not pass on the
+ * events for elements we do not need. libxml2 still has to tokenize them to check
+ * if the document is well-formed, but we save building and freeing the nodes.
+ */
+static xmlDoc *
+as_xml_read_memory_l10n_filtered (AsContext *ctx, const gchar *data, gssize len, gint options)
+{
+	xmlSAXHandler sax = { 0 };
+	xmlParserCtxt *pctx;
+	xmlDoc *doc;
+	AsXmlL10nFilter filter = {
+		.locale = as_context_get_locale (ctx),
+		.style = as_context_get_style (ctx),
+		.enabled = TRUE,
+	};
+
+	/* we only intercept the callbacks that add nodes to the tree */
+	xmlSAXVersion (&sax, 2);
+	sax.internalSubset = as_xml_l10n_filter_internal_subset;
+	sax.startElementNs = as_xml_l10n_filter_start_element;
+	sax.endElementNs = as_xml_l10n_filter_end_element;
+	sax.characters = as_xml_l10n_filter_characters;
+	sax.cdataBlock = as_xml_l10n_filter_cdata_block;
+	sax.reference = as_xml_l10n_filter_reference;
+	sax.comment = as_xml_l10n_filter_comment;
+	sax.processingInstruction = as_xml_l10n_filter_processing_instruction;
+
+	/* the default handler uses the same function for both, and libxml2 decides how to
+	 * treat whitespace based on that, so we must not tell them apart either */
+	sax.ignorableWhitespace = as_xml_l10n_filter_characters;
+
+	pctx = xmlNewSAXParserCtxt (&sax, NULL);
+	if (pctx == NULL)
+		return NULL;
+#if LIBXML_VERSION >= 21400
+	xmlCtxtSetPrivate (pctx, &filter);
+#else
+	pctx->_private = &filter;
+#endif
+
+	doc = xmlCtxtReadMemory (pctx, data, len, NULL, "utf-8", options);
+	xmlFreeParserCtxt (pctx);
+
+	return doc;
+}
+
 /**
  * as_xml_parse_document:
+ * @ctx: (nullable): The context the document is read for, or %NULL.
+ * @data: The XML data.
+ * @len: Length of @data, or -1 if it is NUL-terminated.
+ * @pedantic: %TRUE to make libxml2 report more issues.
+ * @error: A #GError or %NULL.
+ *
+ * Returns: The XML document, or %NULL on error.
  */
 xmlDoc *
-as_xml_parse_document (const gchar *data, gssize len, gboolean pedantic, GError **error)
+as_xml_parse_document (AsContext *ctx,
+		       const gchar *data,
+		       gssize len,
+		       gboolean pedantic,
+		       GError **error)
 {
 	xmlDoc *doc;
 	xmlNode *root;
@@ -2113,7 +2446,10 @@ as_xml_parse_document (const gchar *data, gssize len, gboolean pedantic, GError 
 		parser_options |= XML_PARSE_PEDANTIC;
 
 	as_xml_set_out_of_context_error (&error_msg_str);
-	doc = xmlReadMemory (data, len, NULL, "utf-8", parser_options);
+	if (ctx != NULL && !as_context_get_locale_use_all (ctx))
+		doc = as_xml_read_memory_l10n_filtered (ctx, data, len, parser_options);
+	else
+		doc = xmlReadMemory (data, len, NULL, "utf-8", parser_options);
 	if (doc == NULL) {
 		if (error_msg_str == NULL) {
 			g_set_error (error,

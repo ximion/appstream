@@ -122,7 +122,8 @@ xmlAttr *as_xml_add_uint_prop (xmlNode	   *node,
 			       const gchar *name,
 			       guint64	    value);
 
-xmlDoc	*as_xml_parse_document (const gchar *data,
+xmlDoc	*as_xml_parse_document (AsContext   *ctx,
+				const gchar *data,
 				gssize	     len,
 				gboolean     pedantic,
 				GError	   **error);

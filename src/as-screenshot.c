@@ -668,16 +668,23 @@ as_screenshot_load_from_xml (AsScreenshot *screenshot,
 	}
 
 	if (!children_found) {
-		/* we are likely dealing with a legacy screenshot node, which does not have <image/> children,
-		 * but instead contains the screenshot URL as text. This was briefly supported in an older AppStream
-		 * version for metainfo files, but it should no longer be used.
+		/* We are likely dealing with a legacy screenshot node, which does not have <image/> children,
+		 * but instead contains the screenshot URL as text. This was briefly supported in an older
+		 * AppStream version for metainfo files, but it should no longer be used.
 		 * We support it here only for legacy compatibility. */
-		g_autoptr(AsImage) image = as_image_new ();
+		g_autofree gchar *content = as_xml_get_node_value (node);
 
-		if (as_image_load_from_xml (image, ctx, node, NULL))
-			as_screenshot_add_image (screenshot, image);
-		else
-			return FALSE; /* this screenshot is invalid */
+		/* Without any text, this is no legacy screenshot but an empty one. That also happens if
+		 * the parser left out its captions because they were translations we don't need, and
+		 * we must not turn that into an image with an empty URL. */
+		if (!as_is_empty (content)) {
+			g_autoptr(AsImage) image = as_image_new ();
+
+			if (as_image_load_from_xml (image, ctx, node, NULL))
+				as_screenshot_add_image (screenshot, image);
+			else
+				return FALSE; /* this screenshot is invalid */
+		}
 	}
 
 	/* propagate context - we do this last so the image list for the selected locale is rebuilt properly */

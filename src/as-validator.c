@@ -2914,7 +2914,8 @@ as_validator_check_external_releases (AsValidator *validator,
 	as_validator_set_current_fname (validator, rel_basename);
 
 	rel_data = g_bytes_get_data (bytes, &rel_data_len);
-	xdoc = as_xml_parse_document (rel_data,
+	xdoc = as_xml_parse_document (NULL,
+				      rel_data,
 				      rel_data_len,
 				      TRUE, /* pedantic */
 				      &error);
@@ -4147,7 +4148,8 @@ as_validator_open_xml_document (AsValidator *validator, const gchar *xmldata, gs
 	xmlDoc *doc;
 	g_autoptr(GError) error = NULL;
 
-	doc = as_xml_parse_document (xmldata,
+	doc = as_xml_parse_document (NULL,
+				     xmldata,
 				     len,
 				     TRUE, /* pedantic */
 				     &error);

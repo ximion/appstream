@@ -275,7 +275,7 @@ as_markup_convert (const gchar *markup, AsMarkupKind to_kind, GError **error)
 	/* make XML parser happy by providing a root element */
 	xmldata = g_strdup_printf ("<root>%s</root>", markup);
 
-	doc = as_xml_parse_document (xmldata, -1, FALSE, NULL);
+	doc = as_xml_parse_document (NULL, xmldata, -1, FALSE, NULL);
 	if (doc == NULL) {
 		ret = FALSE;
 		goto out;
@@ -794,7 +794,7 @@ as_xml_file_get_root_name (const gchar *fname, GError **error)
 	if (!g_file_get_contents (fname, &data, &data_len, error))
 		return NULL;
 
-	doc = as_xml_parse_document (data, data_len, FALSE, error);
+	doc = as_xml_parse_document (NULL, data, data_len, FALSE, error);
 	if (doc == NULL)
 		return NULL;
 
