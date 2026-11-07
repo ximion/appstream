@@ -3156,6 +3156,47 @@ as_component_add_token (AsComponent *cpt,
 }
 
 /**
+ * as_component_split_words:
+ * @text: The text to split, already case-folded.
+ *
+ * Split @text into words like g_str_tokenize_and_fold() does, except that "+" and "-"
+ * are part of a word, so we keep tokens like "c++" or "x-plane" intact.
+ * Anything else that is not a letter or a number ends a word. That includes markup and
+ * line breaks, so we don't end up with tokens like "<p>first" or "end\nstart".
+ */
+static gchar **
+as_component_split_words (const gchar *text)
+{
+	GPtrArray *words = g_ptr_array_new ();
+	const gchar *start = NULL;
+	const gchar *s;
+
+	for (s = text; *s != '\0'; s = g_utf8_next_char (s)) {
+		gboolean is_word_char;
+
+		if ((guchar) *s < 0x80) {
+			is_word_char = g_ascii_isalnum (*s) || *s == '+' || *s == '-';
+		} else {
+			gunichar c = g_utf8_get_char (s);
+			is_word_char = g_unichar_isalnum (c) || g_unichar_ismark (c);
+		}
+
+		if (is_word_char) {
+			if (start == NULL)
+				start = s;
+		} else if (start != NULL) {
+			g_ptr_array_add (words, g_strndup (start, s - start));
+			start = NULL;
+		}
+	}
+	if (start != NULL)
+		g_ptr_array_add (words, g_strndup (start, s - start));
+	g_ptr_array_add (words, NULL);
+
+	return (gchar **) g_ptr_array_free (words, FALSE);
+}
+
+/**
  * as_component_value_tokenize:
  *
  * Split a component value string into tokens.
@@ -3187,8 +3228,7 @@ as_component_value_tokenize (AsComponent *cpt,
 			normal = g_utf8_normalize (value, -1, G_NORMALIZE_ALL_COMPOSE);
 			folded = g_utf8_casefold (normal != NULL ? normal : value, -1);
 		}
-		g_strdelimit (folded, "/,.;:", ' ');
-		(*tokens_utf8) = g_strsplit (folded, " ", -1);
+		(*tokens_utf8) = as_component_split_words (folded);
 
 		/* add ASCII alternates, so searching for e.g. "editeur" finds "éditeur" as well */
 		if (tokens_ascii != NULL && !g_str_is_ascii (folded)) {

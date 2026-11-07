@@ -2292,14 +2292,10 @@ as_pool_build_search_tokens (AsPool *pool, const gchar *search)
 		search_norm = g_utf8_casefold (search, -1);
 	}
 
+	/* This splits on "+" and "-" as well, so "half-life" becomes "half" and "life". That is what
+	 * we want, as components have tokens for the parts of words with hyphens too, and this way
+	 * we still find "Half Life". */
 	strv = g_str_tokenize_and_fold (search_norm, priv->locale_posix, NULL);
-	/* we might still be able to extract tokens if g_str_tokenize_and_fold() can't do it or +/- were found */
-	if (strv == NULL) {
-		g_autofree gchar *delim = NULL;
-		delim = g_utf8_strdown (search_norm, -1);
-		g_strdelimit (delim, "/,.;:", ' ');
-		strv = g_strsplit (delim, " ", -1);
-	}
 
 	terms = g_new0 (gchar *, g_strv_length (strv) + 1);
 	idx = 0;

@@ -905,6 +905,60 @@ test_pool_search_non_ascii (void)
 }
 
 /**
+ * test_pool_search_description_words:
+ *
+ * Test that every word of a description that also contains hyphens can be found,
+ * including the first one of a paragraph or list item and words after a line break.
+ */
+static void
+test_pool_search_description_words (void)
+{
+	g_autoptr(AsPool) pool = NULL;
+	g_autoptr(AsComponentBox) cbox = NULL;
+	g_autoptr(AsComponent) cpt = NULL;
+	g_autoptr(GError) error = NULL;
+	gboolean ret;
+
+	const gchar *terms[] = {
+		"wonderful", "sketching", "gradients", "drag", "options", NULL,
+	};
+
+	pool = as_pool_new ();
+	as_pool_set_load_std_data_locations (pool, FALSE);
+	as_pool_override_cache_locations (pool, cache_dummy_dir, NULL);
+	as_pool_reset_extra_data_locations (pool);
+	as_pool_set_locale (pool, "C");
+
+	cpt = as_component_new ();
+	as_component_set_kind (cpt, AS_COMPONENT_KIND_DESKTOP_APP);
+	as_component_set_id (cpt, "org.example.PaintTool");
+	as_component_set_name (cpt, "Paint Tool", "C");
+	as_component_set_summary (cpt, "Paint some pictures", "C");
+	as_component_set_description (cpt,
+				      "<p>Wonderful all-in-one\nsketching app.</p>"
+				      "<ul><li>Gradients with click-and-drag</li>"
+				      "<li>Lots of (options)</li></ul>",
+				      "C");
+
+	cbox = as_component_box_new_simple ();
+	g_assert_true (as_component_box_add (cbox, cpt, NULL));
+	ret = as_pool_add_components (pool, cbox, &error);
+	g_assert_no_error (error);
+	g_assert_true (ret);
+
+	for (guint i = 0; terms[i] != NULL; i++) {
+		g_autoptr(AsComponentBox) result = NULL;
+
+		g_test_message ("Searching for: %s", terms[i]);
+		result = as_pool_search (pool, terms[i]);
+		g_assert_cmpint (as_component_box_len (result), ==, 1);
+		g_assert_cmpstr (as_component_get_id (as_component_box_index (result, 0)),
+				 ==,
+				 "org.example.PaintTool");
+	}
+}
+
+/**
  * test_pool_extra_location_full:
  *
  * Test explicit scope/origin for extra locations, and that an uncompressed
@@ -1333,6 +1387,8 @@ main (int argc, char **argv)
 	g_test_add_func ("/AppStream/PoolReadAsync", test_pool_read_async);
 	g_test_add_func ("/AppStream/PoolEmpty", test_pool_empty);
 	g_test_add_func ("/AppStream/PoolSearchNonAscii", test_pool_search_non_ascii);
+	g_test_add_func ("/AppStream/PoolSearchDescriptionWords",
+			 test_pool_search_description_words);
 	g_test_add_func ("/AppStream/PoolExtraLocationFull", test_pool_extra_location_full);
 	g_test_add_func ("/AppStream/Cache", test_cache);
 	g_test_add_func ("/AppStream/CacheExtendsCycle", test_cache_extends_cycle);
