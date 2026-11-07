@@ -90,7 +90,7 @@ GRefString	      *as_yaml_node_get_value_refstr (struct fy_node_pair *ynp);
 struct fy_node	      *as_yaml_get_localized_node (AsContext	  *ctx,
 						   struct fy_node *node,
 						   const gchar	  *locale_override);
-const gchar	      *as_yaml_get_node_locale (AsContext	    *ctx,
+gchar		      *as_yaml_get_node_locale (AsContext	    *ctx,
 						struct fy_node_pair *node_pair);
 void		       as_yaml_set_localized_table (AsContext	   *ctx,
 						    struct fy_node *node,

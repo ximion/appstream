@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2012-2024 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2026 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -44,6 +44,7 @@ typedef struct {
 	AsFormatStyle style;
 	AsValueFlags value_flags;
 	GRefString *locale;
+	AsLocaleChain *locale_chain;
 	GRefString *origin;
 	GRefString *media_baseurl;
 	GRefString *arch;
@@ -159,6 +160,7 @@ as_context_finalize (GObject *object)
 		as_ref_string_release (priv->media_baseurl);
 		as_ref_string_release (priv->arch);
 		as_ref_string_release (priv->fname);
+		g_free (priv->locale_chain);
 
 		if (priv->free_origin_globs != NULL)
 			g_strfreev (priv->free_origin_globs);
@@ -324,16 +326,61 @@ void
 as_context_set_locale (AsContext *ctx, const gchar *locale)
 {
 	AsContextPrivate *priv = GET_PRIVATE (ctx);
+	g_autofree gchar *bcp47 = NULL;
 
 	g_atomic_int_set (&priv->all_locale, FALSE);
 	if (g_strcmp0 (locale, "ALL") == 0) {
-		g_autofree gchar *tmp = as_get_current_locale_bcp47 ();
+		bcp47 = as_get_current_locale_bcp47 ();
 		g_atomic_int_set (&priv->all_locale, TRUE);
-		as_ref_string_assign_safe (&priv->locale, tmp);
 	} else {
-		g_autofree gchar *bcp47 = as_utils_posix_locale_to_bcp47 (locale);
-		as_ref_string_assign_safe (&priv->locale, bcp47);
+		bcp47 = as_utils_posix_locale_to_bcp47 (locale);
 	}
+	as_ref_string_assign_safe (&priv->locale, bcp47);
+
+	/* we need to know which translations we can use for this locale all the time,
+	 * so we only work that out once */
+	g_clear_pointer (&priv->locale_chain, g_free);
+	if (priv->locale != NULL) {
+		priv->locale_chain = g_new (AsLocaleChain, 1);
+		as_locale_chain_init (priv->locale_chain, priv->locale);
+	}
+}
+
+/**
+ * as_context_locale_matches:
+ * @ctx: a #AsContext instance.
+ * @locale: a POSIX or BCP47 locale, which does not need to be canonical.
+ *
+ * Check whether data for @locale is useful for the active locale, so we only
+ * need to keep the translations we can actually show.
+ *
+ * Returns: %TRUE if @locale is compatible with the active locale.
+ */
+gboolean
+as_context_locale_matches (AsContext *ctx, const gchar *locale)
+{
+	AsContextPrivate *priv = GET_PRIVATE (ctx);
+	gchar buf[AS_LOCALE_BUF_SIZE];
+	g_autofree gchar *tmp = NULL;
+	const gchar *canonical = buf;
+	AsLocaleChain chain;
+
+	if (priv->locale_chain == NULL)
+		return as_utils_locale_is_compatible (NULL, locale);
+
+	/* most translations are for other languages, so we check that before anything else */
+	if (!as_locale_same_language (locale, priv->locale))
+		return FALSE;
+
+	if (!as_utils_locale_canonicalize_buf (locale, buf, sizeof (buf)))
+		canonical = tmp = as_utils_locale_canonicalize (locale);
+	if (as_locale_chain_contains (priv->locale_chain, canonical))
+		return TRUE;
+
+	/* The data may also be more specific than our locale, e.g. "de-DE" if we use "de".
+	 * We have always accepted that, even though we won't pick these translations. */
+	as_locale_chain_init (&chain, canonical);
+	return as_locale_chain_contains (&chain, priv->locale);
 }
 
 /**
@@ -500,59 +547,67 @@ as_context_set_internal_mode (AsContext *ctx, gboolean enabled)
 }
 
 /**
- * as_context_localized_ht_get:
+ * as_context_locale_table_lookup:
  * @ctx: a #AsContext instance, or %NULL
- * @lht: (element-type utf8 utf8): the #GHashTable from which the value will be retreived.
+ * @lht: the #GHashTable from which the value will be retreived.
  * @locale_override: Override the default locale defined by @ctx, or %NULL
  *
  * Helper function to get a value for the current locale from a localization
- * hash table (which maps locale to localized strings).
+ * hash table (which maps canonical BCP47 locales to localized values).
+ * The values are usually strings, but can be anything (e.g. keyword lists).
  *
- * This is used by all entities which have a context and have localized strings.
+ * This is used by all entities which have a context and have localized data.
  *
- * Returns: The localized string in the best matching localization.
+ * Returns: The value in the best matching localization.
  */
-const gchar *
-as_context_localized_ht_get (AsContext *ctx, GHashTable *lht, const gchar *locale_override)
+gpointer
+as_context_locale_table_lookup (AsContext *ctx, GHashTable *lht, const gchar *locale_override)
 {
-	const gchar *locale;
-	const gchar *msg;
 	AsContextPrivate *priv = NULL;
 	AsValueFlags value_flags = AS_VALUE_FLAG_NONE;
+	const AsLocaleChain *chain = NULL;
+	AsLocaleChain override_chain;
+	gboolean fallback;
+	guint n_locales;
 
 	if (ctx != NULL) {
 		priv = GET_PRIVATE (ctx);
 		value_flags = priv->value_flags;
 	}
 
-	/* retrieve context locale, if the locale isn't explicitly overridden */
-	if (priv != NULL && locale_override == NULL) {
-		locale = priv->locale;
-	} else {
-		locale = locale_override;
+	/* use the context locale, if the locale isn't explicitly overridden */
+	if (locale_override != NULL) {
+		gchar buf[AS_LOCALE_BUF_SIZE];
+		g_autofree gchar *tmp = NULL;
+		const gchar *canonical = buf;
+
+		if (!as_utils_locale_canonicalize_buf (locale_override, buf, sizeof (buf)))
+			canonical = tmp = as_utils_locale_canonicalize (locale_override);
+		as_locale_chain_init (&override_chain, canonical);
+		chain = &override_chain;
+	} else if (priv != NULL) {
+		chain = priv->locale_chain;
 	}
 
-	/* NULL is not an acceptable value here and means "C" */
-	if (locale == NULL)
-		locale = "C";
+	/* no locale means "C" */
+	if (chain == NULL)
+		return g_hash_table_lookup (lht, "C");
 
-	msg = g_hash_table_lookup (lht, locale);
-	if ((msg == NULL) &&
-	    (!as_flags_contains (value_flags, AS_VALUE_FLAG_NO_TRANSLATION_FALLBACK))) {
-		g_autofree gchar *lang = as_utils_locale_to_language (locale);
-		/* fall back to language string */
-		msg = g_hash_table_lookup (lht, lang);
-		if (msg == NULL) {
-			/* fall back to untranslated / default */
-			msg = g_hash_table_lookup (lht, "C");
-		}
+	/* without fallback, we only accept the locale itself (in any of its spellings) */
+	fallback = !as_flags_contains (value_flags, AS_VALUE_FLAG_NO_TRANSLATION_FALLBACK);
+	n_locales = fallback ? chain->n_entries : chain->n_exact;
+	for (guint i = 0; i < n_locales; i++) {
+		gpointer value = g_hash_table_lookup (lht, as_locale_chain_get (chain, i));
+		if (value != NULL)
+			return value;
 	}
 
-	return msg;
+	/* fall back to untranslated / default */
+	return fallback ? g_hash_table_lookup (lht, "C") : NULL;
 }
 
 /**
- * as_context_localized_ht_set:
+ * as_context_locale_table_insert:
  * @ctx: a #AsContext instance, or %NULL
  * @lht: (element-type utf8 utf8): the #GHashTable to which the value will be added.
  * @value: the value to add.
@@ -563,13 +618,15 @@ as_context_localized_ht_get (AsContext *ctx, GHashTable *lht, const gchar *local
  * This is used by all entities which have a context and have localized strings.
  */
 void
-as_context_localized_ht_set (AsContext *ctx,
-			     GHashTable *lht,
-			     const gchar *value,
-			     const gchar *locale)
+as_context_locale_table_insert (AsContext *ctx,
+				GHashTable *lht,
+				const gchar *value,
+				const gchar *locale)
 {
 	const gchar *selected_locale;
-	g_autofree gchar *locale_noenc = NULL;
+	gchar buf[AS_LOCALE_BUF_SIZE];
+	g_autofree gchar *tmp = NULL;
+	const gchar *canonical = buf;
 
 	/* if no locale was specified, we assume the default locale
 	 * NOTE: %NULL does NOT necessarily mean lang=C here! */
@@ -583,8 +640,10 @@ as_context_localized_ht_set (AsContext *ctx,
 	if (selected_locale == NULL)
 		selected_locale = "C";
 
-	locale_noenc = as_locale_strip_encoding (selected_locale);
-	g_hash_table_insert (lht, g_ref_string_new_intern (locale_noenc), g_strdup (value));
+	/* we always store translations under the canonical form of their locale */
+	if (!as_utils_locale_canonicalize_buf (selected_locale, buf, sizeof (buf)))
+		canonical = tmp = as_utils_locale_canonicalize (selected_locale);
+	g_hash_table_insert (lht, g_ref_string_new_intern (canonical), g_strdup (value));
 }
 
 /**

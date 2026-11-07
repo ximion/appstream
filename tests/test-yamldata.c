@@ -1460,6 +1460,49 @@ test_yaml_write_agreements (void)
 }
 
 /**
+ * test_yaml_read_locale_fallback:
+ *
+ * Test that DEP-11 keys are matched and stored in their canonical form.
+ */
+static void
+test_yaml_read_locale_fallback (void)
+{
+	const gchar *yamldata = "Type: generic\n"
+				"ID: org.example.LocaleFallbackTest\n"
+				"Name:\n"
+				"  C: Untranslated\n"
+				"  zh_CN: zh_CN\n"
+				"  zh-Hant: zh-Hant\n"
+				"  sr@latin: sr@latin\n"
+				"Keywords:\n"
+				"  C:\n"
+				"    - untranslated\n"
+				"  zh_Hans:\n"
+				"    - zh_Hans\n";
+	g_autoptr(AsComponent) cpt = NULL;
+	g_autoptr(GError) error = NULL;
+	GPtrArray *keywords;
+
+	cpt = as_yaml_test_read_data (yamldata, &error);
+	g_assert_no_error (error);
+	g_assert_nonnull (g_hash_table_lookup (as_component_get_name_table (cpt), "zh-CN"));
+	g_assert_nonnull (g_hash_table_lookup (as_component_get_name_table (cpt), "sr-Latn"));
+
+	as_component_set_context_locale (cpt, "zh-Hans");
+	g_assert_cmpstr (as_component_get_name (cpt), ==, "zh_CN");
+	as_component_set_context_locale (cpt, "zh_HK");
+	g_assert_cmpstr (as_component_get_name (cpt), ==, "zh-Hant");
+	as_component_set_context_locale (cpt, "sr_RS@latin");
+	g_assert_cmpstr (as_component_get_name (cpt), ==, "sr@latin");
+
+	/* keywords fall back like every other localized value */
+	as_component_set_context_locale (cpt, "zh_CN");
+	keywords = as_component_get_keywords (cpt);
+	g_assert_cmpint (keywords->len, ==, 1);
+	g_assert_cmpstr (g_ptr_array_index (keywords, 0), ==, "zh_Hans");
+}
+
+/**
  * test_yaml_read_agreements:
  *
  * Test if reading the Agreement field works.
@@ -2285,6 +2328,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/YAML/Write/Relations", test_yaml_write_relations);
 
 	g_test_add_func ("/YAML/Read/Agreements", test_yaml_read_agreements);
+	g_test_add_func ("/YAML/Read/LocaleFallback", test_yaml_read_locale_fallback);
 	g_test_add_func ("/YAML/Write/Agreements", test_yaml_write_agreements);
 
 	g_test_add_func ("/YAML/Read/Screenshots", test_yaml_read_screenshots);

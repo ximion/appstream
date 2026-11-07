@@ -114,15 +114,16 @@ as_xml_get_prop_value_as_int (const xmlNode *node, const gchar *prop_name)
  * as_xml_get_node_locale:
  * @node: a XML node
  *
- * Returns: The locale of a node, "C" if untranslated. Free result with %g_free
+ * Returns: The canonical BCP47 locale of a node, "C" if untranslated. Free result with %g_free
  */
 gchar *
 as_xml_get_node_locale (AsContext *ctx, xmlNode *node)
 {
 	gchar *lang = (gchar *) xmlGetProp (node, (xmlChar *) "lang");
 	if (lang == NULL)
-		lang = g_strdup ("C");
+		return g_strdup ("C");
 
+	as_utils_locale_canonicalize_inplace (lang);
 	return lang;
 }
 
@@ -130,7 +131,7 @@ as_xml_get_node_locale (AsContext *ctx, xmlNode *node)
  * as_xml_get_node_locale_match:
  * @node: A XML node
  *
- * Returns: The locale of a node, if the node should be considered for inclusion.
+ * Returns: The canonical BCP47 locale of a node, if the node should be considered for inclusion.
  * %NULL if the node should be ignored due to a not-matching locale.
  */
 gchar *
@@ -139,27 +140,19 @@ as_xml_get_node_locale_match (AsContext *ctx, xmlNode *node)
 	gchar *lang;
 
 	lang = (gchar *) xmlGetProp (node, (xmlChar *) "lang");
+	if (lang == NULL)
+		return g_strdup ("C");
 
-	if (lang == NULL) {
-		lang = g_strdup ("C");
-		goto out;
+	/* If we don't read all languages and this one doesn't match, we return %NULL
+	 * to indicate that this element should not be added. */
+	if (!as_context_get_locale_use_all (ctx) && !as_context_locale_matches (ctx, lang)) {
+		g_free (lang);
+		return NULL;
 	}
 
-	if (as_context_get_locale_use_all (ctx)) {
-		/* we should read all languages */
-		goto out;
-	}
-
-	if (as_utils_locale_is_compatible (as_context_get_locale (ctx), lang)) {
-		goto out;
-	}
-
-	/* If we are here, we haven't found a matching locale.
-	 * In that case, we return %NULL to indicate that this element should not be added.
-	 */
-	g_free (g_steal_pointer (&lang));
-
-out:
+	/* translations are stored under the canonical form of their locale, no matter how
+	 * the data spelled it */
+	as_utils_locale_canonicalize_inplace (lang);
 	return lang;
 }
 
@@ -2088,7 +2081,7 @@ as_xml_set_out_of_context_error (gchar **error_msg_ptr)
 
 /**
  * AsXmlL10nFilter:
- * @locale: The locale we read the document for.
+ * @ctx: The context we read the document for.
  * @style: The style of the document.
  * @enabled: %FALSE if we must not skip anything in this document.
  * @depth: Number of open elements we have passed on to the tree builder.
@@ -2099,7 +2092,7 @@ as_xml_set_out_of_context_error (gchar **error_msg_ptr)
  * libxml2 is parsing a document.
  */
 typedef struct {
-	const gchar *locale;
+	AsContext *ctx;
 	AsFormatStyle style;
 	gboolean enabled;
 	guint depth;
@@ -2227,7 +2220,7 @@ as_xml_l10n_filter_locale_matches (AsXmlL10nFilter *filter,
 	memcpy (lang, value, len);
 	lang[len] = '\0';
 
-	return as_utils_locale_is_compatible (filter->locale, lang);
+	return as_context_locale_matches (filter->ctx, lang);
 }
 
 static void
@@ -2368,7 +2361,7 @@ as_xml_read_memory_l10n_filtered (AsContext *ctx, const gchar *data, gssize len,
 	xmlParserCtxt *pctx;
 	xmlDoc *doc;
 	AsXmlL10nFilter filter = {
-		.locale = as_context_get_locale (ctx),
+		.ctx = ctx,
 		.style = as_context_get_style (ctx),
 		.enabled = TRUE,
 	};

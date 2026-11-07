@@ -2608,6 +2608,88 @@ test_xml_read_releases_catalog_l10n (void)
 }
 
 /**
+ * test_xml_read_locale_fallback:
+ *
+ * Test that we pick the best translation no matter how the data spells its locale,
+ * and that we normalize locales to canonical BCP47 when reading.
+ */
+static void
+test_xml_read_locale_fallback (void)
+{
+	const gchar *xmldata = "<component>\n"
+			       "  <id>org.example.LocaleFallbackTest</id>\n"
+			       "  <name>Untranslated</name>\n"
+			       "  <name xml:lang=\"zh\">zh</name>\n"
+			       "  <name xml:lang=\"zh-Hans\">zh-Hans</name>\n"
+			       "  <name xml:lang=\"zh_TW\">zh_TW</name>\n"
+			       "  <name xml:lang=\"sr\">sr</name>\n"
+			       "  <name xml:lang=\"sr@latin\">sr@latin</name>\n"
+			       "  <name xml:lang=\"ca\">ca</name>\n"
+			       "  <name xml:lang=\"ca-valencia\">ca-valencia</name>\n"
+			       "  <name xml:lang=\"pt_BR\">pt_BR</name>\n"
+			       "  <name xml:lang=\"de\">de</name>\n"
+			       "  <name xml:lang=\"de-CH\">de-CH</name>\n"
+			       "  <summary>Just a test</summary>\n"
+			       "</component>\n";
+	struct {
+		const gchar *locale;
+		const gchar *name;
+	} cases[] = {
+		{ "zh_CN",	       "zh-Hans"      },
+		{ "zh_SG",	       "zh-Hans"      },
+		{ "zh_TW.UTF-8",       "zh_TW"	      },
+		/* there is no Traditional Chinese for Hong Kong, so we only get the language */
+		{ "zh_HK",	       "zh"	      },
+		{ "sr_RS",	       "sr"	      },
+		{ "sr_RS.UTF-8@latin", "sr@latin"     },
+		{ "ca_ES",	       "ca"	      },
+		{ "ca_ES@valencia",    "ca-valencia"  },
+		{ "pt_BR",	       "pt_BR"	      },
+		{ "pt_PT",	       "Untranslated" },
+		{ "de_DE.utf8",	       "de"	      },
+		{ "de_CH",	       "de-CH"	      },
+		{ "fr_FR",	       "Untranslated" },
+	};
+	g_autoptr(AsComponent) cpt = NULL;
+	g_autofree gchar *res = NULL;
+	GHashTable *names;
+
+	for (guint i = 0; i < G_N_ELEMENTS (cases); i++) {
+		g_autoptr(AsMetadata) metad = as_metadata_new ();
+		g_autoptr(GError) error = NULL;
+
+		as_metadata_set_format_style (metad, AS_FORMAT_STYLE_METAINFO);
+		as_metadata_set_locale (metad, cases[i].locale);
+		as_metadata_parse_data (metad, xmldata, -1, AS_FORMAT_KIND_XML, &error);
+		g_assert_no_error (error);
+
+		g_assert_cmpstr (as_component_get_name (as_metadata_get_component (metad)),
+				 ==,
+				 cases[i].name);
+	}
+
+	/* when reading all locales, we store them in their canonical form */
+	cpt = as_xml_test_read_data (xmldata, AS_FORMAT_STYLE_METAINFO);
+	names = as_component_get_name_table (cpt);
+	g_assert_nonnull (g_hash_table_lookup (names, "zh-TW"));
+	g_assert_nonnull (g_hash_table_lookup (names, "sr-Latn"));
+	g_assert_nonnull (g_hash_table_lookup (names, "pt-BR"));
+	g_assert_null (g_hash_table_lookup (names, "pt_BR"));
+
+	/* ...and find them for any spelling of the locale */
+	as_component_set_context_locale (cpt, "zh_CN");
+	g_assert_cmpstr (as_component_get_name (cpt), ==, "zh-Hans");
+	as_component_set_context_locale (cpt, "sr_RS@latin");
+	g_assert_cmpstr (as_component_get_name (cpt), ==, "sr@latin");
+
+	/* and that is what we write back */
+	res = as_xml_test_serialize (cpt, AS_FORMAT_STYLE_METAINFO);
+	g_assert_nonnull (g_strstr_len (res, -1, "<name xml:lang=\"pt-BR\">pt_BR</name>"));
+	g_assert_nonnull (g_strstr_len (res, -1, "<name xml:lang=\"sr-Latn\">sr@latin</name>"));
+	g_assert_null (g_strstr_len (res, -1, "xml:lang=\"pt_BR\""));
+}
+
+/**
  * test_xml_read_l10n_filter:
  *
  * Test reading data for a single locale, with translations in all the places where the
@@ -2704,7 +2786,7 @@ test_xml_read_l10n_filter (void)
 	    "  <name xml:lang=\"de\">Filtertest</name>\n"
 	    "  <name_variant_suffix>Nightly</name_variant_suffix>\n"
 	    "  <summary>Tests skipping translations</summary>\n"
-	    "  <summary xml:lang=\"de_DE\">Testet das Überspringen von Übersetzungen</summary>\n"
+	    "  <summary xml:lang=\"de-DE\">Testet das Überspringen von Übersetzungen</summary>\n"
 	    "  <description>\n"
 	    "    <p>First paragraph with <em>emphasis</em>.</p>\n"
 	    "    <p xml:lang=\"de\">Erster Absatz mit <em>Betonung</em>.</p>\n"
@@ -3322,6 +3404,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/XML/Read/Releases", test_xml_read_releases);
 	g_test_add_func ("/XML/Read/ReleasesCatalogL10N", test_xml_read_releases_catalog_l10n);
 	g_test_add_func ("/XML/Read/L10nFilter", test_xml_read_l10n_filter);
+	g_test_add_func ("/XML/Read/LocaleFallback", test_xml_read_locale_fallback);
 	g_test_add_func ("/XML/Write/Releases", test_xml_write_releases);
 
 	g_test_add_func ("/XML/ReadWrite/Reviews", test_xml_rw_reviews);

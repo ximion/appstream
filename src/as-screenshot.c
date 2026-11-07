@@ -419,9 +419,9 @@ const gchar *
 as_screenshot_get_caption (AsScreenshot *screenshot)
 {
 	AsScreenshotPrivate *priv = GET_PRIVATE (screenshot);
-	return as_context_localized_ht_get (priv->context,
-					    priv->caption,
-					    NULL /* locale override */);
+	return as_context_locale_table_lookup (priv->context,
+					       priv->caption,
+					       NULL /* locale override */);
 }
 
 /**
@@ -435,7 +435,7 @@ void
 as_screenshot_set_caption (AsScreenshot *screenshot, const gchar *caption, const gchar *locale)
 {
 	AsScreenshotPrivate *priv = GET_PRIVATE (screenshot);
-	as_context_localized_ht_set (priv->context, priv->caption, caption, locale);
+	as_context_locale_table_insert (priv->context, priv->caption, caption, locale);
 }
 
 /**

@@ -685,7 +685,7 @@ as_news_releases_to_yaml (GPtrArray *releases, gchar **yaml_data)
 		AsRelease *rel = AS_RELEASE (g_ptr_array_index (releases, i));
 		AsReleaseKind rkind = as_release_get_kind (rel);
 		g_autoptr(AsContext) rel_context = NULL;
-		const gchar *rel_active_locale = NULL;
+		g_autofree gchar *rel_active_locale = NULL;
 		const gchar *desc_markup;
 
 		rel_context = as_release_get_context (rel);
@@ -696,7 +696,11 @@ as_news_releases_to_yaml (GPtrArray *releases, gchar **yaml_data)
 			rel_context = g_object_ref (rel_context);
 		}
 
-		rel_active_locale = as_context_get_locale (rel_context);
+		/* copy the locale, the context releases its own string when we switch to "C" */
+		if (as_context_get_locale_use_all (rel_context))
+			rel_active_locale = g_strdup ("ALL");
+		else
+			rel_active_locale = g_strdup (as_context_get_locale (rel_context));
 
 		/* we only write the untranslated strings */
 		as_context_set_locale (rel_context, "C");

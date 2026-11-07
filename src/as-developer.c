@@ -194,7 +194,9 @@ const gchar *
 as_developer_get_name (AsDeveloper *devp)
 {
 	AsDeveloperPrivate *priv = GET_PRIVATE (devp);
-	return as_context_localized_ht_get (priv->context, priv->name, NULL /* locale override */);
+	return as_context_locale_table_lookup (priv->context,
+					       priv->name,
+					       NULL /* locale override */);
 }
 
 /**
@@ -209,7 +211,7 @@ void
 as_developer_set_name (AsDeveloper *devp, const gchar *value, const gchar *locale)
 {
 	AsDeveloperPrivate *priv = GET_PRIVATE (devp);
-	as_context_localized_ht_set (priv->context, priv->name, value, locale);
+	as_context_locale_table_insert (priv->context, priv->name, value, locale);
 }
 
 /**

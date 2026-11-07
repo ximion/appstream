@@ -134,7 +134,9 @@ const gchar *
 as_agreement_section_get_name (AsAgreementSection *agreement_section)
 {
 	AsAgreementSectionPrivate *priv = GET_PRIVATE (agreement_section);
-	return as_context_localized_ht_get (priv->context, priv->name, NULL /* locale override */);
+	return as_context_locale_table_lookup (priv->context,
+					       priv->name,
+					       NULL /* locale override */);
 }
 
 /**
@@ -153,7 +155,7 @@ as_agreement_section_set_name (AsAgreementSection *agreement_section,
 			       const gchar *locale)
 {
 	AsAgreementSectionPrivate *priv = GET_PRIVATE (agreement_section);
-	as_context_localized_ht_set (priv->context, priv->name, name, locale);
+	as_context_locale_table_insert (priv->context, priv->name, name, locale);
 }
 
 /**
@@ -170,9 +172,9 @@ const gchar *
 as_agreement_section_get_description (AsAgreementSection *agreement_section)
 {
 	AsAgreementSectionPrivate *priv = GET_PRIVATE (agreement_section);
-	return as_context_localized_ht_get (priv->context,
-					    priv->description,
-					    NULL /* locale override */);
+	return as_context_locale_table_lookup (priv->context,
+					       priv->description,
+					       NULL /* locale override */);
 }
 
 /**
@@ -191,7 +193,7 @@ as_agreement_section_set_description (AsAgreementSection *agreement_section,
 				      const gchar *locale)
 {
 	AsAgreementSectionPrivate *priv = GET_PRIVATE (agreement_section);
-	as_context_localized_ht_set (priv->context, priv->description, desc, locale);
+	as_context_locale_table_insert (priv->context, priv->description, desc, locale);
 }
 
 /**

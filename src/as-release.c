@@ -560,9 +560,9 @@ as_release_get_description (AsRelease *release)
 {
 	AsReleasePrivate *priv = GET_PRIVATE (release);
 	g_return_val_if_fail (AS_IS_RELEASE (release), NULL);
-	return as_context_localized_ht_get (priv->context,
-					    priv->description,
-					    NULL /* locale override */);
+	return as_context_locale_table_lookup (priv->context,
+					       priv->description,
+					       NULL /* locale override */);
 }
 
 /**
@@ -579,7 +579,7 @@ as_release_set_description (AsRelease *release, const gchar *description, const 
 	AsReleasePrivate *priv = GET_PRIVATE (release);
 	g_return_if_fail (AS_IS_RELEASE (release));
 	g_return_if_fail (description != NULL);
-	as_context_localized_ht_set (priv->context, priv->description, description, locale);
+	as_context_locale_table_insert (priv->context, priv->description, description, locale);
 }
 
 /**

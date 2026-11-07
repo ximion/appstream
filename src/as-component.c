@@ -1458,7 +1458,9 @@ const gchar *
 as_component_get_name (AsComponent *cpt)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	return as_context_localized_ht_get (priv->context, priv->name, NULL /* locale override */);
+	return as_context_locale_table_lookup (priv->context,
+					       priv->name,
+					       NULL /* locale override */);
 }
 
 /**
@@ -1474,7 +1476,7 @@ as_component_set_name (AsComponent *cpt, const gchar *value, const gchar *locale
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
-	as_context_localized_ht_set (priv->context, priv->name, value, locale);
+	as_context_locale_table_insert (priv->context, priv->name, value, locale);
 	g_object_notify ((GObject *) cpt, "name");
 }
 
@@ -1490,9 +1492,9 @@ const gchar *
 as_component_get_summary (AsComponent *cpt)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	return as_context_localized_ht_get (priv->context,
-					    priv->summary,
-					    NULL /* locale override */);
+	return as_context_locale_table_lookup (priv->context,
+					       priv->summary,
+					       NULL /* locale override */);
 }
 
 /**
@@ -1508,7 +1510,7 @@ as_component_set_summary (AsComponent *cpt, const gchar *value, const gchar *loc
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
-	as_context_localized_ht_set (priv->context, priv->summary, value, locale);
+	as_context_locale_table_insert (priv->context, priv->summary, value, locale);
 	g_object_notify ((GObject *) cpt, "summary");
 }
 
@@ -1525,9 +1527,9 @@ const gchar *
 as_component_get_description (AsComponent *cpt)
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
-	return as_context_localized_ht_get (priv->context,
-					    priv->description,
-					    NULL /* locale override */);
+	return as_context_locale_table_lookup (priv->context,
+					       priv->description,
+					       NULL /* locale override */);
 }
 
 /**
@@ -1543,7 +1545,7 @@ as_component_set_description (AsComponent *cpt, const gchar *value, const gchar 
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 
-	as_context_localized_ht_set (priv->context, priv->description, value, locale);
+	as_context_locale_table_insert (priv->context, priv->description, value, locale);
 	g_object_notify ((GObject *) cpt, "description");
 }
 
@@ -1559,11 +1561,9 @@ as_component_get_keywords (AsComponent *cpt)
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	GPtrArray *keywords;
 
-	keywords = g_hash_table_lookup (priv->keywords, as_component_get_active_locale (cpt));
-	if (keywords == NULL) {
-		/* fall back to untranslated */
-		keywords = g_hash_table_lookup (priv->keywords, "C");
-	}
+	/* make sure we have a context, then find the best translation */
+	as_component_get_active_locale (cpt);
+	keywords = as_context_locale_table_lookup (priv->context, priv->keywords, NULL);
 	if (keywords == NULL) {
 		/* add an empty list to return, so checking for "no keywords" is easier
 		 * for the callers of this method. */
@@ -1631,10 +1631,18 @@ as_component_set_keywords (AsComponent *cpt,
 {
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	g_autoptr(GPtrArray) keywords = NULL;
+	gchar locale_buf[AS_LOCALE_BUF_SIZE];
+	g_autofree gchar *locale_tmp = NULL;
 
 	/* if no locale was specified, we assume the default locale */
 	if (locale == NULL)
 		locale = as_component_get_active_locale (cpt);
+
+	/* we store keywords under the canonical form of their locale */
+	if (as_utils_locale_canonicalize_buf (locale, locale_buf, sizeof (locale_buf)))
+		locale = locale_buf;
+	else
+		locale = locale_tmp = as_utils_locale_canonicalize (locale);
 
 	if (deep_copy) {
 		keywords = g_ptr_array_new_full (new_keywords->len, g_free);
@@ -1669,6 +1677,8 @@ as_component_add_keyword (AsComponent *cpt, const gchar *keyword, const gchar *l
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	GPtrArray *keywords = NULL;
 	g_autofree gchar *keyword_copy = NULL;
+	gchar locale_buf[AS_LOCALE_BUF_SIZE];
+	g_autofree gchar *locale_tmp = NULL;
 
 	if (as_is_empty (keyword))
 		return;
@@ -1679,6 +1689,12 @@ as_component_add_keyword (AsComponent *cpt, const gchar *keyword, const gchar *l
 	/* if no locale was specified, we assume the default locale */
 	if (locale == NULL)
 		locale = as_component_get_active_locale (cpt);
+
+	/* we store keywords under the canonical form of their locale */
+	if (as_utils_locale_canonicalize_buf (locale, locale_buf, sizeof (locale_buf)))
+		locale = locale_buf;
+	else
+		locale = locale_tmp = as_utils_locale_canonicalize (locale);
 
 	keywords = g_hash_table_lookup (priv->keywords, locale);
 	if (keywords == NULL) {
@@ -2161,9 +2177,9 @@ as_component_get_name_variant_suffix (AsComponent *cpt)
 	AsComponentPrivate *priv = GET_PRIVATE (cpt);
 	if (priv->name_variant_suffix == NULL)
 		return NULL;
-	return as_context_localized_ht_get (priv->context,
-					    priv->name_variant_suffix,
-					    NULL /* locale override */);
+	return as_context_locale_table_lookup (priv->context,
+					       priv->name_variant_suffix,
+					       NULL /* locale override */);
 }
 
 /**
@@ -2187,7 +2203,7 @@ as_component_set_name_variant_suffix (AsComponent *cpt, const gchar *value, cons
 		    g_str_equal,
 		    (GDestroyNotify) as_ref_string_release,
 		    g_free);
-	as_context_localized_ht_set (priv->context, priv->name_variant_suffix, value, locale);
+	as_context_locale_table_insert (priv->context, priv->name_variant_suffix, value, locale);
 }
 
 /**
@@ -5393,7 +5409,7 @@ as_component_yaml_parse_keywords (AsComponent *cpt, AsContext *ctx, struct fy_no
 	void *iter = NULL;
 
 	while ((pair = fy_node_mapping_iterate (node, &iter)) != NULL) {
-		const gchar *locale = as_yaml_get_node_locale (ctx, pair);
+		g_autofree gchar *locale = as_yaml_get_node_locale (ctx, pair);
 		if (locale != NULL) {
 			g_autoptr(GPtrArray) keywords = NULL;
 			struct fy_node *value_node = fy_node_pair_value (pair);

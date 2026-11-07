@@ -212,7 +212,7 @@ test_locale_conversion (void)
 	g_free (g_steal_pointer (&tmp));
 
 	tmp = as_utils_posix_locale_to_bcp47 ("uz_UZ@cyrillic");
-	g_assert_cmpstr (tmp, ==, "uz-UZ-Cyrl");
+	g_assert_cmpstr (tmp, ==, "uz-Cyrl-UZ");
 	g_free (g_steal_pointer (&tmp));
 
 	tmp = as_utils_posix_locale_to_bcp47 ("en_UK@euro");
@@ -229,6 +229,41 @@ test_locale_conversion (void)
 
 	tmp = as_utils_posix_locale_to_bcp47 ("sr@latin");
 	g_assert_cmpstr (tmp, ==, "sr-Latn");
+	g_free (g_steal_pointer (&tmp));
+
+	/* the script goes before the region, and the codeset is dropped in any spelling */
+	tmp = as_utils_posix_locale_to_bcp47 ("sr_RS.utf8@latin");
+	g_assert_cmpstr (tmp, ==, "sr-Latn-RS");
+	g_free (g_steal_pointer (&tmp));
+
+	tmp = as_utils_posix_locale_to_bcp47 ("de_DE.UTF-8");
+	g_assert_cmpstr (tmp, ==, "de-DE");
+	g_free (g_steal_pointer (&tmp));
+
+	tmp = as_utils_posix_locale_to_bcp47 ("C.UTF-8");
+	g_assert_cmpstr (tmp, ==, "C");
+	g_free (g_steal_pointer (&tmp));
+
+	tmp = as_utils_posix_locale_to_bcp47 ("en@shaw");
+	g_assert_cmpstr (tmp, ==, "en-Shaw");
+	g_free (g_steal_pointer (&tmp));
+
+	/* BCP47 tags are brought into their canonical form */
+	tmp = as_utils_posix_locale_to_bcp47 ("zh-hans-cn");
+	g_assert_cmpstr (tmp, ==, "zh-Hans-CN");
+	g_free (g_steal_pointer (&tmp));
+
+	tmp = as_utils_posix_locale_to_bcp47 ("es-419");
+	g_assert_cmpstr (tmp, ==, "es-419");
+	g_free (g_steal_pointer (&tmp));
+
+	tmp = as_utils_posix_locale_to_bcp47 ("x-test");
+	g_assert_cmpstr (tmp, ==, "x-test");
+	g_free (g_steal_pointer (&tmp));
+
+	/* the magic value to read all locales is passed through */
+	tmp = as_utils_posix_locale_to_bcp47 ("ALL");
+	g_assert_cmpstr (tmp, ==, "ALL");
 	g_free (g_steal_pointer (&tmp));
 
 	g_assert_true (as_locale_is_posix ("de_DE"));
@@ -605,12 +640,31 @@ test_locale_compat (void)
 	g_assert_true (as_utils_locale_is_compatible ("C", "C"));
 	g_assert_true (as_utils_locale_is_compatible ("de-DE", "de"));
 	g_assert_true (as_utils_locale_is_compatible ("sr", "sr@latin"));
-	g_assert_false (as_utils_locale_is_compatible ("pt_BR", "pt-BR"));
-
-	/* being a prefix of the other locale is not enough */
 	g_assert_false (as_utils_locale_is_compatible ("de", "deu"));
 	g_assert_false (as_utils_locale_is_compatible ("de_D", "de_DE"));
-	g_assert_false (as_utils_locale_is_compatible ("de_DE", "de_"));
+
+	/* POSIX and BCP47 spellings of the same locale */
+	g_assert_true (as_utils_locale_is_compatible ("pt_BR", "pt-BR"));
+	g_assert_true (as_utils_locale_is_compatible ("de_DE.utf8", "de-DE"));
+	g_assert_true (as_utils_locale_is_compatible ("sr_RS@latin", "sr-Latn-RS"));
+	g_assert_true (as_utils_locale_is_compatible ("ca_ES@valencia", "ca-valencia"));
+	g_assert_true (as_utils_locale_is_compatible ("zh-hans", "zh-Hans"));
+
+	/* scripts, whether spelled out or implied by the region */
+	g_assert_true (as_utils_locale_is_compatible ("zh_CN", "zh-Hans"));
+	g_assert_true (as_utils_locale_is_compatible ("zh_CN", "zh-Hans-CN"));
+	g_assert_true (as_utils_locale_is_compatible ("zh_TW", "zh-Hant"));
+	g_assert_true (as_utils_locale_is_compatible ("zh-Hant", "zh_HK"));
+	g_assert_false (as_utils_locale_is_compatible ("zh_CN", "zh-Hant"));
+	g_assert_false (as_utils_locale_is_compatible ("zh_TW", "zh-Hans"));
+	g_assert_true (as_utils_locale_is_compatible ("sr_RS@latin", "sr-Latn"));
+	g_assert_false (as_utils_locale_is_compatible ("sr_RS@latin", "sr-Cyrl"));
+	g_assert_false (as_utils_locale_is_compatible ("sr_RS", "sr-Latn"));
+	g_assert_true (as_utils_locale_is_compatible ("uz_UZ", "uz-Latn"));
+
+	/* like gettext, we still fall back to just the language, even if it is usually
+	 * written in a different script */
+	g_assert_true (as_utils_locale_is_compatible ("sr_RS@latin", "sr"));
 }
 
 /**

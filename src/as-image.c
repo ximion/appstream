@@ -300,6 +300,16 @@ void
 as_image_set_locale (AsImage *image, const gchar *locale)
 {
 	AsImagePrivate *priv = GET_PRIVATE (image);
+	gchar buf[AS_LOCALE_BUF_SIZE];
+	g_autofree gchar *tmp = NULL;
+
+	/* like translations, we store image locales in their canonical form */
+	if (locale != NULL) {
+		if (as_utils_locale_canonicalize_buf (locale, buf, sizeof (buf)))
+			locale = buf;
+		else
+			locale = tmp = as_utils_locale_canonicalize (locale);
+	}
 	as_ref_string_assign_safe (&priv->locale, locale);
 }
 

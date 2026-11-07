@@ -329,7 +329,12 @@ void
 as_video_set_locale (AsVideo *video, const gchar *locale)
 {
 	AsVideoPrivate *priv = GET_PRIVATE (video);
-	as_assign_string_safe (priv->locale, locale);
+	gchar *canonical;
+
+	/* like translations, we store video locales in their canonical form */
+	canonical = locale != NULL ? as_utils_locale_canonicalize (locale) : NULL;
+	g_free (priv->locale);
+	priv->locale = canonical;
 }
 
 /**

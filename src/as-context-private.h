@@ -1,6 +1,6 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
  *
- * Copyright (C) 2012-2024 Matthias Klumpp <matthias@tenstral.net>
+ * Copyright (C) 2012-2026 Matthias Klumpp <matthias@tenstral.net>
  *
  * Licensed under the GNU Lesser General Public License Version 2.1
  *
@@ -35,13 +35,16 @@ gboolean     as_context_get_internal_mode (AsContext *ctx);
 void	     as_context_set_internal_mode (AsContext *ctx,
 					   gboolean   enabled);
 
-const gchar *as_context_localized_ht_get (AsContext   *ctx,
-					  GHashTable  *lht,
-					  const gchar *locale_override);
-void	     as_context_localized_ht_set (AsContext   *ctx,
-					  GHashTable  *lht,
-					  const gchar *value,
-					  const gchar *locale);
+gboolean     as_context_locale_matches (AsContext   *ctx,
+					const gchar *locale);
+
+gpointer     as_context_locale_table_lookup (AsContext	 *ctx,
+					     GHashTable	 *lht,
+					     const gchar *locale_override);
+void	     as_context_locale_table_insert (AsContext	 *ctx,
+					     GHashTable	 *lht,
+					     const gchar *value,
+					     const gchar *locale);
 
 AsCurl	    *as_context_get_curl (AsContext *ctx,
 				  GError   **error);

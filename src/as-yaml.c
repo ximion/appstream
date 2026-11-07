@@ -19,6 +19,7 @@
  */
 
 #include "as-yaml.h"
+#include "as-context-private.h"
 #include "as-utils.h"
 #include "as-utils-private.h"
 #include "as-xml.h"
@@ -219,31 +220,27 @@ as_yaml_get_localized_node (AsContext *ctx, struct fy_node *node, const gchar *l
  * @ctx: AsContext
  * @node_pair: A YAML node pair
  *
- * Returns: The locale of a node, if the node should be considered for inclusion.
- * %NULL if the node should be ignored due to a not-matching locale.
+ * Returns: (transfer full): The canonical BCP47 locale of a node, if the node should be
+ * considered for inclusion. %NULL if the node should be ignored due to a not-matching locale.
  */
-const gchar *
+gchar *
 as_yaml_get_node_locale (AsContext *ctx, struct fy_node_pair *node_pair)
 {
 	const gchar *key = as_yaml_node_get_key0 (node_pair);
 
-	if (as_context_get_locale_use_all (ctx)) {
-		/* we should read all languages */
-		return key;
-	}
+	if (key == NULL)
+		return NULL;
 
 	/* we always include the untranslated strings */
 	if (g_strcmp0 (key, "C") == 0)
-		return key;
+		return g_strdup (key);
 
-	if (as_utils_locale_is_compatible (as_context_get_locale (ctx), key)) {
-		return key;
-	} else {
-		/* If we are here, we haven't found a matching locale.
-		 * In that case, we return %NULL to indicate that this element should not be added.
-		 */
+	/* If we don't read all languages and this one doesn't match, we return %NULL
+	 * to indicate that this element should not be added. */
+	if (!as_context_get_locale_use_all (ctx) && !as_context_locale_matches (ctx, key))
 		return NULL;
-	}
+
+	return as_utils_locale_canonicalize (key);
 }
 
 /**
@@ -261,15 +258,14 @@ as_yaml_set_localized_table (AsContext *ctx, struct fy_node *node, GHashTable *l
 		return;
 
 	while ((fynp = fy_node_mapping_iterate (node, &iter)) != NULL) {
-		const gchar *locale = as_yaml_get_node_locale (ctx, fynp);
+		g_autofree gchar *locale = as_yaml_get_node_locale (ctx, fynp);
 
 		if (locale != NULL) {
 			size_t value_len;
-			g_autofree gchar *locale_noenc = as_locale_strip_encoding (locale);
 			const gchar *value = as_yaml_node_get_value (fynp, &value_len);
 			if (value != NULL) {
 				g_hash_table_insert (l10n_table,
-						     g_ref_string_new_intern (locale_noenc),
+						     g_ref_string_new_intern (locale),
 						     g_strndup (value, value_len));
 			}
 		}
@@ -293,10 +289,9 @@ as_yaml_set_localized_desc_table (AsContext *ctx, struct fy_node *node, GHashTab
 		return;
 
 	while ((fynp = fy_node_mapping_iterate (node, &iter)) != NULL) {
-		const gchar *locale = as_yaml_get_node_locale (ctx, fynp);
+		g_autofree gchar *locale = as_yaml_get_node_locale (ctx, fynp);
 		size_t value_len;
 		const gchar *value;
-		g_autofree gchar *locale_noenc = NULL;
 
 		if (locale == NULL)
 			continue;
@@ -305,10 +300,8 @@ as_yaml_set_localized_desc_table (AsContext *ctx, struct fy_node *node, GHashTab
 		if (value == NULL)
 			continue;
 
-		locale_noenc = as_locale_strip_encoding (locale);
-
 		g_hash_table_insert (l10n_table,
-				     g_ref_string_new_intern (locale_noenc),
+				     g_ref_string_new_intern (locale),
 				     as_xml_sanitize_description (value, (gssize) value_len));
 	}
 }
