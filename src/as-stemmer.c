@@ -46,6 +46,9 @@ struct _AsStemmer {
 	struct sb_stemmer *sb;
 	gchar *current_lang;
 	GMutex mutex;
+
+	GHashTable *stem_cache;
+	guint cache_holds;
 };
 
 G_DEFINE_TYPE (AsStemmer, as_stemmer, G_TYPE_OBJECT)
@@ -68,6 +71,7 @@ as_stemmer_finalize (GObject *object)
 		 * object is ever destroyed while something else is using it in parallel. */
 		g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&stemmer->mutex);
 		sb_stemmer_delete (g_steal_pointer (&stemmer->sb));
+		g_clear_pointer (&stemmer->stem_cache, g_hash_table_unref);
 	}
 	g_mutex_clear (&stemmer->mutex);
 #endif
@@ -112,6 +116,10 @@ as_stemmer_reload_internal (AsStemmer *stemmer, const gchar *locale, gboolean fo
 	g_free (stemmer->current_lang);
 	stemmer->current_lang = g_steal_pointer (&lang);
 
+	/* the stems we have cached are for the previous language */
+	if (stemmer->stem_cache != NULL)
+		g_hash_table_remove_all (stemmer->stem_cache);
+
 	/* reload stemmer */
 	sb_stemmer_delete (stemmer->sb);
 	stemmer->sb = sb_stemmer_new (stemmer->current_lang, NULL);
@@ -138,6 +146,32 @@ as_stemmer_reload (AsStemmer *stemmer, const gchar *locale)
 	as_stemmer_reload_internal (stemmer, locale, FALSE);
 }
 
+#ifdef HAVE_STEMMING
+/**
+ * as_stemmer_cache_add:
+ *
+ * Add a term and its stem to the cache. The mutex must be held.
+ *
+ * Returns: The cached stem.
+ */
+static const gchar *
+as_stemmer_cache_add (AsStemmer *stemmer, const gchar *term, const gchar *stem)
+{
+	gsize term_len = strlen (term);
+	gsize stem_len = strlen (stem);
+	gchar *entry;
+
+	/* We store the term and its stem in one allocation, which saves memory as both are
+	 * usually short. The term is the key, and the value points to the stem behind it. */
+	entry = g_malloc (term_len + stem_len + 2);
+	memcpy (entry, term, term_len + 1);
+	memcpy (entry + term_len + 1, stem, stem_len + 1);
+	g_hash_table_insert (stemmer->stem_cache, entry, entry + term_len + 1);
+
+	return entry + term_len + 1;
+}
+#endif
+
 /**
  * as_stemmer_stem:
  * @stemmer: A #AsStemmer
@@ -158,8 +192,20 @@ as_stemmer_stem (AsStemmer *stemmer, const gchar *term)
 		return g_strdup (term);
 	}
 
-	result = g_strdup (
-	    (gchar *) sb_stemmer_stem (stemmer->sb, (unsigned char *) term, strlen (term)));
+	if (stemmer->stem_cache != NULL) {
+		const gchar *stem = g_hash_table_lookup (stemmer->stem_cache, term);
+		if (stem == NULL) {
+			stem = (const gchar *) sb_stemmer_stem (stemmer->sb,
+								(unsigned char *) term,
+								strlen (term));
+			if (stem != NULL)
+				stem = as_stemmer_cache_add (stemmer, term, stem);
+		}
+		result = g_strdup (stem);
+	} else {
+		result = g_strdup (
+		    (gchar *) sb_stemmer_stem (stemmer->sb, (unsigned char *) term, strlen (term)));
+	}
 
 	g_mutex_locker_free (locker);
 
@@ -168,11 +214,54 @@ as_stemmer_stem (AsStemmer *stemmer, const gchar *term)
 	 * In this case, we currently just filter out the token,
 	 * as this sort of stemming seems to generally indicate an
 	 * unsuitable search token. */
-	if ((result != NULL) && (result[0] == '\0'))
+	if ((result != NULL) && (result[0] == '\0')) {
+		g_free (result);
 		return NULL;
+	}
 	return result;
 #else
 	return g_strdup (term);
+#endif
+}
+
+/**
+ * as_stemmer_cache_hold:
+ * @stemmer: A #AsStemmer
+ *
+ * Remember the stem of every term until as_stemmer_cache_release() is called,
+ * so a word that comes up many times is only stemmed once. This is useful when
+ * we stem a lot of text in one go, like when writing the cache.
+ *
+ * Holds may overlap, e.g. when two pools write their caches at the same time.
+ * The cache is freed when the last hold is released.
+ */
+void
+as_stemmer_cache_hold (AsStemmer *stemmer)
+{
+#ifdef HAVE_STEMMING
+	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&stemmer->mutex);
+
+	if (stemmer->cache_holds++ == 0)
+		stemmer->stem_cache = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
+#endif
+}
+
+/**
+ * as_stemmer_cache_release:
+ * @stemmer: A #AsStemmer
+ *
+ * Release a hold on the stem cache that was taken with as_stemmer_cache_hold(),
+ * and free the cache if nothing else holds it.
+ */
+void
+as_stemmer_cache_release (AsStemmer *stemmer)
+{
+#ifdef HAVE_STEMMING
+	g_autoptr(GMutexLocker) locker = g_mutex_locker_new (&stemmer->mutex);
+
+	g_return_if_fail (stemmer->cache_holds > 0);
+	if (--stemmer->cache_holds == 0)
+		g_clear_pointer (&stemmer->stem_cache, g_hash_table_unref);
 #endif
 }
 

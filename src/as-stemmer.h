@@ -43,6 +43,11 @@ AS_INTERNAL_VISIBLE
 gchar *as_stemmer_stem (AsStemmer   *stemmer,
 			const gchar *term);
 
+AS_INTERNAL_VISIBLE
+void as_stemmer_cache_hold (AsStemmer *stemmer);
+AS_INTERNAL_VISIBLE
+void as_stemmer_cache_release (AsStemmer *stemmer);
+
 AS_END_PRIVATE_DECLS
 
 #endif /* __AS_STEMMER_H */

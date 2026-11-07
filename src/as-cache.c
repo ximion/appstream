@@ -44,6 +44,7 @@
 #include "as-component-private.h"
 #include "as-component-box-private.h"
 #include "as-launchable.h"
+#include "as-stemmer.h"
 
 /* cache version - change whenever the cache changes in an incompatible way */
 #define AS_CACHE_ABI_VERSION "1"
@@ -717,8 +718,14 @@ as_cache_components_to_internal_xb (AsCache *cache,
 	g_autoptr(XbBuilderNode) bnode_root = NULL;
 	g_autoptr(GError) tmp_error = NULL;
 	g_autoptr(XbSilo) silo = NULL;
+	g_autoptr(AsStemmer) stemmer = NULL;
 
 	/* NOTE: This function is already write-lock protected by its callers */
+
+	/* Components share a lot of words, so we keep their stems in memory while we generate
+	 * the search tokens, instead of stemming the same words over and over again. */
+	stemmer = g_object_ref (as_stemmer_get (priv->locale));
+	as_stemmer_cache_hold (stemmer);
 
 	bnode_root = xb_builder_node_new ("components");
 	/* record which cache layout this file has, so we can tell when we can not read it anymore */
@@ -760,6 +767,9 @@ as_cache_components_to_internal_xb (AsCache *cache,
 		/* add component to tree */
 		xb_builder_node_add_child (bnode_root, xbnode);
 	}
+
+	/* we are done with tokenizing, free the stems again */
+	as_stemmer_cache_release (stemmer);
 
 	builder = xb_builder_new ();
 	/* add our cache ABI version to the correctness hash */

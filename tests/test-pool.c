@@ -795,6 +795,45 @@ test_search_stemming (void)
 	g_assert_cmpstr (tmp, ==, "gimp");
 	g_free (tmp);
 }
+
+/**
+ * test_search_stemming_cache:
+ *
+ * Test that the stem cache returns the same stems as the stemmer,
+ * also when the language changes while the cache is held.
+ */
+static void
+test_search_stemming_cache (void)
+{
+	AsStemmer *stemmer;
+	g_autofree gchar *en_plain = NULL;
+	g_autofree gchar *de_plain = NULL;
+	g_autofree gchar *en_cached = NULL;
+	g_autofree gchar *en_cached_again = NULL;
+	g_autofree gchar *de_cached = NULL;
+
+	stemmer = as_stemmer_get ("en");
+	en_plain = as_stemmer_stem (stemmer, "spielen");
+	stemmer = as_stemmer_get ("de");
+	de_plain = as_stemmer_stem (stemmer, "spielen");
+	/* we need a word that is stemmed differently in both languages */
+	g_assert_cmpstr (en_plain, !=, de_plain);
+
+	stemmer = as_stemmer_get ("en");
+	as_stemmer_cache_hold (stemmer);
+	as_stemmer_cache_hold (stemmer);
+	en_cached = as_stemmer_stem (stemmer, "spielen");
+	en_cached_again = as_stemmer_stem (stemmer, "spielen");
+	g_assert_cmpstr (en_cached, ==, en_plain);
+	g_assert_cmpstr (en_cached_again, ==, en_plain);
+
+	/* the cache is still held once, and must not give us the English stem */
+	as_stemmer_cache_release (stemmer);
+	stemmer = as_stemmer_get ("de");
+	de_cached = as_stemmer_stem (stemmer, "spielen");
+	g_assert_cmpstr (de_cached, ==, de_plain);
+	as_stemmer_cache_release (stemmer);
+}
 #endif
 
 /**
@@ -1395,6 +1434,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/AppStream/Merges", test_merge_components);
 #ifdef HAVE_STEMMING
 	g_test_add_func ("/AppStream/Stemming", test_search_stemming);
+	g_test_add_func ("/AppStream/StemmingCache", test_search_stemming_cache);
 #endif
 	g_test_add_func ("/AppStream/FileMonitorDir", test_filemonitor_dir);
 	g_test_add_func ("/AppStream/FileMonitorFile", test_filemonitor_file);
