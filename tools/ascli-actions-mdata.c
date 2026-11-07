@@ -119,6 +119,7 @@ ascli_refresh_cache (const gchar *cachepath,
  */
 int
 ascli_get_component (const gchar *cachepath,
+		     const gchar *datapath,
 		     const gchar *identifier,
 		     gboolean detailed,
 		     gboolean no_cache)
@@ -133,7 +134,7 @@ ascli_get_component (const gchar *cachepath,
 		return 2;
 	}
 
-	dpool = ascli_data_pool_new_and_open (cachepath, no_cache, &error);
+	dpool = ascli_data_pool_new_and_open (cachepath, datapath, no_cache, &error);
 	if (error != NULL) {
 		g_printerr ("%s\n", error->message);
 		return 1;
@@ -155,6 +156,7 @@ ascli_get_component (const gchar *cachepath,
  */
 int
 ascli_search_component (const gchar *cachepath,
+			const gchar *datapath,
 			const gchar *search_term,
 			gboolean detailed,
 			gboolean no_cache)
@@ -168,7 +170,7 @@ ascli_search_component (const gchar *cachepath,
 		return 2;
 	}
 
-	pool = ascli_data_pool_new_and_open (cachepath, no_cache, &error);
+	pool = ascli_data_pool_new_and_open (cachepath, datapath, no_cache, &error);
 	if (error != NULL) {
 		g_printerr ("%s\n", error->message);
 		return 1;
@@ -194,6 +196,7 @@ ascli_search_component (const gchar *cachepath,
  */
 int
 ascli_what_provides (const gchar *cachepath,
+		     const gchar *datapath,
 		     const gchar *kind_str,
 		     const gchar *item,
 		     gboolean detailed)
@@ -217,7 +220,7 @@ ascli_what_provides (const gchar *cachepath,
 		return 3;
 	}
 
-	pool = ascli_data_pool_new_and_open (cachepath, FALSE, &error);
+	pool = ascli_data_pool_new_and_open (cachepath, datapath, FALSE, &error);
 	if (error != NULL) {
 		g_printerr ("%s\n", error->message);
 		return 1;
@@ -244,6 +247,7 @@ ascli_what_provides (const gchar *cachepath,
  */
 int
 ascli_list_categories (const gchar *cachepath,
+		       const gchar *datapath,
 		       gchar **categories,
 		       gboolean detailed,
 		       gboolean no_cache)
@@ -257,7 +261,7 @@ ascli_list_categories (const gchar *cachepath,
 		return 2;
 	}
 
-	pool = ascli_data_pool_new_and_open (cachepath, FALSE, &error);
+	pool = ascli_data_pool_new_and_open (cachepath, datapath, FALSE, &error);
 	if (error != NULL) {
 		g_printerr ("%s\n", error->message);
 		return 1;
@@ -284,6 +288,7 @@ ascli_list_categories (const gchar *cachepath,
  */
 int
 ascli_dump_component (const gchar *cachepath,
+		      const gchar *datapath,
 		      const gchar *identifier,
 		      AsFormatKind mformat,
 		      gboolean no_cache)
@@ -299,7 +304,7 @@ ascli_dump_component (const gchar *cachepath,
 		return 2;
 	}
 
-	pool = ascli_data_pool_new_and_open (cachepath, no_cache, &error);
+	pool = ascli_data_pool_new_and_open (cachepath, datapath, no_cache, &error);
 	if (error != NULL) {
 		g_printerr ("%s\n", error->message);
 		return 1;
@@ -680,7 +685,10 @@ ascli_print_satisfy_check_results (GPtrArray *rc_results, AsSystemInfo *sysinfo)
  * Verify if the selected component is satisfied on the current system.
  */
 gint
-ascli_check_is_satisfied (const gchar *fname_or_cid, const gchar *cachepath, gboolean no_cache)
+ascli_check_is_satisfied (const gchar *fname_or_cid,
+			  const gchar *cachepath,
+			  const gchar *datapath,
+			  gboolean no_cache)
 {
 	g_autoptr(AsComponent) cpt = NULL;
 	g_autoptr(GError) error = NULL;
@@ -697,7 +705,7 @@ ascli_check_is_satisfied (const gchar *fname_or_cid, const gchar *cachepath, gbo
 	}
 
 	/* open the metadata pool with default options */
-	pool = ascli_data_pool_new_and_open (cachepath, no_cache, &error);
+	pool = ascli_data_pool_new_and_open (cachepath, datapath, no_cache, &error);
 	if (error != NULL) {
 		g_printerr ("%s\n", error->message);
 		return ASCLI_EXIT_CODE_FAILED;
@@ -816,6 +824,7 @@ as_chassis_kind_to_header (AsChassisKind kind)
 gint
 ascli_check_syscompat (const gchar *fname_or_cid,
 		       const gchar *cachepath,
+		       const gchar *datapath,
 		       gboolean no_cache,
 		       gboolean show_details)
 {
@@ -855,7 +864,7 @@ ascli_check_syscompat (const gchar *fname_or_cid,
 		g_autoptr(AsComponentBox) cbox = NULL;
 
 		/* open the metadata pool with default options */
-		pool = ascli_data_pool_new_and_open (cachepath, no_cache, &error);
+		pool = ascli_data_pool_new_and_open (cachepath, datapath, no_cache, &error);
 		if (error != NULL) {
 			g_printerr ("%s\n", error->message);
 			return ASCLI_EXIT_CODE_FAILED;

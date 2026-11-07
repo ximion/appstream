@@ -464,12 +464,19 @@ ascli_print_components (AsComponentBox *cbox, gboolean show_detailed)
  * ascli_data_pool_new_and_open:
  */
 AsPool *
-ascli_data_pool_new_and_open (const gchar *cachepath, gboolean no_cache, GError **error)
+ascli_data_pool_new_and_open (const gchar *cachepath,
+			      const gchar *datapath,
+			      gboolean no_cache,
+			      GError **error)
 {
 	AsPool *dpool;
 	AsPoolFlags flags;
 
 	dpool = as_pool_new ();
+	if (datapath != NULL) {
+		as_pool_set_load_std_data_locations (dpool, FALSE);
+		as_pool_add_extra_data_location (dpool, datapath, AS_FORMAT_STYLE_CATALOG);
+	}
 	flags = as_pool_get_flags (dpool);
 	if (no_cache)
 		as_flags_add (flags, AS_POOL_FLAG_IGNORE_CACHE_AGE);

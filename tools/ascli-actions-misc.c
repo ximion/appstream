@@ -646,7 +646,10 @@ ascli_metainfo_to_news (const gchar *mi_fname, const gchar *news_fname, const gc
  * is relevant for AppStream components.
  */
 int
-ascli_show_sysinfo (const gchar *cachepath, gboolean no_cache, gboolean detailed)
+ascli_show_sysinfo (const gchar *cachepath,
+		    const gchar *datapath,
+		    gboolean no_cache,
+		    gboolean detailed)
 {
 	g_autoptr(AsPool) pool = NULL;
 	g_autoptr(AsComponentBox) result = NULL;
@@ -658,7 +661,7 @@ ascli_show_sysinfo (const gchar *cachepath, gboolean no_cache, gboolean detailed
 	GPtrArray *modaliases;
 
 	sysinfo = as_system_info_new ();
-	pool = ascli_data_pool_new_and_open (cachepath, no_cache, &error);
+	pool = ascli_data_pool_new_and_open (cachepath, datapath, no_cache, &error);
 	if (error != NULL) {
 		g_printerr ("%s\n", error->message);
 		return 1;

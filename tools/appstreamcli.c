@@ -520,6 +520,7 @@ as_client_run_search (AsCliCommand *cmd, gint argc, gchar **argv)
 	}
 
 	return ascli_search_component (optn_cachepath,
+				       optn_datapath,
 				       (search->len == 0) ? NULL : search->str,
 				       optn_details,
 				       optn_no_cache);
@@ -547,7 +548,11 @@ as_client_run_get (AsCliCommand *cmd, gint argc, gchar **argv)
 	if (argc > 1)
 		value = argv[1];
 
-	return ascli_get_component (optn_cachepath, value, optn_details, optn_no_cache);
+	return ascli_get_component (optn_cachepath,
+				    optn_datapath,
+				    value,
+				    optn_details,
+				    optn_no_cache);
 }
 
 /**
@@ -574,7 +579,11 @@ as_client_run_dump (AsCliCommand *cmd, gint argc, gchar **argv)
 		value = argv[1];
 
 	mformat = as_format_kind_from_string (optn_format);
-	return ascli_dump_component (optn_cachepath, value, mformat, optn_no_cache);
+	return ascli_dump_component (optn_cachepath,
+				     optn_datapath,
+				     value,
+				     mformat,
+				     optn_no_cache);
 }
 
 /**
@@ -602,7 +611,11 @@ as_client_run_what_provides (AsCliCommand *cmd, gint argc, gchar **argv)
 	if (argc > 2)
 		vvalue = argv[2];
 
-	return ascli_what_provides (optn_cachepath, vtype, vvalue, optn_details);
+	return ascli_what_provides (optn_cachepath,
+				    optn_datapath,
+				    vtype,
+				    vvalue,
+				    optn_details);
 }
 
 /**
@@ -630,7 +643,11 @@ as_client_run_list_categories (AsCliCommand *cmd, gint argc, gchar **argv)
 			categories[i] = g_strdup (argv[i + 1]);
 	}
 
-	return ascli_list_categories (optn_cachepath, categories, optn_details, optn_no_cache);
+	return ascli_list_categories (optn_cachepath,
+				      optn_datapath,
+				      categories,
+				      optn_details,
+				      optn_no_cache);
 }
 
 /**
@@ -751,7 +768,10 @@ as_client_run_is_satisfied (AsCliCommand *cmd, gint argc, gchar **argv)
 	if (argc > 1)
 		fname_or_cid = argv[1];
 
-	return ascli_check_is_satisfied (fname_or_cid, optn_cachepath, optn_no_cache);
+	return ascli_check_is_satisfied (fname_or_cid,
+					 optn_cachepath,
+					 optn_datapath,
+					 optn_no_cache);
 }
 
 /**
@@ -787,7 +807,11 @@ as_client_run_check_syscompat (AsCliCommand *cmd, gint argc, gchar **argv)
 	if (argc > 1)
 		fname_or_cid = argv[1];
 
-	return ascli_check_syscompat (fname_or_cid, optn_cachepath, optn_no_cache, optn_sc_details);
+	return ascli_check_syscompat (fname_or_cid,
+				      optn_cachepath,
+				      optn_datapath,
+				      optn_no_cache,
+				      optn_sc_details);
 }
 
 /**
@@ -973,7 +997,10 @@ as_client_run_sysinfo (AsCliCommand *cmd, gint argc, gchar **argv)
 		return 1;
 	}
 
-	return ascli_show_sysinfo (optn_cachepath, optn_no_cache, optn_details);
+	return ascli_show_sysinfo (optn_cachepath,
+				   optn_datapath,
+				   optn_no_cache,
+				   optn_details);
 }
 
 /**
