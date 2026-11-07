@@ -3131,14 +3131,12 @@ as_component_add_token_helper (AsComponent *cpt,
  */
 static void
 as_component_add_token (AsComponent *cpt,
+			AsStemmer *stemmer,
 			const gchar *value,
 			gboolean allow_split,
 			AsSearchTokenMatch match_flag,
 			GPtrArray *tokens_out)
 {
-	/* get global stemmer instance (it's threadsafe and should survive this invocation) */
-	AsStemmer *stemmer = as_stemmer_get (as_component_get_active_locale (cpt));
-
 	/* add extra tokens for names like x-plane or half-life */
 	if (allow_split && g_strstr_len (value, -1, "-") != NULL) {
 		guint i;
@@ -3265,6 +3263,7 @@ as_component_value_tokenize (AsComponent *cpt,
  */
 static void
 as_component_add_tokens (AsComponent *cpt,
+			 AsStemmer *stemmer,
 			 const gchar *value,
 			 gboolean allow_split,
 			 AsSearchTokenMatch match_flag,
@@ -3286,9 +3285,19 @@ as_component_add_tokens (AsComponent *cpt,
 
 	/* add each token */
 	for (i = 0; values_utf8 != NULL && values_utf8[i] != NULL; i++)
-		as_component_add_token (cpt, values_utf8[i], allow_split, match_flag, tokens_out);
+		as_component_add_token (cpt,
+					stemmer,
+					values_utf8[i],
+					allow_split,
+					match_flag,
+					tokens_out);
 	for (i = 0; values_ascii != NULL && values_ascii[i] != NULL; i++)
-		as_component_add_token (cpt, values_ascii[i], allow_split, match_flag, tokens_out);
+		as_component_add_token (cpt,
+					stemmer,
+					values_ascii[i],
+					allow_split,
+					match_flag,
+					tokens_out);
 }
 
 /**
@@ -3304,18 +3313,34 @@ as_component_create_token_cache_target (AsComponent *cpt,
 	const gchar *tmp;
 	GPtrArray *keywords;
 	AsProvided *prov;
+	AsStemmer *stemmer;
+
+	/* Getting the global stemmer checks its language every time, so we only do it once for
+	 * all tokens of this component. The stemmer is thread-safe and lives as long as the process. */
+	stemmer = as_stemmer_get (as_component_get_active_locale (cpt));
 
 	/* tokenize all the data we have */
 	if (priv->id != NULL && as_flags_contains (flags, AS_SEARCH_TOKEN_MATCH_ID)) {
-		as_component_add_token (cpt, priv->id, FALSE, AS_SEARCH_TOKEN_MATCH_ID, tokens_out);
+		as_component_add_token (cpt,
+					stemmer,
+					priv->id,
+					FALSE,
+					AS_SEARCH_TOKEN_MATCH_ID,
+					tokens_out);
 	}
 
 	tmp = as_component_get_name (cpt);
 	if (tmp != NULL && as_flags_contains (flags, AS_SEARCH_TOKEN_MATCH_NAME)) {
 		const gchar *name_c = g_hash_table_lookup (priv->name, "C");
-		as_component_add_tokens (cpt, tmp, TRUE, AS_SEARCH_TOKEN_MATCH_NAME, tokens_out);
+		as_component_add_tokens (cpt,
+					 stemmer,
+					 tmp,
+					 TRUE,
+					 AS_SEARCH_TOKEN_MATCH_NAME,
+					 tokens_out);
 		if (name_c != NULL && g_strcmp0 (tmp, name_c) != 0)
 			as_component_add_tokens (cpt,
+						 stemmer,
 						 name_c,
 						 TRUE,
 						 AS_SEARCH_TOKEN_MATCH_NAME,
@@ -3324,12 +3349,18 @@ as_component_create_token_cache_target (AsComponent *cpt,
 
 	tmp = as_component_get_summary (cpt);
 	if (tmp != NULL && as_flags_contains (flags, AS_SEARCH_TOKEN_MATCH_SUMMARY)) {
-		as_component_add_tokens (cpt, tmp, TRUE, AS_SEARCH_TOKEN_MATCH_SUMMARY, tokens_out);
+		as_component_add_tokens (cpt,
+					 stemmer,
+					 tmp,
+					 TRUE,
+					 AS_SEARCH_TOKEN_MATCH_SUMMARY,
+					 tokens_out);
 	}
 
 	tmp = as_component_get_description (cpt);
 	if (tmp != NULL && as_flags_contains (flags, AS_SEARCH_TOKEN_MATCH_DESCRIPTION)) {
 		as_component_add_tokens (cpt,
+					 stemmer,
 					 tmp,
 					 TRUE,
 					 AS_SEARCH_TOKEN_MATCH_DESCRIPTION,
@@ -3340,6 +3371,7 @@ as_component_create_token_cache_target (AsComponent *cpt,
 	if (keywords->len > 0 && as_flags_contains (flags, AS_SEARCH_TOKEN_MATCH_KEYWORD)) {
 		for (guint i = 0; i < keywords->len; i++)
 			as_component_add_tokens (cpt,
+						 stemmer,
 						 (const gchar *) g_ptr_array_index (keywords, i),
 						 FALSE,
 						 AS_SEARCH_TOKEN_MATCH_KEYWORD,
@@ -3351,6 +3383,7 @@ as_component_create_token_cache_target (AsComponent *cpt,
 		GPtrArray *items = as_provided_get_items (prov);
 		for (guint i = 0; i < items->len; i++)
 			as_component_add_token (cpt,
+						stemmer,
 						(const gchar *) g_ptr_array_index (items, i),
 						FALSE,
 						AS_SEARCH_TOKEN_MATCH_MEDIATYPE,
@@ -3360,6 +3393,7 @@ as_component_create_token_cache_target (AsComponent *cpt,
 	if (priv->pkgnames != NULL && as_flags_contains (flags, AS_SEARCH_TOKEN_MATCH_PKGNAME)) {
 		for (guint i = 0; priv->pkgnames[i] != NULL; i++)
 			as_component_add_token (cpt,
+						stemmer,
 						priv->pkgnames[i],
 						FALSE,
 						AS_SEARCH_TOKEN_MATCH_PKGNAME,
