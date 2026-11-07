@@ -50,6 +50,7 @@
 #include "as-release-list.h"
 #include "as-system-info.h"
 #include "as-utils-private.h"
+#include "as-locale-private.h"
 #include "as-yaml.h"
 
 #define AS_REVIEWS_SERVER_URL_DEFAULT "https://odrs.gnome.org/1.0/reviews/api"
@@ -83,7 +84,7 @@ as_reviews_client_init (AsReviewsClient *rrc)
 	AsReviewsClientPrivate *priv = GET_PRIVATE (rrc);
 
 	priv->server_url = g_strdup (AS_REVIEWS_SERVER_URL_DEFAULT);
-	priv->locale = as_get_current_locale_posix ();
+	priv->locale = as_locale_get_current_posix ();
 
 	priv->client_id = g_strdup ("appstream");
 	priv->user_agent = g_strdup ("appstream/" PACKAGE_VERSION);
@@ -334,7 +335,7 @@ as_reviews_client_set_locale (AsReviewsClient *rrc, const gchar *locale)
 
 	g_free (priv->locale);
 	if (locale == NULL)
-		priv->locale = as_get_current_locale_posix ();
+		priv->locale = as_locale_get_current_posix ();
 	else
 		priv->locale = as_locale_strip_encoding (locale);
 }

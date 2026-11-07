@@ -31,6 +31,7 @@
 
 #include "as-utils.h"
 #include "as-utils-private.h"
+#include "as-locale-private.h"
 #include "as-metadata.h"
 #include "as-component.h"
 #include "as-component-private.h"
@@ -110,7 +111,7 @@ as_get_locale_from_key (const gchar *key)
 		locale[strlen (locale) - 6] = '\0';
 
 	/* filter out cruft */
-	if (as_is_cruft_locale (locale))
+	if (as_locale_is_cruft (locale))
 		return NULL;
 
 	delim = g_strrstr (locale, ".");

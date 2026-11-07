@@ -40,6 +40,7 @@
 
 #include "as-utils.h"
 #include "as-utils-private.h"
+#include "as-locale-private.h"
 #include "as-component.h"
 #include "as-component-private.h"
 #include "as-release-list-private.h"
@@ -125,7 +126,7 @@ as_metadata_init (AsMetadata *metad)
 	AsMetadataPrivate *priv = GET_PRIVATE (metad);
 
 	/* set active BCP47 locale */
-	str = as_get_current_locale_bcp47 ();
+	str = as_locale_get_current_bcp47 ();
 	as_metadata_set_locale (metad, str);
 	g_free (str);
 

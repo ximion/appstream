@@ -33,6 +33,7 @@
 
 #include "as-utils.h"
 #include "as-utils-private.h"
+#include "as-locale-private.h"
 
 /**
  * SECTION:as-stemmer
@@ -86,7 +87,7 @@ as_stemmer_init (AsStemmer *stemmer)
 	g_mutex_init (&stemmer->mutex);
 
 	/* we don't use the locale in XML, so it can be POSIX */
-	locale = as_get_current_locale_posix ();
+	locale = as_locale_get_current_posix ();
 
 	/* force a reload for initialization */
 	as_stemmer_reload_internal (stemmer, locale, TRUE);
@@ -101,7 +102,7 @@ as_stemmer_reload_internal (AsStemmer *stemmer, const gchar *locale, gboolean fo
 	GMutexLocker *locker = NULL;
 
 	/* check if we need to reload */
-	lang = as_utils_locale_to_language (locale);
+	lang = as_locale_to_language (locale);
 	locker = g_mutex_locker_new (&stemmer->mutex);
 	if (!force && as_str_equal0 (lang, stemmer->current_lang)) {
 		g_mutex_locker_free (locker);
@@ -205,7 +206,7 @@ as_stemmer_get (const gchar *locale)
 
 	/* load current locale if locale was NULL */
 	if (locale == NULL) {
-		g_autofree gchar *sys_locale = as_get_current_locale_posix ();
+		g_autofree gchar *sys_locale = as_locale_get_current_posix ();
 		as_stemmer_reload (stemmer, sys_locale);
 		return stemmer;
 	}

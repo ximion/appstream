@@ -24,6 +24,7 @@
 #include "appstream.h"
 #include "as-news-convert.h"
 #include "as-utils-private.h"
+#include "as-locale-private.h"
 #include "as-system-info-private.h"
 #include "as-reviews-client-private.h"
 

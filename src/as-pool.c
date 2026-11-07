@@ -53,6 +53,7 @@
 
 #include "as-utils.h"
 #include "as-utils-private.h"
+#include "as-locale-private.h"
 #include "as-component-private.h"
 #include "as-component-box-private.h"
 #include "as-macros-private.h"
@@ -400,7 +401,7 @@ as_pool_init (AsPool *pool)
 	priv->profile = as_profile_new ();
 
 	/* set active locale */
-	priv->locale_posix = as_get_current_locale_posix ();
+	priv->locale_posix = as_locale_get_current_posix ();
 	priv->locale_bcp47 = as_utils_posix_locale_to_bcp47 (priv->locale_posix);
 
 	/* well-known default metadata directories */

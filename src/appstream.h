@@ -60,6 +60,7 @@
 #include <as-validator-issue.h>
 
 #include <as-utils.h>
+#include <as-locale.h>
 #include <as-vercmp.h>
 #include <as-spdx.h>
 #include <as-system-info.h>

@@ -38,6 +38,7 @@
 #include "as-context-private.h"
 
 #include "as-utils-private.h"
+#include "as-locale-private.h"
 
 typedef struct {
 	AsFormatVersion format_version;
@@ -330,7 +331,7 @@ as_context_set_locale (AsContext *ctx, const gchar *locale)
 
 	g_atomic_int_set (&priv->all_locale, FALSE);
 	if (g_strcmp0 (locale, "ALL") == 0) {
-		bcp47 = as_get_current_locale_bcp47 ();
+		bcp47 = as_locale_get_current_bcp47 ();
 		g_atomic_int_set (&priv->all_locale, TRUE);
 	} else {
 		bcp47 = as_utils_posix_locale_to_bcp47 (locale);
@@ -372,8 +373,8 @@ as_context_locale_matches (AsContext *ctx, const gchar *locale)
 	if (!as_locale_same_language (locale, priv->locale))
 		return FALSE;
 
-	if (!as_utils_locale_canonicalize_buf (locale, buf, sizeof (buf)))
-		canonical = tmp = as_utils_locale_canonicalize (locale);
+	if (!as_locale_canonicalize_buf (locale, buf, sizeof (buf)))
+		canonical = tmp = as_locale_canonicalize (locale);
 	if (as_locale_chain_contains (priv->locale_chain, canonical))
 		return TRUE;
 
@@ -581,8 +582,8 @@ as_context_locale_table_lookup (AsContext *ctx, GHashTable *lht, const gchar *lo
 		g_autofree gchar *tmp = NULL;
 		const gchar *canonical = buf;
 
-		if (!as_utils_locale_canonicalize_buf (locale_override, buf, sizeof (buf)))
-			canonical = tmp = as_utils_locale_canonicalize (locale_override);
+		if (!as_locale_canonicalize_buf (locale_override, buf, sizeof (buf)))
+			canonical = tmp = as_locale_canonicalize (locale_override);
 		as_locale_chain_init (&override_chain, canonical);
 		chain = &override_chain;
 	} else if (priv != NULL) {
@@ -641,8 +642,8 @@ as_context_locale_table_insert (AsContext *ctx,
 		selected_locale = "C";
 
 	/* we always store translations under the canonical form of their locale */
-	if (!as_utils_locale_canonicalize_buf (selected_locale, buf, sizeof (buf)))
-		canonical = tmp = as_utils_locale_canonicalize (selected_locale);
+	if (!as_locale_canonicalize_buf (selected_locale, buf, sizeof (buf)))
+		canonical = tmp = as_locale_canonicalize (selected_locale);
 	g_hash_table_insert (lht, g_ref_string_new_intern (canonical), g_strdup (value));
 }
 

@@ -26,6 +26,7 @@
 
 #include "as-utils.h"
 #include "as-utils-private.h"
+#include "as-locale-private.h"
 #include "as-stemmer.h"
 #include "as-spdx.h"
 
@@ -1639,10 +1640,10 @@ as_component_set_keywords (AsComponent *cpt,
 		locale = as_component_get_active_locale (cpt);
 
 	/* we store keywords under the canonical form of their locale */
-	if (as_utils_locale_canonicalize_buf (locale, locale_buf, sizeof (locale_buf)))
+	if (as_locale_canonicalize_buf (locale, locale_buf, sizeof (locale_buf)))
 		locale = locale_buf;
 	else
-		locale = locale_tmp = as_utils_locale_canonicalize (locale);
+		locale = locale_tmp = as_locale_canonicalize (locale);
 
 	if (deep_copy) {
 		keywords = g_ptr_array_new_full (new_keywords->len, g_free);
@@ -1691,10 +1692,10 @@ as_component_add_keyword (AsComponent *cpt, const gchar *keyword, const gchar *l
 		locale = as_component_get_active_locale (cpt);
 
 	/* we store keywords under the canonical form of their locale */
-	if (as_utils_locale_canonicalize_buf (locale, locale_buf, sizeof (locale_buf)))
+	if (as_locale_canonicalize_buf (locale, locale_buf, sizeof (locale_buf)))
 		locale = locale_buf;
 	else
-		locale = locale_tmp = as_utils_locale_canonicalize (locale);
+		locale = locale_tmp = as_locale_canonicalize (locale);
 
 	keywords = g_hash_table_lookup (priv->keywords, locale);
 	if (keywords == NULL) {
@@ -4969,7 +4970,7 @@ as_component_xml_keywords_to_node (AsComponent *cpt, AsContext *ctx, xmlNode *ro
 		GPtrArray *kws = g_hash_table_lookup (priv->keywords, locale);
 
 		/* skip cruft */
-		if (as_is_cruft_locale (locale))
+		if (as_locale_is_cruft (locale))
 			continue;
 
 		has_locale = g_strcmp0 (locale, "C") != 0;

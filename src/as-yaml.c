@@ -22,6 +22,7 @@
 #include "as-context-private.h"
 #include "as-utils.h"
 #include "as-utils-private.h"
+#include "as-locale-private.h"
 #include "as-xml.h"
 
 /**
@@ -240,7 +241,7 @@ as_yaml_get_node_locale (AsContext *ctx, struct fy_node_pair *node_pair)
 	if (!as_context_get_locale_use_all (ctx) && !as_context_locale_matches (ctx, key))
 		return NULL;
 
-	return as_utils_locale_canonicalize (key);
+	return as_locale_canonicalize (key);
 }
 
 /**
@@ -664,7 +665,7 @@ as_yaml_emit_lang_hashtable_entries (gchar *key, gchar *value, AsYamlL10nEmitHel
 		return;
 
 	/* skip cruft */
-	if (as_is_cruft_locale (key))
+	if (as_locale_is_cruft (key))
 		return;
 
 	as_yaml_l10n_emit_helper_start (helper);
@@ -696,7 +697,7 @@ as_yaml_emit_lang_hashtable_entries_long (gchar *key, gchar *value, AsYamlL10nEm
 		return;
 
 	/* skip cruft */
-	if (as_is_cruft_locale (key))
+	if (as_locale_is_cruft (key))
 		return;
 
 	value_len = (gssize) strlen (value);
@@ -769,7 +770,7 @@ as_yaml_localized_list_helper (gchar *key, gchar **strv, struct fy_emitter *emit
 		return;
 
 	/* skip cruft */
-	if (as_is_cruft_locale (key))
+	if (as_locale_is_cruft (key))
 		return;
 
 	locale_noenc = as_locale_strip_encoding (key);
@@ -830,7 +831,7 @@ as_yaml_emit_localized_str_array (struct fy_emitter *emitter, const gchar *key, 
 		GPtrArray *array = ht_value;
 
 		/* skip cruft */
-		if (as_is_cruft_locale (ht_key))
+		if (as_locale_is_cruft (ht_key))
 			continue;
 
 		locale_noenc = as_locale_strip_encoding (ht_key);

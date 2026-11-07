@@ -27,6 +27,7 @@
 #include "as-component-box-private.h"
 #include "as-system-info-private.h"
 #include "as-utils-private.h"
+#include "as-locale-private.h"
 #include "as-gcve.h"
 
 #include "as-test-utils.h"

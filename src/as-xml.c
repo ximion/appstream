@@ -26,6 +26,7 @@
 
 #include "as-utils.h"
 #include "as-utils-private.h"
+#include "as-locale-private.h"
 #include "as-context-private.h"
 
 /**
@@ -123,7 +124,7 @@ as_xml_get_node_locale (AsContext *ctx, xmlNode *node)
 	if (lang == NULL)
 		return g_strdup ("C");
 
-	as_utils_locale_canonicalize_inplace (lang);
+	as_locale_canonicalize_inplace (lang);
 	return lang;
 }
 
@@ -152,7 +153,7 @@ as_xml_get_node_locale_match (AsContext *ctx, xmlNode *node)
 
 	/* translations are stored under the canonical form of their locale, no matter how
 	 * the data spelled it */
-	as_utils_locale_canonicalize_inplace (lang);
+	as_locale_canonicalize_inplace (lang);
 	return lang;
 }
 
@@ -1606,7 +1607,7 @@ as_xml_add_description_catalog_mode_helper (AsContext *ctx,
 		return FALSE;
 
 	/* skip cruft */
-	if (as_is_cruft_locale (lang))
+	if (as_locale_is_cruft (lang))
 		return FALSE;
 
 	helper = as_xml_markup_parse_helper_new (description_markup,
@@ -1671,7 +1672,7 @@ as_xml_add_description_node (AsContext *ctx,
 			const gchar *desc_markup = g_hash_table_lookup (desc_table, locale);
 			AsXMLMarkupParseHelper *helper;
 
-			if (as_is_cruft_locale (locale))
+			if (as_locale_is_cruft (locale))
 				continue;
 
 			helper = as_xml_markup_parse_helper_new (
@@ -1763,7 +1764,7 @@ as_xml_add_description_node (AsContext *ctx,
 			const gchar *locale = (const gchar *) link->data;
 			const gchar *desc_markup = g_hash_table_lookup (desc_table, locale);
 
-			if (as_is_cruft_locale (locale))
+			if (as_locale_is_cruft (locale))
 				continue;
 
 			as_xml_add_description_catalog_mode_helper (ctx, root, desc_markup, locale);
@@ -1838,7 +1839,7 @@ as_xml_add_localized_text_node (xmlNode *root, const gchar *node_name, GHashTabl
 			continue;
 
 		/* skip cruft */
-		if (as_is_cruft_locale (locale))
+		if (as_locale_is_cruft (locale))
 			continue;
 
 		cnode = xmlNewTextChild (root, NULL, (xmlChar *) node_name, (xmlChar *) str);

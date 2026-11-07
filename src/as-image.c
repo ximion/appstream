@@ -35,6 +35,7 @@
 #include "as-image-private.h"
 
 #include "as-utils-private.h"
+#include "as-locale-private.h"
 
 typedef struct {
 	AsImageKind kind;
@@ -305,10 +306,10 @@ as_image_set_locale (AsImage *image, const gchar *locale)
 
 	/* like translations, we store image locales in their canonical form */
 	if (locale != NULL) {
-		if (as_utils_locale_canonicalize_buf (locale, buf, sizeof (buf)))
+		if (as_locale_canonicalize_buf (locale, buf, sizeof (buf)))
 			locale = buf;
 		else
-			locale = tmp = as_utils_locale_canonicalize (locale);
+			locale = tmp = as_locale_canonicalize (locale);
 	}
 	as_ref_string_assign_safe (&priv->locale, locale);
 }

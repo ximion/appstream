@@ -34,6 +34,7 @@
 
 #include "as-utils.h"
 #include "as-utils-private.h"
+#include "as-locale.h"
 #include "as-context-private.h"
 #include "as-image-private.h"
 #include "as-video-private.h"
