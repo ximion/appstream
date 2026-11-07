@@ -763,10 +763,27 @@ as_screenshot_load_from_yaml (AsScreenshot *screenshot,
 			/* the caption is a localized element */
 			as_yaml_set_localized_table (ctx, nval, priv->caption);
 		} else if (g_strcmp0 (key, "source-image") == 0) {
-			/* there can only be one source image */
-			g_autoptr(AsImage) image = as_image_new ();
-			if (as_image_load_from_yaml (image, ctx, nval, AS_IMAGE_KIND_SOURCE, NULL))
-				as_screenshot_add_image (screenshot, image);
+			/* usually there is just one source image, but if it is translated
+			 * we get a list of them */
+			if (nval != NULL && fy_node_is_sequence (nval)) {
+				AS_YAML_SEQUENCE_FOREACH (in, nval) {
+					g_autoptr(AsImage) image = as_image_new ();
+					if (as_image_load_from_yaml (image,
+								     ctx,
+								     in,
+								     AS_IMAGE_KIND_SOURCE,
+								     NULL))
+						as_screenshot_add_image (screenshot, image);
+				}
+			} else {
+				g_autoptr(AsImage) image = as_image_new ();
+				if (as_image_load_from_yaml (image,
+							     ctx,
+							     nval,
+							     AS_IMAGE_KIND_SOURCE,
+							     NULL))
+					as_screenshot_add_image (screenshot, image);
+			}
 		} else if (g_strcmp0 (key, "thumbnails") == 0) {
 			/* the thumbnails are a list of images */
 			AS_YAML_SEQUENCE_FOREACH (in, nval) {
@@ -807,7 +824,6 @@ void
 as_screenshot_emit_yaml (AsScreenshot *screenshot, AsContext *ctx, struct fy_emitter *emitter)
 {
 	AsScreenshotPrivate *priv = GET_PRIVATE (screenshot);
-	AsImage *source_img = NULL;
 
 	as_yaml_mapping_start (emitter);
 
@@ -819,13 +835,23 @@ as_screenshot_emit_yaml (AsScreenshot *screenshot, AsContext *ctx, struct fy_emi
 	as_yaml_emit_localized_entry (emitter, "caption", priv->caption);
 
 	if (priv->media_kind == AS_SCREENSHOT_MEDIA_KIND_IMAGE) {
+		g_autoptr(GPtrArray) source_imgs = g_ptr_array_new ();
+		guint n_untranslated = 0;
+
 		as_yaml_emit_scalar (emitter, "thumbnails");
 		as_yaml_sequence_start (emitter);
 		for (guint i = 0; i < priv->images->len; i++) {
 			AsImage *img = AS_IMAGE (g_ptr_array_index (priv->images, i));
 
 			if (as_image_get_kind (img) == AS_IMAGE_KIND_SOURCE) {
-				source_img = img;
+				const gchar *locale = as_image_get_locale (img);
+
+				/* untranslated source images go first, so readers that only
+				 * look at the first one still get the right image */
+				if (locale == NULL || g_strcmp0 (locale, "C") == 0)
+					g_ptr_array_insert (source_imgs, n_untranslated++, img);
+				else
+					g_ptr_array_add (source_imgs, img);
 				continue;
 			}
 
@@ -833,10 +859,20 @@ as_screenshot_emit_yaml (AsScreenshot *screenshot, AsContext *ctx, struct fy_emi
 		}
 		as_yaml_sequence_end (emitter);
 
-		/* we *must* have a source-image by now if the data follows the spec, but better be safe... */
-		if (source_img != NULL) {
+		/* We *must* have a source image by now if the data follows the spec, but better be safe.
+		 * A single source image is still written as a dict, so data without translated source
+		 * images stays readable for older parsers. */
+		if (source_imgs->len == 1) {
 			as_yaml_emit_scalar (emitter, "source-image");
-			as_image_emit_yaml (source_img, ctx, emitter);
+			as_image_emit_yaml (g_ptr_array_index (source_imgs, 0), ctx, emitter);
+		} else if (source_imgs->len > 1) {
+			as_yaml_emit_scalar (emitter, "source-image");
+			as_yaml_sequence_start (emitter);
+			for (guint i = 0; i < source_imgs->len; i++)
+				as_image_emit_yaml (g_ptr_array_index (source_imgs, i),
+						    ctx,
+						    emitter);
+			as_yaml_sequence_end (emitter);
 		}
 	} else if (priv->media_kind == AS_SCREENSHOT_MEDIA_KIND_VIDEO) {
 		as_yaml_emit_scalar (emitter, "videos");

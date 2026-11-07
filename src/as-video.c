@@ -34,6 +34,7 @@
 
 #include "as-utils-private.h"
 #include "as-locale-private.h"
+#include "as-context-private.h"
 
 typedef struct {
 	AsVideoCodecKind codec;
@@ -491,6 +492,10 @@ as_video_load_from_yaml (AsVideo *video, AsContext *ctx, struct fy_node *node, G
 				as_video_set_url (video, value);
 			}
 		} else if (g_strcmp0 (key, "lang") == 0) {
+			/* like the XML loader, skip videos for languages we will never show */
+			if (!as_context_get_locale_use_all (ctx) &&
+			    !as_context_locale_matches (ctx, value))
+				return FALSE;
 			as_video_set_locale (video, value);
 		} else {
 			as_yaml_print_unknown ("video", key, -1);

@@ -36,6 +36,7 @@
 
 #include "as-utils-private.h"
 #include "as-locale-private.h"
+#include "as-context-private.h"
 
 typedef struct {
 	AsImageKind kind;
@@ -485,6 +486,10 @@ as_image_load_from_yaml (AsImage *image,
 				as_image_set_url (image, value);
 			}
 		} else if (g_strcmp0 (key, "lang") == 0) {
+			/* like the XML loader, skip images for languages we will never show */
+			if (!as_context_get_locale_use_all (ctx) &&
+			    !as_context_locale_matches (ctx, value))
+				return FALSE;
 			as_image_set_locale (image, value);
 		} else {
 			as_yaml_print_unknown ("image", key, -1);

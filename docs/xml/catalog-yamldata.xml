@@ -419,7 +419,7 @@
 						<listitem>
 							<para>
 								Describes the source image for this screenshot. If this field is present, <literal>videos</literal> must not be present as well.
-								The field valus is a dictionary with the following keys:
+								The field value is a dictionary with the following keys:
 							</para>
 							<itemizedlist>
 								<listitem>
@@ -445,7 +445,11 @@
 									</para>
 								</listitem>
 							</itemizedlist>
-							<literallayout>Field info: <property>value-type</property>:<emphasis>dict</emphasis>, <property>required</property>:<emphasis>conditional</emphasis></literallayout>
+							<para>
+								If the screenshot has translated source images, the field value is a list of these dictionaries instead,
+								one per language. The untranslated source image should be the first entry of that list.
+							</para>
+							<literallayout>Field info: <property>value-type</property>:<emphasis>dict</emphasis> or <emphasis>list(dict)</emphasis>, <property>required</property>:<emphasis>conditional</emphasis></literallayout>
 						</listitem>
 						</varlistentry>
 

@@ -1763,6 +1763,210 @@ test_yaml_read_screenshots (void)
 	g_assert_cmpint (as_image_get_height (img), ==, 1136);
 }
 
+/**
+ * test_yaml_read_screenshots_l10n_filter:
+ *
+ * Test that reading data for a single locale leaves out the screenshot images
+ * and videos for other languages, like the XML parser does.
+ */
+static void
+test_yaml_read_screenshots_l10n_filter (void)
+{
+	g_autoptr(AsMetadata) metad = NULL;
+	g_autoptr(GError) error = NULL;
+	AsComponent *cpt;
+	GPtrArray *screenshots;
+	GPtrArray *images;
+	GPtrArray *videos;
+	AsImage *img;
+	AsVideo *vid;
+	const gchar *yamldata = "---\n"
+				"File: DEP-11\n"
+				"Version: \"1.2\"\n"
+				"---\n"
+				"Type: generic\n"
+				"ID: org.example.ScreenshotsL10nTest\n"
+				"Screenshots:\n"
+				"- default: true\n"
+				"  thumbnails:\n"
+				"  - url: https://example.org/alpha_small.png\n"
+				"    width: 800\n"
+				"    height: 600\n"
+				"  - url: https://example.org/alpha_small_de.png\n"
+				"    width: 800\n"
+				"    height: 600\n"
+				"    lang: de-DE\n"
+				"  - url: https://example.org/alpha_small_fr.png\n"
+				"    width: 800\n"
+				"    height: 600\n"
+				"    lang: fr\n"
+				"  source-image:\n"
+				"  - url: https://example.org/alpha.png\n"
+				"    width: 1916\n"
+				"    height: 1056\n"
+				"  - url: https://example.org/alpha_fr.png\n"
+				"    width: 1916\n"
+				"    height: 1056\n"
+				"    lang: fr\n"
+				"  - url: https://example.org/alpha_de.png\n"
+				"    width: 1916\n"
+				"    height: 1056\n"
+				"    lang: de-DE\n"
+				"- source-image:\n"
+				"    url: https://example.org/beta_fr.png\n"
+				"    width: 1916\n"
+				"    height: 1056\n"
+				"    lang: fr\n"
+				"- videos:\n"
+				"  - codec: av1\n"
+				"    container: matroska\n"
+				"    url: https://example.org/screencast.mkv\n"
+				"  - codec: av1\n"
+				"    container: matroska\n"
+				"    url: https://example.org/screencast_de.mkv\n"
+				"    lang: de-DE\n"
+				"  - codec: av1\n"
+				"    container: matroska\n"
+				"    url: https://example.org/screencast_fr.mkv\n"
+				"    lang: fr\n";
+
+	metad = as_metadata_new ();
+	as_metadata_set_locale (metad, "de_DE");
+	as_metadata_set_format_style (metad, AS_FORMAT_STYLE_CATALOG);
+	as_metadata_parse_data (metad, yamldata, -1, AS_FORMAT_KIND_YAML, &error);
+	g_assert_no_error (error);
+
+	cpt = as_component_box_index (as_metadata_get_components (metad), 0);
+	screenshots = as_component_get_screenshots_all (cpt);
+	g_assert_cmpint (screenshots->len, ==, 3);
+
+	images = as_screenshot_get_images_all (AS_SCREENSHOT (g_ptr_array_index (screenshots, 0)));
+	g_assert_cmpint (images->len, ==, 4);
+	img = AS_IMAGE (g_ptr_array_index (images, 0));
+	g_assert_cmpstr (as_image_get_url (img), ==, "https://example.org/alpha_small.png");
+	g_assert_cmpstr (as_image_get_locale (img), ==, "C");
+	img = AS_IMAGE (g_ptr_array_index (images, 1));
+	g_assert_cmpstr (as_image_get_url (img), ==, "https://example.org/alpha_small_de.png");
+	g_assert_cmpstr (as_image_get_locale (img), ==, "de-DE");
+	img = AS_IMAGE (g_ptr_array_index (images, 2));
+	g_assert_cmpint (as_image_get_kind (img), ==, AS_IMAGE_KIND_SOURCE);
+	g_assert_cmpstr (as_image_get_url (img), ==, "https://example.org/alpha.png");
+	g_assert_cmpstr (as_image_get_locale (img), ==, "C");
+	img = AS_IMAGE (g_ptr_array_index (images, 3));
+	g_assert_cmpint (as_image_get_kind (img), ==, AS_IMAGE_KIND_SOURCE);
+	g_assert_cmpstr (as_image_get_url (img), ==, "https://example.org/alpha_de.png");
+	g_assert_cmpstr (as_image_get_locale (img), ==, "de-DE");
+
+	/* a screenshot that only has images in other languages stays, but without images */
+	images = as_screenshot_get_images_all (AS_SCREENSHOT (g_ptr_array_index (screenshots, 1)));
+	g_assert_cmpint (images->len, ==, 0);
+
+	/* videos are filtered the same way */
+	videos = as_screenshot_get_videos_all (AS_SCREENSHOT (g_ptr_array_index (screenshots, 2)));
+	g_assert_cmpint (videos->len, ==, 2);
+	vid = AS_VIDEO (g_ptr_array_index (videos, 0));
+	g_assert_cmpstr (as_video_get_url (vid), ==, "https://example.org/screencast.mkv");
+	vid = AS_VIDEO (g_ptr_array_index (videos, 1));
+	g_assert_cmpstr (as_video_get_url (vid), ==, "https://example.org/screencast_de.mkv");
+	g_assert_cmpstr (as_video_get_locale (vid), ==, "de-DE");
+}
+
+static const gchar
+    *yamldata_screenshots_l10n_source = "Type: generic\n"
+					"ID: org.example.ScreenshotsL10nSourceTest\n"
+					"Screenshots:\n"
+					"- default: true\n"
+					"  thumbnails:\n"
+					"  - url: https://example.org/alpha_small.png\n"
+					"    width: 800\n"
+					"    height: 600\n"
+					"  - url: https://example.org/alpha_small_de.png\n"
+					"    width: 800\n"
+					"    height: 600\n"
+					"    lang: de-DE\n"
+					"  source-image:\n"
+					"  - url: https://example.org/alpha.png\n"
+					"    width: 1916\n"
+					"    height: 1056\n"
+					"  - url: https://example.org/alpha_de.png\n"
+					"    width: 1916\n"
+					"    height: 1056\n"
+					"    lang: de-DE\n";
+
+/**
+ * test_yaml_rw_screenshots_l10n_source:
+ *
+ * Test writing and reading a screenshot with translated source images,
+ * which DEP-11 stores as a list.
+ */
+static void
+test_yaml_rw_screenshots_l10n_source (void)
+{
+	g_autoptr(AsComponent) cpt = NULL;
+	g_autoptr(AsComponent) cpt_read = NULL;
+	g_autoptr(AsScreenshot) scr = NULL;
+	g_autofree gchar *res = NULL;
+	GPtrArray *screenshots;
+	GPtrArray *images;
+	AsImage *img;
+	struct {
+		AsImageKind kind;
+		const gchar *url;
+		guint width;
+		guint height;
+		const gchar *locale;
+	} imgdata[] = {
+		/* the untranslated source image has to be written first, no matter where it is here */
+		{ AS_IMAGE_KIND_SOURCE,	   "https://example.org/alpha_de.png",	  1916, 1056, "de-DE" },
+		{ AS_IMAGE_KIND_THUMBNAIL, "https://example.org/alpha_small.png", 800,	600,  NULL    },
+		{ AS_IMAGE_KIND_THUMBNAIL,
+		 "https://example.org/alpha_small_de.png",			800,
+		 600,									 "de-DE" },
+		{ AS_IMAGE_KIND_SOURCE,	   "https://example.org/alpha.png",	  1916, 1056, NULL    },
+	};
+
+	cpt = as_component_new ();
+	as_component_set_kind (cpt, AS_COMPONENT_KIND_GENERIC);
+	as_component_set_id (cpt, "org.example.ScreenshotsL10nSourceTest");
+
+	scr = as_screenshot_new ();
+	as_screenshot_set_kind (scr, AS_SCREENSHOT_KIND_DEFAULT);
+	for (guint i = 0; i < G_N_ELEMENTS (imgdata); i++) {
+		g_autoptr(AsImage) new_img = as_image_new ();
+
+		as_image_set_kind (new_img, imgdata[i].kind);
+		as_image_set_url (new_img, imgdata[i].url);
+		as_image_set_width (new_img, imgdata[i].width);
+		as_image_set_height (new_img, imgdata[i].height);
+		if (imgdata[i].locale != NULL)
+			as_image_set_locale (new_img, imgdata[i].locale);
+		as_screenshot_add_image (scr, new_img);
+	}
+	as_component_add_screenshot (cpt, scr);
+
+	res = as_yaml_test_serialize (cpt);
+	g_assert_true (as_yaml_test_compare_yaml (res, yamldata_screenshots_l10n_source));
+
+	/* reading it back gives us all source images */
+	cpt_read = as_yaml_test_read_data (yamldata_screenshots_l10n_source, NULL);
+	screenshots = as_component_get_screenshots_all (cpt_read);
+	g_assert_cmpint (screenshots->len, ==, 1);
+	images = as_screenshot_get_images_all (AS_SCREENSHOT (g_ptr_array_index (screenshots, 0)));
+	g_assert_cmpint (images->len, ==, 4);
+
+	img = AS_IMAGE (g_ptr_array_index (images, 2));
+	g_assert_cmpint (as_image_get_kind (img), ==, AS_IMAGE_KIND_SOURCE);
+	g_assert_cmpstr (as_image_get_url (img), ==, "https://example.org/alpha.png");
+	g_assert_cmpstr (as_image_get_locale (img), ==, "C");
+	g_assert_cmpint (as_image_get_width (img), ==, 1916);
+	g_assert_cmpint (as_image_get_height (img), ==, 1056);
+
+	img = AS_IMAGE (g_ptr_array_index (images, 3));
+	g_assert_cmpint (as_image_get_kind (img), ==, AS_IMAGE_KIND_SOURCE);
+	g_assert_cmpstr (as_image_get_url (img), ==, "https://example.org/alpha_de.png");
+	g_assert_cmpstr (as_image_get_locale (img), ==, "de-DE");
+}
+
 static const gchar *yamldata_releases_field =
     "Type: generic\n"
     "ID: org.example.ReleasesTest\n"
@@ -2332,7 +2536,11 @@ main (int argc, char **argv)
 	g_test_add_func ("/YAML/Write/Agreements", test_yaml_write_agreements);
 
 	g_test_add_func ("/YAML/Read/Screenshots", test_yaml_read_screenshots);
+	g_test_add_func ("/YAML/Read/ScreenshotsL10nFilter",
+			 test_yaml_read_screenshots_l10n_filter);
 	g_test_add_func ("/YAML/Write/Screenshots", test_yaml_write_screenshots);
+	g_test_add_func ("/YAML/ReadWrite/ScreenshotsL10nSource",
+			 test_yaml_rw_screenshots_l10n_source);
 
 	g_test_add_func ("/YAML/Read/Releases", test_yaml_read_releases);
 	g_test_add_func ("/YAML/Write/Releases", test_yaml_write_releases);
