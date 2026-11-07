@@ -2382,9 +2382,19 @@ as_xml_read_memory_l10n_filtered (AsContext *ctx, const gchar *data, gssize len,
 	 * treat whitespace based on that, so we must not tell them apart either */
 	sax.ignorableWhitespace = as_xml_l10n_filter_characters;
 
+#if LIBXML_VERSION >= 21100
 	pctx = xmlNewSAXParserCtxt (&sax, NULL);
 	if (pctx == NULL)
 		return NULL;
+#else
+	/* Older libxml2 versions can't create a context with our own handler, so we replace
+	 * the default one. They still set their own ignorableWhitespace handler for
+	 * XML_PARSE_NOBLANKS, but that just drops the whitespace like we would. */
+	pctx = xmlNewParserCtxt ();
+	if (pctx == NULL)
+		return NULL;
+	memcpy (pctx->sax, &sax, sizeof (sax));
+#endif
 #if LIBXML_VERSION >= 21400
 	xmlCtxtSetPrivate (pctx, &filter);
 #else

@@ -190,7 +190,7 @@ gio_dep = dependency('gio-2.0', version: '>= 2.62')
 gmodule_dep = dependency('gmodule-2.0', version: '>= 2.62')
 gio_unix_dep = dependency('gio-unix-2.0', version: '>= 2.62')
 curl_dep = dependency('libcurl', version: '>= 7.62')
-xml2_dep = dependency('libxml-2.0', version: '>= 2.11')
+xml2_dep = dependency('libxml-2.0', version: '>= 2.9')
 fyaml_dep = dependency('libfyaml', version: '>= 0.8')
 xmlb_dep = dependency('xmlb', version: '>= 0.3.14',
                       fallback: ['libxmlb', 'libxmlb_dep'],
