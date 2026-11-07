@@ -27,21 +27,25 @@
 G_BEGIN_DECLS
 
 int  ascli_what_provides (const gchar *cachepath,
+			  const gchar *datapath,
 			  const gchar *kind_str,
 			  const gchar *item,
 			  gboolean     detailed);
 
 int  ascli_search_component (const gchar *cachepath,
+			     const gchar *datapath,
 			     const gchar *search_term,
 			     gboolean	  detailed,
 			     gboolean	  no_cache);
 
 int  ascli_get_component (const gchar *cachepath,
+			  const gchar *datapath,
 			  const gchar *identifier,
 			  gboolean     detailed,
 			  gboolean     no_cache);
 
 int  ascli_list_categories (const gchar *cachepath,
+			    const gchar *datapath,
 			    gchar      **categories,
 			    gboolean	 detailed,
 			    gboolean	 no_cache);
@@ -52,6 +56,7 @@ int  ascli_refresh_cache (const gchar	     *cachepath,
 			  gboolean	      forced);
 
 int  ascli_dump_component (const gchar *cachepath,
+			   const gchar *datapath,
 			   const gchar *identifier,
 			   AsFormatKind mformat,
 			   gboolean	no_cache);
@@ -70,10 +75,12 @@ int  ascli_create_metainfo_template (const gchar *out_fname,
 
 gint ascli_check_is_satisfied (const gchar *fname_or_cid,
 			       const gchar *cachepath,
+			       const gchar *datapath,
 			       gboolean	    no_cache);
 
 gint ascli_check_syscompat (const gchar *fname_or_cid,
 			    const gchar *cachepath,
+			    const gchar *datapath,
 			    gboolean	 no_cache,
 			    gboolean	 show_details);
 

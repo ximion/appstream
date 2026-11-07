@@ -43,6 +43,7 @@ gint ascli_metainfo_to_news (const gchar *mi_fname,
 			     const gchar *format_str);
 
 int  ascli_show_sysinfo (const gchar *cachepath,
+			 const gchar *datapath,
 			 gboolean     no_cache,
 			 gboolean     detailed);
 

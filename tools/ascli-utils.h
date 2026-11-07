@@ -61,6 +61,7 @@ void	     ascli_print_components (AsComponentBox *cbox,
 				     gboolean	     show_detailed);
 
 AsPool	    *ascli_data_pool_new_and_open (const gchar *cachepath,
+					   const gchar *datapath,
 					   gboolean	no_cache,
 					   GError     **error);
 
