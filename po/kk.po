@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-10-26 10:22+0100\n"
-"PO-Revision-Date: 2026-08-29 20:51+0000\n"
+"PO-Revision-Date: 2026-11-07 20:36+0000\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
 "Language-Team: Kazakh <https://hosted.weblate.org/projects/appstream/translations/kk/>\n"
 "Language: kk\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.9.dev0\n"
+"X-Generator: Weblate 2026.11.2.dev0\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -411,17 +411,13 @@ msgstr "Ерте балалық шақ"
 
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:836
-#, fuzzy
-#| msgid "No cartoon violence"
 msgid "Cartoon Violence"
-msgstr "Мультфильмдік зорлық-зомбылық жоқ"
+msgstr "Мультипликациялық зорлық-зомбылық"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:838
-#, fuzzy
-#| msgid "No cartoon violence"
 msgid "No information regarding cartoon violence"
-msgstr "Мультфильмдік зорлық-зомбылық жоқ"
+msgstr "Мультипликациялық зорлық-зомбылыққа қатысты ақпарат жоқ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:840
@@ -445,17 +441,13 @@ msgstr "Мультфильм кейіпкерлерінің қатысуымен
 
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:851
-#, fuzzy
-#| msgid "No fantasy violence"
 msgid "Fantasy Violence"
-msgstr "Фэнтезилік зорлық-зомбылық жоқ"
+msgstr "Фантастикалық зорлық-зомбылық"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:853
-#, fuzzy
-#| msgid "No fantasy violence"
 msgid "No information regarding fantasy violence"
-msgstr "Фэнтезилік зорлық-зомбылық жоқ"
+msgstr "Фантастикалық зорлық-зомбылыққа қатысты ақпарат жоқ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:855
@@ -479,17 +471,13 @@ msgstr "Шындықтан оңай ажыратылатын айқын зорл
 
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:866
-#, fuzzy
-#| msgid "No realistic violence"
 msgid "Realistic Violence"
-msgstr "Шынайы зорлық-зомбылық жоқ"
+msgstr "Шынайы зорлық-зомбылық"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:868
-#, fuzzy
-#| msgid "No realistic violence"
 msgid "No information regarding realistic violence"
-msgstr "Шынайы зорлық-зомбылық жоқ"
+msgstr "Шынайы зорлық-зомбылыққа қатысты ақпарат жоқ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:870
@@ -514,12 +502,12 @@ msgstr "Шынайы кейіпкерлердің қатысуымен бола�
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:881
 msgid "Violence Depicting Bloodshed"
-msgstr ""
+msgstr "Қантөгісті бейнелейтін зорлық-зомбылық"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:883
 msgid "No information regarding bloodshed"
-msgstr ""
+msgstr "Қантөгіске қатысты ақпарат жоқ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:885
@@ -543,17 +531,13 @@ msgstr "Қантөгіс пен дене мүшелерін зақымдау б�
 
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:896
-#, fuzzy
-#| msgid "No sexual violence"
 msgid "Sexual Violence"
-msgstr "Жыныстық зорлық-зомбылық жоқ"
+msgstr "Жыныстық зорлық-зомбылық"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:898
-#, fuzzy
-#| msgid "No sexual violence"
 msgid "No information regarding sexual violence"
-msgstr "Жыныстық зорлық-зомбылық жоқ"
+msgstr "Жыныстық зорлық-зомбылыққа қатысты ақпарат жоқ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:900
@@ -568,14 +552,12 @@ msgstr "Зорлау немесе басқа зорлық-зомбылықты �
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:909
 msgid "Alcohol"
-msgstr ""
+msgstr "Алкоголь"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:911
-#, fuzzy
-#| msgid "No references to alcohol"
 msgid "No information regarding references to alcohol"
-msgstr "Алкогольге сілтемелер жоқ"
+msgstr "Алкогольге сілтемелерге қатысты ақпарат жоқ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:913
@@ -595,14 +577,12 @@ msgstr "Алкогольдік ішімдіктерді қолдану"
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:923
 msgid "Narcotics"
-msgstr ""
+msgstr "Есірткі"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:925
-#, fuzzy
-#| msgid "No references to illicit drugs"
 msgid "No information regarding references to illicit drugs"
-msgstr "Заңсыз есірткіге сілтемелер жоқ"
+msgstr "Заңсыз есірткіге сілтемелерге қатысты ақпарат жоқ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:927
@@ -622,14 +602,12 @@ msgstr "Заңсыз есірткіні қолдану"
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:937
 msgid "Tobacco"
-msgstr ""
+msgstr "Темекі"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:939
-#, fuzzy
-#| msgid "No references to tobacco products"
 msgid "No information regarding references to tobacco products"
-msgstr "Темекі бұйымдарына сілтемелер жоқ"
+msgstr "Темекі өнімдеріне сілтемелерге қатысты ақпарат жоқ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:941
@@ -649,14 +627,12 @@ msgstr "Темекі бұйымдарын қолдану"
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:951
 msgid "Nudity"
-msgstr ""
+msgstr "Жалаңаштық"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:953
-#, fuzzy
-#| msgid "No nudity of any sort"
 msgid "No information regarding nudity of any sort"
-msgstr "Ешқандай жалаңаштық жоқ"
+msgstr "Кез келген түрдегі жалаңаштыққа қатысты ақпарат жоқ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:955
@@ -681,14 +657,12 @@ msgstr "Жыныс мүшелері көрінетін айқын жалаңаш
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:966
 msgid "Sexual Themes"
-msgstr ""
+msgstr "Жыныстық тақырыптар"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:968
-#, fuzzy
-#| msgid "No references to or depictions of sexual nature"
 msgid "No information regarding references to or depictions of sexual nature"
-msgstr "Жыныстық сипаттағы сілтемелер немесе бейнелер жоқ"
+msgstr "Жыныстық сипаттағы сілтемелерге немесе бейнелеулерге қатысты ақпарат жоқ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:970
@@ -713,14 +687,12 @@ msgstr "Айқын жыныстық мінез-құлық"
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:981
 msgid "Profanity"
-msgstr ""
+msgstr "Балағат сөздер"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:983
-#, fuzzy
-#| msgid "No profanity of any kind"
 msgid "No information regarding profanity of any kind"
-msgstr "Ешқандай балағат сөздер жоқ"
+msgstr "Кез келген түрдегі балағат сөздерге қатысты ақпарат жоқ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:985
@@ -744,17 +716,13 @@ msgstr "Балағат сөздерді дөрекі немесе жиі қол�
 
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:996
-#, fuzzy
-#| msgid "No inappropriate humor"
 msgid "Inappropriate Humor"
-msgstr "Орынсыз әзілдер жоқ"
+msgstr "Орынсыз әзіл"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:998
-#, fuzzy
-#| msgid "No inappropriate humor"
 msgid "No information regarding inappropriate humor"
-msgstr "Орынсыз әзілдер жоқ"
+msgstr "Орынсыз әзілге қатысты ақпарат жоқ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1000
@@ -778,17 +746,13 @@ msgstr "Ересектерге арналған немесе жыныстық ә
 
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1011
-#, fuzzy
-#| msgid "Description"
 msgid "Discrimination"
-msgstr "Сипаттама"
+msgstr "Кемсітушілік"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1013
-#, fuzzy
-#| msgid "No discriminatory language of any kind"
 msgid "No information regarding discriminatory language of any kind"
-msgstr "Ешқандай кемсітушілік сөздер жоқ"
+msgstr "Кез келген түрдегі кемсіту сипатындағы тілге қатысты ақпарат жоқ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1015
@@ -813,14 +777,12 @@ msgstr "Жынысына, жыныстық бағдарына, нәсіліне 
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1026
 msgid "Advertising"
-msgstr ""
+msgstr "Жарнама"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1028
-#, fuzzy
-#| msgid "No advertising of any kind"
 msgid "No information regarding advertising of any kind"
-msgstr "Ешқандай жарнама жоқ"
+msgstr "Кез келген түрдегі жарнамаға қатысты ақпарат жоқ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1030
@@ -845,14 +807,12 @@ msgstr "Пайдаланушыларға шынайы өмірдегі белг�
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1041
 msgid "Gambling"
-msgstr ""
+msgstr "Құмар ойындар"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1043
-#, fuzzy
-#| msgid "No gambling of any kind"
 msgid "No information regarding gambling of any kind"
-msgstr "Ешқандай құмар ойындар жоқ"
+msgstr "Кез келген түрдегі құмар ойындарға қатысты ақпарат жоқ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1045
@@ -877,14 +837,12 @@ msgstr "Нақты ақшаны пайдаланып құмар ойындар �
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1056
 msgid "Purchasing"
-msgstr ""
+msgstr "Сатып алу"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1058
-#, fuzzy
-#| msgid "No ability to spend money"
 msgid "No information regarding the ability to spend money"
-msgstr "Ақша жұмсау мүмкіндігі жоқ"
+msgstr "Ақша жұмсау мүмкіндігіне қатысты ақпарат жоқ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1060
@@ -904,14 +862,12 @@ msgstr "Қолданба ішінде нақты ақша жұмсау мүмк�
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1070
 msgid "Chat Between Users"
-msgstr ""
+msgstr "Пайдаланушылар арасындағы чат"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1072
-#, fuzzy
-#| msgid "No way to chat with other users"
 msgid "No information regarding ways to chat with other users"
-msgstr "Басқа пайдаланушылармен чат арқылы сөйлесу мүмкіндігі жоқ"
+msgstr "Басқа пайдаланушылармен чатта сөйлесу тәсілдеріне қатысты ақпарат жоқ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1074
@@ -936,14 +892,12 @@ msgstr "Пайдаланушылар арасындағы бақыланбайт
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1085
 msgid "Audio Chat Between Users"
-msgstr ""
+msgstr "Пайдаланушылар арасындағы аудиочат"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1087
-#, fuzzy
-#| msgid "No way to talk with other users"
 msgid "No information regarding ways to talk with other users"
-msgstr "Басқа пайдаланушылармен сөйлесу мүмкіндігі жоқ"
+msgstr "Басқа пайдаланушылармен сөйлесу тәсілдеріне қатысты ақпарат жоқ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1089
@@ -963,14 +917,12 @@ msgstr "Пайдаланушылар арасындағы бақыланбайт
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1099
 msgid "Contact Details"
-msgstr ""
+msgstr "Контакт мәліметтері"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1101
-#, fuzzy
-#| msgid "No sharing of social network usernames or email addresses"
 msgid "No information regarding sharing of social network usernames or email addresses"
-msgstr "Әлеуметтік желідегі пайдаланушы атымен немесе электрондық пошта адрестерімен бөлісу жоқ"
+msgstr "Әлеуметтік желідегі пайдаланушы аттарын немесе эл. пошта адрестерін ортақ пайдалануға қатысты ақпарат жоқ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1103
@@ -985,14 +937,12 @@ msgstr "Әлеуметтік желідегі пайдаланушы атыме�
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1112
 msgid "Identifying Information"
-msgstr ""
+msgstr "Жеке басты анықтайтын ақпарат"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1114
-#, fuzzy
-#| msgid "No sharing of user information with third parties"
 msgid "No information regarding sharing of user information with third parties"
-msgstr "Пайдаланушы ақпаратын үшінші тараптармен бөлісу жоқ"
+msgstr "Пайдаланушы ақпаратын үшінші тараптармен ортақ пайдалануға қатысты ақпарат жоқ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1116
@@ -1017,14 +967,12 @@ msgstr "Басқаларға пайдаланушыны анықтауға мү�
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1127
 msgid "Location Sharing"
-msgstr ""
+msgstr "Орналасуды ортақ пайдалану"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1129
-#, fuzzy
-#| msgid "No sharing of physical location with other users"
 msgid "No information regarding sharing of physical location with other users"
-msgstr "Нақты орналасқан жерді басқа пайдаланушылармен бөлісу жоқ"
+msgstr "Нақты орналасуды басқа пайдаланушылармен ортақ пайдалануға қатысты ақпарат жоқ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1131
@@ -1039,14 +987,12 @@ msgstr "Нақты орналасқан жерді басқа пайдалану
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1156
 msgid "Homosexuality"
-msgstr ""
+msgstr "Гомосексуализм"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1158
-#, fuzzy
-#| msgid "No references to homosexuality"
 msgid "No information regarding references to homosexuality"
-msgstr "Гомосексуализмге сілтемелер жоқ"
+msgstr "Гомосексуализмге сілтемелерге қатысты ақпарат жоқ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1160
@@ -1071,14 +1017,12 @@ msgstr "Бір жынысты адамдар арасындағы айқын ж�
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1171
 msgid "Prostitution"
-msgstr ""
+msgstr "Жезөкшелік"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1173
-#, fuzzy
-#| msgid "No references to prostitution"
 msgid "No information regarding references to prostitution"
-msgstr "Проституцияға сілтемелер жоқ"
+msgstr "Жезөкшелікке сілтемелерге қатысты ақпарат жоқ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1175
@@ -1102,17 +1046,13 @@ msgstr "Проституция әрекетінің айқын бейнелен�
 
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1186
-#, fuzzy
-#| msgid "Adults Only"
 msgid "Adultery"
-msgstr "Тек ересектерге арналған"
+msgstr "Зинақорлық"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1188
-#, fuzzy
-#| msgid "No references to adultery"
 msgid "No information regarding references to adultery"
-msgstr "Неке адалдығын бұзуға сілтемелер жоқ"
+msgstr "Зинақорлыққа сілтемелерге қатысты ақпарат жоқ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1190
@@ -1136,17 +1076,13 @@ msgstr "Неке адалдығын бұзу әрекетінің айқын б�
 
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1201
-#, fuzzy
-#| msgid "No sexualized characters"
 msgid "Sexualized Characters"
-msgstr "Сексуализацияланған кейіпкерлер жоқ"
+msgstr "Сексуалдандырылған кейіпкерлер"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1203
-#, fuzzy
-#| msgid "No sexualized characters"
 msgid "No information regarding sexualized characters"
-msgstr "Сексуализацияланған кейіпкерлер жоқ"
+msgstr "Сексуалдандырылған кейіпкерлерге қатысты ақпарат жоқ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1205
@@ -1165,17 +1101,13 @@ msgstr "Тым сексуализацияланған адам кейіпкер�
 
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1215
-#, fuzzy
-#| msgid "Description"
 msgid "Desecration"
-msgstr "Сипаттама"
+msgstr "Қорлау"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1217
-#, fuzzy
-#| msgid "No references to desecration"
 msgid "No information regarding references to desecration"
-msgstr "Қорлауға сілтемелер жоқ"
+msgstr "Қорлауға сілтемелерге қатысты ақпарат жоқ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1219
@@ -1200,14 +1132,12 @@ msgstr "Қазіргі заманғы қорлаудың айқын бейнел
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1230
 msgid "Human Remains"
-msgstr ""
+msgstr "Адам қалдықтары"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1232
-#, fuzzy
-#| msgid "No visible dead human remains"
 msgid "No information regarding visible dead human remains"
-msgstr "Адам мәйіттерінің қалдықтары көрінбейді"
+msgstr "Көрінетін өлі адам қалдықтарына қатысты ақпарат жоқ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1234
@@ -1232,14 +1162,12 @@ msgstr "Адам денелерін қорлаудың айқын бейнеле
 #. TRANSLATORS: content rating title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1245
 msgid "Slavery"
-msgstr ""
+msgstr "Құлдық"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1247
-#, fuzzy
-#| msgid "No references to slavery"
 msgid "No information regarding references to slavery"
-msgstr "Құлдыққа сілтемелер жоқ"
+msgstr "Құлдыққа сілтемелерге қатысты ақпарат жоқ"
 
 #. TRANSLATORS: content rating description, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1249
@@ -1263,38 +1191,33 @@ msgstr "Қазіргі заманғы құлдықтың айқын бейнел
 
 #. TRANSLATORS: content rating group title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1379
-#, fuzzy
-#| msgid "Science"
 msgid "Violence"
-msgstr "Ғылым"
+msgstr "Зорлық-зомбылық"
 
 #. TRANSLATORS: content rating group title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1382
 msgid "Drugs"
-msgstr ""
+msgstr "Есірткі"
 
 #. TRANSLATORS: content rating group title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1385
 msgid "Sex & Nudity"
-msgstr ""
+msgstr "Жыныстық қатынас & жалаңаштық"
 
 #. TRANSLATORS: content rating group title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1388
-#, fuzzy
-#| msgctxt "Category of Education"
-#| msgid "Languages"
 msgid "Strong Language"
-msgstr "Тілдер"
+msgstr "Дөрекі сөздер"
 
 #. TRANSLATORS: content rating group title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1391
 msgid "Money"
-msgstr ""
+msgstr "Ақша"
 
 #. TRANSLATORS: content rating group title, see https://hughsie.github.io/oars/
 #: src/as-content-rating.c:1394
 msgid "Social"
-msgstr ""
+msgstr "Әлеуметтік"
 
 #. TRANSLATORS: We got a 429 error while trying to download data
 #: src/as-curl.c:199
@@ -2414,7 +2337,7 @@ msgstr "Десте атауында бұл жерде рұқсат етілме�
 
 #: src/as-validator-issue-tag.h:548
 msgid "The bundle ID contains characters that are not permitted here. It must start with an alphanumeric character and may only contain alphanumeric characters as well as `+`, `-`, `.`, `_`, `:` and `/`."
-msgstr "Bundle ID атауында бұл жерде рұқсат етілмеген таңбалар бар. Оның атауы әріптік-сандық таңбадан басталуы керек және тек әріптік-сандық таңбалардан, сондай-ақ `+`, `-`, `.`, `_` , `:`  және `/` таңбаларынан ғана тұруы мүмкін."
+msgstr "Bundle ID атауында бұл жерде рұқсат етілмеген таңбалар бар. Оның атауы әріптік-сандық таңбадан басталуы керек және тек әріптік-сандық таңбалардан, сондай-ақ `+`, `-`, `.`, `_` , `:` және `/` таңбаларынан ғана тұруы мүмкін."
 
 #: src/as-validator-issue-tag.h:554
 msgid "The component name should (likely) not end with a dot (`.`)."
@@ -4002,24 +3925,22 @@ msgstr "Қысқаша сипаттама"
 
 #: tools/ascli-actions-misc.c:714
 msgid "Release Kind"
-msgstr ""
+msgstr "Шығарылым түрі"
 
 #. TRANSLATORS: Release date of the running OS release
 #: tools/ascli-actions-misc.c:719
 msgid "Released"
-msgstr ""
+msgstr "Шығарылған"
 
 #. TRANSLATORS: End-of-life date of the running OS release
 #: tools/ascli-actions-misc.c:725
-#, fuzzy
-#| msgid "Supported:"
 msgid "Supported Until"
-msgstr "Қолдау көрсетілетін:"
+msgstr "Қолдау көрсетілу мерзімі"
 
 #. TRANSLATORS: OS releases newer than the running one, with their kind
 #: tools/ascli-actions-misc.c:740
 msgid "Newer Releases"
-msgstr ""
+msgstr "Жаңалау шығарылымдар"
 
 #: tools/ascli-actions-misc.c:744 tools/ascli-utils.c:309
 msgid "Homepage"
