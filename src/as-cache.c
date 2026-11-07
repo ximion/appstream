@@ -544,7 +544,11 @@ as_transmogrify_xmlnode_to_xbuildernode (xmlNode *lxn, XbBuilderNode *xbn)
 {
 	/* text node */
 	if (lxn->children != NULL && xmlNodeIsText (lxn->children)) {
-		if (lxn->children->next == NULL) {
+		if (lxn->children->next == NULL && lxn->children->type == XML_TEXT_NODE &&
+		    lxn->children->content != NULL) {
+			/* pure text node with a single chunk of text, which we can use as-is */
+			xb_builder_node_set_text (xbn, (const gchar *) lxn->children->content, -1);
+		} else if (lxn->children->next == NULL) {
 			/* pure text node */
 			g_autofree gchar *node_content = NULL;
 			node_content = as_xml_get_node_value_raw (lxn);
@@ -569,6 +573,14 @@ as_transmogrify_xmlnode_to_xbuildernode (xmlNode *lxn, XbBuilderNode *xbn)
 		/* ignore attributes that are set to NULL */
 		if (iter->children == NULL)
 			continue;
+
+		/* the value is almost always a single text node, so we don't need a copy */
+		if (iter->children->next == NULL && iter->children->type == XML_TEXT_NODE) {
+			xb_builder_node_set_attr (xbn,
+						  (const gchar *) iter->name,
+						  (const gchar *) iter->children->content);
+			continue;
+		}
 		attr_value = as_xml_get_node_value_raw (iter->children);
 		xb_builder_node_set_attr (xbn, (gchar *) iter->name, attr_value);
 	}

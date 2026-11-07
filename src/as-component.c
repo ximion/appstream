@@ -3179,9 +3179,14 @@ as_component_value_tokenize (AsComponent *cpt,
 		g_autofree gchar *folded = NULL;
 
 		/* fold the value like g_str_tokenize_and_fold() does, so these tokens
-		 * still match search terms that went through it */
-		normal = g_utf8_normalize (value, -1, G_NORMALIZE_ALL_COMPOSE);
-		folded = g_utf8_casefold (normal != NULL ? normal : value, -1);
+		 * still match search terms that went through it. For pure ASCII, all that
+		 * does is lowercase the text, which is a lot cheaper to do directly. */
+		if (g_str_is_ascii (value)) {
+			folded = g_ascii_strdown (value, -1);
+		} else {
+			normal = g_utf8_normalize (value, -1, G_NORMALIZE_ALL_COMPOSE);
+			folded = g_utf8_casefold (normal != NULL ? normal : value, -1);
+		}
 		g_strdelimit (folded, "/,.;:", ' ');
 		(*tokens_utf8) = g_strsplit (folded, " ", -1);
 
