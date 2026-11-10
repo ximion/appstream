@@ -23,7 +23,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-11-10 20:12+0100\n"
-"PO-Revision-Date: 2026-10-28 21:36+0000\n"
+"PO-Revision-Date: 2026-11-10 20:15+0000\n"
 "Last-Translator: Matthaiks <kityn@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/appstream/translations/pl/>\n"
 "Language: pl\n"
@@ -31,7 +31,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 2026.11.dev0\n"
+"X-Generator: Weblate 2026.11.2.dev0\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -2651,7 +2651,7 @@ msgstr "Wartość tego pola pliku .desktop zawiera nieprawidłowe lub niewidoczn
 
 #: src/as-validator-issue-tag.h:933
 msgid "The locale of this localized desktop-entry key is not a valid POSIX locale name, so the key was ignored. Locales should look like `de`, `pt_BR` or `sr@latin`, as described in the Desktop Entry Specification."
-msgstr ""
+msgstr "Ustawienie regionalne dla tego klucza wpisu pulpitu nie jest prawidłową nazwą ustawienia regionalnego w standardzie POSIX, dlatego klucz został zignorowany. Nazwy ustawień regionalnych powinny mieć postać taką jak „de”, „pt_BR” lub „sr@latin”, zgodnie z opisem w specyfikacji „Desktop Entry Specification”."
 
 #: src/as-validator-issue-tag.h:939
 msgid "This desktop-entry field value is quoted, which is likely unintentional."
@@ -4349,7 +4349,7 @@ msgstr "Dostarczane elementy"
 #: tools/ascli-utils.c:485
 #, c-format
 msgid "Data path '%s' does not exist or is not a directory."
-msgstr ""
+msgstr "Ścieżka danych „%s” nie istnieje lub nie jest katalogiem."
 
 #: tools/ascli-utils.c:561
 #, c-format
