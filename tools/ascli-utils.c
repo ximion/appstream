@@ -461,6 +461,41 @@ ascli_print_components (AsComponentBox *cbox, gboolean show_detailed)
 }
 
 /**
+ * ascli_pool_use_datapath:
+ * @pool: the #AsPool to configure
+ * @datapath: (nullable): directory with catalog metadata, or %NULL
+ * @error: a #GError
+ *
+ * Make @pool read catalog data from @datapath only, instead of
+ * from the standard locations. Does nothing if @datapath is %NULL.
+ *
+ * Returns: %TRUE on success, %FALSE if @datapath is not a directory.
+ */
+gboolean
+ascli_pool_use_datapath (AsPool *pool, const gchar *datapath, GError **error)
+{
+	if (datapath == NULL)
+		return TRUE;
+
+	/* the pool would silently find nothing, so complain early */
+	if (!g_file_test (datapath, G_FILE_TEST_IS_DIR)) {
+		g_set_error (error,
+			     G_FILE_ERROR,
+			     G_FILE_ERROR_NOENT,
+			     _("Data path '%s' does not exist or is not a directory."), datapath);
+		return FALSE;
+	}
+
+	/* we auto-disable loading data from sources that are not in datapath for now */
+	as_pool_set_load_std_data_locations (pool, FALSE);
+
+	/* the user wants data from a different path to be used */
+	as_pool_add_extra_data_location (pool, datapath, AS_FORMAT_STYLE_CATALOG);
+
+	return TRUE;
+}
+
+/**
  * ascli_data_pool_new_and_open:
  */
 AsPool *
@@ -469,29 +504,23 @@ ascli_data_pool_new_and_open (const gchar *cachepath,
 			      gboolean no_cache,
 			      GError **error)
 {
-	AsPool *dpool;
-	AsPoolFlags flags;
+	g_autoptr(AsPool) dpool = NULL;
 
 	dpool = as_pool_new ();
-	if (datapath != NULL) {
-		as_pool_set_load_std_data_locations (dpool, FALSE);
-		as_pool_add_extra_data_location (dpool, datapath, AS_FORMAT_STYLE_CATALOG);
-	}
-	flags = as_pool_get_flags (dpool);
+	if (!ascli_pool_use_datapath (dpool, datapath, error))
+		return NULL;
+
+	/* must be set before loading, otherwise a stale cache would still be used */
 	if (no_cache)
-		as_flags_add (flags, AS_POOL_FLAG_IGNORE_CACHE_AGE);
+		as_pool_add_flags (dpool, AS_POOL_FLAG_IGNORE_CACHE_AGE);
 
-	if (cachepath == NULL) {
-		/* no cache object to load, we can use a normal pool */
-		as_pool_load (dpool, NULL, error);
-	} else {
-		/* use an exported cache object */
+	/* use an exported cache object, if one was selected */
+	if (cachepath != NULL)
 		as_pool_override_cache_locations (dpool, cachepath, cachepath);
-		as_pool_load (dpool, NULL, error);
-	}
-	as_pool_set_flags (dpool, flags);
 
-	return dpool;
+	as_pool_load (dpool, NULL, error);
+
+	return g_steal_pointer (&dpool);
 }
 
 /**

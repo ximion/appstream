@@ -30,7 +30,8 @@ int  ascli_what_provides (const gchar *cachepath,
 			  const gchar *datapath,
 			  const gchar *kind_str,
 			  const gchar *item,
-			  gboolean     detailed);
+			  gboolean     detailed,
+			  gboolean     no_cache);
 
 int  ascli_search_component (const gchar *cachepath,
 			     const gchar *datapath,

@@ -73,18 +73,18 @@ ascli_refresh_cache (const gchar *cachepath,
 		}
 	}
 
-	if (datapath != NULL) {
-		/* we auto-disable loading data from sources that are not in datapath for now */
-		as_pool_set_load_std_data_locations (pool, FALSE);
-
-		/* the user wants data from a different path to be used */
-		as_pool_add_extra_data_location (pool, datapath, AS_FORMAT_STYLE_CATALOG);
+	if (!ascli_pool_use_datapath (pool, datapath, &error)) {
+		g_printerr ("✘ %s\n", error->message);
+		return 1;
 	}
 
 	if (cachepath == NULL) {
 		ret = as_pool_refresh_system_cache (pool, forced, &cache_updated, &error);
 	} else {
 		as_pool_override_cache_locations (pool, cachepath, NULL);
+		/* a plain load would happily reuse an up-to-date cache */
+		if (forced)
+			as_pool_add_flags (pool, AS_POOL_FLAG_IGNORE_CACHE_AGE);
 		ret = as_pool_load (pool, NULL, &error);
 		cache_updated = TRUE;
 	}
@@ -199,7 +199,8 @@ ascli_what_provides (const gchar *cachepath,
 		     const gchar *datapath,
 		     const gchar *kind_str,
 		     const gchar *item,
-		     gboolean detailed)
+		     gboolean detailed,
+		     gboolean no_cache)
 {
 	g_autoptr(AsPool) pool = NULL;
 	g_autoptr(AsComponentBox) result = NULL;
@@ -220,7 +221,7 @@ ascli_what_provides (const gchar *cachepath,
 		return 3;
 	}
 
-	pool = ascli_data_pool_new_and_open (cachepath, datapath, FALSE, &error);
+	pool = ascli_data_pool_new_and_open (cachepath, datapath, no_cache, &error);
 	if (error != NULL) {
 		g_printerr ("%s\n", error->message);
 		return 1;
@@ -261,7 +262,7 @@ ascli_list_categories (const gchar *cachepath,
 		return 2;
 	}
 
-	pool = ascli_data_pool_new_and_open (cachepath, datapath, FALSE, &error);
+	pool = ascli_data_pool_new_and_open (cachepath, datapath, no_cache, &error);
 	if (error != NULL) {
 		g_printerr ("%s\n", error->message);
 		return 1;

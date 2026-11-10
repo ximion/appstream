@@ -104,7 +104,7 @@ const GOptionEntry ascli_global_options[] = {
 
 /*** COMMAND OPTIONS ***/
 
-/* for data_catalog_options */
+/* for data_catalog_options and cache_age_options */
 static gchar *optn_cachepath = NULL;
 static gchar *optn_datapath = NULL;
 static gboolean optn_no_cache = FALSE;
@@ -126,6 +126,13 @@ const GOptionEntry data_catalog_options[] = {
 	 /* TRANSLATORS: ascli flag description for: --datapath */
 	  N_ ("Manually selected location of AppStream metadata to scan."),
 	 NULL },
+	{ NULL }
+};
+
+/**
+ * Cache age control for operations that query the metadata pool.
+ */
+const GOptionEntry cache_age_options[] = {
 	{ "no-cache",
 	 0, 0,
 	 G_OPTION_ARG_NONE, &optn_no_cache,
@@ -503,6 +510,7 @@ as_client_run_search (AsCliCommand *cmd, gint argc, gchar **argv)
 
 	opt_context = as_client_new_subcommand_option_context (cmd, find_options);
 	g_option_context_add_main_entries (opt_context, data_catalog_options, NULL);
+	g_option_context_add_main_entries (opt_context, cache_age_options, NULL);
 
 	ret = as_client_option_context_parse (opt_context, cmd, &argc, &argv);
 	if (ret != 0)
@@ -540,6 +548,7 @@ as_client_run_get (AsCliCommand *cmd, gint argc, gchar **argv)
 
 	opt_context = as_client_new_subcommand_option_context (cmd, find_options);
 	g_option_context_add_main_entries (opt_context, data_catalog_options, NULL);
+	g_option_context_add_main_entries (opt_context, cache_age_options, NULL);
 
 	ret = as_client_option_context_parse (opt_context, cmd, &argc, &argv);
 	if (ret != 0)
@@ -569,6 +578,7 @@ as_client_run_dump (AsCliCommand *cmd, gint argc, gchar **argv)
 	AsFormatKind mformat;
 
 	opt_context = as_client_new_subcommand_option_context (cmd, data_catalog_options);
+	g_option_context_add_main_entries (opt_context, cache_age_options, NULL);
 	g_option_context_add_main_entries (opt_context, format_options, NULL);
 
 	ret = as_client_option_context_parse (opt_context, cmd, &argc, &argv);
@@ -579,11 +589,7 @@ as_client_run_dump (AsCliCommand *cmd, gint argc, gchar **argv)
 		value = argv[1];
 
 	mformat = as_format_kind_from_string (optn_format);
-	return ascli_dump_component (optn_cachepath,
-				     optn_datapath,
-				     value,
-				     mformat,
-				     optn_no_cache);
+	return ascli_dump_component (optn_cachepath, optn_datapath, value, mformat, optn_no_cache);
 }
 
 /**
@@ -601,6 +607,7 @@ as_client_run_what_provides (AsCliCommand *cmd, gint argc, gchar **argv)
 
 	opt_context = as_client_new_subcommand_option_context (cmd, find_options);
 	g_option_context_add_main_entries (opt_context, data_catalog_options, NULL);
+	g_option_context_add_main_entries (opt_context, cache_age_options, NULL);
 
 	ret = as_client_option_context_parse (opt_context, cmd, &argc, &argv);
 	if (ret != 0)
@@ -615,7 +622,8 @@ as_client_run_what_provides (AsCliCommand *cmd, gint argc, gchar **argv)
 				    optn_datapath,
 				    vtype,
 				    vvalue,
-				    optn_details);
+				    optn_details,
+				    optn_no_cache);
 }
 
 /**
@@ -632,6 +640,7 @@ as_client_run_list_categories (AsCliCommand *cmd, gint argc, gchar **argv)
 
 	opt_context = as_client_new_subcommand_option_context (cmd, find_options);
 	g_option_context_add_main_entries (opt_context, data_catalog_options, NULL);
+	g_option_context_add_main_entries (opt_context, cache_age_options, NULL);
 
 	ret = as_client_option_context_parse (opt_context, cmd, &argc, &argv);
 	if (ret != 0)
@@ -760,6 +769,7 @@ as_client_run_is_satisfied (AsCliCommand *cmd, gint argc, gchar **argv)
 
 	opt_context = as_client_new_subcommand_option_context (cmd, find_options);
 	g_option_context_add_main_entries (opt_context, data_catalog_options, NULL);
+	g_option_context_add_main_entries (opt_context, cache_age_options, NULL);
 
 	ret = as_client_option_context_parse (opt_context, cmd, &argc, &argv);
 	if (ret != 0)
@@ -799,6 +809,7 @@ as_client_run_check_syscompat (AsCliCommand *cmd, gint argc, gchar **argv)
 
 	opt_context = as_client_new_subcommand_option_context (cmd, check_syscompat_options);
 	g_option_context_add_main_entries (opt_context, data_catalog_options, NULL);
+	g_option_context_add_main_entries (opt_context, cache_age_options, NULL);
 
 	ret = as_client_option_context_parse (opt_context, cmd, &argc, &argv);
 	if (ret != 0)
@@ -987,6 +998,7 @@ as_client_run_sysinfo (AsCliCommand *cmd, gint argc, gchar **argv)
 
 	opt_context = as_client_new_subcommand_option_context (cmd, find_options);
 	g_option_context_add_main_entries (opt_context, data_catalog_options, NULL);
+	g_option_context_add_main_entries (opt_context, cache_age_options, NULL);
 
 	ret = as_client_option_context_parse (opt_context, cmd, &argc, &argv);
 	if (ret != 0)
@@ -997,10 +1009,7 @@ as_client_run_sysinfo (AsCliCommand *cmd, gint argc, gchar **argv)
 		return 1;
 	}
 
-	return ascli_show_sysinfo (optn_cachepath,
-				   optn_datapath,
-				   optn_no_cache,
-				   optn_details);
+	return ascli_show_sysinfo (optn_cachepath, optn_datapath, optn_no_cache, optn_details);
 }
 
 /**
