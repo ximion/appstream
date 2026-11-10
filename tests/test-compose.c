@@ -1629,6 +1629,128 @@ test_compose_locale_qt (void)
 	g_assert_cmpint (as_component_box_len (as_metadata_get_components (mdata_read)), ==, 1);
 }
 
+/**
+ * asx_read_qm_translation_status:
+ *
+ * Write a Qt translation file with a messages section holding @payload into a
+ * fresh unit named @name, and read the translation status of a component that
+ * points to it.
+ */
+static AscResult *
+asx_read_qm_translation_status (const gchar *name,
+				const guint8 *payload,
+				guint32 payload_len,
+				AsComponent **cpt_out)
+{
+	gboolean ret;
+	g_autoptr(GError) error = NULL;
+	g_autoptr(AscResult) cres = NULL;
+	g_autoptr(AsComponent) cpt = NULL;
+	g_autoptr(AsTranslation) tr = NULL;
+	g_autoptr(AscDirectoryUnit) dirunit = NULL;
+	g_autoptr(GByteArray) qm = g_byte_array_new ();
+	g_autofree gchar *root = asx_build_workdir_path (name);
+	g_autofree gchar *qm_dir = g_build_filename (root, "usr", "share", "qtbad", NULL);
+	g_autofree gchar *qm_fname = g_build_filename (qm_dir, "qtbad_de.qm", NULL);
+	const guint8 qm_magic[] = { 0x3c, 0xb8, 0x64, 0x18, 0xca, 0xef, 0x9c, 0x95,
+				    0xcd, 0x21, 0x1c, 0xbf, 0x60, 0xa1, 0xbd, 0xdd };
+	const guint8 section_tag = 0x69; /* messages */
+	const guint32 section_len = GUINT32_TO_BE (payload_len);
+
+	g_byte_array_append (qm, qm_magic, sizeof (qm_magic));
+	g_byte_array_append (qm, &section_tag, 1);
+	g_byte_array_append (qm, (const guint8 *) &section_len, 4);
+	g_byte_array_append (qm, payload, payload_len);
+
+	g_assert_cmpint (g_mkdir_with_parents (qm_dir, 0755), ==, 0);
+	g_file_set_contents (qm_fname, (const gchar *) qm->data, qm->len, &error);
+	g_assert_no_error (error);
+
+	dirunit = asc_directory_unit_new (root);
+	ret = asc_unit_open (ASC_UNIT (dirunit), &error);
+	g_assert_no_error (error);
+	g_assert_true (ret);
+
+	cpt = as_component_new ();
+	as_component_set_id (cpt, "org.example.qtbad");
+	tr = as_translation_new ();
+	as_translation_set_kind (tr, AS_TRANSLATION_KIND_QT);
+	as_translation_set_id (tr, "qtbad/qtbad");
+	as_component_add_translation (cpt, tr);
+
+	cres = asc_result_new ();
+	ret = asc_result_add_component_with_string (cres, cpt, "<testdata>", &error);
+	g_assert_no_error (error);
+	g_assert_true (ret);
+
+	asc_read_translation_status (cres, ASC_UNIT (dirunit), "/usr", 0);
+
+	*cpt_out = g_steal_pointer (&cpt);
+	return g_steal_pointer (&cres);
+}
+
+/**
+ * test_compose_locale_qt_malformed:
+ *
+ * Broken Qt translation files must be rejected, and must neither hang
+ * nor crash the compose run.
+ */
+static void
+test_compose_locale_qt_malformed (void)
+{
+	/* the tag length wraps the read offset back to the start of the section */
+	const guint8 qm_wrap[] = { 0x03, 0xff, 0xff, 0xff, 0xfb };
+	/* the tag length field itself is cut off */
+	const guint8 qm_short_len[] = { 0x03, 0x00, 0x00 };
+	/* the tag is longer than the remaining data */
+	const guint8 qm_long_tag[] = { 0x03, 0x00, 0x00, 0x00, 0x08, 'a', 'b' };
+	/* the obsolete tag's payload is cut off */
+	const guint8 qm_short_obsolete[] = { 0x05, 0x00 };
+	/* valid, but without any translations at all */
+	const guint8 qm_empty[] = { 0x01 };
+	struct {
+		const gchar *name;
+		const guint8 *payload;
+		guint32 len;
+	} broken[] = {
+		{ "l10n-qt-wrap",	    qm_wrap,	       sizeof (qm_wrap)		  },
+		{ "l10n-qt-short-len",	    qm_short_len,      sizeof (qm_short_len)	  },
+		{ "l10n-qt-long-tag",	    qm_long_tag,       sizeof (qm_long_tag)	  },
+		{ "l10n-qt-short-obsolete", qm_short_obsolete, sizeof (qm_short_obsolete) },
+	};
+
+	for (guint i = 0; i < G_N_ELEMENTS (broken); i++) {
+		g_autoptr(AscResult) cres = NULL;
+		g_autoptr(AsComponent) cpt = NULL;
+		GPtrArray *hints;
+
+		cres = asx_read_qm_translation_status (broken[i].name,
+						       broken[i].payload,
+						       broken[i].len,
+						       &cpt);
+		hints = asc_result_get_hints (cres, "org.example.qtbad");
+		g_assert_nonnull (hints);
+		g_assert_cmpint (hints->len, ==, 1);
+		g_assert_cmpstr (asc_hint_get_tag (ASC_HINT (g_ptr_array_index (hints, 0))),
+				 ==,
+				 "translation-status-error");
+		g_assert_cmpint (as_component_get_language (cpt, "de"), ==, -1);
+	}
+
+	/* no strings anywhere must not make us divide by zero */
+	{
+		g_autoptr(AscResult) cres = NULL;
+		g_autoptr(AsComponent) cpt = NULL;
+
+		cres = asx_read_qm_translation_status ("l10n-qt-empty",
+						       qm_empty,
+						       sizeof (qm_empty),
+						       &cpt);
+		asx_assert_no_hints_in_result (cres);
+		g_assert_cmpint (as_component_get_language (cpt, "de"), ==, 0);
+	}
+}
+
 static void
 test_compose_source_locale (void)
 {
@@ -1943,6 +2065,7 @@ main (int argc, char **argv)
 			 test_compose_directory_unit_escape);
 	g_test_add_func ("/AppStream/Compose/LocaleStats", test_compose_locale_stats);
 	g_test_add_func ("/AppStream/Compose/LocaleQt", test_compose_locale_qt);
+	g_test_add_func ("/AppStream/Compose/LocaleQtMalformed", test_compose_locale_qt_malformed);
 	g_test_add_func ("/AppStream/Compose/SourceLocale", test_compose_source_locale);
 	g_test_add_func ("/AppStream/Compose/VideoInfo", test_compose_video_info);
 	g_test_add_func ("/AppStream/Compose/Font", test_compose_font);

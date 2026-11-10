@@ -293,8 +293,12 @@ _read_uint32 (const guint8 *data, guint32 *offset)
 	return GUINT32_FROM_BE (tmp);
 }
 
-static void
-asc_l10n_parse_data_qt (AscLocaleContext *ctx, const gchar *locale, const guint8 *data, guint32 len)
+static gboolean
+asc_l10n_parse_data_qt (AscLocaleContext *ctx,
+			const gchar *locale,
+			const guint8 *data,
+			guint32 len,
+			GError **error)
 {
 	AscLocaleEntry *entry;
 	guint32 m = 0;
@@ -308,15 +312,23 @@ asc_l10n_parse_data_qt (AscLocaleContext *ctx, const gchar *locale, const guint8
 		case ASC_LOCALE_QM_TAG_END:
 			break;
 		case ASC_LOCALE_QM_TAG_OBSOLETE1:
+			if (len - m < 4)
+				goto out_truncated;
 			m += 4;
 			break;
 		case ASC_LOCALE_QM_TAG_TRANSLATION:
 		case ASC_LOCALE_QM_TAG_SOURCE_TEXT:
 		case ASC_LOCALE_QM_TAG_CONTEXT:
 		case ASC_LOCALE_QM_TAG_COMMENT:
+			if (len - m < 4)
+				goto out_truncated;
 			tag_len = _read_uint32 (data, &m);
-			if (tag_len < 0xffffffff)
+			/* 0xffffffff is a null string and has no data */
+			if (tag_len < 0xffffffff) {
+				if (tag_len > len - m)
+					goto out_truncated;
 				m += tag_len;
+			}
 			if (tag == ASC_LOCALE_QM_TAG_TRANSLATION)
 				nstrings++;
 			break;
@@ -331,6 +343,14 @@ asc_l10n_parse_data_qt (AscLocaleContext *ctx, const gchar *locale, const guint8
 	entry->locale = g_strdup (locale);
 	entry->nstrings = nstrings;
 	asc_locale_ctx_add_entry (ctx, entry);
+	return TRUE;
+
+out_truncated:
+	g_set_error_literal (error,
+			     ASC_COMPOSE_ERROR,
+			     ASC_COMPOSE_ERROR_FAILED,
+			     "QM file is invalid, message data is truncated");
+	return FALSE;
 }
 
 static gboolean
@@ -378,7 +398,8 @@ asc_l10n_parse_file_qt (AscLocaleContext *ctx,
 			return FALSE;
 		}
 		if (section == ASC_LOCALE_QM_SECTION_MESSAGES) {
-			asc_l10n_parse_data_qt (ctx, locale, data + m, section_len);
+			if (!asc_l10n_parse_data_qt (ctx, locale, data + m, section_len, error))
+				return FALSE;
 		}
 		m += section_len;
 	}
@@ -539,10 +560,14 @@ asc_read_translation_status (AscResult *cres,
 			continue;
 		}
 
-		/* calculate percentages */
+		/* calculate percentages, translation files may well have no strings at all */
 		for (GList *l = ctx->data; l != NULL; l = l->next) {
+			guint64 pct = 0;
+
 			e = l->data;
-			e->percentage = MIN (e->nstrings * 100 / ctx->max_nstrings, 100);
+			if (ctx->max_nstrings > 0)
+				pct = (guint64) e->nstrings * 100 / ctx->max_nstrings;
+			e->percentage = MIN (pct, 100);
 		}
 
 		/* sort */
