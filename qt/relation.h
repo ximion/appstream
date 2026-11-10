@@ -116,6 +116,9 @@ public:
     static QString compareToSymbolsString(Compare cmp);
 
     static QString controlKindToString(ControlKind ckind);
+    static ControlKind stringToControlKind(const QString &string);
+
+    [[deprecated("Use stringToControlKind() instead")]]
     static ControlKind controlKindFromString(const QString &string);
 
     static QString displaySideKindToString(DisplaySideKind kind);

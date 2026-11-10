@@ -24,6 +24,7 @@
 #include "utils.h"
 #include "agreement.h"
 #include "artifact.h"
+#include "branding.h"
 #include "bundle.h"
 #include "checksum.h"
 #include "component.h"
@@ -126,7 +127,7 @@ void MiscTest::testEnumRoundtrip()
     checkEnumRoundtrip<Relation::ControlKind>("Relation::ControlKind",
                                               Relation::ControlKindTablet,
                                               Relation::controlKindToString,
-                                              Relation::controlKindFromString);
+                                              Relation::stringToControlKind);
     checkEnumRoundtrip<Relation::InternetKind>("Relation::InternetKind",
                                                Relation::InternetKindFirstRun,
                                                Relation::internetKindToString,
@@ -163,6 +164,14 @@ void MiscTest::testEnumRoundtrip()
                                         Agreement::KindPrivacy,
                                         Agreement::kindToString,
                                         Agreement::stringToKind);
+    checkEnumRoundtrip<Branding::ColorKind>("Branding::ColorKind",
+                                            static_cast<int>(Branding::ColorKind::Primary),
+                                            Branding::colorKindToString,
+                                            Branding::stringToColorKind);
+    checkEnumRoundtrip<Branding::ColorSchemeKind>("Branding::ColorSchemeKind",
+                                                  static_cast<int>(Branding::ColorSchemeKind::Dark),
+                                                  Branding::colorSchemeToString,
+                                                  Branding::stringToColorScheme);
     // NOTE: stops at Yaml, not DesktopEntry — the C as_format_kind_{to,from}_string
     // pair does not handle "desktop-entry" in either direction.
     checkEnumRoundtrip<Metadata::FormatKind>("Metadata::FormatKind",

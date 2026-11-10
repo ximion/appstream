@@ -115,9 +115,14 @@ QString Relation::controlKindToString(Relation::ControlKind ckind)
     return QString::fromUtf8(as_control_kind_to_string(static_cast<AsControlKind>(ckind)));
 }
 
-Relation::ControlKind Relation::controlKindFromString(const QString &string)
+Relation::ControlKind Relation::stringToControlKind(const QString &string)
 {
     return static_cast<ControlKind>(as_control_kind_from_string(qPrintable(string)));
+}
+
+Relation::ControlKind Relation::controlKindFromString(const QString &string)
+{
+    return stringToControlKind(string);
 }
 
 QString Relation::displaySideKindToString(Relation::DisplaySideKind kind)

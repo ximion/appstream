@@ -92,9 +92,14 @@ QString Branding::colorKindToString(Branding::ColorKind colorKind)
     return valueWrap(as_color_kind_to_string(static_cast<AsColorKind>(colorKind)));
 }
 
-Branding::ColorKind Branding::colorKindfromString(const QString &string)
+Branding::ColorKind Branding::stringToColorKind(const QString &string)
 {
     return static_cast<Branding::ColorKind>(as_color_kind_from_string(qPrintable(string)));
+}
+
+Branding::ColorKind Branding::colorKindfromString(const QString &string)
+{
+    return stringToColorKind(string);
 }
 
 QString Branding::colorSchemeToString(ColorSchemeKind colorScheme)
@@ -102,10 +107,15 @@ QString Branding::colorSchemeToString(ColorSchemeKind colorScheme)
     return valueWrap(as_color_scheme_kind_to_string(static_cast<AsColorSchemeKind>(colorScheme)));
 }
 
-Branding::ColorSchemeKind Branding::colorSchemefromString(const QString &string)
+Branding::ColorSchemeKind Branding::stringToColorScheme(const QString &string)
 {
     return static_cast<Branding::ColorSchemeKind>(
         as_color_scheme_kind_from_string(qPrintable(string)));
+}
+
+Branding::ColorSchemeKind Branding::colorSchemefromString(const QString &string)
+{
+    return stringToColorScheme(string);
 }
 
 void Branding::setColor(Branding::ColorKind kind,
