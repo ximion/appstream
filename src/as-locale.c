@@ -362,7 +362,10 @@ as_locale_canonicalize (const gchar *locale)
 	gsize size = strlen (locale) + 1;
 	gchar *result = g_malloc (size);
 
-	as_locale_canonicalize_buf (locale, result, size);
+	/* this can't fail, as the canonical form is never longer than @locale - but if it
+	 * ever does, we would rather return the locale unchanged than uninitialized memory */
+	if (G_UNLIKELY (!as_locale_canonicalize_buf (locale, result, size)))
+		memcpy (result, locale, size);
 	return result;
 }
 
