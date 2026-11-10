@@ -89,7 +89,7 @@ as_desktop_entry_add_issue (GPtrArray *issues, const gchar *tag, const gchar *fo
  * as_get_locale_from_key:
  */
 static gchar *
-as_get_locale_from_key (const gchar *key)
+as_get_locale_from_key (const gchar *key, GPtrArray *issues)
 {
 	gchar *tmp1;
 	gchar *tmp2;
@@ -113,6 +113,14 @@ as_get_locale_from_key (const gchar *key)
 	/* filter out cruft */
 	if (as_locale_is_cruft (locale))
 		return NULL;
+
+	/* the key can contain anything, even invalid UTF-8, and we would write the
+	 * locale verbatim to the catalog later, so only accept actual locale names */
+	if (!as_locale_is_posix (locale)) {
+		g_autofree gchar *key_safe = g_strescape (key, NULL);
+		as_desktop_entry_add_issue (issues, "desktop-entry-locale-invalid", "%s", key_safe);
+		return NULL;
+	}
 
 	delim = g_strrstr (locale, ".");
 	if (delim != NULL) {
@@ -413,7 +421,7 @@ as_desktop_entry_parse_data (AsComponent *cpt,
 			continue;
 
 		g_strstrip (key);
-		locale_posix = as_get_locale_from_key (key);
+		locale_posix = as_get_locale_from_key (key, issues);
 
 		/* skip invalid stuff */
 		if (locale_posix == NULL)

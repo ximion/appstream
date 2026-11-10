@@ -158,6 +158,12 @@ AscHintTagStatic asc_hint_tag_list[] =  {
 	  "Unable to read translation status data: {{msg}}",
 	},
 
+	{ "translation-locale-invalid",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  "The translation file <code>{{fname}}</code> was ignored, because its locale is not a valid locale name. "
+	  "Translation files should be named after their locale, like <code>de</code>, <code>pt_BR</code> or <code>sr@latin</code>."
+	},
+
 	{ "translations-not-found",
 	  AS_ISSUE_SEVERITY_WARNING,
 	  "Unable to add languages information, even though a <code>translation</code> tag was present in the MetaInfo file. "

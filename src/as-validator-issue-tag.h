@@ -928,6 +928,12 @@ static AsValidatorIssueTag as_validator_issue_tag_list[] =  {
 	  N_("The value of this desktop-entry field contains invalid or non-printable UTF-8 characters, which can not be displayed properly."),
 	},
 
+	{ "desktop-entry-locale-invalid",
+	  AS_ISSUE_SEVERITY_WARNING,
+	  N_("The locale of this localized desktop-entry key is not a valid POSIX locale name, so the key was ignored. "
+	     "Locales should look like `de`, `pt_BR` or `sr@latin`, as described in the Desktop Entry Specification."),
+	},
+
 	{ "desktop-entry-value-quoted",
 	  AS_ISSUE_SEVERITY_WARNING,
 	  N_("This desktop-entry field value is quoted, which is likely unintentional."),

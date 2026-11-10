@@ -269,15 +269,60 @@ test_locale_conversion (void)
 
 	g_assert_true (as_locale_is_posix ("de_DE"));
 	g_assert_true (as_locale_is_posix ("en"));
+	g_assert_true (as_locale_is_posix ("ast"));
 	g_assert_true (as_locale_is_posix ("ca@valencia"));
-	g_assert_true (as_locale_is_posix (NULL));
+	g_assert_true (as_locale_is_posix ("sr_RS.UTF-8@latin"));
+	g_assert_true (as_locale_is_posix ("sr@ijekavianlatin"));
+	g_assert_true (as_locale_is_posix ("de_DE.ISO-8859-15@euro"));
+	g_assert_true (as_locale_is_posix ("zh_Hans"));
+	g_assert_true (as_locale_is_posix ("zh_Hans_CN"));
+	g_assert_true (as_locale_is_posix ("es_419"));
+	g_assert_true (as_locale_is_posix ("C"));
+	g_assert_true (as_locale_is_posix ("C.UTF-8"));
+	g_assert_true (as_locale_is_posix ("POSIX"));
+	g_assert_false (as_locale_is_posix (NULL));
+	g_assert_false (as_locale_is_posix (""));
 	g_assert_false (as_locale_is_posix ("de-DE"));
+	g_assert_false (as_locale_is_posix ("x-test"));
+	g_assert_false (as_locale_is_posix ("d"));
+	g_assert_false (as_locale_is_posix ("deutsch"));
+	g_assert_false (as_locale_is_posix ("de_"));
+	g_assert_false (as_locale_is_posix ("de_D"));
+	g_assert_false (as_locale_is_posix ("de_DE_DE"));
+	g_assert_false (as_locale_is_posix ("de_DE."));
+	g_assert_false (as_locale_is_posix ("de@"));
+	g_assert_false (as_locale_is_posix ("de@latin.UTF-8"));
+	g_assert_false (as_locale_is_posix ("C_DE"));
+	g_assert_false (as_locale_is_posix ("LC_MESSAGES"));
+	g_assert_false (as_locale_is_posix ("de DE"));
+	g_assert_false (as_locale_is_posix ("de/DE"));
+	g_assert_false (as_locale_is_posix ("\x82x"));
+	g_assert_false (as_locale_is_posix ("de_\x82"));
+	g_assert_false (as_locale_is_posix ("@\x82_DE"));
+	g_assert_false (as_locale_is_posix ("d\xc3\xa9"));
+	g_assert_false (as_locale_is_posix (
+	    "de@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"));
 
-	g_assert_false (as_locale_is_bcp47 ("de_DE"));
-	g_assert_false (as_locale_is_bcp47 ("ca@valencia"));
 	g_assert_true (as_locale_is_bcp47 ("en"));
 	g_assert_true (as_locale_is_bcp47 ("de-DE"));
-	g_assert_true (as_locale_is_bcp47 (NULL));
+	g_assert_true (as_locale_is_bcp47 ("zh-Hant-TW"));
+	g_assert_true (as_locale_is_bcp47 ("es-419"));
+	g_assert_true (as_locale_is_bcp47 ("ca-ES-valencia"));
+	g_assert_true (as_locale_is_bcp47 ("x-test"));
+	g_assert_true (as_locale_is_bcp47 ("i-klingon"));
+	g_assert_false (as_locale_is_bcp47 (NULL));
+	g_assert_false (as_locale_is_bcp47 (""));
+	g_assert_false (as_locale_is_bcp47 ("de_DE"));
+	g_assert_false (as_locale_is_bcp47 ("ca@valencia"));
+	g_assert_false (as_locale_is_bcp47 ("C"));
+	g_assert_false (as_locale_is_bcp47 ("x"));
+	g_assert_false (as_locale_is_bcp47 ("abcd"));
+	g_assert_false (as_locale_is_bcp47 ("de-"));
+	g_assert_false (as_locale_is_bcp47 ("de--DE"));
+	g_assert_false (as_locale_is_bcp47 ("de-abcdefghi"));
+	g_assert_false (as_locale_is_bcp47 ("de-DE.UTF-8"));
+	g_assert_false (as_locale_is_bcp47 ("\x82x"));
+	g_assert_false (as_locale_is_bcp47 ("de-\x82"));
 }
 
 /**

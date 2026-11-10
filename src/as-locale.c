@@ -620,65 +620,135 @@ as_utils_posix_locale_to_bcp47 (const gchar *locale)
 	return as_locale_canonicalize (locale);
 }
 
+static gsize
+as_ascii_alpha_span (const gchar *str)
+{
+	gsize len = 0;
+	while (g_ascii_isalpha (str[len]))
+		len++;
+	return len;
+}
+
+static gsize
+as_ascii_alnum_span (const gchar *str)
+{
+	gsize len = 0;
+	while (g_ascii_isalnum (str[len]))
+		len++;
+	return len;
+}
+
 /**
  * as_locale_is_posix:
  * @locale: (nullable): The locale to test.
  *
- * Guess if the given locale is in POSIX format, or whether it is
- * in another format, e.g. BCP47.
+ * Check if @locale is a well-formed POSIX locale name, like "de", "pt_BR",
+ * "zh_Hans" or "sr_RS.UTF-8@latin". "C" and "POSIX" are accepted too.
  *
- * Returns: %TRUE if we have a POSIX locale, %FALSE otherwise.
+ * Only ASCII letters, digits and a few separators can pass this test, so a
+ * locale name from an untrusted place (like a file name in a package) is
+ * safe to store and write anywhere once it passed.
+ *
+ * Returns: %TRUE if @locale is a valid POSIX locale name.
  */
 gboolean
 as_locale_is_posix (const gchar *locale)
 {
-	/* we assume NULL is valid, for compatibility */
-	if (locale == NULL)
-		return TRUE;
+	const gchar *p = locale;
+	gsize len;
 
-	for (guint i = 0; locale[i] != '\0'; i++) {
-		if (locale[i] == '-')
+	if (locale == NULL || strlen (locale) >= AS_LOCALE_BUF_SIZE)
+		return FALSE;
+
+	len = as_ascii_alpha_span (p);
+	if (as_str_equal_n (p, len, "C") || as_str_equal_n (p, len, "POSIX")) {
+		/* the untranslated locale has no territory, but may still have a codeset */
+		p += len;
+	} else {
+		if (len < 2 || len > 3)
 			return FALSE;
-		if (locale[i] == '_')
-			return TRUE;
-		if (locale[i] == '@')
-			return TRUE;
+		p += len;
+
+		/* the territory, which may be preceded by a script, as in "zh_Hans_CN" */
+		for (guint i = 0; i < 2 && *p == '_'; i++) {
+			len = as_ascii_alnum_span (p + 1);
+			if (i == 0 && len == 4 && as_ascii_is_alpha_n (p + 1, 4)) {
+				p += 1 + len;
+				continue;
+			}
+			if (!(len == 2 && as_ascii_is_alpha_n (p + 1, 2)) &&
+			    !(len == 3 && as_ascii_is_digit_n (p + 1, 3)))
+				return FALSE;
+			p += 1 + len;
+			break;
+		}
 	}
 
-	/* if we are here, the string contained no hyphens (which would indicate BCP47),
-	 * but also no underscores or @ (which would indicate POSIX), so it may be something
-	 * like "de", for which we simply assume it is a POSIX locale. */
-	return TRUE;
+	/* codeset, e.g. "UTF-8" or "ISO-8859-15" */
+	if (*p == '.') {
+		len = 0;
+		while (g_ascii_isalnum (p[1 + len]) || p[1 + len] == '-')
+			len++;
+		if (len == 0)
+			return FALSE;
+		p += 1 + len;
+	}
+
+	/* modifier, e.g. "latin" or "valencia" */
+	if (*p == '@') {
+		len = as_ascii_alnum_span (p + 1);
+		if (len == 0)
+			return FALSE;
+		p += 1 + len;
+	}
+
+	return *p == '\0';
 }
 
 /**
  * as_locale_is_bcp47:
  * @locale: (nullable): The locale to test.
  *
- * Guess if the given locale is in BCP47 format.
+ * Check if @locale is a well-formed BCP47 language tag, like "de",
+ * "pt-BR", "zh-Hant-TW" or "x-test".
  *
- * Returns: %TRUE if we likely have a BCP47 locale, %FALSE otherwise.
+ * We only check the basic structure, not whether each subtag is in its
+ * right place or actually registered. Just like for as_locale_is_posix(),
+ * only ASCII letters, digits and separators can pass this test.
+ *
+ * Returns: %TRUE if @locale is a valid BCP47 language tag.
  */
 gboolean
 as_locale_is_bcp47 (const gchar *locale)
 {
-	/* we assume NULL is valid, for compatibility */
-	if (locale == NULL)
-		return TRUE;
+	const gchar *p = locale;
+	gsize len;
 
-	for (guint i = 0; locale[i] != '\0'; i++) {
-		if (locale[i] == '-')
-			return TRUE;
-		if (locale[i] == '_')
+	if (locale == NULL || strlen (locale) >= AS_LOCALE_BUF_SIZE)
+		return FALSE;
+
+	/* the language has 2-3 letters, or 5-8 for registered ones, while
+	 * private use ("x-...") and grandfathered ("i-...") tags start with a singleton */
+	len = as_ascii_alpha_span (p);
+	if (len == 1) {
+		if (g_ascii_tolower (*p) != 'x' && g_ascii_tolower (*p) != 'i')
 			return FALSE;
-		if (locale[i] == '@')
+		if (p[1] != '-')
 			return FALSE;
+	} else if (len < 2 || len == 4 || len > 8) {
+		return FALSE;
+	}
+	p += len;
+
+	/* anything after that are subtags of up to 8 letters and digits */
+	while (*p == '-') {
+		len = as_ascii_alnum_span (p + 1);
+		if (len == 0 || len > 8)
+			return FALSE;
+		p += 1 + len;
 	}
 
-	/* if we are here, the string contained no hyphens (which would indicate BCP47),
-	 * but also no underscores or @ (which would indicate POSIX), so it may be something
-	 * like "de", for which we simply assume it is a BCP47 locale. */
-	return TRUE;
+	return *p == '\0';
 }
 
 /**

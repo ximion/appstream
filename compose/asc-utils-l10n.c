@@ -32,6 +32,7 @@
 #include <glib.h>
 
 #include "as-utils-private.h"
+#include "as-locale-private.h"
 #include "asc-globals.h"
 
 typedef struct {
@@ -44,6 +45,8 @@ typedef struct {
 	guint max_nstrings;
 	GList *data;
 	GPtrArray *translations; /* no ref */
+	AscResult *cres;	 /* no ref */
+	AsComponent *cpt;	 /* no ref */
 } AscLocaleContext;
 
 static AscLocaleEntry *
@@ -92,6 +95,36 @@ asc_locale_entry_sort_cb (gconstpointer a, gconstpointer b)
 }
 
 G_DEFINE_AUTOPTR_CLEANUP_FUNC (AscLocaleContext, asc_locale_ctx_free)
+
+/**
+ * asc_l10n_locale_check:
+ *
+ * Ensure the strings we get are actually locale, and complain
+ * in case they aren't.
+ */
+static gboolean
+asc_l10n_locale_check (AscLocaleContext *ctx,
+		       const gchar *locale,
+		       const gchar *fname,
+		       gboolean allow_bcp47)
+{
+	g_autofree gchar *fname_safe = NULL;
+
+	if (as_locale_is_posix (locale))
+		return TRUE;
+	if (allow_bcp47 && as_locale_is_bcp47 (locale))
+		return TRUE;
+
+	/* the filename has the same bad bytes in it, so we can't put it in the hint as-is */
+	fname_safe = g_strescape (fname, NULL);
+	asc_result_add_hint (ctx->cres,
+			     ctx->cpt,
+			     "translation-locale-invalid",
+			     "fname",
+			     fname_safe,
+			     NULL);
+	return FALSE;
+}
 
 typedef struct {
 	guint32 magic;
@@ -158,6 +191,30 @@ asc_l10n_parse_file_gettext (AscLocaleContext *ctx,
 	return TRUE;
 }
 
+/**
+ * asc_l10n_get_lc_messages_locale:
+ * @path: a path relative to the prefix, e.g. "share/locale/de/LC_MESSAGES/foo.mo"
+ * @fn: the translation file name we expect, e.g. "foo.mo"
+ *
+ * The "*" in our match patterns also matches slashes, so check that @path really
+ * is share/locale*\/${locale}/LC_MESSAGES/${fn} before taking the locale from it.
+ *
+ * Returns: (transfer full) (nullable): the locale part of @path, or %NULL if @path has a different form.
+ */
+static gchar *
+asc_l10n_get_lc_messages_locale (const gchar *path, const gchar *fn)
+{
+	g_auto(GStrv) segments = g_strsplit (path, G_DIR_SEPARATOR_S, -1);
+
+	if (g_strv_length (segments) != 5)
+		return NULL;
+	if (g_strcmp0 (segments[0], "share") != 0 || !g_str_has_prefix (segments[1], "locale") ||
+	    g_strcmp0 (segments[3], "LC_MESSAGES") != 0 || g_strcmp0 (segments[4], fn) != 0)
+		return NULL;
+
+	return g_strdup (segments[2]);
+}
+
 static gboolean
 asc_l10n_search_translations_gettext (AscLocaleContext *ctx,
 				      AscUnit *unit,
@@ -183,13 +240,18 @@ asc_l10n_search_translations_gettext (AscLocaleContext *ctx,
 		/* try to find locale data */
 		for (guint j = 0; j < contents->len; j++) {
 			const gchar *fname = g_ptr_array_index (contents, j);
-			g_auto(GStrv) segments = NULL;
+			g_autofree gchar *locale = NULL;
 			if (!g_pattern_match_simple (match_path, fname))
 				continue;
 
 			/* fetch locale name from path */
-			segments = g_strsplit (fname + prefix_len, G_DIR_SEPARATOR_S, 4);
-			if (!asc_l10n_parse_file_gettext (ctx, unit, segments[2], fname, error))
+			locale = asc_l10n_get_lc_messages_locale (fname + prefix_len, fn);
+			if (locale == NULL)
+				continue;
+			if (!asc_l10n_locale_check (ctx, locale, fname, FALSE))
+				continue;
+
+			if (!asc_l10n_parse_file_gettext (ctx, unit, locale, fname, error))
 				return FALSE;
 		}
 	}
@@ -361,15 +423,20 @@ asc_l10n_search_translations_qt (AscLocaleContext *ctx,
 						       fn,
 						       NULL);
 			for (guint j = 0; j < contents->len; j++) {
-				g_auto(GStrv) segments = NULL;
+				g_autofree gchar *locale = NULL;
 				const gchar *fname = g_ptr_array_index (contents, j);
 				if (!g_str_has_suffix (fname, ".qm"))
 					continue;
 				if (!g_pattern_match_simple (match_path, fname))
 					continue;
 
-				segments = g_strsplit (fname + prefix_len, G_DIR_SEPARATOR_S, 4);
-				if (!asc_l10n_parse_file_qt (ctx, unit, segments[2], fname, error))
+				locale = asc_l10n_get_lc_messages_locale (fname + prefix_len, fn);
+				if (locale == NULL)
+					continue;
+				if (!asc_l10n_locale_check (ctx, locale, fname, TRUE))
+					continue;
+
+				if (!asc_l10n_parse_file_qt (ctx, unit, locale, fname, error))
 					return FALSE;
 			}
 		} else {
@@ -377,24 +444,30 @@ asc_l10n_search_translations_qt (AscLocaleContext *ctx,
 			 * and     ${prefix}/share/${hint}/${locale}.qm */
 
 			g_autofree gchar *qm_root = NULL;
+			gsize qm_root_len;
 			qm_root = g_build_filename (prefix, "share", location_hint, NULL);
+			qm_root_len = strlen (qm_root);
 			for (guint j = 0; j < contents->len; j++) {
 				g_autofree gchar *locale = NULL;
-				gchar *tmp;
 				const gchar *fname = g_ptr_array_index (contents, j);
 				if (!g_str_has_prefix (fname, qm_root))
 					continue;
 				if (!g_str_has_suffix (fname, ".qm"))
 					continue;
-				locale = g_strdup (fname + strlen (qm_root) + 1);
+
+				/* the prefix check alone would also match e.g. ${hint}foo/de.qm,
+				 * and the locale must not have a directory part */
+				if (fname[qm_root_len] != '_' &&
+				    fname[qm_root_len] != G_DIR_SEPARATOR)
+					continue;
+				locale = g_strdup (fname + qm_root_len + 1);
+				if (strchr (locale, G_DIR_SEPARATOR) != NULL)
+					continue;
 				g_strdelimit (locale, ".", '\0');
-				/* tmp == NULL means we have the ${hint}/${locale}.qm form */
-				tmp = g_strstr_len (locale, -1, "/");
-				if (!asc_l10n_parse_file_qt (ctx,
-							     unit,
-							     tmp == NULL ? locale : tmp + 1,
-							     fname,
-							     error))
+				if (!asc_l10n_locale_check (ctx, locale, fname, TRUE))
+					continue;
+
+				if (!asc_l10n_parse_file_qt (ctx, unit, locale, fname, error))
 					return FALSE;
 			}
 		}
@@ -440,6 +513,8 @@ asc_read_translation_status (AscResult *cres,
 
 		ctx = asc_locale_ctx_new ();
 		ctx->translations = as_component_get_translations (cpt);
+		ctx->cres = cres;
+		ctx->cpt = cpt;
 
 		/* skip if we have no translation hints */
 		if (ctx->translations->len == 0)
