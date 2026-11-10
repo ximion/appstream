@@ -1,3 +1,35 @@
+Version 1.2.3
+~~~~~~~~~~~~~
+Released: 2026-11-10
+
+Features:
+ * search: Make fulltext token search a bit more space and time-efficient
+ * xml: Leave out translations we don't need while parsing
+ * Reduce allocations in as_locale_is_compatible
+ * Avoid some needless copying and folding when writing the cache
+ * stemmer: Cache stems in-memory instead of recreating them every time
+
+Bugfixes:
+ * release: Don't drop catalog descriptions when reading other translations
+ * cache: Do not free a the GError we propagate to the caller
+ * Reject loading bundles that do not have an explicit type
+ * compose: Actually add the bundle of a unit to its components
+ * meson: compose: Run the pkgconf file fixup in the global build root
+ * bundle: Add back support for Limba
+ * yaml: Handle translated screenshot media like the XML reader does
+ * Split words properly when tokenizing values with + or -
+ * Validate incoming locale strings more strictly before passing them on
+ * compose: Reject Qt locale with non-POSIX names
+ * compose: Fix potential crashes when encounterim bad QM translations
+ * cli: Fix not used `--datapath` option
+ * cli: Make --no-cache work and reject a bad --datapath
+
+Miscellaneous:
+ * Move locale-related code into its own unit
+
+Contributors:
+ Alexander Vanhee, LeeJiEun, Matthias Klumpp, Vladimir Romanov
+
 Version 1.2.2
 ~~~~~~~~~~~~~
 Released: 2026-10-28
