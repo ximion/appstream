@@ -27,7 +27,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2026-10-26 10:22+0100\n"
+"POT-Creation-Date: 2026-11-10 20:12+0100\n"
 "PO-Revision-Date: 2024-08-13 19:09+0000\n"
 "Last-Translator: \"Ícar N. S.\" <icar.nin@pm.me>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/appstream/translations/ca/>\n"
@@ -54,7 +54,7 @@ msgstr "AppStream és una especificació de metadades que permet als components 
 msgid "The <em>appstreamcli</em> command-line tool allows to read, write, and transform AppStream XML or YAML metadata as well as to validate it for compliance with the specification. It also provides easy access to the system metadata pool, for example to query for software that provides a specific Mediatype handler or for installing software by its component identifier."
 msgstr "L'eina de línia d'ordres <em>appstreamcli</em> permet llegir, escriure i transformar metadades APPStream XML o YAML, així com validar-les per al compliment de l'especificació. També proporciona un fàcil accés al conjunt de metadades del sistema, per exemple per a consultar programari que proporciona un controlador de Mediatype específic o per a instal·lar programari pel seu identificador de components."
 
-#: src/as-cache.c:935
+#: src/as-cache.c:1010
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "L'àrea d'emmagatzematge temporal «%s» no és d'escriptura."
@@ -1491,29 +1491,29 @@ msgstr "Microsoft Windows"
 #. provide a list of words in your language that people are likely
 #. to include in a search but that should normally be ignored in
 #. the search.
-#: src/as-pool.c:101
+#: src/as-pool.c:102
 msgid "app;application;package;program;programme;suite;tool"
 msgstr "app;programari;paquet;aplicació;programa;joc;eina"
 
-#: src/as-pool.c:1236
+#: src/as-pool.c:1237
 msgid "Metadata files have errors:"
 msgstr "Els fitxers de metadades tenen errors:"
 
-#: src/as-pool.c:2568
+#: src/as-pool.c:2565
 msgid "Group"
 msgstr "Grup"
 
-#: src/as-pool.c:2623
+#: src/as-pool.c:2620
 msgid "Iconsets"
 msgstr "Conjunts d'icones"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
-#: src/as-pool.c:2671
+#: src/as-pool.c:2668
 msgid "Data from locally installed software"
 msgstr "Dades del programari instal·lat localment"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
-#: src/as-pool.c:2674
+#: src/as-pool.c:2671
 msgid "Software catalog data"
 msgstr "Dades del catàleg de programari"
 
@@ -1557,7 +1557,7 @@ msgstr "Microprogramari en temps d'execució"
 msgid "Flashed Firmware"
 msgstr "Microprogramari flaix"
 
-#: src/as-provided.c:158 tools/ascli-actions-misc.c:1016
+#: src/as-provided.c:158 tools/ascli-actions-misc.c:1019
 msgid "Component"
 msgstr "Component"
 
@@ -1854,25 +1854,25 @@ msgid "Satisfiability check for relation items of type '%s' is not implemented y
 msgstr "Encara no s'ha implementat la comprovació de satisfacció per als elements de relació de tipus «%s»."
 
 #. TRANSLATORS: The ODRS review server rejected our request, %s is the error message
-#: src/as-reviews-client.c:976 src/as-reviews-client.c:1069
+#: src/as-reviews-client.c:977 src/as-reviews-client.c:1070
 #, c-format
 msgid "The reviews server rejected the request: %s"
 msgstr ""
 
 #. TRANSLATORS: We failed to communicate with the ODRS review server, %s is an error message
-#: src/as-reviews-client.c:983
+#: src/as-reviews-client.c:984
 #, c-format
 msgid "Unable to communicate with the reviews server: %s"
 msgstr ""
 
-#: src/as-reviews-client.c:1070
+#: src/as-reviews-client.c:1071
 #, fuzzy
 #| msgid "Unknown"
 msgid "Unknown reason"
 msgstr "Desconegut"
 
 #. TRANSLATORS: We failed to fetch a software rating from the ODRS review server
-#: src/as-reviews-client.c:1247
+#: src/as-reviews-client.c:1248
 #, fuzzy, c-format
 #| msgid "Unable to find component matching %s!"
 msgid "Unable to fetch software rating: %s"
@@ -2741,282 +2741,286 @@ msgid "The value of this desktop-entry field contains invalid or non-printable U
 msgstr "El valor d'aquest camp d'entrada de l'escriptori conté caràcters UTF-8 no vàlids o no imprimibles, que no es poden mostrar correctament."
 
 #: src/as-validator-issue-tag.h:933
+msgid "The locale of this localized desktop-entry key is not a valid POSIX locale name, so the key was ignored. Locales should look like `de`, `pt_BR` or `sr@latin`, as described in the Desktop Entry Specification."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:939
 msgid "This desktop-entry field value is quoted, which is likely unintentional."
 msgstr "El valor d'aquest camp d'entrada de l'escriptori està entrecometes, cosa que probablement no és intencionada."
 
-#: src/as-validator-issue-tag.h:938
+#: src/as-validator-issue-tag.h:944
 msgid "This desktop-entry file has the 'Hidden' property set. This is wrong for vendor-installed .desktop files, and nullifies all effects this .desktop file has (including MIME associations), which most certainly is not intentional."
 msgstr "Aquest fitxer desktop-entry té la propietat 'Hidden' establerta. Això és incorrecte per als fitxers .desktop instal·lats pel proveïdor, i anul·la tots els efectes que té aquest fitxer .desktop (incloent-hi les associacions MIME), cosa que segurament no és intencional."
 
-#: src/as-validator-issue-tag.h:944
+#: src/as-validator-issue-tag.h:950
 msgid "This desktop-entry file has the 'OnlyShowIn' property set with an empty value. This might not be intended, as this will hide the application from all desktops. If you do want to hide the application from all desktops, using 'NoDisplay=true' is more explicit."
 msgstr "Aquest fitxer d'entrada d'escriptori té la propietat 'OnlyShowIn' establerta amb un valor buit. Aquesta podria no ser la intenció, ja que amagarà l'aplicació de tots els escriptoris. Si voleu ocultar l'aplicació de tots els escriptoris, utilitzeu 'NoDisplay=true' que és més explícit."
 
-#: src/as-validator-issue-tag.h:950
+#: src/as-validator-issue-tag.h:956
 msgid "No AppStream metadata was found in this directory or directory tree."
 msgstr "No s'ha trobat cap metadada appStream en aquest directori o arbre de directoris."
 
 #. pedantic because not everything which has metadata is an application
-#: src/as-validator-issue-tag.h:955
+#: src/as-validator-issue-tag.h:961
 msgid "No XDG applications directory found."
 msgstr "No s'ha trobat cap directori d'aplicacions XDG."
 
-#: src/as-validator-issue-tag.h:960
+#: src/as-validator-issue-tag.h:966
 msgid "The metainfo file is stored in a legacy path. Please place it in `/usr/share/metainfo/`."
 msgstr "El fitxer metainfo s'emmagatzema en un camí heretat. Poseu-lo a «/usr/share/metainfo/»."
 
-#: src/as-validator-issue-tag.h:965
+#: src/as-validator-issue-tag.h:971
 msgid "The metainfo file specifies multiple components. This is not allowed."
 msgstr "El fitxer metainfo especifica diversos components. Això no està permès."
 
-#: src/as-validator-issue-tag.h:970
+#: src/as-validator-issue-tag.h:976
 msgid "The releases are not sorted in a latest to oldest version order. This is required as some tools will assume that the latest version is always at the top. Sorting releases also increases overall readability of the metainfo file."
 msgstr "Les versions no s'ordenen en una última ordre de versió antiga. Això és necessari, ja que algunes eines suposaran que l'última versió sempre està a la part superior. Ordenar les versions també augmenta la llegibilitat general del fitxer metainfo."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
-#: src/as-validator-issue-tag.h:978
+#: src/as-validator-issue-tag.h:984
 msgid "The type of the releases block is invalid. It needs to either `embedded` (the default) or `external`."
 msgstr "El tipus del bloc de llançaments no és vàlid. Necessita o bé `embedded` (el predeterminat) o `external`."
 
-#: src/as-validator-issue-tag.h:983
+#: src/as-validator-issue-tag.h:989
 msgid "The URL to an external release metadata file is insecure. This is not allowed, please use HTTPS URLs only."
 msgstr "L'URL a un fitxer extern de metadades de llançaments és insegur. Això no està permès, si us plau, utilitzeu només URL HTTPS."
 
-#: src/as-validator-issue-tag.h:988
+#: src/as-validator-issue-tag.h:994
 msgid "Failed to download release metadata."
 msgstr "No s'han pogut baixar les metadades de llançament."
 
-#: src/as-validator-issue-tag.h:993
+#: src/as-validator-issue-tag.h:999
 msgid "A local release metadata file was not found. It is strongly recommended to validate this metadata together with the main MetaInfo file."
 msgstr "No s'ha trobat cap fitxer de metadades de llançament localment. És molt recomanable validar aquestes metadades juntament amb el fitxer principal MetaInfo."
 
-#: src/as-validator-issue-tag.h:999
+#: src/as-validator-issue-tag.h:1005
 msgid "The value set as release urgency is not a known urgency value."
 msgstr "El valor establert com a urgència de versió no és un valor d'urgència conegut."
 
-#: src/as-validator-issue-tag.h:1004
+#: src/as-validator-issue-tag.h:1010
 msgid "The value set as release type is invalid."
 msgstr "El valor definit com a tipus de versió no és vàlid."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1010
+#: src/as-validator-issue-tag.h:1016
 msgid "The release is missing the `version` property."
 msgstr "Aquesta versió no té la propietat `version`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1016
+#: src/as-validator-issue-tag.h:1022
 #, fuzzy
 msgid "The release entry is missing either the `date` (preferred) or the `timestamp` property."
 msgstr "Aquesta versió no té la propietat `date` (preferida) o la propietat `timestamp`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1022
+#: src/as-validator-issue-tag.h:1028
 msgid "The release entry is missing the `date` property. Ensure to add it before publishing the snapshot release."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:1027
+#: src/as-validator-issue-tag.h:1033
 msgid "The release timestamp is invalid."
 msgstr "La data de publicació no és vàlida."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1033
+#: src/as-validator-issue-tag.h:1039
 msgid "The release description must be put inside a `description` tag"
 msgstr "La descripció del llançament s'ha de posar dins d'una etiqueta `description`"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1039
+#: src/as-validator-issue-tag.h:1045
 msgid "The value set as artifact type is invalid. Must be either `source` or `binary`."
 msgstr "El conjunt de valors com a tipus d'artefacte no és vàlid. Ha de ser «source» o «binary»."
 
-#: src/as-validator-issue-tag.h:1044
+#: src/as-validator-issue-tag.h:1050
 msgid "The value set as artifact bundle type is invalid."
 msgstr "El conjunt de valors com a tipus de paquet d'artefactes no és vàlid."
 
-#: src/as-validator-issue-tag.h:1049
+#: src/as-validator-issue-tag.h:1055
 msgid "The platform triplet for this release is invalid. It must be in the form of `architecture-oskernel-osenv` - refer to the AppStream documentation or information on normalized GNU triplets for more information and valid fields."
 msgstr "El triplet de plataforma per a aquesta versió no és vàlid. Ha de ser en forma d’«architecture-oskernel-osenv» - consulteu la documentació d'AppStream o informació sobre els triplets GNU normalitzats per a obtenir més informació i camps vàlids."
 
-#: src/as-validator-issue-tag.h:1056
+#: src/as-validator-issue-tag.h:1062
 msgid "The selected checksumming algorithm is unsupported or unknown."
 msgstr "L'algorisme de suma de verificació seleccionat no és compatible o és desconegut."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1062
+#: src/as-validator-issue-tag.h:1068
 msgid "The size type is unknown. Must be `download` or `installed`."
 msgstr "El tipus de mida és desconegut. Ha de ser «download» o «installed»."
 
-#: src/as-validator-issue-tag.h:1067
+#: src/as-validator-issue-tag.h:1073
 msgid "The artifact filename must be a file basename, not a (relative or absolute) path."
 msgstr "El nom del fitxer d'artefacte ha de ser un nom base de fitxer, no un camí (relatiu o absolut)."
 
-#: src/as-validator-issue-tag.h:1072
+#: src/as-validator-issue-tag.h:1078
 msgid "The value set as release issue type is invalid."
 msgstr "El valor definit com a tipus de problema de versió no és vàlid."
 
-#: src/as-validator-issue-tag.h:1077
+#: src/as-validator-issue-tag.h:1083
 msgid "The issue is tagged at security vulnerability with a CVE number, but its value does not look like a valid CVE identifier."
 msgstr "El problema s'etiqueta en vulnerabilitat de seguretat amb un número CVE, però el seu valor no sembla un identificador CVE vàlid."
 
-#: src/as-validator-issue-tag.h:1082
+#: src/as-validator-issue-tag.h:1088
 #, fuzzy
 #| msgid "The issue is tagged at security vulnerability with a CVE number, but its value does not look like a valid CVE identifier."
 msgid "The issue is tagged as security vulnerability with a GCVE identifier, but its value does not follow the `GCVE-<GNA-ID>-<YEAR>-<UNIQUE-ID>` scheme of the Global CVE Allocation System."
 msgstr "El problema s'etiqueta en vulnerabilitat de seguretat amb un número CVE, però el seu valor no sembla un identificador CVE vàlid."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1089
+#: src/as-validator-issue-tag.h:1095
 msgid "This component is missing information about releases. Consider adding a `releases` tag to describe releases and their changes."
 msgstr "Falta informació sobre les versions. Considereu afegir una etiqueta «releases» per a descriure les versions i els seus canvis."
 
-#: src/as-validator-issue-tag.h:1094
+#: src/as-validator-issue-tag.h:1100
 msgid "The AppStream specification requires a complete, ISO 8601 date string with at least day-granularity to denote dates. Please ensure the date string is valid."
 msgstr "L'especificació d'AppStream requereix una cadena de data ISO 8601 completa amb granularitat d’almenys dies per a denotar dates. Assegureu-vos que la cadena de data és vàlida."
 
-#: src/as-validator-issue-tag.h:1100
+#: src/as-validator-issue-tag.h:1106
 msgid "This component extends, provides, requires or recommends itself, which is certainly not intended and may confuse users or machines dealing with this metadata."
 msgstr "Aquest component s'estén, proporciona, requereix o es recomana a si mateix, la qual cosa certament no està pensat i pot confondre els usuaris o màquines que s'ocupen d'aquestes metadades."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1107
+#: src/as-validator-issue-tag.h:1113
 msgid "Licenses for `runtime` components are usually too complex to reflect them in a simple SPDX expression. Consider using a `LicenseRef` and a web URL as value for this component's `project_license`. E.g. `LicenseRef-free=https://example.com/licenses.html`"
 msgstr "Les llicències per a components «runtime» solen ser massa complexes per a reflectir-les en una expressió SPDX simple. Considereu l'ús d'un «LicenseRef» i una adreça URL com a valor per a la «project_license» d'aquest component. Per exemple, «LicenseRef-free=https://example.com/licenses.html»"
 
-#: src/as-validator-issue-tag.h:1113
+#: src/as-validator-issue-tag.h:1119
 #, fuzzy
 msgid "Since a `runtime` component consists of multiple other software components, their component-IDs may be listed in a `<provides/>` section for this runtime."
 msgstr "Atès que un component «runtime» es compon de diversos components de programari, els seus ID de components es poden llistar en una secció «<provides/>» per a aquest temps d'execució."
 
-#: src/as-validator-issue-tag.h:1118
+#: src/as-validator-issue-tag.h:1124
 msgid "The type of the item that the component provides is not known to AppStream."
 msgstr "AppStream no coneix el tipus d’element que proporciona el component."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1124
+#: src/as-validator-issue-tag.h:1130
 msgid "The toplevel `mimetypes` tag is deprecated. Please use `mediatype` tags in a `provides` block instead to indicate that your software provides a media handler for the given types."
 msgstr "L'etiqueta «mimetypes» de nivell està obsoleta. Utilitzeu etiquetes de «mediatype» en un bloc de «provides» per a indicar que el programari proporciona un controlador multimèdia per als tipus indicats."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1131
+#: src/as-validator-issue-tag.h:1137
 msgid "This component has no `content_rating` tag to provide age rating information. You can generate the tag data online by answering a few questions at https://hughsie.github.io/oars/"
 msgstr "Aquest component no té cap etiqueta «content_rating» per a proporcionar informació de classificació d’antiguitat. Podeu generar les dades de l'etiqueta en línia responent a algunes preguntes a https://hughsie.github.io/oars/"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1138
+#: src/as-validator-issue-tag.h:1144
 msgid "The `type` attribute of this `content_rating` element is missing or empty."
 msgstr "Falta o està buit l'atribut `type` d'aquest element `content_rating`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1144
+#: src/as-validator-issue-tag.h:1150
 msgid "The `type` attribute of the `content_rating` element has an invalid value."
 msgstr "L'atribut `type` de l'element `content_rating` té un valor no vàlid."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1150
+#: src/as-validator-issue-tag.h:1156
 msgid "The `content_rating` tag can only contain `content_attribute` children."
 msgstr "L'etiqueta `content_rating` només pot contenir fills `content_attribute`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1156
+#: src/as-validator-issue-tag.h:1162
 msgid "The `id` attribute of the `content_attribute` element is missing or empty."
 msgstr "Falta o està buit l'atribut `id` de l'element `content_attribute`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1162
+#: src/as-validator-issue-tag.h:1168
 msgid "The `id` attribute of the `content_attribute` element has an invalid value."
 msgstr "El valor de l'atribut `id` de l'element `content_attribute` no és vàlid."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1168
+#: src/as-validator-issue-tag.h:1174
 msgid "The `content_attribute` tag needs a value."
 msgstr "L'etiqueta `content_attribute` necessita un valor."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1174
+#: src/as-validator-issue-tag.h:1180
 msgid "The `content_attribute` tag value is unknown."
 msgstr "El valor de l'etiqueta `content_attribute` és desconegut."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1180
+#: src/as-validator-issue-tag.h:1186
 msgid "The `content_attribute` tag value is invalid for the given id."
 msgstr "El valor de l'etiqueta `content_attribute` no és vàlid per l'identificador indicat."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1186
+#: src/as-validator-issue-tag.h:1192
 msgid "A `content_attribute` tag with this ID has already been defined."
 msgstr "Ja s'ha definit una etiqueta `content_attribute` amb aquest identificador."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1192
+#: src/as-validator-issue-tag.h:1198
 msgid "This `tag` is missing a `namespace` attribute."
 msgstr "A aquesta «tag» li falta un atribut «namespace»."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1198
+#: src/as-validator-issue-tag.h:1204
 msgid "This tag or its namespace contains invalid characters. Only lower-cased ASCII letters, numbers, dots, hyphens and underscores are permitted."
 msgstr "Aquesta etiqueta o el seu espai de noms conté caràcters no vàlids. Només es permeten lletres ASCII en minúscula, números, punts, guions i guions baixos."
 
-#: src/as-validator-issue-tag.h:1203
+#: src/as-validator-issue-tag.h:1209
 msgid "The type of this color is not valid."
 msgstr "El tipus d'aquest color no és vàlid."
 
-#: src/as-validator-issue-tag.h:1208
+#: src/as-validator-issue-tag.h:1214
 msgid "The value of this color scheme preference is not valid."
 msgstr "El valor d'aquesta preferència de color no és vàlid."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1214
+#: src/as-validator-issue-tag.h:1220
 msgid "The name of the color scheme property is wrong. It should be `scheme_preference`."
 msgstr "El nom de la propietat de l'esquema de color és incorrecte. Hauria de ser `scheme_preference`."
 
-#: src/as-validator-issue-tag.h:1219
+#: src/as-validator-issue-tag.h:1225
 msgid "This color is not a valid HTML color code."
 msgstr "Aquest color no és un codi de color HTML vàlid."
 
-#: src/as-validator-issue-tag.h:1224
+#: src/as-validator-issue-tag.h:1230
 msgid "A color for this type/scheme combination was already set. Colors must be unique per type/scheme."
 msgstr "Ja s'ha establert un color per a aquesta combinació de tipus i esquema. Els colors han de ser únics per tipus i esquema."
 
-#: src/as-validator-issue-tag.h:1229
+#: src/as-validator-issue-tag.h:1235
 msgid "The given DOI (Digital Object Identifier) for this reference item is not valid."
 msgstr "El DOI (identificador d'objecte digital, de l'anglès) indicat per a aquest element de referència no és vàlid."
 
-#: src/as-validator-issue-tag.h:1234
+#: src/as-validator-issue-tag.h:1240
 msgid "The value for this citation reference item must be an URL to a CFF (Citation File Format) file."
 msgstr "El valor d'aquest element de referència de cita ha de ser un URL a un fitxer CFF (Citation File Format)."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1240
+#: src/as-validator-issue-tag.h:1246
 msgid "This registry reference item is missing the `name` property to denote the name of the registry it is about."
 msgstr "A aquest element de referència del registre falta la propietat `name` per a denotar el nom del registre del qual es tracta."
 
-#: src/as-validator-issue-tag.h:1245
+#: src/as-validator-issue-tag.h:1251
 msgid "The registry for this reference item is unknown. This may be due to a typing error, or the registry needs to be registered with AppStream."
 msgstr "El registre d'aquest element de referència és desconegut. Això pot ser a causa d'un error d'escriptura, o el registre ha d'estar registrat amb l'AppStream."
 
-#: src/as-validator-issue-tag.h:1251
+#: src/as-validator-issue-tag.h:1257
 msgid "The reference item is missing a value."
 msgstr "A l'ítem de referència falta un valor."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1257
+#: src/as-validator-issue-tag.h:1263
 msgid "The `custom` tag can only contain `value` children."
 msgstr "L'etiqueta `custom` només pot contenir fills `value`."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1263
+#: src/as-validator-issue-tag.h:1269
 msgid "This `custom` tag value is missing a `key` attribute."
 msgstr "Al valor d'aquesta etiqueta `custom` falta un atribut `key`."
 
-#: src/as-validator-issue-tag.h:1268
+#: src/as-validator-issue-tag.h:1274
 msgid "A key can only be used once."
 msgstr "Una clau només es pot utilitzar una vegada."
 
-#: src/as-validator-issue-tag.h:1273
+#: src/as-validator-issue-tag.h:1279
 msgid "This custom value is empty."
 msgstr "Aquest valor personalitzat està buit."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1279
+#: src/as-validator-issue-tag.h:1285
 msgid "A `keywords` tag must not be localized in metainfo files (upstream metadata). Localize the individual keyword entries instead."
 msgstr "Una etiqueta `keywords` no s'ha de traduir en fitxers de metainformació (metadades originals). Traduïu les entrades de paraules clau individualment."
 
@@ -3056,7 +3060,7 @@ msgstr "No es permet reduir la gravetat de l'etiqueta «%s» a una que permeti p
 #. TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted names.
 #: src/as-validator.c:897 src/as-validator.c:1673 src/as-validator.c:1849
 #: src/as-validator.c:2070 src/as-validator.c:2735 src/as-validator.c:2757
-#: src/as-validator.c:2882 src/as-validator.c:3205
+#: src/as-validator.c:2882 src/as-validator.c:3206
 #, c-format
 msgid "Found: %s - Allowed: %s"
 msgstr "Trobat: %s - Permès: %s"
@@ -3160,13 +3164,13 @@ msgid "Failed to parse arguments"
 msgstr "No s'han pogut analitzar els arguments"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: tools/appstream-compose.c:334 tools/appstreamcli.c:1795
+#: tools/appstream-compose.c:334 tools/appstreamcli.c:1831
 #, c-format
 msgid "AppStream version: %s"
 msgstr "Versió d'AppStream: %s"
 
 #. TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ.
-#: tools/appstream-compose.c:338 tools/appstreamcli.c:1799
+#: tools/appstream-compose.c:338 tools/appstreamcli.c:1835
 #, c-format
 msgid ""
 "AppStream CLI tool version: %s\n"
@@ -3297,370 +3301,370 @@ msgid "Manually selected location of AppStream metadata to scan."
 msgstr "Ubicació seleccionada manualment de les metadades d'AppStream a explorar."
 
 #. TRANSLATORS: ascli flag description for: --no-cache
-#: tools/appstreamcli.c:133
+#: tools/appstreamcli.c:140
 msgid "Ignore cache age and build a fresh cache before performing the query."
 msgstr "Ignora l’antiguitat de la memòria cau i construeix una memòria cau nova abans de realitzar la consulta."
 
 #. TRANSLATORS: ascli flag description for: --format
-#: tools/appstreamcli.c:149
+#: tools/appstreamcli.c:156
 msgid "Default metadata format (valid values are 'xml' and 'yaml')."
 msgstr "Format predeterminat de les metadades (els valors vàlids són «xml» «yaml»)."
 
 #. TRANSLATORS: ascli flag description for: --details
-#: tools/appstreamcli.c:165
+#: tools/appstreamcli.c:172
 msgid "Print detailed output about found components."
 msgstr "Imprimeix la sortida detallada quant als components trobats."
 
 #. TRANSLATORS: ascli flag description for: --server (used by the "list-reviews" command)
-#: tools/appstreamcli.c:184
+#: tools/appstreamcli.c:191
 msgid "URL of the ODRS-compatible reviews server to use."
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --start (used by the "list-reviews" command)
-#: tools/appstreamcli.c:190
+#: tools/appstreamcli.c:197
 msgid "Index of the first review to fetch, to page through all reviews."
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --limit (used by the "list-reviews" command)
-#: tools/appstreamcli.c:196
+#: tools/appstreamcli.c:203
 msgid "Maximum number of reviews to fetch."
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --locale (used by the "list-reviews" and "submit-review" commands)
-#: tools/appstreamcli.c:202
+#: tools/appstreamcli.c:209
 msgid "Locale to prefer for reviews, instead of the current system locale."
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --pedantic (used by the "validate" command)
-#: tools/appstreamcli.c:223
+#: tools/appstreamcli.c:230
 msgid "Also show pedantic hints."
 msgstr "Mostra també els consells redundants."
 
 #. TRANSLATORS: ascli flag description for: --explain (used by the "validate" command)
-#: tools/appstreamcli.c:230
+#: tools/appstreamcli.c:237
 msgid "Print detailed explanation for found issues."
 msgstr "Imprimeix una explicació detallada dels problemes trobats."
 
 #. TRANSLATORS: ascli flag description for: --no-net (used by the "validate" command)
-#: tools/appstreamcli.c:237
+#: tools/appstreamcli.c:244
 msgid "Do not use network access."
 msgstr "No utilitzeu l'accés a la xarxa."
 
 #. TRANSLATORS: ascli flag description for: --strict (used by the "validate" command)
-#: tools/appstreamcli.c:244
+#: tools/appstreamcli.c:251
 msgid "Fail validation if any issue is emitted that is not of pedantic severity."
 msgstr "Fallar la validació si s'emet algun problema que no sigui de gravetat pedant."
 
 #. TRANSLATORS: ascli flag description for: --format  when validating XML files
-#: tools/appstreamcli.c:250
+#: tools/appstreamcli.c:257
 msgid "Format of the generated report (valid values are 'text' and 'yaml')."
 msgstr "Format de l'informe generat (els valors vàlids són «text» i «yaml»)."
 
 #. TRANSLATORS: ascli flag description for: --override  when validating XML files
-#: tools/appstreamcli.c:256
+#: tools/appstreamcli.c:263
 msgid "Override the severities of selected issue tags."
 msgstr "Substituir la gravetat de les etiquetes de problemes seleccionades."
 
 #. TRANSLATORS: this is a (usually shorter) command alias, shown after the command summary text
-#: tools/appstreamcli.c:303
+#: tools/appstreamcli.c:310
 #, c-format
 msgid "(Alias: '%s')"
 msgstr "(Àlies: «%s»)"
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
-#: tools/appstreamcli.c:352 tools/appstreamcli.c:1432
+#: tools/appstreamcli.c:359 tools/appstreamcli.c:1468
 msgid "AppStream command-line interface"
 msgstr "Interfície de línia d'ordres d'AppStream"
 
-#: tools/appstreamcli.c:355
+#: tools/appstreamcli.c:362
 #, c-format
 msgid "'%s' command"
 msgstr "Ordre «%s»"
 
 #. TRANSLATORS: An unknown option was passed to appstreamcli.
-#: tools/appstreamcli.c:398
+#: tools/appstreamcli.c:405
 #, c-format
 msgid "Option '%s' is unknown."
 msgstr "L’opció «%s» és desconeguda."
 
-#: tools/appstreamcli.c:403 tools/appstreamcli.c:1810
+#: tools/appstreamcli.c:410 tools/appstreamcli.c:1846
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr "Executeu «%s --help» per a veure una llista completa de les opcions disponibles de la línia d'ordres."
 
-#: tools/appstreamcli.c:407
+#: tools/appstreamcli.c:414
 #, c-format
 msgid "Run '%s --help' to see a list of available commands and options, and '%s %s --help' to see a list of options specific for this subcommand."
 msgstr "Executeu «%s --help» per a veure una llista completa de les ordres i opcions disponibles, i «%s %s --help» per a veure les opcions específiques d’aquesta subordre."
 
 #. TRANSLATORS: ascli flag description for: --force
-#: tools/appstreamcli.c:462
+#: tools/appstreamcli.c:469
 msgid "Enforce a cache refresh."
 msgstr "Força una actualització de la memòria cau."
 
 #. TRANSLATORS: ascli flag description for: --source in a refresh action. Don't translate strings in backticks: `name`
-#: tools/appstreamcli.c:468
+#: tools/appstreamcli.c:475
 msgid "Limit cache refresh to data from a specific source, e.g. `os` or `flatpak`. May be specified multiple times."
 msgstr "Limiteu l'actualització de la memòria cau a dades d'una font específica, per exemple, `os` o `flatpak`. Es pot especificar diverses vegades."
 
 #. TRANSLATORS: ascli check-license is missing its parameter
-#: tools/appstreamcli.c:726
+#: tools/appstreamcli.c:752
 msgid "No license, license expression or license exception string was provided."
 msgstr "No s'ha proporcionat cap llicència ni cap expressió de llicència, ni cap cadena d’excepció de llicència."
 
 #. TRANSLATORS: ascli flag description for: --details (part of the "check-syscompat" subcommand)
-#: tools/appstreamcli.c:775
+#: tools/appstreamcli.c:805
 msgid "Print more detailed output on why incompatibilities exist."
 msgstr "Imprimeix la sortida detallada sobre el perquè de l'existència de les incompatibilitats."
 
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
-#: tools/appstreamcli.c:812
+#: tools/appstreamcli.c:847
 msgid "Set the data origin for the installed metadata catalog file."
 msgstr "Defineix l'origen de les dades per al fitxer de la col·lecció de metadades instal·lat."
 
 #. TRANSLATORS: ascli flag description for: --user (part of the "put" subcommand)
-#: tools/appstreamcli.c:818
+#: tools/appstreamcli.c:853
 msgid "Install the file for the current user, instead of globally."
 msgstr "Instal·la el fitxer per a l'usuari actual, en comptes de globalment."
 
 #. TRANSLATORS: ascli flag description for: --bundle-type (part of the "remove" and "install" subcommands)
-#: tools/appstreamcli.c:846
+#: tools/appstreamcli.c:881
 msgid "Limit the command to use only components from the given bundling system (`flatpak` or `package`)."
 msgstr "Limita l'ordre per a utilitzar només components del sistema d'empaquetat donat (flatpak o package)."
 
 #. TRANSLATORS: ascli flag description for: --first (part of the "remove" and "install" subcommands)
-#: tools/appstreamcli.c:853
+#: tools/appstreamcli.c:888
 msgid "Do not ask for which software component should be used and always choose the first entry."
 msgstr "No pregunteu pel component de programari que cal utilitzar i triar sempre la primera entrada."
 
 #. TRANSLATORS: ascli install currently only supports two values for --bundle-type.
-#: tools/appstreamcli.c:887 tools/appstreamcli.c:922
+#: tools/appstreamcli.c:922 tools/appstreamcli.c:957
 msgid "No valid bundle kind was specified. Only `package` and `flatpak` are currently recognized."
 msgstr "No s'ha especificat cap mena de paquet vàlid. Actualment només es reconeixen els tipus `package` i `flatpak`."
 
-#: tools/appstreamcli.c:1082
+#: tools/appstreamcli.c:1118
 msgid "You need to provide at least two version numbers to compare as parameters."
 msgstr "Heu de proporcionar almenys dos números de versió per a comparar-los com a paràmetres."
 
 #. * TRANSLATORS: The user tried to compare version numbers, but the comparison operator (greater-then, equal, etc.) was invalid.
-#: tools/appstreamcli.c:1111
+#: tools/appstreamcli.c:1147
 #, c-format
 msgid "Unknown compare relation '%s'. Valid values are:"
 msgstr "Relació de comparació desconeguda «%s». Els valors vàlids són:"
 
-#: tools/appstreamcli.c:1152
+#: tools/appstreamcli.c:1188
 msgid "Too many parameters: Need two version numbers or version numbers and a comparison operator."
 msgstr "Massa paràmetres: necessiteu dos números de versió o números de versió i un operador de comparació."
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
-#: tools/appstreamcli.c:1178
+#: tools/appstreamcli.c:1214
 msgid "Use the given .desktop file to fill in the basic values of the metainfo file."
 msgstr "Utilitza el fitxer .desktop que s'indica com a base per a omplir els valors del fitxer metainfo."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
-#: tools/appstreamcli.c:1186
+#: tools/appstreamcli.c:1222
 msgid "This command takes optional TYPE and FILE positional arguments, FILE being a file to write to (or \"-\" for standard output)."
 msgstr "Aquesta ordre pren els arguments posicionals i opcionals TIPUS i FITXER, en aquest FITXER és on s'hi escriu (o «-» per a emetre sortida estàndard)."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
-#: tools/appstreamcli.c:1191
+#: tools/appstreamcli.c:1227
 #, c-format
 msgid "The TYPE must be a valid component-type, such as: %s"
 msgstr "El TIPUS ha de ser un tipus de component vàlid, com ara: %s"
 
 #. TRANSLATORS: ascli flag description for: --exec (part of the make-desktop-file subcommand)
-#: tools/appstreamcli.c:1229
+#: tools/appstreamcli.c:1265
 msgid "Use the specified line for the 'Exec=' key of the desktop-entry file."
 msgstr "Utilitzeu la línia especificada per a la tecla «Exec=» del fitxer d'entrada d'escriptori."
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
-#: tools/appstreamcli.c:1269
+#: tools/appstreamcli.c:1305
 msgid "Assume the input file is in the selected format ('yaml', 'text' or 'markdown')."
 msgstr "Assumiu que el fitxer d'entrada està en el format seleccionat («yaml», «text» o «markdown»)."
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
-#: tools/appstreamcli.c:1276
+#: tools/appstreamcli.c:1312
 msgid "Limit the number of release entries that end up in the metainfo file (<= 0 for unlimited)."
 msgstr "Limiteu el nombre d'entrades de versió que acaben al fitxer metainfo (<= 0 per a il·limitat)."
 
 #. TRANSLATORS: ascli flag description for: --translatable-count as part of the news-to-metainfo command
-#: tools/appstreamcli.c:1283
+#: tools/appstreamcli.c:1319
 msgid "Set the number of releases that should have descriptions marked for translation (latest releases are translated first, -1 for unlimited)."
 msgstr "Defineix el nombre de versions que haurien de tenir descripcions marcades per a la traducció (les últimes versions es tradueixen primer, -1 per a il·limitades)."
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
-#: tools/appstreamcli.c:1328
+#: tools/appstreamcli.c:1364
 msgid "Generate the output in the selected format ('yaml', 'text' or 'markdown')."
 msgstr "Genera la sortida en el format seleccionat («yaml», «text» o «markdown»)."
 
 #. TRANSLATORS: appstreamcli-compose was not found
-#: tools/appstreamcli.c:1373
+#: tools/appstreamcli.c:1409
 #, c-format
 msgid "AppStream Compose binary '%s' was not found! Can not continue."
 msgstr "No s'ha trobat el binari d'AppStream Compose «%s»!. No es pot continuar."
 
 #. TRANSLATORS: appstreamcli-compose was not found - info text
-#: tools/appstreamcli.c:1377
+#: tools/appstreamcli.c:1413
 #, c-format
 msgid "You may be able to install the AppStream Compose addon via: `%s`"
 msgstr "Podeu instal·lar el complement AppStream Compose mitjançant: `%s`"
 
 #. TRANSLATORS: "Compose" is a command of appstreamcli to build metadata catalogs.
-#: tools/appstreamcli.c:1399
+#: tools/appstreamcli.c:1435
 #, c-format
 msgid "Compose operation failed to execute: %s"
 msgstr "L'operació «compose» ha fallat: %s"
 
-#: tools/appstreamcli.c:1409
+#: tools/appstreamcli.c:1445
 #, c-format
 msgid "Compose failed: %s"
 msgstr "Ha fallat «compose»: %s"
 
 #. these are commands we can use with appstreamcli
-#: tools/appstreamcli.c:1434
+#: tools/appstreamcli.c:1470
 msgid "Subcommands:"
 msgstr "Subordres:"
 
-#: tools/appstreamcli.c:1488
+#: tools/appstreamcli.c:1524
 msgid "You can find information about subcommand-specific options by passing \"--help\" to the subcommand."
 msgstr "Podeu trobar informació sobre les opcions específiques de la subordre en passar «—help» a la subordre."
 
 #. TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated.
-#: tools/appstreamcli.c:1506
+#: tools/appstreamcli.c:1542
 #, c-format
 msgid "Command '%s' is unknown. Run '%s --help' for a list of available commands."
 msgstr "L'ordre «%s» és desconeguda. Executeu «%s --help» per a obtenir una llista de les ordres disponibles."
 
 #. TRANSLATORS: `appstreamcli search` command description.
-#: tools/appstreamcli.c:1530
+#: tools/appstreamcli.c:1566
 msgid "Search the component database."
 msgstr "Cerca a la base de dades de components."
 
 #. TRANSLATORS: `appstreamcli get` command description.
-#: tools/appstreamcli.c:1537
+#: tools/appstreamcli.c:1573
 msgid "Get information about a component by its ID."
 msgstr "Obté la informació sobre un component amb el seu id."
 
 #. TRANSLATORS: `appstreamcli what-provides` command description.
-#: tools/appstreamcli.c:1544
+#: tools/appstreamcli.c:1580
 msgid "Get components which provide the given item. Needs an item type (e.g. lib, bin, python3, …) and item value as parameter."
 msgstr "Obteniu components que proporcionin l'element donat. Necessita un tipus d'element (per exemple, lib, bin, python3, ...) i el valor de l'element com a paràmetre."
 
 #. TRANSLATORS: `appstreamcli list-categories` command description.
-#: tools/appstreamcli.c:1552
+#: tools/appstreamcli.c:1588
 msgid "List components that are part of the specified categories."
 msgstr "Llista els components que formen part de les categories especificades."
 
 #. TRANSLATORS: `appstreamcli dump` command description.
-#: tools/appstreamcli.c:1561
+#: tools/appstreamcli.c:1597
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "Bolca les metadades XML en pla per a un component que coincideixi amb l'id."
 
 #. TRANSLATORS: `appstreamcli refresh-cache` command description.
-#: tools/appstreamcli.c:1569
+#: tools/appstreamcli.c:1605
 msgid "Rebuild the component metadata cache."
 msgstr "Reconstrueix la memòria cau de les metadades del component."
 
 #. TRANSLATORS: `appstreamcli validate` command description.
-#: tools/appstreamcli.c:1577
+#: tools/appstreamcli.c:1613
 msgid "Validate AppStream XML files for issues."
 msgstr "Valida els fitxers XML d'AppStream per a problemes."
 
 #. TRANSLATORS: `appstreamcli validate-tree` command description.
-#: tools/appstreamcli.c:1584
+#: tools/appstreamcli.c:1620
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr "Valida un arbre de fitxers instal·lats d'una aplicació per a validar-ne les metadades."
 
 #. TRANSLATORS: `appstreamcli `check-license` command description.
-#: tools/appstreamcli.c:1592
+#: tools/appstreamcli.c:1628
 msgid "Check license string for validity and print details about it."
 msgstr "Comproveu la validesa de la cadena de llicència i imprimiu-ne els detalls."
 
 #. TRANSLATORS: `appstreamcli `check-license` command description.
-#: tools/appstreamcli.c:1600
+#: tools/appstreamcli.c:1636
 msgid "Check if requirements of a component (via its ID or MetaInfo file) are satisfied on this system."
 msgstr "Comproveu si els requisits d'un component (a través del seu identificador o fitxer MetaInfo) es compleixen en aquest sistema."
 
 #. TRANSLATORS: `appstreamcli `check-syscompat` command description.
-#: tools/appstreamcli.c:1608
+#: tools/appstreamcli.c:1644
 msgid "Check compatibility of a component (via its ID or MetaInfo file) with common system and chassis types."
 msgstr "Comprova la compatibilitat d'un component (a través del seu identificador o fitxer MetaInfo) amb els tipus de sistema i xassís habituals."
 
 #. TRANSLATORS: `appstreamcli install` command description.
-#: tools/appstreamcli.c:1617
+#: tools/appstreamcli.c:1653
 msgid "Install software matching the component-ID."
 msgstr "Instal·la el programari que coincideixi amb «component-ID»."
 
 #. TRANSLATORS: `appstreamcli remove` command description.
-#: tools/appstreamcli.c:1624
+#: tools/appstreamcli.c:1660
 msgid "Remove software matching the component-ID."
 msgstr "Suprimeix el programari que coincideixi amb «component-ID»."
 
 #. TRANSLATORS: `appstreamcli status` command description.
-#: tools/appstreamcli.c:1632
+#: tools/appstreamcli.c:1668
 msgid "Display status information about available AppStream metadata."
 msgstr "Mostra informació de l'estat sobre les metadades disponibles d'AppStream."
 
 #. TRANSLATORS: `appstreamcli sysinfo` command description.
-#: tools/appstreamcli.c:1640
+#: tools/appstreamcli.c:1676
 msgid "Show information about the current device and used operating system."
 msgstr "Mostra informació sobre el dispositiu actual i el sistema operatiu en ús."
 
 #. TRANSLATORS: `appstreamcli put` command description.
-#: tools/appstreamcli.c:1648
+#: tools/appstreamcli.c:1684
 msgid "Install a metadata file into the right location."
 msgstr "Instal·la un fitxer de metadades al lloc correcte."
 
 #. TRANSLATORS: `appstreamcli convert` command description. "Catalog XML" is a term describing a specific type of AppStream XML data.
-#: tools/appstreamcli.c:1656
+#: tools/appstreamcli.c:1692
 msgid "Convert metadata catalog XML to YAML or vice versa."
 msgstr "Converteix la col·lecció de metadades d'XML a YAML o viceversa."
 
 #. TRANSLATORS: `appstreamcli vercmp` command description.
-#: tools/appstreamcli.c:1663
+#: tools/appstreamcli.c:1699
 msgid "Compare two version numbers."
 msgstr "Compara dos números de versió."
 
 #. TRANSLATORS: `appstreamcli new-template` command description.
-#: tools/appstreamcli.c:1672
+#: tools/appstreamcli.c:1708
 msgid "Create a template for a metainfo file (to be filled out by the upstream project)."
 msgstr "Crea una plantilla per a un fitxer metainfo (per a ser omplert pel projecte de desenvolupament)."
 
 #. TRANSLATORS: `appstreamcli make-desktop-file` command description.
-#: tools/appstreamcli.c:1680
+#: tools/appstreamcli.c:1716
 msgid "Create a desktop-entry file from a metainfo file."
 msgstr "Crea un fitxer d'entrada d'escriptori des d'un fitxer de metainformació."
 
 #. TRANSLATORS: `appstreamcli news-to-metainfo` command description.
-#: tools/appstreamcli.c:1688
+#: tools/appstreamcli.c:1724
 msgid "Convert a YAML or text NEWS file into metainfo releases."
 msgstr "Converteix un fitxer YALM o un fitxer de text NEWS en versions de metainformació."
 
 #. TRANSLATORS: `appstreamcli metainfo-to-news` command description.
-#: tools/appstreamcli.c:1696
+#: tools/appstreamcli.c:1732
 msgid "Write NEWS text or YAML file with information from a metainfo file."
 msgstr "Escriu un fitxer de text NEWS o YAML amb informació d'un fitxer de metainfo."
 
 #. TRANSLATORS: `appstreamcli compose` command description.
-#: tools/appstreamcli.c:1704
+#: tools/appstreamcli.c:1740
 msgid "Compose AppStream metadata catalog from directory trees."
 msgstr "Composa les metadades de la col·lecció d’AppStream des dels arbres dels directoris."
 
 #. TRANSLATORS: `appstreamcli list-reviews` command description.
-#: tools/appstreamcli.c:1713
+#: tools/appstreamcli.c:1749
 #, fuzzy
 #| msgid "We have information on %i software components."
 msgid "List online user reviews for a software component."
 msgstr "Tenim informació sobre %i components de programari."
 
 #. TRANSLATORS: `appstreamcli submit-review` command description.
-#: tools/appstreamcli.c:1726
+#: tools/appstreamcli.c:1762
 msgid "Compose and submit an online review for a software component."
 msgstr ""
 
 #. TRANSLATORS: ascli has been run without command.
-#: tools/appstreamcli.c:1808
+#: tools/appstreamcli.c:1844
 msgid "You need to specify a command."
 msgstr "Heu d'especificar una ordre."
 
@@ -3699,120 +3703,120 @@ msgstr "L’actualització de la memòria cau de metadades no és necessària."
 
 #. TRANSLATORS: An AppStream component-id is missing in the command-line arguments
 #. TRANSLATORS: ascli was told to find a software component by its ID, but no component-id was specified.
-#: tools/ascli-actions-mdata.c:132 tools/ascli-actions-mdata.c:298
-#: tools/ascli-actions-misc.c:870 tools/ascli-actions-misc.c:957
+#: tools/ascli-actions-mdata.c:133 tools/ascli-actions-mdata.c:304
+#: tools/ascli-actions-misc.c:873 tools/ascli-actions-misc.c:960
 #: tools/ascli-actions-pkgmgr.c:182
 msgid "You need to specify a component-ID."
 msgstr "Heu d'especificar un ID-component."
 
-#: tools/ascli-actions-mdata.c:144 tools/ascli-actions-mdata.c:310
-#: tools/ascli-actions-mdata.c:734 tools/ascli-actions-mdata.c:866
+#: tools/ascli-actions-mdata.c:145 tools/ascli-actions-mdata.c:316
+#: tools/ascli-actions-mdata.c:743 tools/ascli-actions-mdata.c:876
 #: tools/ascli-actions-pkgmgr.c:195
 #, c-format
 msgid "Unable to find component with ID '%s'!"
 msgstr "No s'ha pogut trobar el component amb l'id. «%s»!"
 
-#: tools/ascli-actions-mdata.c:167
+#: tools/ascli-actions-mdata.c:169
 msgid "You need to specify a term to search for."
 msgstr "Heu d'especificar un terme per a la cerca."
 
 #. TRANSLATORS: We got no full-text search results
-#: tools/ascli-actions-mdata.c:180
+#: tools/ascli-actions-mdata.c:182
 #, c-format
 msgid "No component matching '%s' found."
 msgstr "No s'ha trobat cap component que coincideixi «%s»."
 
-#: tools/ascli-actions-mdata.c:207
+#: tools/ascli-actions-mdata.c:211
 msgid "No value for the item to search for was defined."
 msgstr "No s'ha definit cap valor per a l'element a cercar."
 
-#: tools/ascli-actions-mdata.c:214
+#: tools/ascli-actions-mdata.c:218
 msgid "Invalid type for provided item selected. Valid values are:"
 msgstr "Tipus no vàlid per a l’element proporcionat que s'ha seleccionat. Els valors vàlids són:"
 
 #. TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results
-#: tools/ascli-actions-mdata.c:230
+#: tools/ascli-actions-mdata.c:234
 #, c-format
 msgid "Could not find component providing '%s::%s'."
 msgstr "No s'ha pogut trobar el component que proporciona «%s::%s»."
 
-#: tools/ascli-actions-mdata.c:256
+#: tools/ascli-actions-mdata.c:261
 msgid "You need to specify categories to list."
 msgstr "Heu d'especificar les categories a llistar."
 
 #. TRANSLATORS: We got no category list results
-#: tools/ascli-actions-mdata.c:270
+#: tools/ascli-actions-mdata.c:275
 #, c-format
 msgid "No component found in categories %s."
 msgstr "No s'ha trobat cap component a les categories %s."
 
-#: tools/ascli-actions-mdata.c:353
+#: tools/ascli-actions-mdata.c:359
 msgid "You need to specify a metadata file."
 msgstr "Heu d'especificar un fitxer de metadades."
 
-#: tools/ascli-actions-mdata.c:367
+#: tools/ascli-actions-mdata.c:373
 #, c-format
 msgid "Unable to install metadata file: %s"
 msgstr "No es pot instal·lar el fitxer de metadades: %s"
 
-#: tools/ascli-actions-mdata.c:387
+#: tools/ascli-actions-mdata.c:393
 msgid "You need to specify an input and output file."
 msgstr "Heu d'especificar un fitxer d'entrada i de sortida."
 
-#: tools/ascli-actions-mdata.c:394
+#: tools/ascli-actions-mdata.c:400
 #, c-format
 msgid "Metadata file '%s' does not exist."
 msgstr "No existeix el fitxer de metadades «%s»."
 
 #. TRANSLATORS: User is trying to convert a file in ascli
-#: tools/ascli-actions-mdata.c:433
+#: tools/ascli-actions-mdata.c:439
 msgid "Unable to convert file: Could not determine output format, please set it explicitly using '--format='."
 msgstr "No es pot convertir el fitxer: No s'ha pogut determinar el format de sortida, establiu-ho de forma explícita amb «—format=»."
 
 #. TRANSLATORS: The user tried to create a new template, but supplied a wrong component-type string
-#: tools/ascli-actions-mdata.c:481
+#: tools/ascli-actions-mdata.c:487
 msgid "You need to give an AppStream software component type to generate a template. Possible values are:"
 msgstr "Heu d'indicar un tipus de component de programari d'AppStream per a generar una plantilla. Els valors possibles són:"
 
 #. TRANSLATORS: The user tried to create a new template, but supplied a wrong component-type string
-#: tools/ascli-actions-mdata.c:484
+#: tools/ascli-actions-mdata.c:490
 #, c-format
 msgid "The software component type '%s' is not valid in AppStream. Possible values are:"
 msgstr "El tipus de component de programari «%s» no és vàlid a AppStream. Els valors possibles són:"
 
-#: tools/ascli-actions-mdata.c:504
+#: tools/ascli-actions-mdata.c:510
 #, c-format
 msgid "The .desktop file '%s' does not exist."
 msgstr "No existeix el fitxer .desktop «%s»."
 
-#: tools/ascli-actions-mdata.c:511
+#: tools/ascli-actions-mdata.c:517
 #, c-format
 msgid "Unable to read the .desktop file: %s"
 msgstr "No es pot llegir el fitxer .desktop: %s"
 
-#: tools/ascli-actions-mdata.c:601
+#: tools/ascli-actions-mdata.c:607
 #, c-format
 msgid "Unable to build the template metainfo file: %s"
 msgstr "No es pot construir el fitxer metainfo de la plantilla: %s"
 
-#: tools/ascli-actions-mdata.c:610
+#: tools/ascli-actions-mdata.c:616
 #, c-format
 msgid "Unable to save the template metainfo file: %s"
 msgstr "No es pot desar el fitxer metainfo de plantilla: %s"
 
-#: tools/ascli-actions-mdata.c:650
+#: tools/ascli-actions-mdata.c:656
 msgid "Unable to check display size: Can not read information without GUI toolkit access."
 msgstr "No s'ha pogut comprovar la mida de la pantalla: no es pot llegir la informació sense accés a la interfície gràfica d'usuari."
 
-#: tools/ascli-actions-mdata.c:658 tools/ascli-actions-mdata.c:914
+#: tools/ascli-actions-mdata.c:664 tools/ascli-actions-mdata.c:924
 msgid "ERROR"
 msgstr "ERROR"
 
-#: tools/ascli-actions-mdata.c:695 tools/ascli-actions-mdata.c:826
+#: tools/ascli-actions-mdata.c:704 tools/ascli-actions-mdata.c:836
 msgid "You need to specify a MetaInfo filename or component ID."
 msgstr "Heu d'especificar un fitxer de MetaInfo o l'identificador d'un component com a entrada."
 
-#: tools/ascli-actions-mdata.c:714 tools/ascli-actions-mdata.c:838
+#: tools/ascli-actions-mdata.c:723 tools/ascli-actions-mdata.c:848
 #: tools/ascli-actions-misc.c:133 tools/ascli-actions-misc.c:468
 #: tools/ascli-actions-misc.c:557
 #, c-format
@@ -3820,75 +3824,75 @@ msgid "Metainfo file '%s' does not exist."
 msgstr "No existeix el fitxer de metainfo «%s»."
 
 #. TRANSLATORS: We are testing the relations (requires, recommends & supports data) for being satisfied on the current system.
-#: tools/ascli-actions-mdata.c:743
+#: tools/ascli-actions-mdata.c:752
 #, c-format
 msgid "Relation check for: %s"
 msgstr "Comprovació de la relació per a: %s"
 
-#: tools/ascli-actions-mdata.c:754
+#: tools/ascli-actions-mdata.c:763
 msgid "Requirements:"
 msgstr "Requisits:"
 
-#: tools/ascli-actions-mdata.c:756
+#: tools/ascli-actions-mdata.c:765
 msgid "No required items are set for this software."
 msgstr "No s'ha establert cap ítem necessari per a aquest programari."
 
-#: tools/ascli-actions-mdata.c:761
+#: tools/ascli-actions-mdata.c:770
 msgid "Recommendations:"
 msgstr "Recomanacions:"
 
-#: tools/ascli-actions-mdata.c:763
+#: tools/ascli-actions-mdata.c:772
 msgid "No recommended items are set for this software."
 msgstr "No s'ha establert cap ítem recomanat per a aquest programari."
 
-#: tools/ascli-actions-mdata.c:768
+#: tools/ascli-actions-mdata.c:777
 msgid "Supported:"
 msgstr "Compatible amb:"
 
-#: tools/ascli-actions-mdata.c:770
+#: tools/ascli-actions-mdata.c:779
 msgid "No supported items are set for this software."
 msgstr "No s'ha establert cap ítem compatible per a aquest programari."
 
 #. TRANSLATORS: This represents a computer chassis type.
-#: tools/ascli-actions-mdata.c:794
+#: tools/ascli-actions-mdata.c:803
 msgid "Desktop"
 msgstr "Escriptori"
 
 #. TRANSLATORS: This represents a computer chassis type.
-#: tools/ascli-actions-mdata.c:797
+#: tools/ascli-actions-mdata.c:806
 msgid "Laptop"
 msgstr "Portàtil"
 
 #. TRANSLATORS: This represents a computer chassis type.
-#: tools/ascli-actions-mdata.c:800
+#: tools/ascli-actions-mdata.c:809
 msgid "Server"
 msgstr "Servidor"
 
 #. TRANSLATORS: This represents a computer chassis type.
-#: tools/ascli-actions-mdata.c:803
+#: tools/ascli-actions-mdata.c:812
 msgid "Tablet"
 msgstr "Tauleta"
 
 #. TRANSLATORS: This represents a computer chassis type.
-#: tools/ascli-actions-mdata.c:806
+#: tools/ascli-actions-mdata.c:815
 msgid "Handset"
 msgstr "Auricular"
 
-#: tools/ascli-actions-mdata.c:808
+#: tools/ascli-actions-mdata.c:817
 msgid "Unknown"
 msgstr "Desconegut"
 
 #. TRANSLATORS: We are testing compatibility of a component with a common representation of hardware for a specific chassis (phone/tablet/desktop, etc.)
-#: tools/ascli-actions-mdata.c:875
+#: tools/ascli-actions-mdata.c:885
 #, c-format
 msgid "Chassis compatibility check for: %s"
 msgstr "Comprovació de compatibilitat del xassís per a: %s"
 
-#: tools/ascli-actions-mdata.c:894
+#: tools/ascli-actions-mdata.c:904
 msgid "Incompatible"
 msgstr "No compatible"
 
-#: tools/ascli-actions-mdata.c:929
+#: tools/ascli-actions-mdata.c:939
 msgid "Compatible"
 msgstr "Compatible"
 
@@ -3897,7 +3901,7 @@ msgstr "Compatible"
 msgid "AppStream Status:"
 msgstr "Estat d'AppStream:"
 
-#: tools/ascli-actions-misc.c:48 tools/ascli-actions-misc.c:686
+#: tools/ascli-actions-misc.c:48 tools/ascli-actions-misc.c:689
 #, c-format
 msgid "Version: %s"
 msgstr "Versió: %s"
@@ -4012,193 +4016,193 @@ msgstr ""
 msgid "You need to specify a NEWS format to write the output in."
 msgstr "Heu d'especificar un format NEWS per a escriure a la sortida."
 
-#: tools/ascli-actions-misc.c:667
+#: tools/ascli-actions-misc.c:670
 msgid "Operating System Details"
 msgstr "Detalls del sistema operatiu"
 
-#: tools/ascli-actions-misc.c:671
+#: tools/ascli-actions-misc.c:674
 #, c-format
 msgid "Unable to find operating system component '%s'!"
 msgstr "No s'ha pogut trobar el component del sistema operatiu «%s»!"
 
-#: tools/ascli-actions-misc.c:678
+#: tools/ascli-actions-misc.c:681
 msgid "ID"
 msgstr "Identificador"
 
-#: tools/ascli-actions-misc.c:679 tools/ascli-actions-misc.c:765
+#: tools/ascli-actions-misc.c:682 tools/ascli-actions-misc.c:768
 #: tools/ascli-utils.c:304
 msgid "Name"
 msgstr "Nom"
 
-#: tools/ascli-actions-misc.c:680 tools/ascli-actions-misc.c:1026
+#: tools/ascli-actions-misc.c:683 tools/ascli-actions-misc.c:1029
 #: tools/ascli-utils.c:305
 msgid "Summary"
 msgstr "Resum"
 
-#: tools/ascli-actions-misc.c:714
+#: tools/ascli-actions-misc.c:717
 msgid "Release Kind"
 msgstr ""
 
 #. TRANSLATORS: Release date of the running OS release
-#: tools/ascli-actions-misc.c:719
+#: tools/ascli-actions-misc.c:722
 msgid "Released"
 msgstr ""
 
 #. TRANSLATORS: End-of-life date of the running OS release
-#: tools/ascli-actions-misc.c:725
+#: tools/ascli-actions-misc.c:728
 #, fuzzy
 #| msgid "Supported:"
 msgid "Supported Until"
 msgstr "Compatible amb:"
 
 #. TRANSLATORS: OS releases newer than the running one, with their kind
-#: tools/ascli-actions-misc.c:740
+#: tools/ascli-actions-misc.c:743
 msgid "Newer Releases"
 msgstr ""
 
-#: tools/ascli-actions-misc.c:744 tools/ascli-utils.c:309
+#: tools/ascli-actions-misc.c:747 tools/ascli-utils.c:309
 msgid "Homepage"
 msgstr "Pàgina inicial"
 
-#: tools/ascli-actions-misc.c:747 tools/ascli-utils.c:330
+#: tools/ascli-actions-misc.c:750 tools/ascli-utils.c:330
 msgid "Developer"
 msgstr "Desenvolupador"
 
-#: tools/ascli-actions-misc.c:756 tools/ascli-utils.c:344
+#: tools/ascli-actions-misc.c:759 tools/ascli-utils.c:344
 msgid "Description"
 msgstr "Descripció"
 
-#: tools/ascli-actions-misc.c:764
+#: tools/ascli-actions-misc.c:767
 msgid "Kernel"
 msgstr "Nucli"
 
-#: tools/ascli-actions-misc.c:766 tools/ascli-actions-misc.c:922
+#: tools/ascli-actions-misc.c:769 tools/ascli-actions-misc.c:925
 msgid "Version"
 msgstr "Versió"
 
-#: tools/ascli-actions-misc.c:769
+#: tools/ascli-actions-misc.c:772
 msgid "Hardware"
 msgstr "Maquinari"
 
-#: tools/ascli-actions-misc.c:772
+#: tools/ascli-actions-misc.c:775
 msgid "Physical Memory"
 msgstr "Memòria física"
 
-#: tools/ascli-actions-misc.c:780 tools/ascli-actions-misc.c:785
+#: tools/ascli-actions-misc.c:783 tools/ascli-actions-misc.c:788
 msgid "Largest Display"
 msgstr ""
 
-#: tools/ascli-actions-misc.c:783
+#: tools/ascli-actions-misc.c:786
 msgid "logical px"
 msgstr ""
 
-#: tools/ascli-actions-misc.c:785
+#: tools/ascli-actions-misc.c:788
 #, fuzzy
 #| msgid "Unable to read file."
 msgid "unable to determine"
 msgstr "No es pot llegir el fitxer."
 
-#: tools/ascli-actions-misc.c:789
+#: tools/ascli-actions-misc.c:792
 msgid "Devices with Modaliases"
 msgstr "Dispositius amb modàlies"
 
-#: tools/ascli-actions-misc.c:818
+#: tools/ascli-actions-misc.c:821
 msgid "User Input Controls"
 msgstr "Controls d'entrada de l'usuari"
 
-#: tools/ascli-actions-misc.c:821
+#: tools/ascli-actions-misc.c:824
 msgid "unknown"
 msgstr "desconegut"
 
-#: tools/ascli-actions-misc.c:828 tools/ascli-actions-validate.c:700
+#: tools/ascli-actions-misc.c:831 tools/ascli-actions-validate.c:700
 #: tools/ascli-actions-validate.c:706
 msgid "yes"
 msgstr "sí"
 
-#: tools/ascli-actions-misc.c:830 tools/ascli-actions-validate.c:701
+#: tools/ascli-actions-misc.c:833 tools/ascli-actions-validate.c:701
 #: tools/ascli-actions-validate.c:707
 msgid "no"
 msgstr "no"
 
-#: tools/ascli-actions-misc.c:888
+#: tools/ascli-actions-misc.c:891
 msgid "Overall rating"
 msgstr ""
 
-#: tools/ascli-actions-misc.c:901
+#: tools/ascli-actions-misc.c:904
 #, fuzzy, c-format
 #| msgid "Found supported software component '%s'."
 msgid "No reviews found for component '%s'."
 msgstr "S'ha trobat el component de programari compatible «%s»."
 
-#: tools/ascli-actions-misc.c:916 tools/ascli-actions-misc.c:1017
+#: tools/ascli-actions-misc.c:919 tools/ascli-actions-misc.c:1020
 msgid "Author"
 msgstr ""
 
-#: tools/ascli-actions-misc.c:919
+#: tools/ascli-actions-misc.c:922
 msgid "Date"
 msgstr ""
 
-#: tools/ascli-actions-misc.c:969
+#: tools/ascli-actions-misc.c:972
 #, c-format
 msgid "Composing a review for '%s' to be submitted to %s."
 msgstr ""
 
-#: tools/ascli-actions-misc.c:972
+#: tools/ascli-actions-misc.c:975
 msgid "Please only review the software itself, and mind that your review will be publicly visible."
 msgstr ""
 
 #. TRANSLATORS: Prompt when composing a review, %s is a user name
-#: tools/ascli-actions-misc.c:977
+#: tools/ascli-actions-misc.c:980
 #, c-format
 msgid "Your display name (leave empty to use '%s'):"
 msgstr ""
 
 #. TRANSLATORS: Prompt for a star rating when composing a review
-#: tools/ascli-actions-misc.c:984
+#: tools/ascli-actions-misc.c:987
 msgid "Star rating, from 1 (worst) to 5 (best):"
 msgstr ""
 
 #. TRANSLATORS: Prompt when composing a review
-#: tools/ascli-actions-misc.c:991
+#: tools/ascli-actions-misc.c:994
 msgid "Short summary of your review:"
 msgstr ""
 
-#: tools/ascli-actions-misc.c:997
+#: tools/ascli-actions-misc.c:1000
 msgid "The summary must not be empty and be no longer than 70 characters."
 msgstr ""
 
 #. TRANSLATORS: Prompt when composing a review
-#: tools/ascli-actions-misc.c:1001
+#: tools/ascli-actions-misc.c:1004
 msgid "Detailed review text (end with an empty line):"
 msgstr ""
 
-#: tools/ascli-actions-misc.c:1003
+#: tools/ascli-actions-misc.c:1006
 msgid "The review text must not be empty."
 msgstr ""
 
-#: tools/ascli-actions-misc.c:1024
+#: tools/ascli-actions-misc.c:1027
 msgid "Rating"
 msgstr ""
 
-#: tools/ascli-actions-misc.c:1027
+#: tools/ascli-actions-misc.c:1030
 msgid "Review"
 msgstr ""
 
 #. TRANSLATORS: Prompt before publishing a composed review
-#: tools/ascli-actions-misc.c:1034
+#: tools/ascli-actions-misc.c:1037
 msgid "Publish this review?"
 msgstr ""
 
-#: tools/ascli-actions-misc.c:1038
+#: tools/ascli-actions-misc.c:1041
 msgid "Review submission cancelled."
 msgstr ""
 
-#: tools/ascli-actions-misc.c:1048
+#: tools/ascli-actions-misc.c:1051
 #, c-format
 msgid "Review submitted successfully (ID: %s). Thank you!"
 msgstr ""
 
-#: tools/ascli-actions-misc.c:1051
+#: tools/ascli-actions-misc.c:1054
 msgid "Review submitted successfully. Thank you!"
 msgstr ""
 
@@ -4447,7 +4451,12 @@ msgstr "Obligatori per a"
 msgid "Provided Items"
 msgstr "Elements proporcionats"
 
-#: tools/ascli-utils.c:525
+#: tools/ascli-utils.c:485
+#, c-format
+msgid "Data path '%s' does not exist or is not a directory."
+msgstr ""
+
+#: tools/ascli-utils.c:561
 #, c-format
 msgid "Please enter a number from 1 to %i: "
 msgstr "Si us plau, introduïu un número de l'1 al %i: "

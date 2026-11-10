@@ -53,7 +53,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2026-10-26 10:22+0100\n"
+"POT-Creation-Date: 2026-11-10 20:12+0100\n"
 "PO-Revision-Date: 2026-09-16 04:51+0000\n"
 "Last-Translator: xiezhihai <xiezhihai7321@outlook.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/projects/appstream/translations/zh_Hans/>\n"
@@ -80,7 +80,7 @@ msgstr "AppStream 是一种元数据规范，它允许软件组件在实际安�
 msgid "The <em>appstreamcli</em> command-line tool allows to read, write, and transform AppStream XML or YAML metadata as well as to validate it for compliance with the specification. It also provides easy access to the system metadata pool, for example to query for software that provides a specific Mediatype handler or for installing software by its component identifier."
 msgstr "<em>appstreamcli</em> 命令行工具允许读取、写入和转换 AppStream XML 或 YAML 元数据，并验证其是否符合规范。它还提供了对系统元数据池的简单访问，例如查询提供特定 Mediatype 处理程序的软件，或者通过组件标识符安装软件。"
 
-#: src/as-cache.c:935
+#: src/as-cache.c:1010
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "缓存位置“%s”不可写。"
@@ -1514,29 +1514,29 @@ msgstr "Microsoft Windows"
 #. provide a list of words in your language that people are likely
 #. to include in a search but that should normally be ignored in
 #. the search.
-#: src/as-pool.c:101
+#: src/as-pool.c:102
 msgid "app;application;package;program;programme;suite;tool"
 msgstr "app;application;package;program;programme;suite;tool;应用;应用程序;包;程序;套装;工具;套件;软件"
 
-#: src/as-pool.c:1236
+#: src/as-pool.c:1237
 msgid "Metadata files have errors:"
 msgstr "元数据文件有错误："
 
-#: src/as-pool.c:2568
+#: src/as-pool.c:2565
 msgid "Group"
 msgstr "组"
 
-#: src/as-pool.c:2623
+#: src/as-pool.c:2620
 msgid "Iconsets"
 msgstr "图标集"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
-#: src/as-pool.c:2671
+#: src/as-pool.c:2668
 msgid "Data from locally installed software"
 msgstr "来自本地已安装软件的数据"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
-#: src/as-pool.c:2674
+#: src/as-pool.c:2671
 msgid "Software catalog data"
 msgstr "软件分类数据"
 
@@ -1580,7 +1580,7 @@ msgstr "运行时固件"
 msgid "Flashed Firmware"
 msgstr "已刷入的固件"
 
-#: src/as-provided.c:158 tools/ascli-actions-misc.c:1016
+#: src/as-provided.c:158 tools/ascli-actions-misc.c:1019
 msgid "Component"
 msgstr "组件"
 
@@ -1877,23 +1877,23 @@ msgid "Satisfiability check for relation items of type '%s' is not implemented y
 msgstr "对类型“%s”相关项目的满足性检查还未实现。"
 
 #. TRANSLATORS: The ODRS review server rejected our request, %s is the error message
-#: src/as-reviews-client.c:976 src/as-reviews-client.c:1069
+#: src/as-reviews-client.c:977 src/as-reviews-client.c:1070
 #, c-format
 msgid "The reviews server rejected the request: %s"
 msgstr "审查服务器拒绝了请求：%s"
 
 #. TRANSLATORS: We failed to communicate with the ODRS review server, %s is an error message
-#: src/as-reviews-client.c:983
+#: src/as-reviews-client.c:984
 #, c-format
 msgid "Unable to communicate with the reviews server: %s"
 msgstr "无法与评论服务器通信：%s"
 
-#: src/as-reviews-client.c:1070
+#: src/as-reviews-client.c:1071
 msgid "Unknown reason"
 msgstr "未知原因"
 
 #. TRANSLATORS: We failed to fetch a software rating from the ODRS review server
-#: src/as-reviews-client.c:1247
+#: src/as-reviews-client.c:1248
 #, c-format
 msgid "Unable to fetch software rating: %s"
 msgstr "无法获取软件评分：%s"
@@ -2758,278 +2758,282 @@ msgid "The value of this desktop-entry field contains invalid or non-printable U
 msgstr "该 desktop-entry 域的值包含无法正确显示的无效或非可打印 UTF-8 字符。"
 
 #: src/as-validator-issue-tag.h:933
+msgid "The locale of this localized desktop-entry key is not a valid POSIX locale name, so the key was ignored. Locales should look like `de`, `pt_BR` or `sr@latin`, as described in the Desktop Entry Specification."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:939
 msgid "This desktop-entry field value is quoted, which is likely unintentional."
 msgstr "该 desktop-entry 域的值像是无意的被引用了。"
 
-#: src/as-validator-issue-tag.h:938
+#: src/as-validator-issue-tag.h:944
 msgid "This desktop-entry file has the 'Hidden' property set. This is wrong for vendor-installed .desktop files, and nullifies all effects this .desktop file has (including MIME associations), which most certainly is not intentional."
 msgstr "该 desktop-entry 文件具有“Hidden”属性设置。这对供应商安装的 .desktop 文件是错误的，且抹杀了该 .desktop 文件具有的所有效果（包括文件类型关联）。"
 
-#: src/as-validator-issue-tag.h:944
+#: src/as-validator-issue-tag.h:950
 msgid "This desktop-entry file has the 'OnlyShowIn' property set with an empty value. This might not be intended, as this will hide the application from all desktops. If you do want to hide the application from all desktops, using 'NoDisplay=true' is more explicit."
 msgstr "该 desktop-entry 文件具有带空值的“OnlyShowIn”属性设置。这可能是无意的，因为这将从所有桌面隐藏该应用程序。如果您想从所有桌面隐藏该应用程序，使用“NoDisplay=true”更为明确。"
 
-#: src/as-validator-issue-tag.h:950
+#: src/as-validator-issue-tag.h:956
 msgid "No AppStream metadata was found in this directory or directory tree."
 msgstr "在该目录或目录树中未找到 AppStream 元数据。"
 
 #. pedantic because not everything which has metadata is an application
-#: src/as-validator-issue-tag.h:955
+#: src/as-validator-issue-tag.h:961
 msgid "No XDG applications directory found."
 msgstr "未找到 XDG 应用程序目录。"
 
-#: src/as-validator-issue-tag.h:960
+#: src/as-validator-issue-tag.h:966
 msgid "The metainfo file is stored in a legacy path. Please place it in `/usr/share/metainfo/`."
 msgstr "该元信息文件存储于过时路径。请将其放置在 `/usr/share/metainfo/` 内。"
 
-#: src/as-validator-issue-tag.h:965
+#: src/as-validator-issue-tag.h:971
 msgid "The metainfo file specifies multiple components. This is not allowed."
 msgstr "该元信息文件指定了多个组件。这是不允许的。"
 
-#: src/as-validator-issue-tag.h:970
+#: src/as-validator-issue-tag.h:976
 msgid "The releases are not sorted in a latest to oldest version order. This is required as some tools will assume that the latest version is always at the top. Sorting releases also increases overall readability of the metainfo file."
 msgstr "版本发布没有按最新到最旧的版本顺序排序。由于一些工具会假定最新版本总是在最顶端因此需要这样。对发布排序同样会增强元信息文件的整体可读性。"
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
-#: src/as-validator-issue-tag.h:978
+#: src/as-validator-issue-tag.h:984
 msgid "The type of the releases block is invalid. It needs to either `embedded` (the default) or `external`."
 msgstr "版本块的类型无效。需要是 `embedded`（默认）或 `external`。"
 
-#: src/as-validator-issue-tag.h:983
+#: src/as-validator-issue-tag.h:989
 msgid "The URL to an external release metadata file is insecure. This is not allowed, please use HTTPS URLs only."
 msgstr "到外部版本元数据文件的 URL 不安全。这是不允许的，请只使用 HTTPS URL。"
 
-#: src/as-validator-issue-tag.h:988
+#: src/as-validator-issue-tag.h:994
 msgid "Failed to download release metadata."
 msgstr "下载版本元数据失败。"
 
-#: src/as-validator-issue-tag.h:993
+#: src/as-validator-issue-tag.h:999
 msgid "A local release metadata file was not found. It is strongly recommended to validate this metadata together with the main MetaInfo file."
 msgstr "找不到本地版本元数据文件。强烈建议与主元信息文件一同验证此元数据。"
 
-#: src/as-validator-issue-tag.h:999
+#: src/as-validator-issue-tag.h:1005
 msgid "The value set as release urgency is not a known urgency value."
 msgstr "该设定值作为紧急发布设定并不是已知的紧急设定值。"
 
-#: src/as-validator-issue-tag.h:1004
+#: src/as-validator-issue-tag.h:1010
 msgid "The value set as release type is invalid."
 msgstr "该设定值作为发布类型设定无效。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1010
+#: src/as-validator-issue-tag.h:1016
 msgid "The release is missing the `version` property."
 msgstr "该发布缺少 `version` 属性。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1016
+#: src/as-validator-issue-tag.h:1022
 msgid "The release entry is missing either the `date` (preferred) or the `timestamp` property."
 msgstr "该发布条目缺少 `date` (首选) 或 `timestamp` 属性。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1022
+#: src/as-validator-issue-tag.h:1028
 msgid "The release entry is missing the `date` property. Ensure to add it before publishing the snapshot release."
 msgstr "该发布条目缺少`date`属性。请确保在发布快照版本前添加它。"
 
-#: src/as-validator-issue-tag.h:1027
+#: src/as-validator-issue-tag.h:1033
 msgid "The release timestamp is invalid."
 msgstr "发行时间戳无效。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1033
+#: src/as-validator-issue-tag.h:1039
 msgid "The release description must be put inside a `description` tag"
 msgstr "版本信息必须放在 `description` 标签里"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1039
+#: src/as-validator-issue-tag.h:1045
 msgid "The value set as artifact type is invalid. Must be either `source` or `binary`."
 msgstr "该设定值作为人工类型无效。必须为 `source` 或 `binary`。"
 
-#: src/as-validator-issue-tag.h:1044
+#: src/as-validator-issue-tag.h:1050
 msgid "The value set as artifact bundle type is invalid."
 msgstr "该设定值作为人工捆绑包类型无效。"
 
-#: src/as-validator-issue-tag.h:1049
+#: src/as-validator-issue-tag.h:1055
 msgid "The platform triplet for this release is invalid. It must be in the form of `architecture-oskernel-osenv` - refer to the AppStream documentation or information on normalized GNU triplets for more information and valid fields."
 msgstr "该发布的平台三联体无效。它必须是 `architecture-oskernel-osenv` 的形式，请参阅 AppStream 文档或标准化的 GNU 三联体信息获取更多信息和有效域。"
 
-#: src/as-validator-issue-tag.h:1056
+#: src/as-validator-issue-tag.h:1062
 msgid "The selected checksumming algorithm is unsupported or unknown."
 msgstr "选择的校验和算法不受支持或未知。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1062
+#: src/as-validator-issue-tag.h:1068
 msgid "The size type is unknown. Must be `download` or `installed`."
 msgstr "该大小类型未知。必须为 `download` 或 `installed`。"
 
-#: src/as-validator-issue-tag.h:1067
+#: src/as-validator-issue-tag.h:1073
 msgid "The artifact filename must be a file basename, not a (relative or absolute) path."
 msgstr "该人造文件名必须为文件 basename，而不是（相对或绝对）路径。"
 
-#: src/as-validator-issue-tag.h:1072
+#: src/as-validator-issue-tag.h:1078
 msgid "The value set as release issue type is invalid."
 msgstr "该设定值作为发布问题类型无效。"
 
-#: src/as-validator-issue-tag.h:1077
+#: src/as-validator-issue-tag.h:1083
 msgid "The issue is tagged at security vulnerability with a CVE number, but its value does not look like a valid CVE identifier."
 msgstr "该问题打上了带 CVE 数字的安全漏洞标签，但它的设定值看起来不像有效的 CVE 标识。"
 
-#: src/as-validator-issue-tag.h:1082
+#: src/as-validator-issue-tag.h:1088
 msgid "The issue is tagged as security vulnerability with a GCVE identifier, but its value does not follow the `GCVE-<GNA-ID>-<YEAR>-<UNIQUE-ID>` scheme of the Global CVE Allocation System."
 msgstr "该问题已标记为安全漏洞，并附带 GCVE 标识符，但其值不符合全局 CVE 分配系统的 `GCVE-<GNA-ID>-<YEAR>-<UNIQUE-ID>`格式规范。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1089
+#: src/as-validator-issue-tag.h:1095
 msgid "This component is missing information about releases. Consider adding a `releases` tag to describe releases and their changes."
 msgstr "该组件缺少关于版本的信息。考虑添加一个`releases` 标签来描述发行版和它们的变化。"
 
-#: src/as-validator-issue-tag.h:1094
+#: src/as-validator-issue-tag.h:1100
 msgid "The AppStream specification requires a complete, ISO 8601 date string with at least day-granularity to denote dates. Please ensure the date string is valid."
 msgstr "AppStream 规范要求了完整的带有至少精确到天的 ISO 8601 数据字符串来表示日期。请确保日期字符串有效。"
 
-#: src/as-validator-issue-tag.h:1100
+#: src/as-validator-issue-tag.h:1106
 msgid "This component extends, provides, requires or recommends itself, which is certainly not intended and may confuse users or machines dealing with this metadata."
 msgstr "该组件扩展、提供、需求或推荐它自己，这肯定不是有意的且可能会迷惑用户或处理该元数据的设备。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1107
+#: src/as-validator-issue-tag.h:1113
 msgid "Licenses for `runtime` components are usually too complex to reflect them in a simple SPDX expression. Consider using a `LicenseRef` and a web URL as value for this component's `project_license`. E.g. `LicenseRef-free=https://example.com/licenses.html`"
 msgstr "用于 `runtime` 组件的许可证往往太复杂以致无法以简单的 SPDX 表达来反映它们。请考虑为该组件的 `project_license` 使用 `LicenseRef` 且用网址作为设定值。比如 `LicenseRef-free=https://example.com/licenses.html`"
 
-#: src/as-validator-issue-tag.h:1113
+#: src/as-validator-issue-tag.h:1119
 msgid "Since a `runtime` component consists of multiple other software components, their component-IDs may be listed in a `<provides/>` section for this runtime."
 msgstr "由于 `runtime` 组件是由多个其它软件组件构成的，它们的组件 ID 可能被列在该运行时的 `<provides/>` 部分。"
 
-#: src/as-validator-issue-tag.h:1118
+#: src/as-validator-issue-tag.h:1124
 msgid "The type of the item that the component provides is not known to AppStream."
 msgstr "该组件提供的项目类型对于 AppStream 来说是未知的。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1124
+#: src/as-validator-issue-tag.h:1130
 msgid "The toplevel `mimetypes` tag is deprecated. Please use `mediatype` tags in a `provides` block instead to indicate that your software provides a media handler for the given types."
 msgstr "该顶层 `mimetypes` 标签已废弃。请在 `provides` 区块中使用 `mediatype` 标签替代来提示您的软件提供了指定类型的多媒体处理功能。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1131
+#: src/as-validator-issue-tag.h:1137
 msgid "This component has no `content_rating` tag to provide age rating information. You can generate the tag data online by answering a few questions at https://hughsie.github.io/oars/"
 msgstr "该组件没有 `content_rating` 标签来提供年龄评级信息。您可以在 https://hughsie.github.io/oars/ 上回答几个问题，在线生成标签数据"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1138
+#: src/as-validator-issue-tag.h:1144
 msgid "The `type` attribute of this `content_rating` element is missing or empty."
 msgstr "此 `content_rating` 元素的 `type` 属性缺失或为空。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1144
+#: src/as-validator-issue-tag.h:1150
 msgid "The `type` attribute of the `content_rating` element has an invalid value."
 msgstr "此 `content_rating` 元素的 `type` 属性的值无效。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1150
+#: src/as-validator-issue-tag.h:1156
 msgid "The `content_rating` tag can only contain `content_attribute` children."
 msgstr "`content_rating` 标签只能含有 `content_attribute` 子项。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1156
+#: src/as-validator-issue-tag.h:1162
 msgid "The `id` attribute of the `content_attribute` element is missing or empty."
 msgstr "`content_attribute` 元素的 `id` 属性缺失或为空。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1162
+#: src/as-validator-issue-tag.h:1168
 msgid "The `id` attribute of the `content_attribute` element has an invalid value."
 msgstr "`content_attribute` 元素的 `id` 属性的值无效。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1168
+#: src/as-validator-issue-tag.h:1174
 msgid "The `content_attribute` tag needs a value."
 msgstr "`content_attribute` 标签需要值。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1174
+#: src/as-validator-issue-tag.h:1180
 msgid "The `content_attribute` tag value is unknown."
 msgstr "`content_attribute` 标签的值未知。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1180
+#: src/as-validator-issue-tag.h:1186
 msgid "The `content_attribute` tag value is invalid for the given id."
 msgstr "`content_attribute` 标签值对于给出的 ID 无效。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1186
+#: src/as-validator-issue-tag.h:1192
 msgid "A `content_attribute` tag with this ID has already been defined."
 msgstr "已有用此 ID 定义的 `content_attribute` 标签。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1192
+#: src/as-validator-issue-tag.h:1198
 msgid "This `tag` is missing a `namespace` attribute."
 msgstr "该 `tag` 缺少 `namespace` 属性。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1198
+#: src/as-validator-issue-tag.h:1204
 msgid "This tag or its namespace contains invalid characters. Only lower-cased ASCII letters, numbers, dots, hyphens and underscores are permitted."
 msgstr "此标记或其名称空间包含无效字符。只能使用小写 ASCII 字母、数字、点、连字符和下划线。"
 
-#: src/as-validator-issue-tag.h:1203
+#: src/as-validator-issue-tag.h:1209
 msgid "The type of this color is not valid."
 msgstr "此颜色类型无效。"
 
-#: src/as-validator-issue-tag.h:1208
+#: src/as-validator-issue-tag.h:1214
 msgid "The value of this color scheme preference is not valid."
 msgstr "此配色方案首选项的值无效。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1214
+#: src/as-validator-issue-tag.h:1220
 msgid "The name of the color scheme property is wrong. It should be `scheme_preference`."
 msgstr "配色方案属性的名称有误。应为 `scheme_preference`。"
 
-#: src/as-validator-issue-tag.h:1219
+#: src/as-validator-issue-tag.h:1225
 msgid "This color is not a valid HTML color code."
 msgstr "该颜色不是有效的 HTML 颜色代码。"
 
-#: src/as-validator-issue-tag.h:1224
+#: src/as-validator-issue-tag.h:1230
 msgid "A color for this type/scheme combination was already set. Colors must be unique per type/scheme."
 msgstr "此类型/方案组合的颜色已经设置。每个类型/主题的颜色必须是唯一的。"
 
-#: src/as-validator-issue-tag.h:1229
+#: src/as-validator-issue-tag.h:1235
 msgid "The given DOI (Digital Object Identifier) for this reference item is not valid."
 msgstr "为此参考给出的 DOI（数字对象 ID）无效。"
 
-#: src/as-validator-issue-tag.h:1234
+#: src/as-validator-issue-tag.h:1240
 msgid "The value for this citation reference item must be an URL to a CFF (Citation File Format) file."
 msgstr "引文参考项的值必须是到 CFF (Citation File Format) 文件的 URL。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1240
+#: src/as-validator-issue-tag.h:1246
 msgid "This registry reference item is missing the `name` property to denote the name of the registry it is about."
 msgstr "这个之策参考项缺失 `name` 属性，用于表示注册相关的名称。"
 
-#: src/as-validator-issue-tag.h:1245
+#: src/as-validator-issue-tag.h:1251
 msgid "The registry for this reference item is unknown. This may be due to a typing error, or the registry needs to be registered with AppStream."
 msgstr "此参考项的注册未知。可能是因为拼写错误，或者需要用 AppStream 注册。"
 
-#: src/as-validator-issue-tag.h:1251
+#: src/as-validator-issue-tag.h:1257
 msgid "The reference item is missing a value."
 msgstr "参考项目缺失数值。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1257
+#: src/as-validator-issue-tag.h:1263
 msgid "The `custom` tag can only contain `value` children."
 msgstr "`custom` 标签只能含有 `value` 子项。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1263
+#: src/as-validator-issue-tag.h:1269
 msgid "This `custom` tag value is missing a `key` attribute."
 msgstr "这个 `custom` 标签值缺少`key` 属性。"
 
-#: src/as-validator-issue-tag.h:1268
+#: src/as-validator-issue-tag.h:1274
 msgid "A key can only be used once."
 msgstr "密钥只可使用一次。"
 
-#: src/as-validator-issue-tag.h:1273
+#: src/as-validator-issue-tag.h:1279
 msgid "This custom value is empty."
 msgstr "这个自定义值是空的。"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1279
+#: src/as-validator-issue-tag.h:1285
 msgid "A `keywords` tag must not be localized in metainfo files (upstream metadata). Localize the individual keyword entries instead."
 msgstr "`keywords` 标签不得在元信息文件（上游元数据）中本地化。 而是本地化单个关键词条目。"
 
@@ -3069,7 +3073,7 @@ msgstr "将标签“%s”的严重性降级至允许通过验证是不允许的�
 #. TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted names.
 #: src/as-validator.c:897 src/as-validator.c:1673 src/as-validator.c:1849
 #: src/as-validator.c:2070 src/as-validator.c:2735 src/as-validator.c:2757
-#: src/as-validator.c:2882 src/as-validator.c:3205
+#: src/as-validator.c:2882 src/as-validator.c:3206
 #, c-format
 msgid "Found: %s - Allowed: %s"
 msgstr "发现的：%s - 允许的：%s"
@@ -3173,13 +3177,13 @@ msgid "Failed to parse arguments"
 msgstr "解析参数失败"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: tools/appstream-compose.c:334 tools/appstreamcli.c:1795
+#: tools/appstream-compose.c:334 tools/appstreamcli.c:1831
 #, c-format
 msgid "AppStream version: %s"
 msgstr "AppStream 版本：%s"
 
 #. TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ.
-#: tools/appstream-compose.c:338 tools/appstreamcli.c:1799
+#: tools/appstream-compose.c:338 tools/appstreamcli.c:1835
 #, c-format
 msgid ""
 "AppStream CLI tool version: %s\n"
@@ -3310,368 +3314,368 @@ msgid "Manually selected location of AppStream metadata to scan."
 msgstr "手动选择的要扫描的 AppStream 元数据的位置。"
 
 #. TRANSLATORS: ascli flag description for: --no-cache
-#: tools/appstreamcli.c:133
+#: tools/appstreamcli.c:140
 msgid "Ignore cache age and build a fresh cache before performing the query."
 msgstr "忽略缓存日期并在执行命令队列前构建全新缓存。"
 
 #. TRANSLATORS: ascli flag description for: --format
-#: tools/appstreamcli.c:149
+#: tools/appstreamcli.c:156
 msgid "Default metadata format (valid values are 'xml' and 'yaml')."
 msgstr "元数据格式的默认值 (有效的值为“xml”和“yaml”)。"
 
 #. TRANSLATORS: ascli flag description for: --details
-#: tools/appstreamcli.c:165
+#: tools/appstreamcli.c:172
 msgid "Print detailed output about found components."
 msgstr "打印关于寻找到的组件的详细输出。"
 
 #. TRANSLATORS: ascli flag description for: --server (used by the "list-reviews" command)
-#: tools/appstreamcli.c:184
+#: tools/appstreamcli.c:191
 msgid "URL of the ODRS-compatible reviews server to use."
 msgstr "要使用的兼容 ODRS 的评价服务器的 URL。"
 
 #. TRANSLATORS: ascli flag description for: --start (used by the "list-reviews" command)
-#: tools/appstreamcli.c:190
+#: tools/appstreamcli.c:197
 msgid "Index of the first review to fetch, to page through all reviews."
 msgstr "要获取的第一个评论的索引，用于翻页查看所有评论。"
 
 #. TRANSLATORS: ascli flag description for: --limit (used by the "list-reviews" command)
-#: tools/appstreamcli.c:196
+#: tools/appstreamcli.c:203
 msgid "Maximum number of reviews to fetch."
 msgstr "要获取的最大评论数。"
 
 #. TRANSLATORS: ascli flag description for: --locale (used by the "list-reviews" and "submit-review" commands)
-#: tools/appstreamcli.c:202
+#: tools/appstreamcli.c:209
 msgid "Locale to prefer for reviews, instead of the current system locale."
 msgstr "用于评论的首选区域，而不是当前系统区域。"
 
 #. TRANSLATORS: ascli flag description for: --pedantic (used by the "validate" command)
-#: tools/appstreamcli.c:223
+#: tools/appstreamcli.c:230
 msgid "Also show pedantic hints."
 msgstr "同时显示详细提示。"
 
 #. TRANSLATORS: ascli flag description for: --explain (used by the "validate" command)
-#: tools/appstreamcli.c:230
+#: tools/appstreamcli.c:237
 msgid "Print detailed explanation for found issues."
 msgstr "打印出所发现问题的详细说明。"
 
 #. TRANSLATORS: ascli flag description for: --no-net (used by the "validate" command)
-#: tools/appstreamcli.c:237
+#: tools/appstreamcli.c:244
 msgid "Do not use network access."
 msgstr "不使用网络访问。"
 
 #. TRANSLATORS: ascli flag description for: --strict (used by the "validate" command)
-#: tools/appstreamcli.c:244
+#: tools/appstreamcli.c:251
 msgid "Fail validation if any issue is emitted that is not of pedantic severity."
 msgstr "如果任何发出的问题不具有迂腐的严重性则验证失败。"
 
 #. TRANSLATORS: ascli flag description for: --format  when validating XML files
-#: tools/appstreamcli.c:250
+#: tools/appstreamcli.c:257
 msgid "Format of the generated report (valid values are 'text' and 'yaml')."
 msgstr "生成报告的格式 (有效的值为“xml”和“yaml”)。"
 
 #. TRANSLATORS: ascli flag description for: --override  when validating XML files
-#: tools/appstreamcli.c:256
+#: tools/appstreamcli.c:263
 msgid "Override the severities of selected issue tags."
 msgstr "覆盖选中问题标签的严重性。"
 
 #. TRANSLATORS: this is a (usually shorter) command alias, shown after the command summary text
-#: tools/appstreamcli.c:303
+#: tools/appstreamcli.c:310
 #, c-format
 msgid "(Alias: '%s')"
 msgstr "（别名：“%s”）"
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
-#: tools/appstreamcli.c:352 tools/appstreamcli.c:1432
+#: tools/appstreamcli.c:359 tools/appstreamcli.c:1468
 msgid "AppStream command-line interface"
 msgstr "AppStream 命令行界面"
 
-#: tools/appstreamcli.c:355
+#: tools/appstreamcli.c:362
 #, c-format
 msgid "'%s' command"
 msgstr "“%s”命令"
 
 #. TRANSLATORS: An unknown option was passed to appstreamcli.
-#: tools/appstreamcli.c:398
+#: tools/appstreamcli.c:405
 #, c-format
 msgid "Option '%s' is unknown."
 msgstr "选项“%s”未知。"
 
-#: tools/appstreamcli.c:403 tools/appstreamcli.c:1810
+#: tools/appstreamcli.c:410 tools/appstreamcli.c:1846
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr "运行“%s --help”以查看可用命令行选项完整的列表。"
 
-#: tools/appstreamcli.c:407
+#: tools/appstreamcli.c:414
 #, c-format
 msgid "Run '%s --help' to see a list of available commands and options, and '%s %s --help' to see a list of options specific for this subcommand."
 msgstr "运行“%s --help”以查看可用命令和选项列表；“%s %s --help”可查看专属于某个子命令的选项列表。"
 
 #. TRANSLATORS: ascli flag description for: --force
-#: tools/appstreamcli.c:462
+#: tools/appstreamcli.c:469
 msgid "Enforce a cache refresh."
 msgstr "强制刷新缓存。"
 
 #. TRANSLATORS: ascli flag description for: --source in a refresh action. Don't translate strings in backticks: `name`
-#: tools/appstreamcli.c:468
+#: tools/appstreamcli.c:475
 msgid "Limit cache refresh to data from a specific source, e.g. `os` or `flatpak`. May be specified multiple times."
 msgstr "限制对来自指定源的数据缓存刷新，比如： `os` 或 `flatpak`。可以指定多次。"
 
 #. TRANSLATORS: ascli check-license is missing its parameter
-#: tools/appstreamcli.c:726
+#: tools/appstreamcli.c:752
 msgid "No license, license expression or license exception string was provided."
 msgstr "没有提供许可证、许可证表述或许可证例外字符串。"
 
 #. TRANSLATORS: ascli flag description for: --details (part of the "check-syscompat" subcommand)
-#: tools/appstreamcli.c:775
+#: tools/appstreamcli.c:805
 msgid "Print more detailed output on why incompatibilities exist."
 msgstr "更详细打印不兼容性存在原因相关的输出。"
 
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
-#: tools/appstreamcli.c:812
+#: tools/appstreamcli.c:847
 msgid "Set the data origin for the installed metadata catalog file."
 msgstr "为安装的元数据集合文件设置数据来源。"
 
 #. TRANSLATORS: ascli flag description for: --user (part of the "put" subcommand)
-#: tools/appstreamcli.c:818
+#: tools/appstreamcli.c:853
 msgid "Install the file for the current user, instead of globally."
 msgstr "为当前用户而不是全局的安装该文件。"
 
 #. TRANSLATORS: ascli flag description for: --bundle-type (part of the "remove" and "install" subcommands)
-#: tools/appstreamcli.c:846
+#: tools/appstreamcli.c:881
 msgid "Limit the command to use only components from the given bundling system (`flatpak` or `package`)."
 msgstr "限制该命令仅使用来自给定的捆绑包系统的组件（`flatpak` 或 `package`）。"
 
 #. TRANSLATORS: ascli flag description for: --first (part of the "remove" and "install" subcommands)
-#: tools/appstreamcli.c:853
+#: tools/appstreamcli.c:888
 msgid "Do not ask for which software component should be used and always choose the first entry."
 msgstr "不要询问应使用哪个软件组件而总是选择首个条目。"
 
 #. TRANSLATORS: ascli install currently only supports two values for --bundle-type.
-#: tools/appstreamcli.c:887 tools/appstreamcli.c:922
+#: tools/appstreamcli.c:922 tools/appstreamcli.c:957
 msgid "No valid bundle kind was specified. Only `package` and `flatpak` are currently recognized."
 msgstr "未指定有效的捆绑包类型。当前仅能识别 `package` 和 `flatpak`。"
 
-#: tools/appstreamcli.c:1082
+#: tools/appstreamcli.c:1118
 msgid "You need to provide at least two version numbers to compare as parameters."
 msgstr "您需要提供至少两个版本号码作为参数进行比较。"
 
 #. * TRANSLATORS: The user tried to compare version numbers, but the comparison operator (greater-then, equal, etc.) was invalid.
-#: tools/appstreamcli.c:1111
+#: tools/appstreamcli.c:1147
 #, c-format
 msgid "Unknown compare relation '%s'. Valid values are:"
 msgstr "未知的比较关系式“%s”。有效的设定值为："
 
-#: tools/appstreamcli.c:1152
+#: tools/appstreamcli.c:1188
 msgid "Too many parameters: Need two version numbers or version numbers and a comparison operator."
 msgstr "参数过多：需要两个版本号码或版本号码与对比运算符。"
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
-#: tools/appstreamcli.c:1178
+#: tools/appstreamcli.c:1214
 msgid "Use the given .desktop file to fill in the basic values of the metainfo file."
 msgstr "使用给定的 .desktop 文件填写元信息文件的基本值。"
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
-#: tools/appstreamcli.c:1186
+#: tools/appstreamcli.c:1222
 msgid "This command takes optional TYPE and FILE positional arguments, FILE being a file to write to (or \"-\" for standard output)."
 msgstr "此命令引用可选的 TYPE 和 FILE 位置参数，FILE 为要写入的文件（或用“-”表示标准输出）。"
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
-#: tools/appstreamcli.c:1191
+#: tools/appstreamcli.c:1227
 #, c-format
 msgid "The TYPE must be a valid component-type, such as: %s"
 msgstr "TYPE 必须为有效的组件类型，例如：%s"
 
 #. TRANSLATORS: ascli flag description for: --exec (part of the make-desktop-file subcommand)
-#: tools/appstreamcli.c:1229
+#: tools/appstreamcli.c:1265
 msgid "Use the specified line for the 'Exec=' key of the desktop-entry file."
 msgstr "为 desktop-entry 文件的“Exec=”设定键使用指定行。"
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
-#: tools/appstreamcli.c:1269
+#: tools/appstreamcli.c:1305
 msgid "Assume the input file is in the selected format ('yaml', 'text' or 'markdown')."
 msgstr "假设输入文件是所选的格式（'yaml'、'text' 或 'markdown'）。"
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
-#: tools/appstreamcli.c:1276
+#: tools/appstreamcli.c:1312
 msgid "Limit the number of release entries that end up in the metainfo file (<= 0 for unlimited)."
 msgstr "限制元信息文件中出现的发行条目数量（<=0 为不限制）。"
 
 #. TRANSLATORS: ascli flag description for: --translatable-count as part of the news-to-metainfo command
-#: tools/appstreamcli.c:1283
+#: tools/appstreamcli.c:1319
 msgid "Set the number of releases that should have descriptions marked for translation (latest releases are translated first, -1 for unlimited)."
 msgstr "设置具有应标记为翻译的描述的发布数量（最新的发布优先翻译，-1 为不限制）。"
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
-#: tools/appstreamcli.c:1328
+#: tools/appstreamcli.c:1364
 msgid "Generate the output in the selected format ('yaml', 'text' or 'markdown')."
 msgstr "以选择的格式生成输出结果（“yaml”、“text”或“markdown”）。"
 
 #. TRANSLATORS: appstreamcli-compose was not found
-#: tools/appstreamcli.c:1373
+#: tools/appstreamcli.c:1409
 #, c-format
 msgid "AppStream Compose binary '%s' was not found! Can not continue."
 msgstr "未找到 AppStream Compose 二进制文件“%s”！无法继续。"
 
 #. TRANSLATORS: appstreamcli-compose was not found - info text
-#: tools/appstreamcli.c:1377
+#: tools/appstreamcli.c:1413
 #, c-format
 msgid "You may be able to install the AppStream Compose addon via: `%s`"
 msgstr "您可以通过 `%s` 安装 AppStream Compose 附件"
 
 #. TRANSLATORS: "Compose" is a command of appstreamcli to build metadata catalogs.
-#: tools/appstreamcli.c:1399
+#: tools/appstreamcli.c:1435
 #, c-format
 msgid "Compose operation failed to execute: %s"
 msgstr "整合操作执行失败：%s"
 
-#: tools/appstreamcli.c:1409
+#: tools/appstreamcli.c:1445
 #, c-format
 msgid "Compose failed: %s"
 msgstr "整合失败：%s"
 
 #. these are commands we can use with appstreamcli
-#: tools/appstreamcli.c:1434
+#: tools/appstreamcli.c:1470
 msgid "Subcommands:"
 msgstr "子命令："
 
-#: tools/appstreamcli.c:1488
+#: tools/appstreamcli.c:1524
 msgid "You can find information about subcommand-specific options by passing \"--help\" to the subcommand."
 msgstr "您可以借由传递“--help”给子命令来查找子命令专属的选项信息。"
 
 #. TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated.
-#: tools/appstreamcli.c:1506
+#: tools/appstreamcli.c:1542
 #, c-format
 msgid "Command '%s' is unknown. Run '%s --help' for a list of available commands."
 msgstr "未知命令“%s”。运行“%s --help”查看可用命令列表。"
 
 #. TRANSLATORS: `appstreamcli search` command description.
-#: tools/appstreamcli.c:1530
+#: tools/appstreamcli.c:1566
 msgid "Search the component database."
 msgstr "搜索组件数据库。"
 
 #. TRANSLATORS: `appstreamcli get` command description.
-#: tools/appstreamcli.c:1537
+#: tools/appstreamcli.c:1573
 msgid "Get information about a component by its ID."
 msgstr "根据 ID 获取相应组件的信息。"
 
 #. TRANSLATORS: `appstreamcli what-provides` command description.
-#: tools/appstreamcli.c:1544
+#: tools/appstreamcli.c:1580
 msgid "Get components which provide the given item. Needs an item type (e.g. lib, bin, python3, …) and item value as parameter."
 msgstr "获取提供给定项目的组件。需要项目类型（如 lib、bin、python3……）和项目值作为参数。"
 
 #. TRANSLATORS: `appstreamcli list-categories` command description.
-#: tools/appstreamcli.c:1552
+#: tools/appstreamcli.c:1588
 msgid "List components that are part of the specified categories."
 msgstr "列出属于指定分类的组件。"
 
 #. TRANSLATORS: `appstreamcli dump` command description.
-#: tools/appstreamcli.c:1561
+#: tools/appstreamcli.c:1597
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "为 ID 匹配的组件转储原始 XML 元数据。"
 
 #. TRANSLATORS: `appstreamcli refresh-cache` command description.
-#: tools/appstreamcli.c:1569
+#: tools/appstreamcli.c:1605
 msgid "Rebuild the component metadata cache."
 msgstr "重建组件元数据缓存。"
 
 #. TRANSLATORS: `appstreamcli validate` command description.
-#: tools/appstreamcli.c:1577
+#: tools/appstreamcli.c:1613
 msgid "Validate AppStream XML files for issues."
 msgstr "验证 AppStream XML 文件以寻找问题。"
 
 #. TRANSLATORS: `appstreamcli validate-tree` command description.
-#: tools/appstreamcli.c:1584
+#: tools/appstreamcli.c:1620
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr "检验已安装应用程序的文件树以查找有效元数据。"
 
 #. TRANSLATORS: `appstreamcli `check-license` command description.
-#: tools/appstreamcli.c:1592
+#: tools/appstreamcli.c:1628
 msgid "Check license string for validity and print details about it."
 msgstr "检查许可证字符串的有效性并显示其详情。"
 
 #. TRANSLATORS: `appstreamcli `check-license` command description.
-#: tools/appstreamcli.c:1600
+#: tools/appstreamcli.c:1636
 msgid "Check if requirements of a component (via its ID or MetaInfo file) are satisfied on this system."
 msgstr "检查此系统是否满足组件（通过 ID 或元信息文件）要求。"
 
 #. TRANSLATORS: `appstreamcli `check-syscompat` command description.
-#: tools/appstreamcli.c:1608
+#: tools/appstreamcli.c:1644
 msgid "Check compatibility of a component (via its ID or MetaInfo file) with common system and chassis types."
 msgstr "检查组件（通过 ID 或元信息文件）对常见系统与平台类型的兼容性。"
 
 #. TRANSLATORS: `appstreamcli install` command description.
-#: tools/appstreamcli.c:1617
+#: tools/appstreamcli.c:1653
 msgid "Install software matching the component-ID."
 msgstr "安装匹配 component-ID 的软件。"
 
 #. TRANSLATORS: `appstreamcli remove` command description.
-#: tools/appstreamcli.c:1624
+#: tools/appstreamcli.c:1660
 msgid "Remove software matching the component-ID."
 msgstr "卸载匹配 component-id 的软件。"
 
 #. TRANSLATORS: `appstreamcli status` command description.
-#: tools/appstreamcli.c:1632
+#: tools/appstreamcli.c:1668
 msgid "Display status information about available AppStream metadata."
 msgstr "显示关于可用的 AppStream 元数据的状态信息。"
 
 #. TRANSLATORS: `appstreamcli sysinfo` command description.
-#: tools/appstreamcli.c:1640
+#: tools/appstreamcli.c:1676
 msgid "Show information about the current device and used operating system."
 msgstr "显示关于当前设备与操作系统的信息。"
 
 #. TRANSLATORS: `appstreamcli put` command description.
-#: tools/appstreamcli.c:1648
+#: tools/appstreamcli.c:1684
 msgid "Install a metadata file into the right location."
 msgstr "将元数据文件安装到正确的位置。"
 
 #. TRANSLATORS: `appstreamcli convert` command description. "Catalog XML" is a term describing a specific type of AppStream XML data.
-#: tools/appstreamcli.c:1656
+#: tools/appstreamcli.c:1692
 msgid "Convert metadata catalog XML to YAML or vice versa."
 msgstr "将元数据集 XML 转换成 YAML，或是相反。"
 
 #. TRANSLATORS: `appstreamcli vercmp` command description.
-#: tools/appstreamcli.c:1663
+#: tools/appstreamcli.c:1699
 msgid "Compare two version numbers."
 msgstr "比较两个版本号。"
 
 #. TRANSLATORS: `appstreamcli new-template` command description.
-#: tools/appstreamcli.c:1672
+#: tools/appstreamcli.c:1708
 msgid "Create a template for a metainfo file (to be filled out by the upstream project)."
 msgstr "为元信息文件创建一个模板（由上游项目填写）。"
 
 #. TRANSLATORS: `appstreamcli make-desktop-file` command description.
-#: tools/appstreamcli.c:1680
+#: tools/appstreamcli.c:1716
 msgid "Create a desktop-entry file from a metainfo file."
 msgstr "从元信息文件中创建 desktop-entry 文件。"
 
 #. TRANSLATORS: `appstreamcli news-to-metainfo` command description.
-#: tools/appstreamcli.c:1688
+#: tools/appstreamcli.c:1724
 msgid "Convert a YAML or text NEWS file into metainfo releases."
 msgstr "将 YAML 或纯文本的 NEWS 文件转换为元信息发布。"
 
 #. TRANSLATORS: `appstreamcli metainfo-to-news` command description.
-#: tools/appstreamcli.c:1696
+#: tools/appstreamcli.c:1732
 msgid "Write NEWS text or YAML file with information from a metainfo file."
 msgstr "使用来自元信息文件的信息编写 NEWS 纯文本或 YAML 文件。"
 
 #. TRANSLATORS: `appstreamcli compose` command description.
-#: tools/appstreamcli.c:1704
+#: tools/appstreamcli.c:1740
 msgid "Compose AppStream metadata catalog from directory trees."
 msgstr "从目录树整合 AppStream 元数据集。"
 
 #. TRANSLATORS: `appstreamcli list-reviews` command description.
-#: tools/appstreamcli.c:1713
+#: tools/appstreamcli.c:1749
 msgid "List online user reviews for a software component."
 msgstr "列出软件组件的在线用户评论。"
 
 #. TRANSLATORS: `appstreamcli submit-review` command description.
-#: tools/appstreamcli.c:1726
+#: tools/appstreamcli.c:1762
 msgid "Compose and submit an online review for a software component."
 msgstr "撰写并提交软件组件的在线评论。"
 
 #. TRANSLATORS: ascli has been run without command.
-#: tools/appstreamcli.c:1808
+#: tools/appstreamcli.c:1844
 msgid "You need to specify a command."
 msgstr "您需要指定一个命令。"
 
@@ -3710,120 +3714,120 @@ msgstr "无需更新元数据缓存。"
 
 #. TRANSLATORS: An AppStream component-id is missing in the command-line arguments
 #. TRANSLATORS: ascli was told to find a software component by its ID, but no component-id was specified.
-#: tools/ascli-actions-mdata.c:132 tools/ascli-actions-mdata.c:298
-#: tools/ascli-actions-misc.c:870 tools/ascli-actions-misc.c:957
+#: tools/ascli-actions-mdata.c:133 tools/ascli-actions-mdata.c:304
+#: tools/ascli-actions-misc.c:873 tools/ascli-actions-misc.c:960
 #: tools/ascli-actions-pkgmgr.c:182
 msgid "You need to specify a component-ID."
 msgstr "您需要指定一个组件-ID。"
 
-#: tools/ascli-actions-mdata.c:144 tools/ascli-actions-mdata.c:310
-#: tools/ascli-actions-mdata.c:734 tools/ascli-actions-mdata.c:866
+#: tools/ascli-actions-mdata.c:145 tools/ascli-actions-mdata.c:316
+#: tools/ascli-actions-mdata.c:743 tools/ascli-actions-mdata.c:876
 #: tools/ascli-actions-pkgmgr.c:195
 #, c-format
 msgid "Unable to find component with ID '%s'!"
 msgstr "未找到 id 为“%s”的组件！"
 
-#: tools/ascli-actions-mdata.c:167
+#: tools/ascli-actions-mdata.c:169
 msgid "You need to specify a term to search for."
 msgstr "您需要指定用来搜索的关键字。"
 
 #. TRANSLATORS: We got no full-text search results
-#: tools/ascli-actions-mdata.c:180
+#: tools/ascli-actions-mdata.c:182
 #, c-format
 msgid "No component matching '%s' found."
 msgstr "未找到符合“%s”的组件。"
 
-#: tools/ascli-actions-mdata.c:207
+#: tools/ascli-actions-mdata.c:211
 msgid "No value for the item to search for was defined."
 msgstr "未定义要搜索的项目的值。"
 
-#: tools/ascli-actions-mdata.c:214
+#: tools/ascli-actions-mdata.c:218
 msgid "Invalid type for provided item selected. Valid values are:"
 msgstr "选取的提供项目类型无效。有效的值为："
 
 #. TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results
-#: tools/ascli-actions-mdata.c:230
+#: tools/ascli-actions-mdata.c:234
 #, c-format
 msgid "Could not find component providing '%s::%s'."
 msgstr "未找到提供“%s;%s”的组件。"
 
-#: tools/ascli-actions-mdata.c:256
+#: tools/ascli-actions-mdata.c:261
 msgid "You need to specify categories to list."
 msgstr "您需要指定列出的类别。"
 
 #. TRANSLATORS: We got no category list results
-#: tools/ascli-actions-mdata.c:270
+#: tools/ascli-actions-mdata.c:275
 #, c-format
 msgid "No component found in categories %s."
 msgstr "在分类 %s 中找不到组件。"
 
-#: tools/ascli-actions-mdata.c:353
+#: tools/ascli-actions-mdata.c:359
 msgid "You need to specify a metadata file."
 msgstr "你需要指定一个元数据文件。"
 
-#: tools/ascli-actions-mdata.c:367
+#: tools/ascli-actions-mdata.c:373
 #, c-format
 msgid "Unable to install metadata file: %s"
 msgstr "无安装元数据文件：%s"
 
-#: tools/ascli-actions-mdata.c:387
+#: tools/ascli-actions-mdata.c:393
 msgid "You need to specify an input and output file."
 msgstr "你需要指定输入和输出文件。"
 
-#: tools/ascli-actions-mdata.c:394
+#: tools/ascli-actions-mdata.c:400
 #, c-format
 msgid "Metadata file '%s' does not exist."
 msgstr "“%s”元数据文件并不存在。"
 
 #. TRANSLATORS: User is trying to convert a file in ascli
-#: tools/ascli-actions-mdata.c:433
+#: tools/ascli-actions-mdata.c:439
 msgid "Unable to convert file: Could not determine output format, please set it explicitly using '--format='."
 msgstr "无法转换文件：无法判定输出格式，请使用“--format=”明确设置。"
 
 #. TRANSLATORS: The user tried to create a new template, but supplied a wrong component-type string
-#: tools/ascli-actions-mdata.c:481
+#: tools/ascli-actions-mdata.c:487
 msgid "You need to give an AppStream software component type to generate a template. Possible values are:"
 msgstr "您需要给定 AppStream 软件组件类型以生成模板。可用的值有："
 
 #. TRANSLATORS: The user tried to create a new template, but supplied a wrong component-type string
-#: tools/ascli-actions-mdata.c:484
+#: tools/ascli-actions-mdata.c:490
 #, c-format
 msgid "The software component type '%s' is not valid in AppStream. Possible values are:"
 msgstr "软件组件类型“%s”在 AppStream 中无效。可用的值有："
 
-#: tools/ascli-actions-mdata.c:504
+#: tools/ascli-actions-mdata.c:510
 #, c-format
 msgid "The .desktop file '%s' does not exist."
 msgstr ".desktop 文件“%s”并不存在。"
 
-#: tools/ascli-actions-mdata.c:511
+#: tools/ascli-actions-mdata.c:517
 #, c-format
 msgid "Unable to read the .desktop file: %s"
 msgstr "无法读取 .desktop 文件：%s"
 
-#: tools/ascli-actions-mdata.c:601
+#: tools/ascli-actions-mdata.c:607
 #, c-format
 msgid "Unable to build the template metainfo file: %s"
 msgstr "无法构建模板元信息文件：%s"
 
-#: tools/ascli-actions-mdata.c:610
+#: tools/ascli-actions-mdata.c:616
 #, c-format
 msgid "Unable to save the template metainfo file: %s"
 msgstr "无法保存模板源信息文件：%s"
 
-#: tools/ascli-actions-mdata.c:650
+#: tools/ascli-actions-mdata.c:656
 msgid "Unable to check display size: Can not read information without GUI toolkit access."
 msgstr "无法检查显示大小：无法在没有 GUI 工具包的情况下读取信息。"
 
-#: tools/ascli-actions-mdata.c:658 tools/ascli-actions-mdata.c:914
+#: tools/ascli-actions-mdata.c:664 tools/ascli-actions-mdata.c:924
 msgid "ERROR"
 msgstr "错误"
 
-#: tools/ascli-actions-mdata.c:695 tools/ascli-actions-mdata.c:826
+#: tools/ascli-actions-mdata.c:704 tools/ascli-actions-mdata.c:836
 msgid "You need to specify a MetaInfo filename or component ID."
 msgstr "您需要指定一个元信息文件名或组件 ID。"
 
-#: tools/ascli-actions-mdata.c:714 tools/ascli-actions-mdata.c:838
+#: tools/ascli-actions-mdata.c:723 tools/ascli-actions-mdata.c:848
 #: tools/ascli-actions-misc.c:133 tools/ascli-actions-misc.c:468
 #: tools/ascli-actions-misc.c:557
 #, c-format
@@ -3831,75 +3835,75 @@ msgid "Metainfo file '%s' does not exist."
 msgstr "不存在 “%s” 元数据文件。"
 
 #. TRANSLATORS: We are testing the relations (requires, recommends & supports data) for being satisfied on the current system.
-#: tools/ascli-actions-mdata.c:743
+#: tools/ascli-actions-mdata.c:752
 #, c-format
 msgid "Relation check for: %s"
 msgstr "关系检查：%s"
 
-#: tools/ascli-actions-mdata.c:754
+#: tools/ascli-actions-mdata.c:763
 msgid "Requirements:"
 msgstr "要求："
 
-#: tools/ascli-actions-mdata.c:756
+#: tools/ascli-actions-mdata.c:765
 msgid "No required items are set for this software."
 msgstr "此软件未设置必需项目。"
 
-#: tools/ascli-actions-mdata.c:761
+#: tools/ascli-actions-mdata.c:770
 msgid "Recommendations:"
 msgstr "推荐："
 
-#: tools/ascli-actions-mdata.c:763
+#: tools/ascli-actions-mdata.c:772
 msgid "No recommended items are set for this software."
 msgstr "此软件未设置推荐项目。"
 
-#: tools/ascli-actions-mdata.c:768
+#: tools/ascli-actions-mdata.c:777
 msgid "Supported:"
 msgstr "支持："
 
-#: tools/ascli-actions-mdata.c:770
+#: tools/ascli-actions-mdata.c:779
 msgid "No supported items are set for this software."
 msgstr "此软件未设置支持项目。"
 
 #. TRANSLATORS: This represents a computer chassis type.
-#: tools/ascli-actions-mdata.c:794
+#: tools/ascli-actions-mdata.c:803
 msgid "Desktop"
 msgstr "台式电脑"
 
 #. TRANSLATORS: This represents a computer chassis type.
-#: tools/ascli-actions-mdata.c:797
+#: tools/ascli-actions-mdata.c:806
 msgid "Laptop"
 msgstr "笔记本电脑"
 
 #. TRANSLATORS: This represents a computer chassis type.
-#: tools/ascli-actions-mdata.c:800
+#: tools/ascli-actions-mdata.c:809
 msgid "Server"
 msgstr "服务器"
 
 #. TRANSLATORS: This represents a computer chassis type.
-#: tools/ascli-actions-mdata.c:803
+#: tools/ascli-actions-mdata.c:812
 msgid "Tablet"
 msgstr "平板电脑"
 
 #. TRANSLATORS: This represents a computer chassis type.
-#: tools/ascli-actions-mdata.c:806
+#: tools/ascli-actions-mdata.c:815
 msgid "Handset"
 msgstr "手机"
 
-#: tools/ascli-actions-mdata.c:808
+#: tools/ascli-actions-mdata.c:817
 msgid "Unknown"
 msgstr "未知"
 
 #. TRANSLATORS: We are testing compatibility of a component with a common representation of hardware for a specific chassis (phone/tablet/desktop, etc.)
-#: tools/ascli-actions-mdata.c:875
+#: tools/ascli-actions-mdata.c:885
 #, c-format
 msgid "Chassis compatibility check for: %s"
 msgstr "平台兼容性测试：%s"
 
-#: tools/ascli-actions-mdata.c:894
+#: tools/ascli-actions-mdata.c:904
 msgid "Incompatible"
 msgstr "不兼容"
 
-#: tools/ascli-actions-mdata.c:929
+#: tools/ascli-actions-mdata.c:939
 msgid "Compatible"
 msgstr "兼容"
 
@@ -3908,7 +3912,7 @@ msgstr "兼容"
 msgid "AppStream Status:"
 msgstr "AppStream 状态："
 
-#: tools/ascli-actions-misc.c:48 tools/ascli-actions-misc.c:686
+#: tools/ascli-actions-misc.c:48 tools/ascli-actions-misc.c:689
 #, c-format
 msgid "Version: %s"
 msgstr "版本：%s"
@@ -4023,190 +4027,190 @@ msgstr ""
 msgid "You need to specify a NEWS format to write the output in."
 msgstr "您需要指定一种 NEWS 格式来写入输出。"
 
-#: tools/ascli-actions-misc.c:667
+#: tools/ascli-actions-misc.c:670
 msgid "Operating System Details"
 msgstr "操作系统详情"
 
-#: tools/ascli-actions-misc.c:671
+#: tools/ascli-actions-misc.c:674
 #, c-format
 msgid "Unable to find operating system component '%s'!"
 msgstr "找不到操作系统组件 '%s'！"
 
-#: tools/ascli-actions-misc.c:678
+#: tools/ascli-actions-misc.c:681
 msgid "ID"
 msgstr "ID"
 
-#: tools/ascli-actions-misc.c:679 tools/ascli-actions-misc.c:765
+#: tools/ascli-actions-misc.c:682 tools/ascli-actions-misc.c:768
 #: tools/ascli-utils.c:304
 msgid "Name"
 msgstr "名称"
 
-#: tools/ascli-actions-misc.c:680 tools/ascli-actions-misc.c:1026
+#: tools/ascli-actions-misc.c:683 tools/ascli-actions-misc.c:1029
 #: tools/ascli-utils.c:305
 msgid "Summary"
 msgstr "摘要"
 
-#: tools/ascli-actions-misc.c:714
+#: tools/ascli-actions-misc.c:717
 msgid "Release Kind"
 msgstr ""
 
 #. TRANSLATORS: Release date of the running OS release
-#: tools/ascli-actions-misc.c:719
+#: tools/ascli-actions-misc.c:722
 msgid "Released"
 msgstr ""
 
 #. TRANSLATORS: End-of-life date of the running OS release
-#: tools/ascli-actions-misc.c:725
+#: tools/ascli-actions-misc.c:728
 #, fuzzy
 #| msgid "Supported:"
 msgid "Supported Until"
 msgstr "支持："
 
 #. TRANSLATORS: OS releases newer than the running one, with their kind
-#: tools/ascli-actions-misc.c:740
+#: tools/ascli-actions-misc.c:743
 msgid "Newer Releases"
 msgstr ""
 
-#: tools/ascli-actions-misc.c:744 tools/ascli-utils.c:309
+#: tools/ascli-actions-misc.c:747 tools/ascli-utils.c:309
 msgid "Homepage"
 msgstr "主页"
 
-#: tools/ascli-actions-misc.c:747 tools/ascli-utils.c:330
+#: tools/ascli-actions-misc.c:750 tools/ascli-utils.c:330
 msgid "Developer"
 msgstr "开发者"
 
-#: tools/ascli-actions-misc.c:756 tools/ascli-utils.c:344
+#: tools/ascli-actions-misc.c:759 tools/ascli-utils.c:344
 msgid "Description"
 msgstr "描述"
 
-#: tools/ascli-actions-misc.c:764
+#: tools/ascli-actions-misc.c:767
 msgid "Kernel"
 msgstr "内核"
 
-#: tools/ascli-actions-misc.c:766 tools/ascli-actions-misc.c:922
+#: tools/ascli-actions-misc.c:769 tools/ascli-actions-misc.c:925
 msgid "Version"
 msgstr "版本"
 
-#: tools/ascli-actions-misc.c:769
+#: tools/ascli-actions-misc.c:772
 msgid "Hardware"
 msgstr "硬件"
 
-#: tools/ascli-actions-misc.c:772
+#: tools/ascli-actions-misc.c:775
 msgid "Physical Memory"
 msgstr "物理内存"
 
-#: tools/ascli-actions-misc.c:780 tools/ascli-actions-misc.c:785
+#: tools/ascli-actions-misc.c:783 tools/ascli-actions-misc.c:788
 msgid "Largest Display"
 msgstr "最大显示屏"
 
-#: tools/ascli-actions-misc.c:783
+#: tools/ascli-actions-misc.c:786
 msgid "logical px"
 msgstr "逻辑像素"
 
-#: tools/ascli-actions-misc.c:785
+#: tools/ascli-actions-misc.c:788
 msgid "unable to determine"
 msgstr "无法确定"
 
-#: tools/ascli-actions-misc.c:789
+#: tools/ascli-actions-misc.c:792
 msgid "Devices with Modaliases"
 msgstr "有模块别名的设备"
 
-#: tools/ascli-actions-misc.c:818
+#: tools/ascli-actions-misc.c:821
 msgid "User Input Controls"
 msgstr "用户输入控制"
 
-#: tools/ascli-actions-misc.c:821
+#: tools/ascli-actions-misc.c:824
 msgid "unknown"
 msgstr "未知"
 
-#: tools/ascli-actions-misc.c:828 tools/ascli-actions-validate.c:700
+#: tools/ascli-actions-misc.c:831 tools/ascli-actions-validate.c:700
 #: tools/ascli-actions-validate.c:706
 msgid "yes"
 msgstr "是"
 
-#: tools/ascli-actions-misc.c:830 tools/ascli-actions-validate.c:701
+#: tools/ascli-actions-misc.c:833 tools/ascli-actions-validate.c:701
 #: tools/ascli-actions-validate.c:707
 msgid "no"
 msgstr "否"
 
-#: tools/ascli-actions-misc.c:888
+#: tools/ascli-actions-misc.c:891
 msgid "Overall rating"
 msgstr "整体评分"
 
-#: tools/ascli-actions-misc.c:901
+#: tools/ascli-actions-misc.c:904
 #, c-format
 msgid "No reviews found for component '%s'."
 msgstr "未找到组件 '%s' 的评论。"
 
-#: tools/ascli-actions-misc.c:916 tools/ascli-actions-misc.c:1017
+#: tools/ascli-actions-misc.c:919 tools/ascli-actions-misc.c:1020
 msgid "Author"
 msgstr "作者"
 
-#: tools/ascli-actions-misc.c:919
+#: tools/ascli-actions-misc.c:922
 msgid "Date"
 msgstr "日期"
 
-#: tools/ascli-actions-misc.c:969
+#: tools/ascli-actions-misc.c:972
 #, c-format
 msgid "Composing a review for '%s' to be submitted to %s."
 msgstr "正在为“%s”撰写评论，并将提交至 %s。"
 
-#: tools/ascli-actions-misc.c:972
+#: tools/ascli-actions-misc.c:975
 msgid "Please only review the software itself, and mind that your review will be publicly visible."
 msgstr "请仅针对软件本身进行评价，并注意您的评论将被公开可见。"
 
 #. TRANSLATORS: Prompt when composing a review, %s is a user name
-#: tools/ascli-actions-misc.c:977
+#: tools/ascli-actions-misc.c:980
 #, c-format
 msgid "Your display name (leave empty to use '%s'):"
 msgstr "您的显示名称（留空以使用“%s”）："
 
 #. TRANSLATORS: Prompt for a star rating when composing a review
-#: tools/ascli-actions-misc.c:984
+#: tools/ascli-actions-misc.c:987
 msgid "Star rating, from 1 (worst) to 5 (best):"
 msgstr "星级评分，从1（最差）到5（最好）："
 
 #. TRANSLATORS: Prompt when composing a review
-#: tools/ascli-actions-misc.c:991
+#: tools/ascli-actions-misc.c:994
 msgid "Short summary of your review:"
 msgstr "您评论的简短总结："
 
-#: tools/ascli-actions-misc.c:997
+#: tools/ascli-actions-misc.c:1000
 msgid "The summary must not be empty and be no longer than 70 characters."
 msgstr "摘要不能为空，且长度不得超过70个字符。"
 
 #. TRANSLATORS: Prompt when composing a review
-#: tools/ascli-actions-misc.c:1001
+#: tools/ascli-actions-misc.c:1004
 msgid "Detailed review text (end with an empty line):"
 msgstr "详细的评论文本（以空行结束）："
 
-#: tools/ascli-actions-misc.c:1003
+#: tools/ascli-actions-misc.c:1006
 msgid "The review text must not be empty."
 msgstr "评论内容不能为空。"
 
-#: tools/ascli-actions-misc.c:1024
+#: tools/ascli-actions-misc.c:1027
 msgid "Rating"
 msgstr "评分"
 
-#: tools/ascli-actions-misc.c:1027
+#: tools/ascli-actions-misc.c:1030
 msgid "Review"
 msgstr "评论"
 
 #. TRANSLATORS: Prompt before publishing a composed review
-#: tools/ascli-actions-misc.c:1034
+#: tools/ascli-actions-misc.c:1037
 msgid "Publish this review?"
 msgstr "发布这条评论吗？"
 
-#: tools/ascli-actions-misc.c:1038
+#: tools/ascli-actions-misc.c:1041
 msgid "Review submission cancelled."
 msgstr "评论提交已取消。"
 
-#: tools/ascli-actions-misc.c:1048
+#: tools/ascli-actions-misc.c:1051
 #, c-format
 msgid "Review submitted successfully (ID: %s). Thank you!"
 msgstr "评论提交成功（ID：%s）。谢谢！"
 
-#: tools/ascli-actions-misc.c:1051
+#: tools/ascli-actions-misc.c:1054
 msgid "Review submitted successfully. Thank you!"
 msgstr "评论提交成功。谢谢！"
 
@@ -4452,7 +4456,12 @@ msgstr "强制项目以供"
 msgid "Provided Items"
 msgstr "提供的项目"
 
-#: tools/ascli-utils.c:525
+#: tools/ascli-utils.c:485
+#, c-format
+msgid "Data path '%s' does not exist or is not a directory."
+msgstr ""
+
+#: tools/ascli-utils.c:561
 #, c-format
 msgid "Please enter a number from 1 to %i: "
 msgstr "请输入从 1 到 %i 的数字： "

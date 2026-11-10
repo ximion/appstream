@@ -27,7 +27,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2026-10-26 10:22+0100\n"
+"POT-Creation-Date: 2026-11-10 20:12+0100\n"
 "PO-Revision-Date: 2023-12-23 14:15+0000\n"
 "Last-Translator: 박기준 <kei0108@ajou.ac.kr>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/appstream/translations/ko/>\n"
@@ -54,7 +54,7 @@ msgstr "AppStream은 소프트웨어를 설치하기 전에 소프트웨어 구�
 msgid "The <em>appstreamcli</em> command-line tool allows to read, write, and transform AppStream XML or YAML metadata as well as to validate it for compliance with the specification. It also provides easy access to the system metadata pool, for example to query for software that provides a specific Mediatype handler or for installing software by its component identifier."
 msgstr "<em>appstreamcli</em> 명령줄 도구를 사용하면 AppStream XML 또는 YAML 메타데이터를 읽고, 쓰고, 변환하고 사양 준수 여부를 확인할 수 있습니다. 또한 예를 들어 특정 Mediatype 핸들러를 제공하는 소프트웨어를 쿼리하거나 구성 요소 식별자로 소프트웨어를 설치하기 위해 시스템 메타데이터 풀에 쉽게 액세스할 수 있습니다."
 
-#: src/as-cache.c:935
+#: src/as-cache.c:1010
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "'%s' 캐시 위치에 기록할 수 없습니다."
@@ -1492,29 +1492,29 @@ msgstr "Microsoft에서 개발한 컴퓨터 GUI 운영체제, 윈도우"
 #. provide a list of words in your language that people are likely
 #. to include in a search but that should normally be ignored in
 #. the search.
-#: src/as-pool.c:101
+#: src/as-pool.c:102
 msgid "app;application;package;program;programme;suite;tool"
 msgstr "app;application;package;program;programme;suite;tool;앱;애플리케이션;패키지;프로그램;모음;도구;응용프로그램"
 
-#: src/as-pool.c:1236
+#: src/as-pool.c:1237
 msgid "Metadata files have errors:"
 msgstr "메타데이터 파일에 오류가 있습니다:"
 
-#: src/as-pool.c:2568
+#: src/as-pool.c:2565
 msgid "Group"
 msgstr "그룹"
 
-#: src/as-pool.c:2623
+#: src/as-pool.c:2620
 msgid "Iconsets"
 msgstr "아이콘셋"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
-#: src/as-pool.c:2671
+#: src/as-pool.c:2668
 msgid "Data from locally installed software"
 msgstr "위치상 설치된 소프트웨어의 데이터"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
-#: src/as-pool.c:2674
+#: src/as-pool.c:2671
 msgid "Software catalog data"
 msgstr "소프트웨어 카탈로그 데이터"
 
@@ -1558,7 +1558,7 @@ msgstr "런타임 펌웨어"
 msgid "Flashed Firmware"
 msgstr "펌웨어를 플래싱했습니다"
 
-#: src/as-provided.c:158 tools/ascli-actions-misc.c:1016
+#: src/as-provided.c:158 tools/ascli-actions-misc.c:1019
 msgid "Component"
 msgstr "구성 요소"
 
@@ -1856,23 +1856,23 @@ msgid "Satisfiability check for relation items of type '%s' is not implemented y
 msgstr "'%s' 유형의 항목에 대한 관계 만족 검사가 아직 구현되지 않았습니다."
 
 #. TRANSLATORS: The ODRS review server rejected our request, %s is the error message
-#: src/as-reviews-client.c:976 src/as-reviews-client.c:1069
+#: src/as-reviews-client.c:977 src/as-reviews-client.c:1070
 #, c-format
 msgid "The reviews server rejected the request: %s"
 msgstr ""
 
 #. TRANSLATORS: We failed to communicate with the ODRS review server, %s is an error message
-#: src/as-reviews-client.c:983
+#: src/as-reviews-client.c:984
 #, c-format
 msgid "Unable to communicate with the reviews server: %s"
 msgstr ""
 
-#: src/as-reviews-client.c:1070
+#: src/as-reviews-client.c:1071
 msgid "Unknown reason"
 msgstr ""
 
 #. TRANSLATORS: We failed to fetch a software rating from the ODRS review server
-#: src/as-reviews-client.c:1247
+#: src/as-reviews-client.c:1248
 #, fuzzy, c-format
 #| msgid "Unable to find component matching %s!"
 msgid "Unable to fetch software rating: %s"
@@ -2743,286 +2743,290 @@ msgid "The value of this desktop-entry field contains invalid or non-printable U
 msgstr "이 바탕 화면 입력 필드의 값에 유효하지 않거나 인쇄할 수 없는 UTF-8 문자가 포함되어 있어 제대로 표시할 수 없습니다."
 
 #: src/as-validator-issue-tag.h:933
+msgid "The locale of this localized desktop-entry key is not a valid POSIX locale name, so the key was ignored. Locales should look like `de`, `pt_BR` or `sr@latin`, as described in the Desktop Entry Specification."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:939
 msgid "This desktop-entry field value is quoted, which is likely unintentional."
 msgstr "이 데스크톱-엔트리 필드 값은 따옴표로 표시되며, 이 값은 의도하지 않을 수 있습니다."
 
-#: src/as-validator-issue-tag.h:938
+#: src/as-validator-issue-tag.h:944
 msgid "This desktop-entry file has the 'Hidden' property set. This is wrong for vendor-installed .desktop files, and nullifies all effects this .desktop file has (including MIME associations), which most certainly is not intentional."
 msgstr "이 데스크톱 항목 파일에는 '숨겨진' 속성이 설정되어 있습니다. 공급업체가 설치한 .desktop 파일의 경우 잘못된 것이며, 이 .desktop 파일이 (MIME 연결을 포함하여) 모든 효과를 무효화하므로 의도적인 것은 아닙니다."
 
-#: src/as-validator-issue-tag.h:944
+#: src/as-validator-issue-tag.h:950
 msgid "This desktop-entry file has the 'OnlyShowIn' property set with an empty value. This might not be intended, as this will hide the application from all desktops. If you do want to hide the application from all desktops, using 'NoDisplay=true' is more explicit."
 msgstr "이 데스크톱 항목 파일에는 빈 값으로 설정된 'OnlyShowIn' 속성이 있습니다. 이렇게 하면 응용 프로그램이 모든 데스크톱에서 숨겨지기 때문에 의도하지 않은 것일 수 있습니다. 응용 프로그램을 모든 데스크톱에서 숨기려면 'NoDisplay=true'를 사용하는 것이 더 명확합니다."
 
-#: src/as-validator-issue-tag.h:950
+#: src/as-validator-issue-tag.h:956
 msgid "No AppStream metadata was found in this directory or directory tree."
 msgstr "이 디렉토리 또는 디렉토리 트리에서 AppStream 메타데이터를 찾을 수 없습니다."
 
 #. pedantic because not everything which has metadata is an application
-#: src/as-validator-issue-tag.h:955
+#: src/as-validator-issue-tag.h:961
 msgid "No XDG applications directory found."
 msgstr "XDG 응용프로그램 디렉토리를 찾을 수 없습니다."
 
-#: src/as-validator-issue-tag.h:960
+#: src/as-validator-issue-tag.h:966
 msgid "The metainfo file is stored in a legacy path. Please place it in `/usr/share/metainfo/`."
 msgstr "metainfo 파일이 레거시 경로에 저장되어 있습니다. '/usr/share/metainfo/'에 넣어주세요."
 
-#: src/as-validator-issue-tag.h:965
+#: src/as-validator-issue-tag.h:971
 msgid "The metainfo file specifies multiple components. This is not allowed."
 msgstr "metainfo 파일이 여러 구성 요소를 지정합니다. 허용되지 않습니다."
 
-#: src/as-validator-issue-tag.h:970
+#: src/as-validator-issue-tag.h:976
 msgid "The releases are not sorted in a latest to oldest version order. This is required as some tools will assume that the latest version is always at the top. Sorting releases also increases overall readability of the metainfo file."
 msgstr "릴리스는 최신 버전에서 가장 오래된 버전 순서로 정렬되지 않습니다. 일부 도구는 최신 버전이 항상 맨 위에 있다고 가정하기 때문에 이 작업이 필요합니다. 릴리스를 정렬하면 메타인포 파일의 전체 가독성도 향상됩니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
-#: src/as-validator-issue-tag.h:978
+#: src/as-validator-issue-tag.h:984
 msgid "The type of the releases block is invalid. It needs to either `embedded` (the default) or `external`."
 msgstr "릴리스 블록의 유형이 잘못되었습니다. 'embedded'(기본값) 또는 'external' 중 하나가 필요합니다."
 
-#: src/as-validator-issue-tag.h:983
+#: src/as-validator-issue-tag.h:989
 msgid "The URL to an external release metadata file is insecure. This is not allowed, please use HTTPS URLs only."
 msgstr "외부 릴리스 metadata 파일의 URL이 안전하지 않습니다. 허용되지 않습니다. HTTPS URL만 사용하십시오."
 
-#: src/as-validator-issue-tag.h:988
+#: src/as-validator-issue-tag.h:994
 msgid "Failed to download release metadata."
 msgstr "릴리스 metadata를 다운로드하지 못했습니다."
 
-#: src/as-validator-issue-tag.h:993
+#: src/as-validator-issue-tag.h:999
 msgid "A local release metadata file was not found. It is strongly recommended to validate this metadata together with the main MetaInfo file."
 msgstr "로컬 릴리스 metadata 파일을 찾을 수 없습니다. 이 metadata의 유효성을 메인 메타정보 파일과 함께 확인하는 것이 좋습니다."
 
-#: src/as-validator-issue-tag.h:999
+#: src/as-validator-issue-tag.h:1005
 msgid "The value set as release urgency is not a known urgency value."
 msgstr "릴리스 긴급도로 설정된 값이 알려진 긴급도 값이 아닙니다."
 
-#: src/as-validator-issue-tag.h:1004
+#: src/as-validator-issue-tag.h:1010
 msgid "The value set as release type is invalid."
 msgstr "릴리스 유형으로 설정된 값이 잘못되었습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1010
+#: src/as-validator-issue-tag.h:1016
 msgid "The release is missing the `version` property."
 msgstr "릴리스에 'version' 속성이 없습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1016
+#: src/as-validator-issue-tag.h:1022
 #, fuzzy
 msgid "The release entry is missing either the `date` (preferred) or the `timestamp` property."
 msgstr "릴리스에 'date'(우선의) 또는 'timestamp' 속성이 없습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1022
+#: src/as-validator-issue-tag.h:1028
 msgid "The release entry is missing the `date` property. Ensure to add it before publishing the snapshot release."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:1027
+#: src/as-validator-issue-tag.h:1033
 msgid "The release timestamp is invalid."
 msgstr "릴리스 timestamp가 잘못되었습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1033
+#: src/as-validator-issue-tag.h:1039
 msgid "The release description must be put inside a `description` tag"
 msgstr "릴리스 설명은 'description' 태그 안에 입력해야 합니다"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1039
+#: src/as-validator-issue-tag.h:1045
 msgid "The value set as artifact type is invalid. Must be either `source` or `binary`."
 msgstr "artifact type으로 설정된 값이 잘못되었습니다. 'source' 또는 'binary' 중 하나여야 합니다."
 
-#: src/as-validator-issue-tag.h:1044
+#: src/as-validator-issue-tag.h:1050
 msgid "The value set as artifact bundle type is invalid."
 msgstr "artifact bundle type 으로 설정된 값이 잘못되었습니다."
 
-#: src/as-validator-issue-tag.h:1049
+#: src/as-validator-issue-tag.h:1055
 msgid "The platform triplet for this release is invalid. It must be in the form of `architecture-oskernel-osenv` - refer to the AppStream documentation or information on normalized GNU triplets for more information and valid fields."
 msgstr "이 릴리스의 플랫폼 트리플렛이 잘못되었습니다. 'architecture-oskernel-osenv' 형식이어야 합니다. 자세한 정보와 유효한 필드는 AppStream 문서 또는 정규화된 GNU 트리플렛에 대한 정보를 참조하십시오."
 
-#: src/as-validator-issue-tag.h:1056
+#: src/as-validator-issue-tag.h:1062
 msgid "The selected checksumming algorithm is unsupported or unknown."
 msgstr "선택한 체크섬 알고리즘이 지원되지 않거나 알 수 없습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1062
+#: src/as-validator-issue-tag.h:1068
 msgid "The size type is unknown. Must be `download` or `installed`."
 msgstr "크기 유형을 알 수 없습니다. 'download' 또는 'install'이어야 합니다."
 
-#: src/as-validator-issue-tag.h:1067
+#: src/as-validator-issue-tag.h:1073
 msgid "The artifact filename must be a file basename, not a (relative or absolute) path."
 msgstr "The artifact filename은 (상대적이거나 절대적인) 경로가 아닌 파일 기본 이름이어야 합니다."
 
-#: src/as-validator-issue-tag.h:1072
+#: src/as-validator-issue-tag.h:1078
 msgid "The value set as release issue type is invalid."
 msgstr "릴리스 이슈 유형으로 설정된 값이 잘못되었습니다."
 
-#: src/as-validator-issue-tag.h:1077
+#: src/as-validator-issue-tag.h:1083
 msgid "The issue is tagged at security vulnerability with a CVE number, but its value does not look like a valid CVE identifier."
 msgstr "이 문제는 CVE 번호로 보안 취약성에 태그가 지정되지만 그 값은 유효한 CVE 식별자처럼 보이지 않습니다."
 
-#: src/as-validator-issue-tag.h:1082
+#: src/as-validator-issue-tag.h:1088
 #, fuzzy
 #| msgid "The issue is tagged at security vulnerability with a CVE number, but its value does not look like a valid CVE identifier."
 msgid "The issue is tagged as security vulnerability with a GCVE identifier, but its value does not follow the `GCVE-<GNA-ID>-<YEAR>-<UNIQUE-ID>` scheme of the Global CVE Allocation System."
 msgstr "이 문제는 CVE 번호로 보안 취약성에 태그가 지정되지만 그 값은 유효한 CVE 식별자처럼 보이지 않습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1089
+#: src/as-validator-issue-tag.h:1095
 msgid "This component is missing information about releases. Consider adding a `releases` tag to describe releases and their changes."
 msgstr "이 구성 요소에 릴리스에 대한 정보가 없습니다. 릴리스 및 변경 사항을 설명하기 위해 `releases` 태그를 추가하는 것을 고려하십시오."
 
-#: src/as-validator-issue-tag.h:1094
+#: src/as-validator-issue-tag.h:1100
 msgid "The AppStream specification requires a complete, ISO 8601 date string with at least day-granularity to denote dates. Please ensure the date string is valid."
 msgstr "AppStream 사양에서는 날짜를 표시하기 위해 날짜 단위 이상의 완전한 ISO 8601 날짜 문자열이 필요합니다. 날짜 문자열이 올바른지 확인하십시오."
 
-#: src/as-validator-issue-tag.h:1100
+#: src/as-validator-issue-tag.h:1106
 msgid "This component extends, provides, requires or recommends itself, which is certainly not intended and may confuse users or machines dealing with this metadata."
 msgstr "이 구성 요소는 자신을 확장, 제공, 요구 또는 권장합니다. 이 구성 요소는 확실히 의도된 것이 아니며 이 metadata를 처리하는 사용자 또는 기계를 혼란스럽게 할 수 있습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1107
+#: src/as-validator-issue-tag.h:1113
 msgid "Licenses for `runtime` components are usually too complex to reflect them in a simple SPDX expression. Consider using a `LicenseRef` and a web URL as value for this component's `project_license`. E.g. `LicenseRef-free=https://example.com/licenses.html`"
 msgstr "'runtime' 구성 요소의 라이센스는 보통 단순한 SPDX 표현식에 반영하기에는 너무 복잡합니다. 이 구성 요소의 'project_license' 값으로 'LicenseRef'와 웹 URL을 사용하는 것을 고려해 보십시오. 예 : 'LicenseRef free=https://example.com/licenses.html '"
 
-#: src/as-validator-issue-tag.h:1113
+#: src/as-validator-issue-tag.h:1119
 #, fuzzy
 msgid "Since a `runtime` component consists of multiple other software components, their component-IDs may be listed in a `<provides/>` section for this runtime."
 msgstr "'runtime' 구성 요소는 여러 다른 소프트웨어 구성 요소로 구성되므로 해당 구성 요소 ID는 이 런타임의 '<provides/>' 섹션에 나열될 수 있습니다."
 
-#: src/as-validator-issue-tag.h:1118
+#: src/as-validator-issue-tag.h:1124
 msgid "The type of the item that the component provides is not known to AppStream."
 msgstr "구성 요소가 제공하는 항목의 유형은 AppStream에 알려져 있지 않습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1124
+#: src/as-validator-issue-tag.h:1130
 msgid "The toplevel `mimetypes` tag is deprecated. Please use `mediatype` tags in a `provides` block instead to indicate that your software provides a media handler for the given types."
 msgstr "최상위 'mimetypes' 태그는 사용되지 않습니다. 대신에 'provides' 블록에서 'mediatype' 태그를 사용하여 소프트웨어가 해당 유형의 미디어 핸들러를 제공한다는 것을 표시하십시오."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1131
+#: src/as-validator-issue-tag.h:1137
 msgid "This component has no `content_rating` tag to provide age rating information. You can generate the tag data online by answering a few questions at https://hughsie.github.io/oars/"
 msgstr "해당 구성요소는 연령 등급 정보를 제공하는 `content_rating`태그가 없습니다. https://hughsie.github.io/oars/ 에서 몇 가지 질문에 답변하면 온라인으로 태그 데이터를 생성할 수 있습니다"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1138
+#: src/as-validator-issue-tag.h:1144
 #, fuzzy
 msgid "The `type` attribute of this `content_rating` element is missing or empty."
 msgstr "이 'content_rating' 요소의 'type' 특성이 없거나 비어 있습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1144
+#: src/as-validator-issue-tag.h:1150
 #, fuzzy
 msgid "The `type` attribute of the `content_rating` element has an invalid value."
 msgstr "'content_rating' 요소의 'type' 속성에 잘못된 값이 있습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1150
+#: src/as-validator-issue-tag.h:1156
 msgid "The `content_rating` tag can only contain `content_attribute` children."
 msgstr "'content_rating' 태그에는 'content_attribute' 하위만 포함될 수 있습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1156
+#: src/as-validator-issue-tag.h:1162
 #, fuzzy
 msgid "The `id` attribute of the `content_attribute` element is missing or empty."
 msgstr "'content_attribute' 요소의 'id' 특성이 없거나 비어 있습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1162
+#: src/as-validator-issue-tag.h:1168
 #, fuzzy
 msgid "The `id` attribute of the `content_attribute` element has an invalid value."
 msgstr "'content_attribute' 요소의 'id' 특성에 잘못된 값이 있습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1168
+#: src/as-validator-issue-tag.h:1174
 msgid "The `content_attribute` tag needs a value."
 msgstr "'content_attribute' 태그에는 값이 필요합니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1174
+#: src/as-validator-issue-tag.h:1180
 msgid "The `content_attribute` tag value is unknown."
 msgstr "'content_attribute' 태그 값을 알 수 없습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1180
+#: src/as-validator-issue-tag.h:1186
 msgid "The `content_attribute` tag value is invalid for the given id."
 msgstr "지정한 ID에 대해 'content_attribute' 태그 값이 잘못되었습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1186
+#: src/as-validator-issue-tag.h:1192
 msgid "A `content_attribute` tag with this ID has already been defined."
 msgstr "이 ID의 'content_attribute' 태그가 이미 정의되어 있습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1192
+#: src/as-validator-issue-tag.h:1198
 msgid "This `tag` is missing a `namespace` attribute."
 msgstr "이 '태그'에는 'namespace' 속성이 없습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1198
+#: src/as-validator-issue-tag.h:1204
 msgid "This tag or its namespace contains invalid characters. Only lower-cased ASCII letters, numbers, dots, hyphens and underscores are permitted."
 msgstr "이 태그 또는 네임스페이스에 잘못된 문자가 있습니다. 소문자 ASCII 문자, 숫자, 점, 하이픈 및 밑줄만 허용됩니다."
 
-#: src/as-validator-issue-tag.h:1203
+#: src/as-validator-issue-tag.h:1209
 msgid "The type of this color is not valid."
 msgstr "이 색상의 유형이 잘못되었습니다."
 
-#: src/as-validator-issue-tag.h:1208
+#: src/as-validator-issue-tag.h:1214
 msgid "The value of this color scheme preference is not valid."
 msgstr "이 색 구성표 기본 설정 값이 잘못되었습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1214
+#: src/as-validator-issue-tag.h:1220
 msgid "The name of the color scheme property is wrong. It should be `scheme_preference`."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:1219
+#: src/as-validator-issue-tag.h:1225
 msgid "This color is not a valid HTML color code."
 msgstr "이 색상은 올바른 HTML 색상 코드가 아닙니다."
 
-#: src/as-validator-issue-tag.h:1224
+#: src/as-validator-issue-tag.h:1230
 msgid "A color for this type/scheme combination was already set. Colors must be unique per type/scheme."
 msgstr ""
 
-#: src/as-validator-issue-tag.h:1229
+#: src/as-validator-issue-tag.h:1235
 msgid "The given DOI (Digital Object Identifier) for this reference item is not valid."
 msgstr "이 참조 항목에 대해 지정된 DOI(Digital Object Identifier)가 잘못되었습니다."
 
-#: src/as-validator-issue-tag.h:1234
+#: src/as-validator-issue-tag.h:1240
 msgid "The value for this citation reference item must be an URL to a CFF (Citation File Format) file."
 msgstr "이 인용 참조 항목의 값은 CFF(Citation File Format) 파일의 URL이어야 합니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1240
+#: src/as-validator-issue-tag.h:1246
 msgid "This registry reference item is missing the `name` property to denote the name of the registry it is about."
 msgstr "이 레지스트리 참조 항목에는 해당 레지스트리의 이름을 나타내는 'name' 속성이 없습니다."
 
-#: src/as-validator-issue-tag.h:1245
+#: src/as-validator-issue-tag.h:1251
 msgid "The registry for this reference item is unknown. This may be due to a typing error, or the registry needs to be registered with AppStream."
 msgstr "이 참조 항목의 레지스트리를 알 수 없습니다. 이는 입력 오류로 인해 발생했거나 AppStream에 레지스트리를 등록해야 합니다."
 
-#: src/as-validator-issue-tag.h:1251
+#: src/as-validator-issue-tag.h:1257
 msgid "The reference item is missing a value."
 msgstr "참조 항목에 값이 없습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1257
+#: src/as-validator-issue-tag.h:1263
 msgid "The `custom` tag can only contain `value` children."
 msgstr "'custom' 태그는 'value' 자식만 포함할 수 있습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1263
+#: src/as-validator-issue-tag.h:1269
 msgid "This `custom` tag value is missing a `key` attribute."
 msgstr "이 'custom' 태그 값에 'key' 속성이 없습니다."
 
-#: src/as-validator-issue-tag.h:1268
+#: src/as-validator-issue-tag.h:1274
 msgid "A key can only be used once."
 msgstr "키는 한 번만 사용할 수 있습니다."
 
-#: src/as-validator-issue-tag.h:1273
+#: src/as-validator-issue-tag.h:1279
 msgid "This custom value is empty."
 msgstr "이 사용자 지정 값은 비어 있습니다."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1279
+#: src/as-validator-issue-tag.h:1285
 #, fuzzy
 msgid "A `keywords` tag must not be localized in metainfo files (upstream metadata). Localize the individual keyword entries instead."
 msgstr "<keywords/> 태그는 metainfo 파일(업스트림 메타데이터)에서 현지화되어서는 안 됩니다. 대신 개별 키워드 항목을 지역화합니다."
@@ -3063,7 +3067,7 @@ msgstr ""
 #. TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted names.
 #: src/as-validator.c:897 src/as-validator.c:1673 src/as-validator.c:1849
 #: src/as-validator.c:2070 src/as-validator.c:2735 src/as-validator.c:2757
-#: src/as-validator.c:2882 src/as-validator.c:3205
+#: src/as-validator.c:2882 src/as-validator.c:3206
 #, c-format
 msgid "Found: %s - Allowed: %s"
 msgstr ""
@@ -3167,13 +3171,13 @@ msgid "Failed to parse arguments"
 msgstr ""
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: tools/appstream-compose.c:334 tools/appstreamcli.c:1795
+#: tools/appstream-compose.c:334 tools/appstreamcli.c:1831
 #, c-format
 msgid "AppStream version: %s"
 msgstr "AppStream 버전: %s"
 
 #. TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ.
-#: tools/appstream-compose.c:338 tools/appstreamcli.c:1799
+#: tools/appstream-compose.c:338 tools/appstreamcli.c:1835
 #, c-format
 msgid ""
 "AppStream CLI tool version: %s\n"
@@ -3301,373 +3305,373 @@ msgid "Manually selected location of AppStream metadata to scan."
 msgstr "직접 지정한 AppStream 메타데이터 스캔 위치."
 
 #. TRANSLATORS: ascli flag description for: --no-cache
-#: tools/appstreamcli.c:133
+#: tools/appstreamcli.c:140
 msgid "Ignore cache age and build a fresh cache before performing the query."
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --format
-#: tools/appstreamcli.c:149
+#: tools/appstreamcli.c:156
 msgid "Default metadata format (valid values are 'xml' and 'yaml')."
 msgstr "기본 메타데이터 포맷 (유효한 값은 'xml'과 'yaml'입니다)."
 
 #. TRANSLATORS: ascli flag description for: --details
-#: tools/appstreamcli.c:165
+#: tools/appstreamcli.c:172
 msgid "Print detailed output about found components."
 msgstr "찾은 구성 요소에 대한 자세한 출력 표시."
 
 #. TRANSLATORS: ascli flag description for: --server (used by the "list-reviews" command)
-#: tools/appstreamcli.c:184
+#: tools/appstreamcli.c:191
 msgid "URL of the ODRS-compatible reviews server to use."
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --start (used by the "list-reviews" command)
-#: tools/appstreamcli.c:190
+#: tools/appstreamcli.c:197
 msgid "Index of the first review to fetch, to page through all reviews."
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --limit (used by the "list-reviews" command)
-#: tools/appstreamcli.c:196
+#: tools/appstreamcli.c:203
 msgid "Maximum number of reviews to fetch."
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --locale (used by the "list-reviews" and "submit-review" commands)
-#: tools/appstreamcli.c:202
+#: tools/appstreamcli.c:209
 msgid "Locale to prefer for reviews, instead of the current system locale."
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --pedantic (used by the "validate" command)
-#: tools/appstreamcli.c:223
+#: tools/appstreamcli.c:230
 msgid "Also show pedantic hints."
 msgstr "검증할 때 세세한 힌트도 출력."
 
 #. TRANSLATORS: ascli flag description for: --explain (used by the "validate" command)
-#: tools/appstreamcli.c:230
+#: tools/appstreamcli.c:237
 msgid "Print detailed explanation for found issues."
 msgstr "발견된 문제에 대한 자세한 설명을 인쇄합니다."
 
 #. TRANSLATORS: ascli flag description for: --no-net (used by the "validate" command)
-#: tools/appstreamcli.c:237
+#: tools/appstreamcli.c:244
 msgid "Do not use network access."
 msgstr "네트워크 액세스를 사용하지 마십시오."
 
 #. TRANSLATORS: ascli flag description for: --strict (used by the "validate" command)
-#: tools/appstreamcli.c:244
+#: tools/appstreamcli.c:251
 msgid "Fail validation if any issue is emitted that is not of pedantic severity."
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --format  when validating XML files
-#: tools/appstreamcli.c:250
+#: tools/appstreamcli.c:257
 #, fuzzy
 msgid "Format of the generated report (valid values are 'text' and 'yaml')."
 msgstr "생성된 보고서의 형식(유효한 값은 'text' 및 'yaml'임)."
 
 #. TRANSLATORS: ascli flag description for: --override  when validating XML files
-#: tools/appstreamcli.c:256
+#: tools/appstreamcli.c:263
 msgid "Override the severities of selected issue tags."
 msgstr ""
 
 #. TRANSLATORS: this is a (usually shorter) command alias, shown after the command summary text
-#: tools/appstreamcli.c:303
+#: tools/appstreamcli.c:310
 #, c-format
 msgid "(Alias: '%s')"
 msgstr ""
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
-#: tools/appstreamcli.c:352 tools/appstreamcli.c:1432
+#: tools/appstreamcli.c:359 tools/appstreamcli.c:1468
 msgid "AppStream command-line interface"
 msgstr "AppStream 명령문 인터페이스"
 
-#: tools/appstreamcli.c:355
+#: tools/appstreamcli.c:362
 #, c-format
 msgid "'%s' command"
 msgstr "'%s' 명령어"
 
 #. TRANSLATORS: An unknown option was passed to appstreamcli.
-#: tools/appstreamcli.c:398
+#: tools/appstreamcli.c:405
 #, c-format
 msgid "Option '%s' is unknown."
 msgstr "'%s'는(은) 알 수 없는 옵션입니다."
 
-#: tools/appstreamcli.c:403 tools/appstreamcli.c:1810
+#: tools/appstreamcli.c:410 tools/appstreamcli.c:1846
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr "'%s --help' 를 실행하면 사용 가능한 명령문 옵션 전체 목록을 볼 수 있습니다."
 
-#: tools/appstreamcli.c:407
+#: tools/appstreamcli.c:414
 #, c-format
 msgid "Run '%s --help' to see a list of available commands and options, and '%s %s --help' to see a list of options specific for this subcommand."
 msgstr "'%s --help' 를 실행하면 사용 가능한 명령문과 옵션 목록을 볼 수 있습니다, 그리고 '%s %s --help' 를 실행해서 사용 가능한 하위 명령어 옵션 목록을 봅니다."
 
 #. TRANSLATORS: ascli flag description for: --force
-#: tools/appstreamcli.c:462
+#: tools/appstreamcli.c:469
 msgid "Enforce a cache refresh."
 msgstr "캐시를 강제로 새로 고칩니다."
 
 #. TRANSLATORS: ascli flag description for: --source in a refresh action. Don't translate strings in backticks: `name`
-#: tools/appstreamcli.c:468
+#: tools/appstreamcli.c:475
 msgid "Limit cache refresh to data from a specific source, e.g. `os` or `flatpak`. May be specified multiple times."
 msgstr ""
 
 #. TRANSLATORS: ascli check-license is missing its parameter
-#: tools/appstreamcli.c:726
+#: tools/appstreamcli.c:752
 msgid "No license, license expression or license exception string was provided."
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --details (part of the "check-syscompat" subcommand)
-#: tools/appstreamcli.c:775
+#: tools/appstreamcli.c:805
 #, fuzzy
 msgid "Print more detailed output on why incompatibilities exist."
 msgstr "찾은 구성 요소에 대한 자세한 출력 표시."
 
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
-#: tools/appstreamcli.c:812
+#: tools/appstreamcli.c:847
 msgid "Set the data origin for the installed metadata catalog file."
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --user (part of the "put" subcommand)
-#: tools/appstreamcli.c:818
+#: tools/appstreamcli.c:853
 msgid "Install the file for the current user, instead of globally."
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --bundle-type (part of the "remove" and "install" subcommands)
-#: tools/appstreamcli.c:846
+#: tools/appstreamcli.c:881
 msgid "Limit the command to use only components from the given bundling system (`flatpak` or `package`)."
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --first (part of the "remove" and "install" subcommands)
-#: tools/appstreamcli.c:853
+#: tools/appstreamcli.c:888
 msgid "Do not ask for which software component should be used and always choose the first entry."
 msgstr ""
 
 #. TRANSLATORS: ascli install currently only supports two values for --bundle-type.
-#: tools/appstreamcli.c:887 tools/appstreamcli.c:922
+#: tools/appstreamcli.c:922 tools/appstreamcli.c:957
 msgid "No valid bundle kind was specified. Only `package` and `flatpak` are currently recognized."
 msgstr ""
 
-#: tools/appstreamcli.c:1082
+#: tools/appstreamcli.c:1118
 msgid "You need to provide at least two version numbers to compare as parameters."
 msgstr "변수로써 비교하기 위해 최소 2개의 버전 숫자가 필요합니다."
 
 #. * TRANSLATORS: The user tried to compare version numbers, but the comparison operator (greater-then, equal, etc.) was invalid.
-#: tools/appstreamcli.c:1111
+#: tools/appstreamcli.c:1147
 #, c-format
 msgid "Unknown compare relation '%s'. Valid values are:"
 msgstr "알 수 없는 비교 연산자'%s'. 사용할 수 있는 것들은 :"
 
-#: tools/appstreamcli.c:1152
+#: tools/appstreamcli.c:1188
 msgid "Too many parameters: Need two version numbers or version numbers and a comparison operator."
 msgstr "변수가 너무 많습니다: 2개의 버전 숫자나 하나의 버전 숫자와 비교 연산자가 필요합니다."
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
-#: tools/appstreamcli.c:1178
+#: tools/appstreamcli.c:1214
 msgid "Use the given .desktop file to fill in the basic values of the metainfo file."
 msgstr "주어진 .desktop 파일을 사용하여 metainfo 파일의 기본 값을 채웁니다."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
-#: tools/appstreamcli.c:1186
+#: tools/appstreamcli.c:1222
 msgid "This command takes optional TYPE and FILE positional arguments, FILE being a file to write to (or \"-\" for standard output)."
 msgstr "이 명령은 선택적인 TYPE 및 FILE 위치 인수를 사용하며, FILE은 기록할 파일 (또는 표준 출력의 경우 \"-\")입니다."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
-#: tools/appstreamcli.c:1191
+#: tools/appstreamcli.c:1227
 #, c-format
 msgid "The TYPE must be a valid component-type, such as: %s"
 msgstr "TYPE은 유효한 구성 요소 유형이어야 합니다, 예: %s"
 
 #. TRANSLATORS: ascli flag description for: --exec (part of the make-desktop-file subcommand)
-#: tools/appstreamcli.c:1229
+#: tools/appstreamcli.c:1265
 msgid "Use the specified line for the 'Exec=' key of the desktop-entry file."
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
-#: tools/appstreamcli.c:1269
+#: tools/appstreamcli.c:1305
 msgid "Assume the input file is in the selected format ('yaml', 'text' or 'markdown')."
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
-#: tools/appstreamcli.c:1276
+#: tools/appstreamcli.c:1312
 msgid "Limit the number of release entries that end up in the metainfo file (<= 0 for unlimited)."
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --translatable-count as part of the news-to-metainfo command
-#: tools/appstreamcli.c:1283
+#: tools/appstreamcli.c:1319
 msgid "Set the number of releases that should have descriptions marked for translation (latest releases are translated first, -1 for unlimited)."
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
-#: tools/appstreamcli.c:1328
+#: tools/appstreamcli.c:1364
 msgid "Generate the output in the selected format ('yaml', 'text' or 'markdown')."
 msgstr ""
 
 #. TRANSLATORS: appstreamcli-compose was not found
-#: tools/appstreamcli.c:1373
+#: tools/appstreamcli.c:1409
 #, c-format
 msgid "AppStream Compose binary '%s' was not found! Can not continue."
 msgstr ""
 
 #. TRANSLATORS: appstreamcli-compose was not found - info text
-#: tools/appstreamcli.c:1377
+#: tools/appstreamcli.c:1413
 #, c-format
 msgid "You may be able to install the AppStream Compose addon via: `%s`"
 msgstr ""
 
 #. TRANSLATORS: "Compose" is a command of appstreamcli to build metadata catalogs.
-#: tools/appstreamcli.c:1399
+#: tools/appstreamcli.c:1435
 #, fuzzy, c-format
 msgid "Compose operation failed to execute: %s"
 msgstr "유효성 검사 실패: %s"
 
-#: tools/appstreamcli.c:1409
+#: tools/appstreamcli.c:1445
 #, fuzzy, c-format
 msgid "Compose failed: %s"
 msgstr "유효성 검사 실패: %s"
 
 #. these are commands we can use with appstreamcli
-#: tools/appstreamcli.c:1434
+#: tools/appstreamcli.c:1470
 msgid "Subcommands:"
 msgstr "하위 명령어:"
 
-#: tools/appstreamcli.c:1488
+#: tools/appstreamcli.c:1524
 msgid "You can find information about subcommand-specific options by passing \"--help\" to the subcommand."
 msgstr "하위 명령어에 \"--help\"를 보내 하위 명령어에 관한 옵션 정보를 찾을 수 있습니다."
 
 #. TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated.
-#: tools/appstreamcli.c:1506
+#: tools/appstreamcli.c:1542
 #, c-format
 msgid "Command '%s' is unknown. Run '%s --help' for a list of available commands."
 msgstr "'%s' 명령을 알 수 없습니다. 사용 가능한 명령 목록을 보려면 '%s --help'를 실행합니다."
 
 #. TRANSLATORS: `appstreamcli search` command description.
-#: tools/appstreamcli.c:1530
+#: tools/appstreamcli.c:1566
 msgid "Search the component database."
 msgstr "구성요소 데이터베이스를 검색합니다."
 
 #. TRANSLATORS: `appstreamcli get` command description.
-#: tools/appstreamcli.c:1537
+#: tools/appstreamcli.c:1573
 msgid "Get information about a component by its ID."
 msgstr "ID와 일치하는 구성요소 정보를 가져옵니다."
 
 #. TRANSLATORS: `appstreamcli what-provides` command description.
-#: tools/appstreamcli.c:1544
+#: tools/appstreamcli.c:1580
 msgid "Get components which provide the given item. Needs an item type (e.g. lib, bin, python3, …) and item value as parameter."
 msgstr ""
 
 #. TRANSLATORS: `appstreamcli list-categories` command description.
-#: tools/appstreamcli.c:1552
+#: tools/appstreamcli.c:1588
 msgid "List components that are part of the specified categories."
 msgstr ""
 
 #. TRANSLATORS: `appstreamcli dump` command description.
-#: tools/appstreamcli.c:1561
+#: tools/appstreamcli.c:1597
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "ID와 일치하는 구성요소의 원시 XML 메타데이터 덤프."
 
 #. TRANSLATORS: `appstreamcli refresh-cache` command description.
-#: tools/appstreamcli.c:1569
+#: tools/appstreamcli.c:1605
 msgid "Rebuild the component metadata cache."
 msgstr "구성요소 메타데이터 캐시를 다시 만듭니다."
 
 #. TRANSLATORS: `appstreamcli validate` command description.
-#: tools/appstreamcli.c:1577
+#: tools/appstreamcli.c:1613
 msgid "Validate AppStream XML files for issues."
 msgstr "AppStream XML 파일의 문제를 검증합니다."
 
 #. TRANSLATORS: `appstreamcli validate-tree` command description.
-#: tools/appstreamcli.c:1584
+#: tools/appstreamcli.c:1620
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr "올바른 메타데이터를 가지고 있는지 프로그램의 설치 파일 트리를 검증합니다."
 
 #. TRANSLATORS: `appstreamcli `check-license` command description.
-#: tools/appstreamcli.c:1592
+#: tools/appstreamcli.c:1628
 msgid "Check license string for validity and print details about it."
 msgstr ""
 
 #. TRANSLATORS: `appstreamcli `check-license` command description.
-#: tools/appstreamcli.c:1600
+#: tools/appstreamcli.c:1636
 msgid "Check if requirements of a component (via its ID or MetaInfo file) are satisfied on this system."
 msgstr ""
 
 #. TRANSLATORS: `appstreamcli `check-syscompat` command description.
-#: tools/appstreamcli.c:1608
+#: tools/appstreamcli.c:1644
 msgid "Check compatibility of a component (via its ID or MetaInfo file) with common system and chassis types."
 msgstr ""
 
 #. TRANSLATORS: `appstreamcli install` command description.
-#: tools/appstreamcli.c:1617
+#: tools/appstreamcli.c:1653
 msgid "Install software matching the component-ID."
 msgstr "component-ID와 일치하는 소프트웨어를 설치합니다."
 
 #. TRANSLATORS: `appstreamcli remove` command description.
-#: tools/appstreamcli.c:1624
+#: tools/appstreamcli.c:1660
 msgid "Remove software matching the component-ID."
 msgstr "component-ID와 일치하는 소프트웨어를 제거하세요."
 
 #. TRANSLATORS: `appstreamcli status` command description.
-#: tools/appstreamcli.c:1632
+#: tools/appstreamcli.c:1668
 msgid "Display status information about available AppStream metadata."
 msgstr "설치한 AppStream 메타데이터의 상태 정보를 나타냅니다."
 
 #. TRANSLATORS: `appstreamcli sysinfo` command description.
-#: tools/appstreamcli.c:1640
+#: tools/appstreamcli.c:1676
 msgid "Show information about the current device and used operating system."
 msgstr ""
 
 #. TRANSLATORS: `appstreamcli put` command description.
-#: tools/appstreamcli.c:1648
+#: tools/appstreamcli.c:1684
 msgid "Install a metadata file into the right location."
 msgstr "올바른 위치에 메타데이터 파일을 설치하십시오."
 
 #. TRANSLATORS: `appstreamcli convert` command description. "Catalog XML" is a term describing a specific type of AppStream XML data.
-#: tools/appstreamcli.c:1656
+#: tools/appstreamcli.c:1692
 #, fuzzy
 msgid "Convert metadata catalog XML to YAML or vice versa."
 msgstr "컬렉션 XML을 YAML로 변환하시거나 그 반대로 하세요."
 
 #. TRANSLATORS: `appstreamcli vercmp` command description.
-#: tools/appstreamcli.c:1663
+#: tools/appstreamcli.c:1699
 msgid "Compare two version numbers."
 msgstr "두 버전 비교하기."
 
 #. TRANSLATORS: `appstreamcli new-template` command description.
-#: tools/appstreamcli.c:1672
+#: tools/appstreamcli.c:1708
 msgid "Create a template for a metainfo file (to be filled out by the upstream project)."
 msgstr "(업스트림 프로젝트에서 채울) 메타정보 파일의 템플릿을 만듭니다."
 
 #. TRANSLATORS: `appstreamcli make-desktop-file` command description.
-#: tools/appstreamcli.c:1680
+#: tools/appstreamcli.c:1716
 msgid "Create a desktop-entry file from a metainfo file."
 msgstr "메타정보 파일에서 데스크톱 항목 파일을 만듭니다."
 
 #. TRANSLATORS: `appstreamcli news-to-metainfo` command description.
-#: tools/appstreamcli.c:1688
+#: tools/appstreamcli.c:1724
 msgid "Convert a YAML or text NEWS file into metainfo releases."
 msgstr "YAML 또는 텍스트 [뉴스] 파일을 메타정보 릴리스로 변환합니다."
 
 #. TRANSLATORS: `appstreamcli metainfo-to-news` command description.
-#: tools/appstreamcli.c:1696
+#: tools/appstreamcli.c:1732
 msgid "Write NEWS text or YAML file with information from a metainfo file."
 msgstr "메타정보 파일의 정보로 [뉴스] 텍스트 또는 YAML 파일을 작성하십시오."
 
 #. TRANSLATORS: `appstreamcli compose` command description.
-#: tools/appstreamcli.c:1704
+#: tools/appstreamcli.c:1740
 msgid "Compose AppStream metadata catalog from directory trees."
 msgstr ""
 
 #. TRANSLATORS: `appstreamcli list-reviews` command description.
-#: tools/appstreamcli.c:1713
+#: tools/appstreamcli.c:1749
 #, fuzzy
 #| msgid "We have information on %i software components."
 msgid "List online user reviews for a software component."
 msgstr "소프트웨어 구성 요소에 관한 %i개의 정보가 있습니다."
 
 #. TRANSLATORS: `appstreamcli submit-review` command description.
-#: tools/appstreamcli.c:1726
+#: tools/appstreamcli.c:1762
 msgid "Compose and submit an online review for a software component."
 msgstr ""
 
 #. TRANSLATORS: ascli has been run without command.
-#: tools/appstreamcli.c:1808
+#: tools/appstreamcli.c:1844
 msgid "You need to specify a command."
 msgstr "명령을 지정해야 합니다."
 
@@ -3708,122 +3712,122 @@ msgstr "AppStream 캐시 업데이트가 필요하지 않습니다."
 
 #. TRANSLATORS: An AppStream component-id is missing in the command-line arguments
 #. TRANSLATORS: ascli was told to find a software component by its ID, but no component-id was specified.
-#: tools/ascli-actions-mdata.c:132 tools/ascli-actions-mdata.c:298
-#: tools/ascli-actions-misc.c:870 tools/ascli-actions-misc.c:957
+#: tools/ascli-actions-mdata.c:133 tools/ascli-actions-mdata.c:304
+#: tools/ascli-actions-misc.c:873 tools/ascli-actions-misc.c:960
 #: tools/ascli-actions-pkgmgr.c:182
 msgid "You need to specify a component-ID."
 msgstr "component-ID를 지정해야 합니다."
 
-#: tools/ascli-actions-mdata.c:144 tools/ascli-actions-mdata.c:310
-#: tools/ascli-actions-mdata.c:734 tools/ascli-actions-mdata.c:866
+#: tools/ascli-actions-mdata.c:145 tools/ascli-actions-mdata.c:316
+#: tools/ascli-actions-mdata.c:743 tools/ascli-actions-mdata.c:876
 #: tools/ascli-actions-pkgmgr.c:195
 #, c-format
 msgid "Unable to find component with ID '%s'!"
 msgstr "ID가 '%s'인 구성 요소를 찾을 수 없습니다!"
 
-#: tools/ascli-actions-mdata.c:167
+#: tools/ascli-actions-mdata.c:169
 msgid "You need to specify a term to search for."
 msgstr "검색할 항목을 지정해야 합니다."
 
 #. TRANSLATORS: We got no full-text search results
-#: tools/ascli-actions-mdata.c:180
+#: tools/ascli-actions-mdata.c:182
 #, c-format
 msgid "No component matching '%s' found."
 msgstr "'%s'에 일치하는 구성 요소를 찾을 수 없습니다."
 
-#: tools/ascli-actions-mdata.c:207
+#: tools/ascli-actions-mdata.c:211
 msgid "No value for the item to search for was defined."
 msgstr "검색할 항목에 대한 값을 정의하지 않았습니다."
 
-#: tools/ascli-actions-mdata.c:214
+#: tools/ascli-actions-mdata.c:218
 msgid "Invalid type for provided item selected. Valid values are:"
 msgstr "선택한 항목을 제공하는 형식이 잘못되었습니다. 올바른 값은 다음과 같습니다:"
 
 #. TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results
-#: tools/ascli-actions-mdata.c:230
+#: tools/ascli-actions-mdata.c:234
 #, c-format
 msgid "Could not find component providing '%s::%s'."
 msgstr "'%s::%s' 을(를) 제공하는 구성요소를 찾을 수 없습니다."
 
-#: tools/ascli-actions-mdata.c:256
+#: tools/ascli-actions-mdata.c:261
 #, fuzzy
 msgid "You need to specify categories to list."
 msgstr "검색할 항목을 지정해야 합니다."
 
 #. TRANSLATORS: We got no category list results
-#: tools/ascli-actions-mdata.c:270
+#: tools/ascli-actions-mdata.c:275
 #, c-format
 msgid "No component found in categories %s."
 msgstr ""
 
-#: tools/ascli-actions-mdata.c:353
+#: tools/ascli-actions-mdata.c:359
 msgid "You need to specify a metadata file."
 msgstr "메타데이터 파일을 지정해야합니다."
 
-#: tools/ascli-actions-mdata.c:367
+#: tools/ascli-actions-mdata.c:373
 #, c-format
 msgid "Unable to install metadata file: %s"
 msgstr "메타데이터 파일을 설치할 수 없음: %s"
 
-#: tools/ascli-actions-mdata.c:387
+#: tools/ascli-actions-mdata.c:393
 msgid "You need to specify an input and output file."
 msgstr "입출력 파일을 지정해야 합니다."
 
-#: tools/ascli-actions-mdata.c:394
+#: tools/ascli-actions-mdata.c:400
 #, c-format
 msgid "Metadata file '%s' does not exist."
 msgstr "메타데이터 파일 '%s' 없습니다."
 
 #. TRANSLATORS: User is trying to convert a file in ascli
-#: tools/ascli-actions-mdata.c:433
+#: tools/ascli-actions-mdata.c:439
 msgid "Unable to convert file: Could not determine output format, please set it explicitly using '--format='."
 msgstr "파일을 변환할 수 없습니다: 출력 형식을 결정할 수 없습니다, '--format ='을 사용하여 명확하게 설정하세요."
 
 #. TRANSLATORS: The user tried to create a new template, but supplied a wrong component-type string
-#: tools/ascli-actions-mdata.c:481
+#: tools/ascli-actions-mdata.c:487
 msgid "You need to give an AppStream software component type to generate a template. Possible values are:"
 msgstr "템플릿을 생성하려면 AppStream 소프트웨어 구성 요소 유형을 제공해야 합니다. 가능한 값은 다음과 같습니다:"
 
 #. TRANSLATORS: The user tried to create a new template, but supplied a wrong component-type string
-#: tools/ascli-actions-mdata.c:484
+#: tools/ascli-actions-mdata.c:490
 #, c-format
 msgid "The software component type '%s' is not valid in AppStream. Possible values are:"
 msgstr "소프트웨어 구성 요소 유형 '%s'은 AppStream에서 유효하지 않습니다. 가능한 값은 다음과 같습니다:"
 
-#: tools/ascli-actions-mdata.c:504
+#: tools/ascli-actions-mdata.c:510
 #, c-format
 msgid "The .desktop file '%s' does not exist."
 msgstr "해당 .desktop 파일 '%s'이 없습니다."
 
-#: tools/ascli-actions-mdata.c:511
+#: tools/ascli-actions-mdata.c:517
 #, c-format
 msgid "Unable to read the .desktop file: %s"
 msgstr "해당 .desktop 파일을 읽을 수 없습니다: %s"
 
-#: tools/ascli-actions-mdata.c:601
+#: tools/ascli-actions-mdata.c:607
 #, c-format
 msgid "Unable to build the template metainfo file: %s"
 msgstr "메타정보 파일을 빌드할 수 없습니다: %s"
 
-#: tools/ascli-actions-mdata.c:610
+#: tools/ascli-actions-mdata.c:616
 #, c-format
 msgid "Unable to save the template metainfo file: %s"
 msgstr "템플릿 메타정보 파일을 저장할 수 없습니다: %s"
 
-#: tools/ascli-actions-mdata.c:650
+#: tools/ascli-actions-mdata.c:656
 msgid "Unable to check display size: Can not read information without GUI toolkit access."
 msgstr ""
 
-#: tools/ascli-actions-mdata.c:658 tools/ascli-actions-mdata.c:914
+#: tools/ascli-actions-mdata.c:664 tools/ascli-actions-mdata.c:924
 msgid "ERROR"
 msgstr ""
 
-#: tools/ascli-actions-mdata.c:695 tools/ascli-actions-mdata.c:826
+#: tools/ascli-actions-mdata.c:704 tools/ascli-actions-mdata.c:836
 #, fuzzy
 msgid "You need to specify a MetaInfo filename or component ID."
 msgstr "메타정보 파일을 입력으로 지정해야 합니다."
 
-#: tools/ascli-actions-mdata.c:714 tools/ascli-actions-mdata.c:838
+#: tools/ascli-actions-mdata.c:723 tools/ascli-actions-mdata.c:848
 #: tools/ascli-actions-misc.c:133 tools/ascli-actions-misc.c:468
 #: tools/ascli-actions-misc.c:557
 #, c-format
@@ -3831,76 +3835,76 @@ msgid "Metainfo file '%s' does not exist."
 msgstr "메타정보 파일 '%s'이(가) 존재하지 않습니다."
 
 #. TRANSLATORS: We are testing the relations (requires, recommends & supports data) for being satisfied on the current system.
-#: tools/ascli-actions-mdata.c:743
+#: tools/ascli-actions-mdata.c:752
 #, c-format
 msgid "Relation check for: %s"
 msgstr ""
 
-#: tools/ascli-actions-mdata.c:754
+#: tools/ascli-actions-mdata.c:763
 msgid "Requirements:"
 msgstr ""
 
-#: tools/ascli-actions-mdata.c:756
+#: tools/ascli-actions-mdata.c:765
 msgid "No required items are set for this software."
 msgstr ""
 
-#: tools/ascli-actions-mdata.c:761
+#: tools/ascli-actions-mdata.c:770
 msgid "Recommendations:"
 msgstr ""
 
-#: tools/ascli-actions-mdata.c:763
+#: tools/ascli-actions-mdata.c:772
 msgid "No recommended items are set for this software."
 msgstr ""
 
-#: tools/ascli-actions-mdata.c:768
+#: tools/ascli-actions-mdata.c:777
 #, fuzzy
 msgid "Supported:"
 msgstr "스포츠"
 
-#: tools/ascli-actions-mdata.c:770
+#: tools/ascli-actions-mdata.c:779
 msgid "No supported items are set for this software."
 msgstr ""
 
 #. TRANSLATORS: This represents a computer chassis type.
-#: tools/ascli-actions-mdata.c:794
+#: tools/ascli-actions-mdata.c:803
 msgid "Desktop"
 msgstr ""
 
 #. TRANSLATORS: This represents a computer chassis type.
-#: tools/ascli-actions-mdata.c:797
+#: tools/ascli-actions-mdata.c:806
 msgid "Laptop"
 msgstr ""
 
 #. TRANSLATORS: This represents a computer chassis type.
-#: tools/ascli-actions-mdata.c:800
+#: tools/ascli-actions-mdata.c:809
 msgid "Server"
 msgstr ""
 
 #. TRANSLATORS: This represents a computer chassis type.
-#: tools/ascli-actions-mdata.c:803
+#: tools/ascli-actions-mdata.c:812
 msgid "Tablet"
 msgstr ""
 
 #. TRANSLATORS: This represents a computer chassis type.
-#: tools/ascli-actions-mdata.c:806
+#: tools/ascli-actions-mdata.c:815
 msgid "Handset"
 msgstr ""
 
-#: tools/ascli-actions-mdata.c:808
+#: tools/ascli-actions-mdata.c:817
 msgid "Unknown"
 msgstr ""
 
 #. TRANSLATORS: We are testing compatibility of a component with a common representation of hardware for a specific chassis (phone/tablet/desktop, etc.)
-#: tools/ascli-actions-mdata.c:875
+#: tools/ascli-actions-mdata.c:885
 #, c-format
 msgid "Chassis compatibility check for: %s"
 msgstr ""
 
-#: tools/ascli-actions-mdata.c:894
+#: tools/ascli-actions-mdata.c:904
 msgid "Incompatible"
 msgstr ""
 
-#: tools/ascli-actions-mdata.c:929
+#: tools/ascli-actions-mdata.c:939
 msgid "Compatible"
 msgstr ""
 
@@ -3909,7 +3913,7 @@ msgstr ""
 msgid "AppStream Status:"
 msgstr "AppStream 상태:"
 
-#: tools/ascli-actions-misc.c:48 tools/ascli-actions-misc.c:686
+#: tools/ascli-actions-misc.c:48 tools/ascli-actions-misc.c:689
 #, c-format
 msgid "Version: %s"
 msgstr "버전: %s"
@@ -4025,193 +4029,193 @@ msgstr ""
 msgid "You need to specify a NEWS format to write the output in."
 msgstr "입출력 파일을 지정해야 합니다."
 
-#: tools/ascli-actions-misc.c:667
+#: tools/ascli-actions-misc.c:670
 msgid "Operating System Details"
 msgstr ""
 
-#: tools/ascli-actions-misc.c:671
+#: tools/ascli-actions-misc.c:674
 #, c-format
 msgid "Unable to find operating system component '%s'!"
 msgstr "운영 체제 구성 요소 '%s'을(를) 찾을 수 없습니다!"
 
-#: tools/ascli-actions-misc.c:678
+#: tools/ascli-actions-misc.c:681
 #, fuzzy
 msgid "ID"
 msgstr "IDE"
 
-#: tools/ascli-actions-misc.c:679 tools/ascli-actions-misc.c:765
+#: tools/ascli-actions-misc.c:682 tools/ascli-actions-misc.c:768
 #: tools/ascli-utils.c:304
 msgid "Name"
 msgstr "이름"
 
-#: tools/ascli-actions-misc.c:680 tools/ascli-actions-misc.c:1026
+#: tools/ascli-actions-misc.c:683 tools/ascli-actions-misc.c:1029
 #: tools/ascli-utils.c:305
 msgid "Summary"
 msgstr "요약"
 
-#: tools/ascli-actions-misc.c:714
+#: tools/ascli-actions-misc.c:717
 msgid "Release Kind"
 msgstr ""
 
 #. TRANSLATORS: Release date of the running OS release
-#: tools/ascli-actions-misc.c:719
+#: tools/ascli-actions-misc.c:722
 msgid "Released"
 msgstr ""
 
 #. TRANSLATORS: End-of-life date of the running OS release
-#: tools/ascli-actions-misc.c:725
+#: tools/ascli-actions-misc.c:728
 #, fuzzy
 msgid "Supported Until"
 msgstr "스포츠"
 
 #. TRANSLATORS: OS releases newer than the running one, with their kind
-#: tools/ascli-actions-misc.c:740
+#: tools/ascli-actions-misc.c:743
 msgid "Newer Releases"
 msgstr ""
 
-#: tools/ascli-actions-misc.c:744 tools/ascli-utils.c:309
+#: tools/ascli-actions-misc.c:747 tools/ascli-utils.c:309
 msgid "Homepage"
 msgstr "홈페이지"
 
-#: tools/ascli-actions-misc.c:747 tools/ascli-utils.c:330
+#: tools/ascli-actions-misc.c:750 tools/ascli-utils.c:330
 msgid "Developer"
 msgstr "개발자"
 
-#: tools/ascli-actions-misc.c:756 tools/ascli-utils.c:344
+#: tools/ascli-actions-misc.c:759 tools/ascli-utils.c:344
 msgid "Description"
 msgstr "설명"
 
-#: tools/ascli-actions-misc.c:764
+#: tools/ascli-actions-misc.c:767
 msgid "Kernel"
 msgstr ""
 
-#: tools/ascli-actions-misc.c:766 tools/ascli-actions-misc.c:922
+#: tools/ascli-actions-misc.c:769 tools/ascli-actions-misc.c:925
 msgid "Version"
 msgstr "버전"
 
-#: tools/ascli-actions-misc.c:769
+#: tools/ascli-actions-misc.c:772
 msgid "Hardware"
 msgstr ""
 
-#: tools/ascli-actions-misc.c:772
+#: tools/ascli-actions-misc.c:775
 msgid "Physical Memory"
 msgstr ""
 
-#: tools/ascli-actions-misc.c:780 tools/ascli-actions-misc.c:785
+#: tools/ascli-actions-misc.c:783 tools/ascli-actions-misc.c:788
 msgid "Largest Display"
 msgstr ""
 
-#: tools/ascli-actions-misc.c:783
+#: tools/ascli-actions-misc.c:786
 msgid "logical px"
 msgstr ""
 
-#: tools/ascli-actions-misc.c:785
+#: tools/ascli-actions-misc.c:788
 #, fuzzy
 #| msgid "Unable to read file."
 msgid "unable to determine"
 msgstr "파일을 읽을 수 없습니다."
 
-#: tools/ascli-actions-misc.c:789
+#: tools/ascli-actions-misc.c:792
 #, fuzzy
 msgid "Devices with Modaliases"
 msgstr "모듈 별칭"
 
-#: tools/ascli-actions-misc.c:818
+#: tools/ascli-actions-misc.c:821
 msgid "User Input Controls"
 msgstr ""
 
-#: tools/ascli-actions-misc.c:821
+#: tools/ascli-actions-misc.c:824
 msgid "unknown"
 msgstr ""
 
-#: tools/ascli-actions-misc.c:828 tools/ascli-actions-validate.c:700
+#: tools/ascli-actions-misc.c:831 tools/ascli-actions-validate.c:700
 #: tools/ascli-actions-validate.c:706
 msgid "yes"
 msgstr ""
 
-#: tools/ascli-actions-misc.c:830 tools/ascli-actions-validate.c:701
+#: tools/ascli-actions-misc.c:833 tools/ascli-actions-validate.c:701
 #: tools/ascli-actions-validate.c:707
 msgid "no"
 msgstr ""
 
-#: tools/ascli-actions-misc.c:888
+#: tools/ascli-actions-misc.c:891
 msgid "Overall rating"
 msgstr ""
 
-#: tools/ascli-actions-misc.c:901
+#: tools/ascli-actions-misc.c:904
 #, fuzzy, c-format
 msgid "No reviews found for component '%s'."
 msgstr "구성 요소 %i개를 찾았습니다."
 
-#: tools/ascli-actions-misc.c:916 tools/ascli-actions-misc.c:1017
+#: tools/ascli-actions-misc.c:919 tools/ascli-actions-misc.c:1020
 msgid "Author"
 msgstr ""
 
-#: tools/ascli-actions-misc.c:919
+#: tools/ascli-actions-misc.c:922
 msgid "Date"
 msgstr ""
 
-#: tools/ascli-actions-misc.c:969
+#: tools/ascli-actions-misc.c:972
 #, c-format
 msgid "Composing a review for '%s' to be submitted to %s."
 msgstr ""
 
-#: tools/ascli-actions-misc.c:972
+#: tools/ascli-actions-misc.c:975
 msgid "Please only review the software itself, and mind that your review will be publicly visible."
 msgstr ""
 
 #. TRANSLATORS: Prompt when composing a review, %s is a user name
-#: tools/ascli-actions-misc.c:977
+#: tools/ascli-actions-misc.c:980
 #, c-format
 msgid "Your display name (leave empty to use '%s'):"
 msgstr ""
 
 #. TRANSLATORS: Prompt for a star rating when composing a review
-#: tools/ascli-actions-misc.c:984
+#: tools/ascli-actions-misc.c:987
 msgid "Star rating, from 1 (worst) to 5 (best):"
 msgstr ""
 
 #. TRANSLATORS: Prompt when composing a review
-#: tools/ascli-actions-misc.c:991
+#: tools/ascli-actions-misc.c:994
 msgid "Short summary of your review:"
 msgstr ""
 
-#: tools/ascli-actions-misc.c:997
+#: tools/ascli-actions-misc.c:1000
 msgid "The summary must not be empty and be no longer than 70 characters."
 msgstr ""
 
 #. TRANSLATORS: Prompt when composing a review
-#: tools/ascli-actions-misc.c:1001
+#: tools/ascli-actions-misc.c:1004
 msgid "Detailed review text (end with an empty line):"
 msgstr ""
 
-#: tools/ascli-actions-misc.c:1003
+#: tools/ascli-actions-misc.c:1006
 msgid "The review text must not be empty."
 msgstr ""
 
-#: tools/ascli-actions-misc.c:1024
+#: tools/ascli-actions-misc.c:1027
 msgid "Rating"
 msgstr ""
 
-#: tools/ascli-actions-misc.c:1027
+#: tools/ascli-actions-misc.c:1030
 msgid "Review"
 msgstr ""
 
 #. TRANSLATORS: Prompt before publishing a composed review
-#: tools/ascli-actions-misc.c:1034
+#: tools/ascli-actions-misc.c:1037
 msgid "Publish this review?"
 msgstr ""
 
-#: tools/ascli-actions-misc.c:1038
+#: tools/ascli-actions-misc.c:1041
 msgid "Review submission cancelled."
 msgstr ""
 
-#: tools/ascli-actions-misc.c:1048
+#: tools/ascli-actions-misc.c:1051
 #, c-format
 msgid "Review submitted successfully (ID: %s). Thank you!"
 msgstr ""
 
-#: tools/ascli-actions-misc.c:1051
+#: tools/ascli-actions-misc.c:1054
 msgid "Review submitted successfully. Thank you!"
 msgstr ""
 
@@ -4462,7 +4466,12 @@ msgstr "다음의 필수 사항"
 msgid "Provided Items"
 msgstr "제공하는 항목"
 
-#: tools/ascli-utils.c:525
+#: tools/ascli-utils.c:485
+#, c-format
+msgid "Data path '%s' does not exist or is not a directory."
+msgstr ""
+
+#: tools/ascli-utils.c:561
 #, c-format
 msgid "Please enter a number from 1 to %i: "
 msgstr ""

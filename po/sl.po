@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2026-10-26 10:22+0100\n"
+"POT-Creation-Date: 2026-11-10 20:12+0100\n"
 "PO-Revision-Date: 2026-10-29 19:51+0000\n"
 "Last-Translator: Martin Srebotnjak <filmsi@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Slovenian <https://hosted.weblate.org/projects/appstream/translations/sl/>\n"
@@ -46,7 +46,7 @@ msgstr "AppStream je specifikacija metapodatkov, ki komponentam programske oprem
 msgid "The <em>appstreamcli</em> command-line tool allows to read, write, and transform AppStream XML or YAML metadata as well as to validate it for compliance with the specification. It also provides easy access to the system metadata pool, for example to query for software that provides a specific Mediatype handler or for installing software by its component identifier."
 msgstr "Orodje ukazne vrstice <em>appstreamcli</em> omogoča branje, pisanje in preoblikovanje metapodatkov AppStream XML ali YAML ter preverjanje skladnosti s specifikacijo. Omogoča tudi preprost dostop do skupine metapodatkov sistema, npr. za poizvedovanje po programski opremi, ki zagotavlja določeno rutino za obravnavo Mediatype, ali za namestitev programske opreme z identifikatorjem komponent."
 
-#: src/as-cache.c:935
+#: src/as-cache.c:1010
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "Mesto predpomnilnika »%s« ni zapisljivo."
@@ -1403,29 +1403,29 @@ msgstr "Microsoft Windows"
 #. provide a list of words in your language that people are likely
 #. to include in a search but that should normally be ignored in
 #. the search.
-#: src/as-pool.c:101
+#: src/as-pool.c:102
 msgid "app;application;package;program;programme;suite;tool"
 msgstr "app;aplikacija;paket;program;programček;programje;orodje"
 
-#: src/as-pool.c:1236
+#: src/as-pool.c:1237
 msgid "Metadata files have errors:"
 msgstr "V datotekah z metapodatki so napake:"
 
-#: src/as-pool.c:2568
+#: src/as-pool.c:2565
 msgid "Group"
 msgstr "Skupina"
 
-#: src/as-pool.c:2623
+#: src/as-pool.c:2620
 msgid "Iconsets"
 msgstr "Nabori ikon"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
-#: src/as-pool.c:2671
+#: src/as-pool.c:2668
 msgid "Data from locally installed software"
 msgstr "Podatki iz krajevno nameščene programske opreme"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
-#: src/as-pool.c:2674
+#: src/as-pool.c:2671
 msgid "Software catalog data"
 msgstr "Podatki kataloga programja"
 
@@ -1469,7 +1469,7 @@ msgstr "Vdelana programska oprema za izvajanje"
 msgid "Flashed Firmware"
 msgstr "Vbliskana strojna programska oprema"
 
-#: src/as-provided.c:158 tools/ascli-actions-misc.c:1016
+#: src/as-provided.c:158 tools/ascli-actions-misc.c:1019
 msgid "Component"
 msgstr "Komponenta"
 
@@ -1766,23 +1766,23 @@ msgid "Satisfiability check for relation items of type '%s' is not implemented y
 msgstr "Preverjanje zadovoljivosti za elemente relacije vrste »%s« še ni izvedeno."
 
 #. TRANSLATORS: The ODRS review server rejected our request, %s is the error message
-#: src/as-reviews-client.c:976 src/as-reviews-client.c:1069
+#: src/as-reviews-client.c:977 src/as-reviews-client.c:1070
 #, c-format
 msgid "The reviews server rejected the request: %s"
 msgstr "Strežnik pregledov je zavrnil zahtevo: %s"
 
 #. TRANSLATORS: We failed to communicate with the ODRS review server, %s is an error message
-#: src/as-reviews-client.c:983
+#: src/as-reviews-client.c:984
 #, c-format
 msgid "Unable to communicate with the reviews server: %s"
 msgstr "Ni možno komunicirati s strežnikom pregledov: %s"
 
-#: src/as-reviews-client.c:1070
+#: src/as-reviews-client.c:1071
 msgid "Unknown reason"
 msgstr "Neznani razlog"
 
 #. TRANSLATORS: We failed to fetch a software rating from the ODRS review server
-#: src/as-reviews-client.c:1247
+#: src/as-reviews-client.c:1248
 #, c-format
 msgid "Unable to fetch software rating: %s"
 msgstr "Ni možno pridobiti ocene programske opreme: %s"
@@ -2647,278 +2647,282 @@ msgid "The value of this desktop-entry field contains invalid or non-printable U
 msgstr "Vrednost tega polja namiznega vnosa vsebuje neveljavne znake UTF-8 ali znake, ki jih ni mogoče natisniti in ki jih ni mogoče pravilno prikazati."
 
 #: src/as-validator-issue-tag.h:933
+msgid "The locale of this localized desktop-entry key is not a valid POSIX locale name, so the key was ignored. Locales should look like `de`, `pt_BR` or `sr@latin`, as described in the Desktop Entry Specification."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:939
 msgid "This desktop-entry field value is quoted, which is likely unintentional."
 msgstr "Ta vrednost polja za vnos na namizju je navedena v narekovajih, kar je verjetno nenamerno."
 
-#: src/as-validator-issue-tag.h:938
+#: src/as-validator-issue-tag.h:944
 msgid "This desktop-entry file has the 'Hidden' property set. This is wrong for vendor-installed .desktop files, and nullifies all effects this .desktop file has (including MIME associations), which most certainly is not intentional."
 msgstr "Ta datoteka za vnos namizja ima nastavljeno lastnost »Skrito«. To je narobe za datoteke .desktop, ki jih je namestil prodajalec, in izniči vse učinke, ki jih ima ta datoteka .desktop (vključno s povezavami MIME), kar zagotovo ni namerno."
 
-#: src/as-validator-issue-tag.h:944
+#: src/as-validator-issue-tag.h:950
 msgid "This desktop-entry file has the 'OnlyShowIn' property set with an empty value. This might not be intended, as this will hide the application from all desktops. If you do want to hide the application from all desktops, using 'NoDisplay=true' is more explicit."
 msgstr "Ta datoteka za vnos namizja ima lastnost »OnlyShowIn« s prazno vrednostjo. To morda ni bilo načrtovanno, saj bo to skrilo program pred vsemi namizji. Če želite skriti program pred vsemi namizji, je uporaba »NoDisplay=true« bolj eksplicitna."
 
-#: src/as-validator-issue-tag.h:950
+#: src/as-validator-issue-tag.h:956
 msgid "No AppStream metadata was found in this directory or directory tree."
 msgstr "V tej mapi ali drevesu mape ni bilo mogoče najti metapodatkov AppStream."
 
 #. pedantic because not everything which has metadata is an application
-#: src/as-validator-issue-tag.h:955
+#: src/as-validator-issue-tag.h:961
 msgid "No XDG applications directory found."
 msgstr "Ni bilo mogoče najti imenika programov XDG."
 
-#: src/as-validator-issue-tag.h:960
+#: src/as-validator-issue-tag.h:966
 msgid "The metainfo file is stored in a legacy path. Please place it in `/usr/share/metainfo/`."
 msgstr "Datoteka metainfo je shranjena v podedovani poti. Prosimo, postavite jo v »/usr/share/metainfo/«."
 
-#: src/as-validator-issue-tag.h:965
+#: src/as-validator-issue-tag.h:971
 msgid "The metainfo file specifies multiple components. This is not allowed."
 msgstr "Datoteka metainfo določa več komponent. To ni dovoljeno."
 
-#: src/as-validator-issue-tag.h:970
+#: src/as-validator-issue-tag.h:976
 msgid "The releases are not sorted in a latest to oldest version order. This is required as some tools will assume that the latest version is always at the top. Sorting releases also increases overall readability of the metainfo file."
 msgstr "Izdaje niso razvrščene v vrstnem redu od najnovejše do najstarejše različice. To je potrebno, saj bodo nekatera orodja domnevala, da je najnovejša različica vedno na vrhu. Razvrščanje soglasij tudi poveča splošno berljivost datoteke metainfo."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
-#: src/as-validator-issue-tag.h:978
+#: src/as-validator-issue-tag.h:984
 msgid "The type of the releases block is invalid. It needs to either `embedded` (the default) or `external`."
 msgstr "Blok vrste izdaj je neveljaven. Mora biti »embedded« (vdelano, privzeto) ali »external« (zunanje)."
 
-#: src/as-validator-issue-tag.h:983
+#: src/as-validator-issue-tag.h:989
 msgid "The URL to an external release metadata file is insecure. This is not allowed, please use HTTPS URLs only."
 msgstr "URL datoteke z metapodatki zunanje izdaje je nevaren. To ni dovoljeno, uporabljajte samo URL-je HTTPS."
 
-#: src/as-validator-issue-tag.h:988
+#: src/as-validator-issue-tag.h:994
 msgid "Failed to download release metadata."
 msgstr "Prenos metapodatkov o izdaji ni uspel."
 
-#: src/as-validator-issue-tag.h:993
+#: src/as-validator-issue-tag.h:999
 msgid "A local release metadata file was not found. It is strongly recommended to validate this metadata together with the main MetaInfo file."
 msgstr "Datoteke z metapodatki krajevne izdaje ni bilo mogoče najti. Zelo priporočljivo je, da te metapodatke potrdite skupaj z glavno datoteko MetaInfo."
 
-#: src/as-validator-issue-tag.h:999
+#: src/as-validator-issue-tag.h:1005
 msgid "The value set as release urgency is not a known urgency value."
 msgstr "Vrednost, nastavljena kot nujnost izdaje, ni znana vrednost nujnosti."
 
-#: src/as-validator-issue-tag.h:1004
+#: src/as-validator-issue-tag.h:1010
 msgid "The value set as release type is invalid."
 msgstr "Vrednost, nastavljena kot vrsta izdaje, ni veljavna."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1010
+#: src/as-validator-issue-tag.h:1016
 msgid "The release is missing the `version` property."
 msgstr "V izdaji manjka lastnost »version«."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1016
+#: src/as-validator-issue-tag.h:1022
 msgid "The release entry is missing either the `date` (preferred) or the `timestamp` property."
 msgstr "Med vnosi izdaje manjka lastnost »date« (datum, prednostno) ali »timestamp« (časovni žig)."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1022
+#: src/as-validator-issue-tag.h:1028
 msgid "The release entry is missing the `date` property. Ensure to add it before publishing the snapshot release."
 msgstr "Vnosu izdaje manjka lastnost »date«. Zagotovite, da ste jo dodali pred objavo izdaje posnetka stanja."
 
-#: src/as-validator-issue-tag.h:1027
+#: src/as-validator-issue-tag.h:1033
 msgid "The release timestamp is invalid."
 msgstr "Časovni žig izdaje je neveljaven."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1033
+#: src/as-validator-issue-tag.h:1039
 msgid "The release description must be put inside a `description` tag"
 msgstr "Opis izdaje mora biti vstavljen v oznako »description«"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1039
+#: src/as-validator-issue-tag.h:1045
 msgid "The value set as artifact type is invalid. Must be either `source` or `binary`."
 msgstr "Vrednost, nastavljena kot vrsta artefakta, ni veljavna. Mora biti »source« ali »binary«."
 
-#: src/as-validator-issue-tag.h:1044
+#: src/as-validator-issue-tag.h:1050
 msgid "The value set as artifact bundle type is invalid."
 msgstr "Vrednost, nastavljena kot vrsta svežnja artefaktov, ni veljavna."
 
-#: src/as-validator-issue-tag.h:1049
+#: src/as-validator-issue-tag.h:1055
 msgid "The platform triplet for this release is invalid. It must be in the form of `architecture-oskernel-osenv` - refer to the AppStream documentation or information on normalized GNU triplets for more information and valid fields."
 msgstr "Tojček platforme za to izdajo ni veljaven. Biti mora v obliki »architecture-oskernel-osenv« - za več informacij in veljavnih polj si oglejte dokumentacijo AppStream ali informacije o normaliziranih trojčkih GNU."
 
-#: src/as-validator-issue-tag.h:1056
+#: src/as-validator-issue-tag.h:1062
 msgid "The selected checksumming algorithm is unsupported or unknown."
 msgstr "Izbrani algoritem za kontrolno vsoto ni podprt ali ni znan."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1062
+#: src/as-validator-issue-tag.h:1068
 msgid "The size type is unknown. Must be `download` or `installed`."
 msgstr "Vrsta velikosti ni znana. Mora biti »download« ali »installed«."
 
-#: src/as-validator-issue-tag.h:1067
+#: src/as-validator-issue-tag.h:1073
 msgid "The artifact filename must be a file basename, not a (relative or absolute) path."
 msgstr "Ime datoteke artefakta mora biti osnovno ime datoteke in ne (relativna ali absolutna) pot."
 
-#: src/as-validator-issue-tag.h:1072
+#: src/as-validator-issue-tag.h:1078
 msgid "The value set as release issue type is invalid."
 msgstr "Vrednost, nastavljena kot vrsta izdaje, ni veljavna."
 
-#: src/as-validator-issue-tag.h:1077
+#: src/as-validator-issue-tag.h:1083
 msgid "The issue is tagged at security vulnerability with a CVE number, but its value does not look like a valid CVE identifier."
 msgstr "Težava je označena kot varnostna ranljivost s številko CVE, vendar njena vrednost ni videti kot veljaven identifikator CVE."
 
-#: src/as-validator-issue-tag.h:1082
+#: src/as-validator-issue-tag.h:1088
 msgid "The issue is tagged as security vulnerability with a GCVE identifier, but its value does not follow the `GCVE-<GNA-ID>-<YEAR>-<UNIQUE-ID>` scheme of the Global CVE Allocation System."
 msgstr "Težava je označena kot varnostna ranljivost s številko GCVE, vendar njena vrednost ne sledi shemi `GCVE-<GNA-ID>-<YEAR>-<UNIQUE-ID>` sistema Global CVE Allocation System."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1089
+#: src/as-validator-issue-tag.h:1095
 msgid "This component is missing information about releases. Consider adding a `releases` tag to describe releases and their changes."
 msgstr "V tej komponenti manjkajo informacije o izdajah. Razmislite o dodajanju oznake »releases«, ki opisuje izdaje in njihove spremembe."
 
-#: src/as-validator-issue-tag.h:1094
+#: src/as-validator-issue-tag.h:1100
 msgid "The AppStream specification requires a complete, ISO 8601 date string with at least day-granularity to denote dates. Please ensure the date string is valid."
 msgstr "Specifikacija AppStream zahteva popoln niz datumov ISO 8601 z najmanj dnevno razčlenjenostjo za označevanje datumov. Prepričajte se, da je datumski niz veljaven."
 
-#: src/as-validator-issue-tag.h:1100
+#: src/as-validator-issue-tag.h:1106
 msgid "This component extends, provides, requires or recommends itself, which is certainly not intended and may confuse users or machines dealing with this metadata."
 msgstr "Ta komponenta razširja, zagotavlja, zahteva ali priporoča samo sebe, kar zagotovo ni mišljeno in lahko zmede uporabnike ali računalnike, ki se ukvarjajo s temi metapodatki."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1107
+#: src/as-validator-issue-tag.h:1113
 msgid "Licenses for `runtime` components are usually too complex to reflect them in a simple SPDX expression. Consider using a `LicenseRef` and a web URL as value for this component's `project_license`. E.g. `LicenseRef-free=https://example.com/licenses.html`"
 msgstr "Dovoljenja za komponente »runtime« so običajno preveč zapletene, da bi jih odražale v preprostem izrazu SPDX. Razmislite o uporabi »LicenseRef« in spletnega URL-ja kot vrednosti za »project_license« te komponente. Primer: »LicenseRef-free=https://example.com/licenses.html«"
 
-#: src/as-validator-issue-tag.h:1113
+#: src/as-validator-issue-tag.h:1119
 msgid "Since a `runtime` component consists of multiple other software components, their component-IDs may be listed in a `<provides/>` section for this runtime."
 msgstr "Ker je komponenta `runtime` sestavljena iz več drugih komponent programske opreme, so lahko njihovi ID-ji komponent navedeni v razdelku `<provides/>` za to izvajalno datoteko."
 
-#: src/as-validator-issue-tag.h:1118
+#: src/as-validator-issue-tag.h:1124
 msgid "The type of the item that the component provides is not known to AppStream."
 msgstr "Vrsta elementa, ki ga ponuja komponenta, ni znana AppStreamu."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1124
+#: src/as-validator-issue-tag.h:1130
 msgid "The toplevel `mimetypes` tag is deprecated. Please use `mediatype` tags in a `provides` block instead to indicate that your software provides a media handler for the given types."
 msgstr "Oznaka »mimetypes« na najvišji ravni je zastarela. Prosimo, uporabite oznake »mediatype« v bloku »provides«, da označite, da vaša programska oprema zagotavlja orodje za upravljanje medijev za dane vrste."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1131
+#: src/as-validator-issue-tag.h:1137
 msgid "This component has no `content_rating` tag to provide age rating information. You can generate the tag data online by answering a few questions at https://hughsie.github.io/oars/"
 msgstr "Ta komponenta nima oznake »content_rating«, ki bi zagotavljala podatke o starostni kategoriji. Podatke o oznakah lahko ustvarite na spletu tako, da odgovorite na nekaj vprašanj na https://hughsie.github.io/oars/"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1138
+#: src/as-validator-issue-tag.h:1144
 msgid "The `type` attribute of this `content_rating` element is missing or empty."
 msgstr "Atribut »type« tega elementa »content_rating« manjka ali je prazen."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1144
+#: src/as-validator-issue-tag.h:1150
 msgid "The `type` attribute of the `content_rating` element has an invalid value."
 msgstr "Atribut »type« elementa »content_rating« ima neveljavno vrednost."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1150
+#: src/as-validator-issue-tag.h:1156
 msgid "The `content_rating` tag can only contain `content_attribute` children."
 msgstr "Oznaka »content_rating« lahko vsebuje samo podrejene oznake »content_attribute«."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1156
+#: src/as-validator-issue-tag.h:1162
 msgid "The `id` attribute of the `content_attribute` element is missing or empty."
 msgstr "Atribut »id« elementa »content_attribute« manjka ali je prazen."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1162
+#: src/as-validator-issue-tag.h:1168
 msgid "The `id` attribute of the `content_attribute` element has an invalid value."
 msgstr "Atribut »id« elementa »content_attribute« ima neveljavno vrednost."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1168
+#: src/as-validator-issue-tag.h:1174
 msgid "The `content_attribute` tag needs a value."
 msgstr "Oznaka »content_attribute« potrebuje vrednost."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1174
+#: src/as-validator-issue-tag.h:1180
 msgid "The `content_attribute` tag value is unknown."
 msgstr "Vrednost oznake »content_attribute« ni znana."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1180
+#: src/as-validator-issue-tag.h:1186
 msgid "The `content_attribute` tag value is invalid for the given id."
 msgstr "Vrednost oznake »content_attribute« je neveljavna za dani ID."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1186
+#: src/as-validator-issue-tag.h:1192
 msgid "A `content_attribute` tag with this ID has already been defined."
 msgstr "Oznaka »content_attribute« s tem ID-jem je že določena."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1192
+#: src/as-validator-issue-tag.h:1198
 msgid "This `tag` is missing a `namespace` attribute."
 msgstr "Tej oznaki (»tag«) manjka atribut »namespace« (imenski prostor)."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1198
+#: src/as-validator-issue-tag.h:1204
 msgid "This tag or its namespace contains invalid characters. Only lower-cased ASCII letters, numbers, dots, hyphens and underscores are permitted."
 msgstr "Ta oznaka ali njen imenski prostor vsebuje neveljavne znake. Dovoljene so samo črke ASCII, števke, pike, vezaji in podčrtaji z malimi črkami."
 
-#: src/as-validator-issue-tag.h:1203
+#: src/as-validator-issue-tag.h:1209
 msgid "The type of this color is not valid."
 msgstr "Vrsta te barve ni veljavna."
 
-#: src/as-validator-issue-tag.h:1208
+#: src/as-validator-issue-tag.h:1214
 msgid "The value of this color scheme preference is not valid."
 msgstr "Vrednost te nastavitve barvne sheme ni veljavna."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1214
+#: src/as-validator-issue-tag.h:1220
 msgid "The name of the color scheme property is wrong. It should be `scheme_preference`."
 msgstr "Ime lastnosti barvne sheme je napačno. Moralo bi biti »scheme_preference«."
 
-#: src/as-validator-issue-tag.h:1219
+#: src/as-validator-issue-tag.h:1225
 msgid "This color is not a valid HTML color code."
 msgstr "Ta barva ni veljavna barvna koda HTML."
 
-#: src/as-validator-issue-tag.h:1224
+#: src/as-validator-issue-tag.h:1230
 msgid "A color for this type/scheme combination was already set. Colors must be unique per type/scheme."
 msgstr "Barva za to kombinacijo vrste / sheme je bila že nastavljena. Barve morajo biti edinstvene glede na vrsto/shemo."
 
-#: src/as-validator-issue-tag.h:1229
+#: src/as-validator-issue-tag.h:1235
 msgid "The given DOI (Digital Object Identifier) for this reference item is not valid."
 msgstr "Navedeni DOI (Digital Object Identifier) za to referenčno postavko ni veljaven."
 
-#: src/as-validator-issue-tag.h:1234
+#: src/as-validator-issue-tag.h:1240
 msgid "The value for this citation reference item must be an URL to a CFF (Citation File Format) file."
 msgstr "Vrednost tega elementa sklicevanja mora biti URL datoteke CFF (Citation File Format)."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1240
+#: src/as-validator-issue-tag.h:1246
 msgid "This registry reference item is missing the `name` property to denote the name of the registry it is about."
 msgstr "Temu referenčnemu elementu registra manjka lastnost »name«, ki označuje ime registra, za katerega gre."
 
-#: src/as-validator-issue-tag.h:1245
+#: src/as-validator-issue-tag.h:1251
 msgid "The registry for this reference item is unknown. This may be due to a typing error, or the registry needs to be registered with AppStream."
 msgstr "Register za to referenčno postavko ni znan. To je lahko posledica tipkarske napake ali pa mora biti register registriran pri AppStream."
 
-#: src/as-validator-issue-tag.h:1251
+#: src/as-validator-issue-tag.h:1257
 msgid "The reference item is missing a value."
 msgstr "V referenčnem elementu manjka vrednost."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1257
+#: src/as-validator-issue-tag.h:1263
 msgid "The `custom` tag can only contain `value` children."
 msgstr "Oznaka »custom« lahko vsebuje samo podrejene oznake »value«."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1263
+#: src/as-validator-issue-tag.h:1269
 msgid "This `custom` tag value is missing a `key` attribute."
 msgstr "Tej vrednosti oznake »custom« manjka atribut »key«."
 
-#: src/as-validator-issue-tag.h:1268
+#: src/as-validator-issue-tag.h:1274
 msgid "A key can only be used once."
 msgstr "Ključ lahko uporabite samo enkrat."
 
-#: src/as-validator-issue-tag.h:1273
+#: src/as-validator-issue-tag.h:1279
 msgid "This custom value is empty."
 msgstr "Ta vrednost po meri je prazna."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1279
+#: src/as-validator-issue-tag.h:1285
 msgid "A `keywords` tag must not be localized in metainfo files (upstream metadata). Localize the individual keyword entries instead."
 msgstr "Oznaka »keywords« (ključne besede) ne sme biti lokalizirana v datotekah metainfo (vrhnji metapodatki). Namesto tega lokalizirajte posamezne vnose ključnih besed."
 
@@ -2958,7 +2962,7 @@ msgstr "Ni dovoljeno znižati resnosti oznake »%s« na tisto, ki omogoča preho
 #. TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted names.
 #: src/as-validator.c:897 src/as-validator.c:1673 src/as-validator.c:1849
 #: src/as-validator.c:2070 src/as-validator.c:2735 src/as-validator.c:2757
-#: src/as-validator.c:2882 src/as-validator.c:3205
+#: src/as-validator.c:2882 src/as-validator.c:3206
 #, c-format
 msgid "Found: %s - Allowed: %s"
 msgstr "Najdeno: %s - Dovoljeno: %s"
@@ -3062,13 +3066,13 @@ msgid "Failed to parse arguments"
 msgstr "Argumentov ni bilo mogoče razčleniti"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: tools/appstream-compose.c:334 tools/appstreamcli.c:1795
+#: tools/appstream-compose.c:334 tools/appstreamcli.c:1831
 #, c-format
 msgid "AppStream version: %s"
 msgstr "Različica AppStream: %s"
 
 #. TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ.
-#: tools/appstream-compose.c:338 tools/appstreamcli.c:1799
+#: tools/appstream-compose.c:338 tools/appstreamcli.c:1835
 #, c-format
 msgid ""
 "AppStream CLI tool version: %s\n"
@@ -3199,368 +3203,368 @@ msgid "Manually selected location of AppStream metadata to scan."
 msgstr "Ročno določite mesto metapodatkov AppStream za pregled."
 
 #. TRANSLATORS: ascli flag description for: --no-cache
-#: tools/appstreamcli.c:133
+#: tools/appstreamcli.c:140
 msgid "Ignore cache age and build a fresh cache before performing the query."
 msgstr "Prezri starost predpomnilnika in ustvari nov predpomnilnik, preden se izvede poizvedba."
 
 #. TRANSLATORS: ascli flag description for: --format
-#: tools/appstreamcli.c:149
+#: tools/appstreamcli.c:156
 msgid "Default metadata format (valid values are 'xml' and 'yaml')."
 msgstr "Privzeta oblika zapisa metapodatkov (veljavni vrednosti sta »xml« in »yaml«)."
 
 #. TRANSLATORS: ascli flag description for: --details
-#: tools/appstreamcli.c:165
+#: tools/appstreamcli.c:172
 msgid "Print detailed output about found components."
 msgstr "Natisni podroben izpis o najdenih komponentah."
 
 #. TRANSLATORS: ascli flag description for: --server (used by the "list-reviews" command)
-#: tools/appstreamcli.c:184
+#: tools/appstreamcli.c:191
 msgid "URL of the ODRS-compatible reviews server to use."
 msgstr "URL za strežnik ocen, združljiv z ODRS, ki ga želite uporabljati."
 
 #. TRANSLATORS: ascli flag description for: --start (used by the "list-reviews" command)
-#: tools/appstreamcli.c:190
+#: tools/appstreamcli.c:197
 msgid "Index of the first review to fetch, to page through all reviews."
 msgstr "Indeks prve ocene, ki jo želite pridobiti, za priklic čez vse ocene."
 
 #. TRANSLATORS: ascli flag description for: --limit (used by the "list-reviews" command)
-#: tools/appstreamcli.c:196
+#: tools/appstreamcli.c:203
 msgid "Maximum number of reviews to fetch."
 msgstr "Največje število prejetih ocen."
 
 #. TRANSLATORS: ascli flag description for: --locale (used by the "list-reviews" and "submit-review" commands)
-#: tools/appstreamcli.c:202
+#: tools/appstreamcli.c:209
 msgid "Locale to prefer for reviews, instead of the current system locale."
 msgstr "Želene področne nastavitve za ocene namesto trenutnih sistemskih področnih nastavitev."
 
 #. TRANSLATORS: ascli flag description for: --pedantic (used by the "validate" command)
-#: tools/appstreamcli.c:223
+#: tools/appstreamcli.c:230
 msgid "Also show pedantic hints."
 msgstr "Pokaži tudi podrobne namige."
 
 #. TRANSLATORS: ascli flag description for: --explain (used by the "validate" command)
-#: tools/appstreamcli.c:230
+#: tools/appstreamcli.c:237
 msgid "Print detailed explanation for found issues."
 msgstr "Natisni podrobno razlago najdenih težav."
 
 #. TRANSLATORS: ascli flag description for: --no-net (used by the "validate" command)
-#: tools/appstreamcli.c:237
+#: tools/appstreamcli.c:244
 msgid "Do not use network access."
 msgstr "Ne uporabljaj dostopa do omrežja."
 
 #. TRANSLATORS: ascli flag description for: --strict (used by the "validate" command)
-#: tools/appstreamcli.c:244
+#: tools/appstreamcli.c:251
 msgid "Fail validation if any issue is emitted that is not of pedantic severity."
 msgstr "Neuspešno preverjanje, če se sproži kakršna koli težava, ki ni podrobna."
 
 #. TRANSLATORS: ascli flag description for: --format  when validating XML files
-#: tools/appstreamcli.c:250
+#: tools/appstreamcli.c:257
 msgid "Format of the generated report (valid values are 'text' and 'yaml')."
 msgstr "Oblika ustvarjenega poročila (veljavni vrednosti sta »text« in »yaml«)."
 
 #. TRANSLATORS: ascli flag description for: --override  when validating XML files
-#: tools/appstreamcli.c:256
+#: tools/appstreamcli.c:263
 msgid "Override the severities of selected issue tags."
 msgstr "Preglasite resnost izbranih oznak težav."
 
 #. TRANSLATORS: this is a (usually shorter) command alias, shown after the command summary text
-#: tools/appstreamcli.c:303
+#: tools/appstreamcli.c:310
 #, c-format
 msgid "(Alias: '%s')"
 msgstr "(vzdevek: »%s«)"
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
-#: tools/appstreamcli.c:352 tools/appstreamcli.c:1432
+#: tools/appstreamcli.c:359 tools/appstreamcli.c:1468
 msgid "AppStream command-line interface"
 msgstr "Vmesnik ukazne vrstice AppStream"
 
-#: tools/appstreamcli.c:355
+#: tools/appstreamcli.c:362
 #, c-format
 msgid "'%s' command"
 msgstr "%s ukaz"
 
 #. TRANSLATORS: An unknown option was passed to appstreamcli.
-#: tools/appstreamcli.c:398
+#: tools/appstreamcli.c:405
 #, c-format
 msgid "Option '%s' is unknown."
 msgstr "Možnost »%s« ni znana."
 
-#: tools/appstreamcli.c:403 tools/appstreamcli.c:1810
+#: tools/appstreamcli.c:410 tools/appstreamcli.c:1846
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr "Zaženite »%s --help«, da se izpiše poln seznam možnosti ukazne vrstice."
 
-#: tools/appstreamcli.c:407
+#: tools/appstreamcli.c:414
 #, c-format
 msgid "Run '%s --help' to see a list of available commands and options, and '%s %s --help' to see a list of options specific for this subcommand."
 msgstr "Zaženite »%s --help«, da se izpiše poln seznam možnosti ukazne vrstice oz. »%s %s --help«, da vidite seznam možnosti za določen podokaz."
 
 #. TRANSLATORS: ascli flag description for: --force
-#: tools/appstreamcli.c:462
+#: tools/appstreamcli.c:469
 msgid "Enforce a cache refresh."
 msgstr "Vsili osvežitev predpomnilnika."
 
 #. TRANSLATORS: ascli flag description for: --source in a refresh action. Don't translate strings in backticks: `name`
-#: tools/appstreamcli.c:468
+#: tools/appstreamcli.c:475
 msgid "Limit cache refresh to data from a specific source, e.g. `os` or `flatpak`. May be specified multiple times."
 msgstr "Omejite osveževanje predpomnilnika na podatke iz določenega vira, npr. »os« ali »flatpak«. Lahko se navede večkrat."
 
 #. TRANSLATORS: ascli check-license is missing its parameter
-#: tools/appstreamcli.c:726
+#: tools/appstreamcli.c:752
 msgid "No license, license expression or license exception string was provided."
 msgstr "Dovoljenje, izraz dovoljenja ali niz izjeme dovoljenja niso navedeni."
 
 #. TRANSLATORS: ascli flag description for: --details (part of the "check-syscompat" subcommand)
-#: tools/appstreamcli.c:775
+#: tools/appstreamcli.c:805
 msgid "Print more detailed output on why incompatibilities exist."
 msgstr "Natisnite podrobnejši izhod o tem, zakaj obstajajo nezdružljivosti."
 
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
-#: tools/appstreamcli.c:812
+#: tools/appstreamcli.c:847
 msgid "Set the data origin for the installed metadata catalog file."
 msgstr "Nastavite izvor podatkov za nameščeno datoteko kataloga metapodatkov."
 
 #. TRANSLATORS: ascli flag description for: --user (part of the "put" subcommand)
-#: tools/appstreamcli.c:818
+#: tools/appstreamcli.c:853
 msgid "Install the file for the current user, instead of globally."
 msgstr "Namesti datoteko za trenutnega uporabnika namesto globalno."
 
 #. TRANSLATORS: ascli flag description for: --bundle-type (part of the "remove" and "install" subcommands)
-#: tools/appstreamcli.c:846
+#: tools/appstreamcli.c:881
 msgid "Limit the command to use only components from the given bundling system (`flatpak` or `package`)."
 msgstr "Omejite ukaz tako, da uporablja samo komponente iz danega sistema združevanja (»flatpak« ali »package«)."
 
 #. TRANSLATORS: ascli flag description for: --first (part of the "remove" and "install" subcommands)
-#: tools/appstreamcli.c:853
+#: tools/appstreamcli.c:888
 msgid "Do not ask for which software component should be used and always choose the first entry."
 msgstr "Ne sprašuj, katero komponento programske opreme je treba uporabiti, in vedno izberi prvi vnos."
 
 #. TRANSLATORS: ascli install currently only supports two values for --bundle-type.
-#: tools/appstreamcli.c:887 tools/appstreamcli.c:922
+#: tools/appstreamcli.c:922 tools/appstreamcli.c:957
 msgid "No valid bundle kind was specified. Only `package` and `flatpak` are currently recognized."
 msgstr "Veljavna vrsta svežnja ni bila določena. Trenutno sta prepoznana samo »package« in »flatpak«."
 
-#: tools/appstreamcli.c:1082
+#: tools/appstreamcli.c:1118
 msgid "You need to provide at least two version numbers to compare as parameters."
 msgstr "Za primerjavo parametrov morate navesti vsaj dve številki različice."
 
 #. * TRANSLATORS: The user tried to compare version numbers, but the comparison operator (greater-then, equal, etc.) was invalid.
-#: tools/appstreamcli.c:1111
+#: tools/appstreamcli.c:1147
 #, c-format
 msgid "Unknown compare relation '%s'. Valid values are:"
 msgstr "Neznano primerjalno razmerje »%s«. Veljavne vrednosti so:"
 
-#: tools/appstreamcli.c:1152
+#: tools/appstreamcli.c:1188
 msgid "Too many parameters: Need two version numbers or version numbers and a comparison operator."
 msgstr "Preveč parametrov: potrebujete dve številki različice ali številke različic in operatorja za primerjavo."
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
-#: tools/appstreamcli.c:1178
+#: tools/appstreamcli.c:1214
 msgid "Use the given .desktop file to fill in the basic values of the metainfo file."
 msgstr "Uporabite dano datoteko .desktop, da izpolnite osnovne vrednosti datoteke metainfo."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
-#: tools/appstreamcli.c:1186
+#: tools/appstreamcli.c:1222
 msgid "This command takes optional TYPE and FILE positional arguments, FILE being a file to write to (or \"-\" for standard output)."
 msgstr "Ta ukaz prevzame izbirne pozicijske argumente TYPE in FILE, pri čemer je FILE datoteka, v katero se zapisuje (ali »-« za standardni izhod)."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
-#: tools/appstreamcli.c:1191
+#: tools/appstreamcli.c:1227
 #, c-format
 msgid "The TYPE must be a valid component-type, such as: %s"
 msgstr "TYPE mora biti veljavna vrsta sestavnega dela, kot je: %s"
 
 #. TRANSLATORS: ascli flag description for: --exec (part of the make-desktop-file subcommand)
-#: tools/appstreamcli.c:1229
+#: tools/appstreamcli.c:1265
 msgid "Use the specified line for the 'Exec=' key of the desktop-entry file."
 msgstr "Uporabite določeno vrstico za ključ »Exec=« datoteke za vnos na namizju."
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
-#: tools/appstreamcli.c:1269
+#: tools/appstreamcli.c:1305
 msgid "Assume the input file is in the selected format ('yaml', 'text' or 'markdown')."
 msgstr "Predpostavimo, da je vhodna datoteka v izbrani obliki zapisa (»yaml«, »text« ali »markdown«)."
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
-#: tools/appstreamcli.c:1276
+#: tools/appstreamcli.c:1312
 msgid "Limit the number of release entries that end up in the metainfo file (<= 0 for unlimited)."
 msgstr "Omejite število vnosov o izdaji, ki končajo v datoteki metainfo (<= 0 za neomejeno)."
 
 #. TRANSLATORS: ascli flag description for: --translatable-count as part of the news-to-metainfo command
-#: tools/appstreamcli.c:1283
+#: tools/appstreamcli.c:1319
 msgid "Set the number of releases that should have descriptions marked for translation (latest releases are translated first, -1 for unlimited)."
 msgstr "Nastavite število izdaj z opisi, označenimi za prevod (najnovejše izdaje so prevedene najprej, -1 za neomejeno)."
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
-#: tools/appstreamcli.c:1328
+#: tools/appstreamcli.c:1364
 msgid "Generate the output in the selected format ('yaml', 'text' or 'markdown')."
 msgstr "Ustvarite izhod v izbrani obliki zapisa (»yaml«, »text« ali »markdown«)."
 
 #. TRANSLATORS: appstreamcli-compose was not found
-#: tools/appstreamcli.c:1373
+#: tools/appstreamcli.c:1409
 #, c-format
 msgid "AppStream Compose binary '%s' was not found! Can not continue."
 msgstr "Dvojiška datoteka AppStream Compose »%s« ni bila najdena! Ni možno nadaljevati."
 
 #. TRANSLATORS: appstreamcli-compose was not found - info text
-#: tools/appstreamcli.c:1377
+#: tools/appstreamcli.c:1413
 #, c-format
 msgid "You may be able to install the AppStream Compose addon via: `%s`"
 msgstr "Dodatek AppStream Compose boste morda lahko namestili prek: »%s«"
 
 #. TRANSLATORS: "Compose" is a command of appstreamcli to build metadata catalogs.
-#: tools/appstreamcli.c:1399
+#: tools/appstreamcli.c:1435
 #, c-format
 msgid "Compose operation failed to execute: %s"
 msgstr "Postopek sestavljanja se ni uspel izvesti: %s"
 
-#: tools/appstreamcli.c:1409
+#: tools/appstreamcli.c:1445
 #, c-format
 msgid "Compose failed: %s"
 msgstr "Sestavljanje ni uspelo: %s"
 
 #. these are commands we can use with appstreamcli
-#: tools/appstreamcli.c:1434
+#: tools/appstreamcli.c:1470
 msgid "Subcommands:"
 msgstr "Podukazi:"
 
-#: tools/appstreamcli.c:1488
+#: tools/appstreamcli.c:1524
 msgid "You can find information about subcommand-specific options by passing \"--help\" to the subcommand."
 msgstr "Informacije o možnostih, specifičnih za podukaz, lahko poiščete tako, da podukazu posredujete »--help«."
 
 #. TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated.
-#: tools/appstreamcli.c:1506
+#: tools/appstreamcli.c:1542
 #, c-format
 msgid "Command '%s' is unknown. Run '%s --help' for a list of available commands."
 msgstr "Ukaz »%s« ni znan. Zaženite »%s --help«, da se izpiše seznam možnih ukazov."
 
 #. TRANSLATORS: `appstreamcli search` command description.
-#: tools/appstreamcli.c:1530
+#: tools/appstreamcli.c:1566
 msgid "Search the component database."
 msgstr "Iskanje po zbirki podatkov komponent."
 
 #. TRANSLATORS: `appstreamcli get` command description.
-#: tools/appstreamcli.c:1537
+#: tools/appstreamcli.c:1573
 msgid "Get information about a component by its ID."
 msgstr "Pridobite informacije o komponenti po njenem ID-ju."
 
 #. TRANSLATORS: `appstreamcli what-provides` command description.
-#: tools/appstreamcli.c:1544
+#: tools/appstreamcli.c:1580
 msgid "Get components which provide the given item. Needs an item type (e.g. lib, bin, python3, …) and item value as parameter."
 msgstr "Pridobite komponente, ki zagotavljajo dani element. Kot parameter potrebuje vrsto elementa (npr. lib, bin, python3, ...) in vrednost elementa."
 
 #. TRANSLATORS: `appstreamcli list-categories` command description.
-#: tools/appstreamcli.c:1552
+#: tools/appstreamcli.c:1588
 msgid "List components that are part of the specified categories."
 msgstr "Izpiiše komponente, ki so del določenih kategorij."
 
 #. TRANSLATORS: `appstreamcli dump` command description.
-#: tools/appstreamcli.c:1561
+#: tools/appstreamcli.c:1597
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "Izpis neobdelanih metapodatkov XML za komponento, ki se ujema z ID-jem."
 
 #. TRANSLATORS: `appstreamcli refresh-cache` command description.
-#: tools/appstreamcli.c:1569
+#: tools/appstreamcli.c:1605
 msgid "Rebuild the component metadata cache."
 msgstr "Znova zgradi predpomnilnik metapodatkov komponente."
 
 #. TRANSLATORS: `appstreamcli validate` command description.
-#: tools/appstreamcli.c:1577
+#: tools/appstreamcli.c:1613
 msgid "Validate AppStream XML files for issues."
 msgstr "Preverite težave v datotekah XML AppStream."
 
 #. TRANSLATORS: `appstreamcli validate-tree` command description.
-#: tools/appstreamcli.c:1584
+#: tools/appstreamcli.c:1620
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr "Preverite veljavne metapodatke v nameščenem drevesu datotek programa."
 
 #. TRANSLATORS: `appstreamcli `check-license` command description.
-#: tools/appstreamcli.c:1592
+#: tools/appstreamcli.c:1628
 msgid "Check license string for validity and print details about it."
 msgstr "Preverite veljavnost niza dovoljenja in natisnite podrobnosti o njem."
 
 #. TRANSLATORS: `appstreamcli `check-license` command description.
-#: tools/appstreamcli.c:1600
+#: tools/appstreamcli.c:1636
 msgid "Check if requirements of a component (via its ID or MetaInfo file) are satisfied on this system."
 msgstr "Preverite, ali so zahteve komponente (prek njenega ID-ja ali datoteke MetaInfo) izpolnjene v tem sistemu."
 
 #. TRANSLATORS: `appstreamcli `check-syscompat` command description.
-#: tools/appstreamcli.c:1608
+#: tools/appstreamcli.c:1644
 msgid "Check compatibility of a component (via its ID or MetaInfo file) with common system and chassis types."
 msgstr "Preverite združljivost komponente (prek njenega ID-ja ali datoteke MetaInfo) s pogostimi sistemi in vrstami ohišja."
 
 #. TRANSLATORS: `appstreamcli install` command description.
-#: tools/appstreamcli.c:1617
+#: tools/appstreamcli.c:1653
 msgid "Install software matching the component-ID."
 msgstr "Namesti programsko opremo, ki ustreza ID-ju komponente."
 
 #. TRANSLATORS: `appstreamcli remove` command description.
-#: tools/appstreamcli.c:1624
+#: tools/appstreamcli.c:1660
 msgid "Remove software matching the component-ID."
 msgstr "Odstrani programsko opremo, ki se ujema z ID-jem komponente."
 
 #. TRANSLATORS: `appstreamcli status` command description.
-#: tools/appstreamcli.c:1632
+#: tools/appstreamcli.c:1668
 msgid "Display status information about available AppStream metadata."
 msgstr "Prikaže informacije o stanju razpoložljivih metapodatkov storitve AppStream."
 
 #. TRANSLATORS: `appstreamcli sysinfo` command description.
-#: tools/appstreamcli.c:1640
+#: tools/appstreamcli.c:1676
 msgid "Show information about the current device and used operating system."
 msgstr "Pokaže informacije o trenutni napravi in uporabljenem operacijskem sistemu."
 
 #. TRANSLATORS: `appstreamcli put` command description.
-#: tools/appstreamcli.c:1648
+#: tools/appstreamcli.c:1684
 msgid "Install a metadata file into the right location."
 msgstr "Namestite datoteko z metapodatki na pravo mesto."
 
 #. TRANSLATORS: `appstreamcli convert` command description. "Catalog XML" is a term describing a specific type of AppStream XML data.
-#: tools/appstreamcli.c:1656
+#: tools/appstreamcli.c:1692
 msgid "Convert metadata catalog XML to YAML or vice versa."
 msgstr "Pretvorite kataloga metapodatkov XML v YAML ali obratno."
 
 #. TRANSLATORS: `appstreamcli vercmp` command description.
-#: tools/appstreamcli.c:1663
+#: tools/appstreamcli.c:1699
 msgid "Compare two version numbers."
 msgstr "Primerjajte številki dveh različic."
 
 #. TRANSLATORS: `appstreamcli new-template` command description.
-#: tools/appstreamcli.c:1672
+#: tools/appstreamcli.c:1708
 msgid "Create a template for a metainfo file (to be filled out by the upstream project)."
 msgstr "Ustvari predlogo za datoteko metainfo (ki jo izpolni vrhnji projekt)."
 
 #. TRANSLATORS: `appstreamcli make-desktop-file` command description.
-#: tools/appstreamcli.c:1680
+#: tools/appstreamcli.c:1716
 msgid "Create a desktop-entry file from a metainfo file."
 msgstr "Ustvarite datoteko za vnos na namizju iz datoteke metainfo."
 
 #. TRANSLATORS: `appstreamcli news-to-metainfo` command description.
-#: tools/appstreamcli.c:1688
+#: tools/appstreamcli.c:1724
 msgid "Convert a YAML or text NEWS file into metainfo releases."
 msgstr "Pretvori datoteko YAML ali besedilno datoteko NEWS v izdaje metainfo."
 
 #. TRANSLATORS: `appstreamcli metainfo-to-news` command description.
-#: tools/appstreamcli.c:1696
+#: tools/appstreamcli.c:1732
 msgid "Write NEWS text or YAML file with information from a metainfo file."
 msgstr "Zapiše besedilo NEWS ali datoteko YAML z informacijami iz datoteke metainfo."
 
 #. TRANSLATORS: `appstreamcli compose` command description.
-#: tools/appstreamcli.c:1704
+#: tools/appstreamcli.c:1740
 msgid "Compose AppStream metadata catalog from directory trees."
 msgstr "Sestavi katalog metapodatkov AppStream iz dreves map."
 
 #. TRANSLATORS: `appstreamcli list-reviews` command description.
-#: tools/appstreamcli.c:1713
+#: tools/appstreamcli.c:1749
 msgid "List online user reviews for a software component."
 msgstr "Izpiši spletne ocene uporabnikov za komponento programske opreme."
 
 #. TRANSLATORS: `appstreamcli submit-review` command description.
-#: tools/appstreamcli.c:1726
+#: tools/appstreamcli.c:1762
 msgid "Compose and submit an online review for a software component."
 msgstr "Sestavi in pošlji spletno oceno za programsko komponento."
 
 #. TRANSLATORS: ascli has been run without command.
-#: tools/appstreamcli.c:1808
+#: tools/appstreamcli.c:1844
 msgid "You need to specify a command."
 msgstr "Navesti morate ukaz."
 
@@ -3599,120 +3603,120 @@ msgstr "Posodobitev predpomnilnika metapodatkov ni potrebna."
 
 #. TRANSLATORS: An AppStream component-id is missing in the command-line arguments
 #. TRANSLATORS: ascli was told to find a software component by its ID, but no component-id was specified.
-#: tools/ascli-actions-mdata.c:132 tools/ascli-actions-mdata.c:298
-#: tools/ascli-actions-misc.c:870 tools/ascli-actions-misc.c:957
+#: tools/ascli-actions-mdata.c:133 tools/ascli-actions-mdata.c:304
+#: tools/ascli-actions-misc.c:873 tools/ascli-actions-misc.c:960
 #: tools/ascli-actions-pkgmgr.c:182
 msgid "You need to specify a component-ID."
 msgstr "Navesti morate ID komponente."
 
-#: tools/ascli-actions-mdata.c:144 tools/ascli-actions-mdata.c:310
-#: tools/ascli-actions-mdata.c:734 tools/ascli-actions-mdata.c:866
+#: tools/ascli-actions-mdata.c:145 tools/ascli-actions-mdata.c:316
+#: tools/ascli-actions-mdata.c:743 tools/ascli-actions-mdata.c:876
 #: tools/ascli-actions-pkgmgr.c:195
 #, c-format
 msgid "Unable to find component with ID '%s'!"
 msgstr "Komponente z ID »%s« ni mogoče najti!"
 
-#: tools/ascli-actions-mdata.c:167
+#: tools/ascli-actions-mdata.c:169
 msgid "You need to specify a term to search for."
 msgstr "Določiti morate pojem, ki ga iščete."
 
 #. TRANSLATORS: We got no full-text search results
-#: tools/ascli-actions-mdata.c:180
+#: tools/ascli-actions-mdata.c:182
 #, c-format
 msgid "No component matching '%s' found."
 msgstr "Komponente, ki se ujema z »%s«, ni mogoče najti."
 
-#: tools/ascli-actions-mdata.c:207
+#: tools/ascli-actions-mdata.c:211
 msgid "No value for the item to search for was defined."
 msgstr "Vrednost elementa, ki ga je treba iskati, ni bila določena."
 
-#: tools/ascli-actions-mdata.c:214
+#: tools/ascli-actions-mdata.c:218
 msgid "Invalid type for provided item selected. Valid values are:"
 msgstr "Neveljavna vrsta za izbrani element. Veljavne vrednosti so:"
 
 #. TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results
-#: tools/ascli-actions-mdata.c:230
+#: tools/ascli-actions-mdata.c:234
 #, c-format
 msgid "Could not find component providing '%s::%s'."
 msgstr "Ni bilo mogoče najti komponente, ki zagotavlja »%s::%s«."
 
-#: tools/ascli-actions-mdata.c:256
+#: tools/ascli-actions-mdata.c:261
 msgid "You need to specify categories to list."
 msgstr "Določiti morate kategorije za seznam."
 
 #. TRANSLATORS: We got no category list results
-#: tools/ascli-actions-mdata.c:270
+#: tools/ascli-actions-mdata.c:275
 #, c-format
 msgid "No component found in categories %s."
 msgstr "V kategorijah %s ni bilo mogoče najti nobene komponente."
 
-#: tools/ascli-actions-mdata.c:353
+#: tools/ascli-actions-mdata.c:359
 msgid "You need to specify a metadata file."
 msgstr "Določiti morate datoteko z metapodatki."
 
-#: tools/ascli-actions-mdata.c:367
+#: tools/ascli-actions-mdata.c:373
 #, c-format
 msgid "Unable to install metadata file: %s"
 msgstr "Datoteke z metapodatki ni mogoče namestiti: %s"
 
-#: tools/ascli-actions-mdata.c:387
+#: tools/ascli-actions-mdata.c:393
 msgid "You need to specify an input and output file."
 msgstr "Določiti morate vhodno in izhodno datoteko."
 
-#: tools/ascli-actions-mdata.c:394
+#: tools/ascli-actions-mdata.c:400
 #, c-format
 msgid "Metadata file '%s' does not exist."
 msgstr "Datoteka z metapodatki »%s« ne obstaja."
 
 #. TRANSLATORS: User is trying to convert a file in ascli
-#: tools/ascli-actions-mdata.c:433
+#: tools/ascli-actions-mdata.c:439
 msgid "Unable to convert file: Could not determine output format, please set it explicitly using '--format='."
 msgstr "Datoteke ni mogoče pretvoriti: Izhodne oblike ni mogoče določiti, nastavite jo izrecno z uporabo »--format=«."
 
 #. TRANSLATORS: The user tried to create a new template, but supplied a wrong component-type string
-#: tools/ascli-actions-mdata.c:481
+#: tools/ascli-actions-mdata.c:487
 msgid "You need to give an AppStream software component type to generate a template. Possible values are:"
 msgstr "Za ustvarjanje predloge morate navesti vrsto komponente programske opreme AppStream. Možne vrednosti so:"
 
 #. TRANSLATORS: The user tried to create a new template, but supplied a wrong component-type string
-#: tools/ascli-actions-mdata.c:484
+#: tools/ascli-actions-mdata.c:490
 #, c-format
 msgid "The software component type '%s' is not valid in AppStream. Possible values are:"
 msgstr "Vrsta komponente programske opreme »%s« v storitvi AppStream ni veljavna. Možne vrednosti so:"
 
-#: tools/ascli-actions-mdata.c:504
+#: tools/ascli-actions-mdata.c:510
 #, c-format
 msgid "The .desktop file '%s' does not exist."
 msgstr "Datoteka .desktop »%s« ne obstaja."
 
-#: tools/ascli-actions-mdata.c:511
+#: tools/ascli-actions-mdata.c:517
 #, c-format
 msgid "Unable to read the .desktop file: %s"
 msgstr "Datoteke .desktop ni mogoče prebrati: %s"
 
-#: tools/ascli-actions-mdata.c:601
+#: tools/ascli-actions-mdata.c:607
 #, c-format
 msgid "Unable to build the template metainfo file: %s"
 msgstr "Predloge datoteke z metapodatki ni mogoče izdelati: %s"
 
-#: tools/ascli-actions-mdata.c:610
+#: tools/ascli-actions-mdata.c:616
 #, c-format
 msgid "Unable to save the template metainfo file: %s"
 msgstr "Predloge datoteke z metapodatki ni mogoče shraniti: %s"
 
-#: tools/ascli-actions-mdata.c:650
+#: tools/ascli-actions-mdata.c:656
 msgid "Unable to check display size: Can not read information without GUI toolkit access."
 msgstr "Ni mogoče preveriti velikosti zaslona: informacij ni mogoče prebrati brez dostopa do kompleta orodjarne up. vmesnika."
 
-#: tools/ascli-actions-mdata.c:658 tools/ascli-actions-mdata.c:914
+#: tools/ascli-actions-mdata.c:664 tools/ascli-actions-mdata.c:924
 msgid "ERROR"
 msgstr "NAPAKA"
 
-#: tools/ascli-actions-mdata.c:695 tools/ascli-actions-mdata.c:826
+#: tools/ascli-actions-mdata.c:704 tools/ascli-actions-mdata.c:836
 msgid "You need to specify a MetaInfo filename or component ID."
 msgstr "Določiti morate ime datoteke MetaInfo ali ID komponente."
 
-#: tools/ascli-actions-mdata.c:714 tools/ascli-actions-mdata.c:838
+#: tools/ascli-actions-mdata.c:723 tools/ascli-actions-mdata.c:848
 #: tools/ascli-actions-misc.c:133 tools/ascli-actions-misc.c:468
 #: tools/ascli-actions-misc.c:557
 #, c-format
@@ -3720,75 +3724,75 @@ msgid "Metainfo file '%s' does not exist."
 msgstr "Datoteka metainfo »%s« ne obstaja."
 
 #. TRANSLATORS: We are testing the relations (requires, recommends & supports data) for being satisfied on the current system.
-#: tools/ascli-actions-mdata.c:743
+#: tools/ascli-actions-mdata.c:752
 #, c-format
 msgid "Relation check for: %s"
 msgstr "Preverjanje relacije za: %s"
 
-#: tools/ascli-actions-mdata.c:754
+#: tools/ascli-actions-mdata.c:763
 msgid "Requirements:"
 msgstr "Zahteve:"
 
-#: tools/ascli-actions-mdata.c:756
+#: tools/ascli-actions-mdata.c:765
 msgid "No required items are set for this software."
 msgstr "Za to programsko opremo niso nastavljeni nobeni zahtevani elementi."
 
-#: tools/ascli-actions-mdata.c:761
+#: tools/ascli-actions-mdata.c:770
 msgid "Recommendations:"
 msgstr "Priporočila:"
 
-#: tools/ascli-actions-mdata.c:763
+#: tools/ascli-actions-mdata.c:772
 msgid "No recommended items are set for this software."
 msgstr "Za to programsko opremo niso nastavljeni nobeni priporočeni elementi."
 
-#: tools/ascli-actions-mdata.c:768
+#: tools/ascli-actions-mdata.c:777
 msgid "Supported:"
 msgstr "Podprto:"
 
-#: tools/ascli-actions-mdata.c:770
+#: tools/ascli-actions-mdata.c:779
 msgid "No supported items are set for this software."
 msgstr "Za to programsko opremo niso nastavljeni nobeni podprti elementi."
 
 #. TRANSLATORS: This represents a computer chassis type.
-#: tools/ascli-actions-mdata.c:794
+#: tools/ascli-actions-mdata.c:803
 msgid "Desktop"
 msgstr "Namizje"
 
 #. TRANSLATORS: This represents a computer chassis type.
-#: tools/ascli-actions-mdata.c:797
+#: tools/ascli-actions-mdata.c:806
 msgid "Laptop"
 msgstr "Prenosnik"
 
 #. TRANSLATORS: This represents a computer chassis type.
-#: tools/ascli-actions-mdata.c:800
+#: tools/ascli-actions-mdata.c:809
 msgid "Server"
 msgstr "Strežnik"
 
 #. TRANSLATORS: This represents a computer chassis type.
-#: tools/ascli-actions-mdata.c:803
+#: tools/ascli-actions-mdata.c:812
 msgid "Tablet"
 msgstr "Tablični računalnik"
 
 #. TRANSLATORS: This represents a computer chassis type.
-#: tools/ascli-actions-mdata.c:806
+#: tools/ascli-actions-mdata.c:815
 msgid "Handset"
 msgstr "Slušalka"
 
-#: tools/ascli-actions-mdata.c:808
+#: tools/ascli-actions-mdata.c:817
 msgid "Unknown"
 msgstr "Neznano"
 
 #. TRANSLATORS: We are testing compatibility of a component with a common representation of hardware for a specific chassis (phone/tablet/desktop, etc.)
-#: tools/ascli-actions-mdata.c:875
+#: tools/ascli-actions-mdata.c:885
 #, c-format
 msgid "Chassis compatibility check for: %s"
 msgstr "Preverjanje združljivosti ohišja za: %s"
 
-#: tools/ascli-actions-mdata.c:894
+#: tools/ascli-actions-mdata.c:904
 msgid "Incompatible"
 msgstr "Nezdružljivo"
 
-#: tools/ascli-actions-mdata.c:929
+#: tools/ascli-actions-mdata.c:939
 msgid "Compatible"
 msgstr "Združljivo"
 
@@ -3797,7 +3801,7 @@ msgstr "Združljivo"
 msgid "AppStream Status:"
 msgstr "Stanje AppStream:"
 
-#: tools/ascli-actions-misc.c:48 tools/ascli-actions-misc.c:686
+#: tools/ascli-actions-misc.c:48 tools/ascli-actions-misc.c:689
 #, c-format
 msgid "Version: %s"
 msgstr "Različica: %s"
@@ -3912,188 +3916,188 @@ msgstr ""
 msgid "You need to specify a NEWS format to write the output in."
 msgstr "Določiti morate obliko zapisa NEWS, v katerem želite izpisati izhod."
 
-#: tools/ascli-actions-misc.c:667
+#: tools/ascli-actions-misc.c:670
 msgid "Operating System Details"
 msgstr "Podrobnosti o operacijskem sistemu"
 
-#: tools/ascli-actions-misc.c:671
+#: tools/ascli-actions-misc.c:674
 #, c-format
 msgid "Unable to find operating system component '%s'!"
 msgstr "Ni mogoče najti komponente operacijskega sistema »%s«!"
 
-#: tools/ascli-actions-misc.c:678
+#: tools/ascli-actions-misc.c:681
 msgid "ID"
 msgstr "ID"
 
-#: tools/ascli-actions-misc.c:679 tools/ascli-actions-misc.c:765
+#: tools/ascli-actions-misc.c:682 tools/ascli-actions-misc.c:768
 #: tools/ascli-utils.c:304
 msgid "Name"
 msgstr "Ime"
 
-#: tools/ascli-actions-misc.c:680 tools/ascli-actions-misc.c:1026
+#: tools/ascli-actions-misc.c:683 tools/ascli-actions-misc.c:1029
 #: tools/ascli-utils.c:305
 msgid "Summary"
 msgstr "Povzetek"
 
-#: tools/ascli-actions-misc.c:714
+#: tools/ascli-actions-misc.c:717
 msgid "Release Kind"
 msgstr "Vrsta izdaje"
 
 #. TRANSLATORS: Release date of the running OS release
-#: tools/ascli-actions-misc.c:719
+#: tools/ascli-actions-misc.c:722
 msgid "Released"
 msgstr "Izdano"
 
 #. TRANSLATORS: End-of-life date of the running OS release
-#: tools/ascli-actions-misc.c:725
+#: tools/ascli-actions-misc.c:728
 msgid "Supported Until"
 msgstr "Podprto do"
 
 #. TRANSLATORS: OS releases newer than the running one, with their kind
-#: tools/ascli-actions-misc.c:740
+#: tools/ascli-actions-misc.c:743
 msgid "Newer Releases"
 msgstr "Novejše izdaje"
 
-#: tools/ascli-actions-misc.c:744 tools/ascli-utils.c:309
+#: tools/ascli-actions-misc.c:747 tools/ascli-utils.c:309
 msgid "Homepage"
 msgstr "Domača stran"
 
-#: tools/ascli-actions-misc.c:747 tools/ascli-utils.c:330
+#: tools/ascli-actions-misc.c:750 tools/ascli-utils.c:330
 msgid "Developer"
 msgstr "Razvijalec"
 
-#: tools/ascli-actions-misc.c:756 tools/ascli-utils.c:344
+#: tools/ascli-actions-misc.c:759 tools/ascli-utils.c:344
 msgid "Description"
 msgstr "Opis"
 
-#: tools/ascli-actions-misc.c:764
+#: tools/ascli-actions-misc.c:767
 msgid "Kernel"
 msgstr "Jedro"
 
-#: tools/ascli-actions-misc.c:766 tools/ascli-actions-misc.c:922
+#: tools/ascli-actions-misc.c:769 tools/ascli-actions-misc.c:925
 msgid "Version"
 msgstr "Različica"
 
-#: tools/ascli-actions-misc.c:769
+#: tools/ascli-actions-misc.c:772
 msgid "Hardware"
 msgstr "Strojna oprema"
 
-#: tools/ascli-actions-misc.c:772
+#: tools/ascli-actions-misc.c:775
 msgid "Physical Memory"
 msgstr "Fizični pomnilnik"
 
-#: tools/ascli-actions-misc.c:780 tools/ascli-actions-misc.c:785
+#: tools/ascli-actions-misc.c:783 tools/ascli-actions-misc.c:788
 msgid "Largest Display"
 msgstr "Največji zaslon"
 
-#: tools/ascli-actions-misc.c:783
+#: tools/ascli-actions-misc.c:786
 msgid "logical px"
 msgstr "logične slik. točke"
 
-#: tools/ascli-actions-misc.c:785
+#: tools/ascli-actions-misc.c:788
 msgid "unable to determine"
 msgstr "ni možno določiti"
 
-#: tools/ascli-actions-misc.c:789
+#: tools/ascli-actions-misc.c:792
 msgid "Devices with Modaliases"
 msgstr "Naprave z modaliasi"
 
-#: tools/ascli-actions-misc.c:818
+#: tools/ascli-actions-misc.c:821
 msgid "User Input Controls"
 msgstr "Kontrolniki za vnos uporabnika"
 
-#: tools/ascli-actions-misc.c:821
+#: tools/ascli-actions-misc.c:824
 msgid "unknown"
 msgstr "neznano"
 
-#: tools/ascli-actions-misc.c:828 tools/ascli-actions-validate.c:700
+#: tools/ascli-actions-misc.c:831 tools/ascli-actions-validate.c:700
 #: tools/ascli-actions-validate.c:706
 msgid "yes"
 msgstr "da"
 
-#: tools/ascli-actions-misc.c:830 tools/ascli-actions-validate.c:701
+#: tools/ascli-actions-misc.c:833 tools/ascli-actions-validate.c:701
 #: tools/ascli-actions-validate.c:707
 msgid "no"
 msgstr "ne"
 
-#: tools/ascli-actions-misc.c:888
+#: tools/ascli-actions-misc.c:891
 msgid "Overall rating"
 msgstr "Splošna ocena"
 
-#: tools/ascli-actions-misc.c:901
+#: tools/ascli-actions-misc.c:904
 #, c-format
 msgid "No reviews found for component '%s'."
 msgstr "Ni najdenih ocen za komponento »%s«."
 
-#: tools/ascli-actions-misc.c:916 tools/ascli-actions-misc.c:1017
+#: tools/ascli-actions-misc.c:919 tools/ascli-actions-misc.c:1020
 msgid "Author"
 msgstr "Avtor"
 
-#: tools/ascli-actions-misc.c:919
+#: tools/ascli-actions-misc.c:922
 msgid "Date"
 msgstr "Datum"
 
-#: tools/ascli-actions-misc.c:969
+#: tools/ascli-actions-misc.c:972
 #, c-format
 msgid "Composing a review for '%s' to be submitted to %s."
 msgstr "Sestavljanje ocene za \"%s\", ki bo poslana na %s."
 
-#: tools/ascli-actions-misc.c:972
+#: tools/ascli-actions-misc.c:975
 msgid "Please only review the software itself, and mind that your review will be publicly visible."
 msgstr "Ocenjujte le sam program in upoštevajte, da bo vaša ocena javno objavljena."
 
 #. TRANSLATORS: Prompt when composing a review, %s is a user name
-#: tools/ascli-actions-misc.c:977
+#: tools/ascli-actions-misc.c:980
 #, c-format
 msgid "Your display name (leave empty to use '%s'):"
 msgstr "Vaše prikazano ime (pustite prazno, če želite uporabiti \"%s\"):"
 
 #. TRANSLATORS: Prompt for a star rating when composing a review
-#: tools/ascli-actions-misc.c:984
+#: tools/ascli-actions-misc.c:987
 msgid "Star rating, from 1 (worst) to 5 (best):"
 msgstr "Ocena z zvezdicami, od 1 (najslabše) do 5 (najboljše):"
 
 #. TRANSLATORS: Prompt when composing a review
-#: tools/ascli-actions-misc.c:991
+#: tools/ascli-actions-misc.c:994
 msgid "Short summary of your review:"
 msgstr "Kratek povzetek vaše ocene:"
 
-#: tools/ascli-actions-misc.c:997
+#: tools/ascli-actions-misc.c:1000
 msgid "The summary must not be empty and be no longer than 70 characters."
 msgstr "Povzetek ne sme biti prazen, niti daljši od 70 znakov."
 
 #. TRANSLATORS: Prompt when composing a review
-#: tools/ascli-actions-misc.c:1001
+#: tools/ascli-actions-misc.c:1004
 msgid "Detailed review text (end with an empty line):"
 msgstr "Besedilo podrobne ocene (končajte z znakom za novo vrstico):"
 
-#: tools/ascli-actions-misc.c:1003
+#: tools/ascli-actions-misc.c:1006
 msgid "The review text must not be empty."
 msgstr "Besedilo ocene ne sme biti prazno."
 
-#: tools/ascli-actions-misc.c:1024
+#: tools/ascli-actions-misc.c:1027
 msgid "Rating"
 msgstr "Ocena z zvezdicami"
 
-#: tools/ascli-actions-misc.c:1027
+#: tools/ascli-actions-misc.c:1030
 msgid "Review"
 msgstr "Ocena"
 
 #. TRANSLATORS: Prompt before publishing a composed review
-#: tools/ascli-actions-misc.c:1034
+#: tools/ascli-actions-misc.c:1037
 msgid "Publish this review?"
 msgstr "Ali želite objaviti to oceno?"
 
-#: tools/ascli-actions-misc.c:1038
+#: tools/ascli-actions-misc.c:1041
 msgid "Review submission cancelled."
 msgstr "Pošiljanje ocene preklicano."
 
-#: tools/ascli-actions-misc.c:1048
+#: tools/ascli-actions-misc.c:1051
 #, c-format
 msgid "Review submitted successfully (ID: %s). Thank you!"
 msgstr "Ocena uspešno poslana (ID: %s). Hvala!"
 
-#: tools/ascli-actions-misc.c:1051
+#: tools/ascli-actions-misc.c:1054
 msgid "Review submitted successfully. Thank you!"
 msgstr "Ocena uspešno poslana. Hvala!"
 
@@ -4339,7 +4343,12 @@ msgstr "Obvezno za"
 msgid "Provided Items"
 msgstr "Ponujeni elementi"
 
-#: tools/ascli-utils.c:525
+#: tools/ascli-utils.c:485
+#, c-format
+msgid "Data path '%s' does not exist or is not a directory."
+msgstr ""
+
+#: tools/ascli-utils.c:561
 #, c-format
 msgid "Please enter a number from 1 to %i: "
 msgstr "Vnesite številko od 1 do %i: "

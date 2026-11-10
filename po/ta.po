@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
-"POT-Creation-Date: 2026-10-26 10:22+0100\n"
+"POT-Creation-Date: 2026-11-10 20:12+0100\n"
 "PO-Revision-Date: 2026-06-15 03:01+0000\n"
 "Last-Translator: தமிழ்நேரம் <tamilneram247@gmail.com>\n"
 "Language-Team: Tamil <https://hosted.weblate.org/projects/appstream/translations/ta/>\n"
@@ -34,7 +34,7 @@ msgstr "ஆப்ச்ட்ரீம் என்பது ஒரு மேன
 msgid "The <em>appstreamcli</em> command-line tool allows to read, write, and transform AppStream XML or YAML metadata as well as to validate it for compliance with the specification. It also provides easy access to the system metadata pool, for example to query for software that provides a specific Mediatype handler or for installing software by its component identifier."
 msgstr "<em> appstreamcli </em> கட்டளை-வரி கருவி ஆப்ச்ட்ரீம் எக்ச்எம்எல் அல்லது யேஎம்எல் மெட்டாடேட்டாவைப் படிக்க, எழுத மற்றும் மாற்ற அனுமதிக்கிறது, அத்துடன் விவரக்குறிப்புக்கு இணங்க அதை சரிபார்க்கவும் அனுமதிக்கிறது. இது கணினி மேனிலை தரவு குளத்திற்கு எளிதாக அணுகலை வழங்குகிறது, எடுத்துக்காட்டாக ஒரு குறிப்பிட்ட மீடியா வகை கையாளுபவரை வழங்கும் மென்பொருளுக்காக அல்லது அதன் கூறு அடையாளங்காட்டியால் மென்பொருளை நிறுவுவதற்கு வினவல்."
 
-#: src/as-cache.c:935
+#: src/as-cache.c:1010
 #, c-format
 msgid "Cache location '%s' is not writable."
 msgstr "கேச் இருப்பிடம் '%s' எழுத முடியாதவை அல்ல."
@@ -1468,29 +1468,29 @@ msgstr "மைக்ரோசாப்ட் சாளரங்கள்"
 #. provide a list of words in your language that people are likely
 #. to include in a search but that should normally be ignored in
 #. the search.
-#: src/as-pool.c:101
+#: src/as-pool.c:102
 msgid "app;application;package;program;programme;suite;tool"
 msgstr "பயன்; பயன்பாடு; தொகுப்பு; நிரல்; நிகழ்ச்சி; தொகுப்பு; கருவி"
 
-#: src/as-pool.c:1236
+#: src/as-pool.c:1237
 msgid "Metadata files have errors:"
 msgstr "மேனிலை தரவு கோப்புகளில் பிழைகள் உள்ளன:"
 
-#: src/as-pool.c:2568
+#: src/as-pool.c:2565
 msgid "Group"
 msgstr "குழு"
 
-#: src/as-pool.c:2623
+#: src/as-pool.c:2620
 msgid "Iconsets"
 msgstr "ஐகான்செட்டுகள்"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
-#: src/as-pool.c:2671
+#: src/as-pool.c:2668
 msgid "Data from locally installed software"
 msgstr "உள்நாட்டில் நிறுவப்பட்ட மென்பொருளிலிருந்து தரவு"
 
 #. TRANSLATORS: Info in appstreamcli status about OS data origin
-#: src/as-pool.c:2674
+#: src/as-pool.c:2671
 msgid "Software catalog data"
 msgstr "மென்பொருள் பட்டியல் தரவு"
 
@@ -1534,7 +1534,7 @@ msgstr "இயக்க நேர ஃபார்ம்வேர்"
 msgid "Flashed Firmware"
 msgstr "ஒளிரும் ஃபார்ம்வேர்"
 
-#: src/as-provided.c:158 tools/ascli-actions-misc.c:1016
+#: src/as-provided.c:158 tools/ascli-actions-misc.c:1019
 msgid "Component"
 msgstr "உறுப்பு"
 
@@ -1831,25 +1831,25 @@ msgid "Satisfiability check for relation items of type '%s' is not implemented y
 msgstr "'%s' வகையின் உறவு உருப்படிகளுக்கான நிறைவு சோதனை இன்னும் செயல்படுத்தப்படவில்லை."
 
 #. TRANSLATORS: The ODRS review server rejected our request, %s is the error message
-#: src/as-reviews-client.c:976 src/as-reviews-client.c:1069
+#: src/as-reviews-client.c:977 src/as-reviews-client.c:1070
 #, c-format
 msgid "The reviews server rejected the request: %s"
 msgstr ""
 
 #. TRANSLATORS: We failed to communicate with the ODRS review server, %s is an error message
-#: src/as-reviews-client.c:983
+#: src/as-reviews-client.c:984
 #, c-format
 msgid "Unable to communicate with the reviews server: %s"
 msgstr ""
 
-#: src/as-reviews-client.c:1070
+#: src/as-reviews-client.c:1071
 #, fuzzy
 #| msgid "Unknown"
 msgid "Unknown reason"
 msgstr "தெரியவில்லை"
 
 #. TRANSLATORS: We failed to fetch a software rating from the ODRS review server
-#: src/as-reviews-client.c:1247
+#: src/as-reviews-client.c:1248
 #, fuzzy, c-format
 #| msgid "Unable to spawn package manager: %s"
 msgid "Unable to fetch software rating: %s"
@@ -2717,280 +2717,284 @@ msgid "The value of this desktop-entry field contains invalid or non-printable U
 msgstr "இந்த டெச்க்டாப்-நுழைவு புலத்தின் மதிப்பில் தவறான அல்லது அச்சிடப்படாத யுடிஎஃப் -8 எழுத்துக்கள் உள்ளன, அவை சரியாக காட்ட முடியாது."
 
 #: src/as-validator-issue-tag.h:933
+msgid "The locale of this localized desktop-entry key is not a valid POSIX locale name, so the key was ignored. Locales should look like `de`, `pt_BR` or `sr@latin`, as described in the Desktop Entry Specification."
+msgstr ""
+
+#: src/as-validator-issue-tag.h:939
 msgid "This desktop-entry field value is quoted, which is likely unintentional."
 msgstr "இந்த டெச்க்டாப்-நுழைவு புல மதிப்பு மேற்கோள் காட்டப்பட்டுள்ளது, இது தற்செயலாக இருக்கலாம்."
 
-#: src/as-validator-issue-tag.h:938
+#: src/as-validator-issue-tag.h:944
 msgid "This desktop-entry file has the 'Hidden' property set. This is wrong for vendor-installed .desktop files, and nullifies all effects this .desktop file has (including MIME associations), which most certainly is not intentional."
 msgstr "இந்த டெச்க்டாப்-என்ட்ரி கோப்பில் 'மறைக்கப்பட்ட' சொத்து தொகுப்பு உள்ளது. விற்பனையாளர் நிறுவப்பட்ட .desktop கோப்புகளுக்கு இது தவறானது, மேலும் இந்த அனைத்து விளைவுகளையும் ரத்து செய்கிறது .Desktop கோப்பில் (MIME சங்கங்கள் உட்பட) உள்ளது, இது நிச்சயமாக வேண்டுமென்றே இல்லை."
 
-#: src/as-validator-issue-tag.h:944
+#: src/as-validator-issue-tag.h:950
 msgid "This desktop-entry file has the 'OnlyShowIn' property set with an empty value. This might not be intended, as this will hide the application from all desktops. If you do want to hide the application from all desktops, using 'NoDisplay=true' is more explicit."
 msgstr "இந்த டெச்க்டாப்-என்ட்ரி கோப்பில் வெற்று மதிப்புடன் 'ஒரே சோவின்' சொத்து உள்ளது. இது நோக்கமாக இருக்காது, ஏனெனில் இது எல்லா டெச்க்டாப்புகளிலிருந்தும் பயன்பாட்டை மறைக்கும். எல்லா டெச்க்டாப்புகளிலிருந்தும் பயன்பாட்டை மறைக்க விரும்பினால், 'nodisplay = true' ஐப் பயன்படுத்துவது மிகவும் வெளிப்படையானது."
 
-#: src/as-validator-issue-tag.h:950
+#: src/as-validator-issue-tag.h:956
 msgid "No AppStream metadata was found in this directory or directory tree."
 msgstr "இந்த அடைவு அல்லது அடைவு மரத்தில் ஆப்ச்ட்ரீம் மேனிலை தரவு எதுவும் காணப்படவில்லை."
 
 #. pedantic because not everything which has metadata is an application
-#: src/as-validator-issue-tag.h:955
+#: src/as-validator-issue-tag.h:961
 msgid "No XDG applications directory found."
 msgstr "எக்ச்.டி.சி பயன்பாடுகள் கோப்பகம் இல்லை."
 
-#: src/as-validator-issue-tag.h:960
+#: src/as-validator-issue-tag.h:966
 msgid "The metainfo file is stored in a legacy path. Please place it in `/usr/share/metainfo/`."
 msgstr "மெட்டேன்ஃபோ கோப்பு ஒரு மரபு பாதையில் சேமிக்கப்படுகிறது. தயவுசெய்து அதை `/usr/share/metainfo/` இல் வைக்கவும்."
 
-#: src/as-validator-issue-tag.h:965
+#: src/as-validator-issue-tag.h:971
 msgid "The metainfo file specifies multiple components. This is not allowed."
 msgstr "Metainfo கோப்பு பல கூறுகளைக் குறிப்பிடுகிறது. இது அனுமதிக்கப்படவில்லை."
 
-#: src/as-validator-issue-tag.h:970
+#: src/as-validator-issue-tag.h:976
 msgid "The releases are not sorted in a latest to oldest version order. This is required as some tools will assume that the latest version is always at the top. Sorting releases also increases overall readability of the metainfo file."
 msgstr "வெளியீடுகள் அண்மைக் கால முதல் பழமையான பதிப்பு வரிசையில் வரிசைப்படுத்தப்படவில்லை. அண்மைக் கால பதிப்பு எப்போதும் மேலே உள்ளது என்று சில கருவிகள் கருதுவதால் இது தேவைப்படுகிறது. வரிசையாக்க வெளியீடுகள் மெட்டேன்ஃபோ கோப்பின் ஒட்டுமொத்த வாசிப்புத்திறனையும் அதிகரிக்கிறது."
 
 #. TRANSLATORS: Please do not translate AppStream tag/property names (in backticks).
-#: src/as-validator-issue-tag.h:978
+#: src/as-validator-issue-tag.h:984
 msgid "The type of the releases block is invalid. It needs to either `embedded` (the default) or `external`."
 msgstr "வெளியீட்டு தொகுதியின் வகை தவறானது. இது `embedded` (இயல்புநிலை) அல்லது`external` வேண்டும்."
 
-#: src/as-validator-issue-tag.h:983
+#: src/as-validator-issue-tag.h:989
 msgid "The URL to an external release metadata file is insecure. This is not allowed, please use HTTPS URLs only."
 msgstr "வெளிப்புற வெளியீட்டு மேனிலை தரவு கோப்பிற்கான முகவரி பாதுகாப்பற்றது. இது அனுமதிக்கப்படவில்லை, தயவுசெய்து HTTPS முகவரி களை மட்டுமே பயன்படுத்தவும்."
 
-#: src/as-validator-issue-tag.h:988
+#: src/as-validator-issue-tag.h:994
 msgid "Failed to download release metadata."
 msgstr "வெளியீட்டு மெட்டாடேட்டாவைப் பதிவிறக்குவதில் தோல்வி."
 
-#: src/as-validator-issue-tag.h:993
+#: src/as-validator-issue-tag.h:999
 msgid "A local release metadata file was not found. It is strongly recommended to validate this metadata together with the main MetaInfo file."
 msgstr "உள்ளக வெளியீட்டு மேனிலை தரவு கோப்பு கிடைக்கவில்லை. இந்த மெட்டாடேட்டாவை முதன்மையான மெட்டேன்ஃபோ கோப்புடன் சரிபார்க்க கடுமையாக பரிந்துரைக்கப்படுகிறது."
 
-#: src/as-validator-issue-tag.h:999
+#: src/as-validator-issue-tag.h:1005
 msgid "The value set as release urgency is not a known urgency value."
 msgstr "வெளியீட்டு அவசரமாக அமைக்கப்பட்ட மதிப்பு அறியப்பட்ட அவசர மதிப்பு அல்ல."
 
-#: src/as-validator-issue-tag.h:1004
+#: src/as-validator-issue-tag.h:1010
 msgid "The value set as release type is invalid."
 msgstr "வெளியீட்டு வகையாக அமைக்கப்பட்ட மதிப்பு தவறானது."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1010
+#: src/as-validator-issue-tag.h:1016
 msgid "The release is missing the `version` property."
 msgstr "வெளியீடு `version` சொத்தைக் காணவில்லை."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1016
+#: src/as-validator-issue-tag.h:1022
 msgid "The release entry is missing either the `date` (preferred) or the `timestamp` property."
 msgstr "வெளியீடு `date` (விருப்பமான) அல்லது`timestamp` சொத்தைக் காணவில்லை."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1022
+#: src/as-validator-issue-tag.h:1028
 msgid "The release entry is missing the `date` property. Ensure to add it before publishing the snapshot release."
 msgstr "வெளியீட்டுப் பதிவில் `date` பண்பு இல்லை. ஸ்னாப்ஷாட் வெளியீட்டை வெளியிடுவதற்கு முன்பு அதைச் சேர்ப்பதை உறுதிசெய்யவும்."
 
-#: src/as-validator-issue-tag.h:1027
+#: src/as-validator-issue-tag.h:1033
 msgid "The release timestamp is invalid."
 msgstr "வெளியீட்டு நேர முத்திரை தவறானது."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1033
+#: src/as-validator-issue-tag.h:1039
 msgid "The release description must be put inside a `description` tag"
 msgstr "வெளியீட்டு விளக்கம் ஒரு `description` குறிச்சொல்லுக்குள் வைக்கப்பட வேண்டும்"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1039
+#: src/as-validator-issue-tag.h:1045
 msgid "The value set as artifact type is invalid. Must be either `source` or `binary`."
 msgstr "கலைப்பொருள் வகையாக அமைக்கப்பட்ட மதிப்பு தவறானது. `source` அல்லது`binary` ஆக இருக்க வேண்டும்."
 
-#: src/as-validator-issue-tag.h:1044
+#: src/as-validator-issue-tag.h:1050
 msgid "The value set as artifact bundle type is invalid."
 msgstr "கலைப்பொருள் மூட்டை வகையாக அமைக்கப்பட்ட மதிப்பு தவறானது."
 
-#: src/as-validator-issue-tag.h:1049
+#: src/as-validator-issue-tag.h:1055
 msgid "The platform triplet for this release is invalid. It must be in the form of `architecture-oskernel-osenv` - refer to the AppStream documentation or information on normalized GNU triplets for more information and valid fields."
 msgstr "இந்த வெளியீட்டிற்கான மேடை மும்மடங்கு தவறானது. இது `architecture-oskernel-osenv` வடிவத்தில் இருக்க வேண்டும்-மேலும் செய்தி மற்றும் செல்லுபடியாகும் புலங்களுக்கு ஆப்ச்ட்ரீம் ஆவணங்கள் அல்லது இயல்பாக்கப்பட்ட குனு மும்மூர்த்திகளின் தகவல்களைப் பார்க்கவும்."
 
-#: src/as-validator-issue-tag.h:1056
+#: src/as-validator-issue-tag.h:1062
 msgid "The selected checksumming algorithm is unsupported or unknown."
 msgstr "தேர்ந்தெடுக்கப்பட்ட செக்சம்மிங் வழிமுறை ஆதரிக்கப்படாதது அல்லது தெரியவில்லை."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1062
+#: src/as-validator-issue-tag.h:1068
 msgid "The size type is unknown. Must be `download` or `installed`."
 msgstr "அளவு வகை தெரியவில்லை. `download` அல்லது`installed` இருக்க வேண்டும்."
 
-#: src/as-validator-issue-tag.h:1067
+#: src/as-validator-issue-tag.h:1073
 msgid "The artifact filename must be a file basename, not a (relative or absolute) path."
 msgstr "கலைப்பொருள் கோப்பு பெயர் ஒரு (உறவினர் அல்லது முழுமையான) பாதை அல்ல, ஒரு கோப்பு அடிப்படை பெயராக இருக்க வேண்டும்."
 
-#: src/as-validator-issue-tag.h:1072
+#: src/as-validator-issue-tag.h:1078
 msgid "The value set as release issue type is invalid."
 msgstr "வெளியீட்டு பிழை வகையாக அமைக்கப்பட்ட மதிப்பு தவறானது."
 
-#: src/as-validator-issue-tag.h:1077
+#: src/as-validator-issue-tag.h:1083
 msgid "The issue is tagged at security vulnerability with a CVE number, but its value does not look like a valid CVE identifier."
 msgstr "சி.வி.இ எண்ணுடன் பாதுகாப்பு பாதிப்புக்கு இந்த சிக்கல் குறிக்கப்பட்டுள்ளது, ஆனால் அதன் மதிப்பு செல்லுபடியாகும் சி.வி.இ அடையாளங்காட்டியாகத் தெரியவில்லை."
 
-#: src/as-validator-issue-tag.h:1082
+#: src/as-validator-issue-tag.h:1088
 #, fuzzy
 #| msgid "The issue is tagged at security vulnerability with a CVE number, but its value does not look like a valid CVE identifier."
 msgid "The issue is tagged as security vulnerability with a GCVE identifier, but its value does not follow the `GCVE-<GNA-ID>-<YEAR>-<UNIQUE-ID>` scheme of the Global CVE Allocation System."
 msgstr "சி.வி.இ எண்ணுடன் பாதுகாப்பு பாதிப்புக்கு இந்த சிக்கல் குறிக்கப்பட்டுள்ளது, ஆனால் அதன் மதிப்பு செல்லுபடியாகும் சி.வி.இ அடையாளங்காட்டியாகத் தெரியவில்லை."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1089
+#: src/as-validator-issue-tag.h:1095
 msgid "This component is missing information about releases. Consider adding a `releases` tag to describe releases and their changes."
 msgstr "இந்தக் கூறு வெளியீடுகள்பற்றிய தகவல்களைக் காணவில்லை. வெளியீடுகள் மற்றும் அவற்றின் மாற்றங்களை விவரிக்க `releases` குறிச்சொல்லைச் சேர்ப்பதைக் கவனியுங்கள்."
 
-#: src/as-validator-issue-tag.h:1094
+#: src/as-validator-issue-tag.h:1100
 msgid "The AppStream specification requires a complete, ISO 8601 date string with at least day-granularity to denote dates. Please ensure the date string is valid."
 msgstr "ஆப்ச்ட்ரீம் விவரக்குறிப்புக்கு தேதிகளைக் குறிக்க குறைந்தபட்சம் பகல்-கிரானுலரிட்டி கொண்ட முழுமையான, ஐஎச்ஓ 8601 தேதி சரம் தேவைப்படுகிறது. தேதி சரம் செல்லுபடியாகும் என்பதை உறுதிப்படுத்தவும்."
 
-#: src/as-validator-issue-tag.h:1100
+#: src/as-validator-issue-tag.h:1106
 msgid "This component extends, provides, requires or recommends itself, which is certainly not intended and may confuse users or machines dealing with this metadata."
 msgstr "இந்த கூறு தன்னை விரிவுபடுத்துகிறது, வழங்குகிறது, தேவைப்படுகிறது அல்லது பரிந்துரைக்கிறது, இது நிச்சயமாக நோக்கம் இல்லை மற்றும் இந்த மெட்டாடேட்டாவைக் கையாளும் பயனர்கள் அல்லது இயந்திரங்களை குழப்பக்கூடும்."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1107
+#: src/as-validator-issue-tag.h:1113
 msgid "Licenses for `runtime` components are usually too complex to reflect them in a simple SPDX expression. Consider using a `LicenseRef` and a web URL as value for this component's `project_license`. E.g. `LicenseRef-free=https://example.com/licenses.html`"
 msgstr "`runtime` கூறுகளுக்கான உரிமங்கள் பொதுவாக ஒரு எளிய SPDX வெளிப்பாட்டில் பிரதிபலிக்க மிகவும் சிக்கலானவை. இந்தக் கூறுகளின் `project_license` க்கான மதிப்பாக`LicenseRef` மற்றும் ஒரு வலை முகவரி ஐப் பயன்படுத்துவதைக் கவனியுங்கள். எ.கா. `LicenseRef-free=https://example.com/licenses.html`"
 
-#: src/as-validator-issue-tag.h:1113
+#: src/as-validator-issue-tag.h:1119
 msgid "Since a `runtime` component consists of multiple other software components, their component-IDs may be listed in a `<provides/>` section for this runtime."
 msgstr "ஒரு `runtime` கூறு பல பிற மென்பொருள் கூறுகளைக் கொண்டிருப்பதால், அவற்றின் கூறு-ஐடிகள் இந்த இயக்க நேரத்திற்கான`<provides/>`பிரிவில் பட்டியலிடப்படலாம்."
 
-#: src/as-validator-issue-tag.h:1118
+#: src/as-validator-issue-tag.h:1124
 msgid "The type of the item that the component provides is not known to AppStream."
 msgstr "கூறு வழங்கும் உருப்படியின் வகை ஆப்ச்ட்ரீமுக்குத் தெரியவில்லை."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1124
+#: src/as-validator-issue-tag.h:1130
 msgid "The toplevel `mimetypes` tag is deprecated. Please use `mediatype` tags in a `provides` block instead to indicate that your software provides a media handler for the given types."
 msgstr "டோப்ல்வெல் `mimetypes` குறிச்சொல் நீக்கப்பட்டது. கொடுக்கப்பட்ட வகைகளுக்கு உங்கள் மென்பொருள் ஒரு ஊடக கையாளுபவரை `provides` என்பதைக் குறிக்க `mediatype` குறிச்சொற்களைப் பயன்படுத்தவும்."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1131
+#: src/as-validator-issue-tag.h:1137
 msgid "This component has no `content_rating` tag to provide age rating information. You can generate the tag data online by answering a few questions at https://hughsie.github.io/oars/"
 msgstr "இந்தக் கூறுக்கு அகவை மதிப்பீட்டு தகவல்களை வழங்க `content_rating` குறிச்சொல் இல்லை. Https://hughsie.github.io/oars/ இல் சில கேள்விகளுக்குப் பதிலளிப்பதன் மூலம் நீங்கள் டேக் தரவை ஆன்லைனில் உருவாக்கலாம்"
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1138
+#: src/as-validator-issue-tag.h:1144
 msgid "The `type` attribute of this `content_rating` element is missing or empty."
 msgstr "இந்த `content_rating` உறுப்பின்`type` பண்புக்கூறு இல்லை அல்லது காலியாக உள்ளது."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1144
+#: src/as-validator-issue-tag.h:1150
 msgid "The `type` attribute of the `content_rating` element has an invalid value."
 msgstr "`content_rating` உறுப்பின்`type` பண்புக்கூறு தவறான மதிப்பைக் கொண்டுள்ளது."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1150
+#: src/as-validator-issue-tag.h:1156
 msgid "The `content_rating` tag can only contain `content_attribute` children."
 msgstr "`content_rating` குறிச்சொல்லில்`content_attribute` குழந்தைகளை மட்டுமே கொண்டிருக்க முடியும்."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1156
+#: src/as-validator-issue-tag.h:1162
 msgid "The `id` attribute of the `content_attribute` element is missing or empty."
 msgstr "`content_attribute` உறுப்பின்`id` பண்புக்கூறு இல்லை அல்லது காலியாக உள்ளது."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1162
+#: src/as-validator-issue-tag.h:1168
 msgid "The `id` attribute of the `content_attribute` element has an invalid value."
 msgstr "`content_attribute` உறுப்பின்`id` பண்புக்கூறு தவறான மதிப்பைக் கொண்டுள்ளது."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1168
+#: src/as-validator-issue-tag.h:1174
 msgid "The `content_attribute` tag needs a value."
 msgstr "`content_attribute` குறிச்சொல்லுக்கு ஒரு மதிப்புத் தேவை."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1174
+#: src/as-validator-issue-tag.h:1180
 msgid "The `content_attribute` tag value is unknown."
 msgstr "`content_attribute` குறிச்சொல் மதிப்பு தெரியவில்லை."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1180
+#: src/as-validator-issue-tag.h:1186
 msgid "The `content_attribute` tag value is invalid for the given id."
 msgstr "கொடுக்கப்பட்ட ஐடியுக்கு `content_attribute` குறிச்சொல் மதிப்பு தவறானது."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1186
+#: src/as-validator-issue-tag.h:1192
 msgid "A `content_attribute` tag with this ID has already been defined."
 msgstr "இந்த ஐடியுடன் ஒரு `content_attribute` குறிச்சொல் ஏற்கனவே வரையறுக்கப்பட்டுள்ளது."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1192
+#: src/as-validator-issue-tag.h:1198
 msgid "This `tag` is missing a `namespace` attribute."
 msgstr "இந்த `tag` ஒரு`namespace` பண்புக்கூறு இல்லை."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1198
+#: src/as-validator-issue-tag.h:1204
 msgid "This tag or its namespace contains invalid characters. Only lower-cased ASCII letters, numbers, dots, hyphens and underscores are permitted."
 msgstr "இந்த குறிச்சொல் அல்லது அதன் பெயர்வெளியில் தவறான எழுத்துக்கள் உள்ளன. குறைந்த-மறைக்கப்பட்ட ASCII கடிதங்கள், எண்கள், புள்ளிகள், ஐபன்கள் மற்றும் அடிக்கோடிட்டுக் காட்டுதல் மட்டுமே அனுமதிக்கப்படுகின்றன."
 
-#: src/as-validator-issue-tag.h:1203
+#: src/as-validator-issue-tag.h:1209
 msgid "The type of this color is not valid."
 msgstr "இந்த வண்ணத்தின் வகை செல்லுபடியாகாது."
 
-#: src/as-validator-issue-tag.h:1208
+#: src/as-validator-issue-tag.h:1214
 msgid "The value of this color scheme preference is not valid."
 msgstr "இந்த வண்ணத் திட்ட விருப்பத்தின் மதிப்பு செல்லுபடியாகாது."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1214
+#: src/as-validator-issue-tag.h:1220
 msgid "The name of the color scheme property is wrong. It should be `scheme_preference`."
 msgstr "வண்ணத் திட்டச் சொத்தின் பெயர் தவறு. இது `scheme_preference` ஆக இருக்க வேண்டும்."
 
-#: src/as-validator-issue-tag.h:1219
+#: src/as-validator-issue-tag.h:1225
 msgid "This color is not a valid HTML color code."
 msgstr "இந்த நிறம் செல்லுபடியாகும் உஉகுமொ வண்ண குறியீடு அல்ல."
 
-#: src/as-validator-issue-tag.h:1224
+#: src/as-validator-issue-tag.h:1230
 msgid "A color for this type/scheme combination was already set. Colors must be unique per type/scheme."
 msgstr "இந்த வகை/திட்ட சேர்க்கைக்கான வண்ணம் ஏற்கனவே அமைக்கப்பட்டது. ஒரு வகை/திட்டத்திற்கு வண்ணங்கள் தனித்துவமாக இருக்க வேண்டும்."
 
-#: src/as-validator-issue-tag.h:1229
+#: src/as-validator-issue-tag.h:1235
 msgid "The given DOI (Digital Object Identifier) for this reference item is not valid."
 msgstr "இந்த குறிப்பு உருப்படிக்கு கொடுக்கப்பட்ட DOI (டிசிட்டல் பொருள் அடையாளங்காட்டி) செல்லுபடியாகாது."
 
-#: src/as-validator-issue-tag.h:1234
+#: src/as-validator-issue-tag.h:1240
 msgid "The value for this citation reference item must be an URL to a CFF (Citation File Format) file."
 msgstr "இந்த மேற்கோள் குறிப்பு உருப்படியுக்கான மதிப்பு ஒரு CFF (மேற்கோள் கோப்பு வடிவம்) கோப்புக்கு முகவரி ஆக இருக்க வேண்டும்."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1240
+#: src/as-validator-issue-tag.h:1246
 msgid "This registry reference item is missing the `name` property to denote the name of the registry it is about."
 msgstr "இந்தப் பதிவேட்டில் உள்ள பதிவேட்டின் பெயரைக் குறிக்க `name` சொத்தைக் காணவில்லை."
 
-#: src/as-validator-issue-tag.h:1245
+#: src/as-validator-issue-tag.h:1251
 msgid "The registry for this reference item is unknown. This may be due to a typing error, or the registry needs to be registered with AppStream."
 msgstr "இந்த குறிப்பு உருப்படியுக்கான பதிவு தெரியவில்லை. இது தட்டச்சு பிழை காரணமாக இருக்கலாம் அல்லது பதிவேட்டில் ஆப்ச்ட்ரீமில் பதிவு செய்யப்பட வேண்டும்."
 
-#: src/as-validator-issue-tag.h:1251
+#: src/as-validator-issue-tag.h:1257
 msgid "The reference item is missing a value."
 msgstr "குறிப்பு உருப்படி ஒரு மதிப்பைக் காணவில்லை."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1257
+#: src/as-validator-issue-tag.h:1263
 msgid "The `custom` tag can only contain `value` children."
 msgstr "`custom` குறிச்சொல்லில்`value` குழந்தைகளை மட்டுமே கொண்டிருக்க முடியும்."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1263
+#: src/as-validator-issue-tag.h:1269
 msgid "This `custom` tag value is missing a `key` attribute."
 msgstr "இந்த `custom` குறிச்சொல் மதிப்பு`key` பண்புக்கூறு இல்லை."
 
-#: src/as-validator-issue-tag.h:1268
+#: src/as-validator-issue-tag.h:1274
 msgid "A key can only be used once."
 msgstr "ஒரு விசையை ஒரு முறை மட்டுமே பயன்படுத்த முடியும்."
 
-#: src/as-validator-issue-tag.h:1273
+#: src/as-validator-issue-tag.h:1279
 msgid "This custom value is empty."
 msgstr "இந்த தனிப்பயன் மதிப்பு காலியாக உள்ளது."
 
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
-#: src/as-validator-issue-tag.h:1279
+#: src/as-validator-issue-tag.h:1285
 msgid "A `keywords` tag must not be localized in metainfo files (upstream metadata). Localize the individual keyword entries instead."
 msgstr "ஒரு `keywords` குறிச்சொல் மெட்டேன்ஃபோ கோப்புகளில் (அப்ச்ட்ரீம் மெட்டாடேட்டா) மொழிபெயர்க்கப்படக் கூடாது. அதற்குப் பதிலாகத் தனிப்பட்ட முக்கிய உள்ளீடுகளை உள்ளூர்மயமாக்குங்கள்."
 
@@ -3030,7 +3034,7 @@ msgstr "'%s' என்ற குறிச்சொல்லின் தீவ�
 #. TRANSLATORS: An invalid XML element was found, "Found" refers to the tag name found, "Allowed" to the permitted names.
 #: src/as-validator.c:897 src/as-validator.c:1673 src/as-validator.c:1849
 #: src/as-validator.c:2070 src/as-validator.c:2735 src/as-validator.c:2757
-#: src/as-validator.c:2882 src/as-validator.c:3205
+#: src/as-validator.c:2882 src/as-validator.c:3206
 #, c-format
 msgid "Found: %s - Allowed: %s"
 msgstr "காணப்பட்டது: %s - அனுமதிக்கப்பட்டவை: %s"
@@ -3134,13 +3138,13 @@ msgid "Failed to parse arguments"
 msgstr "வாதங்களை அலசத் தவறிவிட்டது"
 
 #. TRANSLATORS: Output if appstreamcli --version is executed.
-#: tools/appstream-compose.c:334 tools/appstreamcli.c:1795
+#: tools/appstream-compose.c:334 tools/appstreamcli.c:1831
 #, c-format
 msgid "AppStream version: %s"
 msgstr "பயன்ஓடை பதிப்பு:%s"
 
 #. TRANSLATORS: Output if appstreamcli --version is run and the CLI and libappstream versions differ.
-#: tools/appstream-compose.c:338 tools/appstreamcli.c:1799
+#: tools/appstream-compose.c:338 tools/appstreamcli.c:1835
 #, c-format
 msgid ""
 "AppStream CLI tool version: %s\n"
@@ -3271,370 +3275,370 @@ msgid "Manually selected location of AppStream metadata to scan."
 msgstr "ச்கேன் செய்ய ஆப்ச்ட்ரீம் மெட்டாடேட்டாவின் கைமுறையாக தேர்ந்தெடுக்கப்பட்ட இடம்."
 
 #. TRANSLATORS: ascli flag description for: --no-cache
-#: tools/appstreamcli.c:133
+#: tools/appstreamcli.c:140
 msgid "Ignore cache age and build a fresh cache before performing the query."
 msgstr "கேச் வயதை புறக்கணித்து, வினவலைச் செய்வதற்கு முன் புதிய தற்காலிக சேமிப்பை உருவாக்குங்கள்."
 
 #. TRANSLATORS: ascli flag description for: --format
-#: tools/appstreamcli.c:149
+#: tools/appstreamcli.c:156
 msgid "Default metadata format (valid values are 'xml' and 'yaml')."
 msgstr "இயல்புநிலை மேனிலை தரவு வடிவம் (செல்லுபடியாகும் மதிப்புகள் 'எக்ச்எம்எல்' மற்றும் 'யாம்')."
 
 #. TRANSLATORS: ascli flag description for: --details
-#: tools/appstreamcli.c:165
+#: tools/appstreamcli.c:172
 msgid "Print detailed output about found components."
 msgstr "கண்டுபிடிக்கப்பட்ட கூறுகளைப் பற்றிய விரிவான வெளியீட்டை அச்சிடுக."
 
 #. TRANSLATORS: ascli flag description for: --server (used by the "list-reviews" command)
-#: tools/appstreamcli.c:184
+#: tools/appstreamcli.c:191
 msgid "URL of the ODRS-compatible reviews server to use."
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --start (used by the "list-reviews" command)
-#: tools/appstreamcli.c:190
+#: tools/appstreamcli.c:197
 msgid "Index of the first review to fetch, to page through all reviews."
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --limit (used by the "list-reviews" command)
-#: tools/appstreamcli.c:196
+#: tools/appstreamcli.c:203
 msgid "Maximum number of reviews to fetch."
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --locale (used by the "list-reviews" and "submit-review" commands)
-#: tools/appstreamcli.c:202
+#: tools/appstreamcli.c:209
 msgid "Locale to prefer for reviews, instead of the current system locale."
 msgstr ""
 
 #. TRANSLATORS: ascli flag description for: --pedantic (used by the "validate" command)
-#: tools/appstreamcli.c:223
+#: tools/appstreamcli.c:230
 msgid "Also show pedantic hints."
 msgstr "பதட்டமான குறிப்புகளையும் காட்டுங்கள்."
 
 #. TRANSLATORS: ascli flag description for: --explain (used by the "validate" command)
-#: tools/appstreamcli.c:230
+#: tools/appstreamcli.c:237
 msgid "Print detailed explanation for found issues."
 msgstr "கண்டுபிடிக்கப்பட்ட சிக்கல்களுக்கு விரிவான விளக்கத்தை அச்சிடுக."
 
 #. TRANSLATORS: ascli flag description for: --no-net (used by the "validate" command)
-#: tools/appstreamcli.c:237
+#: tools/appstreamcli.c:244
 msgid "Do not use network access."
 msgstr "பிணைய அணுகலைப் பயன்படுத்த வேண்டாம்."
 
 #. TRANSLATORS: ascli flag description for: --strict (used by the "validate" command)
-#: tools/appstreamcli.c:244
+#: tools/appstreamcli.c:251
 msgid "Fail validation if any issue is emitted that is not of pedantic severity."
 msgstr "எந்தவொரு பிரச்சினையும் உமிழப்பட்டால் தோல்வி சரிபார்ப்பு."
 
 #. TRANSLATORS: ascli flag description for: --format  when validating XML files
-#: tools/appstreamcli.c:250
+#: tools/appstreamcli.c:257
 msgid "Format of the generated report (valid values are 'text' and 'yaml')."
 msgstr "உருவாக்கப்பட்ட அறிக்கையின் வடிவம் (செல்லுபடியாகும் மதிப்புகள் 'உரை' மற்றும் 'யாம்')."
 
 #. TRANSLATORS: ascli flag description for: --override  when validating XML files
-#: tools/appstreamcli.c:256
+#: tools/appstreamcli.c:263
 msgid "Override the severities of selected issue tags."
 msgstr "தேர்ந்தெடுக்கப்பட்ட வெளியீட்டு குறிச்சொற்களின் தீவிரத்தை மீறவும்."
 
 #. TRANSLATORS: this is a (usually shorter) command alias, shown after the command summary text
-#: tools/appstreamcli.c:303
+#: tools/appstreamcli.c:310
 #, c-format
 msgid "(Alias: '%s')"
 msgstr "(மாற்றுப்பெயர்: '%s')"
 
 #. TRANSLATORS: This is the header to the --help menu for subcommands
 #. TRANSLATORS: This is the header to the --help menu
-#: tools/appstreamcli.c:352 tools/appstreamcli.c:1432
+#: tools/appstreamcli.c:359 tools/appstreamcli.c:1468
 msgid "AppStream command-line interface"
 msgstr "ஆப்ச்ட்ரீம் கட்டளை-வரி இடைமுகம்"
 
-#: tools/appstreamcli.c:355
+#: tools/appstreamcli.c:362
 #, c-format
 msgid "'%s' command"
 msgstr "'%s' கட்டளை"
 
 #. TRANSLATORS: An unknown option was passed to appstreamcli.
-#: tools/appstreamcli.c:398
+#: tools/appstreamcli.c:405
 #, c-format
 msgid "Option '%s' is unknown."
 msgstr "விருப்பம் '%s' தெரியவில்லை."
 
-#: tools/appstreamcli.c:403 tools/appstreamcli.c:1810
+#: tools/appstreamcli.c:410 tools/appstreamcli.c:1846
 #, c-format
 msgid "Run '%s --help' to see a full list of available command line options."
 msgstr "கிடைக்கக்கூடிய கட்டளை வரி விருப்பங்களின் முழு பட்டியலையும் காண '%s - -help' ஐ இயக்கவும்."
 
-#: tools/appstreamcli.c:407
+#: tools/appstreamcli.c:414
 #, c-format
 msgid "Run '%s --help' to see a list of available commands and options, and '%s %s --help' to see a list of options specific for this subcommand."
 msgstr "கிடைக்கக்கூடிய கட்டளைகள் மற்றும் விருப்பங்களின் பட்டியலைக் காண '%s - -help' மற்றும் இந்த துணைக் கட்டளைக்கு குறிப்பிட்ட விருப்பங்களின் பட்டியலைக் காண '%s%s - -help' இயக்கவும்."
 
 #. TRANSLATORS: ascli flag description for: --force
-#: tools/appstreamcli.c:462
+#: tools/appstreamcli.c:469
 msgid "Enforce a cache refresh."
 msgstr "ஒரு தற்காலிக சேமிப்பு புதுப்பிப்பை செயல்படுத்தவும்."
 
 #. TRANSLATORS: ascli flag description for: --source in a refresh action. Don't translate strings in backticks: `name`
-#: tools/appstreamcli.c:468
+#: tools/appstreamcli.c:475
 msgid "Limit cache refresh to data from a specific source, e.g. `os` or `flatpak`. May be specified multiple times."
 msgstr "ஒரு குறிப்பிட்ட மூலத்திலிருந்து தரவுக்குக் கேச் புதுப்பிப்பைக் கட்டுப்படுத்துங்கள், எ.கா. `os` அல்லது`flatpak`. பல முறை குறிப்பிடப்படலாம்."
 
 #. TRANSLATORS: ascli check-license is missing its parameter
-#: tools/appstreamcli.c:726
+#: tools/appstreamcli.c:752
 msgid "No license, license expression or license exception string was provided."
 msgstr "உரிமம், உரிம வெளிப்பாடு அல்லது உரிம விதிவிலக்கு சரம் வழங்கப்படவில்லை."
 
 #. TRANSLATORS: ascli flag description for: --details (part of the "check-syscompat" subcommand)
-#: tools/appstreamcli.c:775
+#: tools/appstreamcli.c:805
 msgid "Print more detailed output on why incompatibilities exist."
 msgstr "பொருந்தாத தன்மைகள் ஏன் உள்ளன என்பதில் விரிவான வெளியீட்டை அச்சிடுங்கள்."
 
 #. TRANSLATORS: ascli flag description for: --origin (part of the "put" subcommand)
-#: tools/appstreamcli.c:812
+#: tools/appstreamcli.c:847
 msgid "Set the data origin for the installed metadata catalog file."
 msgstr "நிறுவப்பட்ட மேனிலை தரவு அட்டவணை கோப்பிற்கான தரவு தோற்றத்தை அமைக்கவும்."
 
 #. TRANSLATORS: ascli flag description for: --user (part of the "put" subcommand)
-#: tools/appstreamcli.c:818
+#: tools/appstreamcli.c:853
 msgid "Install the file for the current user, instead of globally."
 msgstr "உலகளவில் பதிலாக தற்போதைய பயனருக்கான கோப்பை நிறுவவும்."
 
 #. TRANSLATORS: ascli flag description for: --bundle-type (part of the "remove" and "install" subcommands)
-#: tools/appstreamcli.c:846
+#: tools/appstreamcli.c:881
 msgid "Limit the command to use only components from the given bundling system (`flatpak` or `package`)."
 msgstr "கொடுக்கப்பட்ட தொகுத்தல் அமைப்பிலிருந்து (`flatpak` அல்லது`package`) கூறுகளை மட்டுமே பயன்படுத்த கட்டளையைக் கட்டுப்படுத்துங்கள்."
 
 #. TRANSLATORS: ascli flag description for: --first (part of the "remove" and "install" subcommands)
-#: tools/appstreamcli.c:853
+#: tools/appstreamcli.c:888
 msgid "Do not ask for which software component should be used and always choose the first entry."
 msgstr "எந்த மென்பொருள் கூறு பயன்படுத்தப்பட வேண்டும் என்று கேட்க வேண்டாம், எப்போதும் முதல் நுழைவைத் தேர்வுசெய்க."
 
 #. TRANSLATORS: ascli install currently only supports two values for --bundle-type.
-#: tools/appstreamcli.c:887 tools/appstreamcli.c:922
+#: tools/appstreamcli.c:922 tools/appstreamcli.c:957
 msgid "No valid bundle kind was specified. Only `package` and `flatpak` are currently recognized."
 msgstr "செல்லுபடியாகும் மூட்டை வகை எதுவும் குறிப்பிடப்படவில்லை. `package` மற்றும்`flatpak` மட்டுமே தற்போது அங்கீகரிக்கப்பட்டுள்ளன."
 
-#: tools/appstreamcli.c:1082
+#: tools/appstreamcli.c:1118
 msgid "You need to provide at least two version numbers to compare as parameters."
 msgstr "அளவுருக்களாக ஒப்பிடுவதற்கு நீங்கள் குறைந்தது இரண்டு பதிப்பு எண்களை வழங்க வேண்டும்."
 
 #. * TRANSLATORS: The user tried to compare version numbers, but the comparison operator (greater-then, equal, etc.) was invalid.
-#: tools/appstreamcli.c:1111
+#: tools/appstreamcli.c:1147
 #, c-format
 msgid "Unknown compare relation '%s'. Valid values are:"
 msgstr "தெரியாத உறவை '%s' ஒப்பிடுங்கள். செல்லுபடியாகும் மதிப்புகள்:"
 
-#: tools/appstreamcli.c:1152
+#: tools/appstreamcli.c:1188
 msgid "Too many parameters: Need two version numbers or version numbers and a comparison operator."
 msgstr "பல அளவுருக்கள்: இரண்டு பதிப்பு எண்கள் அல்லது பதிப்பு எண்கள் மற்றும் ஒப்பீட்டு ஆபரேட்டர் தேவை."
 
 #. TRANSLATORS: ascli flag description for: --from-desktop (part of the new-template subcommand)
-#: tools/appstreamcli.c:1178
+#: tools/appstreamcli.c:1214
 msgid "Use the given .desktop file to fill in the basic values of the metainfo file."
 msgstr "Metainfo கோப்பின் அடிப்படை மதிப்புகளை நிரப்ப கொடுக்கப்பட்ட .desktop கோப்பைப் பயன்படுத்தவும்."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand
-#: tools/appstreamcli.c:1186
+#: tools/appstreamcli.c:1222
 msgid "This command takes optional TYPE and FILE positional arguments, FILE being a file to write to (or \"-\" for standard output)."
 msgstr "இந்த கட்டளை விருப்ப வகை மற்றும் கோப்பு நிலை வாதங்களை எடுக்கும், கோப்பு எழுத வேண்டிய கோப்பாக (அல்லது \"-\" நிலையான வெளியீட்டிற்கு)."
 
 #. TRANSLATORS: Additional help text for the 'new-template' ascli subcommand, a bullet-pointed list of types follows
-#: tools/appstreamcli.c:1191
+#: tools/appstreamcli.c:1227
 #, c-format
 msgid "The TYPE must be a valid component-type, such as: %s"
 msgstr "வகை செல்லுபடியாகும் கூறு வகையாக இருக்க வேண்டும், போன்றவை: %s"
 
 #. TRANSLATORS: ascli flag description for: --exec (part of the make-desktop-file subcommand)
-#: tools/appstreamcli.c:1229
+#: tools/appstreamcli.c:1265
 msgid "Use the specified line for the 'Exec=' key of the desktop-entry file."
 msgstr "டெச்க்டாப்-என்ட்ரி கோப்பின் 'Exec=' விசைக்கு குறிப்பிட்ட வரியைப் பயன்படுத்தவும்."
 
 #. TRANSLATORS: ascli flag description for: --format as part of the news-to-metainfo command
-#: tools/appstreamcli.c:1269
+#: tools/appstreamcli.c:1305
 msgid "Assume the input file is in the selected format ('yaml', 'text' or 'markdown')."
 msgstr "உள்ளீட்டு கோப்பு தேர்ந்தெடுக்கப்பட்ட வடிவத்தில் ('யாம்', 'உரை' அல்லது 'மார்க் டவுன்') இருப்பதாகக் கருதுங்கள்."
 
 #. TRANSLATORS: ascli flag description for: --limit as part of the news-to-metainfo command
-#: tools/appstreamcli.c:1276
+#: tools/appstreamcli.c:1312
 msgid "Limit the number of release entries that end up in the metainfo file (<= 0 for unlimited)."
 msgstr "மெட்டேன்ஃபோ கோப்பில் முடிவடையும் வெளியீட்டு உள்ளீடுகளின் எண்ணிக்கையை மட்டுப்படுத்தவும் (வரம்பற்றதாக <= 0)."
 
 #. TRANSLATORS: ascli flag description for: --translatable-count as part of the news-to-metainfo command
-#: tools/appstreamcli.c:1283
+#: tools/appstreamcli.c:1319
 msgid "Set the number of releases that should have descriptions marked for translation (latest releases are translated first, -1 for unlimited)."
 msgstr "மொழிபெயர்ப்புக்கு குறிக்கப்பட்ட விளக்கங்களைக் கொண்டிருக்க வேண்டிய வெளியீடுகளின் எண்ணிக்கையை அமைக்கவும் (சமீபத்திய வெளியீடுகள் முதலில் மொழிபெயர்க்கப்படுகின்றன, வரம்பற்றவை -1)."
 
 #. TRANSLATORS: ascli flag description for: --format as part of the metainfo-to-news command
-#: tools/appstreamcli.c:1328
+#: tools/appstreamcli.c:1364
 msgid "Generate the output in the selected format ('yaml', 'text' or 'markdown')."
 msgstr "தேர்ந்தெடுக்கப்பட்ட வடிவத்தில் ('யாம்', 'உரை' அல்லது 'மார்க் டவுன்') வெளியீட்டை உருவாக்குங்கள்."
 
 #. TRANSLATORS: appstreamcli-compose was not found
-#: tools/appstreamcli.c:1373
+#: tools/appstreamcli.c:1409
 #, c-format
 msgid "AppStream Compose binary '%s' was not found! Can not continue."
 msgstr "ஆப்ச்ட்ரீம் இசையமைத்தல் பைனரி '%s' காணப்படவில்லை! தொடர முடியாது."
 
 #. TRANSLATORS: appstreamcli-compose was not found - info text
-#: tools/appstreamcli.c:1377
+#: tools/appstreamcli.c:1413
 #, c-format
 msgid "You may be able to install the AppStream Compose addon via: `%s`"
 msgstr "ஆப்ச்ட்ரீம் இசையமைப்பை நீங்கள் நிறுவ முடியும்: `%s`"
 
 #. TRANSLATORS: "Compose" is a command of appstreamcli to build metadata catalogs.
-#: tools/appstreamcli.c:1399
+#: tools/appstreamcli.c:1435
 #, c-format
 msgid "Compose operation failed to execute: %s"
 msgstr "செயல்பாடு செயல்படத் தவறிவிட்டது: %s"
 
-#: tools/appstreamcli.c:1409
+#: tools/appstreamcli.c:1445
 #, c-format
 msgid "Compose failed: %s"
 msgstr "இசையமைத்தல் தோல்வியுற்றது: %s"
 
 #. these are commands we can use with appstreamcli
-#: tools/appstreamcli.c:1434
+#: tools/appstreamcli.c:1470
 msgid "Subcommands:"
 msgstr "துணைக்குழுக்கள்:"
 
-#: tools/appstreamcli.c:1488
+#: tools/appstreamcli.c:1524
 msgid "You can find information about subcommand-specific options by passing \"--help\" to the subcommand."
 msgstr "துணைக் கட்டளைக்கு \"-உதவி\" என்பதை அனுப்புவதன் மூலம் துணைக் கமாண்ட்-குறிப்பிட்ட விருப்பங்களைப் பற்றிய தகவல்களை நீங்கள் காணலாம்."
 
 #. TRANSLATORS: ascli has been run with unknown command. '%s --help' is the command to receive help and should not be translated.
-#: tools/appstreamcli.c:1506
+#: tools/appstreamcli.c:1542
 #, c-format
 msgid "Command '%s' is unknown. Run '%s --help' for a list of available commands."
 msgstr "'%s' கட்டளை தெரியவில்லை. கிடைக்கக்கூடிய கட்டளைகளின் பட்டியலுக்கு '%s - -help' ஐ இயக்கவும்."
 
 #. TRANSLATORS: `appstreamcli search` command description.
-#: tools/appstreamcli.c:1530
+#: tools/appstreamcli.c:1566
 msgid "Search the component database."
 msgstr "கூறு தரவுத்தளத்தைத் தேடுங்கள்."
 
 #. TRANSLATORS: `appstreamcli get` command description.
-#: tools/appstreamcli.c:1537
+#: tools/appstreamcli.c:1573
 msgid "Get information about a component by its ID."
 msgstr "ஒரு கூறு பற்றிய தகவல்களை அதன் ஐடி மூலம் பெறுங்கள்."
 
 #. TRANSLATORS: `appstreamcli what-provides` command description.
-#: tools/appstreamcli.c:1544
+#: tools/appstreamcli.c:1580
 msgid "Get components which provide the given item. Needs an item type (e.g. lib, bin, python3, …) and item value as parameter."
 msgstr "கொடுக்கப்பட்ட உருப்படியை வழங்கும் கூறுகளைப் பெறுங்கள். உருப்படி வகை (எ.கா. லிப், பின், பைதான் 3,…) மற்றும் உருப்படி மதிப்பு அளவுருவாக தேவை."
 
 #. TRANSLATORS: `appstreamcli list-categories` command description.
-#: tools/appstreamcli.c:1552
+#: tools/appstreamcli.c:1588
 msgid "List components that are part of the specified categories."
 msgstr "குறிப்பிட்ட வகைகளின் ஒரு பகுதியாக இருக்கும் கூறுகளை பட்டியலிடுங்கள்."
 
 #. TRANSLATORS: `appstreamcli dump` command description.
-#: tools/appstreamcli.c:1561
+#: tools/appstreamcli.c:1597
 msgid "Dump raw XML metadata for a component matching the ID."
 msgstr "ஐடியுடன் பொருந்தக்கூடிய ஒரு கூறுக்கு மூல எக்ச்எம்எல் மெட்டாடேட்டாவை டம்ப் செய்யுங்கள்."
 
 #. TRANSLATORS: `appstreamcli refresh-cache` command description.
-#: tools/appstreamcli.c:1569
+#: tools/appstreamcli.c:1605
 msgid "Rebuild the component metadata cache."
 msgstr "கூறு மேனிலை தரவு தற்காலிக சேமிப்பை மீண்டும் உருவாக்குங்கள்."
 
 #. TRANSLATORS: `appstreamcli validate` command description.
-#: tools/appstreamcli.c:1577
+#: tools/appstreamcli.c:1613
 msgid "Validate AppStream XML files for issues."
 msgstr "சிக்கல்களுக்கு ஆப்ச்ட்ரீம் எக்ச்எம்எல் கோப்புகளை சரிபார்க்கவும்."
 
 #. TRANSLATORS: `appstreamcli validate-tree` command description.
-#: tools/appstreamcli.c:1584
+#: tools/appstreamcli.c:1620
 msgid "Validate an installed file-tree of an application for valid metadata."
 msgstr "செல்லுபடியாகும் மெட்டாடேட்டாவிற்கான விண்ணப்பத்தின் நிறுவப்பட்ட கோப்பு மரத்தை சரிபார்க்கவும்."
 
 #. TRANSLATORS: `appstreamcli `check-license` command description.
-#: tools/appstreamcli.c:1592
+#: tools/appstreamcli.c:1628
 msgid "Check license string for validity and print details about it."
 msgstr "செல்லுபடியாகும் உரிமம் சரத்தை சரிபார்க்கவும், அதைப் பற்றிய விவரங்களை அச்சிடவும்."
 
 #. TRANSLATORS: `appstreamcli `check-license` command description.
-#: tools/appstreamcli.c:1600
+#: tools/appstreamcli.c:1636
 msgid "Check if requirements of a component (via its ID or MetaInfo file) are satisfied on this system."
 msgstr "இந்த அமைப்பில் ஒரு கூறுகளின் தேவைகள் (அதன் ஐடி அல்லது மெட்டேன்ஃபோ கோப்பு வழியாக) நிறைவு அடைகிறதா என்று சரிபார்க்கவும்."
 
 #. TRANSLATORS: `appstreamcli `check-syscompat` command description.
-#: tools/appstreamcli.c:1608
+#: tools/appstreamcli.c:1644
 msgid "Check compatibility of a component (via its ID or MetaInfo file) with common system and chassis types."
 msgstr "பொதுவான அமைப்பு மற்றும் சேச் வகைகளுடன் ஒரு கூறுகளின் (அதன் ஐடி அல்லது மெட்டேன்ஃபோ கோப்பு வழியாக) பொருந்தக்கூடிய தன்மையை சரிபார்க்கவும்."
 
 #. TRANSLATORS: `appstreamcli install` command description.
-#: tools/appstreamcli.c:1617
+#: tools/appstreamcli.c:1653
 msgid "Install software matching the component-ID."
 msgstr "கூறு-ஐடியுடன் பொருந்தக்கூடிய மென்பொருளை நிறுவவும்."
 
 #. TRANSLATORS: `appstreamcli remove` command description.
-#: tools/appstreamcli.c:1624
+#: tools/appstreamcli.c:1660
 msgid "Remove software matching the component-ID."
 msgstr "கூறு-ஐடியுடன் பொருந்தக்கூடிய மென்பொருளை அகற்று."
 
 #. TRANSLATORS: `appstreamcli status` command description.
-#: tools/appstreamcli.c:1632
+#: tools/appstreamcli.c:1668
 msgid "Display status information about available AppStream metadata."
 msgstr "கிடைக்கக்கூடிய ஆப்ச்ட்ரீம் மேனிலை தரவு பற்றிய நிலை தகவல்களைக் காண்பி."
 
 #. TRANSLATORS: `appstreamcli sysinfo` command description.
-#: tools/appstreamcli.c:1640
+#: tools/appstreamcli.c:1676
 msgid "Show information about the current device and used operating system."
 msgstr "தற்போதைய சாதனம் மற்றும் பயன்படுத்தப்பட்ட இயக்க முறைமை பற்றிய தகவல்களைக் காட்டு."
 
 #. TRANSLATORS: `appstreamcli put` command description.
-#: tools/appstreamcli.c:1648
+#: tools/appstreamcli.c:1684
 msgid "Install a metadata file into the right location."
 msgstr "மேனிலை தரவு கோப்பை சரியான இடத்தில் நிறுவவும்."
 
 #. TRANSLATORS: `appstreamcli convert` command description. "Catalog XML" is a term describing a specific type of AppStream XML data.
-#: tools/appstreamcli.c:1656
+#: tools/appstreamcli.c:1692
 msgid "Convert metadata catalog XML to YAML or vice versa."
 msgstr "மேனிலை தரவு அட்டவணை எக்ச்எம்எல் யேம்லாக மாற்றவும் அல்லது நேர்மாறாக."
 
 #. TRANSLATORS: `appstreamcli vercmp` command description.
-#: tools/appstreamcli.c:1663
+#: tools/appstreamcli.c:1699
 msgid "Compare two version numbers."
 msgstr "இரண்டு பதிப்பு எண்களை ஒப்பிடுக."
 
 #. TRANSLATORS: `appstreamcli new-template` command description.
-#: tools/appstreamcli.c:1672
+#: tools/appstreamcli.c:1708
 msgid "Create a template for a metainfo file (to be filled out by the upstream project)."
 msgstr "ஒரு மெட்டேன்ஃபோ கோப்பிற்கான ஒரு வார்ப்புருவை உருவாக்கவும் (அப்ச்ட்ரீம் திட்டத்தால் நிரப்பப்பட வேண்டும்)."
 
 #. TRANSLATORS: `appstreamcli make-desktop-file` command description.
-#: tools/appstreamcli.c:1680
+#: tools/appstreamcli.c:1716
 msgid "Create a desktop-entry file from a metainfo file."
 msgstr "மெட்டெயின்ஃபோ கோப்பிலிருந்து டெச்க்டாப்-நுழைவு கோப்பை உருவாக்கவும்."
 
 #. TRANSLATORS: `appstreamcli news-to-metainfo` command description.
-#: tools/appstreamcli.c:1688
+#: tools/appstreamcli.c:1724
 msgid "Convert a YAML or text NEWS file into metainfo releases."
 msgstr "ஒரு YAML அல்லது உரை செய்தி கோப்பை மெட்டேன்ஃபோ வெளியீடுகளாக மாற்றவும்."
 
 #. TRANSLATORS: `appstreamcli metainfo-to-news` command description.
-#: tools/appstreamcli.c:1696
+#: tools/appstreamcli.c:1732
 msgid "Write NEWS text or YAML file with information from a metainfo file."
 msgstr "மெட்டெயின்ஃபோ கோப்பிலிருந்து தகவலுடன் செய்தி உரை அல்லது YAML கோப்பை எழுதுங்கள்."
 
 #. TRANSLATORS: `appstreamcli compose` command description.
-#: tools/appstreamcli.c:1704
+#: tools/appstreamcli.c:1740
 msgid "Compose AppStream metadata catalog from directory trees."
 msgstr "அடைவு மரங்களிலிருந்து ஆப்ச்ட்ரீம் மேனிலை தரவு பட்டியலை எழுதுங்கள்."
 
 #. TRANSLATORS: `appstreamcli list-reviews` command description.
-#: tools/appstreamcli.c:1713
+#: tools/appstreamcli.c:1749
 #, fuzzy
 #| msgid "We have information on %i software components."
 msgid "List online user reviews for a software component."
 msgstr "%i மென்பொருள் கூறுகள் குறித்த தகவல்கள் எங்களிடம் உள்ளன."
 
 #. TRANSLATORS: `appstreamcli submit-review` command description.
-#: tools/appstreamcli.c:1726
+#: tools/appstreamcli.c:1762
 msgid "Compose and submit an online review for a software component."
 msgstr ""
 
 #. TRANSLATORS: ascli has been run without command.
-#: tools/appstreamcli.c:1808
+#: tools/appstreamcli.c:1844
 msgid "You need to specify a command."
 msgstr "நீங்கள் ஒரு கட்டளையை குறிப்பிட வேண்டும்."
 
@@ -3673,120 +3677,120 @@ msgstr "மேனிலை தரவு கேச் புதுப்பிப
 
 #. TRANSLATORS: An AppStream component-id is missing in the command-line arguments
 #. TRANSLATORS: ascli was told to find a software component by its ID, but no component-id was specified.
-#: tools/ascli-actions-mdata.c:132 tools/ascli-actions-mdata.c:298
-#: tools/ascli-actions-misc.c:870 tools/ascli-actions-misc.c:957
+#: tools/ascli-actions-mdata.c:133 tools/ascli-actions-mdata.c:304
+#: tools/ascli-actions-misc.c:873 tools/ascli-actions-misc.c:960
 #: tools/ascli-actions-pkgmgr.c:182
 msgid "You need to specify a component-ID."
 msgstr "நீங்கள் ஒரு கூறு-ஐடியைக் குறிப்பிட வேண்டும்."
 
-#: tools/ascli-actions-mdata.c:144 tools/ascli-actions-mdata.c:310
-#: tools/ascli-actions-mdata.c:734 tools/ascli-actions-mdata.c:866
+#: tools/ascli-actions-mdata.c:145 tools/ascli-actions-mdata.c:316
+#: tools/ascli-actions-mdata.c:743 tools/ascli-actions-mdata.c:876
 #: tools/ascli-actions-pkgmgr.c:195
 #, c-format
 msgid "Unable to find component with ID '%s'!"
 msgstr "ஐடி '%s' உடன் கூறுகளைக் கண்டுபிடிக்க முடியவில்லை!"
 
-#: tools/ascli-actions-mdata.c:167
+#: tools/ascli-actions-mdata.c:169
 msgid "You need to specify a term to search for."
 msgstr "தேட ஒரு சொல்லை நீங்கள் குறிப்பிட வேண்டும்."
 
 #. TRANSLATORS: We got no full-text search results
-#: tools/ascli-actions-mdata.c:180
+#: tools/ascli-actions-mdata.c:182
 #, c-format
 msgid "No component matching '%s' found."
 msgstr "'%s' பொருந்தக்கூடிய எந்த கூறு இல்லை."
 
-#: tools/ascli-actions-mdata.c:207
+#: tools/ascli-actions-mdata.c:211
 msgid "No value for the item to search for was defined."
 msgstr "உருப்படி தேட எந்த மதிப்பும் வரையறுக்கப்படவில்லை."
 
-#: tools/ascli-actions-mdata.c:214
+#: tools/ascli-actions-mdata.c:218
 msgid "Invalid type for provided item selected. Valid values are:"
 msgstr "தேர்ந்தெடுக்கப்பட்ட வழங்கப்பட்ட உருப்படிக்கு தவறான வகை. செல்லுபடியாகும் மதிப்புகள்:"
 
 #. TRANSLATORS: Search for provided items (e.g. mimetypes, modaliases, ..) yielded no results
-#: tools/ascli-actions-mdata.c:230
+#: tools/ascli-actions-mdata.c:234
 #, c-format
 msgid "Could not find component providing '%s::%s'."
 msgstr "'%s ::%s' வழங்கும் கூறு கண்டுபிடிக்க முடியவில்லை."
 
-#: tools/ascli-actions-mdata.c:256
+#: tools/ascli-actions-mdata.c:261
 msgid "You need to specify categories to list."
 msgstr "பட்டியலிட நீங்கள் வகைகளைக் குறிப்பிட வேண்டும்."
 
 #. TRANSLATORS: We got no category list results
-#: tools/ascli-actions-mdata.c:270
+#: tools/ascli-actions-mdata.c:275
 #, c-format
 msgid "No component found in categories %s."
 msgstr "%s வகைகளில் காணப்படவில்லை."
 
-#: tools/ascli-actions-mdata.c:353
+#: tools/ascli-actions-mdata.c:359
 msgid "You need to specify a metadata file."
 msgstr "நீங்கள் ஒரு மேனிலை தரவு கோப்பைக் குறிப்பிட வேண்டும்."
 
-#: tools/ascli-actions-mdata.c:367
+#: tools/ascli-actions-mdata.c:373
 #, c-format
 msgid "Unable to install metadata file: %s"
 msgstr "மேனிலை தரவு கோப்பை நிறுவ முடியவில்லை: %s"
 
-#: tools/ascli-actions-mdata.c:387
+#: tools/ascli-actions-mdata.c:393
 msgid "You need to specify an input and output file."
 msgstr "உள்ளீடு மற்றும் வெளியீட்டு கோப்பை நீங்கள் குறிப்பிட வேண்டும்."
 
-#: tools/ascli-actions-mdata.c:394
+#: tools/ascli-actions-mdata.c:400
 #, c-format
 msgid "Metadata file '%s' does not exist."
 msgstr "மேனிலை தரவு கோப்பு '%s' இல்லை."
 
 #. TRANSLATORS: User is trying to convert a file in ascli
-#: tools/ascli-actions-mdata.c:433
+#: tools/ascli-actions-mdata.c:439
 msgid "Unable to convert file: Could not determine output format, please set it explicitly using '--format='."
 msgstr "கோப்பை மாற்ற முடியவில்லை: வெளியீட்டு வடிவமைப்பை தீர்மானிக்க முடியவில்லை, தயவுசெய்து அதை '--- வடிவ =' ஐப் பயன்படுத்தி வெளிப்படையாக அமைக்கவும்."
 
 #. TRANSLATORS: The user tried to create a new template, but supplied a wrong component-type string
-#: tools/ascli-actions-mdata.c:481
+#: tools/ascli-actions-mdata.c:487
 msgid "You need to give an AppStream software component type to generate a template. Possible values are:"
 msgstr "ஒரு வார்ப்புருவை உருவாக்க நீங்கள் ஒரு ஆப்ச்ட்ரீம் மென்பொருள் கூறு வகையை வழங்க வேண்டும். சாத்தியமான மதிப்புகள்:"
 
 #. TRANSLATORS: The user tried to create a new template, but supplied a wrong component-type string
-#: tools/ascli-actions-mdata.c:484
+#: tools/ascli-actions-mdata.c:490
 #, c-format
 msgid "The software component type '%s' is not valid in AppStream. Possible values are:"
 msgstr "மென்பொருள் கூறு வகை '%s' ஆப்ச்ட்ரீமில் செல்லுபடியாகாது. சாத்தியமான மதிப்புகள்:"
 
-#: tools/ascli-actions-mdata.c:504
+#: tools/ascli-actions-mdata.c:510
 #, c-format
 msgid "The .desktop file '%s' does not exist."
 msgstr ".Desktop கோப்பு '%s' இல்லை."
 
-#: tools/ascli-actions-mdata.c:511
+#: tools/ascli-actions-mdata.c:517
 #, c-format
 msgid "Unable to read the .desktop file: %s"
 msgstr ".Desktop கோப்பைப் படிக்க முடியவில்லை: %s"
 
-#: tools/ascli-actions-mdata.c:601
+#: tools/ascli-actions-mdata.c:607
 #, c-format
 msgid "Unable to build the template metainfo file: %s"
 msgstr "வார்ப்புருவை உருவாக்க முடியவில்லை Metainfo கோப்பை: %s"
 
-#: tools/ascli-actions-mdata.c:610
+#: tools/ascli-actions-mdata.c:616
 #, c-format
 msgid "Unable to save the template metainfo file: %s"
 msgstr "வார்ப்புருவை சேமிக்க முடியவில்லை Metainfo கோப்பை: %s"
 
-#: tools/ascli-actions-mdata.c:650
+#: tools/ascli-actions-mdata.c:656
 msgid "Unable to check display size: Can not read information without GUI toolkit access."
 msgstr "காட்சி அளவை சரிபார்க்க முடியவில்லை: GUI கருவித்தொகுப்பு அணுகல் இல்லாமல் தகவல்களைப் படிக்க முடியாது."
 
-#: tools/ascli-actions-mdata.c:658 tools/ascli-actions-mdata.c:914
+#: tools/ascli-actions-mdata.c:664 tools/ascli-actions-mdata.c:924
 msgid "ERROR"
 msgstr "பிழை"
 
-#: tools/ascli-actions-mdata.c:695 tools/ascli-actions-mdata.c:826
+#: tools/ascli-actions-mdata.c:704 tools/ascli-actions-mdata.c:836
 msgid "You need to specify a MetaInfo filename or component ID."
 msgstr "நீங்கள் ஒரு மெட்டேன்ஃபோ கோப்பு பெயர் அல்லது கூறு ஐடியைக் குறிப்பிட வேண்டும்."
 
-#: tools/ascli-actions-mdata.c:714 tools/ascli-actions-mdata.c:838
+#: tools/ascli-actions-mdata.c:723 tools/ascli-actions-mdata.c:848
 #: tools/ascli-actions-misc.c:133 tools/ascli-actions-misc.c:468
 #: tools/ascli-actions-misc.c:557
 #, c-format
@@ -3794,75 +3798,75 @@ msgid "Metainfo file '%s' does not exist."
 msgstr "மெட்டேன்ஃபோ கோப்பு '%s' இல்லை."
 
 #. TRANSLATORS: We are testing the relations (requires, recommends & supports data) for being satisfied on the current system.
-#: tools/ascli-actions-mdata.c:743
+#: tools/ascli-actions-mdata.c:752
 #, c-format
 msgid "Relation check for: %s"
 msgstr "உறவு சோதனை: %s"
 
-#: tools/ascli-actions-mdata.c:754
+#: tools/ascli-actions-mdata.c:763
 msgid "Requirements:"
 msgstr "தேவைகள்:"
 
-#: tools/ascli-actions-mdata.c:756
+#: tools/ascli-actions-mdata.c:765
 msgid "No required items are set for this software."
 msgstr "இந்த மென்பொருளுக்கு தேவையான உருப்படிகள் எதுவும் அமைக்கப்படவில்லை."
 
-#: tools/ascli-actions-mdata.c:761
+#: tools/ascli-actions-mdata.c:770
 msgid "Recommendations:"
 msgstr "பரிந்துரைகள்:"
 
-#: tools/ascli-actions-mdata.c:763
+#: tools/ascli-actions-mdata.c:772
 msgid "No recommended items are set for this software."
 msgstr "இந்த மென்பொருளுக்கு பரிந்துரைக்கப்பட்ட உருப்படிகள் எதுவும் அமைக்கப்படவில்லை."
 
-#: tools/ascli-actions-mdata.c:768
+#: tools/ascli-actions-mdata.c:777
 msgid "Supported:"
 msgstr "ஆதரிக்கப்பட்டது:"
 
-#: tools/ascli-actions-mdata.c:770
+#: tools/ascli-actions-mdata.c:779
 msgid "No supported items are set for this software."
 msgstr "இந்த மென்பொருளுக்கு உதவி உருப்படிகள் எதுவும் அமைக்கப்படவில்லை."
 
 #. TRANSLATORS: This represents a computer chassis type.
-#: tools/ascli-actions-mdata.c:794
+#: tools/ascli-actions-mdata.c:803
 msgid "Desktop"
 msgstr "டெச்க்டாப்"
 
 #. TRANSLATORS: This represents a computer chassis type.
-#: tools/ascli-actions-mdata.c:797
+#: tools/ascli-actions-mdata.c:806
 msgid "Laptop"
 msgstr "மடிக்கணினி"
 
 #. TRANSLATORS: This represents a computer chassis type.
-#: tools/ascli-actions-mdata.c:800
+#: tools/ascli-actions-mdata.c:809
 msgid "Server"
 msgstr "சேவையகம்"
 
 #. TRANSLATORS: This represents a computer chassis type.
-#: tools/ascli-actions-mdata.c:803
+#: tools/ascli-actions-mdata.c:812
 msgid "Tablet"
 msgstr "டேப்லெட்"
 
 #. TRANSLATORS: This represents a computer chassis type.
-#: tools/ascli-actions-mdata.c:806
+#: tools/ascli-actions-mdata.c:815
 msgid "Handset"
 msgstr "கை"
 
-#: tools/ascli-actions-mdata.c:808
+#: tools/ascli-actions-mdata.c:817
 msgid "Unknown"
 msgstr "தெரியவில்லை"
 
 #. TRANSLATORS: We are testing compatibility of a component with a common representation of hardware for a specific chassis (phone/tablet/desktop, etc.)
-#: tools/ascli-actions-mdata.c:875
+#: tools/ascli-actions-mdata.c:885
 #, c-format
 msgid "Chassis compatibility check for: %s"
 msgstr "சேச் பொருந்தக்கூடிய சோதனை: %s"
 
-#: tools/ascli-actions-mdata.c:894
+#: tools/ascli-actions-mdata.c:904
 msgid "Incompatible"
 msgstr "பொருந்தாத"
 
-#: tools/ascli-actions-mdata.c:929
+#: tools/ascli-actions-mdata.c:939
 msgid "Compatible"
 msgstr "இணக்கமான"
 
@@ -3871,7 +3875,7 @@ msgstr "இணக்கமான"
 msgid "AppStream Status:"
 msgstr "பயன்பாட்டு நிலை:"
 
-#: tools/ascli-actions-misc.c:48 tools/ascli-actions-misc.c:686
+#: tools/ascli-actions-misc.c:48 tools/ascli-actions-misc.c:689
 #, c-format
 msgid "Version: %s"
 msgstr "பதிப்பு: %s"
@@ -3986,193 +3990,193 @@ msgstr ""
 msgid "You need to specify a NEWS format to write the output in."
 msgstr "வெளியீட்டை எழுத நீங்கள் ஒரு செய்தி வடிவமைப்பைக் குறிப்பிட வேண்டும்."
 
-#: tools/ascli-actions-misc.c:667
+#: tools/ascli-actions-misc.c:670
 msgid "Operating System Details"
 msgstr "இயக்க முறைமை விவரங்கள்"
 
-#: tools/ascli-actions-misc.c:671
+#: tools/ascli-actions-misc.c:674
 #, c-format
 msgid "Unable to find operating system component '%s'!"
 msgstr "இயக்க முறைமை கூறு '%s' கண்டுபிடிக்க முடியவில்லை!"
 
-#: tools/ascli-actions-misc.c:678
+#: tools/ascli-actions-misc.c:681
 msgid "ID"
 msgstr "ஐடி"
 
-#: tools/ascli-actions-misc.c:679 tools/ascli-actions-misc.c:765
+#: tools/ascli-actions-misc.c:682 tools/ascli-actions-misc.c:768
 #: tools/ascli-utils.c:304
 msgid "Name"
 msgstr "பெயர்"
 
-#: tools/ascli-actions-misc.c:680 tools/ascli-actions-misc.c:1026
+#: tools/ascli-actions-misc.c:683 tools/ascli-actions-misc.c:1029
 #: tools/ascli-utils.c:305
 msgid "Summary"
 msgstr "சுருக்கம்"
 
-#: tools/ascli-actions-misc.c:714
+#: tools/ascli-actions-misc.c:717
 msgid "Release Kind"
 msgstr ""
 
 #. TRANSLATORS: Release date of the running OS release
-#: tools/ascli-actions-misc.c:719
+#: tools/ascli-actions-misc.c:722
 msgid "Released"
 msgstr ""
 
 #. TRANSLATORS: End-of-life date of the running OS release
-#: tools/ascli-actions-misc.c:725
+#: tools/ascli-actions-misc.c:728
 #, fuzzy
 #| msgid "Supported:"
 msgid "Supported Until"
 msgstr "ஆதரிக்கப்பட்டது:"
 
 #. TRANSLATORS: OS releases newer than the running one, with their kind
-#: tools/ascli-actions-misc.c:740
+#: tools/ascli-actions-misc.c:743
 msgid "Newer Releases"
 msgstr ""
 
-#: tools/ascli-actions-misc.c:744 tools/ascli-utils.c:309
+#: tools/ascli-actions-misc.c:747 tools/ascli-utils.c:309
 msgid "Homepage"
 msgstr "முகப்புப்பக்கம்"
 
-#: tools/ascli-actions-misc.c:747 tools/ascli-utils.c:330
+#: tools/ascli-actions-misc.c:750 tools/ascli-utils.c:330
 msgid "Developer"
 msgstr "உருவாக்குநர்"
 
-#: tools/ascli-actions-misc.c:756 tools/ascli-utils.c:344
+#: tools/ascli-actions-misc.c:759 tools/ascli-utils.c:344
 msgid "Description"
 msgstr "விவரம்"
 
-#: tools/ascli-actions-misc.c:764
+#: tools/ascli-actions-misc.c:767
 msgid "Kernel"
 msgstr "கர்னல்"
 
-#: tools/ascli-actions-misc.c:766 tools/ascli-actions-misc.c:922
+#: tools/ascli-actions-misc.c:769 tools/ascli-actions-misc.c:925
 msgid "Version"
 msgstr "பதிப்பு"
 
-#: tools/ascli-actions-misc.c:769
+#: tools/ascli-actions-misc.c:772
 msgid "Hardware"
 msgstr "வன்பொருள்"
 
-#: tools/ascli-actions-misc.c:772
+#: tools/ascli-actions-misc.c:775
 msgid "Physical Memory"
 msgstr "உடல் நினைவகம்"
 
-#: tools/ascli-actions-misc.c:780 tools/ascli-actions-misc.c:785
+#: tools/ascli-actions-misc.c:783 tools/ascli-actions-misc.c:788
 msgid "Largest Display"
 msgstr ""
 
-#: tools/ascli-actions-misc.c:783
+#: tools/ascli-actions-misc.c:786
 msgid "logical px"
 msgstr ""
 
-#: tools/ascli-actions-misc.c:785
+#: tools/ascli-actions-misc.c:788
 #, fuzzy
 #| msgid "Unable to read file."
 msgid "unable to determine"
 msgstr "கோப்பைப் படிக்க முடியவில்லை."
 
-#: tools/ascli-actions-misc.c:789
+#: tools/ascli-actions-misc.c:792
 msgid "Devices with Modaliases"
 msgstr "மோடாலியாச் கொண்ட சாதனங்கள்"
 
-#: tools/ascli-actions-misc.c:818
+#: tools/ascli-actions-misc.c:821
 msgid "User Input Controls"
 msgstr "பயனர் உள்ளீட்டு கட்டுப்பாடுகள்"
 
-#: tools/ascli-actions-misc.c:821
+#: tools/ascli-actions-misc.c:824
 msgid "unknown"
 msgstr "தெரியவில்லை"
 
-#: tools/ascli-actions-misc.c:828 tools/ascli-actions-validate.c:700
+#: tools/ascli-actions-misc.c:831 tools/ascli-actions-validate.c:700
 #: tools/ascli-actions-validate.c:706
 msgid "yes"
 msgstr "ஆம்"
 
-#: tools/ascli-actions-misc.c:830 tools/ascli-actions-validate.c:701
+#: tools/ascli-actions-misc.c:833 tools/ascli-actions-validate.c:701
 #: tools/ascli-actions-validate.c:707
 msgid "no"
 msgstr "இல்லை"
 
-#: tools/ascli-actions-misc.c:888
+#: tools/ascli-actions-misc.c:891
 msgid "Overall rating"
 msgstr ""
 
-#: tools/ascli-actions-misc.c:901
+#: tools/ascli-actions-misc.c:904
 #, fuzzy, c-format
 #| msgid "Found supported software component '%s'."
 msgid "No reviews found for component '%s'."
 msgstr "ஆதரிக்கப்பட்ட மென்பொருள் கூறு '%s'."
 
-#: tools/ascli-actions-misc.c:916 tools/ascli-actions-misc.c:1017
+#: tools/ascli-actions-misc.c:919 tools/ascli-actions-misc.c:1020
 msgid "Author"
 msgstr ""
 
-#: tools/ascli-actions-misc.c:919
+#: tools/ascli-actions-misc.c:922
 msgid "Date"
 msgstr ""
 
-#: tools/ascli-actions-misc.c:969
+#: tools/ascli-actions-misc.c:972
 #, c-format
 msgid "Composing a review for '%s' to be submitted to %s."
 msgstr ""
 
-#: tools/ascli-actions-misc.c:972
+#: tools/ascli-actions-misc.c:975
 msgid "Please only review the software itself, and mind that your review will be publicly visible."
 msgstr ""
 
 #. TRANSLATORS: Prompt when composing a review, %s is a user name
-#: tools/ascli-actions-misc.c:977
+#: tools/ascli-actions-misc.c:980
 #, c-format
 msgid "Your display name (leave empty to use '%s'):"
 msgstr ""
 
 #. TRANSLATORS: Prompt for a star rating when composing a review
-#: tools/ascli-actions-misc.c:984
+#: tools/ascli-actions-misc.c:987
 msgid "Star rating, from 1 (worst) to 5 (best):"
 msgstr ""
 
 #. TRANSLATORS: Prompt when composing a review
-#: tools/ascli-actions-misc.c:991
+#: tools/ascli-actions-misc.c:994
 msgid "Short summary of your review:"
 msgstr ""
 
-#: tools/ascli-actions-misc.c:997
+#: tools/ascli-actions-misc.c:1000
 msgid "The summary must not be empty and be no longer than 70 characters."
 msgstr ""
 
 #. TRANSLATORS: Prompt when composing a review
-#: tools/ascli-actions-misc.c:1001
+#: tools/ascli-actions-misc.c:1004
 msgid "Detailed review text (end with an empty line):"
 msgstr ""
 
-#: tools/ascli-actions-misc.c:1003
+#: tools/ascli-actions-misc.c:1006
 msgid "The review text must not be empty."
 msgstr ""
 
-#: tools/ascli-actions-misc.c:1024
+#: tools/ascli-actions-misc.c:1027
 msgid "Rating"
 msgstr ""
 
-#: tools/ascli-actions-misc.c:1027
+#: tools/ascli-actions-misc.c:1030
 msgid "Review"
 msgstr ""
 
 #. TRANSLATORS: Prompt before publishing a composed review
-#: tools/ascli-actions-misc.c:1034
+#: tools/ascli-actions-misc.c:1037
 msgid "Publish this review?"
 msgstr ""
 
-#: tools/ascli-actions-misc.c:1038
+#: tools/ascli-actions-misc.c:1041
 msgid "Review submission cancelled."
 msgstr ""
 
-#: tools/ascli-actions-misc.c:1048
+#: tools/ascli-actions-misc.c:1051
 #, c-format
 msgid "Review submitted successfully (ID: %s). Thank you!"
 msgstr ""
 
-#: tools/ascli-actions-misc.c:1051
+#: tools/ascli-actions-misc.c:1054
 msgid "Review submitted successfully. Thank you!"
 msgstr ""
 
@@ -4420,7 +4424,12 @@ msgstr "கட்டாய"
 msgid "Provided Items"
 msgstr "வழங்கப்பட்ட உருப்படிகள்"
 
-#: tools/ascli-utils.c:525
+#: tools/ascli-utils.c:485
+#, c-format
+msgid "Data path '%s' does not exist or is not a directory."
+msgstr ""
+
+#: tools/ascli-utils.c:561
 #, c-format
 msgid "Please enter a number from 1 to %i: "
 msgstr "தயவுசெய்து 1 முதல் %i வரை ஒரு எண்ணை உள்ளிடவும்: "
