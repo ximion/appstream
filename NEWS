@@ -20,7 +20,7 @@ Bugfixes:
  * Split words properly when tokenizing values with + or -
  * Validate incoming locale strings more strictly before passing them on
  * compose: Reject Qt locale with non-POSIX names
- * compose: Fix potential crashes when encounterim bad QM translations
+ * compose: Fix potential crashes when encountering bad QM translations
  * cli: Fix not used `--datapath` option
  * cli: Make --no-cache work and reject a bad --datapath
 
