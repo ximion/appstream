@@ -1504,6 +1504,131 @@ test_compose_locale_stats (void)
 			 "translations-not-found");
 }
 
+/**
+ * test_compose_locale_qt:
+ *
+ * Qt translation files may be named and placed in different ways, and the
+ * locale we take from their paths must always be a valid POSIX locale name.
+ */
+static void
+test_compose_locale_qt (void)
+{
+	gboolean ret;
+	g_autoptr(GError) error = NULL;
+	g_autoptr(AscResult) cres = NULL;
+	g_autoptr(AsComponent) cpt = NULL;
+	g_autoptr(AsTranslation) tr_root = NULL;
+	g_autoptr(AsTranslation) tr_lcmsg = NULL;
+	g_autoptr(AscDirectoryUnit) dirunit = NULL;
+	g_autoptr(AsMetadata) mdata = NULL;
+	g_autoptr(AsMetadata) mdata_read = NULL;
+	g_autoptr(GPtrArray) hints = NULL;
+	g_autoptr(GList) langs = NULL;
+	g_autofree gchar *root = asx_build_workdir_path ("l10n-qt");
+	g_autofree gchar *qm_fname = NULL;
+	g_autofree gchar *qm_data = NULL;
+	g_autofree gchar *xml = NULL;
+	gsize qm_data_len;
+	const gchar *qm_names[] = {
+		/* ${hint}_${locale}.qm and ${hint}/${locale}.qm */
+		"qtapp/translations/qtapp_fr.qm",
+		"qtapp/translations/qtapp_zh_Hant_TW.qm",
+		"qtapp/translations/qtapp/sr@latin.qm",
+		"qtapp/translations/qtapp_pt-BR.qm",
+		"qtapp/translations/qtapp_\x82x.qm",
+		"qtapp/translations/qtapp/de\x82.qm",
+		/* these only share a prefix with the hint, or are in a subdirectory */
+		"qtapp/translations/qtappfoo/ru.qm",
+		"qtapp/translations/qtapp/sub/ru.qm",
+
+		/* locale/${locale}/LC_MESSAGES/${hint}.qm */
+		"locale/pt_BR/LC_MESSAGES/qtapp3.qm",
+		"locale/es-ES/LC_MESSAGES/qtapp3.qm",
+		/* the locale directory is missing or there is more than one */
+		"locale/LC_MESSAGES/qtapp3.qm",
+		"locale/ru/sub/LC_MESSAGES/qtapp3.qm",
+		NULL,
+	};
+
+	/* create all translation files, with the same content */
+	qm_fname = g_build_filename (datadir, "usr/share/kdeapp1/translations/kdeapp_fr.qm", NULL);
+	g_file_get_contents (qm_fname, &qm_data, &qm_data_len, &error);
+	g_assert_no_error (error);
+	for (guint i = 0; qm_names[i] != NULL; i++) {
+		g_autofree gchar *dest = g_build_filename (root, "usr", "share", qm_names[i], NULL);
+		g_autofree gchar *dest_dir = g_path_get_dirname (dest);
+
+		g_assert_cmpint (g_mkdir_with_parents (dest_dir, 0755), ==, 0);
+		g_file_set_contents (dest, qm_data, qm_data_len, &error);
+		g_assert_no_error (error);
+	}
+
+	dirunit = asc_directory_unit_new (root);
+	ret = asc_unit_open (ASC_UNIT (dirunit), &error);
+	g_assert_no_error (error);
+	g_assert_true (ret);
+
+	cpt = as_component_new ();
+	as_component_set_kind (cpt, AS_COMPONENT_KIND_GENERIC);
+	as_component_set_id (cpt, "org.example.qtapp");
+	as_component_set_name (cpt, "Qt App", "C");
+	as_component_set_summary (cpt, "Ships Qt translations with odd names", "C");
+
+	tr_root = as_translation_new ();
+	as_translation_set_kind (tr_root, AS_TRANSLATION_KIND_QT);
+	as_translation_set_id (tr_root, "qtapp/translations/qtapp");
+	as_component_add_translation (cpt, tr_root);
+	tr_lcmsg = as_translation_new ();
+	as_translation_set_kind (tr_lcmsg, AS_TRANSLATION_KIND_QT);
+	as_translation_set_id (tr_lcmsg, "qtapp3");
+	as_component_add_translation (cpt, tr_lcmsg);
+
+	cres = asc_result_new ();
+	ret = asc_result_add_component_with_string (cres, cpt, "<testdata>", &error);
+	g_assert_no_error (error);
+	g_assert_true (ret);
+
+	asc_read_translation_status (cres, ASC_UNIT (dirunit), "/usr", 0);
+
+	/* only POSIX locales are languages, as Qt never looks for files named by BCP47 tags */
+	g_assert_cmpint (as_component_get_language (cpt, "fr"), ==, 100);
+	g_assert_cmpint (as_component_get_language (cpt, "zh_Hant_TW"), ==, 100);
+	g_assert_cmpint (as_component_get_language (cpt, "sr@latin"), ==, 100);
+	g_assert_cmpint (as_component_get_language (cpt, "pt_BR"), ==, 100);
+	g_assert_cmpint (as_component_get_language (cpt, "en_US"), ==, 100);
+	g_assert_cmpint (as_component_get_language (cpt, "pt-BR"), ==, -1);
+	g_assert_cmpint (as_component_get_language (cpt, "es-ES"), ==, -1);
+	g_assert_cmpint (as_component_get_language (cpt, "ru"), ==, -1);
+	langs = as_component_get_languages (cpt);
+	g_assert_cmpint (g_list_length (langs), ==, 5);
+
+	/* we complain about each file we ignored for its locale, but not about files
+	 * that just aren't translations for us, and the complaint must not contain
+	 * the bytes that would break the hint reports */
+	hints = asc_result_fetch_hints_all (cres);
+	g_assert_cmpint (hints->len, ==, 4);
+	for (guint i = 0; i < hints->len; i++) {
+		AscHint *hint = ASC_HINT (g_ptr_array_index (hints, i));
+		g_autofree gchar *text = asc_hint_format_explanation (hint);
+
+		g_assert_cmpstr (asc_hint_get_tag (hint), ==, "translation-locale-invalid");
+		g_assert_true (g_utf8_validate (text, -1, NULL));
+	}
+
+	/* the catalog we write from this must be valid */
+	mdata = as_metadata_new ();
+	as_metadata_add_component (mdata, cpt);
+	xml = as_metadata_components_to_catalog (mdata, AS_FORMAT_KIND_XML, &error);
+	g_assert_no_error (error);
+	g_assert_true (g_utf8_validate (xml, -1, NULL));
+
+	mdata_read = as_metadata_new ();
+	as_metadata_set_format_style (mdata_read, AS_FORMAT_STYLE_CATALOG);
+	as_metadata_parse_data (mdata_read, xml, -1, AS_FORMAT_KIND_XML, &error);
+	g_assert_no_error (error);
+	g_assert_cmpint (as_component_box_len (as_metadata_get_components (mdata_read)), ==, 1);
+}
+
 static void
 test_compose_source_locale (void)
 {
@@ -1817,6 +1942,7 @@ main (int argc, char **argv)
 	g_test_add_func ("/AppStream/Compose/DirectoryUnitEscape",
 			 test_compose_directory_unit_escape);
 	g_test_add_func ("/AppStream/Compose/LocaleStats", test_compose_locale_stats);
+	g_test_add_func ("/AppStream/Compose/LocaleQt", test_compose_locale_qt);
 	g_test_add_func ("/AppStream/Compose/SourceLocale", test_compose_source_locale);
 	g_test_add_func ("/AppStream/Compose/VideoInfo", test_compose_video_info);
 	g_test_add_func ("/AppStream/Compose/Font", test_compose_font);

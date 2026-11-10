@@ -103,16 +103,13 @@ G_DEFINE_AUTOPTR_CLEANUP_FUNC (AscLocaleContext, asc_locale_ctx_free)
  * in case they aren't.
  */
 static gboolean
-asc_l10n_locale_check (AscLocaleContext *ctx,
-		       const gchar *locale,
-		       const gchar *fname,
-		       gboolean allow_bcp47)
+asc_l10n_locale_check (AscLocaleContext *ctx, const gchar *locale, const gchar *fname)
 {
 	g_autofree gchar *fname_safe = NULL;
 
+	/* languages are written as POSIX locales, which also is what Gettext and Qt
+	 * (via QLocale::uiLanguages() with underscores) use to find their files */
 	if (as_locale_is_posix (locale))
-		return TRUE;
-	if (allow_bcp47 && as_locale_is_bcp47 (locale))
 		return TRUE;
 
 	/* the filename has the same bad bytes in it, so we can't put it in the hint as-is */
@@ -248,7 +245,7 @@ asc_l10n_search_translations_gettext (AscLocaleContext *ctx,
 			locale = asc_l10n_get_lc_messages_locale (fname + prefix_len, fn);
 			if (locale == NULL)
 				continue;
-			if (!asc_l10n_locale_check (ctx, locale, fname, FALSE))
+			if (!asc_l10n_locale_check (ctx, locale, fname))
 				continue;
 
 			if (!asc_l10n_parse_file_gettext (ctx, unit, locale, fname, error))
@@ -433,7 +430,7 @@ asc_l10n_search_translations_qt (AscLocaleContext *ctx,
 				locale = asc_l10n_get_lc_messages_locale (fname + prefix_len, fn);
 				if (locale == NULL)
 					continue;
-				if (!asc_l10n_locale_check (ctx, locale, fname, TRUE))
+				if (!asc_l10n_locale_check (ctx, locale, fname))
 					continue;
 
 				if (!asc_l10n_parse_file_qt (ctx, unit, locale, fname, error))
@@ -464,7 +461,7 @@ asc_l10n_search_translations_qt (AscLocaleContext *ctx,
 				if (strchr (locale, G_DIR_SEPARATOR) != NULL)
 					continue;
 				g_strdelimit (locale, ".", '\0');
-				if (!asc_l10n_locale_check (ctx, locale, fname, TRUE))
+				if (!asc_l10n_locale_check (ctx, locale, fname))
 					continue;
 
 				if (!asc_l10n_parse_file_qt (ctx, unit, locale, fname, error))

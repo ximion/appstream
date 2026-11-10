@@ -2616,7 +2616,7 @@ as_component_set_sort_score (AsComponent *cpt, guint score)
 /**
  * as_component_add_language:
  * @cpt: an #AsComponent instance.
- * @locale: (nullable): the BCP47 locale, or %NULL. e.g. "en-GB"
+ * @locale: (nullable): the POSIX locale, as used by Gettext, or %NULL. e.g. "en_GB" or "ca@valencia"
  * @percentage: the percentage completion of the translation, 0 for locales with unknown amount of translation
  *
  * Adds a language to the component.
@@ -2636,7 +2636,7 @@ as_component_add_language (AsComponent *cpt, const gchar *locale, gint percentag
 /**
  * as_component_get_language:
  * @cpt: an #AsComponent instance.
- * @locale: (nullable): the BCP47 locale, or %NULL. e.g. "en-GB"
+ * @locale: (nullable): the POSIX locale, as used by Gettext, or %NULL. e.g. "en_GB" or "ca@valencia"
  *
  * Gets the translation coverage in percent for a specific locale
  *
