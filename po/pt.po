@@ -36,7 +36,7 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-11-10 20:12+0100\n"
-"PO-Revision-Date: 2026-10-29 00:54+0000\n"
+"PO-Revision-Date: 2026-11-11 09:51+0000\n"
 "Last-Translator: Américo Monteiro <a-monteiro@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/appstream/translations/pt/>\n"
 "Language: pt\n"
@@ -44,7 +44,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.11.dev0\n"
+"X-Generator: Weblate 2026.11.2.dev0\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -2670,7 +2670,7 @@ msgstr "O valor deste campo de entrada de desktop contém caracteres UTF-8 invá
 
 #: src/as-validator-issue-tag.h:933
 msgid "The locale of this localized desktop-entry key is not a valid POSIX locale name, so the key was ignored. Locales should look like `de`, `pt_BR` or `sr@latin`, as described in the Desktop Entry Specification."
-msgstr ""
+msgstr "O locale desta chave de entrada de ambiente de trabalho localizada não é um nome de locale POSIX válido, assim a chave foi ignorada. OS locales devem se parecer com `pt`, `pt_BR` ou`sr@latin`, como descrito na Especificação de Entrada de Ambiente de Trabalho."
 
 #: src/as-validator-issue-tag.h:939
 msgid "This desktop-entry field value is quoted, which is likely unintentional."
@@ -4368,7 +4368,7 @@ msgstr "Itens fornecidos"
 #: tools/ascli-utils.c:485
 #, c-format
 msgid "Data path '%s' does not exist or is not a directory."
-msgstr ""
+msgstr "O caminho de dados '%s' não existe ou não é um diretório."
 
 #: tools/ascli-utils.c:561
 #, c-format
