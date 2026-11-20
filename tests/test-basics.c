@@ -914,6 +914,107 @@ test_spdx (void)
 	g_free (tmp);
 }
 
+/* Test free-license expressions. */
+static void
+test_spdx_free_license_expression (void)
+{
+	const struct {
+		const gchar *expression;
+		gboolean is_free;
+	} cases[] = {
+		{ "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL",      TRUE  },
+		{ "MIT OR LicenseRef-custom",					      TRUE  },
+		{ "LicenseRef-custom OR MIT",					      TRUE  },
+		{ "MIT AND LicenseRef-custom",					      FALSE },
+		{ "LicenseRef-custom AND MIT",					      FALSE },
+		{ "LicenseRef-custom",						      FALSE },
+		{ "LicenseRef-proprietary=https://example.com/license OR MIT",	      TRUE  },
+		{ "JSON OR MIT",						      TRUE  },
+		{ "MIT OR JSON",						      TRUE  },
+		{ "JSON OR ADSL",						      FALSE },
+		{ "MIT AND BSD-3-Clause",					      TRUE  },
+		{ "MIT OR JSON AND JSON",					      TRUE  },
+		{ "JSON AND JSON OR MIT",					      TRUE  },
+		{ "JSON OR MIT AND JSON",					      FALSE },
+		{ "JSON AND MIT OR JSON",					      FALSE },
+		{ "MIT AND BSD-3-Clause OR JSON AND MIT",			      TRUE  },
+		{ "(MIT OR JSON) AND JSON",					      FALSE },
+		{ "JSON AND (JSON OR MIT)",					      FALSE },
+		{ "MIT AND (JSON OR BSD-3-Clause)",				      TRUE  },
+		{ "(JSON OR MIT) AND (BSD-3-Clause OR JSON)",			      TRUE  },
+		{ "(MIT OR JSON) AND (JSON OR ADSL)",				      FALSE },
+		{ "((MIT))",							      TRUE  },
+		{ "((JSON))",							      FALSE },
+		{ "MIT AND (JSON OR (ADSL OR GPL-2.0+))",			      TRUE  },
+		{ "GPL-3.0-or-later WITH GCC-exception-3.1 OR LicenseRef-custom",     TRUE  },
+		{ "LicenseRef-custom OR GPL-2.0+ WITH Classpath-exception-2.0",	      TRUE  },
+		{ "JSON WITH GCC-exception-3.1 OR MIT",				      TRUE  },
+		{ "JSON WITH GCC-exception-3.1 AND MIT",			      FALSE },
+		{ NULL,								      FALSE },
+		{ "",								      FALSE },
+		{ " ",								      FALSE },
+		{ "NONE",							      FALSE },
+		{ "NOASSERTION",						      FALSE },
+		{ "MIT OR NONE",						      FALSE },
+		{ "MIT OR NOASSERTION",						      FALSE },
+		{ "MIT OR unknown-license",					      FALSE },
+		{ "unknown-license OR MIT",					      FALSE },
+		{ "()",								      FALSE },
+		{ "(MIT",							      FALSE },
+		{ "MIT)",							      FALSE },
+		{ ")MIT(",							      FALSE },
+		{ "MIT OR ()",							      FALSE },
+		{ "MIT OR (JSON",						      FALSE },
+		{ "(MIT) BSD-3-Clause",						      FALSE },
+		{ "(MIT)(BSD-3-Clause)",					      FALSE },
+		{ "MIT (BSD-3-Clause)",						      FALSE },
+		{ "MIT BSD-3-Clause",						      FALSE },
+		{ "OR MIT",							      FALSE },
+		{ "MIT OR",							      FALSE },
+		{ "MIT OR AND JSON",						      FALSE },
+		{ "MIT OR JSON AND",						      FALSE },
+		{ "JSON AND (MIT OR)",						      FALSE },
+		{ "+",								      FALSE },
+		{ "+ MIT",							      FALSE },
+		{ "MIT + +",							      FALSE },
+		{ "(MIT) +",							      FALSE },
+		{ "GCC-exception-3.1",						      FALSE },
+		{ "MIT OR GCC-exception-3.1",					      FALSE },
+		{ "WITH GCC-exception-3.1",					      FALSE },
+		{ "GPL-3.0-only WITH",						      FALSE },
+		{ "MIT OR GPL-3.0-only WITH",					      FALSE },
+		{ "GPL-3.0-only WITH MIT",					      FALSE },
+		{ "MIT OR GPL-3.0-only WITH unknown-exception",			      FALSE },
+		{ "GPL-3.0-only WITH GCC-exception-3.1 WITH Classpath-exception-2.0", FALSE },
+		{ "(GPL-3.0-only OR MIT) WITH GCC-exception-3.1",		      FALSE },
+	};
+
+	for (guint i = 0; i < G_N_ELEMENTS (cases); i++) {
+		g_test_message ("Expression: %s",
+				cases[i].expression != NULL ? cases[i].expression : "(null)");
+		g_assert_cmpint (as_license_is_free_license (cases[i].expression),
+				 ==,
+				 cases[i].is_free);
+	}
+}
+
+/* Test deeply nested license expressions. */
+static void
+test_spdx_free_license_nested (void)
+{
+	g_autoptr(GString) expression = g_string_new (NULL);
+
+	for (guint i = 0; i < 10000; i++)
+		g_string_append (expression, "JSON OR (");
+	g_string_append (expression, "MIT");
+	for (guint i = 0; i < 10000; i++)
+		g_string_append (expression, ") AND BSD-3-Clause");
+
+	g_assert_true (as_license_is_free_license (expression->str));
+	g_string_append (expression, " AND JSON");
+	g_assert_false (as_license_is_free_license (expression->str));
+}
+
 /**
  * as_assert_issue_urls:
  *
@@ -1776,6 +1877,9 @@ main (int argc, char **argv)
 	g_test_add_func ("/AppStream/Component", test_component);
 	g_test_add_func ("/AppStream/ComponentBox", test_component_box);
 	g_test_add_func ("/AppStream/SPDX", test_spdx);
+	g_test_add_func ("/AppStream/SPDX/FreeLicenseExpression",
+			 test_spdx_free_license_expression);
+	g_test_add_func ("/AppStream/SPDX/FreeLicenseNested", test_spdx_free_license_nested);
 	g_test_add_func ("/AppStream/GCVE", test_gcve);
 	g_test_add_func ("/AppStream/DesktopEnv", test_desktop_env);
 	g_test_add_func ("/AppStream/TranslationFallback", test_translation_fallback);

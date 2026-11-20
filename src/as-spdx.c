@@ -750,6 +750,50 @@ as_get_license_url (const gchar *license)
 	return g_strdup_printf ("https://spdx.org/licenses/%s.html#page", license_id->str);
 }
 
+typedef struct {
+	gboolean conjunction;
+	gboolean disjunction;
+} AsSpdxExpression;
+
+static gboolean
+as_spdx_parse_license (gchar ***tokens, gboolean *is_free)
+{
+	const gchar *token = **tokens;
+	gboolean valid;
+
+	if (token[0] != '@')
+		return FALSE;
+
+	*is_free = FALSE;
+	valid = g_str_has_prefix (token, "@LicenseRef-");
+	if (!valid) {
+		for (guint i = 0; as_spdx_license_info_list[i].id != NULL; i++) {
+			if (as_str_equal0 (as_spdx_license_info_list[i].id, token + 1)) {
+				valid = TRUE;
+				*is_free = as_spdx_license_info_list[i].is_floss;
+				break;
+			}
+		}
+	}
+	if (!valid)
+		return FALSE;
+
+	(*tokens)++;
+	if (g_strcmp0 (**tokens, "+") == 0)
+		(*tokens)++;
+
+	if (g_strcmp0 (**tokens, "^") == 0) {
+		(*tokens)++;
+		token = **tokens;
+		if (token == NULL || token[0] != '@' ||
+		    !as_is_spdx_license_exception_id (token + 1))
+			return FALSE;
+		(*tokens)++;
+	}
+
+	return TRUE;
+}
+
 /**
  * as_license_is_free_license:
  * @license: The SPDX license string to test.
@@ -758,16 +802,16 @@ as_get_license_url (const gchar *license)
  * A free software license is either approved by the Free Software Foundation
  * or the Open Source Initiative.
  *
- * This function does *not* yet handle complex license expressions with AND and OR.
- * If the expression contains any of these, it will still simply check if all mentioned
- * licenses are Free licenses.
+ * AND requires both operands to be free. OR requires at least one free operand.
+ * AND takes precedence over OR. Parentheses override this order.
+ *
  * Currently, any license exception recognized by SPDX is assumed to not impact the free-ness
  * status of a software component.
  *
  * Please note that this function does not give any legal advice. Please read the license texts
  * to learn more about the individual licenses and their conditions.
  *
- * Returns: %TRUE if the license string contains only free-as-in-freedom licenses.
+ * Returns: %TRUE if the expression allows use under free licenses, %FALSE otherwise.
  *
  * Since: 0.12.10
  */
@@ -775,68 +819,60 @@ gboolean
 as_license_is_free_license (const gchar *license)
 {
 	g_auto(GStrv) tokens = NULL;
-	gboolean is_free;
+	g_autoptr(GArray) groups = NULL;
+	AsSpdxExpression expression = { TRUE, FALSE };
+	gboolean expect_operand = TRUE;
+	gchar **cursor;
 
-	/* no license at all is "non-free" */
 	if (as_is_empty (license))
 		return FALSE;
-	if (g_strcmp0 (license, "NONE") == 0)
-		return FALSE;
 
-	/* assume we have a free software license, unless proven otherwise */
-	is_free = TRUE;
 	tokens = as_spdx_license_tokenize (license);
 	if (tokens == NULL)
 		return FALSE;
-	for (guint i = 0; tokens[i] != NULL; i++) {
-		const gchar *license_id;
 
-		if (g_strcmp0 (tokens[i], "&") == 0 || g_strcmp0 (tokens[i], "+") == 0 ||
-		    g_strcmp0 (tokens[i], "|") == 0 || g_strcmp0 (tokens[i], "^") == 0 ||
-		    g_strcmp0 (tokens[i], "(") == 0 || g_strcmp0 (tokens[i], ")") == 0)
-			continue;
+	groups = g_array_new (FALSE, FALSE, sizeof (AsSpdxExpression));
+	cursor = tokens;
+	while (*cursor != NULL) {
+		gboolean is_free;
 
-		if (g_str_has_prefix (tokens[i], "@LicenseRef")) {
-			/* we only consider license ref's to be free if they explicitly state so */
-			if (!g_str_has_prefix (tokens[i], "@LicenseRef-free")) {
-				is_free = FALSE;
-				break;
+		if (expect_operand) {
+			if (g_strcmp0 (*cursor, "(") == 0) {
+				g_array_append_val (groups, expression);
+				expression = (AsSpdxExpression){ TRUE, FALSE };
+				cursor++;
+				continue;
 			}
-		} else if (g_str_has_prefix (tokens[i], "@NOASSERTION") ||
-			   g_str_has_prefix (tokens[i], "@NONE")) {
-			/* no license info is fishy as well */
-			is_free = FALSE;
-			break;
-		}
 
-		if (tokens[i][0] != '@') {
-			/* if token has no license-id prefix, consider the license to be non-free */
-			is_free = FALSE;
-			break;
-		}
+			/* Unused alternatives still need valid syntax. */
+			if (!as_spdx_parse_license (&cursor, &is_free))
+				return FALSE;
 
-		license_id = tokens[i] + 1;
-		if (as_is_spdx_license_exception_id (license_id)) {
-			/* for now, we assume any SPDX license exception is still fine and doesn't change the
-			 * "free-ness" status of a software component */
+			expression.conjunction = expression.conjunction && is_free;
+			expect_operand = FALSE;
 			continue;
 		}
 
-		/* assume non-free by default from now on */
-		is_free = FALSE;
+		if (g_strcmp0 (*cursor, "&") == 0) {
+			expect_operand = TRUE;
+		} else if (g_strcmp0 (*cursor, "|") == 0) {
+			expression.disjunction = expression.disjunction || expression.conjunction;
+			expression.conjunction = TRUE;
+			expect_operand = TRUE;
+		} else if (g_strcmp0 (*cursor, ")") == 0) {
+			if (groups->len == 0)
+				return FALSE;
 
-		/* check our list of free licenses */
-		for (guint k = 0; as_spdx_license_info_list[k].id != NULL; k++) {
-			if (as_str_equal0 (as_spdx_license_info_list[k].id, license_id)) {
-				/* save the free-ness status */
-				is_free = as_spdx_license_info_list[k].is_floss;
-				break;
-			}
+			is_free = expression.disjunction || expression.conjunction;
+			expression = g_array_index (groups, AsSpdxExpression, groups->len - 1);
+			g_array_set_size (groups, groups->len - 1);
+			expression.conjunction = expression.conjunction && is_free;
+		} else {
+			return FALSE;
 		}
-
-		if (!is_free)
-			break;
+		cursor++;
 	}
 
-	return is_free;
+	return !expect_operand && groups->len == 0 &&
+	       (expression.disjunction || expression.conjunction);
 }
