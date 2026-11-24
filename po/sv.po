@@ -23,6 +23,7 @@
 # Kristoffer Grundström <swedishsailfishosuser@tutanota.com>, 2024.
 # bittin1ddc447d824349b2 <bittin@reimu.nl>, 2024.
 # Anders Jonsson <haaninjo@users.noreply.hosted.weblate.org>, 2026.
+# Daniel Nylander <yeagersthlm2@users.noreply.hosted.weblate.org>, 2026.
 #
 # Translators:
 msgid ""
@@ -30,15 +31,15 @@ msgstr ""
 "Project-Id-Version: appstream\n"
 "Report-Msgid-Bugs-To: appstream@lists.freedesktop.org\n"
 "POT-Creation-Date: 2026-11-10 20:12+0100\n"
-"PO-Revision-Date: 2026-11-10 20:15+0000\n"
-"Last-Translator: Anders Jonsson <haaninjo@users.noreply.hosted.weblate.org>\n"
+"PO-Revision-Date: 2026-11-24 11:30+0000\n"
+"Last-Translator: Daniel Nylander <yeagersthlm2@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/appstream/translations/sv/>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.11.2.dev0\n"
+"X-Generator: Weblate 2026.12.dev0\n"
 
 #: data/org.freedesktop.appstream.cli.metainfo.xml:8
 msgid "AppStream CLI"
@@ -2796,7 +2797,7 @@ msgstr "Denna komponent utökar, tillhandahåller, kräver eller rekommenderar s
 #. TRANSLATORS: Please do not translate AppStream tag and property names (in backticks).
 #: src/as-validator-issue-tag.h:1113
 msgid "Licenses for `runtime` components are usually too complex to reflect them in a simple SPDX expression. Consider using a `LicenseRef` and a web URL as value for this component's `project_license`. E.g. `LicenseRef-free=https://example.com/licenses.html`"
-msgstr "Licenser för `runtime`-komponenter är vanligen för komplexa för att beskrivas i ett enkelt SPDX-uttryck. Överväg att använda en `LicenseRef` och en webb-URL som värdet för denna komponents `project_license`. T.ex. `LicenseRef-free=https://example.com/licenses.html`"
+msgstr "Licenser för `runtime`-komponenter är vanligen för komplexa för att beskrivas i ett enkelt SPDX-uttryck. Överväg att använda en `LicenseRef` och en webb-URL som värdet för denna komponents `project_license`. T.ex. `LicenseRef-free=https://exempel.se/licenses.html`"
 
 #: src/as-validator-issue-tag.h:1119
 msgid "Since a `runtime` component consists of multiple other software components, their component-IDs may be listed in a `<provides/>` section for this runtime."
